@@ -78,6 +78,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowWaveHeightLocationsView(new ObservableTestAssessmentSectionStub());
+
+            // Assert
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            Assert.AreEqual(6, dataGridView.ColumnCount);
+
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
+            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
+
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
+
+            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
+            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
+
+            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
+            Assert.AreEqual("ID", locationIdColumn.HeaderText);
+
+            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
+            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
+
+            var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
+            Assert.AreEqual("Hs [m]", locationWaveHeightColumn.HeaderText);
+
+            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
+            Assert.IsFalse(button.Enabled);
+        }
+
+        [Test]
         public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
         {
             // Given
@@ -161,38 +193,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_DataGridViewCorrectlyInitialized()
-        {
-            // Setup & Call
-            ShowWaveHeightLocationsView(new ObservableTestAssessmentSectionStub());
-
-            // Assert
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            Assert.AreEqual(6, dataGridView.ColumnCount);
-
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
-            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
-
-            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
-            Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
-
-            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
-            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
-
-            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
-            Assert.AreEqual("ID", locationIdColumn.HeaderText);
-
-            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
-
-            var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
-            Assert.AreEqual("Hs [m]", locationWaveHeightColumn.HeaderText);
-
-            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
-            Assert.IsFalse(button.Enabled);
-        }
-
-        [Test]
         public void WaveHeightLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -250,6 +250,41 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void WaveHeightLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
+        {
+            // Setup
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            IAssessmentSection assessmentSection = view.AssessmentSection;
+
+            // Precondition
+            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(5, rows.Count);
+            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
+
+            var refreshed = false;
+            dataGridView.Invalidated += (sender, args) => refreshed = true;
+
+            // Call
+            assessmentSection.NotifyObservers();
+
+            // Assert
+            Assert.IsTrue(refreshed);
+            Assert.AreEqual(5, rows.Count);
+            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
+        }
+
+        [Test]
         public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
@@ -291,38 +326,36 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
+        public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-            IAssessmentSection assessmentSection = view.AssessmentSection;
+            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm,
+                                                                                                                           "IllustrationPointsControl").First();
+
+            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
+
+            dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 
             // Precondition
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
 
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
-
-            var refreshed = false;
-            dataGridView.Invalidated += (sender, args) => refreshed = true;
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             // Call
-            assessmentSection.NotifyObservers();
+            view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].WaveHeightCalculation.Output = output;
+            view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
 
             // Assert
-            Assert.IsTrue(refreshed);
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
         }
 
         [Test]
@@ -384,39 +417,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(test);
-        }
-
-        [Test]
-        public void WaveHeightLocationsView_HydraulicBoundaryDatabaseNotifyObservers_UpdateIllustrationPointsControlData()
-        {
-            // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm,
-                                                                                                                           "IllustrationPointsControl").First();
-
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
-
-            // Precondition
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-
-            var topLevelIllustrationPoints = new[]
-            {
-                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                          "Regular",
-                                                          new TestSubMechanismIllustrationPoint())
-            };
-            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
-
-            // Call
-            view.AssessmentSection.HydraulicBoundaryDatabase.Locations[3].WaveHeightCalculation.Output = output;
-            view.AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-
-            // Assert
-            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
-            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
