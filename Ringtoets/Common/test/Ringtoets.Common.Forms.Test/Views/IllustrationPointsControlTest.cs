@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;

@@ -263,6 +263,34 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_ThenSelectionChangedAndPropagatedAccordingly()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
+
+            mocks.ReplayAll();
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
+
+            var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult);
+
+            ShowTestView(view);
+
+            var selectionChangedCount = 0;
+            view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+            // When
+            view.Data = data;
+
+            // Then
+            Assert.AreNotEqual(0, selectionChangedCount);
+            Assert.AreSame(null, view.Selection);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GivenViewWithGeneralResultFuncReturningEmptyData_WhenSettingData_ThenNoSelectionChangedAndPropagated()
         {
             // Given

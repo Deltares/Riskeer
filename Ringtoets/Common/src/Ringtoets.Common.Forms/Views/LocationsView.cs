@@ -188,14 +188,14 @@ namespace Ringtoets.Common.Forms.Views
 
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
-            var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
-            Selection = selection != null
-                            ? new SelectedTopLevelSubMechanismIllustrationPoint((TopLevelSubMechanismIllustrationPoint) selection.Source,
-                                                                                GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
-                            : null;
-
             if (!updatingControls)
             {
+                var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
+                Selection = selection != null
+                                ? new SelectedTopLevelSubMechanismIllustrationPoint((TopLevelSubMechanismIllustrationPoint) selection.Source,
+                                                                                    GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
+                                : null;
+
                 OnSelectionChanged();
             }
         }
