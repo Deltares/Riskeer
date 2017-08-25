@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub());
+            ShowDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), testForm);
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
         {
             // Given
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow currentRow = dataGridView.Rows[1];
@@ -144,56 +144,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").First();
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").First();
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithGeneralResult_GeneralResultSetOnIllustrationPointsControlData()
-        {
-            // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").First();
-
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
-
-            // Assert
-            Assert.IsNotNull(illustrationPointsControl.Data);
-        }
-
-        [Test]
         public void DesignWaterLevelLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
+            ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
 
             // Assert
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
@@ -250,7 +204,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DesignWaterLevelLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
 
             // Precondition
@@ -285,7 +239,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
             var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
@@ -327,7 +281,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").First();
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
 
@@ -360,7 +314,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels(bool isSuccessful)
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -407,7 +361,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
+            ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
 
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -420,6 +374,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [TestFixture]
+        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
+        {
+            private Form testForm;
+
+            [SetUp]
+            public void Setup()
+            {
+                testForm = new Form();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                testForm.Dispose();
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView()
+            {
+                return ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
+            }
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
@@ -437,24 +414,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                 });
         }
 
-        private DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
+        private static DesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
         {
             var view = new DesignWaterLevelLocationsView(assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            form.Controls.Add(view);
+            form.Show();
 
             return view;
         }
 
-        private DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
+        private static DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
         {
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection);
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, form);
 
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
@@ -489,7 +466,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                         }
                     }
                 });
-                var output = new TestHydraulicBoundaryLocationOutput(1.01, new TestGeneralResultSubMechanismIllustrationPoint());
+
+                var topLevelIllustrationPoints = new[]
+                {
+                    new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                              "Regular",
+                                                              new TestSubMechanismIllustrationPoint())
+                };
+
+                var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+                var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
+
                 Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
                     DesignWaterLevelCalculation =
