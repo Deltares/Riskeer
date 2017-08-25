@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Forms.Views
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
             if (currentRow == null)
             {
-                return null;
+                return Enumerable.Empty<IllustrationPointControlItem>();
             }
 
             HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Forms.Views
                     });
             }
 
-            return null;
+            return Enumerable.Empty<IllustrationPointControlItem>();
         }
 
         /// <summary>

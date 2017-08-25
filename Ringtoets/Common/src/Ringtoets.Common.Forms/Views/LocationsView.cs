@@ -161,13 +161,23 @@ namespace Ringtoets.Common.Forms.Views
         {
             suspendAllEvents = true;
             dataGridViewControl.RefreshDataGridView();
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            HandlePossibleOutdatedIllustrationPointsControl();
             suspendAllEvents = false;
 
-            HandlePossibleOutdatedSelection();
+            HandlePossibleOutdatedIllustrationPointsSelection();
         }
 
-        private void HandlePossibleOutdatedSelection()
+        private void HandlePossibleOutdatedIllustrationPointsControl()
+        {
+            IEnumerable<IllustrationPointControlItem> illustrationPointControlItems = GetIllustrationPointControlItems().ToArray();
+
+            if (illustrationPointsControl.Data.Count() != illustrationPointControlItems.Count())
+            {
+                illustrationPointsControl.Data = illustrationPointControlItems;
+            }
+        }
+
+        private void HandlePossibleOutdatedIllustrationPointsSelection()
         {
             if (illustrationPointsControl.Selection == null && Selection is SelectedTopLevelSubMechanismIllustrationPoint)
             {

@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToNull()
+        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
@@ -123,11 +123,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
 
             // Assert
-            Assert.IsNull(illustrationPointsControl.Data);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
         }
 
         [Test]
-        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToNull()
+        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
 
             // Assert
-            Assert.IsNull(illustrationPointsControl.Data);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
         }
 
         [Test]
@@ -402,7 +402,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
 
             // Precondition
-            Assert.IsNull(illustrationPointsControl.Data);
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
 
             var topLevelIllustrationPoints = new[]
             {
