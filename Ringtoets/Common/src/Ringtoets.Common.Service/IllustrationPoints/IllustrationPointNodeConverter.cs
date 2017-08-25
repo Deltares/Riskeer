@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of a <see cref="IllustrationPointBase"/> based on the
-        /// <paramref name="data"/>. 
+        /// <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="HydraRingIIllustrationPoint"/> to base the 
         /// <see cref="IllustrationPointBase"/> to create on.</param>

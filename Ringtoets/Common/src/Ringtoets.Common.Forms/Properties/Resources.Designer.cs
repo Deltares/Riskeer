@@ -1594,6 +1594,35 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to En.
+        /// </summary>
+        public static string GraphNode_CombinationType_And {
+            get {
+                return ResourceManager.GetString("GraphNode_CombinationType_And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Of.
+        /// </summary>
+        public static string GraphNode_CombinationType_Or {
+            get {
+                return ResourceManager.GetString("GraphNode_CombinationType_Or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Beta = {0}
+        ///Pf = {1}.
+        /// </summary>
+        public static string GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1 {
+            get {
+                return ResourceManager.GetString("GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valversnelling..
         /// </summary>
         public static string GravitationalAcceleration_Description {

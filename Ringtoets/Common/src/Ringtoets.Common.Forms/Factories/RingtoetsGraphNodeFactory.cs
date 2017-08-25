@@ -36,7 +36,8 @@ namespace Ringtoets.Common.Forms.Factories
     {
         private static readonly XmlWriterSettings xmlWriterSettings = new XmlWriterSettings
         {
-            OmitXmlDeclaration = true
+            OmitXmlDeclaration = true,
+            NewLineHandling = NewLineHandling.Replace
         };
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Ringtoets.Common.Forms.Factories
             return new GraphNode(GetGraphNodeContentXml(title, content),
                                  childNodes.ToArray(),
                                  true,
-                                 new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightSkyBlue, Color.Black, 1));
+                                 new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1));
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace Ringtoets.Common.Forms.Factories
             return new GraphNode(GetGraphNodeContentXml(title),
                                  childNodes.ToArray(),
                                  false,
-                                 new GraphNodeStyle(GraphNodeShape.Rectangle, Color.BlanchedAlmond, Color.Black, 1));
+                                 new GraphNodeStyle(GraphNodeShape.None, Color.BlanchedAlmond, Color.Black, 1));
         }
 
         private static string GetGraphNodeContentXml(string content)

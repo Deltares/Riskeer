@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedContent, node.Content);
             Assert.IsTrue(node.IsSelectable);
 
-            var expectedStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightSkyBlue, Color.Black, 1);
+            var expectedStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
             AssertEqualStyle(expectedStyle, node.Style);
 
             Assert.AreEqual(1, node.ChildNodes.Count());
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedContent, node.Content);
             Assert.IsFalse(node.IsSelectable);
 
-            var expectedStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.BlanchedAlmond, Color.Black, 1);
+            var expectedStyle = new GraphNodeStyle(GraphNodeShape.None, Color.BlanchedAlmond, Color.Black, 1);
             AssertEqualStyle(expectedStyle, node.Style);
 
             Assert.AreEqual(1, node.ChildNodes.Count());
