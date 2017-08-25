@@ -92,7 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Layers;
-                return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray() ?? new MacroStabilityInwardsSoilLayer1DProperties[0];
+                return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray() ?? 
+                                                                          new MacroStabilityInwardsSoilLayer1DProperties[0];
             }
         }
 
@@ -106,7 +107,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
-                return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties(layer)).ToArray() ?? new MacroStabilityInwardsSoilLayer2DProperties[0];
+                return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties(layer)).ToArray() ??
+                                                                          new MacroStabilityInwardsSoilLayer2DProperties[0];
             }
         }
 
@@ -141,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 }
 
                 // If type is not supported, throw exception (currently not possible, safeguard for future)
-                throw new NotSupportedException($"Type of {nameof(data.SoilProfile)} is not supported. Supported types: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}");
+                throw new NotSupportedException($"{data.SoilProfile.GetType()} is not supported. Supported types: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.");
             }
         }
 

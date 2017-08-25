@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -61,6 +60,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSoilLayer2D>>(properties);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties, ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.OuterRing));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties, ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.Holes));
             Assert.AreSame(soilLayer, properties.Data);
         }
 
@@ -93,18 +94,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
 
             // Assert
-            Assert.AreEqual("Test Name", properties.Name);
-            Assert.IsTrue(properties.IsAquifer);
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties, ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.OuterRing));
-            Assert.AreEqual(layer.OuterRing.Points.ToArray(), properties.OuterRing);
-
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties, ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.Holes));
+            Assert.AreEqual(layer.Properties.MaterialName, properties.Name);
+            Assert.AreEqual(layer.Properties.IsAquifer, properties.IsAquifer);
+            CollectionAssert.AreEqual(layer.OuterRing.Points, properties.OuterRing);
             Assert.AreEqual(1, properties.Holes.Length);
-            Assert.AreEqual(layer.Holes[0], properties.Holes[0].Data);
+            Assert.AreSame(layer.Holes[0], properties.Holes[0].Data);
         }
 
         [Test]
-        public void ToString_Always_ReturnName()
+        public void ToString_Always_ReturnsMaterialName()
         {
             // Setup
             var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
@@ -126,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             string name = properties.ToString();
 
             // Assert
-            Assert.AreEqual("Layer A 2D", name);
+            Assert.AreEqual(layer.Properties.MaterialName, name);
         }
 
         [Test]
@@ -138,13 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                  new Point2D(20.210230, 26.00001),
                                                                  new Point2D(3.830, 1.040506)
                                                              }),
-                                                             new Ring[0])
-            {
-                Properties =
-                {
-                    MaterialName = "Layer A 2D"
-                }
-            };
+                                                             new Ring[0]);
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);

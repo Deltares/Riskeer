@@ -59,6 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<Ring>>(properties);
+            TestHelper.AssertTypeConverter<RingProperties, ExpandableArrayConverter>(nameof(RingProperties.Geometry));
             Assert.AreSame(ring, properties.Data);
         }
 
@@ -76,9 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new RingProperties(ring);
 
             // Assert
-            TestHelper.AssertTypeConverter<RingProperties, ExpandableArrayConverter>(nameof(RingProperties.Geometry));
             CollectionAssert.AreEqual(ring.Points, properties.Geometry);
-            Assert.AreEqual(ring, properties.Data);
         }
 
         [Test]

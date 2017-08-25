@@ -139,10 +139,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             const string expectedName = "<some name>";
             var layerOne = new PipingSoilLayer(-2);
-            var layerTwo = new PipingSoilLayer(-4)
-            {
-                IsAquifer = true
-            };
+            var layerTwo = new PipingSoilLayer(-4);
+
             IEnumerable<PipingSoilLayer> layers = new[]
             {
                 layerOne,

@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var layer = new PipingSoilLayer(-2.9)
+            var layer = new PipingSoilLayer(-2.91)
             {
                 MaterialName = "Test Name",
                 IsAquifer = true
@@ -72,13 +72,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingSoilLayerProperties(layer);
 
             // Assert
-            Assert.AreEqual("Test Name", properties.Name);
-            Assert.IsTrue(properties.IsAquifer);
+            Assert.AreEqual(layer.MaterialName, properties.Name);
+            Assert.AreEqual(layer.IsAquifer, properties.IsAquifer);
             Assert.AreEqual(layer.Top.ToString(CultureInfo.CurrentCulture), properties.TopLevel);
         }
 
         [Test]
-        public void ToString_Always_ReturnName()
+        public void ToString_Always_ReturnsMaterialName()
         {
             // Setup
             var layer = new PipingSoilLayer(-2.9)
@@ -87,22 +87,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var properties = new PipingSoilLayerProperties(layer);
+
             // Call
             string name = properties.ToString();
 
             // Assert
-            Assert.AreEqual("Layer A", name);
+            Assert.AreEqual(layer.MaterialName, name);
         }
 
         [Test]
         public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
         {
             // Setup
-            var layer = new PipingSoilLayer(-2.9)
-            {
-                MaterialName = "Test Name",
-                IsAquifer = true
-            };
+            var layer = new PipingSoilLayer(-2.9);
 
             // Call
             var properties = new PipingSoilLayerProperties(layer);

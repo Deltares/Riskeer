@@ -84,8 +84,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilModel, StochasticSoilModelProperties>();
-            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilProfile, StochasticSoilProfileProperties>();
+            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilModel, StochasticSoilModelProperties>
+            {
+                CreateInstance = soilModel => new StochasticSoilModelProperties(soilModel)
+            };
+            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilProfile, StochasticSoilProfileProperties>
+            {
+                CreateInstance = soilProfile => new StochasticSoilProfileProperties(soilProfile)
+            };
+
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()

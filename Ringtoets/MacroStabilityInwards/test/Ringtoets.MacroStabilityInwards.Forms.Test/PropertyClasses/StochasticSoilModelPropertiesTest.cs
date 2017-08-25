@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -61,6 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilModel>>(properties);
+            TestHelper.AssertTypeConverter<StochasticSoilModelProperties, ExpandableArrayConverter>(nameof(StochasticSoilModelProperties.Geometry));
+            TestHelper.AssertTypeConverter<StochasticSoilModelProperties, ExpandableArrayConverter>(nameof(StochasticSoilModelProperties.StochasticSoilProfiles));
             Assert.AreSame(stochasticSoilModel, properties.Data);
         }
 
@@ -85,9 +88,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(stochasticSoilModel.Name, properties.Name);
-            Assert.AreEqual(stochasticSoilModel.Geometry[0], properties.Geometry[0]);
-
-            Assert.IsInstanceOf<StochasticSoilProfileProperties[]>(properties.StochasticSoilProfiles);
+            CollectionAssert.AreEqual(stochasticSoilModel.Geometry, properties.Geometry);
+            Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfiles[0].Data);
             Assert.AreEqual(1, properties.StochasticSoilProfiles.Length);
         }
 

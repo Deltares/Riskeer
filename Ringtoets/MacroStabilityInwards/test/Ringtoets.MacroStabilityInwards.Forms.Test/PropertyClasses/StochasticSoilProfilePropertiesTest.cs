@@ -61,6 +61,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>>(properties);
+            TestHelper.AssertTypeConverter<StochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(StochasticSoilProfileProperties.Layers1D));
+            TestHelper.AssertTypeConverter<StochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(StochasticSoilProfileProperties.Layers2D));
             Assert.AreSame(stochasticSoilProfile, properties.Data);
         }
 
@@ -124,11 +126,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
             bool layers1DVisible = properties.DynamicVisibleValidationMethod("Layers1D");
             bool layers2DVisible = properties.DynamicVisibleValidationMethod("Layers2D");
+            bool otherVisible = properties.DynamicVisibleValidationMethod("");
 
             // Assert
             Assert.IsTrue(bottomVisible);
             Assert.IsTrue(layers1DVisible);
             Assert.IsFalse(layers2DVisible);
+            Assert.IsFalse(otherVisible);
         }
 
         [Test]
@@ -155,11 +159,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
             bool layers1DVisible = properties.DynamicVisibleValidationMethod("Layers1D");
             bool layers2DVisible = properties.DynamicVisibleValidationMethod("Layers2D");
+            bool otherVisible = properties.DynamicVisibleValidationMethod("");
 
             // Assert
             Assert.IsFalse(bottomVisible);
             Assert.IsFalse(layers1DVisible);
             Assert.IsTrue(layers2DVisible);
+            Assert.IsFalse(otherVisible);
         }
 
         [Test]
@@ -272,26 +278,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             true);
         }
 
+        [Test]
+        public void GetProperties_WithUnsupportedSoilProfile_ThrowsNotSupportedException()
+        {
+            // Setup
+            var soilProfile = new UnsupportedSoilProfile();
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1234L)
+            {
+                SoilProfile = soilProfile
+            };
+
+            // Call
+            var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
+
+            string type = null;
+
+            // Assert
+            TestDelegate call = () => type = properties.Type;
+
+            var exception = Assert.Throws<NotSupportedException>(call);
+            Assert.AreEqual("Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses.StochasticSoilProfilePropertiesTest+UnsupportedSoilProfile " +
+                            "is not supported. Supported types: MacroStabilityInwardsSoilProfile1D and MacroStabilityInwardsSoilProfile2D.", 
+                            exception.Message);
+        }
+
         private static void GetProperties_WithSoilProfile1D_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
             const string expectedName = "<some name>";
-            var layerOne = new MacroStabilityInwardsSoilLayer1D(-2)
-            {
-                Properties =
-                {
-                    MaterialName = "Layer 1"
-                }
-            };
-
-            var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4)
-            {
-                Properties =
-                {
-                    MaterialName = "Layer 2",
-                    IsAquifer = true
-                }
-            };
+            var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
+            var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4);
             IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
             {
                 layerOne,
@@ -311,12 +327,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedName, properties.Name);
             Assert.AreEqual(expectedName, properties.ToString());
 
-            TestHelper.AssertTypeConverter<StochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(StochasticSoilProfileProperties.Layers1D));
             Assert.AreEqual(2, properties.Layers1D.Length);
             Assert.AreSame(layerOne, properties.Layers1D[0].Data);
             Assert.AreSame(layerTwo, properties.Layers1D[1].Data);
 
-            Assert.AreEqual(0, properties.Layers2D.Length);
+            CollectionAssert.IsEmpty(properties.Layers2D);
             Assert.AreEqual(soilProfile.Bottom.ToString(CultureInfo.CurrentCulture), properties.Bottom);
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("1D profiel", properties.Type);
@@ -331,26 +346,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                     new Point2D(20.210230, 26.00001),
                                                                     new Point2D(3.830, 1.040506)
                                                                 }),
-                                                                new Ring[0])
-            {
-                Properties =
-                {
-                    MaterialName = "Layer 1"
-                }
-            };
+                                                                new Ring[0]);
 
             var layerTwo = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                                                                 {
                                                                     new Point2D(20.210230, 26.00001),
                                                                     new Point2D(3.830, 1.040506)
                                                                 }),
-                                                                new Ring[0])
-            {
-                Properties =
-                {
-                    MaterialName = "Layer 2"
-                }
-            };
+                                                                new Ring[0]);
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
             {
                 layerOne,
@@ -370,16 +373,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedName, properties.Name);
             Assert.AreEqual(expectedName, properties.ToString());
 
-            TestHelper.AssertTypeConverter<StochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(StochasticSoilProfileProperties.Layers2D));
             Assert.AreEqual(2, properties.Layers2D.Length);
             Assert.AreSame(layerOne, properties.Layers2D[0].Data);
             Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
 
-            Assert.AreEqual(0, properties.Layers1D.Length);
+            CollectionAssert.IsEmpty(properties.Layers1D);
             Assert.AreEqual(double.NaN.ToString(CultureInfo.CurrentCulture), properties.Bottom);
 
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("2D profiel", properties.Type);
+        }
+
+        private class UnsupportedSoilProfile : IMacroStabilityInwardsSoilProfile
+        {
+            public string Name { get; }
         }
     }
 }
