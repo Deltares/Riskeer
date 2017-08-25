@@ -38,8 +38,8 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class LocationsView<T> : UserControl, ISelectionProvider, IView where T : class
     {
         private const int calculateColumnIndex = 0;
-        private bool suspendUpdateCalculateForSelectedButton;
-        private bool suspendSelectionChanges;
+        private bool suspendAllEvents;
+        private bool suspendIllustrationPointsControlSelectionChanges;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -67,11 +67,13 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void UpdateDataGridViewDataSource()
         {
-            suspendUpdateCalculateForSelectedButton = true;
+            suspendAllEvents = true;
             SetDataSource();
-            suspendUpdateCalculateForSelectedButton = false;
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            suspendAllEvents = false;
 
             UpdateCalculateForSelectedButton();
+            ProvideLocationSelection();
         }
 
         /// <summary>
@@ -157,8 +159,20 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void HandleHydraulicBoundaryDatabaseUpdate()
         {
+            suspendAllEvents = true;
             dataGridViewControl.RefreshDataGridView();
-            RefreshIllustrationPointsControl();
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            suspendAllEvents = false;
+
+            HandlePossibleOutdatedSelection();
+        }
+
+        private void HandlePossibleOutdatedSelection()
+        {
+            if (illustrationPointsControl.Selection == null && Selection is SelectedTopLevelSubMechanismIllustrationPoint)
+            {
+                ProvideLocationSelection();
+            }
         }
 
         private void LocalizeControls()
@@ -181,18 +195,17 @@ namespace Ringtoets.Common.Forms.Views
             SelectionChanged?.Invoke(this, new EventArgs());
         }
 
-        private void RefreshIllustrationPointsControl()
+        private void ProvideLocationSelection()
         {
-            suspendSelectionChanges = true;
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
-            suspendSelectionChanges = false;
+            Selection = CreateSelectedItemFromCurrentRow();
+            OnSelectionChanged();
         }
 
         #region Event handling
 
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
-            if (suspendSelectionChanges)
+            if (suspendAllEvents || suspendIllustrationPointsControlSelectionChanges)
             {
                 return;
             }
@@ -208,7 +221,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (suspendUpdateCalculateForSelectedButton || e.ColumnIndex != calculateColumnIndex)
+            if (suspendAllEvents || e.ColumnIndex != calculateColumnIndex)
             {
                 return;
             }
@@ -218,10 +231,16 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
         {
-            RefreshIllustrationPointsControl();
+            if (suspendAllEvents)
+            {
+                return;
+            }
 
-            Selection = CreateSelectedItemFromCurrentRow();
-            OnSelectionChanged();
+            suspendIllustrationPointsControlSelectionChanges = true;
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            suspendIllustrationPointsControlSelectionChanges = false;
+
+            ProvideLocationSelection();
         }
 
         /// <summary>

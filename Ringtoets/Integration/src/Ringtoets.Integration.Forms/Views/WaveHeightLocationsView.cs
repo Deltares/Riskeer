@@ -108,16 +108,16 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateHydraulicBoundaryDatabase()
         {
-            if (AssessmentSection?.HydraulicBoundaryDatabase == null)
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
+
+            if (!ReferenceEquals(Data, hydraulicBoundaryDatabase?.Locations))
             {
-                hydraulicBoundaryDatabaseObserver.Observable = null;
-                Data = null;
+                hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
+                Data = hydraulicBoundaryDatabase?.Locations;
             }
             else
             {
-                HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
-                hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
-                Data = hydraulicBoundaryDatabase.Locations;
+                HandleHydraulicBoundaryDatabaseUpdate();
             }
         }
     }
