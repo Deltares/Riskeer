@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -53,9 +51,9 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutOutput_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView(testForm);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(locationsView);
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl(locationsView);
+            ShowFullyConfiguredLocationsView(testForm);
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
 
             // When
             dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(0, 1));
@@ -68,9 +66,9 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutGeneralResult_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView(testForm);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(locationsView);
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl(locationsView);
+            ShowFullyConfiguredLocationsView(testForm);
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
 
             // When
             dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
@@ -83,9 +81,9 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithGeneralResult_ThenGeneralResultSetOnIllustrationPointsControlData()
         {
             // Given
-            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView(testForm);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(locationsView);
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl(locationsView);
+            ShowFullyConfiguredLocationsView(testForm);
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
 
             // When
             dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(4, 0));
@@ -106,30 +104,16 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>Row 4: location with output containing a general result</item>
         /// </list>
         /// </remarks>
-        /// <returns>The fully configured view.</returns>
-        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
+        protected abstract void ShowFullyConfiguredLocationsView(Form form);
 
-        private static DataGridViewControl GetDataGridViewControl(LocationsView<T> locationsView)
+        private DataGridViewControl GetDataGridViewControl()
         {
-            return GetControls<DataGridViewControl>(locationsView, "DataGridViewControl").Single();
+            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
 
-        private static IllustrationPointsControl GetIllustrationPointsControl(LocationsView<T> locationsView)
+        private IllustrationPointsControl GetIllustrationPointsControl()
         {
-            return GetControls<IllustrationPointsControl>(locationsView, "IllustrationPointsControl").Single();
-        }
-
-        /// <summary>
-        /// Gets all controls of type <typeparamref name="TControl"/> going by the name <paramref name="controlName"/>.
-        /// </summary>
-        /// <typeparam name="TControl">The type of controls to find.</typeparam>
-        /// <param name="locationsView">The locations view to find the controls in.</param>
-        /// <param name="controlName">The name of the controls to find.</param>
-        /// <returns>The found controls.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
-        private static IEnumerable<TControl> GetControls<TControl>(LocationsView<T> locationsView, string controlName) where TControl : Control
-        {
-            return locationsView.Controls.Find(controlName, true).OfType<TControl>();
+            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
         }
     }
 }

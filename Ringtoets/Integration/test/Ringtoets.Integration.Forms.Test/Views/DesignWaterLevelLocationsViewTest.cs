@@ -379,9 +379,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
+            protected override void ShowFullyConfiguredLocationsView(Form form)
             {
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(form);
+                ShowFullyConfiguredDesignWaterLevelLocationsView(form);
             }
         }
 

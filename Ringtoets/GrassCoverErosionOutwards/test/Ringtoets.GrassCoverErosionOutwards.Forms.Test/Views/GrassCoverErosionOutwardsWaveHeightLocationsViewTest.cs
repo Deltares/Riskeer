@@ -498,9 +498,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
+            protected override void ShowFullyConfiguredLocationsView(Form form)
             {
-                return ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
+                ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
             }
         }
 
@@ -521,28 +521,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         private DataGridViewControl GetDataGridViewControl()
         {
-            return GetControls<DataGridViewControl>("DataGridViewControl").Single();
+            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
 
         private DataGridView GetDataGridView()
         {
-            return GetControls<DataGridView>("DataGridView").First();
+            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
         }
 
         private IllustrationPointsControl GetIllustrationPointsControl()
         {
-            return GetControls<IllustrationPointsControl>("IllustrationPointsControl").Single();
-        }
-
-        /// <summary>
-        /// Gets the controls by name.
-        /// </summary>
-        /// <param name="controlName">The name of the controls to find.</param>
-        /// <returns>The found control.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
-        private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
-        {
-            return testForm.Controls.Find(controlName, true).OfType<TView>();
+            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
         }
 
         private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection, Form form)

@@ -496,6 +496,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
+        [TestFixture]
+        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
+        {
+            protected override void ShowFullyConfiguredLocationsView(Form form)
+            {
+                ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);
+            }
+        }
+
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
@@ -513,28 +522,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         private DataGridViewControl GetDataGridViewControl()
         {
-            return GetControls<DataGridViewControl>("DataGridViewControl").Single();
+            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
 
         private DataGridView GetDataGridView()
         {
-            return GetControls<DataGridView>("DataGridView").First();
+            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
         }
 
         private IllustrationPointsControl GetIllustrationPointsControl()
         {
-            return GetControls<IllustrationPointsControl>("IllustrationPointsControl").Single();
-        }
-
-        /// <summary>
-        /// Gets the controls by name.
-        /// </summary>
-        /// <param name="controlName">The name of the controls to find.</param>
-        /// <returns>The found control.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="controlName"/> is <c>null</c> or empty.</exception>
-        private IEnumerable<TView> GetControls<TView>(string controlName) where TView : Control
-        {
-            return testForm.Controls.Find(controlName, true).OfType<TView>();
+            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
         }
 
         private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
@@ -601,15 +599,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
             return view;
-        }
-
-        [TestFixture]
-        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
-        {
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
-            {
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);
-            }
         }
     }
 }
