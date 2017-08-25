@@ -606,29 +606,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            private Form testForm;
-            private MockRepository mockRepository;
-
-            [SetUp]
-            public void Setup()
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
             {
-                testForm = new Form();
-                mockRepository = new MockRepository();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                testForm.Dispose();
-                mockRepository.VerifyAll();
-            }
-
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView()
-            {
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-                mockRepository.ReplayAll();
-
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+                return ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);
             }
         }
     }

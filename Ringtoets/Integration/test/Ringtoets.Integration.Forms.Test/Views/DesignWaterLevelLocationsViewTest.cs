@@ -379,23 +379,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            private Form testForm;
-
-            [SetUp]
-            public void Setup()
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
             {
-                testForm = new Form();
-            }
-
-            [TearDown]
-            public void TearDown()
-            {
-                testForm.Dispose();
-            }
-
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView()
-            {
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
+                return ShowFullyConfiguredDesignWaterLevelLocationsView(form);
             }
         }
 

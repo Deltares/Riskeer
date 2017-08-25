@@ -35,11 +35,25 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
     public abstract class LocationsViewDataSynchronisationTester<T> where T : class
     {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutOutput_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView();
+            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(locationsView);
             DataGridViewControl dataGridViewControl = GetDataGridViewControl(locationsView);
 
@@ -54,7 +68,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutGeneralResult_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView();
+            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(locationsView);
             DataGridViewControl dataGridViewControl = GetDataGridViewControl(locationsView);
 
@@ -69,7 +83,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithGeneralResult_ThenGeneralResultSetOnIllustrationPointsControlData()
         {
             // Given
-            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView();
+            LocationsView<T> locationsView = ShowFullyConfiguredLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(locationsView);
             DataGridViewControl dataGridViewControl = GetDataGridViewControl(locationsView);
 
@@ -83,6 +97,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Method for showing a fully configured locations view.
         /// </summary>
+        /// <param name="form">The form to use for showing the view.</param>
         /// <remarks>
         /// The view should contain the following location row data:
         /// <list type="bullet">
@@ -92,7 +107,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </list>
         /// </remarks>
         /// <returns>The fully configured view.</returns>
-        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView();
+        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
 
         private static DataGridViewControl GetDataGridViewControl(LocationsView<T> locationsView)
         {
