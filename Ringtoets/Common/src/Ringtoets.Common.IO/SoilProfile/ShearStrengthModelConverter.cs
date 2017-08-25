@@ -33,35 +33,35 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Converts a nullable <see cref="double"/> into a <see cref="ShearStrengthModel"/>.
         /// </summary>
-        /// <param name="shearStrengthValue">The value to convert.</param>
+        /// <param name="shearStrengthModelValue">The value to convert.</param>
         /// <returns>The <see cref="ShearStrengthModel"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="shearStrengthValue"/> 
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shearStrengthModelValue"/> 
         /// could not be converted.</exception>
-        public static ShearStrengthModel Convert(double? shearStrengthValue)
+        public static ShearStrengthModel Convert(double? shearStrengthModelValue)
         {
-            if (shearStrengthValue == null)
+            if (shearStrengthModelValue == null)
             {
                 return ShearStrengthModel.None;
             }
 
-            if (shearStrengthValue.Value.Equals(0.0))
+            if (shearStrengthModelValue.Equals(0.0))
             {
                 return ShearStrengthModel.None;
             }
-            if (shearStrengthValue.Value.Equals(1.0))
+            if (shearStrengthModelValue.Equals(1.0))
             {
                 return ShearStrengthModel.SuCalculated;
             }
-            if (shearStrengthValue.Value.Equals(2.0))
+            if (shearStrengthModelValue.Equals(2.0))
             {
                 return ShearStrengthModel.CPhi;
             }
-            if (shearStrengthValue.Value.Equals(3.0))
+            if (shearStrengthModelValue.Equals(3.0))
             {
                 return ShearStrengthModel.CPhiOrSuCalculated;
             }
 
-            string message = $"Cannot convert a value of {shearStrengthValue.Value.ToString(CultureInfo.CurrentCulture)} to {typeof(ShearStrengthModel)}.";
+            string message = $"Cannot convert a value of {shearStrengthModelValue.Value.ToString(CultureInfo.CurrentCulture)} to {typeof(ShearStrengthModel)}.";
             throw new ArgumentException(message);
         }
     }
