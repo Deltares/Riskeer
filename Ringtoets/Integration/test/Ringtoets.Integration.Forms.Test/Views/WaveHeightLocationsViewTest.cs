@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowWaveHeightLocationsView(new ObservableTestAssessmentSectionStub());
+            ShowWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), testForm);
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
         {
             // Given
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
             DataGridViewRow currentRow = dataGridView.Rows[1];
@@ -142,61 +142,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            ShowFullyConfiguredWaveHeightLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm,
-                                                                                                                           "IllustrationPointsControl").First();
-
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            ShowFullyConfiguredWaveHeightLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm,
-                                                                                                                           "IllustrationPointsControl").First();
-
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithGeneralResult_GeneralResultSetOnIllustrationPointsControlData()
-        {
-            // Setup
-            ShowFullyConfiguredWaveHeightLocationsView();
-            IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm,
-                                                                                                                           "IllustrationPointsControl").First();
-
-            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
-
-            // Assert
-            Assert.IsNotNull(illustrationPointsControl.Data);
-        }
-
-        [Test]
         public void WaveHeightLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredWaveHeightLocationsView();
+            ShowFullyConfiguredWaveHeightLocationsView(testForm);
 
             // Assert
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
@@ -253,7 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void WaveHeightLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
 
             // Precondition
@@ -288,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
             var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
@@ -329,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = ControlTestHelper.GetControls<IllustrationPointsControl>(testForm,
                                                                                                                            "IllustrationPointsControl").First();
 
@@ -364,7 +313,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights(bool isSuccessful)
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -404,7 +353,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredWaveHeightLocationsView();
+            ShowFullyConfiguredWaveHeightLocationsView(testForm);
 
             DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -417,6 +366,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.DoesNotThrow(test);
+        }
+
+        [TestFixture]
+        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
+        {
+            private Form testForm;
+
+            [SetUp]
+            public void Setup()
+            {
+                testForm = new Form();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                testForm.Dispose();
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView()
+            {
+                return ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            }
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
@@ -434,24 +406,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                 });
         }
 
-        private WaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection)
+        private static WaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection, Form form)
         {
             var view = new WaveHeightLocationsView(assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            form.Controls.Add(view);
+            form.Show();
 
             return view;
         }
 
-        private WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView()
+        private static WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(Form form)
         {
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection);
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, form);
 
             view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
@@ -486,7 +458,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                         }
                     }
                 });
-                var output = new TestHydraulicBoundaryLocationOutput(1.01, new TestGeneralResultSubMechanismIllustrationPoint());
+
+                var topLevelIllustrationPoints = new[]
+                {
+                    new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                              "Regular",
+                                                              new TestSubMechanismIllustrationPoint())
+                };
+
+                var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+                var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
+
                 Locations.Add(new HydraulicBoundaryLocation(5, "5", 5.0, 5.0)
                 {
                     WaveHeightCalculation =
