@@ -92,7 +92,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 CreateInstance = soilProfile => new StochasticSoilProfileProperties(soilProfile)
             };
-
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
