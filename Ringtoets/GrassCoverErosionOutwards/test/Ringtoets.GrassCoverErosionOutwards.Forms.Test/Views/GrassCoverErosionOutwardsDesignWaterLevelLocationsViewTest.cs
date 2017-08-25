@@ -100,31 +100,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(assessmentSection);
+            ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
 
             // Assert
             DataGridView dataGridView = GetDataGridView();
             Assert.AreEqual(6, dataGridView.ColumnCount);
 
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationCalculateColumnIndex];
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
             Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
 
-            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
             Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
 
-            var locationNameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationNameColumnIndex];
+            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
             Assert.AreEqual("Naam", locationNameColumn.HeaderText);
 
-            var locationIdColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationIdColumnIndex];
+            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
             Assert.AreEqual("ID", locationIdColumn.HeaderText);
 
-            var locationColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
+            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var locationDesignWaterlevelColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationDesignWaterlevelColumnIndex];
+            var locationDesignWaterlevelColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationDesignWaterlevelColumnIndex];
             Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", locationDesignWaterlevelColumn.HeaderText);
 
-            var button = (Button)testForm.Controls.Find("CalculateForSelectedButton", true).First();
+            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
         }
 
@@ -135,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
 
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRow currentRow = dataGridView.Rows[1];
@@ -168,67 +168,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithGeneralResult_GeneralResultSetOnIllustrationPointsControlData()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
-
-            // Assert
-            Assert.IsNotNull(illustrationPointsControl.Data);
-        }
-
-        [Test]
         public void DesignWaterLevelLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, testForm);
 
             var locations = new List<HydraulicBoundaryLocation>
             {
@@ -250,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
 
             // Assert
             DataGridViewControl dataGridView = GetDataGridViewControl();
@@ -310,7 +256,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
@@ -359,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl dataGridView = GetDataGridViewControl();
 
@@ -377,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
-            var locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
+            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Call
             locations[3].DesignWaterLevelCalculation.Output = output;
@@ -395,7 +341,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
@@ -461,7 +407,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
             DataGridView dataGridView = GetDataGridView();
             object dataGridViewSource = dataGridView.DataSource;
@@ -498,7 +444,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
 
             DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -526,7 +472,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
 
             // When
             if (rowSelected)
@@ -591,21 +537,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return testForm.Controls.Find(controlName, true).OfType<TView>();
         }
 
-        private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
+        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
         {
             var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            form.Controls.Add(view);
+            form.Show();
 
             return view;
         }
 
-        private GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(IAssessmentSection assessmentSection)
+        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(IAssessmentSection assessmentSection, Form form)
         {
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, form);
 
-            var output = new TestHydraulicBoundaryLocationOutput(1.01, new TestGeneralResultSubMechanismIllustrationPoint());
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
+
             view.Data = new ObservableList<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
@@ -646,6 +601,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
             return view;
+        }
+
+        [TestFixture]
+        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
+        {
+            private Form testForm;
+            private MockRepository mockRepository;
+
+            [SetUp]
+            public void Setup()
+            {
+                testForm = new Form();
+                mockRepository = new MockRepository();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                testForm.Dispose();
+                mockRepository.VerifyAll();
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView()
+            {
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
+                return ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            }
         }
     }
 }
