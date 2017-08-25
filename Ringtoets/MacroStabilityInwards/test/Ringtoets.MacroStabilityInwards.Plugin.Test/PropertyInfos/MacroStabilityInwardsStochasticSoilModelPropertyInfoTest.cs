@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {
@@ -40,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StochasticSoilProfileProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StochasticSoilModelProperties));
         }
 
         [TearDown]
@@ -53,8 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilProfile), info.DataType);
-            Assert.AreEqual(typeof(StochasticSoilProfileProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), info.DataType);
+            Assert.AreEqual(typeof(StochasticSoilModelProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -64,13 +63,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             var mocks = new MockRepository();
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234L);
+            var context = new MacroStabilityInwardsStochasticSoilModel("");
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilProfileProperties>(objectProperties);
+            Assert.IsInstanceOf<StochasticSoilModelProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
             mocks.VerifyAll();
