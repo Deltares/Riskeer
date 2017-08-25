@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowWaveHeightLocationsView(assessmentSection);
+            ShowWaveHeightLocationsView(assessmentSection, testForm);
 
             // Assert
             DataGridView dataGridView = GetDataGridView();
@@ -135,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
 
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRow currentRow = dataGridView.Rows[1];
@@ -168,67 +168,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_LocationWithoutOutput_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(0, 1));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithoutGeneralResult_IllustrationPointsControlDataSetToEmptyEnumeration()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(1, 0));
-
-            // Assert
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Selection_LocationWithGeneralResult_GeneralResultSetOnIllustrationPointsControlData()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            // Call
-            dataGridView.SetCurrentCell(dataGridView.GetCell(4, 0));
-
-            // Assert
-            Assert.IsNotNull(illustrationPointsControl.Data);
-        }
-
-        [Test]
         public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, testForm);
 
             var locations = new List<HydraulicBoundaryLocation>
             {
@@ -250,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
 
             // Assert
             DataGridViewControl dataGridView = GetDataGridViewControl();
@@ -310,7 +256,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
@@ -359,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl dataGridView = GetDataGridViewControl();
 
@@ -395,7 +341,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
 
             // Precondition
@@ -460,7 +406,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
             DataGridView dataGridView = GetDataGridView();
             object dataGridViewSource = dataGridView.DataSource;
@@ -497,7 +443,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
 
             DataGridViewControl dataGridView = GetDataGridViewControl();
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -525,7 +471,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
 
             // When
             if (rowSelected)
@@ -547,6 +493,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
+        }
+
+        [TestFixture]
+        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
+        {
+            private Form testForm;
+            private MockRepository mockRepository;
+
+            [SetUp]
+            public void Setup()
+            {
+                testForm = new Form();
+                mockRepository = new MockRepository();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                testForm.Dispose();
+                mockRepository.VerifyAll();
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView()
+            {
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                mockRepository.ReplayAll();
+
+                return ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
+            }
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
@@ -590,21 +565,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return testForm.Controls.Find(controlName, true).OfType<TView>();
         }
 
-        private GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection)
+        private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowWaveHeightLocationsView(IAssessmentSection assessmentSection, Form form)
         {
             var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            form.Controls.Add(view);
+            form.Show();
 
             return view;
         }
 
-        private GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(IAssessmentSection assessmentSection)
+        private static GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(IAssessmentSection assessmentSection, Form form)
         {
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection);
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, form);
 
-            var output = new TestHydraulicBoundaryLocationOutput(1.01, new TestGeneralResultSubMechanismIllustrationPoint());
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
