@@ -113,6 +113,7 @@
     <Compile Include="SoilProfile\CriticalProfilePropertiesTest.cs" />
     <Compile Include="SoilProfile\LayerPropertiesTest.cs" />
     <Compile Include="SoilProfile\SegmentPointReaderTest.cs" />
+    <Compile Include="SoilProfile\ShearStrengthModelConverterTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
