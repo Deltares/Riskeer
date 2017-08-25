@@ -146,6 +146,7 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\GraphNodeItem.cs" />
     <Compile Include="Views\IllustrationPointsFaultTreeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
