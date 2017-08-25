@@ -93,12 +93,26 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(nameof(Stochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
-        public SubMechanismIllustrationPointStochast[] SubMechanismStochasts
+        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
+        public SubMechanismIllustrationPointStochast[] Realizations
         {
             get
             {
                 return subMechanismIllustrationPoint.Stochasts.ToArray();
+            }
+        }
+
+        [PropertyOrder(7)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(nameof(IllustrationPointResult.Description), nameof(IllustrationPointResult.Value))]
+        public IllustrationPointResult[] Results
+        {
+            get
+            {
+                return subMechanismIllustrationPoint.IllustrationPointResults.ToArray();
             }
         }
     }

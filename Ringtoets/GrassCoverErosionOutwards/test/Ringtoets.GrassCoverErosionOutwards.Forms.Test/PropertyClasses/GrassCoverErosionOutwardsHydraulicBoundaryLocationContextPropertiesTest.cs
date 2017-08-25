@@ -163,7 +163,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedProbability, topLevelProperties.CalculatedProbability);
             CollectionAssert.IsEmpty(topLevelProperties.AlphaValues);
             CollectionAssert.IsEmpty(topLevelProperties.Durations);
-            CollectionAssert.IsEmpty(topLevelProperties.IllustrationPointResults);
+            CollectionAssert.IsEmpty(topLevelProperties.Results);
+            CollectionAssert.IsEmpty(topLevelProperties.Realizations);
         }
 
         [Test]
@@ -353,11 +354,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
         private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
         {
+            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
             public TestGrassCoverErosionOutwardsLocationProperties() : base(new ConstructionProperties()) {}
 
             public TestGrassCoverErosionOutwardsLocationProperties(ConstructionProperties propertyIndexes) : base(propertyIndexes) {}
-
-            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
 
             protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
             {

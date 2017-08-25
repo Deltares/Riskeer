@@ -145,7 +145,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedProbability, topLevelProperties.CalculatedProbability);
             CollectionAssert.IsEmpty(topLevelProperties.AlphaValues);
             CollectionAssert.IsEmpty(topLevelProperties.Durations);
-            CollectionAssert.IsEmpty(topLevelProperties.IllustrationPointResults);
+            CollectionAssert.IsEmpty(topLevelProperties.Results);
+            CollectionAssert.IsEmpty(topLevelProperties.Realizations);
         }
 
         [Test]
@@ -312,11 +313,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties
         {
+            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
             public TestHydraulicBoundaryLocationProperties() : base(new ConstructionProperties()) {}
 
             public TestHydraulicBoundaryLocationProperties(ConstructionProperties propertyIndexes) : base(propertyIndexes) {}
-
-            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
 
             protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
             {

@@ -159,11 +159,25 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(8)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Values_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Values_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
+        [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
+        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
+        public SubMechanismIllustrationPointStochast[] Realizations
+        {
+            get
+            {
+                return data.SubMechanismIllustrationPoint.Stochasts.ToArray();
+            }
+        }
+
+        [PropertyOrder(9)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
         [KeyValueElement(nameof(IllustrationPointResult.Description), nameof(IllustrationPointResult.Value))]
-        public IllustrationPointResult[] IllustrationPointResults
+        public IllustrationPointResult[] Results
         {
             get
             {

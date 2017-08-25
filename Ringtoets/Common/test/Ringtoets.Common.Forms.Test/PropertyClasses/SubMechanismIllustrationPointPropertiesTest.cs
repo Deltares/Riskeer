@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -42,7 +41,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int closingScenarioPropertyIndex = 3;
         private const int alphasPropertyIndex = 4;
         private const int durationsPropertyIndex = 5;
-        private const int subMechanismStochastPropertyIndex = 6;
+        private const int realizationsPropertyIndex = 6;
+        private const int resultsPropertyIndex = 7;
 
         private const string illustrationPointsCategoryName = "Illustratiepunten";
 
@@ -108,7 +108,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                   {
                                                                                       new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
                                                                                   },
-                                                                                  Enumerable.Empty<IllustrationPointResult>());
+                                                                                  new[]
+                                                                                  {
+                                                                                      new IllustrationPointResult("result A", 2.3)
+                                                                                  });
             var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(subMechanismIllustrationPoint),
                                                                                      "N",
                                                                                      "closing situation");
@@ -139,10 +142,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(2.0, subMechanismProperties.Durations[0].Duration);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
-                nameof(SubMechanismIllustrationPointProperties.SubMechanismStochasts));
-            CollectionAssert.IsNotEmpty(subMechanismProperties.SubMechanismStochasts);
-            Assert.AreEqual(1, subMechanismProperties.SubMechanismStochasts.Length);
-            Assert.AreEqual(0.1, subMechanismProperties.SubMechanismStochasts[0].Realization);
+                nameof(SubMechanismIllustrationPointProperties.Realizations));
+            CollectionAssert.IsNotEmpty(subMechanismProperties.Realizations);
+            Assert.AreEqual(1, subMechanismProperties.Realizations.Length);
+            Assert.AreEqual(0.1, subMechanismProperties.Realizations[0].Realization);
+
+            TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
+                nameof(SubMechanismIllustrationPointProperties.Results));
+            CollectionAssert.IsNotEmpty(subMechanismProperties.Results);
+            Assert.AreEqual(1, subMechanismProperties.Results.Length);
+            Assert.AreEqual(2.3, subMechanismProperties.Results[0].Value);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.IllustrationPoints));
@@ -160,7 +169,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -204,11 +213,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            PropertyDescriptor subMechanismStochastProperty = dynamicProperties[subMechanismStochastPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(subMechanismStochastProperty,
+            PropertyDescriptor resultsProperty = dynamicProperties[resultsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Waarden in het illustratiepunt",
-                                                                            "Realisaties van de stochasten in het illustratiepunt",
+                                                                            "Waarden van variabelen in het illustratiepunt.",
+                                                                            true);
+
+            PropertyDescriptor realizationsProperty = dynamicProperties[realizationsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(realizationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Realisaties in het illustratiepunt",
+                                                                            "Realisaties van de stochasten in het illustratiepunt.",
                                                                             true);
         }
 
@@ -222,7 +238,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(subMechanismProperties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -259,11 +275,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            PropertyDescriptor subMechanismStochastProperty = dynamicProperties[subMechanismStochastPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(subMechanismStochastProperty,
+            PropertyDescriptor realizationsProperty = dynamicProperties[realizationsPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(realizationsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Realisaties in het illustratiepunt",
+                                                                            "Realisaties van de stochasten in het illustratiepunt.",
+                                                                            true);
+
+            PropertyDescriptor resultsProperty = dynamicProperties[resultsPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Waarden in het illustratiepunt",
-                                                                            "Realisaties van de stochasten in het illustratiepunt",
+                                                                            "Waarden van variabelen in het illustratiepunt.",
                                                                             true);
         }
 

@@ -1023,12 +1023,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="IllustrationPoint_ClosingSituation_DisplayName" xml:space="preserve">
     <value>Sluitscenario</value>
   </data>
-  <data name="IllustrationPoint_Values_Description" xml:space="preserve">
-    <value>Realisaties van de stochasten in het illustratiepunt.</value>
-  </data>
-  <data name="IllustrationPoint_Values_DisplayName" xml:space="preserve">
-    <value>Waarden in het illustratiepunt</value>
-  </data>
   <data name="IllustrationPoint_WindDirection_Description" xml:space="preserve">
     <value>De windrichting waarvoor dit illlustratiepunt is berekend.</value>
   </data>
@@ -1129,10 +1123,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Illustratiepunten</value>
   </data>
   <data name="IllustrationPoint_Realization_Description" xml:space="preserve">
-    <value>Realisaties van de stochasten in het illustratiepunt</value>
+    <value>Realisaties van de stochasten in het illustratiepunt.</value>
   </data>
   <data name="IllustrationPoint_Realization_DisplayName" xml:space="preserve">
-    <value>Waarden in het illustratiepunt</value>
+    <value>Realisaties in het illustratiepunt</value>
   </data>
   <data name="IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle" xml:space="preserve">
     <value>Alfa^2</value>
@@ -1223,5 +1217,11 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="StochasticSoilProfile_Type_2D" xml:space="preserve">
     <value>2D profiel</value>
+  </data>
+  <data name="IllustrationPoint_Result_Description" xml:space="preserve">
+    <value>Waarden van variabelen in het illustratiepunt.</value>
+  </data>
+  <data name="IllustrationPoint_Result_DisplayName" xml:space="preserve">
+    <value>Waarden in het illustratiepunt</value>
   </data>
 </root>

@@ -1828,7 +1828,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Realisaties van de stochasten in het illustratiepunt.
+        ///   Looks up a localized string similar to Realisaties van de stochasten in het illustratiepunt..
         /// </summary>
         public static string IllustrationPoint_Realization_Description {
             get {
@@ -1837,7 +1837,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waarden in het illustratiepunt.
+        ///   Looks up a localized string similar to Realisaties in het illustratiepunt.
         /// </summary>
         public static string IllustrationPoint_Realization_DisplayName {
             get {
@@ -1846,20 +1846,20 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Realisaties van de stochasten in het illustratiepunt..
+        ///   Looks up a localized string similar to Waarden van variabelen in het illustratiepunt..
         /// </summary>
-        public static string IllustrationPoint_Values_Description {
+        public static string IllustrationPoint_Result_Description {
             get {
-                return ResourceManager.GetString("IllustrationPoint_Values_Description", resourceCulture);
+                return ResourceManager.GetString("IllustrationPoint_Result_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Waarden in het illustratiepunt.
         /// </summary>
-        public static string IllustrationPoint_Values_DisplayName {
+        public static string IllustrationPoint_Result_DisplayName {
             get {
-                return ResourceManager.GetString("IllustrationPoint_Values_DisplayName", resourceCulture);
+                return ResourceManager.GetString("IllustrationPoint_Result_DisplayName", resourceCulture);
             }
         }
         
