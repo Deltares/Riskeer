@@ -93,6 +93,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            ShowDesignWaterLevelLocationsView(assessmentSection);
+
+            // Assert
+            DataGridView dataGridView = GetDataGridView();
+            Assert.AreEqual(6, dataGridView.ColumnCount);
+
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationCalculateColumnIndex];
+            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
+
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
+
+            var locationNameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationNameColumnIndex];
+            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
+
+            var locationIdColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationIdColumnIndex];
+            Assert.AreEqual("ID", locationIdColumn.HeaderText);
+
+            var locationColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
+            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
+
+            var locationDesignWaterlevelColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationDesignWaterlevelColumnIndex];
+            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", locationDesignWaterlevelColumn.HeaderText);
+
+            var button = (Button)testForm.Controls.Find("CalculateForSelectedButton", true).First();
+            Assert.IsFalse(button.Enabled);
+        }
+
+        [Test]
         public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
         {
             // Given
@@ -183,42 +219,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsNotNull(illustrationPointsControl.Data);
-        }
-
-        [Test]
-        public void Constructor_DataGridViewCorrectlyInitialized()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            ShowDesignWaterLevelLocationsView(assessmentSection);
-
-            // Assert
-            DataGridView dataGridView = GetDataGridView();
-            Assert.AreEqual(6, dataGridView.ColumnCount);
-
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
-            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
-
-            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
-            Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
-
-            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
-            Assert.AreEqual("Naam", locationNameColumn.HeaderText);
-
-            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
-            Assert.AreEqual("ID", locationIdColumn.HeaderText);
-
-            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-            Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
-
-            var locationDesignWaterlevelColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationDesignWaterlevelColumnIndex];
-            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", locationDesignWaterlevelColumn.HeaderText);
-
-            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
-            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
@@ -350,6 +350,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevel, cells[locationDesignWaterlevelColumnIndex].Value);
             Assert.AreNotSame(dataGridViewSource, dataGridView.DataSource);
             Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+        }
+
+        [Test]
+        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
+        {
+            // Setup
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
+            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
+            DataGridViewControl dataGridView = GetDataGridViewControl();
+
+            dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
+
+            // Precondition
+            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+
+            var topLevelIllustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
+                                                          new TestSubMechanismIllustrationPoint())
+            };
+            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
+            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
+
+            var locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
+
+            // Call
+            locations[3].DesignWaterLevelCalculation.Output = output;
+            locations.NotifyObservers();
+
+            // Assert
+            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
+            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
         }
 
         [Test]
@@ -512,42 +548,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
-        }
-
-        [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseNotifyObservers_UpdateIllustrationPointsControlData()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection);
-            IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridView = GetDataGridViewControl();
-
-            dataGridView.SetCurrentCell(dataGridView.GetCell(3, 0));
-
-            // Precondition
-            CollectionAssert.IsEmpty(illustrationPointsControl.Data);
-
-            var topLevelIllustrationPoints = new[]
-            {
-                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
-                                                          "Regular",
-                                                          new TestSubMechanismIllustrationPoint())
-            };
-            var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
-
-            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-
-            // Call
-            locations[3].DesignWaterLevelCalculation.Output = output;
-            locations.NotifyObservers();
-
-            // Assert
-            IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
-            CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
