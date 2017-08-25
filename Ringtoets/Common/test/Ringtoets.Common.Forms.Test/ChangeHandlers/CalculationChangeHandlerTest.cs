@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.IO;
 
 namespace Ringtoets.Common.Forms.Test.ChangeHandlers

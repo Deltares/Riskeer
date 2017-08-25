@@ -51,7 +51,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="SetPropertyValueAfterConfirmationParameterTesterTest.cs" />
-    <Compile Include="CalculationTestDataFactoryTest.cs" />
     <Compile Include="ControlTestHelperTest.cs" />
     <Compile Include="DistributionPropertiesTestHelperTest.cs" />
     <Compile Include="FailureMechanismSetPropertyValueAfterConfirmationParameterTesterTest.cs" />

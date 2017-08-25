@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.TestUtil;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
     /// Factory for creating test calculation objects.

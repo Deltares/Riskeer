@@ -54,6 +54,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="AssessmentSectionHelperTest.cs" />
+    <Compile Include="CalculationTestDataFactoryTest.cs" />
     <Compile Include="ForeshoreProfilePermutationHelperTest.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactoryTest.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultFaultTreeIllustrationPointTest.cs" />
