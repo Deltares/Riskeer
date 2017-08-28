@@ -43,7 +43,7 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class WaveHeightLocationsViewTest : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
+    public class WaveHeightLocationsViewTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocation>
     {
         private const int locationCalculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
@@ -395,7 +395,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        #region LocationsViewDataSynchronizationTester implementation
+        #region LocationsViewSynchronizationTester implementation
 
         protected override int OutputColumnIndex
         {

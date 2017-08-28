@@ -50,7 +50,7 @@ using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewTest : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocation>
     {
         private const int locationCalculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
@@ -502,7 +502,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return view;
         }
 
-        #region LocationsViewDataSynchronizationTester implementation
+        #region LocationsViewSynchronizationTester implementation
 
         protected override int OutputColumnIndex
         {

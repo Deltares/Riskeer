@@ -30,10 +30,10 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class for testing data synchronization in <see cref="LocationsView{T}"/> derivatives.
+    /// Class for testing data and selection synchronization in <see cref="LocationsView{T}"/> derivatives.
     /// </summary>
     /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
-    public abstract class LocationsViewDataSynchronizationTester<T> where T : class
+    public abstract class LocationsViewSynchronizationTester<T> where T : class
     {
         protected Form testForm;
         protected MockRepository mockRepository;
