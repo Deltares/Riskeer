@@ -50,7 +50,7 @@ using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveHeightLocationsViewTest
+    public class GrassCoverErosionOutwardsWaveHeightLocationsViewTest : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
     {
         private const int locationCalculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
@@ -58,23 +58,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private const int locationIdColumnIndex = 3;
         private const int locationColumnIndex = 4;
         private const int locationWaveHeightColumnIndex = 5;
-
-        private Form testForm;
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void Setup()
-        {
-            testForm = new Form();
-            mockRepository = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            testForm.Dispose();
-            mockRepository.VerifyAll();
-        }
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -418,65 +401,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
-        [TestFixture]
-        public class SynchronizationTester : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
-        {
-            protected override int OutputColumnIndex
-            {
-                get
-                {
-                    return locationWaveHeightColumnIndex;
-                }
-            }
-
-            protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
-            {
-                return new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>) view.Data,
-                                                                              ((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
-            }
-
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
-            {
-                return ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
-            }
-
-            protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
-                {
-                    WaveHeightCalculation =
-                    {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        },
-                        Output = new TestHydraulicBoundaryLocationOutput(10.23)
-                    }
-                };
-
-                locations.Clear();
-                locations.Add(hydraulicBoundaryLocation);
-                locations.NotifyObservers();
-            }
-
-            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-
-                locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
-                locations.NotifyObservers();
-            }
-
-            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
-            {
-                var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-
-                locations.First().WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-                locations.NotifyObservers();
-            }
-        }
-
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
@@ -576,5 +500,64 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             return view;
         }
+
+        #region LocationsViewDataSynchronizationTester implementation
+
+        protected override int OutputColumnIndex
+        {
+            get
+            {
+                return locationWaveHeightColumnIndex;
+            }
+        }
+
+        protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
+        {
+            return new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>) view.Data,
+                                                                          ((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+        }
+
+        protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
+        {
+            return ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
+        }
+
+        protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+        {
+            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
+            {
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = new TestHydraulicBoundaryLocationOutput(10.23)
+                }
+            };
+
+            locations.Clear();
+            locations.Add(hydraulicBoundaryLocation);
+            locations.NotifyObservers();
+        }
+
+        protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+        {
+            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+
+            locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
+            locations.NotifyObservers();
+        }
+
+        protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+        {
+            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+
+            locations.First().WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+            locations.NotifyObservers();
+        }
+
+        #endregion
     }
 }

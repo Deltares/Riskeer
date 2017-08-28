@@ -23,6 +23,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 
@@ -34,18 +35,21 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
     public abstract class LocationsViewDataSynchronizationTester<T> where T : class
     {
-        private Form testForm;
+        protected Form testForm;
+        protected MockRepository mockRepository;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
+            mockRepository = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
+            mockRepository.VerifyAll();
         }
 
         /// <summary>
