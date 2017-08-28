@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -60,9 +59,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
             var context = new MacroStabilityInwardsStochasticSoilModel("");
 
             // Call
@@ -71,8 +67,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModelProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }
