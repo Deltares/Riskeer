@@ -166,6 +166,14 @@
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>

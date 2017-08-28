@@ -56,7 +56,6 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using SoilProfileType = Ringtoets.MacroStabilityInwards.Primitives.SoilProfileType;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -467,7 +466,7 @@ namespace Demo.Ringtoets.Commands
                         {
                             Properties =
                             {
-                                MaterialName = "Zand"
+                                MaterialName = "2D Layer"
                             }
                         }
                     }));
