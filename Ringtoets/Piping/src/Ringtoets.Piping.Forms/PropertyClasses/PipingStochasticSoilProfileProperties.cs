@@ -115,7 +115,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile.SoilProfileSourceType == SoilProfileType.SoilProfile1D ? RingtoetsCommonFormsResources.StochasticSoilProfile_Type_1D : RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;
+                return data.SoilProfile.SoilProfileSourceType == SoilProfileType.SoilProfile1D
+                           ? RingtoetsCommonFormsResources.StochasticSoilProfile_Type_1D
+                           : RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;
             }
         }
 
