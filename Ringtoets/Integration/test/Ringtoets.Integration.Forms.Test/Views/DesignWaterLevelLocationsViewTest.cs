@@ -57,8 +57,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var assessmentSection = MockRepository.Stub<IAssessmentSection>();
+            MockRepository.ReplayAll();
+
             // Call
-            using (var view = new DesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub()))
+            using (var view = new DesignWaterLevelLocationsView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
@@ -69,8 +73,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            ShowDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), TestForm);
+            // Setup
+            var assessmentSection = MockRepository.Stub<IAssessmentSection>();
+            MockRepository.ReplayAll();
+
+            // Call
+            ShowDesignWaterLevelLocationsView(assessmentSection, TestForm);
 
             // Assert
             DataGridView locationsDataGridView = GetLocationsDataGridView();
@@ -318,12 +326,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return view;
         }
 
-        private static DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
+        private DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
-            };
+            var assessmentSection = MockRepository.Stub<IAssessmentSection>();
+            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(testHydraulicBoundaryDatabase);
+
+            MockRepository.ReplayAll();
 
             DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, form);
 
