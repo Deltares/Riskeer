@@ -52,6 +52,6 @@ All rights reserved.
             </Setter.Value>
         </Setter>
         <Setter Property="Background" Value="White" />
-        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Cursor" Value="Arrow" />
     </Style>
 </ResourceDictionary>

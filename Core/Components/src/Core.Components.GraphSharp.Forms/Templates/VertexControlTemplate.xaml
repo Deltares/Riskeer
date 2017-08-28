@@ -82,8 +82,8 @@ All rights reserved.
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsSelectable}" Value="False">
-                <Setter Property="Cursor" Value="Arrow" />
+            <DataTrigger Binding="{Binding IsSelectable}" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
             </DataTrigger>
         </Style.Triggers>
         <Setter Property="wpfExtensionsAttachedBehaviours:DragBehaviour.IsDragEnabled" Value="False"/>
