@@ -308,6 +308,32 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
+        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenDatabaseReplaced_ThenSelectionSetToLocation()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
+            illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
+
+            // Precondition
+            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
+            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+
+            // When
+            ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
+
+            // Then
+            Assert.AreEqual(0, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
+        }
+
+        [Test]
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToLocation()
         {
             // Given
@@ -360,32 +386,6 @@ namespace Ringtoets.Common.Forms.TestUtil
             selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
             Assert.IsNotNull(selection);
             Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
-        }
-
-        [Test]
-        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenDatabaseReplaced_ThenSelectionSetToLocation()
-        {
-            // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
-            DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
-            illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
-
-            // Precondition
-            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
-            Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
-            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selection);
-            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
-
-            // When
-            ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
-
-            // Then
-            Assert.AreEqual(0, locationsDataGridView.CurrentRow?.Index);
-            Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
         }
 
         #endregion

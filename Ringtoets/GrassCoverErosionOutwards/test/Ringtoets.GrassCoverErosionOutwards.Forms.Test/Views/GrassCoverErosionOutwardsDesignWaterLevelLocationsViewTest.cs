@@ -420,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [TestFixture]
-        public class DataSynchronizationTester : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
+        public class SynchronizationTester : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
         {
             protected override int OutputColumnIndex
             {

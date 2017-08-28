@@ -29,7 +29,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -141,73 +140,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenIllustrationPointsUpdated()
-        {
-            // Given
-            ShowFullyConfiguredTestCalculatableView();
-
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridView illustrationPointDataGridView = GetIllustrationPointDataGridView();
-
-            // Precondition
-            Assert.AreEqual(2, illustrationPointDataGridView.Rows.Count);
-
-            // When
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[calculateColumnIndex];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
-
-            // Then
-            Assert.AreEqual(3, illustrationPointDataGridView.Rows.Count);
-        }
-
-        [Test]
-        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
-        {
-            // Given
-            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
-
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridViewRow currentRow = dataGridView.Rows[1];
-
-            TestCalculatableObject calculatableObject = ((TestCalculatableRow) currentRow.DataBoundItem).CalculatableObject;
-
-            // When
-            dataGridView.CurrentCell = currentRow.Cells[calculateColumnIndex];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
-            object selection = view.Selection;
-
-            // Then
-            Assert.AreSame(calculatableObject, selection);
-        }
-
-        [Test]
-        public void GivenFullyConfiguredView_WhenSelectingRowInIllustrationPointsTable_ThenReturnSelectedIllustrationPoint()
-        {
-            // Given
-            TestLocationsView view = ShowFullyConfiguredTestCalculatableView();
-
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridView illustrationPointDataGridView = GetIllustrationPointDataGridView();
-
-            DataGridViewRow currentRow = illustrationPointDataGridView.Rows[1];
-
-            TestCalculatableObject calculatableObject = ((TestCalculatableRow) dataGridView.Rows[0].DataBoundItem).CalculatableObject;
-
-            // When
-            illustrationPointDataGridView.CurrentCell = currentRow.Cells[calculateColumnIndex];
-            EventHelper.RaiseEvent(illustrationPointDataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
-            object selection = view.Selection;
-
-            // Then
-            var selectedTopLevelSubMechanismIllustrationPoint = selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selectedTopLevelSubMechanismIllustrationPoint);
-            Assert.AreSame(calculatableObject.GeneralResult.TopLevelIllustrationPoints.ElementAt(1),
-                           selectedTopLevelSubMechanismIllustrationPoint.TopLevelSubMechanismIllustrationPoint);
-            CollectionAssert.AreEqual(calculatableObject.GeneralResult.TopLevelIllustrationPoints.Select(ip => ip.ClosingSituation),
-                                      selectedTopLevelSubMechanismIllustrationPoint.ClosingSituations);
-        }
-
-        [Test]
         public void SelectAllButton_SelectAllButtonClicked_AllCalculatableItemsSelected()
         {
             // Setup
@@ -306,12 +238,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(1, view.ObjectsToCalculate.Count());
             TestCalculatableObject expectedObject = ((IEnumerable<TestCalculatableObject>) view.Data).First();
             Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
-        }
-
-        private DataGridView GetIllustrationPointDataGridView()
-        {
-            DataGridViewControl dataGridViewControl = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
-            return ControlTestHelper.GetDataGridView(dataGridViewControl, "DataGridView");
         }
 
         private TestLocationsView ShowTestCalculatableView()
@@ -436,19 +362,13 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 TestCalculatableObject calculatableObject = ((TestCalculatableRow) dataGridViewControl.CurrentRow?.DataBoundItem)?.CalculatableObject;
 
-                if (calculatableObject?.GeneralResult != null)
-                {
-                    return calculatableObject.GeneralResult
-                                             .TopLevelIllustrationPoints
-                                             .Select(topLevelSubMechanismIllustrationPoint =>
-                                                         new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
-                                                                                          topLevelSubMechanismIllustrationPoint.WindDirection.Name,
-                                                                                          topLevelSubMechanismIllustrationPoint.ClosingSituation,
-                                                                                          topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts,
-                                                                                          topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Beta));
-                }
-
-                return null;
+                return calculatableObject?.GeneralResult?.TopLevelIllustrationPoints
+                                         .Select(topLevelSubMechanismIllustrationPoint =>
+                                                     new IllustrationPointControlItem(topLevelSubMechanismIllustrationPoint,
+                                                                                      topLevelSubMechanismIllustrationPoint.WindDirection.Name,
+                                                                                      topLevelSubMechanismIllustrationPoint.ClosingSituation,
+                                                                                      topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts,
+                                                                                      topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Beta));
             }
         }
     }
