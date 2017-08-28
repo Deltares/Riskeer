@@ -487,6 +487,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
                 locations.NotifyObservers();
             }
+
+            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            {
+                var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+
+                locations.First().DesignWaterLevelCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+                locations.NotifyObservers();
+            }
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(

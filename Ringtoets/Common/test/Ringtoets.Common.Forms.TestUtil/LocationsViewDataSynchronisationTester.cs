@@ -152,6 +152,29 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
+        public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputUpdated_ThenSelectionPreserved()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+
+            // Precondition
+            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+
+            // When
+            AddLocationOutputAndNotifyObservers(view);
+
+            // Then
+            currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+        }
+
+        [Test]
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToLocation()
         {
             // Given
@@ -175,6 +198,35 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Then
             Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputUpdated_ThenSelectionPreserved()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
+            illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
+
+            // Precondition
+            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
+            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+
+            // When
+            AddLocationOutputAndNotifyObservers(view);
+
+            // Then
+            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
+            selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
         }
 
         /// <summary>
@@ -212,6 +264,12 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </summary>
         /// <param name="view">The locations view involved.</param>
         protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
+
+        /// <summary>
+        /// Method for adding some location output as well as notifying the observers.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        protected abstract void AddLocationOutputAndNotifyObservers(LocationsView<T> view);
 
         private DataGridView GetLocationsDataGridView()
         {

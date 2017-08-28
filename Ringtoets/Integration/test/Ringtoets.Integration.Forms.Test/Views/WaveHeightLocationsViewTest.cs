@@ -364,6 +364,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
                 assessmentSection.NotifyObservers();
             }
+
+            protected override void AddLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            {
+                IAssessmentSection assessmentSection = view.AssessmentSection;
+
+                assessmentSection.HydraulicBoundaryDatabase.Locations.First().WaveHeightCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+                assessmentSection.NotifyObservers();
+            }
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(
