@@ -46,10 +46,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="IllustrationPointNode.Data"/> property of <paramref name="illustrationPointNode"/>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="IllustrationPointNode.Data"/> 
+        /// property of <paramref name="illustrationPointNode"/>
         /// is not of type <see cref="SubMechanismIllustrationPoint"/>.</exception>
-        public SubMechanismIllustrationPointProperties(
-            IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation) : base(illustrationPointNode, windDirection, closingSituation)
+        public SubMechanismIllustrationPointProperties(IllustrationPointNode illustrationPointNode,
+                                                       string windDirection,
+                                                       string closingSituation)
+            : base(illustrationPointNode, windDirection, closingSituation)
         {
             var illustrationPoint = data.Data as SubMechanismIllustrationPoint;
             if (illustrationPoint == null)
@@ -65,7 +68,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Alpha))]
+        [KeyValueElement(
+            nameof(SubMechanismIllustrationPointStochast.Name),
+            nameof(SubMechanismIllustrationPointStochast.Alpha))]
         public SubMechanismIllustrationPointStochast[] AlphaValues
         {
             get
@@ -79,7 +84,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Duration))]
+        [KeyValueElement(
+            nameof(SubMechanismIllustrationPointStochast.Name),
+            nameof(SubMechanismIllustrationPointStochast.Duration))]
         public SubMechanismIllustrationPointStochast[] Durations
         {
             get
@@ -93,7 +100,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(nameof(SubMechanismIllustrationPointStochast.Name), nameof(SubMechanismIllustrationPointStochast.Realization))]
+        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(
+            nameof(SubMechanismIllustrationPointStochast.Name),
+            nameof(SubMechanismIllustrationPointStochast.Realization))]
         public SubMechanismIllustrationPointStochast[] Realizations
         {
             get
@@ -107,7 +116,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]
         [TypeConverter(typeof(KeyValueExpandableArrayConverter))]
-        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(nameof(IllustrationPointResult.Description), nameof(IllustrationPointResult.Value))]
+        [KeyValueAsRoundedDoubleWithoutTrailingZeroesElement(
+            nameof(IllustrationPointResult.Description),
+            nameof(IllustrationPointResult.Value))]
         public IllustrationPointResult[] Results
         {
             get

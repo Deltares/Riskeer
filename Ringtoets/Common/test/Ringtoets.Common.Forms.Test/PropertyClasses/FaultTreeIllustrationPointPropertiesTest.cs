@@ -21,10 +21,12 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 
@@ -117,26 +119,41 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             illustrationPointNode.SetChildren(illustrationPointNodeChildren);
 
             // Call
-            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "NNE", "closing situation");
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPointNode, "NNE", "closing situation");
 
             // Assert
-            Assert.AreEqual("NNE", faultTree.WindDirection);
-            Assert.AreEqual(1.5, faultTree.Reliability.Value);
-            Assert.AreEqual(5, faultTree.Reliability.NumberOfDecimalPlaces);
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(1.5), faultTree.CalculatedProbability);
-            Assert.AreEqual("closing situation", faultTree.ClosingSituation);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            CollectionAssert.IsNotEmpty(faultTree.AlphaValues);
-            Assert.AreEqual(1, faultTree.AlphaValues.Length);
-            Assert.AreEqual(2.5, faultTree.AlphaValues[0].Alpha);
+            PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
+            Assert.NotNull(alphasProperty.Attributes[typeof(KeyValueElementAttribute)]);
 
-            CollectionAssert.IsNotEmpty(faultTree.Durations);
-            Assert.AreEqual(1, faultTree.Durations.Length);
-            Assert.AreEqual(10.0, faultTree.Durations[0].Duration);
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
+            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
 
-            Assert.IsNotNull(faultTree.IllustrationPoints);
-            Assert.AreEqual(2, faultTree.IllustrationPoints.Length);
-            foreach (IllustrationPointProperties illustrationPointProperties in faultTree.IllustrationPoints)
+            Assert.AreEqual("NNE", properties.WindDirection);
+            Assert.AreEqual(illustrationPointNode.Data.Beta, properties.Reliability, properties.Reliability.GetAccuracy());
+            Assert.AreEqual(5, properties.Reliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(illustrationPointNode.Data.Beta), properties.CalculatedProbability);
+            Assert.AreEqual("closing situation", properties.ClosingSituation);
+
+            TestHelper.AssertTypeConverter<FaultTreeIllustrationPointProperties, KeyValueExpandableArrayConverter>(
+                nameof(FaultTreeIllustrationPointProperties.AlphaValues));
+            CollectionAssert.IsNotEmpty(properties.AlphaValues);
+            CollectionAssert.AreEqual(new[]
+            {
+                stochast
+            }, properties.AlphaValues);
+
+            TestHelper.AssertTypeConverter<FaultTreeIllustrationPointProperties, KeyValueExpandableArrayConverter>(
+                nameof(FaultTreeIllustrationPointProperties.Durations));
+            CollectionAssert.AreEqual(new[]
+            {
+                stochast
+            }, properties.Durations);
+
+            Assert.IsNotNull(properties.IllustrationPoints);
+            Assert.AreEqual(2, properties.IllustrationPoints.Length);
+            foreach (IllustrationPointProperties illustrationPointProperties in properties.IllustrationPoints)
             {
                 Assert.AreEqual("NNE", illustrationPointProperties.WindDirection);
                 Assert.AreEqual("closing situation", illustrationPointProperties.ClosingSituation);
@@ -158,10 +175,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N", "Regular");
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N", "Regular");
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
@@ -226,10 +243,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N", string.Empty);
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPointNode, "N", string.Empty);
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
@@ -279,12 +296,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void VisibleProperties_WithoutChildIllustrationPointNodes_ExpectedAttributesValues()
         {
             // Setup
-            var faultTree = new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
-                                                                     "N",
-                                                                     "Regular");
+            var properties = new FaultTreeIllustrationPointProperties(new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
+                                                                      "N",
+                                                                      "Regular");
 
             // Call
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(faultTree);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
             // Assert
             Assert.AreEqual(6, dynamicProperties.Count);

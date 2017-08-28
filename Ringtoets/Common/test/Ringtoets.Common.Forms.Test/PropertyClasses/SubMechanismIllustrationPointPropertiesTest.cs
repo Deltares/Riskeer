@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -101,62 +102,71 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_SubMechanismIllustrationPoint_CorrectValues()
         {
+            // Setup
+            const string windDirection = "N";
+            const string closingSituation = "closing situation";
+            var illustrationPoint = new SubMechanismIllustrationPoint("Submechanism A",
+                                                                      5.4,
+                                                                      new[]
+                                                                      {
+                                                                          new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
+                                                                      },
+                                                                      new[]
+                                                                      {
+                                                                          new IllustrationPointResult("result A", 2.3)
+                                                                      });
+
             // Call
-            var subMechanismIllustrationPoint = new SubMechanismIllustrationPoint("Submechanism A",
-                                                                                  5.4,
-                                                                                  new[]
-                                                                                  {
-                                                                                      new SubMechanismIllustrationPointStochast("Test", 2.0, 4.5, 0.1)
-                                                                                  },
-                                                                                  new[]
-                                                                                  {
-                                                                                      new IllustrationPointResult("result A", 2.3)
-                                                                                  });
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(subMechanismIllustrationPoint),
-                                                                                     "N",
-                                                                                     "closing situation");
+            var properties = new SubMechanismIllustrationPointProperties(new IllustrationPointNode(illustrationPoint),
+                                                                         windDirection,
+                                                                         closingSituation);
 
             // Assert
-            Assert.AreEqual("N", subMechanismProperties.WindDirection);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            PropertyDescriptor alphasProperty = dynamicProperties[alphasPropertyIndex];
+            Assert.NotNull(alphasProperty.Attributes[typeof(KeyValueElementAttribute)]);
+
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
+            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
+
+            PropertyDescriptor realizationsProperty = dynamicProperties[realizationsPropertyIndex];
+            Assert.NotNull(realizationsProperty.Attributes[typeof(KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute)]);
+
+            PropertyDescriptor resultsProperty = dynamicProperties[resultsPropertyIndex];
+            Assert.NotNull(resultsProperty.Attributes[typeof(KeyValueAsRoundedDoubleWithoutTrailingZeroesElementAttribute)]);
+
+            Assert.AreEqual(windDirection, properties.WindDirection);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, NoValueRoundedDoubleConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Reliability));
-            Assert.AreEqual(5.4, subMechanismProperties.Reliability.Value);
-            Assert.AreEqual(5, subMechanismProperties.Reliability.NumberOfDecimalPlaces);
+            Assert.AreEqual(illustrationPoint.Beta, properties.Reliability, properties.Reliability.GetAccuracy());
+            Assert.AreEqual(5, properties.Reliability.NumberOfDecimalPlaces);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, NoProbabilityValueDoubleConverter>(
                 nameof(SubMechanismIllustrationPointProperties.CalculatedProbability));
-            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(5.4), subMechanismProperties.CalculatedProbability);
-            Assert.AreEqual("closing situation", subMechanismProperties.ClosingSituation);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(illustrationPoint.Beta), properties.CalculatedProbability);
+            Assert.AreEqual(closingSituation, properties.ClosingSituation);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.AlphaValues));
-            CollectionAssert.IsNotEmpty(subMechanismProperties.AlphaValues);
-            Assert.AreEqual(1, subMechanismProperties.AlphaValues.Length);
-            Assert.AreEqual(4.5, subMechanismProperties.AlphaValues[0].Alpha);
+            CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.AlphaValues);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Durations));
-            CollectionAssert.IsNotEmpty(subMechanismProperties.Durations);
-            Assert.AreEqual(1, subMechanismProperties.Durations.Length);
-            Assert.AreEqual(2.0, subMechanismProperties.Durations[0].Duration);
+            CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.Durations);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Realizations));
-            CollectionAssert.IsNotEmpty(subMechanismProperties.Realizations);
-            Assert.AreEqual(1, subMechanismProperties.Realizations.Length);
-            Assert.AreEqual(0.1, subMechanismProperties.Realizations[0].Realization);
+            CollectionAssert.AreEqual(illustrationPoint.Stochasts, properties.Realizations);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Results));
-            CollectionAssert.IsNotEmpty(subMechanismProperties.Results);
-            Assert.AreEqual(1, subMechanismProperties.Results.Length);
-            Assert.AreEqual(2.3, subMechanismProperties.Results[0].Value);
+            CollectionAssert.AreEqual(illustrationPoint.IllustrationPointResults, properties.Results);
 
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.IllustrationPoints));
-            CollectionAssert.IsEmpty(subMechanismProperties.IllustrationPoints);
-            Assert.AreEqual(0, subMechanismProperties.IllustrationPoints.Length);
+            CollectionAssert.IsEmpty(properties.IllustrationPoints);
         }
 
         [Test]
@@ -213,18 +223,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            PropertyDescriptor resultsProperty = dynamicProperties[resultsPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
-                                                                            illustrationPointsCategoryName,
-                                                                            "Waarden in het illustratiepunt",
-                                                                            "Waarden van variabelen in het illustratiepunt.",
-                                                                            true);
-
             PropertyDescriptor realizationsProperty = dynamicProperties[realizationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(realizationsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Realisaties in het illustratiepunt",
                                                                             "Realisaties van de stochasten in het illustratiepunt.",
+                                                                            true);
+
+            PropertyDescriptor resultsProperty = dynamicProperties[resultsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(resultsProperty,
+                                                                            illustrationPointsCategoryName,
+                                                                            "Waarden in het illustratiepunt",
+                                                                            "Waarden van variabelen in het illustratiepunt.",
                                                                             true);
         }
 
