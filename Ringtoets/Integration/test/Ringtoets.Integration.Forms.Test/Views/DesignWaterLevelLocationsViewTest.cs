@@ -326,14 +326,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return view;
         }
 
-        private DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
+        private static DesignWaterLevelLocationsView ShowFullyConfiguredDesignWaterLevelLocationsView(Form form)
         {
-            var assessmentSection = MockRepository.Stub<IAssessmentSection>();
-            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(testHydraulicBoundaryDatabase);
-
-            MockRepository.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
+            };
 
             DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(assessmentSection, form);
 

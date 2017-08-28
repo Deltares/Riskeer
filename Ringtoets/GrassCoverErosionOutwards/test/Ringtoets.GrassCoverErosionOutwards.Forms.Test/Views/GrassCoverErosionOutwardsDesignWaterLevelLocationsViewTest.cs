@@ -505,9 +505,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
         protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
         {
-            var assessmentSection = MockRepository.Stub<IAssessmentSection>();
-
-            return ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, form);
+            return ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);
         }
 
         protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)

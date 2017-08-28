@@ -318,14 +318,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return view;
         }
 
-        private WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(Form form)
+        private static WaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView(Form form)
         {
-            var assessmentSection = MockRepository.Stub<IAssessmentSection>();
-            var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(testHydraulicBoundaryDatabase);
-
-            MockRepository.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
+            };
 
             WaveHeightLocationsView view = ShowWaveHeightLocationsView(assessmentSection, form);
 
