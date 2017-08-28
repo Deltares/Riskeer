@@ -68,31 +68,31 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), testForm);
+            ShowWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), TestForm);
 
             // Assert
-            DataGridView dataGridView = GetDataGridView();
-            Assert.AreEqual(6, dataGridView.ColumnCount);
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            Assert.AreEqual(6, locationsDataGridView.ColumnCount);
 
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn) locationsDataGridView.Columns[locationCalculateColumnIndex];
             Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
 
-            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
+            var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) locationsDataGridView.Columns[includeIllustrationPointsColumnIndex];
             Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
 
-            var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
+            var locationNameColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationNameColumnIndex];
             Assert.AreEqual("Naam", locationNameColumn.HeaderText);
 
-            var locationIdColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationIdColumnIndex];
+            var locationIdColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationIdColumnIndex];
             Assert.AreEqual("ID", locationIdColumn.HeaderText);
 
-            var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
+            var locationColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
+            var locationWaveHeightColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationWaveHeightColumnIndex];
             Assert.AreEqual("Hs [m]", locationWaveHeightColumn.HeaderText);
 
-            var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
+            var button = (Button) TestForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
         }
 
@@ -100,11 +100,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void WaveHeightLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            ShowFullyConfiguredWaveHeightLocationsView(TestForm);
 
             // Assert
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
-            DataGridViewRowCollection rows = dataGridViewControl.Rows;
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             Assert.AreEqual(5, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(TestForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
             var newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
@@ -174,8 +174,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Precondition
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
-            DataGridViewRowCollection rows = dataGridViewControl.Rows;
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             Assert.AreEqual(5, rows.Count);
 
             // Call
@@ -198,12 +198,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(TestForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
 
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
-            dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(3, 0));
+            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(3, 0));
 
             // Precondition
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
@@ -232,15 +232,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights(bool isSuccessful)
         {
             // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(TestForm);
             IAssessmentSection assessmentSection = view.AssessmentSection;
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
-            DataGridViewRowCollection rows = dataGridViewControl.Rows;
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var guiService = MockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
-            var observer = mockRepository.StrictMock<IObserver>();
+            var observer = MockRepository.StrictMock<IObserver>();
             assessmentSection.HydraulicBoundaryDatabase.Attach(observer);
 
             if (isSuccessful)
@@ -251,10 +251,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; }).Return(isSuccessful);
-            mockRepository.ReplayAll();
+            MockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            var button = new ButtonTester("CalculateForSelectedButton", TestForm);
 
             // Call
             button.Click();
@@ -270,34 +270,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredWaveHeightLocationsView(testForm);
+            ShowFullyConfiguredWaveHeightLocationsView(TestForm);
 
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
-            DataGridViewRowCollection rows = dataGridViewControl.Rows;
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            var button = new ButtonTester("CalculateForSelectedButton", TestForm);
 
             // Call
             TestDelegate test = () => button.Click();
 
             // Assert
             Assert.DoesNotThrow(test);
-        }
-
-        private DataGridViewControl GetDataGridViewControl()
-        {
-            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-        }
-
-        private DataGridView GetDataGridView()
-        {
-            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-        }
-
-        private IllustrationPointsControl GetIllustrationPointsControl()
-        {
-            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").First();
         }
 
         private static IEnumerable<IllustrationPointControlItem> CreateControlItems(

@@ -35,21 +35,28 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
     public abstract class LocationsViewSynchronizationTester<T> where T : class
     {
-        protected Form testForm;
-        protected MockRepository mockRepository;
+        /// <summary>
+        /// The test form.
+        /// </summary>
+        protected Form TestForm;
+
+        /// <summary>
+        /// The mock repository.
+        /// </summary>
+        protected MockRepository MockRepository;
 
         [SetUp]
         public void Setup()
         {
-            testForm = new Form();
-            mockRepository = new MockRepository();
+            TestForm = new Form();
+            MockRepository = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
-            testForm.Dispose();
-            mockRepository.VerifyAll();
+            TestForm.Dispose();
+            MockRepository.VerifyAll();
         }
 
         /// <summary>
@@ -100,19 +107,31 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="view">The locations view involved.</param>
         protected abstract void AddLocationOutputAndNotifyObservers(LocationsView<T> view);
 
-        private DataGridView GetLocationsDataGridView()
+        /// <summary>
+        /// Gets the locations data grid view.
+        /// </summary>
+        /// <returns>The locations data grid view.</returns>
+        protected DataGridView GetLocationsDataGridView()
         {
-            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+            return ControlTestHelper.GetDataGridView(TestForm, "DataGridView");
         }
 
-        private DataGridViewControl GetLocationsDataGridViewControl()
+        /// <summary>
+        /// Gets the locations data grid view control.
+        /// </summary>
+        /// <returns>The locations data grid view control.</returns>
+        protected DataGridViewControl GetLocationsDataGridViewControl()
         {
-            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
+            return ControlTestHelper.GetDataGridViewControl(TestForm, "DataGridViewControl");
         }
 
-        private IllustrationPointsControl GetIllustrationPointsControl()
+        /// <summary>
+        /// Gets the illustration points control.
+        /// </summary>
+        /// <returns>The illustration points control.</returns>
+        protected IllustrationPointsControl GetIllustrationPointsControl()
         {
-            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
+            return ControlTestHelper.GetControls<IllustrationPointsControl>(TestForm, "IllustrationPointsControl").Single();
         }
 
         private DataGridView GetIllustrationPointsDataGridView()
@@ -126,7 +145,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutOutput_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            ShowFullyConfiguredLocationsView(testForm);
+            ShowFullyConfiguredLocationsView(TestForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
@@ -141,7 +160,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutGeneralResult_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            ShowFullyConfiguredLocationsView(testForm);
+            ShowFullyConfiguredLocationsView(TestForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
@@ -156,7 +175,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithGeneralResult_ThenGeneralResultSetOnIllustrationPointsControlData()
         {
             // Given
-            ShowFullyConfiguredLocationsView(testForm);
+            ShowFullyConfiguredLocationsView(TestForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
@@ -171,7 +190,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithFilledIllustrationPointsControl_WhenOutputCleared_ThenDataGridViewsUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection locationsDataGridViewRows = locationsDataGridView.Rows;
             locationsDataGridView.CurrentCell = locationsDataGridViewRows[4].Cells[0];
@@ -210,7 +229,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocation_ThenSelectionUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
 
@@ -227,7 +246,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithLocationSelection_WhenDatabaseReplaced_ThenSelectionUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -250,7 +269,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputCleared_ThenSelectionPreserved()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -273,7 +292,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -296,7 +315,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingIllustrationPoint_ThenSelectionUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -315,7 +334,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenDatabaseReplaced_ThenSelectionSetToLocation()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -341,7 +360,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToLocation()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -367,7 +386,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(TestForm);
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
