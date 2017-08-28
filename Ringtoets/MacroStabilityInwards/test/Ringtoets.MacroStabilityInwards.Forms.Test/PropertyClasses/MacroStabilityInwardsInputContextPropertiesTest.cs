@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
@@ -277,7 +277,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var context = new MacroStabilityInwardsInputContext(calculationItem.InputParameters,
@@ -359,7 +359,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -412,7 +412,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             MacroStabilityInwardsInput inputParameters = calculationItem.InputParameters;
@@ -465,7 +465,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             MacroStabilityInwardsSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
@@ -476,7 +476,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             MacroStabilityInwardsStochasticSoilModel newSoilModel = ValidStochasticSoilModel(0.0, 4.0);
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
@@ -487,7 +487,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             MacroStabilityInwardsStochasticSoilProfile newSoilProfile = ValidStochasticSoilModel(0.0, 4.0).StochasticSoilProfiles.First();
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
@@ -498,7 +498,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             RoundedDouble newAssessmentLevel = new Random(21).NextRoundedDouble();
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -514,7 +514,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void UseCustomAssessmentLevel_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
@@ -526,7 +526,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var newDikeSoilScenario = new Random().NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DikeSoilScenario = newDikeSoilScenario,
@@ -537,7 +537,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void SlipPlaneMinimumDepth_SetNewValue_SetsValuesAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumDepth = (RoundedDouble) 1,
@@ -548,7 +548,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void SlipPlaneMinimumLength_SetNewValue_SetsValuesAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumLength = (RoundedDouble) 1,
@@ -559,7 +559,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void MaximumSliceWidth_SetNewValue_SetsValuesAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MaximumSliceWidth = (RoundedDouble) 1,
@@ -576,7 +576,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -616,7 +616,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var testLevel = (RoundedDouble) new Random(21).NextDouble();
             HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(
                 testLevel);
@@ -653,11 +653,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var random = new Random(21);
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var inputParameters = new MacroStabilityInwardsInput
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(50)
             };
@@ -704,7 +704,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -747,7 +747,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var random = new Random(21);
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -793,7 +793,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -842,7 +842,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -886,7 +886,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var soilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new TestMacroStabilityInwardsSoilProfile1D());
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(soilProfile);
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -943,7 +943,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModel2Name");
             stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -988,7 +988,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
@@ -1012,7 +1012,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
@@ -1085,7 +1085,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }
             };
             failureMechanism.StochasticSoilModels.AddRange(soilModels, "path");
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1122,7 +1122,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
@@ -1156,7 +1156,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                     new MacroStabilityInwardsStochasticSoilProfile(1.0, new TestMacroStabilityInwardsSoilProfile1D())
                 }
             };
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1189,7 +1189,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
@@ -1227,7 +1227,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             MacroStabilityInwardsStochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             MacroStabilityInwardsStochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1278,7 +1278,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
@@ -1323,7 +1323,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1377,7 +1377,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 0);
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1434,7 +1434,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1467,7 +1467,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -1497,7 +1497,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1530,7 +1530,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),

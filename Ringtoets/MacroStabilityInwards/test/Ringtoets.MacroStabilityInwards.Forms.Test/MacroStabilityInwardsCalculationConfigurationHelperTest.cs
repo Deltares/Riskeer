@@ -313,8 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             // Call
             TestDelegate test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 null,
-                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                new GeneralMacroStabilityInwardsInput());
+                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -327,26 +326,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             // Call
             TestDelegate test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                null,
-                new GeneralMacroStabilityInwardsInput());
-
-            // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilModels", parameter);
-        }
-
-        [Test]
-        public void GenerateCalculationItemsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                 null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("generalInput", parameter);
+            Assert.AreEqual("soilModels", parameter);
         }
 
         [Test]
@@ -372,8 +356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines,
-                    Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                    new GeneralMacroStabilityInwardsInput()).ToArray();
+                    Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>()).ToArray();
             };
 
             // Assert
@@ -438,8 +421,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             // Call
             IEnumerable<ICalculationBase> result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
-                availableSoilModels,
-                new GeneralMacroStabilityInwardsInput()).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -500,8 +482,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines,
-                    availableSoilModels,
-                    new GeneralMacroStabilityInwardsInput()).ToArray();
+                    availableSoilModels).ToArray();
             };
 
             // Assert
@@ -566,8 +547,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines,
-                    availableSoilModels,
-                    new GeneralMacroStabilityInwardsInput()).ToArray();
+                    availableSoilModels).ToArray();
             };
 
             // Assert
@@ -639,8 +619,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             // Call
             IEnumerable<ICalculationBase> result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
-                availableSoilModels,
-                new GeneralMacroStabilityInwardsInput()).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -735,8 +714,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             // Call
             IEnumerable<ICalculationBase> result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
-                availableSoilModels,
-                new GeneralMacroStabilityInwardsInput()).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -848,8 +826,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines,
-                    availableSoilModels,
-                    new GeneralMacroStabilityInwardsInput()).ToArray();
+                    availableSoilModels).ToArray();
             };
 
             // Assert
@@ -923,13 +900,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 surfaceLine
             };
 
-            var generalInput = new GeneralMacroStabilityInwardsInput();
-
             // Call
             IEnumerable<ICalculationBase> result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
-                availableSoilModels,
-                generalInput).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
@@ -998,8 +972,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             // Call
             IEnumerable<ICalculationBase> result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
-                availableSoilModels,
-                new GeneralMacroStabilityInwardsInput()).ToArray();
+                availableSoilModels).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;

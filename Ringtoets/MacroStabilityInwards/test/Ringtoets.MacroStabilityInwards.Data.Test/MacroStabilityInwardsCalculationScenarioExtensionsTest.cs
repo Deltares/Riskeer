@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -175,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {

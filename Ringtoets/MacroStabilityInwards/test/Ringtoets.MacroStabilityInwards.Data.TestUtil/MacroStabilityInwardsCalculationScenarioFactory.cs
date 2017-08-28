@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             });
             surfaceLine.ReferenceLineIntersectionWorldPoint = section.Points.First();
 
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 IsRelevant = true,
                 InputParameters =
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
         public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput()
         {
-            return new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            return new MacroStabilityInwardsCalculationScenario();
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             });
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
-            return new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            return new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {

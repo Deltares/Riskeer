@@ -551,8 +551,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dialog.ShowDialog();
             IEnumerable<ICalculationBase> calculationsStructure = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 dialog.SelectedItems,
-                macroStabilityInwardsFailureMechanism.StochasticSoilModels,
-                macroStabilityInwardsFailureMechanism.GeneralInput);
+                macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             foreach (ICalculationBase item in calculationsStructure)
             {
                 calculationGroup.Children.Add(item);

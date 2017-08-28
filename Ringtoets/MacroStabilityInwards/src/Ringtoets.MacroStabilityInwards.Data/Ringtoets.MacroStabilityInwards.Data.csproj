@@ -42,7 +42,6 @@
     <Compile Include="MacroStabilityInwardsGrid.cs" />
     <Compile Include="MacroStabilityInwardsGridDetermination.cs" />
     <Compile Include="MacroStabilityInwardsDikeSoilScenario.cs" />
-    <Compile Include="GeneralMacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsCalculation.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenario.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioExtensions.cs" />

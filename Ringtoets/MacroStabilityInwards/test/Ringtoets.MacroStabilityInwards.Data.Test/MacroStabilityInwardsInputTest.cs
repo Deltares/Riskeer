@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var inputParameters = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var inputParameters = new MacroStabilityInwardsInput();
 
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);
@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double tangentLineZBottom = random.Next();
 
             // Call
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 SlipPlaneMinimumDepth = (RoundedDouble) slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = (RoundedDouble) slipPlaneMinimumLength,
@@ -216,20 +216,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_GeneralInputIsNull_ArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsInput(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
         public void AssessmentLevel_UseAssessmentLevelManualInputIsFalse_ReturnsNaN()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 UseAssessmentLevelManualInput = false,
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
@@ -255,7 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 }
             };
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation
             };
@@ -271,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputFalseAndSettingValue_ThrowsInvalidOperationException()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 UseAssessmentLevelManualInput = false
             };
@@ -290,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputTrueAndSettingValue_ReturnSetValue()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 UseAssessmentLevelManualInput = true
             };
@@ -311,7 +301,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Given
             var random = new Random(21);
             var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel)
             };
@@ -334,7 +324,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Given
             var random = new Random(21);
             var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 UseAssessmentLevelManualInput = true,
                 AssessmentLevel = testLevel

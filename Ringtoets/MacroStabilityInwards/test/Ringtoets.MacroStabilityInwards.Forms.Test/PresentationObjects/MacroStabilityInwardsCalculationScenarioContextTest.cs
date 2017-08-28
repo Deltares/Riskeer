@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new TestStochasticSoilModel()
             };
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new TestStochasticSoilModel()
             };
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call

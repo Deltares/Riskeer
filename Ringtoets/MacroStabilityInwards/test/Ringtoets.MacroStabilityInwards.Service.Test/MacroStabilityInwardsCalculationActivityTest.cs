@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
             var activity = new MacroStabilityInwardsCalculationActivity(calculation, new MacroStabilityInwardsProbabilityAssessmentInput(), int.MinValue, double.NaN);
@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ParameteredConstructor_MacroStabilityInwardsProbabilityAssessmentInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(calculation, null, int.MinValue, double.NaN);

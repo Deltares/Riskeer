@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(3, 4, 5)
             });
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario()
             {
                 InputParameters =
                 {

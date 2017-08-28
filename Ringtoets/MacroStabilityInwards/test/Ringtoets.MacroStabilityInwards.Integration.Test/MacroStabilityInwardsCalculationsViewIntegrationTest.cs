@@ -74,14 +74,14 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var calculation1 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation1 = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
                         SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
-                var calculation2 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 Assert.AreEqual(2, dataGridView.Rows.Count);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set.
-                var calculation3 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                var calculation3 = new MacroStabilityInwardsCalculationScenario();
                 nestedCalculationGroup.Children.Add(calculation3);
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual(2, dataGridView.Rows.Count);
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 Assert.AreEqual("New name", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Add another calculation and assign all soil models
-                var calculation4 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                var calculation4 = new MacroStabilityInwardsCalculationScenario();
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation4);
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
                 calculation4.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0001");

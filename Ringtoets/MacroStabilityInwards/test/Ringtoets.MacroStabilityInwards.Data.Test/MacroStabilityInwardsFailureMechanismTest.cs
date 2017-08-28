@@ -51,8 +51,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBI", failureMechanism.Code);
 
-            Assert.IsInstanceOf<GeneralMacroStabilityInwardsInput>(failureMechanism.GeneralInput);
-
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
@@ -160,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Calculations_AddCalculation_ItemIsAddedToCollection()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
@@ -174,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Calculations_RemoveCalculation_ItemIsRemovedFromCollection()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);

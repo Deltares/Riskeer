@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput()));
+                calculationGroup.Children.Add(new MacroStabilityInwardsCalculation());
             }
 
             var context = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,

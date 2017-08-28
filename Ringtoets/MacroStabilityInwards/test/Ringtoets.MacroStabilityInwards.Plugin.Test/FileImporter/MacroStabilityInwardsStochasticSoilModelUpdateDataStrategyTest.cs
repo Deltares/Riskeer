@@ -274,12 +274,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             MacroStabilityInwardsStochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles[0];
             MacroStabilityInwardsStochasticSoilModel readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
 
-            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
             calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var calculationWithDeletedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithDeletedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithDeletedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithDeletedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
             calculationWithDeletedProfile.Output = new MacroStabilityInwardsOutput();
@@ -329,12 +329,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             MacroStabilityInwardsStochasticSoilProfile changedProfile = CloneAndSlightlyModify1DProfile(readModel.StochasticSoilProfiles.ElementAt(0));
             readModel.StochasticSoilProfiles[0] = changedProfile;
 
-            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
             calculationWithUpdatedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
             calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();
@@ -391,12 +391,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             MacroStabilityInwardsStochasticSoilProfile changedProfile = CloneAndSlightlyModify2DProfile(readModel.StochasticSoilProfiles.ElementAt(1));
             readModel.StochasticSoilProfiles[1] = changedProfile;
 
-            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
             calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
             calculationWithUpdatedProfile.Output = new MacroStabilityInwardsOutput();
@@ -440,7 +440,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             var existingModel = new TestStochasticSoilModel();
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.StochasticSoilModel = existingModel;
             calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
             calculation.Output = new MacroStabilityInwardsOutput();
@@ -489,12 +489,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             MacroStabilityInwardsStochasticSoilModel readModel = new TestStochasticSoilModel(modelsName);
             readModel.StochasticSoilProfiles.RemoveAt(0);
 
-            var calculationWithRemovedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithRemovedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithRemovedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithRemovedProfile.InputParameters.StochasticSoilProfile = removedProfile;
             calculationWithRemovedProfile.Output = new MacroStabilityInwardsOutput();
 
-            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationWithNotUpdatedProfile = new MacroStabilityInwardsCalculationScenario();
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = unaffectedProfile;
             calculationWithNotUpdatedProfile.Output = new MacroStabilityInwardsOutput();

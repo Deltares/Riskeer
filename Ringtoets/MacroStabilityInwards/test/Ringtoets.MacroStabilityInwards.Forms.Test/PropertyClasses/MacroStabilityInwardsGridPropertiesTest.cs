@@ -192,7 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnGrid()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsInput input = calculationItem.InputParameters;
             MacroStabilityInwardsGrid grid = input.LeftGrid;
 
@@ -228,7 +228,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void XLeft_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.XLeft = (RoundedDouble) 1, calculation);
@@ -238,7 +238,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void XRight_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.XRight = (RoundedDouble) 1, calculation);
@@ -248,7 +248,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void ZTop_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.ZTop = (RoundedDouble) 1, calculation);
@@ -258,7 +258,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void ZBottom_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.ZBottom = (RoundedDouble) 1, calculation);
@@ -268,7 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void NumberOfHorizontalPoints_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.NumberOfHorizontalPoints = 1, calculation);
@@ -278,7 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void NumberOfVerticalPoints_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.NumberOfVerticalPoints = 1, calculation);

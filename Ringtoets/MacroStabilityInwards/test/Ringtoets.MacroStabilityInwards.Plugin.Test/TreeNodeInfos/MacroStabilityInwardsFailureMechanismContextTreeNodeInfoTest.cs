@@ -127,10 +127,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var generalInputParameters = new GeneralMacroStabilityInwardsInput();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(generalInputParameters));
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(generalInputParameters));
+            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
+            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -192,13 +191,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var generalInputParameters = new GeneralMacroStabilityInwardsInput();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = false
             };
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(generalInputParameters));
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(generalInputParameters));
+            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
+            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -219,13 +217,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var generalInputParameters = new GeneralMacroStabilityInwardsInput();
-                var calculation1 = new MacroStabilityInwardsCalculationScenario(generalInputParameters)
+                var calculation1 = new MacroStabilityInwardsCalculationScenario()
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
                     SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
                 };
-                var calculation2 = new MacroStabilityInwardsCalculationScenario(generalInputParameters)
+                var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
                     SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -297,7 +294,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-            var calculation = new MacroStabilityInwardsCalculationScenario(failureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -432,7 +429,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
                     SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()

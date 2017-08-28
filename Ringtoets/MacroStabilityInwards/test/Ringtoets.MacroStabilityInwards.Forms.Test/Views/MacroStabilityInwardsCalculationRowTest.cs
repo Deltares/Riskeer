@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculationRow(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()), null);
+            TestDelegate test = () => new MacroStabilityInwardsCalculationRow(new MacroStabilityInwardsCalculationScenario(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var newModel = new MacroStabilityInwardsStochasticSoilModel("test");
             var newValue = new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(newModel);
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var newProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new TestMacroStabilityInwardsSoilProfile1D());
             var newValue = new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(newProfile);
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
@@ -216,7 +216,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);

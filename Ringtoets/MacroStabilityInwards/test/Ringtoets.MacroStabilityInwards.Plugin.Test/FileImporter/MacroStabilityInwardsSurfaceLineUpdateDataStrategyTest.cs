@@ -350,7 +350,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -398,7 +398,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var affectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -415,7 +415,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var unAffectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -482,7 +482,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var affectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -499,7 +499,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var unAffectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -553,7 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -670,7 +670,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -733,7 +733,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -786,7 +786,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
 
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -836,7 +836,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var affectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -851,7 +851,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var unAffectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {
@@ -942,7 +942,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var affectedCalculation = new MacroStabilityInwardsCalculation
             {
                 InputParameters =
                 {

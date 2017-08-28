@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var calculation1 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation1 = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                             sl => sl.Name == "PK001_0001")
                     }
                 };
-                var calculation2 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set
-                var calculation3 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                var calculation3 = new MacroStabilityInwardsCalculationScenario();
                 nestedCalculationGroup.Children.Add(calculation3);
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / calculation1.Probability),

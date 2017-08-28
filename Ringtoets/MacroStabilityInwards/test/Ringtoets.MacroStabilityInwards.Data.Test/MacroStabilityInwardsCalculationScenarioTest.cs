@@ -34,11 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var generalInputParameters = new GeneralMacroStabilityInwardsInput();
-
             // Call
-            var scenario = new MacroStabilityInwardsCalculationScenario(generalInputParameters);
+            var scenario = new MacroStabilityInwardsCalculationScenario();
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsCalculation>(scenario);
@@ -54,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void IsRelevant_Always_ReturnsSetValue(bool isRelevant)
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var scenario = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             scenario.IsRelevant = isRelevant;
@@ -69,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Contribution_Always_ReturnsSetValue(double newValue)
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var scenario = new MacroStabilityInwardsCalculationScenario();
             var roundedDouble = (RoundedDouble) newValue;
 
             // Call
@@ -85,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             const double expectedProbability = 1.0 / 49862180;
 
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput(expectedProbability)
@@ -102,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Probability_ScenarioStatusNotDone_ThrowsInvalidOperationException()
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var scenario = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             TestDelegate call = () =>
@@ -118,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void CalculationScenarioStatus_OutputNull_ReturnsStatusNotCalculated()
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var scenario = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             CalculationScenarioStatus status = scenario.Status;
@@ -131,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void CalculationScenarioStatus_SemiProbabilisticOutputNull_ReturnsStatusFailed()
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = null
@@ -148,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void CalculationScenarioStatus_ScenarioInvalid_ReturnsStatusFailed()
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput(double.NaN)
@@ -167,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             const double expectedProbability = 1.0 / 49862180;
 
-            var scenario = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput(expectedProbability)

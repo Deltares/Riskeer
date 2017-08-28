@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
             var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationWithOutput = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationWithOutput = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput()
             };

@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     }
                 }));
 
-            return new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            return new MacroStabilityInwardsInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             }));
 
-            return new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            return new MacroStabilityInwardsInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile
@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             }));
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile
@@ -189,7 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             }));
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile

@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
         private static MacroStabilityInwardsCalculation AsMacroStabilityInwardsCalculation(MacroStabilityInwardsOutput macroStabilityInwardsOutput)
         {
-            return new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            return new MacroStabilityInwardsCalculation
             {
                 Output = macroStabilityInwardsOutput
             };

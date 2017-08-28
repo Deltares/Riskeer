@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
+            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(new MacroStabilityInwardsInput(),
                                                                                        null);
 
             // Assert
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
@@ -237,7 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
@@ -264,7 +264,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsInput input = calculationItem.InputParameters;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
@@ -328,7 +328,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void WaterLevelRiverAverage_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelRiverAverage = (RoundedDouble) 1, calculation);
@@ -338,7 +338,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void WaterLevelPolder_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelPolder = (RoundedDouble) 1, calculation);
@@ -348,7 +348,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void MinimumLevelPhreaticLineAtDikeTopRiver_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 1, calculation);
@@ -358,7 +358,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void MinimumLevelPhreaticLineAtDikeTopPolder_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 1, calculation);
@@ -368,7 +368,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void AdjustPhreaticLine3And4ForUplift_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.AdjustPhreaticLine3And4ForUplift = true, calculation);
@@ -378,7 +378,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void LeakageLengthOutwardsPhreaticLine3_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 1, calculation);
@@ -388,7 +388,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void LeakageLengthInwardsPhreaticLine3_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) 1, calculation);
@@ -398,7 +398,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void LeakageLengthOutwardsPhreaticLine4_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 1, calculation);
@@ -408,7 +408,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void LeakageLengthInwardsPhreaticLine4_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 1, calculation);
@@ -418,7 +418,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PiezometricHeadPhreaticLine2Outwards_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 1, calculation);
@@ -428,7 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PiezometricHeadPhreaticLine2Inwards_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 1, calculation);
@@ -438,7 +438,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PenetrationLength_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PenetrationLength = (RoundedDouble) 1, calculation);
@@ -452,7 +452,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
             var properties = new MacroStabilityInwardsWaterStressesProperties(input, changeHandler);
 
             // Call

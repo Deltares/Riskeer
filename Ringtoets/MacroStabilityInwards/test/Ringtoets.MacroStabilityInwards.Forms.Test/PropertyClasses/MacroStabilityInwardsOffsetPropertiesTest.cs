@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
 
             // Call
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOffsetProperties(new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput()),
+            TestDelegate call = () => new MacroStabilityInwardsOffsetProperties(new MacroStabilityInwardsInput(),
                                                                                 null);
 
             // Assert
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 UseDefaultOffset = useDefaultOffset
             };
@@ -168,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
 
             // Call
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
         {
             // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculationItem = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsInput input = calculationItem.InputParameters;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
@@ -222,7 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void UseDefaultOffset_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseDefaultOffset = true, calculation);
@@ -232,7 +232,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PhreaticLineOffsetBelowDikeTopAtRiver_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) 1, calculation);
@@ -242,7 +242,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PhreaticLineOffsetBelowDikeTopAtPolder_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) 1, calculation);
@@ -252,7 +252,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PhreaticLineOffsetBelowShoulderBaseInside_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) 1, calculation);
@@ -262,7 +262,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void PhreaticLineOffsetBelowDikeToeAtPolder_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) 1, calculation);
@@ -278,7 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            var input = new MacroStabilityInwardsInput
             {
                 UseDefaultOffset = useDefaultOffset
             };
@@ -300,7 +300,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput();
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
 
             // Call

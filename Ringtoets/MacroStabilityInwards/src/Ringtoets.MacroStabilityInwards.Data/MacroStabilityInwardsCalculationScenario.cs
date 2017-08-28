@@ -35,11 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationScenario"/> with default values set for some of the parameters.
         /// </summary>
-        /// <param name="generalInputParameters">General macro stability inwards calculation parameters that
-        /// are the same across all macro stability inwards calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationScenario(GeneralMacroStabilityInwardsInput generalInputParameters)
-            : base(generalInputParameters)
+        public MacroStabilityInwardsCalculationScenario()
         {
             IsRelevant = true;
             contribution = new RoundedDouble(2, 1.0);

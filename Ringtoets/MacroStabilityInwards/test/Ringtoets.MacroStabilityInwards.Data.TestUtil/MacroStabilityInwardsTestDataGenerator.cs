@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new Point3D(0, 10, 0)
             });
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = "PK001_0001 W1-6_0_1D1",
                 InputParameters =
@@ -271,8 +271,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 stochasticSoilModel2
             }, "some/path/to/stochasticsoilmodels");
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
-            var calculationWithOutput = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var calculationWithOutput = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -283,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
             };
-            var calculationWithSurfaceLineAndSoilModel = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationWithSurfaceLineAndSoilModel = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -293,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles[0]
                 }
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -304,14 +304,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
             };
-            var calculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var calculationWithSurfaceLineAndStochasticSoilModel = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculationWithSurfaceLineAndStochasticSoilModel = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -321,8 +321,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             };
 
-            var subCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
-            var subCalculationWithOutput = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var subCalculation = new MacroStabilityInwardsCalculationScenario();
+            var subCalculationWithOutput = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
             };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -346,14 +346,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
             };
-            var subCalculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var subCalculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var subCalculationWithSurfaceLineAndStochasticSoilModel = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var subCalculationWithSurfaceLineAndStochasticSoilModel = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {

@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Name = name
             };

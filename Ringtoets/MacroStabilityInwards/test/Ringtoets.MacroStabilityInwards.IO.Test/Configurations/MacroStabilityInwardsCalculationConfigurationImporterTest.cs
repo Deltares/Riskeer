@@ -323,7 +323,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var expectedCalculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = "Calculation",
                 Contribution = (RoundedDouble) 0.088
@@ -354,7 +354,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var expectedCalculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = "Calculation",
                 IsRelevant = false
@@ -418,7 +418,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var expectedCalculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = "Calculation",
                 InputParameters =

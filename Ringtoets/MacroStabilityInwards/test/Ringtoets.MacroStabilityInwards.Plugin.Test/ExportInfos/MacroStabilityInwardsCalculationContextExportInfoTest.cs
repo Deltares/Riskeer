@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()),
+            var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
                                                                               new CalculationGroup(),
                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput()),
+            var context = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
                                                                               new CalculationGroup(),
                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),

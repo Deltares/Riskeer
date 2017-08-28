@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var surfaceLines = new[]
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationInput = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var calculationInput = new MacroStabilityInwardsInput();
             var surfaceLines = new[]
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)

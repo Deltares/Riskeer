@@ -35,7 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsInput : Observable, ICalculationInput
     {
-        private readonly GeneralMacroStabilityInwardsInput generalInputParameters;
         private RoundedDouble assessmentLevel;
         private bool useAssessmentLevelManualInput;
         private RoundedDouble slipPlaneMinimumDepth;
@@ -64,19 +63,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
         /// </summary>
-        /// <param name="generalInputParameters">General macro stability inwards calculation parameters that
-        /// are the same across all macro stability inwards calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
-        /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsInput(GeneralMacroStabilityInwardsInput generalInputParameters)
+        public MacroStabilityInwardsInput()
         {
-            if (generalInputParameters == null)
-            {
-                throw new ArgumentNullException(nameof(generalInputParameters));
-            }
-
-            this.generalInputParameters = generalInputParameters;
-
             assessmentLevel = new RoundedDouble(2, double.NaN);
             useAssessmentLevelManualInput = false;
 

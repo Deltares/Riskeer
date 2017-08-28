@@ -43,11 +43,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
-            // Setup
-            var generalInputParameters = new GeneralMacroStabilityInwardsInput();
-
             // Call
-            var calculation = new MacroStabilityInwardsCalculation(generalInputParameters);
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
@@ -63,16 +60,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_GeneralInputIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculation(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
         public void Notify_SingleListenerAttached_ListenerIsNotified()
         {
             // Setup
@@ -81,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             calculation.Attach(observer);
 
@@ -98,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mockRepository.ReplayAll();
 
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             calculation.Attach(observer);
             calculation.Detach(observer);
@@ -120,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             calculation.Attach(observerA);
             calculation.Attach(observerB);
@@ -142,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             calculation.Attach(observerA);
             calculation.Attach(observerB);
@@ -158,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var observer = mockRepository.StrictMock<IObserver>();
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Call & Assert
             calculation.Detach(observer);
@@ -168,7 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void ClearOutput_Always_SetsOutputAndSemiProbabilisticOutputToNull()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -186,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void HasOutput_OutputAndSemiProbabilisticOutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = null,
                 SemiProbabilisticOutput = null
@@ -203,7 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = new TestMacroStabilityInwardsOutput()
             };
@@ -219,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void HasOutput_SemiProbabilisticOutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
             };

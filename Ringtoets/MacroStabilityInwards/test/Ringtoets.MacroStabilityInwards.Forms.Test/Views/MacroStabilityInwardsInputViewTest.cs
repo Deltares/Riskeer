@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
             {
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                var calculation = new MacroStabilityInwardsCalculationScenario();
 
                 // Call
                 view.Data = calculation;
@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView
             {
-                Data = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                Data = new MacroStabilityInwardsCalculationScenario()
             })
             {
                 // Precondition
@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Data_SetToNull_TableDataCleared()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -207,7 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
                 MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -235,7 +235,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
             {
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                var calculation = new MacroStabilityInwardsCalculationScenario();
 
                 // Call
                 view.Data = calculation;
@@ -252,7 +252,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var view = new MacroStabilityInwardsInputView())
             {
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -281,7 +281,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var view = new MacroStabilityInwardsInputView())
             {
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -309,7 +309,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
             {
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                var calculation = new MacroStabilityInwardsCalculationScenario();
 
                 // Call
                 view.Data = calculation;
@@ -328,7 +328,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     Name = initialName
                 };
@@ -357,7 +357,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     Name = initialName
                 };
@@ -367,7 +367,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                var calculation2 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
                     Name = initialName
                 };
@@ -397,7 +397,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -449,7 +449,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new MacroStabilityInwardsSoilLayer1D(3)
                 }));
 
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -495,7 +495,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedDikeToeAtRiverIndex = dikeToeAtRiverIndex - 1;
             const int updatedSurfaceLevelOutsideIndex = surfaceLevelOutsideIndex - 1;
 
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView
             {
@@ -595,7 +595,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsInputView())
             {
-                var calculation1 = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation1 = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -611,7 +611,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     chartData.Attach(observer);
                 }
 
-                view.Data = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());
+                view.Data = new MacroStabilityInwardsCalculationScenario();
 
                 MacroStabilityInwardsSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
 
@@ -634,7 +634,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile();
-                var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {

@@ -908,7 +908,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         private static void AddCalculationScenario(MacroStabilityInwardsCalculationGroupContext nodeData)
         {
-            var calculation = new MacroStabilityInwardsCalculationScenario(nodeData.FailureMechanism.GeneralInput)
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
@@ -944,14 +944,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             using (var view = new MacroStabilityInwardsSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailableMacroStabilityInwardsSurfaceLines))
             {
                 view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
+                GenerateCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels);
             }
             nodeData.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels, GeneralMacroStabilityInwardsInput generalInput)
+        private static void GenerateCalculations(CalculationGroup target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels)
         {
-            foreach (ICalculationBase group in MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
+            foreach (ICalculationBase group in MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels))
             {
                 target.Children.Add(group);
             }

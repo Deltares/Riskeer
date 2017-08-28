@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(MacroStabilityInwardsCalculationConfiguration calculationConfiguration)
         {
-            var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = calculationConfiguration.Name
             };

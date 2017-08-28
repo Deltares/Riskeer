@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCaculations()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation(new GeneralMacroStabilityInwardsInput())
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = null,
                 SemiProbabilisticOutput = null

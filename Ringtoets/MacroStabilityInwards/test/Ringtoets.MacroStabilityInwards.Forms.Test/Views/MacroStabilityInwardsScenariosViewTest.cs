@@ -338,7 +338,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 Children =
                 {
-                    new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                    new MacroStabilityInwardsCalculationScenario
                     {
                         Name = "Calculation 1",
                         InputParameters =
@@ -346,7 +346,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                             SurfaceLine = surfaceLine1
                         }
                     },
-                    new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
+                    new MacroStabilityInwardsCalculationScenario
                     {
                         Name = "Calculation 2",
                         InputParameters =
