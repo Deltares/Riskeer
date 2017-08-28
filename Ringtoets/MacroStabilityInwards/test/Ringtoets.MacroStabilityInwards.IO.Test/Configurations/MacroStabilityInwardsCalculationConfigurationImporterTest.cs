@@ -383,7 +383,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new MacroStabilityInwardsSoilProfile1D("Ondergrondschematisatie", 0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(0)
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
 
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);

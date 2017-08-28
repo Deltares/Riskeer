@@ -41,25 +41,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         /// <param name="name">The name of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
-        /// <param name="sourceProfileType">The type of soil profile used as data source
-        /// to build this instance.</param>
-        /// <param name="soilProfileId">Identifier of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfile2D(string name, IEnumerable<MacroStabilityInwardsSoilLayer2D> layers,
-                                                  SoilProfileType sourceProfileType, long soilProfileId)
+        public MacroStabilityInwardsSoilProfile2D(string name, IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
         {
             Name = name;
             Layers = layers;
-            SoilProfileType = sourceProfileType;
-            MacroStabilityInwardsSoilProfileId = soilProfileId;
         }
-
-        /// <summary>
-        /// Gets the database identifier of the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
-        /// </summary>
-        public long MacroStabilityInwardsSoilProfileId { get; }
 
         /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsSoilLayer2D"/> for 
@@ -79,11 +68,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 layers = value.ToArray();
             }
         }
-
-        /// <summary>
-        /// Gets the type of soil profile used as data source to build this instance.
-        /// </summary>
-        public SoilProfileType SoilProfileType { get; }
 
         /// <summary>
         /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
@@ -134,7 +118,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
                 }
                 hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (int) SoilProfileType;
                 return hashCode;
             }
         }
@@ -142,8 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private bool Equals(MacroStabilityInwardsSoilProfile2D other)
         {
             return layers.SequenceEqual(other.layers)
-                   && string.Equals(Name, other.Name)
-                   && SoilProfileType == other.SoilProfileType;
+                   && string.Equals(Name, other.Name);
         }
 
         /// <summary>

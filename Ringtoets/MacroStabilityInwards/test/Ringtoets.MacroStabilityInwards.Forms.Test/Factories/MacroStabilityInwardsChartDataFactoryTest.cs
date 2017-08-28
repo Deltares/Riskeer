@@ -156,7 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 }
             });
 
-            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers);
 
             // Call
             ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
@@ -216,7 +216,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                                                                      new[]
                                                                      {
                                                                          new MacroStabilityInwardsSoilLayer1D(3.2)
-                                                                     }, SoilProfileType.SoilProfile1D, 0);
+                                                                     });
 
             // Call
             MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(chartData, soilProfile);
@@ -236,7 +236,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new MacroStabilityInwardsSoilLayer1D(0),
                 new MacroStabilityInwardsSoilLayer1D(1)
             };
-            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers);
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);

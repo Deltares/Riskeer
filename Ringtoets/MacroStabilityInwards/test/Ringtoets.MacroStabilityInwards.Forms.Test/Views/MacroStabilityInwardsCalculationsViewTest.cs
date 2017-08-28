@@ -1414,7 +1414,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
 
             var stochasticSoilModelA = new MacroStabilityInwardsStochasticSoilModel("Model A")
             {
@@ -1431,7 +1431,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                         new MacroStabilityInwardsSoilLayer1D(-4.0),
                         new MacroStabilityInwardsSoilLayer1D(0.0),
                         new MacroStabilityInwardsSoilLayer1D(4.0)
-                    }, SoilProfileType.SoilProfile1D, 2))
+                    }))
 
                 }
             };
@@ -1441,7 +1441,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
 
             var stochasticSoilModelE = new MacroStabilityInwardsStochasticSoilModel("Model E")
             {
@@ -1473,13 +1473,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                             new MacroStabilityInwardsSoilLayer1D(-5.0),
                             new MacroStabilityInwardsSoilLayer1D(-2.0),
                             new MacroStabilityInwardsSoilLayer1D(1.0)
-                        }, SoilProfileType.SoilProfile1D, 1)),
+                        })),
                         new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 4", -8.0, new[]
                         {
                             new MacroStabilityInwardsSoilLayer1D(-4.0),
                             new MacroStabilityInwardsSoilLayer1D(0.0),
                             new MacroStabilityInwardsSoilLayer1D(4.0)
-                        }, SoilProfileType.SoilProfile1D, 2))
+                        }))
                     }
                 },
                 stochasticSoilModelE

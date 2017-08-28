@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(2)
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -219,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -254,7 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -289,7 +289,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA),
                 new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB)
             };
-            var profile = new MacroStabilityInwardsSoilProfile2D("name", layers, SoilProfileType.SoilProfile2D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile2D("name", layers);
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(profile);

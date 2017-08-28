@@ -36,14 +36,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StochasticSoilProfileTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilProfile));
         }
@@ -52,15 +50,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -87,13 +81,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string testName = "ttt";
-            var soilLayer = mocks.StrictMock<MacroStabilityInwardsSoilLayer1D>(10);
-            var soilProfile = mocks.StrictMock<MacroStabilityInwardsSoilProfile1D>(testName, 0, new[]
-            {
-                soilLayer
-            }, SoilProfileType.SoilProfile2D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, soilProfile);
-            mocks.ReplayAll();
+
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
+                0.1,
+                new MacroStabilityInwardsSoilProfile1D(testName, 0, new[]
+                {
+                    new MacroStabilityInwardsSoilLayer1D(10)
+                }));
 
             // Call
             string text = info.Text(stochasticSoilProfile);
@@ -106,13 +100,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var soilLayer = mocks.StrictMock<MacroStabilityInwardsSoilLayer1D>(10);
-            var soilProfile = mocks.StrictMock<MacroStabilityInwardsSoilProfile1D>("", 0, new[]
-            {
-                soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, soilProfile);
-            mocks.ReplayAll();
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
+                0.1,
+                new MacroStabilityInwardsSoilProfile1D("", 0, new[]
+                {
+                    new MacroStabilityInwardsSoilLayer1D(10)
+                }));
 
             // Call
             Image image = info.Image(stochasticSoilProfile);
@@ -125,6 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -142,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }

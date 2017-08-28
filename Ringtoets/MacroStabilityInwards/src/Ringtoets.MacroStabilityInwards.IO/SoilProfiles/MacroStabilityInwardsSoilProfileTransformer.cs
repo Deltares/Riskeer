@@ -81,9 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return new MacroStabilityInwardsSoilProfile1D(soilProfile.Name,
                                                           soilProfile.Bottom,
                                                           soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform),
-                                                          SoilProfileType.SoilProfile1D,
-                                                          soilProfile.Id);
+                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform));
         }
 
         /// <summary>
@@ -98,9 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         {
             return new MacroStabilityInwardsSoilProfile2D(soilProfile.Name,
                                                           soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform),
-                                                          SoilProfileType.SoilProfile2D,
-                                                          soilProfile.Id);
+                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform));
         }
     }
 }

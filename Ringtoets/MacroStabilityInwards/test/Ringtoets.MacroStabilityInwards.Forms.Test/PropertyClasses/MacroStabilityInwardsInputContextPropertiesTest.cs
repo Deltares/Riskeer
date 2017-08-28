@@ -353,7 +353,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                         IsAquifer = true
                     }
                 }
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 

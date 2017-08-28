@@ -105,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(4)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
             AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
         }
 
@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                         new Point2D(1.0, 1.0)
                     }),
                 })
-            }, SoilProfileType.SoilProfile2D, 1));
+            }));
             AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
         }
 

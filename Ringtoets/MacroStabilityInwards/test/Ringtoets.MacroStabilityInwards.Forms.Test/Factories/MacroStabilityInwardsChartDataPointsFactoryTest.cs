@@ -569,7 +569,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(3.2)
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
@@ -601,7 +601,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, null);
@@ -625,7 +625,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -655,7 +655,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine);
@@ -681,7 +681,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -719,7 +719,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -755,7 +755,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -790,7 +790,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
@@ -825,7 +825,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
             {
                 soilLayer
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();

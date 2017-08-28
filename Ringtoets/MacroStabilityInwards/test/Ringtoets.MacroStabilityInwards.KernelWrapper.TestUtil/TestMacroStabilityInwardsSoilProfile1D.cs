@@ -79,6 +79,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
                     IsAquifer = true
                 }
             }
-        }, soilProfileType, 0) {}
+        }) {}
     }
 }

@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                             IsAquifer = true
                         }
                     }
-                }, SoilProfileType.SoilProfile1D, 0));
+                }));
 
             return new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
             {
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                         IsAquifer = true
                     }
                 }
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
 
             return new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
             {
@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                         IsAquifer = false
                     }
                 }
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
 
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
             {
@@ -187,7 +187,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                         IsAquifer = true
                     }
                 }
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
 
             var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
             {

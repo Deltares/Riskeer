@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                         IsAquifer = true
                     }
                 }
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);

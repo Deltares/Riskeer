@@ -543,9 +543,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                    new[]
                                                                    {
                                                                        new MacroStabilityInwardsSoilLayer1D(0.0)
-                                                                   },
-                                                                   SoilProfileType.SoilProfile1D,
-                                                                   0)),
+                                                                   })),
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D(
                                                                    "B",
                                                                    new[]
@@ -555,9 +553,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                            new Point2D(3, 2),
                                                                            new Point2D(4, 5)
                                                                        }), Enumerable.Empty<Ring>())
-                                                                   },
-                                                                   SoilProfileType.SoilProfile2D,
-                                                                   0))
+                                                                   }))
             });
             return model;
         }
@@ -586,9 +582,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                       soilProfile.Name,
                                                                       soilProfile.Layers.Select(s => new MacroStabilityInwardsSoilLayer2D(
                                                                                                     new Ring(s.OuterRing.Points.Select(p => new Point2D(p.Y - 1, p.Y))),
-                                                                                                    s.Holes)),
-                                                                      soilProfile.SoilProfileType,
-                                                                      soilProfile.MacroStabilityInwardsSoilProfileId));
+                                                                                                    s.Holes))));
         }
 
         private static MacroStabilityInwardsStochasticSoilProfile CloneAndSlightlyModify1DProfile(MacroStabilityInwardsStochasticSoilProfile profile)
@@ -597,9 +591,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             return new MacroStabilityInwardsStochasticSoilProfile(profile.Probability, new MacroStabilityInwardsSoilProfile1D(
                                                                       soilProfile.Name,
                                                                       soilProfile.Bottom - 0.2,
-                                                                      soilProfile.Layers,
-                                                                      soilProfile.SoilProfileType,
-                                                                      soilProfile.MacroStabilityInwardsSoilProfileId));
+                                                                      soilProfile.Layers));
         }
     }
 }

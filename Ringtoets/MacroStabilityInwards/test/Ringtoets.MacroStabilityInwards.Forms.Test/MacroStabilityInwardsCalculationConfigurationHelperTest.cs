@@ -43,17 +43,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         {
             // Setup
             var soilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(0.3, new MacroStabilityInwardsSoilProfile1D("Profile 1", -10.0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer1D(-5.0),
-                    new MacroStabilityInwardsSoilLayer1D(-2.0),
-                    new MacroStabilityInwardsSoilLayer1D(1.0)
-                }, SoilProfileType.SoilProfile1D, 1));
+            {
+                new MacroStabilityInwardsSoilLayer1D(-5.0),
+                new MacroStabilityInwardsSoilLayer1D(-2.0),
+                new MacroStabilityInwardsSoilLayer1D(1.0)
+            }));
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2));
+            }));
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
@@ -101,13 +101,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
+            });
             var soilProfile2 = new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+            });
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
@@ -197,13 +197,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
+            });
             var soilProfile2 = new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+            });
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
@@ -245,13 +245,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2));
+            }));
 
             const double y = 1.1;
             var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A");
@@ -398,13 +398,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2));
+            }));
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
@@ -521,13 +521,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
+            });
             var soilProfile2 = new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+            });
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
@@ -587,13 +587,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2));
+            }));
 
             const double y = 1.1;
             var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A");
@@ -674,13 +674,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2));
+            }));
 
             const double y = 1.1;
             var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A");
@@ -783,13 +783,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2));
+            }));
 
             const double y = 1.1;
             var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A");
@@ -886,13 +886,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
+            });
             var soilProfile2 = new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+            });
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]
@@ -950,19 +950,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
+            });
             var soilProfile2 = new MacroStabilityInwardsSoilProfile1D("Profile 1", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+            });
             var soilProfile3 = new MacroStabilityInwardsSoilProfile1D("Profile 1", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+            });
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
             soilModel.Geometry.AddRange(new[]

@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 },
                 new MacroStabilityInwardsSoilLayer1D(2),
                 new MacroStabilityInwardsSoilLayer1D(-1)
-            }, SoilProfileType.SoilProfile1D, 1234L);
+            });
         }
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()

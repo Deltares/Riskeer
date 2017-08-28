@@ -32,8 +32,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
     [TestFixture]
     public class MacroStabilityInwardsSoilProfile1DTest
     {
-        private static readonly Random profileIdRandom = new Random(32);
-
         [Test]
         [TestCase(SoilProfileType.SoilProfile1D)]
         [TestCase(SoilProfileType.SoilProfile2D)]
@@ -47,25 +45,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             {
                 new MacroStabilityInwardsSoilLayer1D(bottom)
             };
-            const long soilProfileId = 1234L;
 
             // Call
-            var profile = new MacroStabilityInwardsSoilProfile1D(name, bottom, layers, type, soilProfileId);
+            var profile = new MacroStabilityInwardsSoilProfile1D(name, bottom, layers);
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSoilProfile>(profile);
             Assert.AreNotSame(layers, profile.Layers);
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);
-            Assert.AreEqual(type, profile.SoilProfileType);
-            Assert.AreEqual(soilProfileId, profile.MacroStabilityInwardsSoilProfileId);
         }
 
         [Test]
         public void Constructor_LayersEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>(), SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>());
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
@@ -76,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null, new Collection<MacroStabilityInwardsSoilLayer2D>(), SoilProfileType.SoilProfile2D, 0);
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null, new Collection<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -86,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, null);
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
@@ -114,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 });
             }
 
-            var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, equivalentLayers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, equivalentLayers);
 
             // Call
             MacroStabilityInwardsSoilLayer1D[] result = profile.Layers.ToArray();
@@ -138,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, soilLayers, SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, soilLayers);
 
             // Assert
             const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
@@ -156,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(1.1)
             };
-            var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, soilLayers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, soilLayers);
 
             // Call
             double thickness = profile.GetLayerThickness(soilLayers[layerIndex]);
@@ -174,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(1.1)
             };
-            var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, soilLayers, SoilProfileType.SoilProfile1D, 0);
+            var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, soilLayers);
 
             // Call
             TestDelegate test = () => profile.GetLayerThickness(new MacroStabilityInwardsSoilLayer1D(1.1));
@@ -193,7 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var profile = new MacroStabilityInwardsSoilProfile1D(name, 0.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(0.0)
-            }, SoilProfileType.SoilProfile1D, 0);
+            });
 
             // Call
             string text = profile.ToString();
@@ -239,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var profile = new MacroStabilityInwardsSoilProfile1D("name", 0, new[]
             {
                 CreateRandomLayer(new Random(21))
-            }, SoilProfileType.SoilProfile1D, -1);
+            });
 
             // Call
             bool areEqual = profile.Equals(null);
@@ -266,9 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             public TestProfile(MacroStabilityInwardsSoilProfile1D profile)
                 : base(profile.Name,
                        profile.Bottom,
-                       profile.Layers,
-                       profile.SoilProfileType,
-                       profile.MacroStabilityInwardsSoilProfileId) {}
+                       profile.Layers) {}
         }
 
         private static TestCaseData[] ProfileCombinations()
@@ -277,34 +270,28 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             MacroStabilityInwardsSoilProfile1D profileB = CreateRandomProfile(21);
             MacroStabilityInwardsSoilProfile1D profileC = CreateRandomProfile(73);
 
-            MacroStabilityInwardsSoilProfile1D profileD = CreateSingleLayerProfile("A", -3, SoilProfileType.SoilProfile1D);
-            MacroStabilityInwardsSoilProfile1D profileE = CreateSingleLayerProfile("A", -3, SoilProfileType.SoilProfile2D);
-            MacroStabilityInwardsSoilProfile1D profileF = CreateSingleLayerProfile("A", -2, SoilProfileType.SoilProfile1D);
-            MacroStabilityInwardsSoilProfile1D profileG = CreateSingleLayerProfile("B", -3, SoilProfileType.SoilProfile1D);
+            MacroStabilityInwardsSoilProfile1D profileD = CreateSingleLayerProfile("A", -3);
+            MacroStabilityInwardsSoilProfile1D profileE = CreateSingleLayerProfile("A", -2);
+            MacroStabilityInwardsSoilProfile1D profileF = CreateSingleLayerProfile("B", -3);
 
             const int seed = 78;
             var random = new Random(seed);
-            var profileH = new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -random.NextDouble(), new[]
+            var profileG = new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -random.NextDouble(), new[]
             {
                 CreateRandomLayer(random)
-            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            });
 
             random = new Random(seed);
-            var profileI = new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -random.NextDouble(), new[]
+            var profileH = new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -random.NextDouble(), new[]
             {
                 CreateRandomLayer(random),
                 CreateRandomLayer(random)
-            }, random.NextEnumValue<SoilProfileType>(), random.Next());
+            });
 
-            var profileJ = new MacroStabilityInwardsSoilProfile1D("A", -3, new[]
+            var profileI = new MacroStabilityInwardsSoilProfile1D("A", -3, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-2)
-            }, SoilProfileType.SoilProfile1D, 35);
-            var profileK = new MacroStabilityInwardsSoilProfile1D("A", -3, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(-2)
-            }, SoilProfileType.SoilProfile1D, 56);
-
+            });
             return new[]
             {
                 new TestCaseData(profileA, profileB, true)
@@ -330,20 +317,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new TestCaseData(profileH, profileI, false)
                 {
                     TestName = "Equals_ProfileHProfileI_False"
-                },
-                new TestCaseData(profileJ, profileK, true)
-                {
-                    TestName = "Equals_DifferentIds_True"
                 }
             };
         }
 
-        private static MacroStabilityInwardsSoilProfile1D CreateSingleLayerProfile(string name, double bottom, SoilProfileType type)
+        private static MacroStabilityInwardsSoilProfile1D CreateSingleLayerProfile(string name, double bottom)
         {
             return new MacroStabilityInwardsSoilProfile1D(name, bottom, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(bottom + 1.0)
-            }, type, profileIdRandom.Next());
+            });
         }
 
         private static MacroStabilityInwardsSoilProfile1D CreateRandomProfile(int randomSeed)
@@ -354,7 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             {
                 layers.Add(CreateRandomLayer(random));
             }
-            return new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -1.0 - random.NextDouble(), layers, random.NextEnumValue<SoilProfileType>(), profileIdRandom.Next());
+            return new MacroStabilityInwardsSoilProfile1D(GetRandomName(random), -1.0 - random.NextDouble(), layers);
         }
 
         private static MacroStabilityInwardsSoilLayer1D CreateRandomLayer(Random random)

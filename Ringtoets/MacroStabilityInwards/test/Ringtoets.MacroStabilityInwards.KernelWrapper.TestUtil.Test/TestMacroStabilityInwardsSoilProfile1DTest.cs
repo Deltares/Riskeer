@@ -39,7 +39,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             // Assert
             Assert.IsEmpty(profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
             CollectionAssert.AreEquivalent(new[]
             {
                 true
@@ -62,7 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile.SoilProfileType);
             CollectionAssert.AreEquivalent(new[]
             {
                 true
@@ -86,7 +84,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             // Assert
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(0.0, profile.Bottom);
-            Assert.AreEqual(soilProfileType, profile.SoilProfileType);
             CollectionAssert.AreEquivalent(new[]
             {
                 true

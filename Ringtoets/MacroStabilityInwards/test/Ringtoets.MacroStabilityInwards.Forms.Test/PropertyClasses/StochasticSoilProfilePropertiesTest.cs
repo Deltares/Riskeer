@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 new MacroStabilityInwardsSoilLayer1D(-2)
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", -5.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", -5.0, layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
             var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 }), new Ring[0])
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D("name", layers, SoilProfileType.SoilProfile2D, 1234L);
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("name", layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
             var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
 
@@ -171,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.142, new MacroStabilityInwardsSoilProfile1D("<some name>", -5.0, new[]
             {
                 layer
-            }, SoilProfileType.SoilProfile1D, 0));
+            }));
 
             // Call
             var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
@@ -229,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.142, new MacroStabilityInwardsSoilProfile2D("<some name>", new[]
             {
                 layer
-            }, SoilProfileType.SoilProfile2D, 0));
+            }));
 
             // Call
             var properties = new StochasticSoilProfileProperties(stochasticSoilProfile);
@@ -300,7 +300,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D, 0);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D(expectedName, -5.0, layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call
@@ -343,7 +343,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D(expectedName, layers, SoilProfileType.SoilProfile2D, 0);
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D(expectedName, layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call

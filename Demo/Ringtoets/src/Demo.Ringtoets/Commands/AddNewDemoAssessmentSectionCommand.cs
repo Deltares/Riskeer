@@ -470,7 +470,7 @@ namespace Demo.Ringtoets.Commands
                                 MaterialName = "Zand"
                             }
                         }
-                    }, SoilProfileType.SoilProfile2D, 1234L));
+                    }));
             soilModel.StochasticSoilProfiles.Add(soilProfile2D);
 
             var soilProfile1D = new MacroStabilityInwardsStochasticSoilProfile(
@@ -486,8 +486,7 @@ namespace Demo.Ringtoets.Commands
                                 IsAquifer = true
                             }
                         }
-                    },
-                    SoilProfileType.SoilProfile1D, 1234L));
+                    }));
             soilModel.StochasticSoilProfiles.Add(soilProfile1D);
             failuremechanism.StochasticSoilModels.AddRange(new[]
             {

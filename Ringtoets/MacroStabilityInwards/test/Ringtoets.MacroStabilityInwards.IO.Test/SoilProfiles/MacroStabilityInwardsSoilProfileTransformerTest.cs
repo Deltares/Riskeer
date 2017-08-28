@@ -77,7 +77,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var transformedProfile = (MacroStabilityInwardsSoilProfile1D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
-            Assert.AreEqual(profile.Id, transformedProfile.MacroStabilityInwardsSoilProfileId);
             Assert.AreEqual(profile.Name, transformedProfile.Name);
             Assert.AreEqual(profile.Bottom, transformedProfile.Bottom);
             Assert.AreEqual(profile.Layers.Count(), transformedProfile.Layers.Count());
@@ -97,7 +96,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var transformedProfile = (MacroStabilityInwardsSoilProfile2D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
 
             // Assert
-            Assert.AreEqual(profile.Id, transformedProfile.MacroStabilityInwardsSoilProfileId);
             Assert.AreEqual(profile.Name, transformedProfile.Name);
             Assert.AreEqual(profile.Layers.Count(), transformedProfile.Layers.Count());
             Assert.IsInstanceOf<MacroStabilityInwardsSoilLayer2D>(transformedProfile.Layers.First());

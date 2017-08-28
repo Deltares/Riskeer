@@ -174,9 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                 new MacroStabilityInwardsSoilLayer1D(3.0),
                                 new MacroStabilityInwardsSoilLayer1D(2.0),
                                 new MacroStabilityInwardsSoilLayer1D(0)
-                            },
-                            SoilProfileType.SoilProfile1D,
-                            1))
+                            }))
                 }
             };
 
@@ -449,7 +447,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new MacroStabilityInwardsSoilLayer1D(0),
                     new MacroStabilityInwardsSoilLayer1D(2),
                     new MacroStabilityInwardsSoilLayer1D(3)
-                }, SoilProfileType.SoilProfile1D, 1));
+                }));
 
                 var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput())
                 {
@@ -680,7 +678,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new MacroStabilityInwardsSoilLayer1D(1),
                 new MacroStabilityInwardsSoilLayer1D(3),
                 new MacroStabilityInwardsSoilLayer1D(5)
-            }, SoilProfileType.SoilProfile1D, 1));
+            }));
         }
 
         private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()

@@ -36,14 +36,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingStochasticSoilProfileTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingStochasticSoilProfile));
         }
@@ -52,15 +50,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -115,6 +109,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -132,7 +127,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }
