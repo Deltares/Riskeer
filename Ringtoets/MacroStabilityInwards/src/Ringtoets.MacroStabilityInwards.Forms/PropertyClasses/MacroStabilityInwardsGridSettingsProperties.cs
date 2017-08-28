@@ -103,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(tangentLineDeterminationPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineDetermination_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TangentLineDetermination_Description))]
@@ -120,6 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(tangentLineZTopPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineZTop_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TangentLineZTop_Description))]
@@ -136,6 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(tangentLineZBottomPropertyIndex)]
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineZBottom_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TangentLineZBottom_Description))]
@@ -175,6 +178,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return new MacroStabilityInwardsGridProperties(data.RightGrid, propertyChangeHandler, AreGridSettingsReadOnly());
             }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            return AreGridSettingsReadOnly();
         }
 
         public override string ToString()

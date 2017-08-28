@@ -97,14 +97,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool gridDeterminationAutomatic)
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput());
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                GridDetermination = gridDeterminationAutomatic
+                                        ? MacroStabilityInwardsGridDetermination.Automatic
+                                        : MacroStabilityInwardsGridDetermination.Manual
+            };
 
             // Call
             var properties = new MacroStabilityInwardsGridSettingsProperties(input, changeHandler);
@@ -137,21 +144,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 tangentLineDeterminationProperty,
                 calculationGridsCategory,
                 "Bepaling tangentlijnen",
-                "Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?");
+                "Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?",
+                gridDeterminationAutomatic);
 
             PropertyDescriptor tangentLineZTopProperty = dynamicProperties[expectedTangentLineZTopPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 tangentLineZTopProperty,
                 calculationGridsCategory,
                 "Tangentlijn Z-boven [m+NAP]",
-                "Verticale coördinaat van de bovenste raaklijn.");
+                "Verticale coördinaat van de bovenste raaklijn.",
+                gridDeterminationAutomatic);
 
             PropertyDescriptor tangentLineZBottomProperty = dynamicProperties[expectedTangentLineZBottomPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 tangentLineZBottomProperty,
                 calculationGridsCategory,
                 "Tangentlijn Z-onder [m+NAP]",
-                "Verticale coördinaat van de onderste raaklijn.");
+                "Verticale coördinaat van de onderste raaklijn.",
+                gridDeterminationAutomatic);
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, ExpandableObjectConverter>(nameof(properties.LeftGrid));
@@ -306,6 +316,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(string.Empty, toString);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnly_isReadOnly_ReturnsExpectedResult(bool gridDetermination)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput(new GeneralMacroStabilityInwardsInput())
+            {
+                GridDetermination = gridDetermination
+                                        ? MacroStabilityInwardsGridDetermination.Automatic
+                                        : MacroStabilityInwardsGridDetermination.Manual
+            };
+
+            var properties = new MacroStabilityInwardsGridSettingsProperties(input, changeHandler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(string.Empty);
+
+            // Assert
+            Assert.AreEqual(gridDetermination, result);
         }
 
         private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsGridSettingsProperties> setProperty,
