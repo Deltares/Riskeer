@@ -572,7 +572,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C")
@@ -584,7 +584,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 }
             };
@@ -640,7 +640,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C")
@@ -652,7 +652,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("E")
@@ -664,7 +664,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 3)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 }
             };
@@ -728,7 +728,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 },
                 StochasticSoilProfiles =
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                    new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
                 }
             };
 
@@ -870,7 +870,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C")
@@ -882,7 +882,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 2)
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
                     }
                 }
             };

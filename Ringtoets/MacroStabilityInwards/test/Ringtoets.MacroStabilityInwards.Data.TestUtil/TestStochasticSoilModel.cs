@@ -21,7 +21,6 @@
 
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
@@ -38,14 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             StochasticSoilProfiles.AddRange(new[]
             {
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
-                {
-                    SoilProfile = new TestMacroStabilityInwardsSoilProfile1D("A")
-                },
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
-                {
-                    SoilProfile = new TestMacroStabilityInwardsSoilProfile1D("B")
-                }
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D("A")),
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D("B"))
             });
         }
 

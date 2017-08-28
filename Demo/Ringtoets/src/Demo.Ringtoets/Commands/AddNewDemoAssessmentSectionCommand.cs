@@ -436,53 +436,58 @@ namespace Demo.Ringtoets.Commands
             MacroStabilityInwardsFailureMechanism failuremechanism = demoAssessmentSection.MacroStabilityInwards;
 
             var soilModel = new MacroStabilityInwardsStochasticSoilModel("Test model");
-            var soilProfile2D = new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile2D, 1234L);
-            soilProfile2D.SoilProfile = new MacroStabilityInwardsSoilProfile2D("test 2D",
-                                                                               new[]
-                                                                               {
-                                                                                   new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                                                                                        {
-                                                                                                                            new Point2D(20.210230, 26.00001),
-                                                                                                                            new Point2D(3.830, 1.040506),
-                                                                                                                            new Point2D(6.9300, 3.032406),
-                                                                                                                            new Point2D(14.8312, 12.673506)
-                                                                                                                        }),
-                                                                                                                        new[]
-                                                                                                                        {
-                                                                                                                            new Ring(new[]
-                                                                                                                            {
-                                                                                                                                new Point2D(20.210230, 26.00001),
-                                                                                                                                new Point2D(3.830, 1.040506),
-                                                                                                                                new Point2D(6.9300, 3.032406)
-                                                                                                                            }),
-                                                                                                                            new Ring(new[]
-                                                                                                                            {
-                                                                                                                                new Point2D(6.9300, 3.032406),
-                                                                                                                                new Point2D(14.8312, 12.673506)
-                                                                                                                            })
-                                                                                                                        })
-                                                                                   {
-                                                                                       Properties =
-                                                                                       {
-                                                                                           MaterialName = "Zand"
-                                                                                       }
-                                                                                   }
-                                                                               }, SoilProfileType.SoilProfile2D, 1234L);
+            var soilProfile2D = new MacroStabilityInwardsStochasticSoilProfile(
+                0.2,
+                new MacroStabilityInwardsSoilProfile2D(
+                    "test 2D",
+                    new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer2D(
+                            new Ring(new[]
+                            {
+                                new Point2D(20.210230, 26.00001),
+                                new Point2D(3.830, 1.040506),
+                                new Point2D(6.9300, 3.032406),
+                                new Point2D(14.8312, 12.673506)
+                            }),
+                            new[]
+                            {
+                                new Ring(new[]
+                                {
+                                    new Point2D(20.210230, 26.00001),
+                                    new Point2D(3.830, 1.040506),
+                                    new Point2D(6.9300, 3.032406)
+                                }),
+                                new Ring(new[]
+                                {
+                                    new Point2D(6.9300, 3.032406),
+                                    new Point2D(14.8312, 12.673506)
+                                })
+                            })
+                        {
+                            Properties =
+                            {
+                                MaterialName = "Zand"
+                            }
+                        }
+                    }, SoilProfileType.SoilProfile2D, 1234L));
             soilModel.StochasticSoilProfiles.Add(soilProfile2D);
 
-            var soilProfile1D = new MacroStabilityInwardsStochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, 1234L);
-            soilProfile1D.SoilProfile = new MacroStabilityInwardsSoilProfile1D("test 1D", 22.567, new[]
-                                                                               {
-                                                                                   new MacroStabilityInwardsSoilLayer1D(30.1267)
-                                                                                   {
-                                                                                       Properties =
-                                                                                       {
-                                                                                           MaterialName = "1D Layer",
-                                                                                           IsAquifer = true
-                                                                                       }
-                                                                                   }
-                                                                               },
-                                                                               SoilProfileType.SoilProfile1D, 1234L);
+            var soilProfile1D = new MacroStabilityInwardsStochasticSoilProfile(
+                0.2,
+                new MacroStabilityInwardsSoilProfile1D(
+                    "test 1D", 22.567, new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer1D(30.1267)
+                        {
+                            Properties =
+                            {
+                                MaterialName = "1D Layer",
+                                IsAquifer = true
+                            }
+                        }
+                    },
+                    SoilProfileType.SoilProfile1D, 1234L));
             soilModel.StochasticSoilProfiles.Add(soilProfile1D);
             failuremechanism.StochasticSoilModels.AddRange(new[]
             {

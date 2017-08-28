@@ -53,12 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            return new MacroStabilityInwardsStochasticSoilProfile(stochasticSoilProfile.Probability,
-                                                                  SoilProfileType.SoilProfile1D,
-                                                                  0)
-            {
-                SoilProfile = soilProfile
-            };
+            return new MacroStabilityInwardsStochasticSoilProfile(stochasticSoilProfile.Probability, soilProfile);
         }
     }
 }

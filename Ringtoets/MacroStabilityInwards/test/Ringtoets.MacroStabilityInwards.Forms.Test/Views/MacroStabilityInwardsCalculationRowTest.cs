@@ -178,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void StochasticSoilProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var newProfile = new MacroStabilityInwardsStochasticSoilProfile(0, 0, 0);
+            var newProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new TestMacroStabilityInwardsSoilProfile1D());
             var newValue = new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(newProfile);
 
             var calculation = new MacroStabilityInwardsCalculationScenario(new GeneralMacroStabilityInwardsInput());

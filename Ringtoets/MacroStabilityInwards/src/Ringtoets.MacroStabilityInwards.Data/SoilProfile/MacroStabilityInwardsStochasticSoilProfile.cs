@@ -40,29 +40,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
         /// </summary>
         /// <param name="probability">Probability of the stochastic soil profile.</param>
-        /// <param name="soilProfileType">Type of the stochastic soil profile.</param>
-        /// <param name="soilProfileId">Database identifier of the stochastic soil profile.</param>
-        public MacroStabilityInwardsStochasticSoilProfile(double probability, SoilProfileType soilProfileType, long soilProfileId)
+        /// <param name="soilProfile">The soil profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probability"/>
+        /// is outside the range [0, 1].</exception>
+        public MacroStabilityInwardsStochasticSoilProfile(double probability, IMacroStabilityInwardsSoilProfile soilProfile)
         {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
             Probability = probability;
-            SoilProfileType = soilProfileType;
-            SoilProfileId = soilProfileId;
+            SoilProfile = soilProfile;
         }
-
-        /// <summary>
-        /// Gets the type of the stochastic soil profile.
-        /// </summary>
-        public SoilProfileType SoilProfileType { get; private set; }
-
-        /// <summary>
-        /// Gets the database identifier of the stochastic soil profile.
-        /// </summary>
-        public long SoilProfileId { get; }
 
         /// <summary>
         /// Gets the <see cref="IMacroStabilityInwardsSoilProfile"/>.
         /// </summary>
-        public IMacroStabilityInwardsSoilProfile SoilProfile { get; set; }
+        public IMacroStabilityInwardsSoilProfile SoilProfile { get; private set; }
 
         /// <summary>
         /// Gets the probability of the stochastic soil profile.
@@ -118,7 +114,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             if (!Equals(fromProfile))
             {
                 SoilProfile = fromProfile.SoilProfile;
-                SoilProfileType = fromProfile.SoilProfileType;
                 Probability = fromProfile.Probability;
                 return true;
             }
@@ -132,9 +127,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
             return Equals((MacroStabilityInwardsStochasticSoilProfile) obj);
         }
 
@@ -143,7 +147,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             unchecked
             {
                 int hashCode = Probability.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int) SoilProfileType;
                 hashCode = (hashCode * 397) ^ (SoilProfile?.GetHashCode() ?? 0);
                 return hashCode;
             }
@@ -152,7 +155,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         private bool Equals(MacroStabilityInwardsStochasticSoilProfile other)
         {
             return Probability.Equals(other.Probability)
-                   && SoilProfileType == other.SoilProfileType
                    && Equals(SoilProfile, other.SoilProfile);
         }
     }

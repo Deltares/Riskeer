@@ -380,13 +380,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 new Point3D(3.0, 0.0, 1.0),
                 new Point3D(3.0, -5.0, 0.0)
             });
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 1)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new MacroStabilityInwardsSoilProfile1D("Ondergrondschematisatie", 0, new[]
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D("Ondergrondschematisatie", 0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer1D(0)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                new MacroStabilityInwardsSoilLayer1D(0)
+            }, SoilProfileType.SoilProfile1D, 0));
 
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Ondergrondmodel");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);

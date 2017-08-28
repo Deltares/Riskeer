@@ -134,26 +134,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             const double bottom = 1.12;
             const double top = 10.56;
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, new[]
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, new[]
+                new MacroStabilityInwardsSoilLayer1D(top)
                 {
-                    new MacroStabilityInwardsSoilLayer1D(top)
+                    Properties =
                     {
-                        Properties =
-                        {
-                            IsAquifer = false
-                        }
-                    },
-                    new MacroStabilityInwardsSoilLayer1D(top / 2)
-                    {
-                        Properties =
-                        {
-                            IsAquifer = true
-                        }
+                        IsAquifer = false
                     }
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                },
+                new MacroStabilityInwardsSoilLayer1D(top / 2)
+                {
+                    Properties =
+                    {
+                        IsAquifer = true
+                    }
+                }
+            }, SoilProfileType.SoilProfile1D, 0));
+
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
             var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);

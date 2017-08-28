@@ -92,8 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 soilLayer
             }, SoilProfileType.SoilProfile2D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
-            stochasticSoilProfile.SoilProfile = soilProfile;
+            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, soilProfile);
             mocks.ReplayAll();
 
             // Call
@@ -112,8 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 soilLayer
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, SoilProfileType.SoilProfile1D, 1234L);
-            stochasticSoilProfile.SoilProfile = soilProfile;
+            var stochasticSoilProfile = mocks.StrictMock<MacroStabilityInwardsStochasticSoilProfile>(0.1, soilProfile);
             mocks.ReplayAll();
 
             // Call

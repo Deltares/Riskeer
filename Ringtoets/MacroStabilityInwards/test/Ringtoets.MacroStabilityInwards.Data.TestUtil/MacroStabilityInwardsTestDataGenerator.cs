@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
@@ -146,13 +147,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("PK001_0001_Macrostabiliteit"),
-                    StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+                    StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]
                     {
-                        SoilProfile = new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]
-                        {
-                            new MacroStabilityInwardsSoilLayer1D(0)
-                        }, SoilProfileType.SoilProfile1D, 0)
-                    }
+                        new MacroStabilityInwardsSoilLayer1D(0)
+                    }, SoilProfileType.SoilProfile1D, 0))
+
                 }
             };
 
@@ -239,7 +238,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 },
                 StochasticSoilProfiles =
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+                    new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer1D(4), 
+                    }, SoilProfileType.SoilProfile1D, 0))
                 }
             };
             var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("C")
@@ -251,7 +253,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 },
                 StochasticSoilProfiles =
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile2D, 2)
+                    new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile2D("test", new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                        {
+                            new Point2D(0, 0),
+                            new Point2D(1, 0),
+                            new Point2D(0, 0)
+                        }), Enumerable.Empty<Ring>())
+                    }, SoilProfileType.SoilProfile2D, 0))
                 }
             };
 

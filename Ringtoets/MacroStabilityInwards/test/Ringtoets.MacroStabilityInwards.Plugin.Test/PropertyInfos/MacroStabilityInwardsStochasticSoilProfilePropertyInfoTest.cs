@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
@@ -64,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             var mocks = new MockRepository();
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234L);
+            var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, new TestMacroStabilityInwardsSoilProfile1D());
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

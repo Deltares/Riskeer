@@ -102,13 +102,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
             Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count);
 
-            var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 2)
+            var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D("test", 3, new []
-                {
-                    new MacroStabilityInwardsSoilLayer1D(4) 
-                }, SoilProfileType.SoilProfile1D, 1)
-            };
+                new MacroStabilityInwardsSoilLayer1D(4)
+            }, SoilProfileType.SoilProfile1D, 1));
             AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
         }
 
@@ -136,28 +133,25 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
             Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count);
 
-            var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, SoilProfileType.SoilProfile2D, 2)
+            var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile2D("test", new[]
             {
-                SoilProfile = new MacroStabilityInwardsSoilProfile2D("test", new[]
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                 {
-                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    new Point2D(0.0, 0.0),
+                    new Point2D(1.0, 0.0),
+                    new Point2D(1.0, 0.0),
+                    new Point2D(0.0, 0.0)
+                }), new[]
+                {
+                    new Ring(new[]
                     {
-                        new Point2D(0.0, 0.0),
-                        new Point2D(1.0, 0.0),
-                        new Point2D(1.0, 0.0),
-                        new Point2D(0.0, 0.0)
-                    }), new[]
-                    {
-                        new Ring(new[]
-                        {
-                            new Point2D(1.0, 1.0),
-                            new Point2D(2.0, 1.0),
-                            new Point2D(2.0, 1.0),
-                            new Point2D(1.0, 1.0)
-                        }),
-                    })
-                }, SoilProfileType.SoilProfile2D, 1)
-            };
+                        new Point2D(1.0, 1.0),
+                        new Point2D(2.0, 1.0),
+                        new Point2D(2.0, 1.0),
+                        new Point2D(1.0, 1.0)
+                    }),
+                })
+            }, SoilProfileType.SoilProfile2D, 1));
             AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
         }
 

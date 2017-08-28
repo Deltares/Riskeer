@@ -175,14 +175,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 new MacroStabilityInwardsSoilLayer1D(10)
             }, SoilProfileType.SoilProfile1D, 0);
-            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = soilProfile1
-            };
-            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = soilProfile2
-            };
+            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile1);
+            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile2);
 
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);

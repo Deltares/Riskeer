@@ -108,20 +108,18 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
-            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D("soilProfile1", 0, new List<MacroStabilityInwardsSoilLayer1D>
+            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(
+                1.0,
+                new MacroStabilityInwardsSoilProfile1D("soilProfile1", 0, new List<MacroStabilityInwardsSoilLayer1D>
                 {
                     new MacroStabilityInwardsSoilLayer1D(10)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
-            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new MacroStabilityInwardsSoilProfile1D("soilProfile2", 0, new List<MacroStabilityInwardsSoilLayer1D>
+                }, SoilProfileType.SoilProfile1D, 0));
+            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(
+                1.0,
+                new MacroStabilityInwardsSoilProfile1D("soilProfile2", 0, new List<MacroStabilityInwardsSoilLayer1D>
                 {
                     new MacroStabilityInwardsSoilLayer1D(10)
-                }, SoilProfileType.SoilProfile1D, 0)
-            };
+                }, SoilProfileType.SoilProfile1D, 0));
 
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
