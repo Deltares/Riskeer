@@ -87,8 +87,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             MoveGrid = true;
             DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
 
-            waterLevelRiverAverage = new RoundedDouble(2);
-            waterLevelPolder = new RoundedDouble(2);
+            waterLevelRiverAverage = new RoundedDouble(2, double.NaN);
+            waterLevelPolder = new RoundedDouble(2, double.NaN);
 
             xCoordinateDrainageConstruction = new RoundedDouble(2, double.NaN);
             zCoordinateDrainageConstruction = new RoundedDouble(2, double.NaN);
@@ -105,19 +105,19 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             AdjustPhreaticLine3And4ForUplift = true;
 
-            leakageLengthOutwardsPhreaticLine3 = new RoundedDouble(2);
-            leakageLengthInwardsPhreaticLine3 = new RoundedDouble(2);
-            leakageLengthOutwardsPhreaticLine4 = new RoundedDouble(2);
-            leakageLengthInwardsPhreaticLine4 = new RoundedDouble(2);
-            piezometricHeadPhreaticLine2Outwards = new RoundedDouble(2);
-            piezometricHeadPhreaticLine2Inwards = new RoundedDouble(2);
-            penetrationLength = new RoundedDouble(2);
+            leakageLengthOutwardsPhreaticLine3 = new RoundedDouble(2, double.NaN);
+            leakageLengthInwardsPhreaticLine3 = new RoundedDouble(2, double.NaN);
+            leakageLengthOutwardsPhreaticLine4 = new RoundedDouble(2, double.NaN);
+            leakageLengthInwardsPhreaticLine4 = new RoundedDouble(2, double.NaN);
+            piezometricHeadPhreaticLine2Outwards = new RoundedDouble(2, double.NaN);
+            piezometricHeadPhreaticLine2Inwards = new RoundedDouble(2, double.NaN);
+            penetrationLength = new RoundedDouble(2, double.NaN);
 
             GridDetermination = MacroStabilityInwardsGridDetermination.Automatic;
             TangentLineDetermination = MacroStabilityInwardsTangentLineDetermination.LayerSeparated;
 
-            tangentLineZTop = new RoundedDouble(2);
-            tangentLineZBottom = new RoundedDouble(2);
+            tangentLineZTop = new RoundedDouble(2, double.NaN);
+            tangentLineZBottom = new RoundedDouble(2, double.NaN);
 
             LeftGrid = new MacroStabilityInwardsGrid();
             RightGrid = new MacroStabilityInwardsGrid();

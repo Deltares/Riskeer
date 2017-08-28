@@ -209,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 waterStressesProperty,
                 hydraulicDataCategory,
                 "Waterspanningen",
-                "De waterspanning eigenschappen.",
+                "Eigenschappen van de waterspanning.",
                 true);
 
             PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
@@ -224,7 +224,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 stochasticSoilModelProperty,
                 schematizationCategory,
                 "Stochastisch ondergrondmodel",
-                "De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.");
+                "De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen.");
 
             PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[expectedStochasticSoilProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -261,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 gridSettingsProperty,
                 settingsCategory,
                 "Rekengrids",
-                "De rekengrids eigenschappen.",
+                "Eigenschappen van de rekengrids.",
                 true);
 
             mocks.VerifyAll();

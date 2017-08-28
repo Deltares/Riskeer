@@ -607,7 +607,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen..
+        ///   Looks up a localized string similar to De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen..
         /// </summary>
         public static string PipingInput_StochasticSoilModel_Description {
             get {

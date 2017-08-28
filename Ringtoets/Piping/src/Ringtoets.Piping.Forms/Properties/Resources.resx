@@ -407,7 +407,7 @@
     <value>Stochastisch ondergrondmodel</value>
   </data>
   <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
-    <value>De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.</value>
+    <value>De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen.</value>
   </data>
   <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_PipingSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>

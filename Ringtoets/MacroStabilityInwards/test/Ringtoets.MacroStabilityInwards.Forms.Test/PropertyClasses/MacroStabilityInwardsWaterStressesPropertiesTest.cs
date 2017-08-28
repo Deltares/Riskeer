@@ -143,21 +143,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageProperty,
                 waterStressesCategory,
                 "Drainage",
-                "Drainage constructie eigenschappen.",
+                "Eigenschappen van drainage constructie.",
                 true);
 
             PropertyDescriptor minimumLevelPhreaticLineAtDikeTopRiverProperty = dynamicProperties[expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 minimumLevelPhreaticLineAtDikeTopRiverProperty,
                 waterStressesCategory,
-                "PL 1 initiele hoogte onder buitenkruin [m+NAP]",
+                "PL 1 initiële hoogte onder buitenkruin [m+NAP]",
                 "Minimale hoogte van de freatische lijn onder kruin buitentalud.");
 
             PropertyDescriptor minimumLevelPhreaticLineAtDikeTopPolderProperty = dynamicProperties[expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 minimumLevelPhreaticLineAtDikeTopPolderProperty,
                 waterStressesCategory,
-                "PL 1 initiele hoogte onder binnenkruin [m+NAP]",
+                "PL 1 initiële hoogte onder binnenkruin [m+NAP]",
                 "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
 
             PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
@@ -167,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetProperty,
                 waterStressesCategory,
                 "Offsets PL 1",
-                "Offsets PL 1 eigenschappen.",
+                "Eigenschappen van offsets PL 1.",
                 true);
 
             PropertyDescriptor adjustPhreaticLine3And4ForUpliftProperty = dynamicProperties[expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex];

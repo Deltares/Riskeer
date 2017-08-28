@@ -203,7 +203,7 @@
     <value>Stochastisch ondergrondmodel</value>
   </data>
   <data name="MacroStabilityInwardsInput_StochasticSoilModel_Description" xml:space="preserve">
-    <value>De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.</value>
+    <value>De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationConfigurationHelper_GenerateCalculationsStructure_No_SoilProfile_found_for_MacroStabilityInwardsSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
@@ -260,7 +260,7 @@
     <value>Gemiddeld hoog water (GHW) [m+NAP]</value>
   </data>
   <data name="Waterstresses_Description" xml:space="preserve">
-    <value>De waterspanning eigenschappen.</value>
+    <value>Eigenschappen van de waterspanning.</value>
   </data>
   <data name="DrainageConstructionPresent_Description" xml:space="preserve">
     <value>Is drainage aanwezig?</value>
@@ -284,7 +284,7 @@
     <value>Corrigeer PL 3 en PL 4 voor opbarsten</value>
   </data>
   <data name="DrainageConstruction_Description" xml:space="preserve">
-    <value>Drainage constructie eigenschappen.</value>
+    <value>Eigenschappen van drainage constructie.</value>
   </data>
   <data name="LeakageLengthInwardsPhreaticLine3_DisplayName" xml:space="preserve">
     <value>Leklengte binnenwaarts PL 3 [m]</value>
@@ -308,16 +308,16 @@
     <value>Minimale hoogte van de freatische lijn onder kruin binnentalud.</value>
   </data>
   <data name="MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName" xml:space="preserve">
-    <value>PL 1 initiele hoogte onder binnenkruin [m+NAP]</value>
+    <value>PL 1 initiële hoogte onder binnenkruin [m+NAP]</value>
   </data>
   <data name="MinimumLevelPhreaticLineAtDikeTopRiver_Description" xml:space="preserve">
     <value>Minimale hoogte van de freatische lijn onder kruin buitentalud.</value>
   </data>
   <data name="MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName" xml:space="preserve">
-    <value>PL 1 initiele hoogte onder buitenkruin [m+NAP]</value>
+    <value>PL 1 initiële hoogte onder buitenkruin [m+NAP]</value>
   </data>
   <data name="Offsets_Description" xml:space="preserve">
-    <value>Offsets PL 1 eigenschappen.</value>
+    <value>Eigenschappen van offsets PL 1.</value>
   </data>
   <data name="Offsets_DisplayName" xml:space="preserve">
     <value>Offsets PL 1</value>
@@ -413,13 +413,13 @@
     <value>Bepaling grid</value>
   </data>
   <data name="GridSettings_Description" xml:space="preserve">
-    <value>De rekengrids eigenschappen.</value>
+    <value>Eigenschappen van de rekengrids.</value>
   </data>
   <data name="GridSettings_DisplayName" xml:space="preserve">
     <value>Rekengrids</value>
   </data>
   <data name="LeftGrid_Description" xml:space="preserve">
-    <value>De linker grid eigenschappen.</value>
+    <value>Eigenschappen van de linker grid.</value>
   </data>
   <data name="LeftGrid_DisplayName" xml:space="preserve">
     <value>Linker grid</value>
@@ -443,7 +443,7 @@
     <value>Aantal verticale punten</value>
   </data>
   <data name="RightGrid_Description" xml:space="preserve">
-    <value>De rechter grid eigenschappen.</value>
+    <value>Eigenschappen van de rechter grid.</value>
   </data>
   <data name="RightGrid_DisplayName" xml:space="preserve">
     <value>Rechter grid</value>

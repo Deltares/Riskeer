@@ -159,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 leftGridProperty,
                 calculationGridsCategory,
                 "Linker grid",
-                "De linker grid eigenschappen.",
+                "Eigenschappen van de linker grid.",
                 true);
 
             PropertyDescriptor rightGridProperty = dynamicProperties[expectedRightGridPropertyIndex];
@@ -168,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 rightGridProperty,
                 calculationGridsCategory,
                 "Rechter grid",
-                "De rechter grid eigenschappen.",
+                "Eigenschappen van de rechter grid.",
                 true);
 
             mocks.VerifyAll();

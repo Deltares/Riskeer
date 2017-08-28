@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 stochasticSoilModelProperty,
                 schematizationCategory,
                 "Stochastisch ondergrondmodel",
-                "De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.");
+                "De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen.");
 
             PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[expectedStochasticSoilProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(

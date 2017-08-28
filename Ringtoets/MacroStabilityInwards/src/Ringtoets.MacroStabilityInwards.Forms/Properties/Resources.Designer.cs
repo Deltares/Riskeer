@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drainage constructie eigenschappen..
+        ///   Looks up a localized string similar to Eigenschappen van drainage constructie..
         /// </summary>
         public static string DrainageConstruction_Description {
             get {
@@ -235,7 +235,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De rekengrids eigenschappen..
+        ///   Looks up a localized string similar to Eigenschappen van de rekengrids..
         /// </summary>
         public static string GridSettings_Description {
             get {
@@ -325,7 +325,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De linker grid eigenschappen..
+        ///   Looks up a localized string similar to Eigenschappen van de linker grid..
         /// </summary>
         public static string LeftGrid_Description {
             get {
@@ -428,7 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen..
+        ///   Looks up a localized string similar to De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen..
         /// </summary>
         public static string MacroStabilityInwardsInput_StochasticSoilModel_Description {
             get {
@@ -684,7 +684,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PL 1 initiele hoogte onder binnenkruin [m+NAP].
+        ///   Looks up a localized string similar to PL 1 initiële hoogte onder binnenkruin [m+NAP].
         /// </summary>
         public static string MinimumLevelPhreaticLineAtDikeTopPolder_DisplayName {
             get {
@@ -702,7 +702,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PL 1 initiele hoogte onder buitenkruin [m+NAP].
+        ///   Looks up a localized string similar to PL 1 initiële hoogte onder buitenkruin [m+NAP].
         /// </summary>
         public static string MinimumLevelPhreaticLineAtDikeTopRiver_DisplayName {
             get {
@@ -765,7 +765,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Offsets PL 1 eigenschappen..
+        ///   Looks up a localized string similar to Eigenschappen van offsets PL 1..
         /// </summary>
         public static string Offsets_Description {
             get {
@@ -909,7 +909,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De rechter grid eigenschappen..
+        ///   Looks up a localized string similar to Eigenschappen van de rechter grid..
         /// </summary>
         public static string RightGrid_Description {
             get {
@@ -1137,7 +1137,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waterspanning eigenschappen..
+        ///   Looks up a localized string similar to Eigenschappen van de waterspanning..
         /// </summary>
         public static string Waterstresses_Description {
             get {

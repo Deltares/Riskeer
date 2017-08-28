@@ -38,10 +38,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsGrid()
         {
-            xLeft = new RoundedDouble(2);
-            xRight = new RoundedDouble(2);
-            zTop = new RoundedDouble(2);
-            zBottom = new RoundedDouble(2);
+            xLeft = new RoundedDouble(2, double.NaN);
+            xRight = new RoundedDouble(2, double.NaN);
+            zTop = new RoundedDouble(2, double.NaN);
+            zBottom = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
