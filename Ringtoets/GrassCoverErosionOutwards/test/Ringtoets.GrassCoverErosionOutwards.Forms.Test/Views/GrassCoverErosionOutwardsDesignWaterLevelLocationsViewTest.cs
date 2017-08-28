@@ -469,6 +469,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             }
 
+            protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
+            {
+                return new GrassCoverErosionOutwardsDesignWaterLevelLocationContext((ObservableList<HydraulicBoundaryLocation>) view.Data,
+                                                                                    ((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+            }
+
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
             {
                 return ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);

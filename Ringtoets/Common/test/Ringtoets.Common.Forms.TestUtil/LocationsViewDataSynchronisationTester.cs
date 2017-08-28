@@ -93,20 +93,25 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenLocationOutputCleared_DataGridViewUpdatedAndSelectionPreserved()
+        public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputCleared_ThenDataGridViewUpdatedAndSelectionPreserved()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
 
-            // Precondition
             DataGridView dataGridView = GetDataGridView();
             DataGridViewRowCollection rows = dataGridView.Rows;
+            dataGridView.CurrentCell = rows[4].Cells[0];
+
+            // Precondition
             Assert.AreEqual(5, rows.Count);
             Assert.AreEqual("-", rows[0].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreNotEqual("-", rows[1].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[3].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreNotEqual("-", rows[4].Cells[OutputColumnIndex].FormattedValue);
+            DataGridViewRow dataGridViewRow = GetDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, dataGridViewRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, dataGridViewRow.DataBoundItem), view.Selection);
 
             var refreshed = false;
             dataGridView.Invalidated += (sender, args) => refreshed = true;
@@ -122,12 +127,23 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual("-", rows[2].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[3].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[4].Cells[OutputColumnIndex].FormattedValue);
+            dataGridViewRow = GetDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, dataGridViewRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, dataGridViewRow.DataBoundItem), view.Selection);
         }
 
         /// <summary>
         /// Gets the index of the column containing the locations output.
         /// </summary>
         protected abstract int OutputColumnIndex { get; }
+
+        /// <summary>
+        /// Method for obtaining the view selection object related to the selected location row.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        /// <param name="selectedRowObject">The selected location row object.</param>
+        /// <returns>The view selection object.</returns>
+        protected abstract object GetLocationSelection(LocationsView<T> view, object selectedRowObject);
 
         /// <summary>
         /// Method for showing a fully configured locations view.
@@ -149,7 +165,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Method for clearing all location output as well as notifying the observers.
         /// </summary>
-        /// <param name="view">The view involved.</param>
+        /// <param name="view">The locations view involved.</param>
         protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
 
         private DataGridView GetDataGridView()
