@@ -129,45 +129,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
-        {
-            // Given
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsDesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
-
-            DataGridView dataGridView = GetDataGridView();
-            DataGridViewRow currentRow = dataGridView.Rows[1];
-
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
-
-            // When
-            dataGridView.CurrentCell = currentRow.Cells[0];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
-            var selection = view.Selection as GrassCoverErosionOutwardsDesignWaterLevelLocationContext;
-
-            // Then
-            Assert.IsNotNull(selection);
-            Assert.AreSame(location, selection.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void Selection_WithoutLocations_ReturnsNull()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(assessmentSection))
-            {
-                // Assert
-                Assert.IsNull(view.Selection);
-            }
-        }
-
-        [Test]
         public void DesignWaterLevelLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
@@ -613,6 +574,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     }
                 }
             };
+
             return view;
         }
     }

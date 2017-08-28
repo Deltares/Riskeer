@@ -111,6 +111,17 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Selection_WithoutLocations_ReturnsNull()
+        {
+            // Call
+            using (var view = new TestLocationsView())
+            {
+                // Assert
+                Assert.IsNull(view.Selection);
+            }
+        }
+
+        [Test]
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given

@@ -129,45 +129,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingRowInLocationsTable_ThenReturnSelectedLocation()
-        {
-            // Given
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
-
-            DataGridView dataGridView = GetDataGridView();
-            DataGridViewRow currentRow = dataGridView.Rows[1];
-
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
-
-            // When
-            dataGridView.CurrentCell = currentRow.Cells[0];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
-            var selection = view.Selection as GrassCoverErosionOutwardsWaveHeightLocationContext;
-
-            // Then
-            Assert.IsNotNull(selection);
-            Assert.AreSame(location, selection.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void Selection_WithoutLocations_ReturnsNull()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(assessmentSection))
-            {
-                // Assert
-                Assert.IsNull(view.Selection);
-            }
-        }
-
-        [Test]
         public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
         {
             // Setup
@@ -573,7 +534,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
             var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>
+            view.Data = new ObservableList<HydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
                 new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
@@ -613,7 +574,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
 
-            view.Data = locations;
             return view;
         }
     }

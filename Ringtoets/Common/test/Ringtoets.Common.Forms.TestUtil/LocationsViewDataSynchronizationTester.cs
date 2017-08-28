@@ -48,6 +48,74 @@ namespace Ringtoets.Common.Forms.TestUtil
             testForm.Dispose();
         }
 
+        /// <summary>
+        /// Gets the index of the column containing the locations output.
+        /// </summary>
+        protected abstract int OutputColumnIndex { get; }
+
+        /// <summary>
+        /// Method for obtaining the view selection object related to the selected location row.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        /// <param name="selectedRowObject">The selected location row object.</param>
+        /// <returns>The view selection object.</returns>
+        protected abstract object GetLocationSelection(LocationsView<T> view, object selectedRowObject);
+
+        /// <summary>
+        /// Method for showing a fully configured locations view.
+        /// </summary>
+        /// <param name="form">The form to use for showing the view.</param>
+        /// <remarks>
+        /// The view should contain the following location row data:
+        /// <list type="bullet">
+        /// <item>Row 1: location without output</item>
+        /// <item>Row 2: location with design water level output (but without general result)</item>
+        /// <item>Row 3: location with wave height output (but without general result)</item>
+        /// <item>Row 4: location with flag for parsing the general result set to true</item>
+        /// <item>Row 5: location with output containing a general result with two top level illustration points</item>
+        /// </list>
+        /// </remarks>
+        /// <returns>The fully configured locations view.</returns>
+        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
+
+        /// <summary>
+        /// Method for replacing the hydraulic boundary database as well as notifying the observers.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        protected abstract void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view);
+
+        /// <summary>
+        /// Method for clearing all location output as well as notifying the observers.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
+
+        /// <summary>
+        /// Method for adding some location output as well as notifying the observers.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        protected abstract void AddLocationOutputAndNotifyObservers(LocationsView<T> view);
+
+        private DataGridView GetLocationsDataGridView()
+        {
+            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+        }
+
+        private DataGridViewControl GetLocationsDataGridViewControl()
+        {
+            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
+        }
+
+        private IllustrationPointsControl GetIllustrationPointsControl()
+        {
+            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
+        }
+
+        private DataGridView GetIllustrationPointsDataGridView()
+        {
+            return ControlTestHelper.GetDataGridView(GetIllustrationPointsControl(), "DataGridView");
+        }
+
         #region Data synchronization
 
         [Test]
@@ -135,6 +203,23 @@ namespace Ringtoets.Common.Forms.TestUtil
         #region Selection synchronization
 
         [Test]
+        public void GivenFullyConfiguredView_WhenSelectingLocation_ThenSelectionUpdated()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+
+            // When
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+
+            // Then
+            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+        }
+
+        [Test]
         public void GivenFullyConfiguredViewWithLocationSelection_WhenDatabaseReplaced_ThenSelectionUpdated()
         {
             // Given
@@ -201,6 +286,25 @@ namespace Ringtoets.Common.Forms.TestUtil
             currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
             Assert.AreEqual(4, currentLocationRow.Index);
             Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingIllustrationPoint_ThenSelectionUpdated()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
+
+            // When
+            illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
+
+            // Then
+            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
         }
 
         [Test]
@@ -285,73 +389,5 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets the index of the column containing the locations output.
-        /// </summary>
-        protected abstract int OutputColumnIndex { get; }
-
-        /// <summary>
-        /// Method for obtaining the view selection object related to the selected location row.
-        /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        /// <param name="selectedRowObject">The selected location row object.</param>
-        /// <returns>The view selection object.</returns>
-        protected abstract object GetLocationSelection(LocationsView<T> view, object selectedRowObject);
-
-        /// <summary>
-        /// Method for showing a fully configured locations view.
-        /// </summary>
-        /// <param name="form">The form to use for showing the view.</param>
-        /// <remarks>
-        /// The view should contain the following location row data:
-        /// <list type="bullet">
-        /// <item>Row 1: location without output</item>
-        /// <item>Row 2: location with design water level output (but without general result)</item>
-        /// <item>Row 3: location with wave height output (but without general result)</item>
-        /// <item>Row 4: location with flag for parsing the general result set to true</item>
-        /// <item>Row 5: location with output containing a general result with two top level illustration points</item>
-        /// </list>
-        /// </remarks>
-        /// <returns>The fully configured locations view.</returns>
-        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
-
-        /// <summary>
-        /// Method for replacing the hydraulic boundary database as well as notifying the observers.
-        /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        protected abstract void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view);
-
-        /// <summary>
-        /// Method for clearing all location output as well as notifying the observers.
-        /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
-
-        /// <summary>
-        /// Method for adding some location output as well as notifying the observers.
-        /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        protected abstract void AddLocationOutputAndNotifyObservers(LocationsView<T> view);
-
-        private DataGridView GetLocationsDataGridView()
-        {
-            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-        }
-
-        private DataGridViewControl GetLocationsDataGridViewControl()
-        {
-            return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
-        }
-
-        private IllustrationPointsControl GetIllustrationPointsControl()
-        {
-            return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
-        }
-
-        private DataGridView GetIllustrationPointsDataGridView()
-        {
-            return ControlTestHelper.GetDataGridView(GetIllustrationPointsControl(), "DataGridView");
-        }
     }
 }
