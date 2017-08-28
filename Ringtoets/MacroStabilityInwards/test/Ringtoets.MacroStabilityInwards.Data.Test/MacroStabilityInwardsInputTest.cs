@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.WaterLevelRiverAverage);
             Assert.AreEqual(2, inputParameters.WaterLevelRiverAverage.NumberOfDecimalPlaces);
 
-            Assert.IsNaN(inputParameters.WaterLevelPolder.Value);
+            Assert.IsNaN(inputParameters.WaterLevelPolder);
             Assert.AreEqual(2, inputParameters.WaterLevelPolder.NumberOfDecimalPlaces);
 
             Assert.IsFalse(inputParameters.DrainageConstructionPresent);

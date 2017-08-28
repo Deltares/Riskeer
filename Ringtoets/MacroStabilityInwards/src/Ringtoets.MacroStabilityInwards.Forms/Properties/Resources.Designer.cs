@@ -325,7 +325,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de linker grid..
+        ///   Looks up a localized string similar to Eigenschappen van het linker grid..
         /// </summary>
         public static string LeftGrid_Description {
             get {
@@ -909,7 +909,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de rechter grid..
+        ///   Looks up a localized string similar to Eigenschappen van het rechter grid..
         /// </summary>
         public static string RightGrid_Description {
             get {
@@ -1155,7 +1155,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X-coördinaat van het middelpunt van de drainage (in lokale coordinaten)..
+        ///   Looks up a localized string similar to X-coördinaat van het middelpunt van de drainage (in lokale coördinaten)..
         /// </summary>
         public static string XCoordinateDrainageConstruction_Description {
             get {

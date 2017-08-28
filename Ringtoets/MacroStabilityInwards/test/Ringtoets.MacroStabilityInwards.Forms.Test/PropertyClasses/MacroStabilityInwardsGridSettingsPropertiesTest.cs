@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool gridDeterminationAutomatic)
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool isGridDeterminationAutomatic)
         {
             // Setup
             var mocks = new MockRepository();
@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput
             {
-                GridDetermination = gridDeterminationAutomatic
+                GridDetermination = isGridDeterminationAutomatic
                                         ? MacroStabilityInwardsGridDetermination.Automatic
                                         : MacroStabilityInwardsGridDetermination.Manual
             };
@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 calculationGridsCategory,
                 "Bepaling tangentlijnen",
                 "Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?",
-                gridDeterminationAutomatic);
+                isGridDeterminationAutomatic);
 
             PropertyDescriptor tangentLineZTopProperty = dynamicProperties[expectedTangentLineZTopPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -153,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 calculationGridsCategory,
                 "Tangentlijn Z-boven [m+NAP]",
                 "Verticale coördinaat van de bovenste raaklijn.",
-                gridDeterminationAutomatic);
+                isGridDeterminationAutomatic);
 
             PropertyDescriptor tangentLineZBottomProperty = dynamicProperties[expectedTangentLineZBottomPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -161,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 calculationGridsCategory,
                 "Tangentlijn Z-onder [m+NAP]",
                 "Verticale coördinaat van de onderste raaklijn.",
-                gridDeterminationAutomatic);
+                isGridDeterminationAutomatic);
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, ExpandableObjectConverter>(nameof(properties.LeftGrid));
@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 leftGridProperty,
                 calculationGridsCategory,
                 "Linker grid",
-                "Eigenschappen van de linker grid.",
+                "Eigenschappen van het linker grid.",
                 true);
 
             PropertyDescriptor rightGridProperty = dynamicProperties[expectedRightGridPropertyIndex];
@@ -178,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 rightGridProperty,
                 calculationGridsCategory,
                 "Rechter grid",
-                "Eigenschappen van de rechter grid.",
+                "Eigenschappen van het rechter grid.",
                 true);
 
             mocks.VerifyAll();
@@ -321,7 +321,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnly_isReadOnly_ReturnsExpectedResult(bool gridDetermination)
+        public void DynamicReadOnly_isReadOnly_ReturnsExpectedResult(bool isGridDeterminationAutomatic)
         {
             // Setup
             var mocks = new MockRepository();
@@ -330,7 +330,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput
             {
-                GridDetermination = gridDetermination
+                GridDetermination = isGridDeterminationAutomatic
                                         ? MacroStabilityInwardsGridDetermination.Automatic
                                         : MacroStabilityInwardsGridDetermination.Manual
             };
@@ -341,7 +341,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool result = properties.DynamicReadOnlyValidationMethod(string.Empty);
 
             // Assert
-            Assert.AreEqual(gridDetermination, result);
+            Assert.AreEqual(isGridDeterminationAutomatic, result);
         }
 
         private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsGridSettingsProperties> setProperty,

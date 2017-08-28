@@ -371,7 +371,7 @@
     <value>Gebruik default waarden voor offsets van PL 1</value>
   </data>
   <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">
-    <value>X-coördinaat van het middelpunt van de drainage (in lokale coordinaten).</value>
+    <value>X-coördinaat van het middelpunt van de drainage (in lokale coördinaten).</value>
   </data>
   <data name="XCoordinateDrainageConstruction_DisplayName" xml:space="preserve">
     <value>X [m]</value>
@@ -419,7 +419,7 @@
     <value>Rekengrids</value>
   </data>
   <data name="LeftGrid_Description" xml:space="preserve">
-    <value>Eigenschappen van de linker grid.</value>
+    <value>Eigenschappen van het linker grid.</value>
   </data>
   <data name="LeftGrid_DisplayName" xml:space="preserve">
     <value>Linker grid</value>
@@ -443,7 +443,7 @@
     <value>Aantal verticale punten</value>
   </data>
   <data name="RightGrid_Description" xml:space="preserve">
-    <value>Eigenschappen van de rechter grid.</value>
+    <value>Eigenschappen van het rechter grid.</value>
   </data>
   <data name="RightGrid_DisplayName" xml:space="preserve">
     <value>Rechter grid</value>

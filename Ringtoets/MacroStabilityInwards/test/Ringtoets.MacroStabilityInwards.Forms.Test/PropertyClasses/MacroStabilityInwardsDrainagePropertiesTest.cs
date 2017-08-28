@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageXProperty,
                 drainageCategory,
                 "X [m]",
-                "X-coördinaat van het middelpunt van de drainage (in lokale coordinaten).",
+                "X-coördinaat van het middelpunt van de drainage (in lokale coördinaten).",
                 !drainageConstructionPresent);
 
             PropertyDescriptor drainageZProperty = dynamicProperties[expectedZCoordinateDrainageConstructionPropertyIndex];
