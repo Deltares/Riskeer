@@ -536,6 +536,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                           "Regular",
+                                                          new TestSubMechanismIllustrationPoint()),
+                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                          "Regular",
                                                           new TestSubMechanismIllustrationPoint())
             };
 

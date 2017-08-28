@@ -23,6 +23,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.TestUtil
@@ -53,10 +54,10 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Given
             ShowFullyConfiguredLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
             // When
-            dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(0, 1));
+            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(0, 1));
 
             // Then
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
@@ -68,10 +69,10 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Given
             ShowFullyConfiguredLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
             // When
-            dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(1, 0));
+            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(1, 0));
 
             // Then
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
@@ -83,53 +84,97 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Given
             ShowFullyConfiguredLocationsView(testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl dataGridViewControl = GetDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
 
             // When
-            dataGridViewControl.SetCurrentCell(dataGridViewControl.GetCell(4, 0));
+            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(4, 0));
 
             // Then
-            CollectionAssert.IsNotEmpty(illustrationPointsControl.Data);
+            Assert.AreEqual(2, illustrationPointsControl.Data.Count());
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputCleared_ThenDataGridViewUpdatedAndSelectionPreserved()
+        public void GivenFullyConfiguredViewWithFilledIllustrationPointsControl_WhenOutputCleared_ThenDataGridViewsUpdated()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-
-            DataGridView dataGridView = GetDataGridView();
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            dataGridView.CurrentCell = rows[4].Cells[0];
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridViewRowCollection locationsDataGridViewRows = locationsDataGridView.Rows;
+            locationsDataGridView.CurrentCell = locationsDataGridViewRows[4].Cells[0];
 
             // Precondition
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreNotEqual("-", rows[1].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreNotEqual("-", rows[4].Cells[OutputColumnIndex].FormattedValue);
-            DataGridViewRow dataGridViewRow = GetDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, dataGridViewRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, dataGridViewRow.DataBoundItem), view.Selection);
+            Assert.AreEqual(5, locationsDataGridViewRows.Count);
+            Assert.AreEqual("-", locationsDataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", locationsDataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", locationsDataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", locationsDataGridViewRows[4].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual(2, GetIllustrationPointsControl().Data.Count());
 
             var refreshed = false;
-            dataGridView.Invalidated += (sender, args) => refreshed = true;
+            locationsDataGridView.Invalidated += (sender, args) => refreshed = true;
 
             // When
             ClearLocationOutputAndNotifyObservers(view);
 
             // Then
             Assert.IsTrue(refreshed);
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[1].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[4].Cells[OutputColumnIndex].FormattedValue);
-            dataGridViewRow = GetDataGridViewControl().CurrentRow;
-            Assert.AreEqual(4, dataGridViewRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, dataGridViewRow.DataBoundItem), view.Selection);
+            Assert.AreEqual(5, locationsDataGridViewRows.Count);
+            Assert.AreEqual("-", locationsDataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", locationsDataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", locationsDataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", locationsDataGridViewRows[4].Cells[OutputColumnIndex].FormattedValue);
+            CollectionAssert.IsEmpty(GetIllustrationPointsControl().Data);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputCleared_ThenSelectionPreserved()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+
+            // Precondition
+            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+
+            // When
+            ClearLocationOutputAndNotifyObservers(view);
+
+            // Then
+            currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+        }
+
+        [Test]
+        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToLocation()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
+            illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
+
+            // Precondition
+            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
+            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+
+            // When
+            ClearLocationOutputAndNotifyObservers(view);
+
+            // Then
+            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
         }
 
         /// <summary>
@@ -156,7 +201,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <item>Row 2: location with design water level output (but without general result)</item>
         /// <item>Row 3: location with wave height output (but without general result)</item>
         /// <item>Row 4: location with flag for parsing the general result set to true</item>
-        /// <item>Row 5: location with output containing a general result</item>
+        /// <item>Row 5: location with output containing a general result with two top level illustration points</item>
         /// </list>
         /// </remarks>
         /// <returns>The fully configured locations view.</returns>
@@ -168,12 +213,12 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <param name="view">The locations view involved.</param>
         protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
 
-        private DataGridView GetDataGridView()
+        private DataGridView GetLocationsDataGridView()
         {
             return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
         }
 
-        private DataGridViewControl GetDataGridViewControl()
+        private DataGridViewControl GetLocationsDataGridViewControl()
         {
             return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
@@ -181,6 +226,11 @@ namespace Ringtoets.Common.Forms.TestUtil
         private IllustrationPointsControl GetIllustrationPointsControl()
         {
             return ControlTestHelper.GetControls<IllustrationPointsControl>(testForm, "IllustrationPointsControl").Single();
+        }
+
+        private DataGridView GetIllustrationPointsDataGridView()
+        {
+            return ControlTestHelper.GetDataGridView(GetIllustrationPointsControl(), "DataGridView");
         }
     }
 }
