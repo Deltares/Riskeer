@@ -59,18 +59,18 @@ namespace Ringtoets.Common.IO.SoilProfile
             $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.FrictionAngleShift}, " +
             $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.FrictionAngleMean}, " +
             $"max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation}, " +
-            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.ShearStrengthRatioDistribution}, " +
-            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.ShearStrengthRatioShift}, " +
-            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.ShearStrengthRatioMean}, " +
-            $"max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation}, " +
+            $"max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.ShearStrengthRatioDistribution}, " +
+            $"max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.ShearStrengthRatioShift}, " +
+            $"max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.ShearStrengthRatioMean}, " +
+            $"max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation}, " +
             $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution}, " +
             $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentShift}, " +
             $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentMean}, " +
             $"max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation}, " +
-            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.PopDistribution}, " +
-            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.PopShift}, " +
-            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.PopMean}, " +
-            $"max(case when pn.PN_Name = 'PopStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.PopCoefficientOfVariation} " +
+            $"max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.PopDistribution}, " +
+            $"max(case when pn.PN_Name = 'POPStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.PopShift}, " +
+            $"max(case when pn.PN_Name = 'POPStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.PopMean}, " +
+            $"max(case when pn.PN_Name = 'POPStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.PopCoefficientOfVariation} " +
             "FROM ParameterNames AS pn " +
             "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
             "LEFT JOIN Stochast AS s USING(PN_ID) " +

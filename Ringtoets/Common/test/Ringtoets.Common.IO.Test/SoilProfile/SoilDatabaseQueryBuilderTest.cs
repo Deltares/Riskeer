@@ -220,18 +220,18 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Shift end) AS FrictionAngleShift, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Mean end) AS FrictionAngleMean, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Variation end) AS FrictionAngleCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistribution, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Shift end) AS ShearStrengthRatioShift, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Mean end) AS ShearStrengthRatioMean, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Variation end) AS ShearStrengthRatioCoefficientOfVariation, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistribution, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Shift end) AS ShearStrengthRatioShift, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Mean end) AS ShearStrengthRatioMean, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Variation end) AS ShearStrengthRatioCoefficientOfVariation, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS StrengthIncreaseExponentDistribution, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Shift end) AS StrengthIncreaseExponentShift, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Mean end) AS StrengthIncreaseExponentMean, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Variation end) AS StrengthIncreaseExponentCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Dist_Type end) AS PopDistribution, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Shift end) AS PopShift, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Mean end) AS PopMean, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Variation end) AS PopCoefficientOfVariation " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS PopDistribution, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Shift end) AS PopShift, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Mean end) AS PopMean, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Variation end) AS PopCoefficientOfVariation " +
                 "FROM ParameterNames AS pn " +
                 "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
                 "LEFT JOIN Stochast AS s USING(PN_ID) " +
@@ -351,18 +351,18 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Shift end) AS FrictionAngleShift, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Mean end) AS FrictionAngleMean, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Variation end) AS FrictionAngleCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistribution, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Shift end) AS ShearStrengthRatioShift, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Mean end) AS ShearStrengthRatioMean, " +
-                "max(case when pn.PN_Name = 'ShearStrengthRatioStochast' then s.ST_Variation end) AS ShearStrengthRatioCoefficientOfVariation, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistribution, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Shift end) AS ShearStrengthRatioShift, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Mean end) AS ShearStrengthRatioMean, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Variation end) AS ShearStrengthRatioCoefficientOfVariation, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS StrengthIncreaseExponentDistribution, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Shift end) AS StrengthIncreaseExponentShift, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Mean end) AS StrengthIncreaseExponentMean, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Variation end) AS StrengthIncreaseExponentCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Dist_Type end) AS PopDistribution, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Shift end) AS PopShift, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Mean end) AS PopMean, " +
-                "max(case when pn.PN_Name = 'PopStochast' then s.ST_Variation end) AS PopCoefficientOfVariation " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS PopDistribution, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Shift end) AS PopShift, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Mean end) AS PopMean, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Variation end) AS PopCoefficientOfVariation " +
                 "FROM ParameterNames AS pn " +
                 "LEFT JOIN ParameterValues AS pv USING(PN_ID) " +
                 "LEFT JOIN Stochast AS s USING(PN_ID) " +
