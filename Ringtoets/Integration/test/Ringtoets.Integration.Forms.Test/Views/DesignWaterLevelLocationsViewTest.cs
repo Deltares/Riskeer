@@ -342,7 +342,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [TestFixture]
-        public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
+        public class DataSynchronizationTester : LocationsViewDataSynchronizationTester<HydraulicBoundaryLocation>
         {
             protected override int OutputColumnIndex
             {
@@ -363,6 +363,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
             {
                 return ShowFullyConfiguredDesignWaterLevelLocationsView(form);
+            }
+
+            protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            {
+                IAssessmentSection assessmentSection = view.AssessmentSection;
+                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
+                {
+                    WaveHeightCalculation =
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        },
+                        Output = new TestHydraulicBoundaryLocationOutput(10.23)
+                    }
+                };
+
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                };
+
+                assessmentSection.NotifyObservers();
             }
 
             protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)

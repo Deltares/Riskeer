@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// Class for testing data synchronization in <see cref="LocationsView{T}"/> derivatives.
     /// </summary>
     /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
-    public abstract class LocationsViewDataSynchronisationTester<T> where T : class
+    public abstract class LocationsViewDataSynchronizationTester<T> where T : class
     {
         private Form testForm;
 
@@ -47,6 +47,8 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             testForm.Dispose();
         }
+
+        #region Data synchronization
 
         [Test]
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutOutput_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
@@ -126,6 +128,33 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual("-", locationsDataGridViewRows[4].Cells[OutputColumnIndex].FormattedValue);
             CollectionAssert.IsEmpty(GetIllustrationPointsControl().Data);
+        }
+
+        #endregion
+
+        #region Selection synchronization
+
+        [Test]
+        public void GivenFullyConfiguredViewWithLocationSelection_WhenDatabaseReplaced_ThenSelectionUpdated()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+
+            // Precondition
+            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(4, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+
+            // When
+            ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
+
+            // Then
+            currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(0, currentLocationRow.Index);
+            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
         }
 
         [Test]
@@ -229,6 +258,34 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
         }
 
+        [Test]
+        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenDatabaseReplaced_ThenSelectionSetToLocation()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
+            DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
+            illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
+
+            // Precondition
+            Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
+            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(selection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+
+            // When
+            ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
+
+            // Then
+            Assert.AreEqual(0, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
+        }
+
+        #endregion
+
         /// <summary>
         /// Gets the index of the column containing the locations output.
         /// </summary>
@@ -258,6 +315,12 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </remarks>
         /// <returns>The fully configured locations view.</returns>
         protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
+
+        /// <summary>
+        /// Method for replacing the hydraulic boundary database as well as notifying the observers.
+        /// </summary>
+        /// <param name="view">The locations view involved.</param>
+        protected abstract void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view);
 
         /// <summary>
         /// Method for clearing all location output as well as notifying the observers.
