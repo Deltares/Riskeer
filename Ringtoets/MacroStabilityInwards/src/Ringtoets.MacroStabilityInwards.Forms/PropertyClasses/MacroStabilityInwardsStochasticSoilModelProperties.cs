@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsStochasticSoilModel"/> for properties panel.
     /// </summary>
-    public class StochasticSoilModelProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilModel>
+    public class MacroStabilityInwardsStochasticSoilModelProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilModel>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="stochasticSoilModel">The stochastic soil model for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochasticSoilModel"/>
         /// is <c>null</c>.</exception>
-        public StochasticSoilModelProperties(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
+        public MacroStabilityInwardsStochasticSoilModelProperties(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel)
         {
             if (stochasticSoilModel == null)
             {
@@ -83,13 +83,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilModel_StochasticSoilProfiles_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilModel_StochasticSoilProfiles_Description))]
-        public StochasticSoilProfileProperties[] StochasticSoilProfiles
+        public MacroStabilityInwardsStochasticSoilProfileProperties[] MacroStabilityInwardsStochasticSoilProfiles
         {
             get
             {
                 return data.StochasticSoilProfiles.Count > 0
-                           ? data.StochasticSoilProfiles.Select(ssp => new StochasticSoilProfileProperties(ssp)).ToArray()
-                           : new StochasticSoilProfileProperties[0];
+                           ? data.StochasticSoilProfiles.Select(ssp => new MacroStabilityInwardsStochasticSoilProfileProperties(ssp)).ToArray()
+                           : new MacroStabilityInwardsStochasticSoilProfileProperties[0];
             }
         }
     }

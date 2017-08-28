@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// </summary>
     [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfileProperties_DisplayName))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class StochasticSoilProfileProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>
+    public class MacroStabilityInwardsStochasticSoilProfileProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="stochasticSoilProfile">The stochastic soil profile for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochasticSoilProfile"/>
         /// is <c>null</c>.</exception>
-        public StochasticSoilProfileProperties(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile)
+        public MacroStabilityInwardsStochasticSoilProfileProperties(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile)
         {
             if (stochasticSoilProfile == null)
             {
@@ -92,8 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Layers;
-                return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray() ?? 
-                                                                          new MacroStabilityInwardsSoilLayer1DProperties[0];
+                return macroStabilityInwardsSoilLayers1D?.Select(layer => new MacroStabilityInwardsSoilLayer1DProperties(layer)).ToArray() ??
+                       new MacroStabilityInwardsSoilLayer1DProperties[0];
             }
         }
 
@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
                 return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties(layer)).ToArray() ??
-                                                                          new MacroStabilityInwardsSoilLayer2DProperties[0];
+                       new MacroStabilityInwardsSoilLayer2DProperties[0];
             }
         }
 
@@ -121,7 +121,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Bottom ?? double.NaN).Value.ToString(CultureInfo.CurrentCulture);
+                double bottomValue = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Bottom ?? double.NaN;
+                return new RoundedDouble(2, bottomValue).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 
@@ -143,7 +144,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 }
 
                 // If type is not supported, throw exception (currently not possible, safeguard for future)
-                throw new NotSupportedException($"{data.SoilProfile.GetType()} is not supported. Supported types: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.");
+                string exceptionMessage = $"{data.SoilProfile.GetType()} is not supported." +
+                                          $" Supported types: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.";
+                throw new NotSupportedException(exceptionMessage);
             }
         }
 

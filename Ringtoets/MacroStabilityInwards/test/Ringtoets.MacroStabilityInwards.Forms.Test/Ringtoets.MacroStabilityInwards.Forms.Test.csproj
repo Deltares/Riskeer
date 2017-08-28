@@ -80,14 +80,14 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StochasticSoilModelCollectionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilModelPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelPropertiesTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsContextTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextPropertiesTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationScenarioContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilProfilePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLinePropertiesTest.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextStochasticSoilProfileSelectionEditorTest.cs" />

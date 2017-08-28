@@ -87,27 +87,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(stochasticSoilModel.Name, properties.Name);
-            Assert.AreEqual(stochasticSoilModel.Geometry[0], properties.Geometry[0]);
+            CollectionAssert.AreEqual(stochasticSoilModel.Geometry, properties.Geometry);
 
-            Assert.IsInstanceOf<PipingStochasticSoilProfileProperties[]>(properties.StochasticSoilProfiles);
             Assert.AreEqual(1, properties.StochasticSoilProfiles.Length);
+            Assert.AreSame(stochasticSoilModel.StochasticSoilProfiles[0], properties.StochasticSoilProfiles[0].Data);
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("Name")
-            {
-                Geometry =
-                {
-                    new Point2D(1.0, 2.0)
-                },
-                StochasticSoilProfiles =
-                {
-                    new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                }
-            };
+            var stochasticSoilModel = new PipingStochasticSoilModel("Name");
 
             // Call
             var properties = new PipingStochasticSoilModelProperties(stochasticSoilModel);

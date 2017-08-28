@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StochasticSoilModelProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsStochasticSoilModelProperties));
         }
 
         [TearDown]
@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), info.DataType);
-            Assert.AreEqual(typeof(StochasticSoilModelProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModelProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModelProperties>(objectProperties);
+            Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModelProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
             mocks.VerifyAll();

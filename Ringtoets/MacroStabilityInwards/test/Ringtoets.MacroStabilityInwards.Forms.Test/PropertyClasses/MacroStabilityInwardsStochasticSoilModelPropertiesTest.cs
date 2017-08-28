@@ -34,7 +34,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StochasticSoilModelPropertiesTest
+    public class MacroStabilityInwardsStochasticSoilModelPropertiesTest
     {
         private const int stochasticSoilModelNamePropertyIndex = 0;
         private const int stochasticSoilModelGeometryPropertyIndex = 1;
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StochasticSoilModelProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -58,12 +58,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("model");
 
             // Call
-            var properties = new StochasticSoilModelProperties(stochasticSoilModel);
+            var properties = new MacroStabilityInwardsStochasticSoilModelProperties(stochasticSoilModel);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilModel>>(properties);
-            TestHelper.AssertTypeConverter<StochasticSoilModelProperties, ExpandableArrayConverter>(nameof(StochasticSoilModelProperties.Geometry));
-            TestHelper.AssertTypeConverter<StochasticSoilModelProperties, ExpandableArrayConverter>(nameof(StochasticSoilModelProperties.StochasticSoilProfiles));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilModelProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilModelProperties.Geometry));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilModelProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilModelProperties.MacroStabilityInwardsStochasticSoilProfiles));
             Assert.AreSame(stochasticSoilModel, properties.Data);
         }
 
@@ -81,13 +83,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             // Call
-            var properties = new StochasticSoilModelProperties(stochasticSoilModel);
+            var properties = new MacroStabilityInwardsStochasticSoilModelProperties(stochasticSoilModel);
 
             // Assert
             Assert.AreEqual(stochasticSoilModel.Name, properties.Name);
             CollectionAssert.AreEqual(stochasticSoilModel.Geometry, properties.Geometry);
-            Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfiles[0].Data);
-            Assert.AreEqual(1, properties.StochasticSoilProfiles.Length);
+            Assert.AreEqual(1, properties.MacroStabilityInwardsStochasticSoilProfiles.Length);
+            Assert.AreSame(stochasticSoilProfile, properties.MacroStabilityInwardsStochasticSoilProfiles[0].Data);
         }
 
         [Test]
@@ -95,16 +97,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
-            stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
-            {
-                new MacroStabilityInwardsSoilLayer1D(10)
-            });
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             // Call
-            var properties = new StochasticSoilModelProperties(stochasticSoilModel);
+            var properties = new MacroStabilityInwardsStochasticSoilModelProperties(stochasticSoilModel);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

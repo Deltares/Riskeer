@@ -48,20 +48,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidMacroStabilityInwardsSoilLayer2D_ExpectedValues()
         {
             // Setup
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                                 {
-                                                                     new Point2D(20.210230, 26.00001),
-                                                                     new Point2D(3.830, 1.040506)
-                                                                 }),
-                                                                 new Ring[0]);
+            MacroStabilityInwardsSoilLayer2D soilLayer = CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(soilLayer);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSoilLayer2D>>(properties);
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties, ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.OuterRing));
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties, ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.Holes));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.OuterRing));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.Holes));
             Assert.AreSame(soilLayer, properties.Data);
         }
 
@@ -105,18 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnsMaterialName()
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                             {
-                                                                 new Point2D(20.210230, 26.00001),
-                                                                 new Point2D(3.830, 1.040506)
-                                                             }),
-                                                             new Ring[0])
-            {
-                Properties =
-                {
-                    MaterialName = "Layer A 2D"
-                }
-            };
+            MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
+            layer.Properties.MaterialName = "Layer A 2D";
 
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
 
@@ -131,12 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                             {
-                                                                 new Point2D(20.210230, 26.00001),
-                                                                 new Point2D(3.830, 1.040506)
-                                                             }),
-                                                             new Ring[0]);
+            MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
@@ -175,6 +157,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Is aquifer",
                                                                             "Geeft aan of deze grondlaag een watervoerende laag betreft.",
                                                                             true);
+        }
+
+        private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
+        {
+            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                        {
+                                                            new Point2D(20.210230, 26.00001),
+                                                            new Point2D(3.830, 1.040506)
+                                                        }),
+                                                        new Ring[0]);
         }
     }
 }

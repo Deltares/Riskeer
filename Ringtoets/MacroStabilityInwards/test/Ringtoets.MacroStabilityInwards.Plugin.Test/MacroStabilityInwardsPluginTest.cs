@@ -95,12 +95,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsStochasticSoilModel),
-                    typeof(StochasticSoilModelProperties));
+                    typeof(MacroStabilityInwardsStochasticSoilModelProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsStochasticSoilProfile),
-                    typeof(StochasticSoilProfileProperties));
+                    typeof(MacroStabilityInwardsStochasticSoilProfileProperties));
             }
         }
 
