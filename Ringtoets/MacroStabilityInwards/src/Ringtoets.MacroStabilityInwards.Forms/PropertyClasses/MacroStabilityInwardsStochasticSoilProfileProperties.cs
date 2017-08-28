@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile != null ? data.SoilProfile.Name : string.Empty;
+                return data.SoilProfile.Name;
             }
         }
 

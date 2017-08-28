@@ -298,7 +298,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private static void GetProperties_WithSoilProfile1D_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
-            const string expectedName = "<some name>";
             var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
             var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4);
             IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
@@ -307,15 +306,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D(expectedName, -5.0, layers);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("<some name>", -5.0, layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
-            Assert.AreEqual(expectedName, properties.Name);
-            Assert.AreEqual(expectedName, properties.ToString());
+            Assert.AreEqual(soilProfile.Name, properties.Name);
+            Assert.AreEqual(soilProfile.Name, properties.ToString());
 
             Assert.AreEqual(2, properties.Layers1D.Length);
             Assert.AreSame(layerOne, properties.Layers1D[0].Data);
@@ -330,8 +329,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private static void GetProperties_WithSoilProfile2D_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
-            const string expectedName = "<some name>";
-
             MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
             MacroStabilityInwardsSoilLayer2D layerTwo = CreateMacroStabilityInwardsSoilLayer2D();
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
@@ -340,15 +337,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D(expectedName, layers);
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
-            Assert.AreEqual(expectedName, properties.Name);
-            Assert.AreEqual(expectedName, properties.ToString());
+            Assert.AreEqual(soilProfile.Name, properties.Name);
+            Assert.AreEqual(soilProfile.Name, properties.ToString());
 
             Assert.AreEqual(2, properties.Layers2D.Length);
             Assert.AreSame(layerOne, properties.Layers2D[0].Data);

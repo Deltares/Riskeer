@@ -58,6 +58,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingStochasticSoilProfile>>(properties);
+            TestHelper.AssertTypeConverter<PipingStochasticSoilProfileProperties,
+                ExpandableArrayConverter>(nameof(PipingStochasticSoilProfileProperties.Layers));
             Assert.AreSame(stochasticSoilProfile, properties.Data);
         }
 
@@ -82,10 +84,31 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(SoilProfileType.SoilProfile1D, "1D profiel")]
+        [TestCase(SoilProfileType.SoilProfile2D, "2D profiel")]
+        public void Type_WithDifferentSoilProfileTypes_ReturnsExpectedValues(SoilProfileType soilProfileType,
+                                                                             string expectedValue)
+        {
+            // Setup
+            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new PipingSoilProfile("", 0.0, new[]
+            {
+                new PipingSoilLayer(10.0)
+            }, soilProfileType));
+
+            var properties = new PipingStochasticSoilProfileProperties(stochasticSoilProfile);
+
+            // Call
+            string typeValue = properties.Type;
+
+            // Assert
+            Assert.AreEqual(expectedValue, typeValue);
+        }
+
+        [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var pipingStochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new PipingSoilProfile("", 0.0, new []
+            var pipingStochasticSoilProfile = new PipingStochasticSoilProfile(0.0, new PipingSoilProfile("", 0.0, new[]
             {
                 new PipingSoilLayer(10.0)
             }, SoilProfileType.SoilProfile1D));
@@ -137,7 +160,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         private static void GetProperties_WithData_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
-            const string expectedName = "<some name>";
             var layerOne = new PipingSoilLayer(-2);
             var layerTwo = new PipingSoilLayer(-4);
 
@@ -147,23 +169,21 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D);
+            var soilProfile = new PipingSoilProfile("<some name>", -5.0, layers, SoilProfileType.SoilProfile1D);
             var stochasticSoilProfile = new PipingStochasticSoilProfile(probability, soilProfile);
 
             // Call
             var properties = new PipingStochasticSoilProfileProperties(stochasticSoilProfile);
 
             // Assert
-            Assert.AreEqual(expectedName, properties.Name);
-            Assert.AreEqual(expectedName, properties.ToString());
-            TestHelper.AssertTypeConverter<PipingStochasticSoilProfileProperties, ExpandableArrayConverter>(nameof(PipingStochasticSoilProfileProperties.Layers));
+            Assert.AreEqual(soilProfile.Name, properties.Name);
+            Assert.AreEqual(soilProfile.Name, properties.ToString());
             Assert.AreEqual(2, properties.Layers.Length);
             Assert.AreSame(layerOne, properties.Layers[0].Data);
             Assert.AreSame(layerTwo, properties.Layers[1].Data);
 
             Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
             Assert.AreEqual(expectedProbability, properties.Probability);
-            Assert.AreEqual("1D profiel", properties.Type);
         }
     }
 }
