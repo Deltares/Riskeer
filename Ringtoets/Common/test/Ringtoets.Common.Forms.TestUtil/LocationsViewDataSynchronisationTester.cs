@@ -92,6 +92,43 @@ namespace Ringtoets.Common.Forms.TestUtil
             CollectionAssert.IsNotEmpty(illustrationPointsControl.Data);
         }
 
+        [Test]
+        public void GivenFullyConfiguredView_WhenLocationOutputCleared_DataGridViewUpdatedAndSelectionPreserved()
+        {
+            // Given
+            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+
+            // Precondition
+            DataGridView dataGridView = GetDataGridView();
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(5, rows.Count);
+            Assert.AreEqual("-", rows[0].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", rows[1].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[2].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[3].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", rows[4].Cells[OutputColumnIndex].FormattedValue);
+
+            var refreshed = false;
+            dataGridView.Invalidated += (sender, args) => refreshed = true;
+
+            // When
+            ClearLocationOutputAndNotifyObservers(view);
+
+            // Then
+            Assert.IsTrue(refreshed);
+            Assert.AreEqual(5, rows.Count);
+            Assert.AreEqual("-", rows[0].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[1].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[2].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[3].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[4].Cells[OutputColumnIndex].FormattedValue);
+        }
+
+        /// <summary>
+        /// Gets the index of the column containing the locations output.
+        /// </summary>
+        protected abstract int OutputColumnIndex { get; }
+
         /// <summary>
         /// Method for showing a fully configured locations view.
         /// </summary>
@@ -100,11 +137,25 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// The view should contain the following location row data:
         /// <list type="bullet">
         /// <item>Row 1: location without output</item>
-        /// <item>Row 2: location with output but without general result</item>
-        /// <item>Row 4: location with output containing a general result</item>
+        /// <item>Row 2: location with design water level output (but without general result)</item>
+        /// <item>Row 3: location with wave height output (but without general result)</item>
+        /// <item>Row 4: location with flag for parsing the general result set to true</item>
+        /// <item>Row 5: location with output containing a general result</item>
         /// </list>
         /// </remarks>
-        protected abstract void ShowFullyConfiguredLocationsView(Form form);
+        /// <returns>The fully configured locations view.</returns>
+        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
+
+        /// <summary>
+        /// Method for clearing all location output as well as notifying the observers.
+        /// </summary>
+        /// <param name="view">The view involved.</param>
+        protected abstract void ClearLocationOutputAndNotifyObservers(LocationsView<T> view);
+
+        private DataGridView GetDataGridView()
+        {
+            return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+        }
 
         private DataGridViewControl GetDataGridViewControl()
         {

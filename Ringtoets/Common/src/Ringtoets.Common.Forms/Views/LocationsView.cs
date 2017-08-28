@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
@@ -51,6 +52,11 @@ namespace Ringtoets.Common.Forms.Views
             LocalizeControls();
             InitializeEventHandlers();
         }
+
+        /// <summary>
+        /// Gets or sets the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; protected set; }
 
         public object Selection { get; private set; }
 

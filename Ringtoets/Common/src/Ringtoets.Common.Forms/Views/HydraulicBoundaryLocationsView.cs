@@ -74,11 +74,6 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
-
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();

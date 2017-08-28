@@ -201,41 +201,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
-        {
-            // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testForm);
-            IAssessmentSection assessmentSection = view.AssessmentSection;
-
-            // Precondition
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
-
-            var refreshed = false;
-            dataGridView.Invalidated += (sender, args) => refreshed = true;
-
-            // Call
-            assessmentSection.NotifyObservers();
-
-            // Assert
-            Assert.IsTrue(refreshed);
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[4].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-        }
-
-        [Test]
         public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
@@ -379,9 +344,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            protected override void ShowFullyConfiguredLocationsView(Form form)
+            protected override int OutputColumnIndex
             {
-                ShowFullyConfiguredDesignWaterLevelLocationsView(form);
+                get
+                {
+                    return locationDesignWaterlevelColumnIndex;
+                }
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
+            {
+                return ShowFullyConfiguredDesignWaterLevelLocationsView(form);
+            }
+
+            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            {
+                IAssessmentSection assessmentSection = view.AssessmentSection;
+
+                assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevelCalculation.Output = null);
+                assessmentSection.NotifyObservers();
             }
         }
 

@@ -199,41 +199,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
-        {
-            // Setup
-            WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(testForm);
-            IAssessmentSection assessmentSection = view.AssessmentSection;
-
-            // Precondition
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
-
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
-
-            var refreshed = false;
-            dataGridView.Invalidated += (sender, args) => refreshed = true;
-
-            // Call
-            assessmentSection.NotifyObservers();
-
-            // Assert
-            Assert.IsTrue(refreshed);
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
-        }
-
-        [Test]
         public void WaveHeightLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
@@ -371,9 +336,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            protected override void ShowFullyConfiguredLocationsView(Form form)
+            protected override int OutputColumnIndex
             {
-                ShowFullyConfiguredWaveHeightLocationsView(form);
+                get
+                {
+                    return locationWaveHeightColumnIndex;
+                }
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
+            {
+                return ShowFullyConfiguredWaveHeightLocationsView(form);
+            }
+
+            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            {
+                IAssessmentSection assessmentSection = view.AssessmentSection;
+
+                assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
+                assessmentSection.NotifyObservers();
             }
         }
 

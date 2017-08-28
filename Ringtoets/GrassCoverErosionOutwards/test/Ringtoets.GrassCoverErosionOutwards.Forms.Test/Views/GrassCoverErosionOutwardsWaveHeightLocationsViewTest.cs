@@ -335,44 +335,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void WaveHeightLocationsView_EachHydraulicBoundaryLocationUpdated_DataGridViewRefreshedWithNewValues()
-        {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView(assessmentSection, testForm);
-            var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-
-            // Precondition
-            DataGridView dataGridView = GetDataGridView();
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
-
-            locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
-
-            var refreshed = false;
-            dataGridView.Invalidated += (sender, args) => refreshed = true;
-
-            // Call
-            locations.NotifyObservers();
-
-            // Assert
-            Assert.IsTrue(refreshed);
-            Assert.AreEqual(5, rows.Count);
-            Assert.AreEqual("-", rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[3].Cells[locationWaveHeightColumnIndex].FormattedValue);
-            Assert.AreEqual("-", rows[4].Cells[locationWaveHeightColumnIndex].FormattedValue);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeightsSelectionNotChanged(bool isSuccessful)
@@ -498,9 +460,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [TestFixture]
         public class DataSynchronisationTester : LocationsViewDataSynchronisationTester<HydraulicBoundaryLocation>
         {
-            protected override void ShowFullyConfiguredLocationsView(Form form)
+            protected override int OutputColumnIndex
             {
-                ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
+                get
+                {
+                    return locationWaveHeightColumnIndex;
+                }
+            }
+
+            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)
+            {
+                return ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
+            }
+
+            protected override void ClearLocationOutputAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
+            {
+                var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+
+                locations.ForEach(loc => loc.WaveHeightCalculation.Output = null);
+                locations.NotifyObservers();
             }
         }
 
