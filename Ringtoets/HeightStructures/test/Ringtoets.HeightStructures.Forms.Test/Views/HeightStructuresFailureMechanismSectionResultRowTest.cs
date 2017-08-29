@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -51,8 +50,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree,
-                result.AssessmentLayerThree.GetAccuracy());
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
@@ -181,16 +179,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSection());
             var row = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
 
-            int nrOfExpectedDecimals = sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
-
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            RoundedDouble actualAssessmentLayerThreeValue = sectionResult.AssessmentLayerThree;
-            Assert.AreEqual(assessmentLayerThree, actualAssessmentLayerThreeValue,
-                actualAssessmentLayerThreeValue.GetAccuracy());
-            Assert.AreEqual(nrOfExpectedDecimals, actualAssessmentLayerThreeValue.NumberOfDecimalPlaces);
+            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()

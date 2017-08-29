@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Structures
     /// for the whole section.</typeparam>
     public class StructuresFailureMechanismSectionResult<T> : FailureMechanismSectionResult where T : IStructuresCalculationInput, new()
     {
-        private RoundedDouble assessmentLayerThree;
+        private double assessmentLayerThree;
 
         /// <summary>
         /// Initializes a new instance of <see cref="StructuresFailureMechanismSectionResult{T}"/>.
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Structures
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         protected StructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerThree = RoundedDouble.NaN;
+            AssessmentLayerThree = double.NaN;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
         /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        public RoundedDouble AssessmentLayerThree
+        public double AssessmentLayerThree
         {
             get
             {

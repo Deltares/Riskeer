@@ -40,12 +40,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random();
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            const double assessmentLayerThreeResult = 0.2;
+            double assessmentLayerThreeResult = random.NextDouble();
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerThree = assessmentLayerThreeResult
             };
 
             // Call

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -54,8 +53,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
             set
             {
-                int nrOfDecimals = SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
-                SectionResult.AssessmentLayerThree = new RoundedDouble(nrOfDecimals, value);
+                SectionResult.AssessmentLayerThree = value;
             }
         }
 

@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -52,8 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
-            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree,
-                            result.AssessmentLayerThree.GetAccuracy());
+            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
@@ -181,16 +179,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var row = new PipingFailureMechanismSectionResultRow(sectionResult,
                                                                  Enumerable.Empty<PipingCalculationScenario>());
 
-            int nrOfExpectedDecimals = sectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
-
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            RoundedDouble actualAssessmentLayerThreeValue = sectionResult.AssessmentLayerThree;
-            Assert.AreEqual(assessmentLayerThree, actualAssessmentLayerThreeValue,
-                            actualAssessmentLayerThreeValue.GetAccuracy());
-            Assert.AreEqual(nrOfExpectedDecimals, actualAssessmentLayerThreeValue.NumberOfDecimalPlaces);
+            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()

@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private RoundedDouble assessmentLayerThree;
+        private double assessmentLayerThree;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerThree = RoundedDouble.NaN;
+            AssessmentLayerThree = double.NaN;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
         /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        public RoundedDouble AssessmentLayerThree
+        public double AssessmentLayerThree
         {
             get
             {

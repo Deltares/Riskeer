@@ -40,8 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResult(CreateSection());
 
             // Call
             var row = new DuneErosionSectionResultRow(result);

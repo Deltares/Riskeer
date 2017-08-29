@@ -68,8 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
             set
             {
-                int nrOfDecimals = SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces;
-                SectionResult.AssessmentLayerThree = new RoundedDouble(nrOfDecimals, value);
+                SectionResult.AssessmentLayerThree = value;
             }
         }
 

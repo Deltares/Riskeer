@@ -1345,7 +1345,7 @@ SELECT
 	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON psr.[rowid] = source.[rowid]    
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = psr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerThree] IS NOT psr.[LayerThree];
+	WHERE source.[LayerThree] IS NOT NULL AND psr.[LayerThree] IS NULL;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1358,7 +1358,7 @@ SELECT
 	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity AS source ON gceisr.[rowid] = source.[rowid]    
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = gceisr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerThree] IS NOT gceisr.[LayerThree];
+	WHERE source.[LayerThree] IS NOT NULL AND gceisr.[LayerThree] IS NULL;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1371,7 +1371,7 @@ SELECT
 	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON cssr.[rowid] = source.[rowid]    
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = cssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerThree] IS NOT cssr.[LayerThree];
+	WHERE source.[LayerThree] IS NOT NULL AND cssr.[LayerThree] IS NULL;
 	
 INSERT INTO TempChanges
 SELECT 
@@ -1384,7 +1384,7 @@ SELECT
 	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON hssr.[rowid] = source.[rowid]    
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = hssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerThree] IS NOT hssr.[LayerThree];
+	WHERE source.[LayerThree] IS NOT NULL AND hssr.[LayerThree] IS NULL;
 	
 INSERT INTO TempChanges
 SELECT 
@@ -1397,7 +1397,7 @@ SELECT
 	JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity AS source ON spssr.[rowid] = source.[rowid]    
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = spssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerThree] IS NOT spssr.[LayerThree];
+	WHERE source.[LayerThree] IS NOT NULL AND spssr.[LayerThree] IS NULL;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 

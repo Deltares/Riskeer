@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -60,12 +58,11 @@ namespace Ringtoets.Piping.Data.Test
             var sectionResult = new PipingFailureMechanismSectionResult(CreateSection());
 
             // Call
-            TestDelegate call = () => sectionResult.AssessmentLayerThree = (RoundedDouble) invalidValue;
+            TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -79,11 +76,10 @@ namespace Ringtoets.Piping.Data.Test
             var sectionResult = new PipingFailureMechanismSectionResult(CreateSection());
 
             // Call
-            TestDelegate call = () => sectionResult.AssessmentLayerThree = (RoundedDouble) validValue;
+            sectionResult.AssessmentLayerThree = validValue;
 
             // Assert
-            Assert.DoesNotThrow(call);
-            Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree, sectionResult.AssessmentLayerThree.GetAccuracy());
+            Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
         }
 
         private static FailureMechanismSection CreateSection()
