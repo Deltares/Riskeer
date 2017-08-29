@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Threading;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
@@ -35,6 +36,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
     /// <summary>
     /// Class for testing <see cref="ShouldCloseMethod"/>.
     /// </summary>
+    [Apartment(ApartmentState.STA)]
     public abstract class ShouldCloseViewWithCalculationDataTester
     {
         [Test]

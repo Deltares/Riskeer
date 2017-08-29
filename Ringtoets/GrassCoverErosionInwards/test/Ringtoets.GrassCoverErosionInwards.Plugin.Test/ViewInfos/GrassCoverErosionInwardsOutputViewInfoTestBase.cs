@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Threading;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -41,6 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     /// </summary>
     /// <typeparam name="TView">The type of view involved.</typeparam>
     /// <typeparam name="TOutputContext">The type of output context involved.</typeparam>
+    [Apartment(ApartmentState.STA)]
     public abstract class GrassCoverErosionInwardsOutputViewInfoTestBase<TView, TOutputContext> : ShouldCloseViewWithCalculationDataTester
         where TView : IView
     {

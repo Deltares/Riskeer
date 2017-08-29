@@ -84,7 +84,9 @@ namespace Ringtoets.Common.Forms.Views
             {
                 GraphNode selectedGraphNode = pointedTreeGraphControl.Selection;
 
-                return drawnNodes.Where(l => l.GraphNode == selectedGraphNode).Select(l => l.IllustrationPointNode).FirstOrDefault();
+                return drawnNodes.Where(l => l.GraphNode == selectedGraphNode)
+                                 .Select(l => l.IllustrationPointNode)
+                                 .FirstOrDefault();
             }
         }
 

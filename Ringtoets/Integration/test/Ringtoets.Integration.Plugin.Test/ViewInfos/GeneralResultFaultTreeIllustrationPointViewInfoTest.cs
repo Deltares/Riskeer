@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Threading;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -45,6 +46,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class GeneralResultFaultTreeIllustrationPointViewInfoTest
     {
         private RingtoetsPlugin plugin;

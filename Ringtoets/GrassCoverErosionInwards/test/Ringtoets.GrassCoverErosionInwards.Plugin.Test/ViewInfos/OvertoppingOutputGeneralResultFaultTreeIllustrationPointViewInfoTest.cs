@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -29,6 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class OvertoppingOutputGeneralResultFaultTreeIllustrationPointViewInfoTest :
         GrassCoverErosionInwardsOutputViewInfoTestBase<OvertoppingOutputGeneralResultFaultTreeIllustrationPointView, OvertoppingOutputContext>
     {
