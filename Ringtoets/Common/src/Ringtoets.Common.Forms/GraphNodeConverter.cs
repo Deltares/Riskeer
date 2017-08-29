@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Utils;
 using Core.Components.PointedTree.Data;
@@ -39,44 +38,25 @@ namespace Ringtoets.Common.Forms
     internal static class GraphNodeConverter
     {
         /// <summary>
-        /// Creates a new instance of a <see cref="IllustrationPointBase"/> based on the
-        /// <paramref name="node"/>.
+        /// Creates a new instance of <see cref="GraphNode"/>, based on the properties of <paramref name="illustrationPoint"/>.
         /// </summary>
-        /// <param name="node">The <see cref="IllustrationPointNode"/> to base the 
+        /// <param name="illustrationPoint">The <see cref="FaultTreeIllustrationPoint"/> to base the 
         /// <see cref="GraphNode"/> to create on.</param>
-        /// <returns>A <see cref="GraphNode"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="node"/> is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when no suitable conversion for 
-        /// <paramref name="node"/> was found.</exception>
-        public static GraphNode Convert(IllustrationPointNode node)
+        /// <param name="childGraphNodes">The child graph nodes of the <see cref="GraphNode"/> to create.</param>
+        /// <returns>The created <see cref="GraphNode"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input variables is <c>null</c>.</exception>
+        public static GraphNode ConvertFaultTreeIllustrationPoint(FaultTreeIllustrationPoint illustrationPoint,
+                                                                  IEnumerable<GraphNode> childGraphNodes)
         {
-            if (node == null)
+            if (illustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(node));
+                throw new ArgumentNullException(nameof(illustrationPoint));
+            }
+            if (childGraphNodes == null)
+            {
+                throw new ArgumentNullException(nameof(childGraphNodes));
             }
 
-            IllustrationPointBase illustrationPoint = node.Data;
-            var subMechanismIllustrationPoint = illustrationPoint as SubMechanismIllustrationPoint;
-            if (subMechanismIllustrationPoint != null)
-            {
-                return ConvertSubMechanismIllustrationPoint(subMechanismIllustrationPoint);
-            }
-
-            var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
-            if (faultTreeIllustrationPoint != null)
-            {
-                IEnumerable<GraphNode> childGraphNodes = node.Children.Select(Convert);
-
-                return ConvertFaultTreeIllustrationPoint(faultTreeIllustrationPoint,
-                                                         childGraphNodes);
-            }
-
-            throw new NotSupportedException($"Cannot convert {illustrationPoint.GetType()}.");
-        }
-
-        private static GraphNode ConvertFaultTreeIllustrationPoint(FaultTreeIllustrationPoint illustrationPoint,
-                                                                   IEnumerable<GraphNode> childGraphNodes)
-        {
             string childRelationTitle = illustrationPoint.CombinationType == CombinationType.And
                                             ? Resources.GraphNode_CombinationType_And
                                             : Resources.GraphNode_CombinationType_Or;
@@ -91,8 +71,20 @@ namespace Ringtoets.Common.Forms
                 });
         }
 
-        private static GraphNode ConvertSubMechanismIllustrationPoint(SubMechanismIllustrationPoint illustrationPoint)
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphNode"/>, based on the properties of <paramref name="illustrationPoint"/>.
+        /// </summary>
+        /// <param name="illustrationPoint">The <see cref="SubMechanismIllustrationPoint"/> to base the 
+        /// <see cref="GraphNode"/> to create on.</param>
+        /// <returns>The created <see cref="GraphNode"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPoint"/> is <c>null</c>.</exception>
+        public static GraphNode ConvertSubMechanismIllustrationPoint(SubMechanismIllustrationPoint illustrationPoint)
         {
+            if (illustrationPoint == null)
+            {
+                throw new ArgumentNullException(nameof(illustrationPoint));
+            }
+
             return RingtoetsGraphNodeFactory.CreateEndGraphNode(
                 illustrationPoint.Name,
                 CreateGraphNodeContent(illustrationPoint.Beta));

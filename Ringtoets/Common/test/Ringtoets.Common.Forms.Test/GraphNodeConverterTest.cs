@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -36,49 +37,30 @@ namespace Ringtoets.Common.Forms.Test
     public class GraphNodeConverterTest
     {
         [Test]
-        public void Convert_NodeNull_ThrowsArgumentNullException()
+        public void ConvertFaultTreeIllustrationPoint_IllustrationNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GraphNodeConverter.Convert(null);
+            TestDelegate test = () => GraphNodeConverter.ConvertFaultTreeIllustrationPoint(null,
+                                                                                           Enumerable.Empty<GraphNode>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("node", exception.ParamName);
+            Assert.AreEqual("illustrationPoint", exception.ParamName);
         }
 
         [Test]
-        public void Convert_InvalidTypeNodeData_ThrowsNotSupportedException()
+        public void ConvertFaultTreeIllustrationPoint_ChildrenNull_ThrowsArgumentNullException()
         {
             // Setup
-            var node = new IllustrationPointNode(new TestIllustrationPoint());
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
 
             // Call
-            TestDelegate test = () => GraphNodeConverter.Convert(node);
+            TestDelegate test = () => GraphNodeConverter.ConvertFaultTreeIllustrationPoint(illustrationPoint,
+                                                                                           null);
 
             // Assert
-            var exception = Assert.Throws<NotSupportedException>(test);
-            Assert.AreEqual($"Cannot convert {node.Data.GetType()}.", exception.Message);
-        }
-
-        [Test]
-        public void Convert_SubMechanismIllustrationPointNodeData_ReturnsExpected()
-        {
-            // Setup
-            const string name = "Illustration Point";
-            RoundedDouble beta = new Random(7).NextRoundedDouble();
-            var node = new IllustrationPointNode(new SubMechanismIllustrationPoint(
-                                                     name,
-                                                     beta,
-                                                     Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                                     Enumerable.Empty<IllustrationPointResult>()));
-
-            // Call
-            GraphNode graphNode = GraphNodeConverter.Convert(node);
-
-            // Assert
-            Assert.AreEqual(CreateExpectedGraphNodeContent(name, beta), graphNode.Content);
-            Assert.IsTrue(graphNode.IsSelectable);
-            CollectionAssert.IsEmpty(graphNode.ChildNodes);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("childGraphNodes", exception.ParamName);
         }
 
         [Test]
@@ -89,14 +71,20 @@ namespace Ringtoets.Common.Forms.Test
             // Setup
             const string name = "Illustration Point";
             RoundedDouble beta = new Random(7).NextRoundedDouble();
-            var node = new IllustrationPointNode(new FaultTreeIllustrationPoint(
-                                                     name,
-                                                     beta,
-                                                     Enumerable.Empty<Stochast>(),
-                                                     combinationType));
+            var illustrationPoint = new FaultTreeIllustrationPoint(
+                name,
+                beta,
+                Enumerable.Empty<Stochast>(),
+                combinationType);
+
+            IEnumerable<GraphNode> childGraphNodes = new[]
+            {
+                GraphNodeConverter.ConvertSubMechanismIllustrationPoint(new TestSubMechanismIllustrationPoint())
+            };
 
             // Call
-            GraphNode graphNode = GraphNodeConverter.Convert(node);
+            GraphNode graphNode = GraphNodeConverter.ConvertFaultTreeIllustrationPoint(illustrationPoint,
+                                                                                       childGraphNodes);
 
             // Assert
             Assert.AreEqual(CreateExpectedGraphNodeContent(name, beta), graphNode.Content);
@@ -106,89 +94,40 @@ namespace Ringtoets.Common.Forms.Test
             GraphNode childNode = graphNode.ChildNodes.First();
             Assert.AreEqual(CreateExpectedGraphConnectingNodeContent(combinationType), childNode.Content);
             Assert.IsFalse(childNode.IsSelectable);
-            CollectionAssert.IsEmpty(childNode.ChildNodes);
+
+            CollectionAssert.AreEqual(childGraphNodes, childNode.ChildNodes);
         }
 
         [Test]
-        public void Convert_FaultTreeIllustrationPointNodeDataWithChildren_ReturnsExpected()
+        public void ConvertSubMechanismIllustrationPoint_IllustrationNodeNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(70);
-
-            var childFaultTreeNode = new IllustrationPointNode(new FaultTreeIllustrationPoint(
-                                                                   "ChildFaultTreeIllustrationPoint",
-                                                                   random.NextRoundedDouble(),
-                                                                   Enumerable.Empty<Stochast>(),
-                                                                   CombinationType.And));
-            childFaultTreeNode.SetChildren(new[]
-            {
-                new IllustrationPointNode(new SubMechanismIllustrationPoint(
-                                              "ChildChildSubMechanismIllustrationPoint1",
-                                              random.NextRoundedDouble(),
-                                              Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                              Enumerable.Empty<IllustrationPointResult>())),
-                new IllustrationPointNode(new SubMechanismIllustrationPoint(
-                                              "ChildChildSubMechanismIllustrationPoint2",
-                                              random.NextRoundedDouble(),
-                                              Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                              Enumerable.Empty<IllustrationPointResult>()))
-            });
-
-            var node = new IllustrationPointNode(new FaultTreeIllustrationPoint(
-                                                     "FaultTreeIllustrationPoint",
-                                                     random.NextRoundedDouble(),
-                                                     Enumerable.Empty<Stochast>(),
-                                                     CombinationType.Or));
-            node.SetChildren(new[]
-            {
-                new IllustrationPointNode(new SubMechanismIllustrationPoint(
-                                              "SubMechanismIllustrationPoint",
-                                              random.NextRoundedDouble(),
-                                              Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
-                                              Enumerable.Empty<IllustrationPointResult>())),
-                childFaultTreeNode
-            });
-
             // Call
-            GraphNode graphNode = GraphNodeConverter.Convert(node);
+            TestDelegate test = () => GraphNodeConverter.ConvertSubMechanismIllustrationPoint(null);
 
             // Assert
-            Assert.AreEqual(CreateExpectedGraphNodeContent(node.Data.Name, node.Data.Beta), graphNode.Content);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("illustrationPoint", exception.ParamName);
+        }
 
-            Assert.AreEqual(1, graphNode.ChildNodes.Count());
-            GraphNode connectingNode1 = graphNode.ChildNodes.First();
-            Assert.AreEqual(CreateExpectedGraphConnectingNodeContent(CombinationType.Or), connectingNode1.Content);
+        [Test]
+        public void Convert_ConvertSubMechanismIllustrationPoint_ReturnsExpected()
+        {
+            // Setup
+            const string name = "Illustration Point";
+            RoundedDouble beta = new Random(7).NextRoundedDouble();
+            var illustrationPoint = new SubMechanismIllustrationPoint(
+                name,
+                beta,
+                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                Enumerable.Empty<IllustrationPointResult>());
 
-            Assert.AreEqual(2, connectingNode1.ChildNodes.Count());
+            // Call
+            GraphNode graphNode = GraphNodeConverter.ConvertSubMechanismIllustrationPoint(illustrationPoint);
 
-            IllustrationPointNode childIllustrationPointNode1 = node.Children.ElementAt(0);
-            GraphNode childGraphNode1 = connectingNode1.ChildNodes.ElementAt(0);
-            Assert.AreEqual(CreateExpectedGraphNodeContent(childIllustrationPointNode1.Data.Name, childIllustrationPointNode1.Data.Beta),
-                            childGraphNode1.Content);
-            CollectionAssert.IsEmpty(childGraphNode1.ChildNodes);
-
-            IllustrationPointNode childIllustrationPointNode2 = node.Children.ElementAt(1);
-            GraphNode childGraphNode2 = connectingNode1.ChildNodes.ElementAt(1);
-            Assert.AreEqual(CreateExpectedGraphNodeContent(childIllustrationPointNode2.Data.Name, childIllustrationPointNode2.Data.Beta),
-                            childGraphNode2.Content);
-
-            Assert.AreEqual(1, childGraphNode2.ChildNodes.Count());
-            GraphNode connectingNode2 = childGraphNode2.ChildNodes.First();
-            Assert.AreEqual(CreateExpectedGraphConnectingNodeContent(CombinationType.And), connectingNode2.Content);
-
-            Assert.AreEqual(2, connectingNode2.ChildNodes.Count());
-
-            IllustrationPointNode childIllustrationPointNode21 = childIllustrationPointNode2.Children.ElementAt(0);
-            GraphNode childGraphNode11 = connectingNode2.ChildNodes.ElementAt(0);
-            Assert.AreEqual(CreateExpectedGraphNodeContent(childIllustrationPointNode21.Data.Name, childIllustrationPointNode21.Data.Beta),
-                            childGraphNode11.Content);
-            CollectionAssert.IsEmpty(childGraphNode11.ChildNodes);
-
-            IllustrationPointNode childIllustrationPointNode22 = childIllustrationPointNode2.Children.ElementAt(0);
-            GraphNode childGraphNode12 = connectingNode2.ChildNodes.ElementAt(0);
-            Assert.AreEqual(CreateExpectedGraphNodeContent(childIllustrationPointNode22.Data.Name, childIllustrationPointNode22.Data.Beta),
-                            childGraphNode12.Content);
-            CollectionAssert.IsEmpty(childGraphNode12.ChildNodes);
+            // Assert
+            Assert.AreEqual(CreateExpectedGraphNodeContent(name, beta), graphNode.Content);
+            Assert.IsTrue(graphNode.IsSelectable);
+            CollectionAssert.IsEmpty(graphNode.ChildNodes);
         }
 
         private static string CreateExpectedGraphNodeContent(string name, RoundedDouble beta)
