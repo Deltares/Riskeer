@@ -19,11 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.Utils.Reflection;
+using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms;
+using Core.Components.GraphSharp.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -48,6 +54,109 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var pointedTreeGraphControl = control.Controls[0] as PointedTreeGraphControl;
                 Assert.IsNotNull(pointedTreeGraphControl);
             }
+        }
+
+        [Test]
+        public void GivenControlWithData_WhenDataSetToNull_ThenPointedTreeGraphUpdated()
+        {
+            // Given
+            using (var control = new IllustrationPointsFaultTreeControl())
+            {
+                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+                rootNode.SetChildren(new[]
+                {
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                });
+
+                control.Data = rootNode;
+
+                PointedTreeGraph graph = GetPointedTreeGraph(control);
+
+                // Precondition
+                Assert.AreEqual(4, graph.VertexCount);
+                Assert.AreEqual(3, graph.EdgeCount);
+
+                // When
+                control.Data = null;
+
+                // Then
+                Assert.IsNull(control.Selection);
+                Assert.AreEqual(0, graph.VertexCount);
+                Assert.AreEqual(0, graph.EdgeCount);
+            }
+        }
+
+        [Test]
+        public void GivenControlWithData_WhenVertexSelected_SelectionSetToCorrespondingIllustrationPointNodeSelectionChangedFired()
+        {
+            // Given
+            using (var control = new IllustrationPointsFaultTreeControl())
+            {
+                var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
+
+                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+                rootNode.SetChildren(new[]
+                {
+                    illustrationPointNode,
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                });
+
+                control.Data = rootNode;
+
+                var selectionChanged = 0;
+                control.SelectionChanged += (sender, args) => selectionChanged++;
+
+                PointedTreeElementVertex selectedVertex = GetPointedTreeGraph(control).Vertices.ElementAt(2);
+
+                // When
+                selectedVertex.IsSelected = true;
+
+                // Then
+                object selection = control.Selection;
+                Assert.AreSame(illustrationPointNode, selection);
+                Assert.AreEqual(1, selectionChanged);
+            }
+        }
+
+        [Test]
+        [TestCase(2, TestName = "GivenControlWithDuplicatedData_WhenVertex2Selected_SelectionSetToCorrespondingIllustrationPointNode")]
+        [TestCase(3, TestName = "GivenControlWithDuplicatedData_WhenVertex3Selected_SelectionSetToCorrespondingIllustrationPointNode")]
+        public void GivenControlWithDuplicatedData_WhenVertexSelected_SelectionSetToCorrespondingIllustrationPointNodeSelectionChangedFired(int vertexIndex)
+        {
+            // Given
+            using (var control = new IllustrationPointsFaultTreeControl())
+            {
+                var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
+
+                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+                rootNode.SetChildren(new[]
+                {
+                    illustrationPointNode,
+                    illustrationPointNode
+                });
+
+                control.Data = rootNode;
+
+                var selectionChanged = 0;
+                control.SelectionChanged += (sender, args) => selectionChanged++;
+
+                PointedTreeElementVertex selectedVertex = GetPointedTreeGraph(control).Vertices.ElementAt(vertexIndex);
+
+                // When
+                selectedVertex.IsSelected = true;
+
+                // Then
+                object selection = control.Selection;
+                Assert.AreSame(illustrationPointNode, selection);
+                Assert.AreEqual(1, selectionChanged);
+            }
+        }
+
+        private static PointedTreeGraph GetPointedTreeGraph(IllustrationPointsFaultTreeControl control)
+        {
+            var pointedTreeGraphControl = TypeUtils.GetField<PointedTreeGraphControl>(control, "pointedTreeGraphControl");
+            return PointedTreeGraphControlHelper.GetPointedTreeGraph(pointedTreeGraphControl);
         }
     }
 }
