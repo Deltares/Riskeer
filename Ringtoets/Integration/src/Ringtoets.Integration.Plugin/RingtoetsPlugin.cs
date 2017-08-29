@@ -334,6 +334,18 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = point => new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
                                                                                            point.ClosingSituations)
             };
+            yield return new PropertyInfo<IllustrationPointNodeFaultTreeContext, FaultTreeIllustrationPointProperties>
+            {
+                CreateInstance = context => new FaultTreeIllustrationPointProperties(context.IllustrationPointNode,
+                                                                                     context.WindDirectionName,
+                                                                                     context.ClosingSituation)
+            };
+            yield return new PropertyInfo<IllustrationPointNodeSubMechanismContext, SubMechanismIllustrationPointProperties>
+            {
+                CreateInstance = context => new SubMechanismIllustrationPointProperties(context.IllustrationPointNode,
+                                                                                        context.WindDirectionName,
+                                                                                        context.ClosingSituation)
+            };
         }
 
         /// <summary>

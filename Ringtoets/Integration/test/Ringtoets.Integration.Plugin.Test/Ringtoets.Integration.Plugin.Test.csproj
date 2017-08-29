@@ -85,6 +85,8 @@
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismContributionContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\IllustrationPointNodeFaultTreeContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\IllustrationPointNodeSubMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelSubMechanismIllustrationPointPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\StructuresOutputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\SelectedTopLevelFaultTreeIllustrationPointPropertyInfoTest.cs" />
