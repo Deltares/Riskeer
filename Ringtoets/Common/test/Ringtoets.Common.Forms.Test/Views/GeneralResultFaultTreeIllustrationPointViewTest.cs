@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
@@ -38,6 +39,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class GeneralResultFaultTreeIllustrationPointViewTest
     {
         private Form testForm;
@@ -84,8 +86,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Control.ControlCollection splitContainerPanel1Controls = splitContainer.Panel1.Controls;
                 Assert.AreEqual(1, splitContainerPanel1Controls.Count);
                 Assert.IsInstanceOf<IllustrationPointsControl>(splitContainerPanel1Controls[0]);
+
                 Control.ControlCollection splitContainerPanel2Controls = splitContainer.Panel2.Controls;
-                CollectionAssert.IsEmpty(splitContainerPanel2Controls);
+                Assert.AreEqual(1, splitContainerPanel2Controls.Count);
+                Assert.IsInstanceOf<IllustrationPointsFaultTreeControl>(splitContainerPanel2Controls[0]);
             }
         }
 
@@ -183,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingData_ThenIllustrationPointsControlSyncedAccordingly()
+        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingData_ThenControlsSyncedAccordingly()
         {
             // Given
             var mocks = new MockRepository();
@@ -199,6 +203,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Then
                 var illustrationPointsControl = TypeUtils.GetField<IllustrationPointsControl>(view, "illustrationPointsControl");
                 Assert.IsNull(illustrationPointsControl.Data);
+
+                var illustrationPointsFaultTreeControl = TypeUtils.GetField<IllustrationPointsFaultTreeControl>(view, "illustrationPointsFaultTreeControl");
+                Assert.IsNull(illustrationPointsFaultTreeControl.Data);
             }
 
             mocks.VerifyAll();
@@ -327,26 +334,30 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
 
-            var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult)
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult)
             {
                 Data = data
-            };
+            })
+            {
+                ShowTestView(view);
 
-            ShowTestView(view);
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var selectionChangedCount = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCount++;
+                DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
+                // When
+                dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
 
-            // When
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 0));
+                // Then
+                Assert.AreEqual(1, selectionChangedCount);
+                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = generalResult.TopLevelIllustrationPoints.ElementAt(1);
+                Assert.AreSame(topLevelFaultTreeIllustrationPoint, ((SelectedTopLevelFaultTreeIllustrationPoint) view.Selection).TopLevelFaultTreeIllustrationPoint);
 
-            // Then
-            Assert.AreEqual(1, selectionChangedCount);
-            Assert.AreSame(generalResult.TopLevelIllustrationPoints.ElementAt(1), ((SelectedTopLevelFaultTreeIllustrationPoint) view.Selection).TopLevelFaultTreeIllustrationPoint);
-
+                var illustrationPointsFaultTreeControl = TypeUtils.GetField<IllustrationPointsFaultTreeControl>(view, "illustrationPointsFaultTreeControl");
+                Assert.AreSame(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot, illustrationPointsFaultTreeControl.Data);
+            }
             mocks.VerifyAll();
         }
 
@@ -377,7 +388,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(WindDirectionTestFactory.CreateTestWindDirection(),
                                                                          Enumerable.Empty<Stochast>(),
-                                                                         new []
+                                                                         new[]
                                                                          {
                                                                              topLevelFaultTreeIllustrationPoint1,
                                                                              topLevelFaultTreeIllustrationPoint2

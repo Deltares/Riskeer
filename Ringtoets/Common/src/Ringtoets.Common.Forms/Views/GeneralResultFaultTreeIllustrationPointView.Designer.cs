@@ -38,8 +38,10 @@ namespace Ringtoets.Common.Forms.Views
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.illustrationPointsControl = new Ringtoets.Common.Forms.Views.IllustrationPointsControl();
+            this.illustrationPointsFaultTreeControl = new Ringtoets.Common.Forms.Views.IllustrationPointsFaultTreeControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,11 +54,15 @@ namespace Ringtoets.Common.Forms.Views
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.Controls.Add(this.illustrationPointsControl);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.illustrationPointsFaultTreeControl);
             this.splitContainer.Size = new System.Drawing.Size(487, 357);
             this.splitContainer.SplitterDistance = 261;
             this.splitContainer.TabIndex = 0;
             // 
-            // illustrationPointsControl1
+            // illustrationPointsControl
             // 
             this.illustrationPointsControl.Data = null;
             this.illustrationPointsControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -64,6 +70,15 @@ namespace Ringtoets.Common.Forms.Views
             this.illustrationPointsControl.Name = "illustrationPointsControl";
             this.illustrationPointsControl.Size = new System.Drawing.Size(261, 357);
             this.illustrationPointsControl.TabIndex = 0;
+            // 
+            // illustrationPointsFaultTreeControl
+            // 
+            this.illustrationPointsFaultTreeControl.Data = null;
+            this.illustrationPointsFaultTreeControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.illustrationPointsFaultTreeControl.Location = new System.Drawing.Point(0, 0);
+            this.illustrationPointsFaultTreeControl.Name = "illustrationPointsFaultTreeControl";
+            this.illustrationPointsFaultTreeControl.Size = new System.Drawing.Size(222, 357);
+            this.illustrationPointsFaultTreeControl.TabIndex = 0;
             // 
             // GeneralResultFaultTreeIllustrationPointView
             // 
@@ -73,6 +88,7 @@ namespace Ringtoets.Common.Forms.Views
             this.Name = "GeneralResultFaultTreeIllustrationPointView";
             this.Size = new System.Drawing.Size(487, 357);
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -83,5 +99,6 @@ namespace Ringtoets.Common.Forms.Views
 
         private System.Windows.Forms.SplitContainer splitContainer;
         private IllustrationPointsControl illustrationPointsControl;
+        private IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl;
     }
 }

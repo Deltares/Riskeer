@@ -65,6 +65,7 @@ namespace Ringtoets.Common.Forms.Views
             calculationObserver = new Observer(UpdateIllustrationPointsControl);
 
             illustrationPointsControl.SelectionChanged += OnIllustrationPointsControlSelectionChanged;
+            illustrationPointsFaultTreeControl.SelectionChanged += OnSelectionChangedIllustrationPointsFaultTreeControl;
         }
 
         public object Selection { get; private set; }
@@ -95,6 +96,11 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void OnSelectionChangedIllustrationPointsFaultTreeControl(object sender, EventArgs eventArgs)
+        {
+            OnSelectionChanged();
         }
 
         private void UpdateIllustrationPointsControl()
@@ -138,6 +144,18 @@ namespace Ringtoets.Common.Forms.Views
             return null;
         }
 
+        private void UpdateIllustrationPointsFaultTreeControl()
+        {
+            illustrationPointsFaultTreeControl.Data = GetIllustrationPointsFaultTreeControlItems();
+        }
+
+        private IllustrationPointNode GetIllustrationPointsFaultTreeControlItems()
+        {
+            var selected = Selection as SelectedTopLevelFaultTreeIllustrationPoint;
+
+            return selected?.TopLevelFaultTreeIllustrationPoint?.FaultTreeNodeRoot;
+        }
+
         private void OnIllustrationPointsControlSelectionChanged(object sender, EventArgs e)
         {
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
@@ -146,6 +164,7 @@ namespace Ringtoets.Common.Forms.Views
                                                                              GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
                             : null;
 
+            UpdateIllustrationPointsFaultTreeControl();
             OnSelectionChanged();
         }
 
