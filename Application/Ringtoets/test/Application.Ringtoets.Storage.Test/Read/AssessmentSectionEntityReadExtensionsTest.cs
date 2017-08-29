@@ -384,7 +384,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IList<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
+            List<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
         }
 
@@ -511,7 +511,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IList<ICalculationBase> childCalculationGroups = section.GrassCoverErosionInwards.CalculationsGroup.Children;
+            List<ICalculationBase> childCalculationGroups = section.GrassCoverErosionInwards.CalculationsGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
         }
 
@@ -631,7 +631,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IList<ICalculationBase> childCalculationGroups = section.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children;
+            List<ICalculationBase> childCalculationGroups = section.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
         }
 
@@ -766,7 +766,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IList<ICalculationBase> childCalculationGroups = section.StabilityStoneCover.WaveConditionsCalculationGroup.Children;
+            List<ICalculationBase> childCalculationGroups = section.StabilityStoneCover.WaveConditionsCalculationGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
         }
 
@@ -959,7 +959,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IList<ICalculationBase> childCalculationGroups = section.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children;
+            List<ICalculationBase> childCalculationGroups = section.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
         }
 

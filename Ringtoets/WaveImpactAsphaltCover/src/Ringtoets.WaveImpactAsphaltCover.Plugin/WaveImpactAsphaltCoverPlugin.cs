@@ -472,7 +472,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         }
 
         private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                     IList<ICalculationBase> calculationCollection)
+                                                                                     List<ICalculationBase> calculationCollection)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,

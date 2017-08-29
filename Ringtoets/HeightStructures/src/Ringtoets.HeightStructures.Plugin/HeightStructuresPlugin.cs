@@ -654,7 +654,7 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        private static void GenerateHeightStructuresCalculations(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateHeightStructuresCalculations(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructure> structures, List<ICalculationBase> calculations)
         {
             foreach (HeightStructure structure in structures)
             {

@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
         /// <param name="calculations">The list to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static void AddCalculationsFromLocations(IEnumerable<HydraulicBoundaryLocation> locations,
-                                                        IList<ICalculationBase> calculations)
+                                                        List<ICalculationBase> calculations)
         {
             if (locations == null)
             {

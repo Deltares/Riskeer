@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets the children that define this group.
         /// </summary>
-        public IList<ICalculationBase> Children { get; private set; }
+        public List<ICalculationBase> Children { get; private set; }
 
         public string Name
         {
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Data.Calculation
         {
             var clone = (CalculationGroup) MemberwiseClone();
 
-            clone.Children = Children.Select(c => (ICalculationBase) c.Clone()).ToArray();
+            clone.Children = Children.Select(c => (ICalculationBase) c.Clone()).ToList();
 
             return clone;
         }

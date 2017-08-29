@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -202,7 +201,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 (o, args) =>
                 {
                     CalculationGroup parent = calculationItemContext.Parent;
-                    IList<ICalculationBase> currentChildren = parent.Children;
+                    List<ICalculationBase> currentChildren = parent.Children;
                     int calculationItemIndex = currentChildren.IndexOf(calculationItem);
 
                     var copy = (TCalculationItem) calculationItem.Clone();

@@ -748,7 +748,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         private static void GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                        IList<ICalculationBase> calculationCollection)
+                                                                                        List<ICalculationBase> calculationCollection)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,

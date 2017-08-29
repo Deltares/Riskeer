@@ -468,7 +468,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         }
 
         private static void GenerateStabilityStoneCoverCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                    IList<ICalculationBase> calculationCollection)
+                                                                    List<ICalculationBase> calculationCollection)
         {
             StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,

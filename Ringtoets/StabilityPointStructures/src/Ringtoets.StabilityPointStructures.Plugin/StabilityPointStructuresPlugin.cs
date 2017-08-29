@@ -652,7 +652,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
         }
 
-        private static void GenerateStabilityPointStructuresCalculations(StabilityPointStructuresFailureMechanism failureMechanism, IEnumerable<StabilityPointStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateStabilityPointStructuresCalculations(StabilityPointStructuresFailureMechanism failureMechanism, IEnumerable<StabilityPointStructure> structures, List<ICalculationBase> calculations)
         {
             foreach (StabilityPointStructure structure in structures)
             {

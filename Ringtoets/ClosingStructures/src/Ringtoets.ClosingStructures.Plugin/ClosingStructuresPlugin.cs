@@ -641,7 +641,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             }
         }
 
-        private static void GenerateClosingStructuresCalculations(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateClosingStructuresCalculations(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructure> structures, List<ICalculationBase> calculations)
         {
             foreach (ClosingStructure structure in structures)
             {
