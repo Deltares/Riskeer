@@ -113,6 +113,10 @@
       <Project>{ad3b1634-c435-4618-9971-2ea0817f5de2}</Project>
       <Name>Core.Components.PointedTree</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Components.GraphSharp.TestUtil\Core.Components.GraphSharp.TestUtil.csproj">
+      <Project>{0500CA45-1791-4C91-9243-EF95567068A3}</Project>
+      <Name>Core.Components.GraphSharp.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

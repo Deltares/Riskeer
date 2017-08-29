@@ -23,9 +23,9 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
+using Core.Components.GraphSharp.TestUtil;
 using Core.Components.PointedTree.Data;
 using Core.Components.PointedTree.Forms;
 using NUnit.Framework;
@@ -52,8 +52,7 @@ namespace Core.Components.GraphSharp.Forms.Test
 
                 Assert.AreEqual(1, graphControl.Controls.Count);
 
-                var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl) elementHost.Child;
+                ZoomControl zoomControl = PointedTreeGraphControlHelper.GetZoomControl(graphControl);
 
                 Assert.AreEqual(300, zoomControl.ZoomDeltaMultiplier);
                 Assert.AreEqual(ZoomControlModes.Original, zoomControl.Mode);
@@ -91,10 +90,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 graphControl.Data = node;
 
                 // Then
-                var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl) elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
-                PointedTreeGraph graph = graphLayout.Graph;
+                PointedTreeGraph graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
 
                 Assert.AreEqual(5, graph.VertexCount);
                 Assert.AreEqual(4, graph.EdgeCount);
@@ -115,10 +111,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 Data = node
             })
             {
-                var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl) elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
-                PointedTreeGraph graph = graphLayout.Graph;
+                PointedTreeGraph graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
 
                 // Precondition
                 Assert.AreEqual(2, graph.VertexCount);
@@ -147,10 +140,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 Data = node
             })
             {
-                var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl) elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
-                PointedTreeGraph graph = graphLayout.Graph;
+                PointedTreeGraph graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
 
                 // Precondition
                 Assert.AreEqual(2, graph.VertexCount);
@@ -179,10 +169,7 @@ namespace Core.Components.GraphSharp.Forms.Test
 
                 graphControl.Data = node;
 
-                var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl) elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
-                PointedTreeGraph graph = graphLayout.Graph;
+                PointedTreeGraph graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
 
                 var selectionChanged = 0;
                 graphControl.SelectionChanged += (sender, args) => selectionChanged++;
@@ -213,10 +200,7 @@ namespace Core.Components.GraphSharp.Forms.Test
 
                 graphControl.Data = node;
 
-                var elementHost = graphControl.Controls[0] as ElementHost;
-                var zoomControl = (ZoomControl) elementHost.Child;
-                var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
-                PointedTreeGraph graph = graphLayout.Graph;
+                PointedTreeGraph graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
 
                 PointedTreeElementVertex firstSelectedVertex = graph.Vertices.ElementAt(1);
                 firstSelectedVertex.IsSelected = true;
