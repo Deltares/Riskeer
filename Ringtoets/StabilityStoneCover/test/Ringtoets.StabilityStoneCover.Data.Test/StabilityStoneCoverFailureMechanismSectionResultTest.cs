@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -34,7 +33,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
@@ -55,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
 
             // Call
@@ -64,14 +63,6 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree,
                             result.AssessmentLayerThree.GetAccuracy());
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

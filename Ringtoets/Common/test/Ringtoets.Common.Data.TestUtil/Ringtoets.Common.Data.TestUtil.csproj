@@ -60,6 +60,7 @@
     <Compile Include="CommonCloneAssert.cs" />
     <Compile Include="CommonTestDataGenerator.cs" />
     <Compile Include="CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase.cs" />
+    <Compile Include="FailureMechanismSectionTestFactory.cs" />
     <Compile Include="ForeshoreProfilePermutationHelper.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactory.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultFaultTreeIllustrationPoint.cs" />

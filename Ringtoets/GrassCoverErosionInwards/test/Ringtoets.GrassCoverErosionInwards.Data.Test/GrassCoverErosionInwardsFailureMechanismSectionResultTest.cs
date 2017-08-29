@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
@@ -51,10 +51,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Calculation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
-
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
@@ -68,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
@@ -86,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
@@ -109,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             const double probability = 0.65;
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -138,7 +136,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
@@ -156,21 +155,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             sectionResult.AssessmentLayerThree = validValue;
 
             // Assert
             Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

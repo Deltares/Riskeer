@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -41,7 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
@@ -62,7 +61,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Precondition
@@ -89,7 +88,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 calculation.Output = new TestStructuresOutput(double.NaN);
             }
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
@@ -114,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Output = new TestStructuresOutput(probability)
             };
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
@@ -133,7 +132,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Precondition
@@ -154,7 +153,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             var expectedCalculation = new StructuresCalculation<HeightStructuresInput>();
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = expectedCalculation
@@ -176,7 +175,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
 
             // Call
@@ -184,14 +184,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

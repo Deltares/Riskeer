@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
 
             // Call
@@ -60,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(21);
             double newValue = random.NextDouble();
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
             var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
@@ -69,14 +68,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

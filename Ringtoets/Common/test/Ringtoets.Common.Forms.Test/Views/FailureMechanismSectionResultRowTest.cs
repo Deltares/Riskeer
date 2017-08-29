@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -48,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new TestFailureMechanismSectionResult(section);
 
             // Call
@@ -71,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new TestFailureMechanismSectionResult(section);
             result.Attach(observer);
 
@@ -84,14 +83,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(newValue, result.AssessmentLayerOne);
 
             mocks.VerifyAll();
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 

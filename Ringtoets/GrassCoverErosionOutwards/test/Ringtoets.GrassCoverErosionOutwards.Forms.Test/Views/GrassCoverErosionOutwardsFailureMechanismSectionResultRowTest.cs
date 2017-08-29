@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
             var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
@@ -77,7 +77,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var random = new Random(21);
             RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
 
-            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(sectionResult);
 
             // Call
@@ -85,14 +86,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

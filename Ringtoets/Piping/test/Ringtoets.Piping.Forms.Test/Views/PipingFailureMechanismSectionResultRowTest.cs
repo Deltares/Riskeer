@@ -22,11 +22,11 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             PipingCalculationScenario scenarioA = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
             PipingCalculationScenario scenarioB = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             PipingCalculationScenario scenario = status.Equals(CalculationScenarioStatus.NotCalculated)
                                                      ? PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section)
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.2, section);
             scenario.Contribution = (RoundedDouble) 1.0;
 
@@ -175,7 +175,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new PipingFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new PipingFailureMechanismSectionResultRow(sectionResult,
                                                                  Enumerable.Empty<PipingCalculationScenario>());
 
@@ -184,15 +185,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 0)
-            });
         }
     }
 }

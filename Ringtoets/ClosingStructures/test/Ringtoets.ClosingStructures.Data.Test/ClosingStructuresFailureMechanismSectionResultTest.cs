@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
@@ -34,7 +33,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
@@ -48,8 +47,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
-
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = null
@@ -66,8 +64,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
-
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
@@ -87,7 +84,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             const double probability = 0.65;
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -103,14 +100,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(probability, twoAValue);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

@@ -21,10 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetAssessmentLayerTwoA_MultipleScenarios_ReturnsValueBasedOnRelevantAndDoneScenarios()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             const double contribution1 = 0.2;
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetAssessmentLayerTwoA_ScenarioInvalidOutput_ReturnsZero()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetAssessmentLayerTwoA_NoScenarios_ReturnsZero()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetAssessmentLayerTwoA_NoRelevantScenarios_ReturnsZero()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(section);
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetAssessmentLayerTwoA_ScenarioNotCalculated_ReturnsZero()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTotalContribution_Always_ReturnsTotalRelevantScenarioContribution()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetCalculationScenarioStatus_ScenarioNotCalculated_ReturnsStatusNotCalculated()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetCalculationScenarioStatus_ScenarioInvalidOutput_ReturnsStatusFailed()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetCalculationScenarioStatus_ScenarioInvalidOutputAndNotCalculated_ReturnsStatusFailed()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetCalculationScenarioStatus_ScenariosCalculated_ReturnsStatusDone()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.1, section);
@@ -269,7 +269,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetCalculationScenarioStatus_NoScenarios_ReturnsStatusDone()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
@@ -277,15 +277,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
     }
 }

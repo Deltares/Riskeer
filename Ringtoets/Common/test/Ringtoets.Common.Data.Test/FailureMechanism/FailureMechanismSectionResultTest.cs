@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var result = new TestFailureMechanismSectionResult(section);
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AssessmentLayerOne_SetNewValue_ReturnsNewValue(AssessmentLayerOneState newValue)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
@@ -70,14 +70,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
 
         private class TestFailureMechanismSectionResult : FailureMechanismSectionResult

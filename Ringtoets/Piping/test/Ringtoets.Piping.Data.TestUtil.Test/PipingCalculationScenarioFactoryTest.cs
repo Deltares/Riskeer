@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Data.TestUtil.Test
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreatePipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double probability)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability, section);
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFailedPipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateIrrelevantPipingCalculationScenario_WithSection_CreatesIrrelevantCalculation()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(section);
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateNotCalculatedPipingCalculationScenario_WithSection_CreatesRelevantCalculationWithoutOutput()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
@@ -156,14 +156,6 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
 
             // Assert
             Assert.IsTrue(PipingCalculationService.Validate(scenario));
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

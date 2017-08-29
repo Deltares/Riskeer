@@ -22,11 +22,11 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -78,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -97,10 +97,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            MacroStabilityInwardsCalculationScenario scenarioA = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
-            MacroStabilityInwardsCalculationScenario scenarioB = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenarioA =
+                MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenarioB =
+                MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
@@ -124,11 +126,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            MacroStabilityInwardsCalculationScenario scenario = status.Equals(CalculationScenarioStatus.NotCalculated)
-                                                                    ? MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section)
-                                                                    : MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenario =
+                status.Equals(CalculationScenarioStatus.NotCalculated)
+                    ? MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section)
+                    : MacroStabilityInwardsCalculationScenarioFactory.CreateFailedMacroStabilityInwardsCalculationScenario(section);
 
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, new[]
@@ -147,8 +150,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(0.2, section);
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            MacroStabilityInwardsCalculationScenario scenario =
+                MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(0.2, section);
             scenario.Contribution = (RoundedDouble) 1.0;
 
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
@@ -175,7 +179,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
@@ -184,15 +189,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 0)
-            });
         }
     }
 }

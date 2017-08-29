@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -35,7 +34,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
@@ -56,24 +55,15 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble)newValue;
+            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree,
                             failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
-            return section;
         }
     }
 }

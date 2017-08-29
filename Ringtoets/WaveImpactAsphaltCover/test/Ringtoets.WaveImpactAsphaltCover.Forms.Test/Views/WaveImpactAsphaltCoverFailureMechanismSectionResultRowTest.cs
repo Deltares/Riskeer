@@ -21,10 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -39,7 +39,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
 
             // Call
@@ -60,7 +60,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Setup
             const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
             var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
 
@@ -78,7 +78,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var random = new Random(21);
             RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
 
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(sectionResult);
 
             // Call
@@ -86,14 +87,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

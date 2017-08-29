@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
@@ -55,15 +55,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -74,21 +74,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             sectionResult.AssessmentLayerThree = validValue;
 
             // Assert
             Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

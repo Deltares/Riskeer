@@ -22,13 +22,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var sectionResults = new[]
             {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSection())
+                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             };
 
             var context = new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
@@ -286,15 +286,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
     }
 }

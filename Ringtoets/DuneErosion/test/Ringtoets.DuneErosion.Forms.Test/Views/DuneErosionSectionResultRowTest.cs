@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,7 +39,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var result = new DuneErosionFailureMechanismSectionResult(CreateSection());
+            var result = new DuneErosionFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             var row = new DuneErosionSectionResultRow(result);
@@ -59,7 +59,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResult(section);
             var row = new DuneErosionSectionResultRow(result);
 
@@ -76,7 +76,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             var random = new Random(21);
             double newValue = random.NextDouble();
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResult(section);
             var row = new DuneErosionSectionResultRow(result);
 
@@ -85,14 +85,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

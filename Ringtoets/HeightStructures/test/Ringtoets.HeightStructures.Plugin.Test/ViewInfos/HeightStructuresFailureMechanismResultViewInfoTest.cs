@@ -22,13 +22,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -80,10 +80,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var sectionResults = new[]
             {
-                new HeightStructuresFailureMechanismSectionResult(CreateSection())
+                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             };
 
-            var context = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(sectionResults, new HeightStructuresFailureMechanism());
+            var context = new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(sectionResults,
+                                                                                                                  new HeightStructuresFailureMechanism());
 
             // Call
             object viewData = info.GetViewData(context);
@@ -284,15 +285,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
     }
 }

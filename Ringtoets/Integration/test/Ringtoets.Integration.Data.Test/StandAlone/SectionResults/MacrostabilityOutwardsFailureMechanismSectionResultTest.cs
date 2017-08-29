@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -36,7 +35,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
@@ -57,7 +56,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double newValue)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -79,7 +78,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -98,22 +97,15 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
         {
             // Setup
-           var failureMechanismSectionResult = new MacrostabilityOutwardsFailureMechanismSectionResult(CreateSection());
+            var failureMechanismSectionResult = new MacrostabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble)newValue;
+            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree,
                             failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

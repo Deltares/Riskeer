@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             var sectionResult = new TestStructuresFailureMechanismSectionResult(section);
@@ -51,7 +52,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void Calculation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             var result = new TestStructuresFailureMechanismSectionResult(section);
 
@@ -73,7 +74,8 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var sectionResult = new TestStructuresFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new TestStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
@@ -91,21 +93,14 @@ namespace Ringtoets.Common.Data.Test.Structures
         public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
         {
             // Setup
-            var sectionResult = new TestStructuresFailureMechanismSectionResult(CreateSection());
+            var sectionResult = new TestStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             sectionResult.AssessmentLayerThree = validValue;
 
             // Assert
             Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
 
         private class TestStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<TestStructuresInput>
