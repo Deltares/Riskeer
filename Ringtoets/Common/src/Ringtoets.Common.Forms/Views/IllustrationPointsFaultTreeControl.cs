@@ -61,9 +61,10 @@ namespace Ringtoets.Common.Forms.Views
             {
                 data = value;
 
+                drawnNodes.Clear();
+
                 if (value == null)
                 {
-                    drawnNodes.Clear();
                     pointedTreeGraphControl.Data = null;
                     return;
                 }
