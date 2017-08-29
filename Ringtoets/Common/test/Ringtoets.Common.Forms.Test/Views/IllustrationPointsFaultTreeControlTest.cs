@@ -69,7 +69,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
                 });
 
-                control.Data = rootNode;
+                control.Data = new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "closing situation",
+                    rootNode);
 
                 PointedTreeGraph graph = GetPointedTreeGraph(control);
 
@@ -102,7 +105,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                     new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
                 });
 
-                control.Data = rootNode;
+                control.Data = new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "closing situation",
+                    rootNode);
 
                 var selectionChanged = 0;
                 control.SelectionChanged += (sender, args) => selectionChanged++;
@@ -136,7 +142,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                     illustrationPointNode
                 });
 
-                control.Data = rootNode;
+                control.Data = new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "closing situation",
+                    rootNode);
 
                 var selectionChanged = 0;
                 control.SelectionChanged += (sender, args) => selectionChanged++;

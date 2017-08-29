@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.Views
     public partial class IllustrationPointsFaultTreeControl : UserControl, ISelectionProvider
     {
         private readonly List<DrawnIllustrationPointNode> drawnNodes = new List<DrawnIllustrationPointNode>();
-        private IllustrationPointNode data;
+        private TopLevelFaultTreeIllustrationPoint data;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
-        public IllustrationPointNode Data
+        public TopLevelFaultTreeIllustrationPoint Data
         {
             get
             {
@@ -69,10 +69,10 @@ namespace Ringtoets.Common.Forms.Views
                     return;
                 }
 
-                RegisterNode(data);
+                RegisterNode(data.FaultTreeNodeRoot);
 
                 pointedTreeGraphControl.Data = drawnNodes
-                    .Where(d => d.IllustrationPointNode == data)
+                    .Where(d => d.IllustrationPointNode == data.FaultTreeNodeRoot)
                     .Select(d => d.GraphNode)
                     .FirstOrDefault();
             }

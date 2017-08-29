@@ -356,7 +356,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreSame(topLevelFaultTreeIllustrationPoint, ((SelectedTopLevelFaultTreeIllustrationPoint) view.Selection).TopLevelFaultTreeIllustrationPoint);
 
                 var illustrationPointsFaultTreeControl = TypeUtils.GetField<IllustrationPointsFaultTreeControl>(view, "illustrationPointsFaultTreeControl");
-                Assert.AreSame(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot, illustrationPointsFaultTreeControl.Data);
+                Assert.AreSame(topLevelFaultTreeIllustrationPoint, illustrationPointsFaultTreeControl.Data);
             }
             mocks.VerifyAll();
         }

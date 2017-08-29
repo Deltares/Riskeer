@@ -64,8 +64,8 @@ namespace Ringtoets.Common.Forms.Views
 
             calculationObserver = new Observer(UpdateIllustrationPointsControl);
 
-            illustrationPointsControl.SelectionChanged += OnIllustrationPointsControlSelectionChanged;
-            illustrationPointsFaultTreeControl.SelectionChanged += OnSelectionChangedIllustrationPointsFaultTreeControl;
+            illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
+            illustrationPointsFaultTreeControl.SelectionChanged += IllustrationPointsFaultTreeControlOnSelectionChanged;
         }
 
         public object Selection { get; private set; }
@@ -98,8 +98,31 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void OnSelectionChangedIllustrationPointsFaultTreeControl(object sender, EventArgs eventArgs)
+        private void IllustrationPointsFaultTreeControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
+            var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
+            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
+
+            if (selection != null && topLevelFaultTreeIllustrationPoint != null)
+            {
+                if (selection.Data is FaultTreeIllustrationPoint)
+                {
+                    Selection = new IllustrationPointNodeFaultTreeContext(selection,
+                                                                          topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                                          topLevelFaultTreeIllustrationPoint.ClosingSituation);
+                }
+                if (selection.Data is SubMechanismIllustrationPoint)
+                {
+                    Selection = new IllustrationPointNodeSubMechanismContext(selection,
+                                                                             topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                                             topLevelFaultTreeIllustrationPoint.ClosingSituation);
+                }
+            }
+            else
+            {
+                Selection = null;
+            }
+
             OnSelectionChanged();
         }
 
@@ -149,14 +172,14 @@ namespace Ringtoets.Common.Forms.Views
             illustrationPointsFaultTreeControl.Data = GetIllustrationPointsFaultTreeControlItems();
         }
 
-        private IllustrationPointNode GetIllustrationPointsFaultTreeControlItems()
+        private TopLevelFaultTreeIllustrationPoint GetIllustrationPointsFaultTreeControlItems()
         {
             var selected = Selection as SelectedTopLevelFaultTreeIllustrationPoint;
 
-            return selected?.TopLevelFaultTreeIllustrationPoint?.FaultTreeNodeRoot;
+            return selected?.TopLevelFaultTreeIllustrationPoint;
         }
 
-        private void OnIllustrationPointsControlSelectionChanged(object sender, EventArgs e)
+        private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs e)
         {
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
             Selection = selection != null

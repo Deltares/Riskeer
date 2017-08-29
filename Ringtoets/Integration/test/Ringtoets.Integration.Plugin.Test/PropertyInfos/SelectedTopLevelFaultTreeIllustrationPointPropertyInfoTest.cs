@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(selectedTopLevelFaultTreeIllustrationPoint);
 
             // Assert
-            Assert.IsInstanceOf<SelectedTopLevelFaultTreeIllustrationPoint>(selectedTopLevelFaultTreeIllustrationPoint);
+            Assert.IsInstanceOf<TopLevelFaultTreeIllustrationPointProperties>(objectProperties);
             Assert.AreSame(topLevelFaultTreeIllustrationPoint, objectProperties.Data);
         }
     }
