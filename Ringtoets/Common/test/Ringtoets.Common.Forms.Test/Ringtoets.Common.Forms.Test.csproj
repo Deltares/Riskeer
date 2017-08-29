@@ -95,6 +95,8 @@
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />
+    <Compile Include="PresentationObjects\IllustrationPointNodeFaultTreeContextTest.cs" />
+    <Compile Include="PresentationObjects\IllustrationPointNodeSubMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\InputContextBaseTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
