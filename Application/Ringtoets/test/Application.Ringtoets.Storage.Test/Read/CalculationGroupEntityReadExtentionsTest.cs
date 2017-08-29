@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -34,6 +33,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using System.Collections.Generic;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -139,14 +139,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -186,8 +186,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -240,8 +240,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -339,14 +339,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -383,8 +383,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -434,8 +434,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -533,14 +533,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -577,8 +577,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (GrassCoverErosionOutwardsWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -628,8 +628,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (GrassCoverErosionOutwardsWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -727,14 +727,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -771,8 +771,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (StructuresCalculation<HeightStructuresInput>) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -822,8 +822,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (StructuresCalculation<HeightStructuresInput>) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -921,14 +921,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -965,8 +965,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (StructuresCalculation<ClosingStructuresInput>) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -1016,8 +1016,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (StructuresCalculation<ClosingStructuresInput>) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -1114,14 +1114,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -1158,8 +1158,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (StructuresCalculation<StabilityPointStructuresInput>) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -1209,8 +1209,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (StructuresCalculation<StabilityPointStructuresInput>) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -1308,14 +1308,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -1352,8 +1352,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (StabilityStoneCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -1403,8 +1403,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (StabilityStoneCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
@@ -1502,14 +1502,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
 
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            List<ICalculationBase> rootChildren = rootGroup.Children;
             var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
             var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
 
-            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
             var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
@@ -1546,8 +1546,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(2, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
 
             var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
@@ -1597,8 +1597,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
-            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            Assert.AreEqual(4, rootChildren.Length);
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
 
             var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
