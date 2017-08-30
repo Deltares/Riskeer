@@ -56,8 +56,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNaN(layer.PermeabilityMean);
             Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
 
-            Assert.IsFalse(layer.UsePop);
-            Assert.AreEqual(ShearStrengthModel.None, layer.ShearStrengthModel);
+            Assert.IsNull(layer.UsePop);
+            Assert.IsNull(layer.ShearStrengthModel);
 
             Assert.IsNull(layer.AbovePhreaticLevelDistribution);
             Assert.IsNaN(layer.AbovePhreaticLevelMean);

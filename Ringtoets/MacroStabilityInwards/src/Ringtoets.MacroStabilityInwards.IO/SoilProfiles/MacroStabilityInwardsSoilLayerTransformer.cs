@@ -99,7 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         {
             try
             {
-                properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
+                // TODO: Write converter from double? to ShearStrengthModel
+//                properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
             }
             catch (NotSupportedException e)
             {
@@ -109,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.MaterialName = soilLayer.MaterialName;
             properties.IsAquifer = soilLayer.IsAquifer;
             properties.Color = soilLayer.Color;
-            properties.UsePop = soilLayer.UsePop;
+            properties.UsePop = false; // TODO: Write conversion from double? to bool
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
             properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelDeviation;
             properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;

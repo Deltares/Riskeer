@@ -50,9 +50,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             PermeabilityCoefficientOfVariation = double.NaN;
             PermeabilityShift = double.NaN;
 
-            UsePop = false;
-            ShearStrengthModel = ShearStrengthModel.None;
-
             AbovePhreaticLevelMean = double.NaN;
             AbovePhreaticLevelDeviation = double.NaN;
             AbovePhreaticLevelShift = double.NaN;
@@ -190,12 +187,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Gets or sets a value indicating whether to use POP for the layer.
         /// </summary>
-        public bool UsePop { get; set; }
+        public double? UsePop { get; set; }
 
         /// <summary>
         /// Gets or sets the shear strength model to use for the layer.
         /// </summary>
-        public ShearStrengthModel ShearStrengthModel { get; set; }
+        public double? ShearStrengthModel { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the volumic weight of the layer above the phreatic level.
