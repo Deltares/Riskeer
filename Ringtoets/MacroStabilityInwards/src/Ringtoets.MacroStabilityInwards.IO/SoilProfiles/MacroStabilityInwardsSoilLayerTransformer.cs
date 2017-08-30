@@ -37,6 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     /// </summary>
     internal static class MacroStabilityInwardsSoilLayerTransformer
     {
+        private const double tolerance = 1e-6;
+
         /// <summary>
         /// Transforms the generic <paramref name="soilLayer"/> into a
         /// <see cref="MacroStabilityInwardsSoilLayer1D"/>.
@@ -95,22 +97,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return layer;
         }
 
+        /// <summary>
+        /// Sets the properties of the <see cref="MacroStabilityInwardsSoilLayerProperties"/>.
+        /// </summary>
+        /// <param name="soilLayer">The soil layer to get the properties from.</param>
+        /// <param name="properties">The properties to set the data upon.</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
+        /// in a valid transformed instance.</exception>
         private static void SetProperties(SoilLayerBase soilLayer, MacroStabilityInwardsSoilLayerProperties properties)
         {
-            try
-            {
-                // TODO: Write converter from double? to ShearStrengthModel
-//                properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
-            }
-            catch (NotSupportedException e)
-            {
-                throw new ImportedDataTransformException("Er ging iets mis met transformeren.", e);
-            }
+            properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
+            properties.UsePop = TransformUsePop(soilLayer.UsePop);
 
             properties.MaterialName = soilLayer.MaterialName;
             properties.IsAquifer = soilLayer.IsAquifer;
             properties.Color = soilLayer.Color;
-            properties.UsePop = false; // TODO: Write conversion from double? to bool
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
             properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelDeviation;
             properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
@@ -125,6 +126,45 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentDeviation;
             properties.PopMean = soilLayer.PopMean;
             properties.PopDeviation = soilLayer.PopDeviation;
+        }
+        
+        private static bool TransformUsePop(double? usePop)
+        {
+            if (!usePop.HasValue)
+            {
+                return true;
+            }
+
+            if (Math.Abs(usePop.Value) < tolerance)
+            {
+                return false;
+            }
+
+            throw new ImportedDataTransformException(string.Format(Resources.MacroStabilityInwardsSoilLayerTransformer_TransformUsePop_Invalid_value_ParameterName_0,
+                                                                   Resources.SoilLayerProperties_UsePop_Description));
+        }
+
+        private static MacroStabilityInwardsShearStrengthModel TransformShearStrengthModel(double? shearStrengthModel)
+        {
+            if (!shearStrengthModel.HasValue)
+            {
+                return MacroStabilityInwardsShearStrengthModel.CPhi;
+            }
+            if (Math.Abs(shearStrengthModel.Value - 6) < tolerance)
+            {
+                return MacroStabilityInwardsShearStrengthModel.SuCalculated;
+            }
+            if (Math.Abs(shearStrengthModel.Value - 9) < tolerance)
+            {
+                return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
+            }
+            if (Math.Abs(shearStrengthModel.Value - 1) < tolerance)
+            {
+                return MacroStabilityInwardsShearStrengthModel.None;
+            }
+
+            throw new ImportedDataTransformException(string.Format(Resources.MacroStabilityInwardsSoilLayerTransformer_TransformUsePop_Invalid_value_ParameterName_0,
+                                                                   Resources.SoilLayerProperties_ShearStrengthModel_Description));
         }
 
         private static Ring TransformSegmentToRing(IEnumerable<Segment2D> loop)
@@ -182,7 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         private static void ValidateIsNonShiftedLogNormal(long? distribution, double shift, string incorrectDistibutionParameter)
         {
             if (distribution.HasValue && (distribution.Value != SoilLayerConstants.LogNormalDistributionValue
-                                          || Math.Abs(shift) > 1e-6))
+                                          || Math.Abs(shift) > tolerance))
             {
                 throw new ImportedDataTransformException(string.Format(
                                                              RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
@@ -197,30 +237,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ImportedDataTransformException(string.Format(
                                                              RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                                                              incorrectDistibutionParameter));
-            }
-        }
-
-        /// <summary>
-        /// Transforms the <see cref="ShearStrengthModel"/> to <see cref="MacroStabilityInwardsShearStrengthModel"/>.
-        /// </summary>
-        /// <param name="shearStrengthModel">The model to transform.</param>
-        /// <returns>A <see cref="MacroStabilityInwardsShearStrengthModel"/> based on the given data.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
-        /// has an invalid value.</exception>
-        private static MacroStabilityInwardsShearStrengthModel TransformShearStrengthModel(ShearStrengthModel shearStrengthModel)
-        {
-            switch (shearStrengthModel)
-            {
-                case ShearStrengthModel.None:
-                    return MacroStabilityInwardsShearStrengthModel.None;
-                case ShearStrengthModel.SuCalculated:
-                    return MacroStabilityInwardsShearStrengthModel.SuCalculated;
-                case ShearStrengthModel.CPhi:
-                    return MacroStabilityInwardsShearStrengthModel.CPhi;
-                case ShearStrengthModel.CPhiOrSuCalculated:
-                    return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
-                default:
-                    throw new NotSupportedException();
             }
         }
     }

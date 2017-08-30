@@ -58,8 +58,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             double top = random.NextDouble();
             const string materialName = "materialX";
             Color color = Color.AliceBlue;
-            double usePop = random.NextDouble();
-            double shearStrengthModel = random.NextDouble();
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelDeviation = random.NextDouble();
@@ -81,8 +79,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 IsAquifer = isAquifer,
                 MaterialName = materialName,
                 Color = color,
-                UsePop = usePop,
-                ShearStrengthModel = shearStrengthModel,
                 AbovePhreaticLevelMean = abovePhreaticLevelMean,
                 AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
@@ -109,8 +105,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(isAquifer, properties.IsAquifer);
             Assert.AreEqual(materialName, properties.MaterialName);
             Assert.AreEqual(color, properties.Color);
-//            Assert.AreEqual(usePop, properties.UsePop); // TODO Verify conversion from double? to bool
-//            Assert.AreEqual(GetMacroStabilityInwardsShearStrengthModel(shearStrengthModel), properties.ShearStrengthModel); // TODO: Verify conversion from double to enum
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
             Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelDeviation);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
@@ -127,23 +121,78 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(popDeviation, properties.PopDeviation);
         }
 
-//        [Test]
-//        public void SoilLayer1DTransform_InvalidShearStrengthModel_ThrowImportedDataTransformException()
-//        {
-//            // Setup
-//            var layer = new SoilLayer1D(1)
-//            {
-//                ShearStrengthModel = 99
-//            };
-//
-//            // Call
-//            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
-//
-//            // Assert
-//            var exception = Assert.Throws<ImportedDataTransformException>(test);
-//            Assert.AreEqual("Er ging iets mis met transformeren.", exception.Message);
-//            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
-//        }
+        [Test]
+        [TestCase(null, true)]
+        [TestCase(0, false)]
+        public void SoilLayer1DTransform_ValidUsePopValue_ReturnMacroStabilityInwardSoilLayer1D(double? usePop, bool transformedUsePopValue)
+        {
+            // Setup
+            var layer = new SoilLayer1D(0)
+            {
+                UsePop = usePop
+            };
+
+            // Call
+            MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedUsePopValue, soilLayer1D.Properties.UsePop);
+        }
+
+        [Test]
+        public void SoilLayer1DTransform_InvalidUsePopValue_ReturnMacroStabilityInwardSoilLayer1D()
+        {
+            // Setup
+            var layer = new SoilLayer1D(0)
+            {
+                UsePop = 1
+            };
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Gebruik POP'.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(null, MacroStabilityInwardsShearStrengthModel.CPhi)]
+        [TestCase(9, MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated)]
+        [TestCase(6, MacroStabilityInwardsShearStrengthModel.SuCalculated)]
+        [TestCase(1, MacroStabilityInwardsShearStrengthModel.None)]
+        public void SoilLayer1DTransform_ValidShearStrengthModelValue_ReturnMacroStabilityInwardSoilLayer1D(double? sheartStrengthModel,
+                                                                                                            MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
+        {
+            // Setup
+            var layer = new SoilLayer1D(0)
+            {
+                ShearStrengthModel = sheartStrengthModel
+            };
+
+            // Call
+            MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedShearStrengthModel, soilLayer1D.Properties.ShearStrengthModel);
+        }
+
+        [Test]
+        public void SoilLayer1DTransform_InvalidShearStrengthModelValue_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var layer = new SoilLayer1D(0)
+            {
+                ShearStrengthModel = 2
+            };
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Schuifsterkte model'.", exception.Message);
+        }
 
         [Test]
         public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
@@ -194,8 +243,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             bool isAquifer = random.NextBoolean();
             const string materialName = "materialX";
             Color color = Color.AliceBlue;
-            double usePop = random.NextDouble();
-            double shearStrengthModel = random.NextDouble();
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelDeviation = random.NextDouble();
@@ -216,8 +263,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.IsAquifer = isAquifer;
             layer.MaterialName = materialName;
             layer.Color = color;
-            layer.UsePop = usePop;
-            layer.ShearStrengthModel = shearStrengthModel;
             layer.AbovePhreaticLevelMean = abovePhreaticLevelMean;
             layer.AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation;
             layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
@@ -241,8 +286,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(isAquifer, properties.IsAquifer);
             Assert.AreEqual(materialName, properties.MaterialName);
             Assert.AreEqual(color, properties.Color);
-//            Assert.AreEqual(usePop, properties.UsePop); // TODO Verify conversion from double? to bool
-//            Assert.AreEqual(GetMacroStabilityInwardsShearStrengthModel(shearStrengthModel), properties.ShearStrengthModel); // TODO: Verify conversion from double to enum
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
             Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelDeviation);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
@@ -261,21 +304,70 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             AssertRings(layer, soilLayer2D);
         }
 
-//        [Test]
-//        public void SoilLayer2DTransform_InvalidShearStrengthModel_ThrowImportedDataTransformException()
-//        {
-//            // Setup
-//            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
-//            layer.ShearStrengthModel = 99;
-//
-//            // Call
-//            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
-//
-//            // Assert
-//            var exception = Assert.Throws<ImportedDataTransformException>(test);
-//            Assert.AreEqual("Er ging iets mis met transformeren.", exception.Message);
-//            Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
-//        }
+        [Test]
+        [TestCase(null, true)]
+        [TestCase(0, false)]
+        public void SoilLayer2DTransform_ValidUsePopValue_ReturnMacroStabilityInwardSoilLayer2D(double? usePop, bool transformedUsePopValue)
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            layer.UsePop = usePop;
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedUsePopValue, soilLayer2D.Properties.UsePop);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_InvalidUsePopValue_ReturnMacroStabilityInwardSoilLayer2D()
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            layer.UsePop = 1;
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Gebruik POP'.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(null, MacroStabilityInwardsShearStrengthModel.CPhi)]
+        [TestCase(9, MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated)]
+        [TestCase(6, MacroStabilityInwardsShearStrengthModel.SuCalculated)]
+        [TestCase(1, MacroStabilityInwardsShearStrengthModel.None)]
+        public void SoilLayer2DTransform_ValidShearStrengthModelValue_ReturnMacroStabilityInwardSoilLayer2D(double? sheartStrengthModel,
+                                                                                                            MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            layer.ShearStrengthModel = sheartStrengthModel;
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedShearStrengthModel, soilLayer2D.Properties.ShearStrengthModel);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_InvalidShearStrengthModelValue_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            layer.ShearStrengthModel = 2;
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Schuifsterkte model'.", exception.Message);
+        }
 
         [Test]
         public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
@@ -411,23 +503,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             invalidPopDistribution.PopShift = validShift;
             yield return new TestCaseData(invalidPopDistribution, "POP"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
-        }
-
-        private MacroStabilityInwardsShearStrengthModel GetMacroStabilityInwardsShearStrengthModel(ShearStrengthModel shearStrengthModel)
-        {
-            switch (shearStrengthModel)
-            {
-                case ShearStrengthModel.None:
-                    return MacroStabilityInwardsShearStrengthModel.None;
-                case ShearStrengthModel.SuCalculated:
-                    return MacroStabilityInwardsShearStrengthModel.SuCalculated;
-                case ShearStrengthModel.CPhi:
-                    return MacroStabilityInwardsShearStrengthModel.CPhi;
-                case ShearStrengthModel.CPhiOrSuCalculated:
-                    return MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(shearStrengthModel), shearStrengthModel, null);
-            }
         }
     }
 }

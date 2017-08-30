@@ -180,6 +180,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ongeldige waarde voor parameter &apos;{0}&apos;..
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerTransformer_TransformUsePop_Invalid_value_ParameterName_0 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTransformer_TransformUsePop_Invalid_value_Parameter" +
+                        "Name_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string MacroStabilityInwardsSoilProfileReader_Critical_Unexpected_value_on_column {
@@ -367,6 +377,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schuifsterkte model.
+        /// </summary>
+        public static string SoilLayerProperties_ShearStrengthModel_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_ShearStrengthModel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Schuifsterkte ratio S.
         /// </summary>
         public static string SoilLayerProperties_ShearStrengthRatioDistribution_Description {
@@ -381,6 +400,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         public static string SoilLayerProperties_StrengthIncreaseExponentDistribution_Description {
             get {
                 return ResourceManager.GetString("SoilLayerProperties_StrengthIncreaseExponentDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik POP.
+        /// </summary>
+        public static string SoilLayerProperties_UsePop_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_UsePop_Description", resourceCulture);
             }
         }
         
