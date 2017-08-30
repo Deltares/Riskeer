@@ -656,11 +656,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var dataObject = view.Data as List<ClosingStructuresFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
                 ClosingStructuresFailureMechanismSectionResult row = dataObject.First();
-
-                const string propertyName = "AssessmentLayerThree";
-                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
-
-                Assert.AreEqual((RoundedDouble) newValue, propertyValue);
+                Assert.AreEqual(newValue, row.AssessmentLayerThree);
             }
         }
 

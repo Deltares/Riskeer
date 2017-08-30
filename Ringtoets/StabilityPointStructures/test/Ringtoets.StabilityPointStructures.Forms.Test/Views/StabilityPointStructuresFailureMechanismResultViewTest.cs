@@ -654,11 +654,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var dataObject = view.Data as List<StabilityPointStructuresFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
                 StabilityPointStructuresFailureMechanismSectionResult row = dataObject.First();
-
-                const string propertyName = "AssessmentLayerThree";
-                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
-
-                Assert.AreEqual((RoundedDouble) newValue, propertyValue);
+                Assert.AreEqual(newValue, row.AssessmentLayerThree);
             }
         }
 

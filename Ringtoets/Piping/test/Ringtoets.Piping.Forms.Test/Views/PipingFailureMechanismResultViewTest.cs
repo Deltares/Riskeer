@@ -282,11 +282,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataObject = view.Data as List<PipingFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
                 PipingFailureMechanismSectionResult row = dataObject.First();
-
-                const string propertyName = "AssessmentLayerThree";
-                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
-
-                Assert.AreEqual((RoundedDouble) newValue, propertyValue);
+                Assert.AreEqual(newValue, row.AssessmentLayerThree);
             }
         }
 

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -287,11 +286,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var dataObject = view.Data as List<HeightStructuresFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
                 HeightStructuresFailureMechanismSectionResult row = dataObject.First();
-
-                const string propertyName = "AssessmentLayerThree";
-                object propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
-
-                Assert.AreEqual((RoundedDouble) newValue, propertyValue);
+                Assert.AreEqual(newValue, row.AssessmentLayerThree);
             }
         }
 
