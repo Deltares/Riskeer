@@ -84,6 +84,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 control.Data = null;
 
                 // Then
+                graph = GetPointedTreeGraph(control);
+
                 Assert.IsNull(control.Selection);
                 Assert.AreEqual(0, graph.VertexCount);
                 Assert.AreEqual(0, graph.EdgeCount);
