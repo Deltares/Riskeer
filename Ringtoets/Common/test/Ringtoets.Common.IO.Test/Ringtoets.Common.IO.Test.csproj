@@ -128,6 +128,7 @@
     <Compile Include="SoilProfile\SoilProfile2DTest.cs" />
     <Compile Include="Exceptions\SoilProfileReadExceptionTest.cs" />
     <Compile Include="Exceptions\StochasticSoilModelExceptionTest.cs" />
+    <Compile Include="SoilProfile\SoilLayerHelperTest.cs" />
     <Compile Include="SoilProfile\SoilProfileTableDefinitionsTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelImporterConfigurationTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelImporterTest.cs" />
