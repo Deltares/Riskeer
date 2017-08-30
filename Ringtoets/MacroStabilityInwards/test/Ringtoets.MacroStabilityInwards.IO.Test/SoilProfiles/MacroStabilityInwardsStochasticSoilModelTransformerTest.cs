@@ -145,17 +145,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                 {
                     new Point2D(0.0, 0.0),
-                    new Point2D(1.0, 0.0),
-                    new Point2D(1.0, 0.0),
-                    new Point2D(0.0, 0.0)
+                    new Point2D(1.0, 0.0)
                 }), new[]
                 {
                     new Ring(new[]
                     {
                         new Point2D(1.0, 1.0),
-                        new Point2D(2.0, 1.0),
-                        new Point2D(2.0, 1.0),
-                        new Point2D(1.0, 1.0)
+                        new Point2D(2.0, 1.0)
                     }),
                 })
                 {
