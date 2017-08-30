@@ -142,82 +142,277 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dprofile.soil");
 
-            var result = new Collection<SoilProfile2D>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
 
                 // Call
-                while (reader.HasNext)
+                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual(1, soilProfile2D.Id);
+                Assert.AreEqual("Profile", soilProfile2D.Name);
+                Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
+                Assert.AreEqual(3, soilProfile2D.Layers.Count());
+
+                CollectionAssert.AreEqual(new[]
                 {
-                    result.Add(reader.ReadSoilProfile());
-                }
+                    true,
+                    false,
+                    false
+                }, soilProfile2D.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(new[]
+                {
+                    Color.FromArgb(70, 130, 180),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(128, 255, 128)
+                }, soilProfile2D.Layers.Select(l => l.Color));
+                CollectionAssert.AreEqual(new[]
+                {
+                    "Material1",
+                    "Material2",
+                    "Material3"
+                }, soilProfile2D.Layers.Select(l => l.MaterialName));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    2,
+                    2,
+                    2
+                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    24,
+                    28,
+                    20
+                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.24,
+                    0.28,
+                    0.2
+                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.3,
+                    0.32,
+                    0.4
+                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.DiameterD70Distribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.00017,
+                    0.00017,
+                    0.00016
+                }, soilProfile2D.Layers.Select(l => l.DiameterD70Mean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.11764705882352941,
+                    0.11764705882352941,
+                    0.125
+                }, soilProfile2D.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0,
+                    0,
+                    0
+                }, soilProfile2D.Layers.Select(l => l.DiameterD70Shift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.PermeabilityDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0,
+                    0,
+                    0.000185
+                }, soilProfile2D.Layers.Select(l => l.PermeabilityMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    double.NaN,
+                    double.NaN,
+                    0
+                }, soilProfile2D.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0,
+                    0,
+                    0
+                }, soilProfile2D.Layers.Select(l => l.PermeabilityShift));
+
+                CollectionAssert.AreEqual(new double?[]
+                {
+                    null,
+                    0,
+                    null
+                }, soilProfile2D.Layers.Select(l => l.UsePop));
+
+                CollectionAssert.AreEqual(new double?[]
+                {
+                    null,
+                    6,
+                    9
+                }, soilProfile2D.Layers.Select(l => l.ShearStrengthModel));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    2,
+                    2,
+                    2
+                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    14,
+                    18,
+                    10
+                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0,
+                    0.01
+                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    10,
+                    0,
+                    0
+                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.CohesionDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    3,
+                    7
+                }, soilProfile2D.Layers.Select(l => l.CohesionMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.1,
+                    0.09999999999999999,
+                    0.09999999999999999
+                }, soilProfile2D.Layers.Select(l => l.CohesionDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.03,
+                    0.07
+                }, soilProfile2D.Layers.Select(l => l.CohesionShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.FrictionAngleDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.1,
+                    33,
+                    77
+                }, soilProfile2D.Layers.Select(l => l.FrictionAngleMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    10,
+                    0.01,
+                    0.01
+                }, soilProfile2D.Layers.Select(l => l.FrictionAngleDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0,
+                    0.03,
+                    0.07
+                }, soilProfile2D.Layers.Select(l => l.FrictionAngleShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    28,
+                    78
+                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    0.029285714285714283,
+                    0.011153846153846153
+                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    0.08,
+                    0.07
+                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    2,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    0.1,
+                    0.09999999999999999
+                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0,
+                    0.02,
+                    0.03
+                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.Layers.Select(l => l.PopDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    111,
+                    222,
+                    333
+                }, soilProfile2D.Layers.Select(l => l.PopMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.000990990990990991,
+                    0.000990990990990991,
+                    0.000990990990990991
+                }, soilProfile2D.Layers.Select(l => l.PopDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.02,
+                    0.03
+                }, soilProfile2D.Layers.Select(l => l.PopShift));
             }
-
-            // Assert
-            Assert.AreEqual(1, result.Count);
-
-            SoilProfile2D soilProfile2D = result[0];
-            Assert.AreEqual(1, soilProfile2D.Id);
-            Assert.AreEqual("Profile", soilProfile2D.Name);
-            Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
-            Assert.AreEqual(3, soilProfile2D.Layers.Count());
-
-            CollectionAssert.AreEqual(new[]
-            {
-                true,
-                false,
-                false
-            }, soilProfile2D.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[]
-            {
-                Color.FromArgb(70, 130, 180),
-                Color.FromArgb(255, 0, 0),
-                Color.FromArgb(128, 255, 128)
-            }, soilProfile2D.Layers.Select(l => l.Color));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.21,
-                0.71,
-                3.88
-            }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelMean));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.001,
-                0.02,
-                0.08
-            }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDeviation));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.3,
-                0.32,
-                0.4
-            }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelShift));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.51,
-                0.01,
-                11.3
-            }, soilProfile2D.Layers.Select(l => l.DiameterD70Mean));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.029411,
-                0.1,
-                0.017699
-            }, soilProfile2D.Layers.Select(l => l.DiameterD70CoefficientOfVariation));
-            CollectionAssert.AreEqual(new[]
-            {
-                1.01,
-                9.99,
-                5.21
-            }, soilProfile2D.Layers.Select(l => l.PermeabilityMean));
-            CollectionAssert.AreEqual(new[]
-            {
-                0.024752,
-
-                0.01001,
-                0.057582
-            }, soilProfile2D.Layers.Select(l => l.PermeabilityCoefficientOfVariation));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

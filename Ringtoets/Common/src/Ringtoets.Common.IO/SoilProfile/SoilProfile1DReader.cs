@@ -365,9 +365,6 @@ namespace Ringtoets.Common.IO.SoilProfile
                 soilLayer.PopDeviation = properties.PopCoefficientOfVariation.Value;
             }
 
-
-
-
             return soilLayer;
         }
 

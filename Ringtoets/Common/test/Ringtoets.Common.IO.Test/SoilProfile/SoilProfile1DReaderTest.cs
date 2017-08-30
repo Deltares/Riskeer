@@ -284,9 +284,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 CollectionAssert.AreEqual(new[]
                 {
                     30,
-                    0,
-                    -35,
-                    -40
+                    10,
+                    -20,
+                    -30
                 }, profile.Layers.Select(l => l.Top));
 
                 CollectionAssert.AreEqual(new[]
