@@ -86,14 +86,17 @@ namespace Core.Components.GraphSharp.Forms.Test
                     }, false)
                 }, false);
 
+                PointedTreeGraph originalGraph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
+
                 // When
                 graphControl.Data = node;
 
                 // Then
-                PointedTreeGraph graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
+                PointedTreeGraph newGraph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
 
-                Assert.AreEqual(5, graph.VertexCount);
-                Assert.AreEqual(4, graph.EdgeCount);
+                Assert.AreNotSame(originalGraph, newGraph);
+                Assert.AreEqual(5, newGraph.VertexCount);
+                Assert.AreEqual(4, newGraph.EdgeCount);
             }
         }
 
@@ -121,6 +124,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 graphControl.Data = new GraphNode("<text>Double used</text>", new GraphNode[0], false);
 
                 // Then
+                graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
                 Assert.AreEqual(1, graph.VertexCount);
                 Assert.AreEqual(0, graph.EdgeCount);
             }
@@ -150,6 +154,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 graphControl.Data = null;
 
                 // Then
+                graph = PointedTreeGraphControlHelper.GetPointedTreeGraph(graphControl);
                 Assert.AreEqual(0, graph.VertexCount);
                 Assert.AreEqual(0, graph.EdgeCount);
             }

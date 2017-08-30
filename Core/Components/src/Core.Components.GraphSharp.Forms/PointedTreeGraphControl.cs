@@ -42,7 +42,6 @@ namespace Core.Components.GraphSharp.Forms
     {
         private readonly List<DrawnGraphNode> drawnGraphNodeList = new List<DrawnGraphNode>();
         private ZoomControl zoomControl;
-        private PointedTreeGraphLayout graphLayout;
         private GraphNode data;
         private PointedTreeGraph graph;
 
@@ -54,7 +53,7 @@ namespace Core.Components.GraphSharp.Forms
         public PointedTreeGraphControl()
         {
             InitializeComponent();
-            InitializeGraph();
+            InitializeZoomControl();
         }
 
         public GraphNode Data
@@ -66,6 +65,7 @@ namespace Core.Components.GraphSharp.Forms
             set
             {
                 ClearData();
+                CreateNewGraph();
 
                 data = value;
 
@@ -88,7 +88,7 @@ namespace Core.Components.GraphSharp.Forms
             base.Dispose(disposing);
         }
 
-        private void InitializeGraph()
+        private void InitializeZoomControl()
         {
             zoomControl = new ZoomControl
             {
@@ -97,12 +97,6 @@ namespace Core.Components.GraphSharp.Forms
                 ZoomDeltaMultiplier = 300
             };
 
-            graphLayout = new PointedTreeGraphLayout();
-
-            graph = new PointedTreeGraph();
-            graphLayout.Graph = graph;
-
-            zoomControl.Content = graphLayout;
             zoomControl.PreviewMouseWheel += ZoomControl_MouseWheel;
 
             var myResourceDictionary = new ResourceDictionary
@@ -111,6 +105,8 @@ namespace Core.Components.GraphSharp.Forms
             };
             zoomControl.Resources.MergedDictionaries.Add(myResourceDictionary);
             wpfElementHost.Child = zoomControl;
+
+            CreateNewGraph();
         }
 
         private void ClearData()
@@ -120,8 +116,16 @@ namespace Core.Components.GraphSharp.Forms
                 drawnGraphNode.Vertex.PropertyChanged -= VertexOnPropertyChanged;
             }
 
-            graph.Clear();
             drawnGraphNodeList.Clear();
+        }
+
+        private void CreateNewGraph()
+        {
+            graph = new PointedTreeGraph();
+            zoomControl.Content = new PointedTreeGraphLayout
+            {
+                Graph = graph
+            };
         }
 
         private void DrawNode(GraphNode node, PointedTreeElementVertex parentVertex = null)
@@ -177,6 +181,22 @@ namespace Core.Components.GraphSharp.Forms
             SelectionChanged?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Lookup class for administration related to drawn vertices.
+        /// </summary>
+        private class DrawnGraphNode
+        {
+            /// <summary>
+            /// The graph node which the drawn <see cref="PointedTreeElementVertex "/> is based upon.
+            /// </summary>
+            public GraphNode GraphNode { get; set; }
+
+            /// <summary>
+            /// The drawn vertex.
+            /// </summary>
+            public PointedTreeElementVertex Vertex { get; set; }
+        }
+
         #region Zooming
 
         private void ZoomControl_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -207,21 +227,5 @@ namespace Core.Components.GraphSharp.Forms
         }
 
         #endregion
-
-        /// <summary>
-        /// Lookup class for administration related to drawn vertices.
-        /// </summary>
-        private class DrawnGraphNode
-        {
-            /// <summary>
-            /// The graph node which the drawn <see cref="PointedTreeElementVertex "/> is based upon.
-            /// </summary>
-            public GraphNode GraphNode { get; set; }
-
-            /// <summary>
-            /// The drawn vertex.
-            /// </summary>
-            public PointedTreeElementVertex Vertex { get; set; }
-        }
     }
 }

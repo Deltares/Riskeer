@@ -46,12 +46,17 @@ namespace Core.Components.GraphSharp.Forms.Extensions
         
         private static void FormattedTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs eventArgs)
         {
-            var value = eventArgs.NewValue as string;
             var textBlock = sender as TextBlock;
-
-            if (textBlock != null)
+            if (textBlock == null)
             {
-                textBlock.Inlines.Clear();
+                return;
+            }
+
+            textBlock.Inlines.Clear();
+
+            var value = eventArgs.NewValue as string;
+            if (value != null)
+            {
                 textBlock.Inlines.Add(Convert(value));
             }
         }

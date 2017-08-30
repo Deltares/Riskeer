@@ -126,6 +126,31 @@ namespace Core.Components.GraphSharp.Forms.Test.Extensions
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenTextBlockWithXml_WhenNewTextXmlNull_ThenInlinesCleared()
+        {
+            // Given
+            const string xmlToConvert = "<text>test</text>";
+            var textBlock = new TextBlock();
+
+            TextBlockExtensions.SetFormattedText(textBlock, xmlToConvert);
+
+            // Precondition
+            Assert.AreEqual(1, textBlock.Inlines.Count);
+            var span = (Span) textBlock.Inlines.First();
+
+            Assert.AreEqual(1, span.Inlines.Count);
+            var run = (Run) span.Inlines.First();
+            Assert.AreEqual("test", run.Text);
+
+            // When
+            TextBlockExtensions.SetFormattedText(textBlock, null);
+
+            // Then
+            CollectionAssert.IsEmpty(textBlock.Inlines);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GetFormattedText_DefaultValue_ReturnNull()
         {
             // Setup
@@ -136,7 +161,6 @@ namespace Core.Components.GraphSharp.Forms.Test.Extensions
 
             // Assert
             Assert.IsNull(formattedText);
-
         }
 
         [Test]
@@ -146,7 +170,7 @@ namespace Core.Components.GraphSharp.Forms.Test.Extensions
             // Setup
             const string xmlToConvert = "<text>test <bold>bold text</bold></text>";
             var textBlock = new TextBlock();
-            
+
             TextBlockExtensions.SetFormattedText(textBlock, xmlToConvert);
 
             // Call
