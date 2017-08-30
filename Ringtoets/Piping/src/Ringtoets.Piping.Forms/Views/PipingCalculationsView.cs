@@ -621,14 +621,8 @@ namespace Ringtoets.Piping.Forms.Views
                 DataGridViewRow dataGridViewRow = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
                 var dataItem = dataGridViewRow.DataBoundItem as PipingCalculationRow;
 
-                if (dataItem != null && dataItem.PipingCalculation.InputParameters.UseAssessmentLevelManualInput)
-                {
-                    dataGridViewRow.ReadOnly = true;
-                }
-                else if (dataGridViewRow.ReadOnly)
-                {
-                    dataGridViewRow.ReadOnly = false;
-                }
+                dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataItem != null
+                                                                                                 && dataItem.PipingCalculation.InputParameters.UseAssessmentLevelManualInput;
             }
         }
 

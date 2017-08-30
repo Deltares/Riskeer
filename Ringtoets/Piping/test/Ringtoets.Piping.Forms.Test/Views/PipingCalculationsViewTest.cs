@@ -939,10 +939,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var value = (RoundedDouble) newValue;
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection, failureMechanism, calculationGroup))
             {
-                var data = (CalculationGroup) pipingCalculationView.Data;
+                var data = (CalculationGroup) pipingCalculationsView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
                 pipingCalculation.Attach(pipingCalculationObserver);
@@ -978,10 +978,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection, failureMechanism, calculationGroup))
             {
-                var data = (CalculationGroup) pipingCalculationView.Data;
+                var data = (CalculationGroup) pipingCalculationsView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
                 pipingCalculation.Attach(pipingCalculationObserver);
@@ -1009,7 +1009,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -1017,7 +1017,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
                 // Call
-                object selection = pipingCalculationView.Selection;
+                object selection = pipingCalculationsView.Selection;
 
                 // Assert
                 Assert.IsInstanceOf<PipingInputContext>(selection);
@@ -1042,10 +1042,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection))
             {
-                var data = (CalculationGroup) pipingCalculationView.Data;
+                var data = (CalculationGroup) pipingCalculationsView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children.First();
 
                 if (useCalculationWithOutput)
@@ -1108,12 +1108,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection, failureMechanism, calculationGroup))
             {
                 mocks.ReplayAll();
 
-                var data = (CalculationGroup) pipingCalculationView.Data;
+                var data = (CalculationGroup) pipingCalculationsView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children[1];
 
                 if (useCalculationWithOutput)
@@ -1136,52 +1136,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationWithHydraulicLocation_WhenLocationManualDesignWaterLevel_SelectableHydraulicLocationReadonly()
+        public void GivenPipingCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
         {
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection))
             {
-                var data = (CalculationGroup) pipingCalculationView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children.First();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                var currentCell = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-                Assert.IsFalse(currentCell.ReadOnly);
-
-                // When
-                pipingCalculation.InputParameters.UseAssessmentLevelManualInput = true;
-                pipingCalculation.InputParameters.NotifyObservers();
-
-                // Then
-                var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-                Assert.IsTrue(currentCellUpdated.ReadOnly);
-
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = currentCellUpdated.Items;
-                Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenPipingCalculationWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
-            {
-                var data = (CalculationGroup) pipingCalculationView.Data;
+                var data = (CalculationGroup) pipingCalculationsView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children[1];
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -1210,21 +1175,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
+        public void GivenPipingCalculationsViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
         {
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
                 assessmentSection))
             {
-                var data = (CalculationGroup) pipingCalculationView.Data;
+                var data = (CalculationGroup) pipingCalculationsView.Data;
                 var pipingCalculation = (PipingCalculationScenario) data.Children[0];
 
-                DataGridViewControl dataGridView = pipingCalculationView.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                ListBox listBox = pipingCalculationView.Controls.Find("listBox", true).OfType<ListBox>().First();
+                DataGridViewControl dataGridView = pipingCalculationsView.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+                ListBox listBox = pipingCalculationsView.Controls.Find("listBox", true).OfType<ListBox>().First();
 
                 // Precondition
                 listBox.SelectedIndex = 0;
@@ -1261,6 +1226,35 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(2, dataGridView.Rows.Count);
                 Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            }
+            mocks.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void PipingCalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection))
+            {
+                var data = (CalculationGroup) pipingCalculationsView.Data;
+                var calculation = (PipingCalculationScenario) data.Children.First();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Call
+                calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
+
+                var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+                Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
             }
             mocks.VerifyAll();
         }

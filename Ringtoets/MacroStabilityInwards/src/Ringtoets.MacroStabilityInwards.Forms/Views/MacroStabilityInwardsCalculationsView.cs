@@ -596,14 +596,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 DataGridViewRow dataGridViewRow = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
                 var dataItem = dataGridViewRow.DataBoundItem as MacroStabilityInwardsCalculationRow;
 
-                if (dataItem != null && dataItem.MacroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput)
-                {
-                    dataGridViewRow.ReadOnly = true;
-                }
-                else if (dataGridViewRow.ReadOnly)
-                {
-                    dataGridViewRow.ReadOnly = false;
-                }
+                dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataItem != null
+                                                                                                 && dataItem.MacroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput;
             }
         }
 
