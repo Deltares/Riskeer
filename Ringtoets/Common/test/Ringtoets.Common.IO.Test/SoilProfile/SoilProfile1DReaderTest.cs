@@ -265,7 +265,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_DatabaseWith1DProfile3Layers_ReturnsProfile()
+        public void ReadSoilProfile_DatabaseWith1DProfile4Layers_ReturnsProfile()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofile.soil");
@@ -277,6 +277,26 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 SoilProfile1D profile = reader.ReadSoilProfile();
 
                 // Assert
+                Assert.AreEqual(-40, profile.Bottom);
+                Assert.AreEqual("Schematisering1", profile.Name);
+
+                Assert.AreEqual(4, profile.Layers.Count());
+                CollectionAssert.AreEqual(new[]
+                {
+                    30,
+                    0,
+                    -35,
+                    -40
+                }, profile.Layers.Select(l => l.Top));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    "Klei1",
+                    "Zand",
+                    "dummy",
+                    "Klei 3"
+                }, profile.Layers.Select(l => l.MaterialName));
+
                 CollectionAssert.AreEqual(new[]
                 {
                     false,
@@ -284,6 +304,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     true,
                     true
                 }, profile.Layers.Select(l => l.IsAquifer));
+
                 CollectionAssert.AreEqual(new[]
                 {
                     Color.FromArgb(70, 130, 180),
@@ -378,6 +399,196 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     0,
                     0
                 }, profile.Layers.Select(l => l.PermeabilityShift));
+
+                CollectionAssert.AreEqual(new double?[]
+                {
+                    null,
+                    null,
+                    0,
+                    0
+                }, profile.Layers.Select(l => l.UsePop));
+
+                CollectionAssert.AreEqual(new double?[]
+                {
+                    null,
+                    9,
+                    1,
+                    6
+                }, profile.Layers.Select(l => l.ShearStrengthModel));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    2,
+                    2,
+                    2,
+                    2
+                }, profile.Layers.Select(l => l.AbovePhreaticLevelDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    14,
+                    10,
+                    20,
+                    18
+                }, profile.Layers.Select(l => l.AbovePhreaticLevelMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01
+                }, profile.Layers.Select(l => l.AbovePhreaticLevelDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0,
+                    0,
+                    0,
+                    0
+                }, profile.Layers.Select(l => l.AbovePhreaticLevelShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3,
+                    3
+                }, profile.Layers.Select(l => l.CohesionDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    7,
+                    4,
+                    3
+                }, profile.Layers.Select(l => l.CohesionMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.1,
+                    0.09999999999999999,
+                    0.1,
+                    0.09999999999999999
+                }, profile.Layers.Select(l => l.CohesionDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.07,
+                    0.04,
+                    0.03
+                }, profile.Layers.Select(l => l.CohesionShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3,
+                    3
+                }, profile.Layers.Select(l => l.FrictionAngleDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    11,
+                    77,
+                    44,
+                    33
+                }, profile.Layers.Select(l => l.FrictionAngleMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01
+                }, profile.Layers.Select(l => l.FrictionAngleDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.07,
+                    0.04,
+                    0.03
+                }, profile.Layers.Select(l => l.FrictionAngleShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3,
+                    3
+                }, profile.Layers.Select(l => l.ShearStrengthRatioDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    24,
+                    78,
+                    31,
+                    28
+                }, profile.Layers.Select(l => l.ShearStrengthRatioMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.017499999999999998,
+                    0.011153846153846153,
+                    0.004193548387096774,
+                    0.029285714285714283
+                }, profile.Layers.Select(l => l.ShearStrengthRatioDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.04,
+                    0.07,
+                    0.03,
+                    0.08
+                }, profile.Layers.Select(l => l.ShearStrengthRatioShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3,
+                    3
+                }, profile.Layers.Select(l => l.StrengthIncreaseExponentDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    3,
+                    4,
+                    2
+                }, profile.Layers.Select(l => l.StrengthIncreaseExponentMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.1,
+                    0.09999999999999999,
+                    0.1,
+                    0.1
+                }, profile.Layers.Select(l => l.StrengthIncreaseExponentDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.03,
+                    0.04,
+                    0.02
+                }, profile.Layers.Select(l => l.StrengthIncreaseExponentShift));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3,
+                    3
+                }, profile.Layers.Select(l => l.PopDistribution));
+                CollectionAssert.AreEqual(new[]
+                {
+                    111,
+                    333,
+                    444,
+                    222
+                }, profile.Layers.Select(l => l.PopMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.000990990990990991,
+                    0.000990990990990991,
+                    0.000990990990990991,
+                    0.000990990990990991
+                }, profile.Layers.Select(l => l.PopDeviation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.01,
+                    0.03,
+                    0.04,
+                    0.02
+                }, profile.Layers.Select(l => l.PopShift));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
