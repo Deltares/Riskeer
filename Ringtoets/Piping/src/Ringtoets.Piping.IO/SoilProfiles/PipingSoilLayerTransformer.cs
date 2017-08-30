@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)
             {
                 throw new ImportedDataTransformException(string.Format(
-                                                             Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
+                                                             RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                                                              incorrectDistibutionParameter));
             }
         }

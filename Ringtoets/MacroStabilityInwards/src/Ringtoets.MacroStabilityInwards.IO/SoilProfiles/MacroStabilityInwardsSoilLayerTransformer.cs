@@ -148,6 +148,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
+            ValidateIsLogNormal(
+                soilLayer.BelowPhreaticLevelDistribution,
+                Resources.SoilLayerProperties_BelowPhreaticLevelDistribution_Description);
+
             ValidateIsNonShiftedLogNormal(
                 soilLayer.CohesionDistribution,
                 soilLayer.CohesionShift,
@@ -181,6 +185,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             {
                 throw new ImportedDataTransformException(string.Format(
                                                              RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                             incorrectDistibutionParameter));
+            }
+        }
+
+        private static void ValidateIsLogNormal(long? distribution, string incorrectDistibutionParameter)
+        {
+            if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)
+            {
+                throw new ImportedDataTransformException(string.Format(
+                                                             RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
                                                              incorrectDistibutionParameter));
             }
         }

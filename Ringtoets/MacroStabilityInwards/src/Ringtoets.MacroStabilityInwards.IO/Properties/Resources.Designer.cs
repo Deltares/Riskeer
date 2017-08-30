@@ -331,6 +331,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verzadigd gewicht.
+        /// </summary>
+        public static string SoilLayerProperties_BelowPhreaticLevelDistribution_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_BelowPhreaticLevelDistribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cohesie.
         /// </summary>
         public static string SoilLayerProperties_CohesionDistribution_Description {

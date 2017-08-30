@@ -146,6 +146,23 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
+        public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var layer = new SoilLayer1D(0.0)
+            {
+                BelowPhreaticLevelDistribution = -1
+            };
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
+        }
+
+        [Test]
         [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer1D))]
         public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
@@ -258,6 +275,23 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual("Er ging iets mis met transformeren.", exception.Message);
             Assert.IsInstanceOf<NotSupportedException>(exception.InnerException);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var layer = new SoilLayer2D
+            {
+                BelowPhreaticLevelDistribution = -1
+            };
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Exception exception = Assert.Throws<ImportedDataTransformException>(test);
+            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
         }
 
         [Test]

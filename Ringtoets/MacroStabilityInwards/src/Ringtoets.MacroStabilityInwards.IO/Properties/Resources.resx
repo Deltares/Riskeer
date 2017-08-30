@@ -258,4 +258,7 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="SoilLayerProperties_StrengthIncreaseExponentDistribution_Description" xml:space="preserve">
     <value>Sterkte toename exponent</value>
   </data>
+  <data name="SoilLayerProperties_BelowPhreaticLevelDistribution_Description" xml:space="preserve">
+    <value>Verzadigd gewicht</value>
+  </data>
 </root>

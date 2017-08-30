@@ -889,4 +889,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="SoilProfileTransformer_Cannot_tranform_Type_0_Only_types_Type_1_and_Type_2_are_supported" xml:space="preserve">
     <value>De ondergrondschematisatie van het type '{0}' is niet ondersteund. Alleen ondergrondschematisaties van het type '{1}' of '{2}' zijn ondersteund.</value>
   </data>
+  <data name="SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
+    <value>Parameter '{0}' is niet verschoven lognormaal verdeeld.</value>
+  </data>
 </root>
