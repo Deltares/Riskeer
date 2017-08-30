@@ -137,7 +137,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_DatabaseWith2DSoilProfile_ReturnOneProfile()
+        public void ReadSoilProfile_DatabaseWith2DSoilProfile3Layers_ReturnOneProfile()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dprofile.soil");
@@ -412,6 +412,80 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     0.02,
                     0.03
                 }, soilProfile2D.Layers.Select(l => l.PopShift));
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_DatabaseWith1DProfile1LayerWithAllNullValues_ReturnsProfileWithDefaultValues()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithLayerWithNullValuesOnly.soil");
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfile2D profile = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual(1, profile.Id);
+                Assert.AreEqual("Profile", profile.Name);
+                Assert.AreEqual(85.2, profile.IntersectionX);
+
+                SoilLayer2D soilLayer = profile.Layers.Single();
+                Assert.AreEqual("Material1", soilLayer.MaterialName);
+                Assert.IsFalse(soilLayer.IsAquifer);
+                Assert.AreEqual(Color.Empty, soilLayer.Color);
+
+                Assert.IsNull(soilLayer.BelowPhreaticLevelDistribution);
+                Assert.IsNaN(soilLayer.BelowPhreaticLevelMean);
+                Assert.IsNaN(soilLayer.BelowPhreaticLevelDeviation);
+                Assert.IsNaN(soilLayer.BelowPhreaticLevelShift);
+
+                Assert.IsNull(soilLayer.DiameterD70Distribution);
+                Assert.IsNaN(soilLayer.DiameterD70Mean);
+                Assert.IsNaN(soilLayer.DiameterD70CoefficientOfVariation);
+                Assert.IsNaN(soilLayer.DiameterD70Shift);
+
+                Assert.IsNull(soilLayer.PermeabilityDistribution);
+                Assert.IsNaN(soilLayer.PermeabilityMean);
+                Assert.IsNaN(soilLayer.PermeabilityCoefficientOfVariation);
+                Assert.IsNaN(soilLayer.PermeabilityShift);
+
+                Assert.IsNull(soilLayer.UsePop);
+                Assert.IsNull(soilLayer.ShearStrengthModel);
+
+                Assert.IsNull(soilLayer.AbovePhreaticLevelDistribution);
+                Assert.IsNaN(soilLayer.AbovePhreaticLevelMean);
+                Assert.IsNaN(soilLayer.AbovePhreaticLevelDeviation);
+                Assert.IsNaN(soilLayer.AbovePhreaticLevelShift);
+
+                Assert.IsNull(soilLayer.CohesionDistribution);
+                Assert.IsNaN(soilLayer.CohesionMean);
+                Assert.IsNaN(soilLayer.CohesionDeviation);
+                Assert.IsNaN(soilLayer.CohesionShift);
+
+                Assert.IsNull(soilLayer.FrictionAngleDistribution);
+                Assert.IsNaN(soilLayer.FrictionAngleMean);
+                Assert.IsNaN(soilLayer.FrictionAngleDeviation);
+                Assert.IsNaN(soilLayer.FrictionAngleShift);
+
+                Assert.IsNull(soilLayer.ShearStrengthRatioDistribution);
+                Assert.IsNaN(soilLayer.ShearStrengthRatioMean);
+                Assert.IsNaN(soilLayer.ShearStrengthRatioDeviation);
+                Assert.IsNaN(soilLayer.ShearStrengthRatioShift);
+
+                Assert.IsNull(soilLayer.StrengthIncreaseExponentDistribution);
+                Assert.IsNaN(soilLayer.StrengthIncreaseExponentMean);
+                Assert.IsNaN(soilLayer.StrengthIncreaseExponentDeviation);
+                Assert.IsNaN(soilLayer.StrengthIncreaseExponentShift);
+
+                Assert.IsNull(soilLayer.PopDistribution);
+                Assert.IsNaN(soilLayer.PopMean);
+                Assert.IsNaN(soilLayer.PopDeviation);
+                Assert.IsNaN(soilLayer.PopShift);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
