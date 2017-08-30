@@ -178,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                     segment.SecondPoint
                 });
             }
-            return new Ring(points);
+            return new Ring(points.Distinct());
         }
 
         /// <summary>

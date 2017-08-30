@@ -425,7 +425,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                     segment.SecondPoint
                 });
             }
-            return new Ring(points);
+            return new Ring(points.Distinct());
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
