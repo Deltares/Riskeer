@@ -85,10 +85,6 @@
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
-      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
-      <Name>Ringtoets.Common.Data.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
       <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>

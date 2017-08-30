@@ -184,11 +184,6 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
-      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
-      <Name>Ringtoets.Common.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data</Name>

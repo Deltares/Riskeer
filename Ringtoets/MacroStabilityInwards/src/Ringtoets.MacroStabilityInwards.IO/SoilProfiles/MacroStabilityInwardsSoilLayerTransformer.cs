@@ -167,10 +167,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                                                                    Resources.SoilLayerProperties_ShearStrengthModel_Description));
         }
 
-        private static Ring TransformSegmentToRing(IEnumerable<Segment2D> loop)
+        private static Ring TransformSegmentToRing(IEnumerable<Segment2D> segments)
         {
             var points = new List<Point2D>();
-            foreach (Segment2D segment in loop)
+            foreach (Segment2D segment in segments)
             {
                 points.AddRange(new[]
                 {
