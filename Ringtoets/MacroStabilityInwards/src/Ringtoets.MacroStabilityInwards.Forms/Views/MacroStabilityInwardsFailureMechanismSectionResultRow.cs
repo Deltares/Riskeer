@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -57,8 +56,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerThree
         {

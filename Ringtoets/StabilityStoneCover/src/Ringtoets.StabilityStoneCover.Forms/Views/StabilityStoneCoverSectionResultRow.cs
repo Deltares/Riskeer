@@ -59,7 +59,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree

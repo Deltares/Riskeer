@@ -42,8 +42,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         public ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerThree
         {

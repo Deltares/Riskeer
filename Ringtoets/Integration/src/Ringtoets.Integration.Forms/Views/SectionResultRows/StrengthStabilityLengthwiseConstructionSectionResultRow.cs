@@ -31,7 +31,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
     /// <summary>
     /// Class for displaying <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>  as a row in a grid view.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionSectionResultRow : FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+    public class StrengthStabilityLengthwiseConstructionSectionResultRow
+        : FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionSectionResultRow"/>.
@@ -39,10 +40,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <param name="sectionResult">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StrengthStabilityLengthwiseConstructionSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public StrengthStabilityLengthwiseConstructionSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
+            : base(sectionResult) {}
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree

@@ -31,7 +31,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanismSectionResultRow
+        : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
@@ -39,7 +40,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+            : base(sectionResult) {}
 
         /// <summary>
         /// Gets the <see cref="StabilityPointStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
@@ -54,8 +56,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerThree
         {
