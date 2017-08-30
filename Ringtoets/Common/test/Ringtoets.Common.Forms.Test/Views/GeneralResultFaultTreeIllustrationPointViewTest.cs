@@ -25,6 +25,9 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
+using Core.Components.GraphSharp.Data;
+using Core.Components.GraphSharp.Forms;
+using Core.Components.GraphSharp.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -278,22 +281,20 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(GetGeneralResultWithTwoTopLevelIllustrationPoints))
+            {
+                ShowTestView(view);
 
-            var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult);
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            ShowTestView(view);
+                // When
+                view.Data = data;
 
-            var selectionChangedCount = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-            // When
-            view.Data = data;
-
-            // Then
-            Assert.AreNotEqual(0, selectionChangedCount);
-            Assert.AreSame(null, view.Selection);
-
+                // Then
+                Assert.AreNotEqual(0, selectionChangedCount);
+                Assert.AreSame(null, view.Selection);
+            }
             mocks.VerifyAll();
         }
 
@@ -306,20 +307,20 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var view = new GeneralResultFaultTreeIllustrationPointView(GetGeneralResultWithoutTopLevelIllustrationPoints);
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(GetGeneralResultWithoutTopLevelIllustrationPoints))
+            {
+                ShowTestView(view);
 
-            ShowTestView(view);
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var selectionChangedCount = 0;
-            view.SelectionChanged += (sender, args) => selectionChangedCount++;
+                // When
+                view.Data = data;
 
-            // When
-            view.Data = data;
-
-            // Then
-            Assert.AreEqual(0, selectionChangedCount);
-            Assert.IsNull(view.Selection);
-
+                // Then
+                Assert.AreEqual(0, selectionChangedCount);
+                Assert.IsNull(view.Selection);
+            }
             mocks.VerifyAll();
         }
 
@@ -361,6 +362,96 @@ namespace Ringtoets.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingFaultTreeIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
+
+            mocks.ReplayAll();
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTwoTopLevelIllustrationPoints();
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResultFunc)
+            {
+                Data = data
+            })
+            {
+                ShowTestView(view);
+
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                var illustrationPointsFaultTreeControl = TypeUtils.GetField<IllustrationPointsFaultTreeControl>(view, "illustrationPointsFaultTreeControl");
+                PointedTreeGraph pointedTreeGraph = GetPointedTreeGraph(illustrationPointsFaultTreeControl);
+
+                // When
+                PointedTreeElementVertex selectedVertex = pointedTreeGraph.Vertices.ElementAt(0);
+                selectedVertex.IsSelected = true;
+
+                // Then
+                Assert.AreEqual(1, selectionChangedCount);
+
+                TopLevelFaultTreeIllustrationPoint topLevel = generalResultFunc.TopLevelIllustrationPoints.First();
+                IllustrationPointNode expectedSelectedNode = topLevel.FaultTreeNodeRoot;
+
+                var selectedFaultTreeContext = view.Selection as IllustrationPointNodeFaultTreeContext;
+                Assert.IsNotNull(selectedFaultTreeContext);
+                Assert.AreSame(expectedSelectedNode, selectedFaultTreeContext.IllustrationPointNode);
+                Assert.AreEqual(topLevel.ClosingSituation, selectedFaultTreeContext.ClosingSituation);
+                Assert.AreEqual(topLevel.WindDirection.Name, selectedFaultTreeContext.WindDirectionName);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFullyConfiguredView_WhenSelectingSubMechanismIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
+
+            mocks.ReplayAll();
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTopLevelIllustrationPointsWithChildren();
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResultFunc)
+            {
+                Data = data
+            })
+            {
+                ShowTestView(view);
+
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                var illustrationPointsFaultTreeControl = TypeUtils.GetField<IllustrationPointsFaultTreeControl>(view, "illustrationPointsFaultTreeControl");
+                PointedTreeGraph pointedTreeGraph = GetPointedTreeGraph(illustrationPointsFaultTreeControl);
+
+                // When
+                PointedTreeElementVertex selectedVertex = pointedTreeGraph.Vertices.ElementAt(2);
+                selectedVertex.IsSelected = true;
+
+                // Then
+                Assert.AreEqual(1, selectionChangedCount);
+
+                TopLevelFaultTreeIllustrationPoint topLevel = generalResultFunc.TopLevelIllustrationPoints.ElementAt(0);
+                IllustrationPointNode expectedSelectedNode = topLevel.FaultTreeNodeRoot.Children.First();
+
+                var selectedSubMechanismContext = view.Selection as IllustrationPointNodeSubMechanismContext;
+                Assert.IsNotNull(selectedSubMechanismContext);
+                Assert.AreSame(expectedSelectedNode, selectedSubMechanismContext.IllustrationPointNode);
+                Assert.AreEqual(topLevel.ClosingSituation, selectedSubMechanismContext.ClosingSituation);
+                Assert.AreEqual(topLevel.WindDirection.Name, selectedSubMechanismContext.WindDirectionName);
+            }
+            mocks.VerifyAll();
+        }
+
+        private static PointedTreeGraph GetPointedTreeGraph(IllustrationPointsFaultTreeControl control)
+        {
+            var pointedTreeGraphControl = TypeUtils.GetField<PointedTreeGraphControl>(control, "pointedTreeGraphControl");
+            return PointedTreeGraphControlHelper.GetPointedTreeGraph(pointedTreeGraphControl);
+        }
+
         private static GeneralResultFaultTreeIllustrationPointView GetValidView()
         {
             return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
@@ -392,6 +483,26 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                          {
                                                                              topLevelFaultTreeIllustrationPoint1,
                                                                              topLevelFaultTreeIllustrationPoint2
+                                                                         });
+        }
+
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithTopLevelIllustrationPointsWithChildren()
+        {
+            var faultTreeNodeRootWithChildren = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+            faultTreeNodeRootWithChildren.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+            });
+
+            return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                         Enumerable.Empty<Stochast>(),
+                                                                         new[]
+                                                                         {
+                                                                             new TopLevelFaultTreeIllustrationPoint(
+                                                                                 WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                                 "Closing situation 2",
+                                                                                 faultTreeNodeRootWithChildren)
                                                                          });
         }
 
