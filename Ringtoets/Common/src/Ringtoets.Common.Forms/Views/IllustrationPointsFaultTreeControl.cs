@@ -63,18 +63,9 @@ namespace Ringtoets.Common.Forms.Views
 
                 drawnNodes.Clear();
 
-                if (value == null)
-                {
-                    pointedTreeGraphControl.Data = null;
-                    return;
-                }
-
-                RegisterNode(data.FaultTreeNodeRoot);
-
-                pointedTreeGraphControl.Data = drawnNodes
-                    .Where(d => d.IllustrationPointNode == data.FaultTreeNodeRoot)
-                    .Select(d => d.GraphNode)
-                    .FirstOrDefault();
+                pointedTreeGraphControl.Data = value != null
+                                                   ? RegisterNode(data.FaultTreeNodeRoot)
+                                                   : null;
             }
         }
 
@@ -90,32 +81,21 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void RegisterNode(IllustrationPointNode node)
+        private GraphNode RegisterNode(IllustrationPointNode node)
         {
-            var childNodes = new List<GraphNode>();
+            List<GraphNode> childNodes = node.Children.Select(RegisterNode).ToList();
 
-            foreach (IllustrationPointNode childNode in node.Children)
-            {
-                RegisterNode(childNode);
-
-                foreach (DrawnIllustrationPointNode drawnIllustrationPointNode in drawnNodes)
-                {
-                    if (drawnIllustrationPointNode.IllustrationPointNode == childNode)
-                    {
-                        childNodes.Add(drawnIllustrationPointNode.GraphNode);
-                        break;
-                    }
-                }
-            }
-
+            GraphNode graphNode = CreateGraphNode(node.Data, childNodes);
             drawnNodes.Add(new DrawnIllustrationPointNode
             {
                 IllustrationPointNode = node,
-                GraphNode = CreateGraphNodes(node.Data, childNodes)
+                GraphNode = graphNode
             });
+
+            return graphNode;
         }
 
-        private static GraphNode CreateGraphNodes(IllustrationPointBase illustrationPoint, IEnumerable<GraphNode> childNodes)
+        private static GraphNode CreateGraphNode(IllustrationPointBase illustrationPoint, IEnumerable<GraphNode> childNodes)
         {
             var subMechanismIllustrationPoint = illustrationPoint as SubMechanismIllustrationPoint;
             if (subMechanismIllustrationPoint != null)
