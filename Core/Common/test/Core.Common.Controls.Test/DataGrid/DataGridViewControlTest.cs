@@ -1277,36 +1277,6 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
-        [Test]
-        public void GivenFullyConfiguredDataGridView_WhenResetLastSelectedRowAndCellInSameRowSelected_ThenCurrentRowChangedEventFired()
-        {
-            // Given
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                control.AddTextBoxColumn("TestRoundedDouble", "Test header");
-                control.AddTextBoxColumn("TestString", "Test string header");
-                control.SetDataSource(new[]
-                {
-                    new TestDataGridViewMultipleColumnsRow(new RoundedDouble(0, 2.5), "hello world")
-                });
-
-                var counter = 0;
-                control.CurrentRowChanged += (sender, args) => counter++;
-                control.SetCurrentCell(control.GetCell(0, 1));
-
-                // When
-                control.ResetLastSelectedRow();
-                control.SetCurrentCell(control.GetCell(0, 0));
-
-                // Then
-                Assert.AreEqual(2, counter);
-            }
-        }
-
         private enum TestEnum
         {
             NoDisplayName,

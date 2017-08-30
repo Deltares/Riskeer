@@ -64,7 +64,6 @@ namespace Ringtoets.Common.Forms.Views
                 data = value;
                 illustrationPointsChartControl.Data = data;
                 illustrationPointsTableControl.Data = data;
-                illustrationPointsTableControl.ResetLastSelectedRow();
             }
         }
 

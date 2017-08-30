@@ -196,14 +196,6 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Resets the last selected row property 
-        /// </summary>
-        public void ResetLastSelectedRow()
-        {
-            lastSelectedRow = -1;
-        }
-
-        /// <summary>
         /// Sets the currently active cell.
         /// </summary>
         /// <param name="cell">Sets the cell to be set active.</param>
@@ -434,6 +426,11 @@ namespace Core.Common.Controls.DataGrid
         {
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             base.OnLoad(e);
+        }
+
+        private void ResetLastSelectedRow()
+        {
+            lastSelectedRow = -1;
         }
 
         #region Styling

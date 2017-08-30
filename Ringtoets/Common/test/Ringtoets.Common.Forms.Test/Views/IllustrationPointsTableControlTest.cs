@@ -259,27 +259,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreSame(dataBoundItem.IllustrationPointControlItem, selection);
         }
 
-        [Test]
-        public void ResetLastSelectedRow_WhenSelectingSameRow_FiresRowChangedEvent()
-        {
-            // Setup
-            IllustrationPointsTableControl control = ShowControl();
-            control.Data = GetControlItems();
-
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridViewControl dataGridViewControl = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
-            dataGridViewControl.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
-            var eventThrown = false;
-            dataGridViewControl.CurrentRowChanged += (sender, args) => eventThrown = true;
-
-            // Call
-            control.ResetLastSelectedRow();
-            dataGridViewControl.SetCurrentCell(dataGridView.Rows[0].Cells[1]);
-
-            // Assert
-            Assert.IsTrue(eventThrown);
-        }
-
         private IllustrationPointsTableControl ShowControl()
         {
             var control = new IllustrationPointsTableControl();

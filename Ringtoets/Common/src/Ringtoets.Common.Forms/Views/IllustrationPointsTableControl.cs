@@ -81,11 +81,6 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        public void ResetLastSelectedRow()
-        {
-            illustrationPointsDataGridViewControl.ResetLastSelectedRow();
-        }
-
         private void InitializeEventHandlers()
         {
             illustrationPointsDataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
