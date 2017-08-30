@@ -1576,16 +1576,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.IO.TestUtil", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.IO.TestUtil\Ringtoets.MacroStabilityInwards.IO.TestUtil.csproj", "{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.IO.TestUtil.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.IO.TestUtil.Test\Ringtoets.MacroStabilityInwards.IO.TestUtil.Test.csproj", "{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.KernelWrapper.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.KernelWrapper.Test\Ringtoets.MacroStabilityInwards.KernelWrapper.Test.csproj", "{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -4096,22 +4086,6 @@ Global
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B}.Release|x86.Build.0 = Release|x86
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.Debug|x86.ActiveCfg = Debug|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.Debug|x86.Build.0 = Debug|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.Release|x86.ActiveCfg = Release|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.Release|x86.Build.0 = Release|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.Debug|x86.ActiveCfg = Debug|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.Debug|x86.Build.0 = Debug|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.Release|x86.ActiveCfg = Release|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.Release|x86.Build.0 = Release|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F}.Debug|x86.ActiveCfg = Debug|x86
@@ -4690,8 +4664,6 @@ Global
 		{9279F3F9-C888-4FC6-8DFC-C575BEB164EC} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{165DB703-875C-416C-80DE-92FC692A08C6} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{3C95DD33-659C-4596-AF93-D51D0F96E16B} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
-		{24C46A06-C6B0-4601-9F30-B3108B0DF3A8} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
-		{E82F5E29-B5CA-4B1D-AE64-0AED7C2F5661} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{69F3FC1D-2218-4FA7-BF8B-7DDAB355794F} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{3810D738-6412-47D1-8BC0-729D55BC951F} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{870AA57A-2010-45B3-BC85-63EB98EF05BA} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}

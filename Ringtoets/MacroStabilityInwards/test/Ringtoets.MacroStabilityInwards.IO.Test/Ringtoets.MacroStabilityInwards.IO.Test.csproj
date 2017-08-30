@@ -127,10 +127,6 @@
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.IO.TestUtil\Ringtoets.MacroStabilityInwards.IO.TestUtil.csproj">
-      <Project>{24c46a06-c6b0-4601-9f30-b3108b0df3a8}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.IO.TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
