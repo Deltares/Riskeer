@@ -32,9 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
     public class MacroStabilityInwardsSoilProfile2DTest
     {
         [Test]
-        [TestCase(SoilProfileType.SoilProfile1D)]
-        [TestCase(SoilProfileType.SoilProfile2D)]
-        public void Constructor_WithNameAndLayers_ReturnsInstanceWithPropsAndEquivalentLayerCollection(SoilProfileType type)
+        public void Constructor_WithNameAndLayers_ReturnsInstanceWithPropsAndEquivalentLayerCollection()
         {
             // Setup
             const string name = "Profile";

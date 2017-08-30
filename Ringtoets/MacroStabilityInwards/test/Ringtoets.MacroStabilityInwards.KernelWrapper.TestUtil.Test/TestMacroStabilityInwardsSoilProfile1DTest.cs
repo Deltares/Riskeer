@@ -19,11 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {
@@ -76,10 +73,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         {
             // Setup
             const string name = "some name";
-            var soilProfileType = new Random(6543).NextEnumValue<SoilProfileType>();
 
             // Call
-            var profile = new TestMacroStabilityInwardsSoilProfile1D(name, soilProfileType);
+            var profile = new TestMacroStabilityInwardsSoilProfile1D(name);
 
             // Assert
             Assert.AreEqual(name, profile.Name);

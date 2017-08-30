@@ -38,24 +38,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c></item>
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>
         /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         public TestMacroStabilityInwardsSoilProfile1D() : this("") {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile1D"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
-        /// which has:
-        /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to <paramref name="name"/></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c></item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>
-        /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
-        /// </list>
-        /// </summary>
-        /// <param name="name">The name for the profile.</param>
-        public TestMacroStabilityInwardsSoilProfile1D(string name) : this(name, SoilProfileType.SoilProfile1D) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestMacroStabilityInwardsSoilProfile1D"/>, which is a <see cref="MacroStabilityInwardsSoilProfile1D"/>
@@ -69,8 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>
-        /// <param name="soilProfileType">The type of the profile.</param>
-        public TestMacroStabilityInwardsSoilProfile1D(string name, SoilProfileType soilProfileType) : base(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
+        public TestMacroStabilityInwardsSoilProfile1D(string name) : base(name, 0.0, new Collection<MacroStabilityInwardsSoilLayer1D>
         {
             new MacroStabilityInwardsSoilLayer1D(0.0)
             {
