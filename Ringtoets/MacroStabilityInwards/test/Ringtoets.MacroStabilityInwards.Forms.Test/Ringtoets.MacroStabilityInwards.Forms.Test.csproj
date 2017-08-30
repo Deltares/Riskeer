@@ -67,7 +67,7 @@
     <Compile Include="PresentationObjects\MacroStabilityInwardsOutputContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsScenariosContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsSurfaceLinesContextTest.cs" />
-    <Compile Include="PresentationObjects\StochasticSoilModelCollectionContextTest.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsStochasticSoilModelCollectionContextTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsDrainagePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridPropertiesTest.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressesPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilModelCollectionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelPropertiesTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsContextTest.cs" />

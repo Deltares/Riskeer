@@ -58,7 +58,7 @@
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsInputContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsSurfaceLinesContext.cs" />
-    <Compile Include="PresentationObjects\StochasticSoilModelCollectionContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityInwardsStochasticSoilModelCollectionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,7 +75,7 @@
     <Compile Include="PropertyClasses\RingProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
-    <Compile Include="PropertyClasses\StochasticSoilModelCollectionProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelCollectionProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineProperties.cs" />

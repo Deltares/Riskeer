@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw new ArgumentNullException(nameof(holes));
             }
-            Properties = new SoilLayerProperties();
+            Properties = new MacroStabilityInwardsSoilLayerProperties();
             OuterRing = outerRing;
             Holes = holes.ToArray();
         }
@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the properties of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        public SoilLayerProperties Properties { get; }
+        public MacroStabilityInwardsSoilLayerProperties Properties { get; }
 
         /// <summary>
         /// Gets the outer ring of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.

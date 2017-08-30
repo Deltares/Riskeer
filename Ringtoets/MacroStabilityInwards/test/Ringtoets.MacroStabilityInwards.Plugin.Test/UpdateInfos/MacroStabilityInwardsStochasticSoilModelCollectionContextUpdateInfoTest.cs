@@ -43,7 +43,7 @@ using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextUpdateInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsStochasticSoilModelCollectionContextUpdateInfoTest : NUnitFormTest
     {
         private UpdateInfo updateInfo;
         private MacroStabilityInwardsPlugin plugin;
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModelCollection();
 
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModelCollection();
             stochasticSoilModel.AddRange(Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(), "some/path");
 
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModel, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = updateInfo.IsEnabled(context);
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
             var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
             bool updatesVerified = updateInfo.VerifyUpdates(context);
@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 
             var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             string textBoxMessage = null;
             DialogBoxHandler = (name, wnd) =>
@@ -230,7 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new StochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
 
             // Call
             string currentPath = updateInfo.CurrentPath(context);
@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var importTarget = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var importTarget = new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             IFileImporter importer = updateInfo.CreateFileImporter(importTarget, "");
@@ -263,7 +263,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
         public override void Setup()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(StochasticSoilModelCollectionContext));
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(MacroStabilityInwardsStochasticSoilModelCollectionContext));
         }
 
         public override void TearDown()

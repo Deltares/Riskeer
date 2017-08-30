@@ -27,14 +27,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     /// <summary>
     /// Properties of a soil layer.
     /// </summary>
-    public class SoilLayerProperties
+    public class MacroStabilityInwardsSoilLayerProperties
     {
         private string materialName = string.Empty;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayerProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerProperties"/>.
         /// </summary>
-        public SoilLayerProperties()
+        public MacroStabilityInwardsSoilLayerProperties()
         {
             ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None;
         }
@@ -198,7 +198,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((SoilLayerProperties) obj);
+            return Equals((MacroStabilityInwardsSoilLayerProperties) obj);
         }
 
         public override int GetHashCode()
@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
         }
 
-        private bool Equals(SoilLayerProperties other)
+        private bool Equals(MacroStabilityInwardsSoilLayerProperties other)
         {
             return string.Equals(materialName, other.materialName, StringComparison.InvariantCulture)
                    && IsAquifer == other.IsAquifer

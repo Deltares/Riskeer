@@ -80,9 +80,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CreateInstance = context => new MacroStabilityInwardsSurfaceLineCollectionProperties(context.WrappedData)
             };
             yield return new PropertyInfo<MacroStabilityInwardsSurfaceLine, MacroStabilityInwardsSurfaceLineProperties>();
-            yield return new PropertyInfo<StochasticSoilModelCollectionContext, StochasticSoilModelCollectionProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext, MacroStabilityInwardsStochasticSoilModelCollectionProperties>
             {
-                CreateInstance = context => new StochasticSoilModelCollectionProperties(context.WrappedData)
+                CreateInstance = context => new MacroStabilityInwardsStochasticSoilModelCollectionProperties(context.WrappedData)
             };
             yield return new PropertyInfo<MacroStabilityInwardsStochasticSoilModel, MacroStabilityInwardsStochasticSoilModelProperties>
             {
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineImports_When_importing_surface_lines_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return new ImportInfo<StochasticSoilModelCollectionContext>
+            yield return new ImportInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
                 Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -167,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 VerifyUpdates = context => VerifySurfaceLineUpdates(context, Resources.MacroStabilityInwardsPlugin_VerifySurfaceLineUpdates_When_updating_surface_lines_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
 
-            yield return new UpdateInfo<StochasticSoilModelCollectionContext>
+            yield return new UpdateInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
                 Name = RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -300,7 +300,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StochasticSoilModelCollectionContext>
+            yield return new TreeNodeInfo<MacroStabilityInwardsStochasticSoilModelCollectionContext>
             {
                 Text = stochasticSoilModelContext => RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -370,7 +370,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             }
         }
 
-        private bool VerifyStochasticSoilModelUpdates(StochasticSoilModelCollectionContext context, string query)
+        private bool VerifyStochasticSoilModelUpdates(MacroStabilityInwardsStochasticSoilModelCollectionContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
                                                                              query,
@@ -580,9 +580,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         #endregion
 
-        #region StochasticSoilModelCollectionContext TreeNodeInfo
+        #region MacroStabilityInwardsStochasticSoilModelCollectionContext TreeNodeInfo
 
-        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(StochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StochasticSoilModelCollectionContextContextMenuStrip(MacroStabilityInwardsStochasticSoilModelCollectionContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddImportItem()
@@ -685,7 +685,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
-                new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
+                new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }

@@ -30,16 +30,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="MacroStabilityInwardsFailureMechanism.StochasticSoilModels"/>.
     /// </summary>
-    public class StochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsStochasticSoilModelCollection>
+    public class MacroStabilityInwardsStochasticSoilModelCollectionContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsStochasticSoilModelCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelCollectionContext"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModelCollectionContext"/>.
         /// </summary>
         /// <param name="wrappedStochasticSoilModels">The stochastic soil models to wrap.</param>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionContext(MacroStabilityInwardsStochasticSoilModelCollection wrappedStochasticSoilModels,
+        public MacroStabilityInwardsStochasticSoilModelCollectionContext(MacroStabilityInwardsStochasticSoilModelCollection wrappedStochasticSoilModels,
                                                     MacroStabilityInwardsFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
             : base(wrappedStochasticSoilModels)

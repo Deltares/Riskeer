@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextPropertyInfoTest
+    public class MacroStabilityInwardsStochasticSoilModelCollectionContextPropertyInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private PropertyInfo info;
@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StochasticSoilModelCollectionProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsStochasticSoilModelCollectionProperties));
         }
 
         [TearDown]
@@ -55,8 +55,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StochasticSoilModelCollectionContext), info.DataType);
-            Assert.AreEqual(typeof(StochasticSoilModelCollectionProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModelCollectionContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModelCollectionProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -70,13 +70,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var collection = new MacroStabilityInwardsStochasticSoilModelCollection();
-            var context = new StochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(collection, failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModelCollectionProperties>(objectProperties);
+            Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModelCollectionProperties>(objectProperties);
             Assert.AreSame(collection, objectProperties.Data);
 
             mocks.VerifyAll();

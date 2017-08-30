@@ -31,13 +31,13 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionPropertiesTest
+    public class MacroStabilityInwardsStochasticSoilModelCollectionPropertiesTest
     {
         [Test]
         public void Constructor_WithoutCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelCollectionProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             collection.AddRange(Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(), someFilePath);
 
             // Call
-            var properties = new StochasticSoilModelCollectionProperties(collection);
+            var properties = new MacroStabilityInwardsStochasticSoilModelCollectionProperties(collection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilModelCollection>>(properties);
@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var collection = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
-            var properties = new StochasticSoilModelCollectionProperties(collection);
+            var properties = new MacroStabilityInwardsStochasticSoilModelCollectionProperties(collection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

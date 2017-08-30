@@ -30,15 +30,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsStochasticSoilModelCollection"/> for properties panel.
     /// </summary>
-    public class StochasticSoilModelCollectionProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilModelCollection>
+    public class MacroStabilityInwardsStochasticSoilModelCollectionProperties : ObjectProperties<MacroStabilityInwardsStochasticSoilModelCollection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelCollectionProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModelCollectionProperties"/>.
         /// </summary>
         /// <param name="collection">The collection for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/>
         /// is <c>null</c>.</exception>
-        public StochasticSoilModelCollectionProperties(MacroStabilityInwardsStochasticSoilModelCollection collection)
+        public MacroStabilityInwardsStochasticSoilModelCollectionProperties(MacroStabilityInwardsStochasticSoilModelCollection collection)
         {
             if (collection == null)
             {

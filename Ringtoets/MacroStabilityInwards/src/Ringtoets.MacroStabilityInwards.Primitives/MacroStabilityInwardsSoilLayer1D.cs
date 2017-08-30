@@ -33,13 +33,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public MacroStabilityInwardsSoilLayer1D(double top)
         {
             Top = top;
-            Properties = new SoilLayerProperties();
+            Properties = new MacroStabilityInwardsSoilLayerProperties();
         }
 
         /// <summary>
         /// Gets the properties of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
-        public SoilLayerProperties Properties { get; }
+        public MacroStabilityInwardsSoilLayerProperties Properties { get; }
 
         /// <summary>
         /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.

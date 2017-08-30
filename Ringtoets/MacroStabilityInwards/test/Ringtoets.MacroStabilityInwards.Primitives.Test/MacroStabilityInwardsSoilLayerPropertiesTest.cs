@@ -29,13 +29,13 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
-    public class SoilLayerPropertiesTest
+    public class MacroStabilityInwardsSoilLayerPropertiesTest
     {
         [Test]
         public void DefaultConstructor_DefaultValuesSet()
         {
             // Call
-            var properties = new SoilLayerProperties();
+            var properties = new MacroStabilityInwardsSoilLayerProperties();
 
             // Assert
             Assert.IsFalse(properties.IsAquifer);
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void MaterialName_Null_ThrowsArgumentNullException()
         {
             // Setup
-            var layer = new SoilLayerProperties();
+            var layer = new MacroStabilityInwardsSoilLayerProperties();
 
             // Call
             TestDelegate test = () => layer.MaterialName = null;
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void MaterialName_NotNullValue_ValueSet(string materialName)
         {
             // Setup
-            var layer = new SoilLayerProperties();
+            var layer = new MacroStabilityInwardsSoilLayerProperties();
 
             // Call
             layer.MaterialName = materialName;
@@ -105,8 +105,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void GetHashCode_EqualProperties_AreEqual()
         {
             // Setup
-            SoilLayerProperties propertiesA = CreateRandomProperties(21);
-            SoilLayerProperties propertiesB = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties propertiesA = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties propertiesB = CreateRandomProperties(21);
 
             // Precondition
             Assert.AreEqual(propertiesA, propertiesB);
@@ -121,7 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
-            SoilLayerProperties layer = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties layer = CreateRandomProperties(21);
 
             // Call
             bool areEqual = layer.Equals(new object());
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            SoilLayerProperties layer = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties layer = CreateRandomProperties(21);
 
             // Call
             bool areEqual = layer.Equals(null);
@@ -145,11 +145,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCaseSource(nameof(ChangeSingleProperties))]
-        public void Equals_ChangeSingleProperty_ReturnsFalse(Action<SoilLayerProperties> changeProperty)
+        public void Equals_ChangeSingleProperty_ReturnsFalse(Action<MacroStabilityInwardsSoilLayerProperties> changeProperty)
         {
             // Setup
-            SoilLayerProperties layer = CreateRandomProperties(21);
-            SoilLayerProperties layerToChange = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties layer = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties layerToChange = CreateRandomProperties(21);
 
             changeProperty(layerToChange);
 
@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCaseSource(nameof(PropertiesCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(SoilLayerProperties layer, SoilLayerProperties otherLayer, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayerProperties layer, MacroStabilityInwardsSoilLayerProperties otherLayer, bool expectedEqual)
         {
             // Call
             bool areEqualOne = layer.Equals(otherLayer);
@@ -177,38 +177,38 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private static IEnumerable<TestCaseData> ChangeSingleProperties()
         {
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 9));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.MaterialName = "interesting"));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.UsePop = !lp.UsePop));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionDeviation = 1.0 - lp.CohesionDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.CohesionShift = 1.0 - lp.CohesionShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleDeviation = 1.0 - lp.FrictionAngleDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.FrictionAngleShift = 1.0 - lp.FrictionAngleShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioMean = 1.0 - lp.ShearStrengthRatioMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioDeviation = 1.0 - lp.ShearStrengthRatioDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.ShearStrengthRatioShift = 1.0 - lp.ShearStrengthRatioShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentMean = 1.0 - lp.StrengthIncreaseExponentMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentDeviation = 1.0 - lp.StrengthIncreaseExponentDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.StrengthIncreaseExponentShift = 1.0 - lp.StrengthIncreaseExponentShift));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopMean = 1.0 - lp.PopMean));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopDeviation = 1.0 - lp.PopDeviation));
-            yield return new TestCaseData(new Action<SoilLayerProperties>(lp => lp.PopShift = 1.0 - lp.PopShift));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 9));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.MaterialName = "interesting"));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.UsePop = !lp.UsePop));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionDeviation = 1.0 - lp.CohesionDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionShift = 1.0 - lp.CohesionShift));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleDeviation = 1.0 - lp.FrictionAngleDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleShift = 1.0 - lp.FrictionAngleShift));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioMean = 1.0 - lp.ShearStrengthRatioMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioDeviation = 1.0 - lp.ShearStrengthRatioDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioShift = 1.0 - lp.ShearStrengthRatioShift));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentMean = 1.0 - lp.StrengthIncreaseExponentMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentDeviation = 1.0 - lp.StrengthIncreaseExponentDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentShift = 1.0 - lp.StrengthIncreaseExponentShift));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopMean = 1.0 - lp.PopMean));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopDeviation = 1.0 - lp.PopDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopShift = 1.0 - lp.PopShift));
         }
 
         private static TestCaseData[] PropertiesCombinations()
         {
-            SoilLayerProperties propertiesA = CreateRandomProperties(21);
-            SoilLayerProperties propertiesB = CreateRandomProperties(21);
-            SoilLayerProperties propertiesC = CreateRandomProperties(73);
-            SoilLayerProperties propertiesD = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties propertiesA = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties propertiesB = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerProperties propertiesC = CreateRandomProperties(73);
+            MacroStabilityInwardsSoilLayerProperties propertiesD = CreateRandomProperties(21);
 
             return new[]
             {
@@ -239,10 +239,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
         }
 
-        private static SoilLayerProperties CreateRandomProperties(int randomSeed)
+        private static MacroStabilityInwardsSoilLayerProperties CreateRandomProperties(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new SoilLayerProperties
+            return new MacroStabilityInwardsSoilLayerProperties
             {
                 MaterialName = string.Join("", Enumerable.Repeat('x', random.Next(0, 40))),
                 Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),

@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, surfaceLinesContext.FailureMechanism);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
 
-            var stochasticSoilModelContext = (StochasticSoilModelCollectionContext) inputsFolder.Contents[2];
+            var stochasticSoilModelContext = (MacroStabilityInwardsStochasticSoilModelCollectionContext) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);

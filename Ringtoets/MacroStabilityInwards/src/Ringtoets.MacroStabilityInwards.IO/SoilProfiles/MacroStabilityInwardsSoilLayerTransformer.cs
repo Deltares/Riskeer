@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return layer;
         }
 
-        private static void SetProperties(SoilLayerBase soilLayer, SoilLayerProperties properties)
+        private static void SetProperties(SoilLayerBase soilLayer, MacroStabilityInwardsSoilLayerProperties properties)
         {
             try
             {

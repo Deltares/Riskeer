@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -29,13 +28,13 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StochasticSoilModelTreeNodeInfoTest
+    public class MacroStabilityInwardsStochasticSoilProfileTreeNodeInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -44,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilModel));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilProfile));
         }
 
         [TearDown]
@@ -63,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -78,93 +77,63 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsName()
         {
             // Setup
-            const string name = "test test 123";
-            var model = new MacroStabilityInwardsStochasticSoilModel(name);
+            const string testName = "ttt";
+
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
+                0.1,
+                new MacroStabilityInwardsSoilProfile1D(testName, 0, new[]
+                {
+                    new MacroStabilityInwardsSoilLayer1D(10)
+                }));
 
             // Call
-            string text = info.Text(model);
+            string text = info.Text(stochasticSoilProfile);
 
             // Assert
-            Assert.AreEqual(name, text);
+            Assert.AreEqual(testName, text);
         }
 
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var model = new MacroStabilityInwardsStochasticSoilModel("A");
-
-            // Call
-            Image image = info.Image(model);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(FormsResources.StochasticSoilModelIcon, image);
-        }
-
-        [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
-        {
-            // Setup
-            var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(
-                1.0,
-                new MacroStabilityInwardsSoilProfile1D("soilProfile1", 0, new List<MacroStabilityInwardsSoilLayer1D>
-                {
-                    new MacroStabilityInwardsSoilLayer1D(10)
-                }));
-            var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(
-                1.0,
-                new MacroStabilityInwardsSoilProfile1D("soilProfile2", 0, new List<MacroStabilityInwardsSoilLayer1D>
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
+                0.1,
+                new MacroStabilityInwardsSoilProfile1D("", 0, new[]
                 {
                     new MacroStabilityInwardsSoilLayer1D(10)
                 }));
 
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
-
             // Call
-            object[] objects = info.ChildNodeObjects(stochasticSoilModel);
+            Image image = info.Image(stochasticSoilProfile);
 
             // Assert
-            var expectedChildren = new[]
-            {
-                stochasticSoilProfile1,
-                stochasticSoilProfile2
-            };
-            CollectionAssert.AreEqual(expectedChildren, objects);
+            TestHelper.AssertImagesAreEqual(Resources.SoilProfileIcon, image);
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var model = new MacroStabilityInwardsStochasticSoilModel("A");
-
             var mocks = new MockRepository();
-
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+
+            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(model, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(model, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
             mocks.VerifyAll();

@@ -39,7 +39,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsStochasticSoilModelCollectionContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -148,7 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 new MacroStabilityInwardsStochasticSoilModel("Name")
             }, "path");
 
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var stochasticSoilModelCollectionContext = new StochasticSoilModelCollectionContext(
+            var stochasticSoilModelCollectionContext = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
                 failureMechanism.StochasticSoilModels,
                 failureMechanism,
                 assessmentSection);
@@ -223,7 +223,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new StochasticSoilModelCollectionContext(
+                var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
                     new MacroStabilityInwardsStochasticSoilModelCollection(),
                     new MacroStabilityInwardsFailureMechanism(),
                     assessmentSection);
@@ -245,7 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilModelCollectionContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilModelCollectionContext));
         }
 
         public override void TearDown()

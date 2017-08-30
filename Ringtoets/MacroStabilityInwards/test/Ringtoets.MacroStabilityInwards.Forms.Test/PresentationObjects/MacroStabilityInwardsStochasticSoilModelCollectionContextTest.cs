@@ -31,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StochasticSoilModelCollectionContextTest
+    public class MacroStabilityInwardsStochasticSoilModelCollectionContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var context = new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsStochasticSoilModelCollection>>(context);
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
+            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelCollectionContext(stochasticSoilModels, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
+            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

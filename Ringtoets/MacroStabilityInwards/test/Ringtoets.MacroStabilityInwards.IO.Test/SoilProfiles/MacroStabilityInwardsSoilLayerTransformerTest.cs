@@ -105,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(top, soilLayer1D.Top);
 
-            SoilLayerProperties properties = soilLayer1D.Properties;
+            MacroStabilityInwardsSoilLayerProperties properties = soilLayer1D.Properties;
             Assert.AreEqual(isAquifer, properties.IsAquifer);
             Assert.AreEqual(materialName, properties.MaterialName);
             Assert.AreEqual(color, properties.Color);
@@ -220,7 +220,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            SoilLayerProperties properties = soilLayer2D.Properties;
+            MacroStabilityInwardsSoilLayerProperties properties = soilLayer2D.Properties;
             Assert.AreEqual(isAquifer, properties.IsAquifer);
             Assert.AreEqual(materialName, properties.MaterialName);
             Assert.AreEqual(color, properties.Color);
