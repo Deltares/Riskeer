@@ -98,8 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            stochasticSoilModelsMapData = MacroStabilityInwardsMapDataFactory.CreateStochasticSoilModelsMapData();
-            surfaceLinesMapData = MacroStabilityInwardsMapDataFactory.CreateSurfaceLinesMapData();
+            stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
+            surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();

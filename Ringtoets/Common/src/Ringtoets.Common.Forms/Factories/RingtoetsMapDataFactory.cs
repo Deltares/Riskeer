@@ -24,6 +24,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -212,6 +213,42 @@ namespace Ringtoets.Common.Forms.Factories
                                    })
             {
                 ShowLabels = true,
+                SelectedMetaDataAttribute = Resources.MetaData_Name
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="IMechanismSurfaceLine"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateSurfaceLinesMapData()
+        {
+            return new MapLineData(RingtoetsCommonDataResources.SurfaceLineCollection_TypeDescriptor,
+                                   new LineStyle
+                                   {
+                                       Color = Color.DarkSeaGreen,
+                                       Width = 2,
+                                       DashStyle = LineDashStyle.Solid
+                                   })
+            {
+                SelectedMetaDataAttribute = Resources.MetaData_Name
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="IMechanismStochasticSoilModel"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateStochasticSoilModelsMapData()
+        {
+            return new MapLineData(RingtoetsCommonDataResources.StochasticSoilModelCollection_TypeDescriptor,
+                                   new LineStyle
+                                   {
+                                       Color = Color.FromArgb(70, Color.SaddleBrown),
+                                       Width = 5,
+                                       DashStyle = LineDashStyle.Solid
+                                   })
+            {
                 SelectedMetaDataAttribute = Resources.MetaData_Name
             };
         }

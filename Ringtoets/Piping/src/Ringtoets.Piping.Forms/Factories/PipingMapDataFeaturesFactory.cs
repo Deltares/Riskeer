@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Factories
 {
     /// <summary>
     /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
-    /// (created via <see cref="PipingMapDataFactory"/>).
+    /// (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     internal static class PipingMapDataFeaturesFactory
     {

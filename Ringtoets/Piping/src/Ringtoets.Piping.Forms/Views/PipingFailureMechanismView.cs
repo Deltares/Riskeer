@@ -98,8 +98,8 @@ namespace Ringtoets.Piping.Forms.Views
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            stochasticSoilModelsMapData = PipingMapDataFactory.CreateStochasticSoilModelsMapData();
-            surfaceLinesMapData = PipingMapDataFactory.CreateSurfaceLinesMapData();
+            stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
+            surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();

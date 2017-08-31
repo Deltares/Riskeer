@@ -103,7 +103,6 @@
     <Compile Include="Views\MacroStabilityInwardsCalculationsViewTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismViewTest.cs" />
-    <Compile Include="Factories\MacroStabilityInwardsMapDataFactoryTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsSoilLayerTableTest.cs" />
   </ItemGroup>
   <ItemGroup>

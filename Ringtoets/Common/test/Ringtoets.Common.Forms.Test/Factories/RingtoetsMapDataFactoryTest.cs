@@ -145,6 +145,32 @@ namespace Ringtoets.Common.Forms.Test.Factories
             AssertEqualStyle(data.Style, Color.MediumPurple, 2, LineDashStyle.Dash);
         }
 
+        [Test]
+        public void CreateSurfaceLinesMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
+        {
+            // Call
+            MapLineData data = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Features);
+            Assert.AreEqual("Profielschematisaties", data.Name);
+            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, LineDashStyle.Solid);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
+        }
+
+        [Test]
+        public void CreateStochasticSoilModelsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
+        {
+            // Call
+            MapLineData data = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Features);
+            Assert.AreEqual("Stochastische ondergrondmodellen", data.Name);
+            AssertEqualStyle(data.Style, Color.FromArgb(70, Color.SaddleBrown), 5, LineDashStyle.Solid);
+            Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
+        }
+
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);

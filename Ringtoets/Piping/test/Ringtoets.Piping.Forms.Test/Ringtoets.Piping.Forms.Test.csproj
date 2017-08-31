@@ -102,7 +102,6 @@
     <Compile Include="Views\PipingCalculationsViewTest.cs" />
     <Compile Include="Views\PipingFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\PipingFailureMechanismViewTest.cs" />
-    <Compile Include="Factories\PipingMapDataFactoryTest.cs" />
     <Compile Include="Views\PipingSoilLayerTableTest.cs" />
   </ItemGroup>
   <ItemGroup>
