@@ -147,6 +147,36 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenDisposedViewWithDataSetAndGeneralResultFuncReturningData_WhenDataNotifiesObserver_ThenControlsNoLongerSynced()
+        {
+            // Given
+            var data = new TestCalculation();
+
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(GetGeneralResultWithTopLevelIllustrationPointsWithChildren)
+            {
+                Data = data
+            })
+            {
+                ShowTestView(view);
+
+                // Precondition
+                IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+                Assert.IsNotNull(illustrationPointsControl.Data);
+
+                IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
+                Assert.IsNotNull(illustrationPointsFaultTreeControl.Data);
+
+                // When
+                view.Dispose();
+                data.NotifyObservers();
+
+                // Then
+                Assert.IsNotNull(illustrationPointsControl.Data);
+                Assert.IsNotNull(illustrationPointsFaultTreeControl.Data);
+            }
+        }
+
         private static IllustrationPointsFaultTreeControl GetIllustrationPointsFaultTreeControl(GeneralResultFaultTreeIllustrationPointView view)
         {
             return TypeUtils.GetField<IllustrationPointsFaultTreeControl>(view, "illustrationPointsFaultTreeControl");
@@ -249,6 +279,35 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
                 Assert.IsNull(view.Selection);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenViewWithGeneralResultFuncReturningTestData_WhenSettingData_ThenSelectionChangedAndPropagatedAccordingly()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICalculation>();
+
+            mocks.ReplayAll();
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult))
+            {
+                ShowTestView(view);
+
+                var selectionChangedCount = 0;
+                view.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                // When
+                view.Data = data;
+
+                // Then
+                Assert.AreEqual(1, selectionChangedCount);
+                var selection = view.Selection as SelectedTopLevelFaultTreeIllustrationPoint;
+                Assert.IsNotNull(selection);
+                Assert.AreSame(generalResult.TopLevelIllustrationPoints.First(), selection.TopLevelFaultTreeIllustrationPoint);
             }
             mocks.VerifyAll();
         }
@@ -562,6 +621,60 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 CollectionAssert.IsEmpty(illustrationPointsControl.Data);
+                Assert.IsNull(illustrationPointsFaultTreeControl.Data);
+            }
+        }
+
+        [Test]
+        public void GivenFullyConfiguredViewWithIllustrationPoints_WhenOutputCleared_ThenControlsSyncedAccordingly()
+        {
+            // Given
+            var returnGeneralResult = true;
+
+            var data = new TestCalculation();
+
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
+
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => returnGeneralResult
+                                                                                        ? generalResult
+                                                                                        : null))
+            {
+                view.Data = data;
+
+                ShowTestView(view);
+
+                // Precondition
+                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint1 = generalResult.TopLevelIllustrationPoints.ElementAt(0);
+                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint2 = generalResult.TopLevelIllustrationPoints.ElementAt(1);
+                var faultTreeIllustrationPoint = (FaultTreeIllustrationPoint) topLevelFaultTreeIllustrationPoint1.FaultTreeNodeRoot.Data;
+                var subMechanismIllustrationPoint = (SubMechanismIllustrationPoint) topLevelFaultTreeIllustrationPoint2.FaultTreeNodeRoot.Data;
+                var expectedControlItems = new[]
+                {
+                    new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint1,
+                                                     topLevelFaultTreeIllustrationPoint1.WindDirection.Name,
+                                                     topLevelFaultTreeIllustrationPoint1.ClosingSituation,
+                                                     faultTreeIllustrationPoint.Stochasts,
+                                                     faultTreeIllustrationPoint.Beta),
+
+                    new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
+                                                     topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
+                                                     topLevelFaultTreeIllustrationPoint2.ClosingSituation,
+                                                     subMechanismIllustrationPoint.Stochasts,
+                                                     subMechanismIllustrationPoint.Beta)
+                };
+
+                IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
+                CollectionAssert.AreEqual(expectedControlItems, illustrationPointsControl.Data, new IllustrationPointControlItemComparer());
+
+                IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
+                Assert.AreSame(topLevelFaultTreeIllustrationPoint1, illustrationPointsFaultTreeControl.Data);
+
+                // When
+                returnGeneralResult = false;
+                data.NotifyObservers();
+
+                // Then
+                Assert.IsNull(illustrationPointsControl.Data);
                 Assert.IsNull(illustrationPointsFaultTreeControl.Data);
             }
         }
