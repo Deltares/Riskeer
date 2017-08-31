@@ -29,7 +29,7 @@ All rights reserved.
 			<xs:element name="InnerLoops">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="InnerLoop"  type="Loop" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="GeometryLoop" type="Loop" minOccurs="0" maxOccurs="unbounded" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

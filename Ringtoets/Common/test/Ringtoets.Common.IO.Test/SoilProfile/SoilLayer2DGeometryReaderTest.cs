@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Read_XmlDocumentWithEmptyInnerLoopAndOuterLoop_ReturnsLayerWithEmptyInnerLoopAndEmptyOuterLoop()
         {
             // Setup
-            XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop/></InnerLoops></GeometrySurface>");
+            XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop/></InnerLoops></GeometrySurface>");
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
@@ -209,13 +209,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string y2String = XmlConvert.ToString(y2);
             XDocument xmlDoc = GetXmlDocument(
                 string.Format(invariantCulture,
-                              "<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop><CurveList><GeometryCurve>" +
+                              "<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop><CurveList><GeometryCurve>" +
                               "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
                               "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
                               "</GeometryCurve><GeometryCurve>" +
                               "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
                               "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                              "</GeometryCurve></CurveList></InnerLoop></InnerLoops></GeometrySurface>",
+                              "</GeometryCurve></CurveList></GeometryLoop></InnerLoops></GeometrySurface>",
                               x1String, y1String, x2String, y2String));
             var reader = new SoilLayer2DGeometryReader();
 

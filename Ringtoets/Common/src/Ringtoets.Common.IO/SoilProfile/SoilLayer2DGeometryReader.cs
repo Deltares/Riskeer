@@ -40,7 +40,8 @@ namespace Ringtoets.Common.IO.SoilProfile
     internal class SoilLayer2DGeometryReader
     {
         private const string outerLoopElementName = "OuterLoop";
-        private const string innerLoopElementName = "InnerLoop";
+        private const string innerLoopsElementName = "InnerLoops";
+        private const string innerLoopElementName = "GeometryLoop";
         private const string endPointElementName = "EndPoint";
         private const string headPointElementName = "HeadPoint";
         private const string geometryCurveElementName = "GeometryCurve";
@@ -150,7 +151,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             var soilLayer = new SoilLayer2D();
 
             XElement xmlOuterLoop = geometry.XPathSelectElement($"//{outerLoopElementName}");
-            IEnumerable<XElement> xmlInnerLoops = geometry.XPathSelectElements($"//{innerLoopElementName}");
+            IEnumerable<XElement> xmlInnerLoops = geometry.XPathSelectElements($"//{innerLoopsElementName}//{innerLoopElementName}");
 
             if (xmlOuterLoop != null)
             {
@@ -172,7 +173,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private static IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
         {
             var loops = new Collection<Segment2D>();
-            IEnumerable<XElement> curves = loop.XPathSelectElements($"//{geometryCurveElementName}");
+            IEnumerable<XElement> curves = loop.XPathSelectElements($".//{geometryCurveElementName}");
 
             foreach (XElement curve in curves)
             {
