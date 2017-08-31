@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Class which provides helper methods to set values on <see cref="SoilLayerBase"/>
+    /// Class which provides helper methods for <see cref="SoilLayerBase"/>
     /// objects.
     /// </summary>
     internal static class SoilLayerHelper

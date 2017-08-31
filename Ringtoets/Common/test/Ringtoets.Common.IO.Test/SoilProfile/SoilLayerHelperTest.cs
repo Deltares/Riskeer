@@ -139,39 +139,48 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Color expectedColor = Color.FromArgb(Convert.ToInt32(properties.Color));
             Assert.AreEqual(expectedColor, soilLayer.Color);
+
             Assert.AreEqual(properties.BelowPhreaticLevelDistribution, soilLayer.BelowPhreaticLevelDistribution);
             Assert.AreEqual(properties.BelowPhreaticLevelShift, soilLayer.BelowPhreaticLevelShift);
             Assert.AreEqual(properties.BelowPhreaticLevelMean, soilLayer.BelowPhreaticLevelMean);
             Assert.AreEqual(properties.BelowPhreaticLevelDeviation, soilLayer.BelowPhreaticLevelDeviation);
+
             Assert.AreEqual(properties.DiameterD70Distribution, soilLayer.DiameterD70Distribution);
             Assert.AreEqual(properties.DiameterD70Shift, soilLayer.DiameterD70Shift);
             Assert.AreEqual(properties.DiameterD70Mean, soilLayer.DiameterD70Mean);
             Assert.AreEqual(properties.DiameterD70CoefficientOfVariation, soilLayer.DiameterD70CoefficientOfVariation);
+
             Assert.AreEqual(properties.PermeabilityDistribution, soilLayer.PermeabilityDistribution);
             Assert.AreEqual(properties.PermeabilityShift, soilLayer.PermeabilityShift);
             Assert.AreEqual(properties.PermeabilityMean, soilLayer.PermeabilityMean);
             Assert.AreEqual(properties.PermeabilityCoefficientOfVariation, soilLayer.PermeabilityCoefficientOfVariation);
+
             Assert.AreEqual(properties.UsePop, soilLayer.UsePop);
             Assert.AreEqual(properties.ShearStrengthModel, soilLayer.ShearStrengthModel);
             Assert.AreEqual(properties.AbovePhreaticLevelDistribution, soilLayer.AbovePhreaticLevelDistribution);
             Assert.AreEqual(properties.AbovePhreaticLevelMean, soilLayer.AbovePhreaticLevelMean);
             Assert.AreEqual(properties.AbovePhreaticLevelCoefficientOfVariation, soilLayer.AbovePhreaticLevelDeviation);
+
             Assert.AreEqual(properties.AbovePhreaticLevelShift, soilLayer.AbovePhreaticLevelShift);
             Assert.AreEqual(properties.CohesionDistribution, soilLayer.CohesionDistribution);
             Assert.AreEqual(properties.CohesionMean, soilLayer.CohesionMean);
             Assert.AreEqual(properties.CohesionCoefficientOfVariation, soilLayer.CohesionDeviation);
+
             Assert.AreEqual(properties.CohesionShift, soilLayer.CohesionShift);
             Assert.AreEqual(properties.FrictionAngleDistribution, soilLayer.FrictionAngleDistribution);
             Assert.AreEqual(properties.FrictionAngleMean, soilLayer.FrictionAngleMean);
             Assert.AreEqual(properties.FrictionAngleCoefficientOfVariation, soilLayer.FrictionAngleDeviation);
+
             Assert.AreEqual(properties.FrictionAngleShift, soilLayer.FrictionAngleShift);
             Assert.AreEqual(properties.ShearStrengthRatioDistribution, soilLayer.ShearStrengthRatioDistribution);
             Assert.AreEqual(properties.ShearStrengthRatioMean, soilLayer.ShearStrengthRatioMean);
             Assert.AreEqual(properties.ShearStrengthRatioCoefficientOfVariation, soilLayer.ShearStrengthRatioDeviation);
+
             Assert.AreEqual(properties.ShearStrengthRatioShift, soilLayer.ShearStrengthRatioShift);
             Assert.AreEqual(properties.StrengthIncreaseExponentDistribution, soilLayer.StrengthIncreaseExponentDistribution);
             Assert.AreEqual(properties.StrengthIncreaseExponentMean, soilLayer.StrengthIncreaseExponentMean);
             Assert.AreEqual(properties.StrengthIncreaseExponentCoefficientOfVariation, soilLayer.StrengthIncreaseExponentDeviation);
+
             Assert.AreEqual(properties.StrengthIncreaseExponentShift, soilLayer.StrengthIncreaseExponentShift);
             Assert.AreEqual(properties.PopDistribution, soilLayer.PopDistribution);
             Assert.AreEqual(properties.PopMean, soilLayer.PopMean);
