@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -86,48 +87,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredControl_WhenNewDataSetAndCellInSameRowSelected_ThenRowChangedFired()
-        {
-            // Given
-            using (var form = new Form())
-            using (var control = new IllustrationPointsControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var data = new[]
-                {
-                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
-                                                     "SSE",
-                                                     "Regular",
-                                                     Enumerable.Empty<Stochast>(),
-                                                     (RoundedDouble) 3.14)
-                };
-                control.Data = data;
-
-                DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
-                var currentRowChangedCount = 0;
-                dataGridView.CurrentRowChanged += (sender, args) => currentRowChangedCount++;
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
-
-                // When
-                var newData = new[]
-                {
-                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
-                                                     "NE",
-                                                     "Regular",
-                                                     Enumerable.Empty<Stochast>(),
-                                                     (RoundedDouble) 2.6)
-                };
-                control.Data = newData; // Updating data fires event 5 times here, then resets to allow next cell change to fire again
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[2]); // This will fire the event once more (7 total)
-
-                // Then
-                Assert.AreEqual(7, currentRowChangedCount);
-            }
-        }
-
-        [Test]
         public void GivenFullyConfiguredControl_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
@@ -149,10 +108,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var selectionChangedCount = 0;
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
 
+                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
+                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
                 // When
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
+                EventHelper.RaiseEvent(tableControl, "SelectionChanged");
 
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
@@ -180,9 +141,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
+                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
 
                 // Call
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
+                selectedLocationRow.Cells[0].Value = true;
 
                 // Assert
                 var expectedSelection = tableControl.Selection as IllustrationPointControlItem;
