@@ -67,6 +67,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             // Assert
             Assert.IsNotNull(actual);
+
+            Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator.Calculated);
         }
 
         [Test]

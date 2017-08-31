@@ -63,7 +63,30 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// <returns>A <see cref="MacroStabilityInwardsCalculatorResult"/> containing the results of the sub calculations.</returns>
         public MacroStabilityInwardsCalculatorResult Calculate()
         {
+            IUpliftVanCalculator upliftVanCalculator = CalculateUpliftVan();
             return new MacroStabilityInwardsCalculatorResult();
+        }
+
+        private IUpliftVanCalculator CalculateUpliftVan()
+        {
+            IUpliftVanCalculator upliftVanCalculator = CreateUpliftVanCalculator();
+
+            try
+            {
+                upliftVanCalculator.Calculate();
+            }
+            catch (Exception)
+            {
+                // Temporary
+            }
+
+            return upliftVanCalculator;
+        }
+
+        private IUpliftVanCalculator CreateUpliftVanCalculator()
+        {
+            IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
+            return calculator;
         }
 
         /// <summary>
