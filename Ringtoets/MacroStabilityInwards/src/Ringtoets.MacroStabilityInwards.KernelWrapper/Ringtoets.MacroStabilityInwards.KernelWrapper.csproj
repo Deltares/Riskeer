@@ -34,6 +34,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="WTIStability, Version=17.2.1.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -44,7 +48,9 @@
     <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\IMacroStabilityInwardsSubCalculatorFactory.cs" />
+    <Compile Include="SubCalculator\IUpliftVanCalculator.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactory.cs" />
+    <Compile Include="SubCalculator\UpliftVanCalculator.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
