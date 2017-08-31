@@ -41,6 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc;
 
         private ICalculation data;
+        private bool suspendAllEvents;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -62,7 +63,14 @@ namespace Ringtoets.Common.Forms.Views
 
             this.getGeneralResultFunc = getGeneralResultFunc;
 
-            calculationObserver = new Observer(UpdateIllustrationPointsControl);
+            calculationObserver = new Observer(() =>
+            {
+                if (illustrationPointsControl.Data == null && data.HasOutput
+                    || illustrationPointsControl.Data != null && !data.HasOutput)
+                {
+                    UpdateControls();
+                }
+            });
 
             illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
             illustrationPointsFaultTreeControl.SelectionChanged += IllustrationPointsFaultTreeControlOnSelectionChanged;
@@ -82,7 +90,7 @@ namespace Ringtoets.Common.Forms.Views
 
                 calculationObserver.Observable = data;
 
-                UpdateIllustrationPointsControl();
+                UpdateControls();
             }
         }
 
@@ -98,8 +106,23 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void UpdateControls()
+        {
+            suspendAllEvents = true;
+            UpdateIllustrationPointsControl();
+            UpdateIllustrationPointsFaultTreeControl();
+            suspendAllEvents = false;
+
+            ProvideIllustrationPointSelection();
+        }
+
         private void IllustrationPointsFaultTreeControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
+            if (suspendAllEvents)
+            {
+                return;
+            }
+
             var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
             TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
 
@@ -128,7 +151,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateIllustrationPointsControl()
         {
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            illustrationPointsControl.Data = GetIllustrationPointControlItems()?.ToArray();
         }
 
         private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
@@ -169,25 +192,28 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateIllustrationPointsFaultTreeControl()
         {
-            illustrationPointsFaultTreeControl.Data = GetIllustrationPointsFaultTreeControlItems();
-        }
-
-        private TopLevelFaultTreeIllustrationPoint GetIllustrationPointsFaultTreeControlItems()
-        {
-            var selected = Selection as SelectedTopLevelFaultTreeIllustrationPoint;
-
-            return selected?.TopLevelFaultTreeIllustrationPoint;
+            illustrationPointsFaultTreeControl.Data = (TopLevelFaultTreeIllustrationPoint) (illustrationPointsControl.Selection as IllustrationPointControlItem)?.Source;
         }
 
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs e)
+        {
+            if (suspendAllEvents)
+            {
+                return;
+            }
+
+            UpdateIllustrationPointsFaultTreeControl();
+
+            ProvideIllustrationPointSelection();
+        }
+
+        private void ProvideIllustrationPointSelection()
         {
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
             Selection = selection != null
                             ? new SelectedTopLevelFaultTreeIllustrationPoint((TopLevelFaultTreeIllustrationPoint) selection.Source,
                                                                              GetIllustrationPointControlItems().Select(ipci => ipci.ClosingSituation))
                             : null;
-
-            UpdateIllustrationPointsFaultTreeControl();
             OnSelectionChanged();
         }
 
