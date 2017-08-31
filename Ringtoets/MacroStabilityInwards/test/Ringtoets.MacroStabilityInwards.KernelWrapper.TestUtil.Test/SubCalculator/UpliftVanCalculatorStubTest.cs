@@ -19,17 +19,38 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
+
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalculator
 {
-    /// <summary>
-    /// Factory responsible for creating the sub calculators required for a macro stability inwards calculation.
-    /// </summary>
-    public interface IMacroStabilityInwardsSubCalculatorFactory
+    [TestFixture]
+    public class UpliftVanCalculatorStubTest
     {
-        /// <summary>
-        /// Creates the upliftVan calculator.
-        /// </summary>
-        /// <returns>A new <see cref="IUpliftVanCalculator"/>.</returns>
-        IUpliftVanCalculator CreateUpliftVanCalculator();
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var calculator = new UpliftVanCalculatorStub();
+
+            // Assert
+            Assert.IsFalse(calculator.Calculated);
+        }
+
+        [Test]
+        public void Calculate_Always_SetCalculatedTrue()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub();
+
+            // Precondition
+            Assert.IsFalse(calculator.Calculated);
+
+            // Call
+            calculator.Calculate();
+
+            // Assert
+            Assert.IsTrue(calculator.Calculated);
+        }
     }
 }

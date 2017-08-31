@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreateEffectiveThicknessCalculator_Always_LastCreatedEffectiveThicknessCalculatorSetToReturnValue()
+        public void CreateEffectiveThicknessCalculator_Always_ReturnLastCreatedEffectiveThicknessCalculator()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreateUpliftCalculator_Always_LastCreatedUpliftCalculatorSetToReturnValue()
+        public void CreateUpliftCalculator_Always_ReturnLastCreatedUpliftCalculator()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreateHeaveCalculator_Always_LastCreatedHeaveCalculatorSetToReturnValue()
+        public void CreateHeaveCalculator_Always_ReturnLastCreatedHeaveCalculator()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreateSellmeijerCalculator_Always_LastCreatedSellmeijerCalculatorSetToReturnValue()
+        public void CreateSellmeijerCalculator_Always_ReturnLastCreatedSellmeijerCalculator()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreatePiezometricHeadAtExitCalculator_Always_LastCreatedPiezometricHeadAtExitCalculatorSetToReturnValue()
+        public void CreatePiezometricHeadAtExitCalculator_Always_ReturnLastCreatedPiezometricHeadAtExitCalculator()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void CreatePipingProfilePropertyCalculator_Always_LastCreatedPipingProfilePropertyCalculatorSetToReturnValue()
+        public void CreatePipingProfilePropertyCalculator_Always_ReturnLastCreatedPipingProfilePropertyCalculator()
         {
             // Setup
             var factory = new TestPipingSubCalculatorFactory();

@@ -51,6 +51,7 @@
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\TestMacroStabilityInwardsSubCalculatorFactoryTest.cs" />
+    <Compile Include="SubCalculator\UpliftVanCalculatorStubTest.cs" />
     <Compile Include="TestMacroStabilityInwardsSoilProfile1DTest.cs" />
   </ItemGroup>
   <ItemGroup>

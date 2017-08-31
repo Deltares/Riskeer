@@ -29,13 +29,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalcula
     public class TestMacroStabilityInwardsSubCalculatorFactoryTest
     {
         [Test]
-        public void DefaultConstructor_SetDefaultProperties()
+        public void Constructor_ExpectedProperties()
         {
             // Call
             var factory = new TestMacroStabilityInwardsSubCalculatorFactory();
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSubCalculatorFactory>(factory);
+            Assert.IsNotNull(factory.LastCreatedUpliftVanCalculator);
+        }
+
+        [Test]
+        public void CreateUpliftVanCalculator_Always_ReturnLastCreatedUpliftVanCalculator()
+        {
+            // Setup
+            var factory = new TestMacroStabilityInwardsSubCalculatorFactory();
+
+            // Call
+            IUpliftVanCalculator subCalculator = factory.CreateUpliftVanCalculator();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedUpliftVanCalculator, subCalculator);
         }
     }
 }

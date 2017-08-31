@@ -19,17 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
+using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
-    /// Factory responsible for creating the sub calculators required for a macro stability inwards calculation.
+    /// Stub for the real upliftVan sub calculator of macrostability inwards.
     /// </summary>
-    public interface IMacroStabilityInwardsSubCalculatorFactory
+    public class UpliftVanCalculatorStub : IUpliftVanCalculator
     {
         /// <summary>
-        /// Creates the upliftVan calculator.
+        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
         /// </summary>
-        /// <returns>A new <see cref="IUpliftVanCalculator"/>.</returns>
-        IUpliftVanCalculator CreateUpliftVanCalculator();
+        public bool Calculated { get; private set; }
+
+        public void Calculate()
+        {
+            Calculated = true;
+        }
     }
 }

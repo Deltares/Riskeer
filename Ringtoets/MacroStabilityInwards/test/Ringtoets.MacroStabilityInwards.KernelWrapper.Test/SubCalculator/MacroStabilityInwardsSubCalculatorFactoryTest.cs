@@ -64,5 +64,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
         }
+
+        [Test]
+        public void CreateUpliftVanCalculator_Always_ReturnNewUpliftVanCalculator()
+        {
+            // Setup
+            IMacroStabilityInwardsSubCalculatorFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+
+            // Call
+            IUpliftVanCalculator subCalculator = factory.CreateUpliftVanCalculator();
+
+            // Assert
+            Assert.IsNotNull(subCalculator);
+        }
     }
 }
