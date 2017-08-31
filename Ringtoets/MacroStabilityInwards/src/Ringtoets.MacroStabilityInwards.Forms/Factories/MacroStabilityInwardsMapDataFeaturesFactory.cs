@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
     /// <summary>
     /// Factory for creating arrays of <see cref="MapFeature"/> to use in <see cref="FeatureBasedMapData"/>
-    /// (created via <see cref="MacroStabilityInwardsMapDataFactory"/>).
+    /// (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     internal static class MacroStabilityInwardsMapDataFeaturesFactory
     {
