@@ -44,12 +44,10 @@ namespace Core.Common.Controls.DataGrid
             add
             {
                 RowChanged += value;
-                dataGridView.CurrentCellChanged += DataGridViewOnCurrentCellChanged;
             }
             remove
             {
                 RowChanged -= value;
-                dataGridView.CurrentCellChanged -= DataGridViewOnCurrentCellChanged;
             }
         }
 
@@ -525,6 +523,7 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.DataError += DataGridViewOnDataError;
             dataGridView.Leave += DataGridViewOnLeave;
             dataGridView.CellClick += DataGridViewOnCellClick;
+            dataGridView.CurrentCellChanged += DataGridViewOnCurrentCellChanged;
         }
 
         private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
