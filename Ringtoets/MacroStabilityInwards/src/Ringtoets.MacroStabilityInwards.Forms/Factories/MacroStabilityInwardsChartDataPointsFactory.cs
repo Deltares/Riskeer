@@ -22,9 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Chart.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
@@ -281,6 +283,90 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static Point2D[] CreateDitchPolderSidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchPolderSide);
+        }
+
+        /// <summary>
+        /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="grid">The grid to create the grid points for.</param>
+        /// <returns></returns>
+        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid)
+        {
+            if (grid == null
+                || grid.NumberOfHorizontalPoints == 0
+                || grid.NumberOfVerticalPoints == 0)
+            {
+                return new Point2D[0];
+            }
+
+            var points = new List<Point2D>();
+            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterPolatedVerticalPositions(grid.ZBottom,
+                                                                                                        grid.ZTop,
+                                                                                                        grid.NumberOfVerticalPoints).ToArray();
+            foreach (RoundedDouble interPolatedVerticalPosition in interPolatedVerticalPositions)
+            {
+                points.AddRange(GetInterPolatedHorizontalPoints(grid.XLeft,
+                                                                grid.XRight,
+                                                                interPolatedVerticalPosition,
+                                                                grid.NumberOfHorizontalPoints));
+            }
+
+            return points.ToArray();
+        }
+
+        private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
+                                                                                   RoundedDouble endPoint,
+                                                                                   int nrofPoints)
+        {
+            if (nrofPoints <= 1)
+            {
+                yield return startPoint;
+                yield break;
+            }
+
+            int nrofInterPolatedPoints = nrofPoints - 1;
+            RoundedDouble deltaZ = endPoint - startPoint;
+            RoundedDouble deltaZBetweenPoints = nrofPoints < 2
+                                                    ? (RoundedDouble) 0.0
+                                                    : (RoundedDouble) (deltaZ / nrofInterPolatedPoints);
+
+            RoundedDouble z = startPoint;
+            int nrOfRepetitions = nrofInterPolatedPoints < 0
+                                      ? 0
+                                      : nrofInterPolatedPoints;
+            for (var i = 0; i < nrOfRepetitions + 1; i++)
+            {
+                yield return z;
+                z += deltaZBetweenPoints;
+            }
+        }
+
+        private static IEnumerable<Point2D> GetInterPolatedHorizontalPoints(RoundedDouble startPoint,
+                                                                            RoundedDouble endPoint,
+                                                                            RoundedDouble zPoint,
+                                                                            int nrofPoints)
+        {
+            if (nrofPoints <= 1)
+            {
+                yield return new Point2D(startPoint, zPoint);
+                yield break;
+            }
+
+            int nrofInterPolatedPoints = nrofPoints - 1;
+            RoundedDouble deltaX = endPoint - startPoint;
+            RoundedDouble deltaXBetweenPoints = nrofPoints < 2
+                                                    ? (RoundedDouble) 0
+                                                    : (RoundedDouble) (deltaX / nrofInterPolatedPoints);
+
+            RoundedDouble x = startPoint;
+            int nrOfRepetitions = nrofInterPolatedPoints < 0
+                                      ? 0
+                                      : nrofInterPolatedPoints;
+            for (var i = 0; i < nrOfRepetitions + 1; i++)
+            {
+                yield return new Point2D(x, zPoint);
+                x += deltaXBetweenPoints;
+            }
         }
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
