@@ -740,7 +740,12 @@ SELECT
 	[FailureMechanismSectionEntityId],
 	[LayerOne],
 	[LayerTwoA],
-	[LayerThree]
+	CASE
+		WHEN [LayerThree] > 1 OR [LayerThree] < 0 
+			THEN NULL
+		ELSE
+			[LayerThree]
+	END
 	FROM [SOURCEPROJECT].MacrostabilityInwardsSectionResultEntity;
 INSERT INTO MacrostabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacrostabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
@@ -1398,6 +1403,19 @@ SELECT
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = spssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND spssr.[LayerThree] IS NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId], 
+	asfm.[AssessmentSectionName], 
+	asfm.[FailureMechanismId], 
+	asfm.[FailureMechanismName],
+	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	FROM MacroStabilityInwardsSectionResultEntity as msisr
+	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON msisr.[rowid] = source.[rowid]    
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = msisr.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL AND msisr.[LayerThree] IS NULL;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 

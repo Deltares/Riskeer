@@ -81,6 +81,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity");
                     AssertFailureMechanismSectionResults(reader, "PipingSectionResultEntity");
                     AssertFailureMechanismSectionResults(reader, "GrassCoverErosionInwardsSectionResultEntity");
+                    AssertFailureMechanismSectionResults(reader, "MacroStabilityInwardsSectionResultEntity");
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
@@ -430,7 +431,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(33, messages.Count);
+                Assert.AreEqual(36, messages.Count);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[0]);
@@ -519,12 +520,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     messages[29]
                 });
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
                     messages[30]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
                     messages[31],
                     messages[32]
+                });
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    messages[33]);
+                AssertLayerThreeMigrationMessage(new[]
+                {
+                    messages[34],
+                    messages[35]
                 });
             }
         }

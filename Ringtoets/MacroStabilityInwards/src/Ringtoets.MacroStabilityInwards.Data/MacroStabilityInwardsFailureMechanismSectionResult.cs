@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerThree = double.NaN;
+            assessmentLayerThree = double.NaN;
         }
 
         /// <summary>

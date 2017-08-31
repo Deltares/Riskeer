@@ -31,8 +31,7 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class FailureMechanismSectionTestFactory
     {
         /// <summary>
-        /// Creates a default <see cref="FailureMechanismSection"/> which can be 
-        /// used for testing.
+        /// Creates a default <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
         public static FailureMechanismSection CreateFailureMechanismSection()

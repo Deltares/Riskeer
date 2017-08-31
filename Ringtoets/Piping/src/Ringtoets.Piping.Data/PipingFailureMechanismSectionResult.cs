@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 
@@ -41,7 +40,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerThree = double.NaN;
+            assessmentLayerThree = double.NaN;
         }
 
         /// <summary>
