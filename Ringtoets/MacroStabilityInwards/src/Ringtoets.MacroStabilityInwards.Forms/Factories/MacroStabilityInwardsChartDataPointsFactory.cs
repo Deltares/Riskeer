@@ -292,9 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns></returns>
         public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid)
         {
-            if (grid == null
-                || grid.NumberOfHorizontalPoints == 0
-                || grid.NumberOfVerticalPoints == 0)
+            if (grid == null || !AreValidGridSettings(grid))
             {
                 return new Point2D[0];
             }
@@ -312,6 +310,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             }
 
             return points.ToArray();
+        }
+
+        private static bool AreValidGridSettings(MacroStabilityInwardsGrid grid)
+        {
+            return grid.NumberOfHorizontalPoints > 0
+                   && grid.NumberOfVerticalPoints > 0;
         }
 
         private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
