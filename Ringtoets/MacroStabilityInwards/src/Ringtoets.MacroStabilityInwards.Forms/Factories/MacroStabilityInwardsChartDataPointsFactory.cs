@@ -285,6 +285,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DitchPolderSide);
         }
 
+        #region Grid Helpers
+
         /// <summary>
         /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
         /// </summary>
@@ -292,7 +294,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns></returns>
         public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid)
         {
-            if (grid == null || !AreValidGridSettings(grid))
+            if (grid == null || !AreGridSettingsValid(grid))
             {
                 return new Point2D[0];
             }
@@ -312,10 +314,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return points.ToArray();
         }
 
-        private static bool AreValidGridSettings(MacroStabilityInwardsGrid grid)
+        private static bool AreGridSettingsValid(MacroStabilityInwardsGrid grid)
         {
             return grid.NumberOfHorizontalPoints > 0
-                   && grid.NumberOfVerticalPoints > 0;
+                   && grid.NumberOfVerticalPoints > 0
+                   && !IsGridCoordinateNaN(grid.XLeft)
+                   && !IsGridCoordinateNaN(grid.XRight)
+                   && !IsGridCoordinateNaN(grid.ZTop) 
+                   && !IsGridCoordinateNaN(grid.ZBottom);
+        }
+
+        private static bool IsGridCoordinateNaN(RoundedDouble gridCoordinate)
+        {
+            return double.IsNaN(gridCoordinate);
         }
 
         private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
@@ -372,6 +383,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 x += deltaXBetweenPoints;
             }
         }
+
+        #endregion
+
+        #region SoilLayers and Surface Line Helpers
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
                                                             Point3D worldCoordinate)
@@ -453,5 +468,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 new Point2D(startX, bottomLevel)
             };
         }
+
+        #endregion
     }
 }

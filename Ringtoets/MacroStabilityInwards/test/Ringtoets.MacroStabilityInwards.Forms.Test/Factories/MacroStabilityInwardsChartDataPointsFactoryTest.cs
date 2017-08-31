@@ -973,10 +973,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             var random = new Random(21);
 
-            var xLeft = random.NextRoundedDouble();
-            var xRight = random.NextRoundedDouble();
-            var zTop = random.NextRoundedDouble();
-            var zBottom = random.NextRoundedDouble();
+            RoundedDouble xLeft = random.NextRoundedDouble();
+            RoundedDouble xRight = random.NextRoundedDouble();
+            RoundedDouble zTop = random.NextRoundedDouble();
+            RoundedDouble zBottom = random.NextRoundedDouble();
             yield return new TestCaseData(new MacroStabilityInwardsGrid
             {
                 NumberOfHorizontalPoints = 0,
@@ -1024,6 +1024,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 ZTop = zTop,
                 ZBottom = zBottom
             }).SetName("NumberOfHorizontalPointsNegative");
+            yield return new TestCaseData(new MacroStabilityInwardsGrid
+            {
+                NumberOfHorizontalPoints = 1,
+                XRight = xRight,
+                NumberOfVerticalPoints = 1,
+                ZTop = zTop,
+                ZBottom = zBottom
+            }).SetName("XLeftNaN");
+            yield return new TestCaseData(new MacroStabilityInwardsGrid
+            {
+                NumberOfHorizontalPoints = 1,
+                XLeft = xLeft,
+                NumberOfVerticalPoints = 1,
+                ZTop = zTop,
+                ZBottom = zBottom
+            }).SetName("XRightNaN");
+            yield return new TestCaseData(new MacroStabilityInwardsGrid
+            {
+                NumberOfHorizontalPoints = 1,
+                XLeft = xLeft,
+                XRight = xRight,
+                NumberOfVerticalPoints = 1,
+                ZBottom = zBottom
+            }).SetName("ZTopNaN");
+            yield return new TestCaseData(new MacroStabilityInwardsGrid
+            {
+                NumberOfHorizontalPoints = 1,
+                XLeft = xLeft,
+                XRight = xRight,
+                NumberOfVerticalPoints = 1,
+                ZTop = zBottom
+            }).SetName("ZBottomNaN");
         }
 
         private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints()

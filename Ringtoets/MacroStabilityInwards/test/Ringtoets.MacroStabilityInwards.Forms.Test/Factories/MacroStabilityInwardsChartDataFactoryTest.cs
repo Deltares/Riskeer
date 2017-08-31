@@ -119,6 +119,30 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateRightGridChartData_ReturnsChartPointDataWithExpectedStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Rechter grid", data.Name);
+            AssertEqualStyle(data.Style, Color.Black, 8, Color.Black, 1, ChartPointSymbol.Plus);
+        }
+
+        [Test]
+        public void CreateLeftGridChartData_ReturnsChartPointDataWithExpectedStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Linker grid", data.Name);
+            AssertEqualStyle(data.Style, Color.Black, 8, Color.Black, 1, ChartPointSymbol.Plus);
+        }
+
+        [Test]
         public void CreateSoilLayerChartData_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call

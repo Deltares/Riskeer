@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
+using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -127,6 +128,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Creates <see cref="ChartPointData"/> with default styling for grids for the right grid.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateRightGridChartData()
+        {
+            return new ChartPointData(Resources.RightGrid_DisplayName,
+                                      GetGridStyle(Color.Black, Color.Black, ChartPointSymbol.Plus));
+        }
+
+        /// <summary>
+        /// Creates <see cref="ChartPointData"/> with default styling for grids for the left grid.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateLeftGridChartData()
+        {
+            return new ChartPointData(Resources.LeftGrid_DisplayName,
+                                      GetGridStyle(Color.Black, Color.Black, ChartPointSymbol.Plus));
+        }
+
+        /// <summary>
         /// Create <see cref="ChartData"/> for a <see cref="MacroStabilityInwardsSoilLayer1D"/> based on its color.
         /// </summary>
         /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer1D"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
@@ -184,6 +205,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         private static ChartPointStyle GetCharacteristicPointStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
+        {
+            return new ChartPointStyle
+            {
+                Color = fillColor,
+                StrokeColor = strokeColor,
+                Size = 8,
+                StrokeThickness = strokeColor == Color.Transparent
+                                      ? 0
+                                      : 1,
+                Symbol = symbol,
+                IsEditable = true
+            };
+        }
+
+        private static ChartPointStyle GetGridStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
         {
             return new ChartPointStyle
             {
