@@ -50,7 +50,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c></item>
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>
         /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.SoilProfileType"/> set to <paramref name="soilProfileType"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>

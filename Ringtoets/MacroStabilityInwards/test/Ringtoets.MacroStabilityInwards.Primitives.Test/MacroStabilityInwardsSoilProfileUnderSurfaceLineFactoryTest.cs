@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -48,10 +49,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Create_SurfaceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(2)
-            });
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
@@ -59,21 +59,29 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("surfaceLine", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Create_SoilProfile2DNull_ThrowArgumentNullException()
+        public void Create_SoilProfileNot1DOr2D_ThrowNotSupportedException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            mocks.ReplayAll();
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(null);
+            TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("soilProfile", exception.ParamName);
+            Assert.Throws<NotSupportedException>(test);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Create_SurfaceLineOnTopOrAboveSoilLayer_ReturnsSoilLayerPointsAsRectangle()
+        public void SoilProfile1DCreate_SurfaceLineOnTopOrAboveSoilLayer_ReturnsSoilLayerPointsAsRectangle()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -104,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SurfaceLineBelowSoilLayer_ReturnsEmptyAreasCollection()
+        public void SoilProfile1DCreate_SurfaceLineBelowSoilLayer_ReturnsEmptyAreasCollection()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -127,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SurfaceLineThroughMiddleLayerButNotSplittingIt_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
+        public void SoilProfile1DCreate_SurfaceLineThroughMiddleLayerButNotSplittingIt_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -163,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SurfaceLineThroughMiddleLayerButNotSplittingItIntersectionOnTopLevel_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
+        public void SoilProfile1DCreate_SurfaceLineThroughMiddleLayerButNotSplittingItIntersectionOnTopLevel_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -201,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SurfaceLineStartsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
+        public void SoilProfile1DCreate_SurfaceLineStartsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -236,7 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SurfaceLineEndsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
+        public void SoilProfile1DCreate_SurfaceLineEndsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -271,7 +279,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SurfaceLineZigZagsThroughSoilLayer_ReturnsSoilLayerPointsSplitInMultipleAreas()
+        public void SoilProfile1DCreate_SurfaceLineZigZagsThroughSoilLayer_ReturnsSoilLayerPointsSplitInMultipleAreas()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -311,7 +319,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Create_SoilProfile2DWithOuterRingAndHoles_ReturnsEqualGeometries()
+        public void SoilProfile2DCreate_ProfileWithOuterRingAndHoles_ReturnsEqualGeometries()
         {
             // Setup
             Ring outerRingA = CreateRing(21);
@@ -335,7 +343,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var profile = new MacroStabilityInwardsSoilProfile2D("name", layers);
 
             // Call
-            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(profile);
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
 
             // Assert
             Assert.AreEqual(2, profileUnderSurfaceLine.LayersUnderSurfaceLine.Count());

@@ -22,10 +22,14 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -46,6 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
             Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
 
             Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
             Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
@@ -341,6 +346,52 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.AreSame(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             Assert.AreEqual(newLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
+        }
+
+        [Test]
+        public void GivenInput_WhenSurfaceLineSetAndStochasticSoilProfileNull_ThenSoilProfileUnderSurfaceLineNull()
+        {
+            // Given
+            var inputParameters = new MacroStabilityInwardsInput();
+
+            // When
+            inputParameters.SurfaceLine = new MacroStabilityInwardsSurfaceLine("test");
+
+            // Then
+            Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
+        }
+
+        [Test]
+        public void GivenInput_WhenStochasticSoilProfileSetAndSurfaceLineNull_ThenSoilProfileUnderSurfaceLineNull()
+        {
+            // Given
+            var inputParameters = new MacroStabilityInwardsInput();
+
+            // When
+            inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new TestMacroStabilityInwardsSoilProfile1D());
+
+            // Then
+            Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
+        }
+
+        [Test]
+        public void GivenInput_WhenSurfaceLineAndStochasticSoilProfileSet_ThenSoilProfileUnderSurfaceLineSet()
+        {
+            // Given
+            var inputParameters = new MacroStabilityInwardsInput();
+
+            // When
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("test");
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D(0, 0, 0), 
+                new Point3D(1, 1, 1)
+            });
+            inputParameters.SurfaceLine = surfaceLine;
+            inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new TestMacroStabilityInwardsSoilProfile1D());
+
+            // Then
+            Assert.IsNotNull(inputParameters.SoilProfileUnderSurfaceLine);
         }
     }
 }

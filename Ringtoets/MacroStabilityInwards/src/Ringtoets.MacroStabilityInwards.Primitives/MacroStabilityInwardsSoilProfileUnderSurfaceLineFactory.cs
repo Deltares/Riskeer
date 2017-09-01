@@ -41,7 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <returns>A new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/> under the <paramref name="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile,
+        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="soilProfile"/> type
+        /// is not supported.</exception>
+        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(IMacroStabilityInwardsSoilProfile soilProfile,
                                                                               MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilProfile == null)
@@ -52,6 +54,23 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
+
+            var profile1D = soilProfile as MacroStabilityInwardsSoilProfile1D;
+            if (profile1D != null)
+            {
+                return Create(profile1D, surfaceLine);
+            }
+            var profile2D = soilProfile as MacroStabilityInwardsSoilProfile2D;
+            if (profile2D != null)
+            {
+                return Create(profile2D);
+            }
+            throw new NotSupportedException();
+        }
+
+        private static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile,
+                                                                               MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
             Point2D[] localizedSurfaceLine = surfaceLine.LocalGeometry.ToArray();
 
             double geometryBottom = Math.Min(soilProfile.Bottom, localizedSurfaceLine.Min(p => p.Y)) - 1;
@@ -66,20 +85,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             return GeometriesToIntersections(layerGeometries, surfaceLineGeometry);
         }
 
-        /// <summary>
-        /// Creates a new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
-        /// </summary>
-        /// <param name="soilProfile">The soil profile containing layers.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> containing geometries from the 
-        /// <paramref name="soilProfile"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile2D soilProfile)
+        private static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException(nameof(soilProfile));
-            }
-
             IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
                 layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                     RingToPoints(layer.OuterRing),
