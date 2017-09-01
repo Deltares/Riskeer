@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -53,7 +54,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int trafficLoadOutsideIndex = 11;
         private const int dikeToeAtRiverIndex = 12;
         private const int surfaceLevelOutsideIndex = 13;
-        private const int nrOfChartData = 14;
+        private const int leftGridIndex = 14;
+        private const int rightGridIndex = 15;
+        private const int nrOfChartData = 16;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -346,6 +349,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedTrafficLoadOutsideIndex = trafficLoadOutsideIndex - 1;
             const int updatedDikeToeAtRiverIndex = dikeToeAtRiverIndex - 1;
             const int updatedSurfaceLevelOutsideIndex = surfaceLevelOutsideIndex - 1;
+            const int updatedLeftGridIndex = leftGridIndex - 1;
+            const int updatedRightGridIndex = rightGridIndex - 1;
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
@@ -376,6 +381,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var trafficLoadOutsideData = (ChartPointData) chartDataList[updatedTrafficLoadOutsideIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
                 var surfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
+                var leftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
+                var rightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
 
                 Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
                 Assert.AreEqual("Maaiveld binnenwaarts", surfaceLevelInsideData.Name);
@@ -391,6 +398,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Verkeersbelasting kant buitenwaarts", trafficLoadOutsideData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
+                Assert.AreEqual("Linker grid", leftGridData.Name);
+                Assert.AreEqual("Rechter grid", rightGridData.Name);
 
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 calculation.InputParameters.SurfaceLine = surfaceLine;
@@ -415,6 +424,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualTrafficLoadOutsideData = (ChartPointData) chartDataList[updatedTrafficLoadOutsideIndex];
                 var actualDikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
                 var actualSurfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
+                var actualLeftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
+                var actualRightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
 
                 Assert.AreEqual(surfaceLine.Name, actualSurfaceLineData.Name);
                 Assert.AreEqual("Maaiveld binnenwaarts", actualSurfaceLevelInsideData.Name);
@@ -430,6 +441,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Verkeersbelasting kant buitenwaarts", actualTrafficLoadOutsideData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", actualDikeToeAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", actualSurfaceLevelOutsideData.Name);
+                Assert.AreEqual("Linker grid", actualLeftGridData.Name);
+                Assert.AreEqual("Rechter grid", actualRightGridData.Name);
             }
         }
 
@@ -472,6 +485,96 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
                 mocks.VerifyAll(); // no update observer expected
             }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationInputGridSettingsUpdated_GridChartDataUpdated()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            using (var view = new MacroStabilityInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                MacroStabilityInwardsInput input = calculation.InputParameters;
+                input.GridDetermination = MacroStabilityInwardsGridDetermination.Manual;
+                SetGridValues(input.LeftGrid);
+                SetGridValues(input.RightGrid);
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var actualLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
+                var actualRightGridData = (ChartPointData) chartDataList[rightGridIndex];
+
+                AssertGridPoints(input.LeftGrid, actualLeftGridData.Points);
+                AssertGridPoints(input.RightGrid, actualRightGridData.Points);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithGridPoints_WhenGridDeterminationSetToAutomatic_ThenNoGridPoints()
+        {
+            // Given
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            input.GridDetermination = MacroStabilityInwardsGridDetermination.Manual;
+            SetGridValues(input.LeftGrid);
+            SetGridValues(input.RightGrid);
+
+            using (var view = new MacroStabilityInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                // Precondition
+                ChartDataCollection chartData = view.Chart.Data;
+                List<ChartData> chartDataList = chartData.Collection.ToList();
+                var leftGridData = (ChartPointData) chartDataList[leftGridIndex];
+                var rightGridData = (ChartPointData) chartDataList[rightGridIndex];
+
+                AssertGridPoints(input.LeftGrid, leftGridData.Points);
+                AssertGridPoints(input.RightGrid, rightGridData.Points);
+
+                // When
+                input.GridDetermination = MacroStabilityInwardsGridDetermination.Automatic;
+                input.NotifyObservers();
+
+                // Then
+                chartDataList = chartData.Collection.ToList();
+                var updatedLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
+                var updatedRightGridData = (ChartPointData) chartDataList[rightGridIndex];
+                CollectionAssert.IsEmpty(updatedLeftGridData.Points);
+                CollectionAssert.IsEmpty(updatedRightGridData.Points);
+            }
+        }
+
+        private static void SetGridValues(MacroStabilityInwardsGrid grid)
+        {
+            grid.NumberOfHorizontalPoints = 2;
+            grid.XLeft = (RoundedDouble) 1;
+            grid.XRight = (RoundedDouble) 2;
+            grid.NumberOfVerticalPoints = 2;
+            grid.ZBottom = (RoundedDouble) 1;
+            grid.ZTop = (RoundedDouble) 2;
+        }
+
+        private static void AssertGridPoints(MacroStabilityInwardsGrid grid, Point2D[] actualPoints)
+        {
+            var expectedPoints = new[]
+            {
+                new Point2D(grid.XLeft, grid.ZBottom),
+                new Point2D(grid.XRight, grid.ZBottom),
+                new Point2D(grid.XLeft, grid.ZTop),
+                new Point2D(grid.XRight, grid.ZTop)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints);
         }
 
         private static IChartControl GetChartControl(MacroStabilityInwardsInputView view)
@@ -554,6 +657,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var trafficLoadOutsideData = (ChartPointData) chartDatasList[trafficLoadOutsideIndex];
             var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
+            var leftGridOutsideData = (ChartPointData) chartDatasList[leftGridIndex];
+            var rightGridOutsideData = (ChartPointData) chartDatasList[rightGridIndex];
 
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
@@ -569,6 +674,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(trafficLoadOutsideData.Points);
             CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
             CollectionAssert.IsEmpty(surfaceLevelOutsideData.Points);
+            CollectionAssert.IsEmpty(leftGridOutsideData.Points);
+            CollectionAssert.IsEmpty(rightGridOutsideData.Points);
 
             Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
             Assert.AreEqual("Maaiveld binnenwaarts", surfaceLevelInsideData.Name);
@@ -584,6 +691,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Verkeersbelasting kant buitenwaarts", trafficLoadOutsideData.Name);
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
+            Assert.AreEqual("Linker grid", leftGridOutsideData.Name);
+            Assert.AreEqual("Rechter grid", rightGridOutsideData.Name);
         }
 
         private static void AssertSurfaceLineChartData(MacroStabilityInwardsSurfaceLine surfaceLine, ChartData chartData)

@@ -21,6 +21,7 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -55,6 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData trafficLoadOutsideChartData;
         private readonly ChartPointData dikeToeAtRiverChartData;
         private readonly ChartPointData surfaceLevelOutsideChartData;
+        private readonly ChartPointData leftGridChartData;
+        private readonly ChartPointData rightGridChartData;
 
         private MacroStabilityInwardsCalculationScenario data;
 
@@ -83,6 +86,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             trafficLoadOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
             dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
+            leftGridChartData = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
+            rightGridChartData = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
 
             chartDataCollection.Add(surfaceLineChartData);
             chartDataCollection.Add(surfaceLevelInsideChartData);
@@ -98,6 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(trafficLoadOutsideChartData);
             chartDataCollection.Add(dikeToeAtRiverChartData);
             chartDataCollection.Add(surfaceLevelOutsideChartData);
+            chartDataCollection.Add(leftGridChartData);
+            chartDataCollection.Add(rightGridChartData);
         }
 
         public object Data
@@ -167,7 +174,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetChartData()
         {
-            MacroStabilityInwardsSurfaceLine surfaceLine = data.InputParameters.SurfaceLine;
+            MacroStabilityInwardsInput macroStabilityInwardsInput = data.InputParameters;
+            MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsInput.SurfaceLine;
 
             MacroStabilityInwardsChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 
@@ -185,6 +193,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             trafficLoadOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadOutsidePoint(surfaceLine);
             dikeToeAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
             surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
+
+            MacroStabilityInwardsGridDetermination gridDetermination = macroStabilityInwardsInput.GridDetermination;
+            MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
+            MacroStabilityInwardsGrid rightGrid = macroStabilityInwardsInput.RightGrid;
+
+            leftGridChartData.Points = GetGridChartDataPoints(gridDetermination, leftGrid);
+            rightGridChartData.Points = GetGridChartDataPoints(gridDetermination, rightGrid);
+        }
+
+        private static Point2D[] GetGridChartDataPoints(MacroStabilityInwardsGridDetermination gridDetermination, MacroStabilityInwardsGrid grid)
+        {
+            return gridDetermination == MacroStabilityInwardsGridDetermination.Automatic
+                       ? new Point2D[0]
+                       : MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
         }
     }
 }
