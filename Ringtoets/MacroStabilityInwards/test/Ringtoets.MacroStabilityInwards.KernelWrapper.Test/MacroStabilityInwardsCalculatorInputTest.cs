@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -47,18 +48,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             double hRiverValue = random.NextDouble();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    new Point2D(0, 0)
+                }, new MacroStabilityInwardsSoilLayerProperties())
+            });
 
             // Call
             var input = new MacroStabilityInwardsCalculatorInput(
                 new MacroStabilityInwardsCalculatorInput.ConstructionProperties
                 {
                     AssessmentLevel = hRiverValue,
-                    SurfaceLine = surfaceLine
+                    SurfaceLine = surfaceLine,
+                    SoilProfile = soilProfile
                 });
 
             // Assert
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
+            Assert.AreSame(soilProfile, input.SoilProfile);
         }
     }
 }

@@ -86,6 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         private IUpliftVanCalculator CreateUpliftVanCalculator()
         {
             IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
+            calculator.SoilProfile = input.SoilProfile;
             return calculator;
         }
 

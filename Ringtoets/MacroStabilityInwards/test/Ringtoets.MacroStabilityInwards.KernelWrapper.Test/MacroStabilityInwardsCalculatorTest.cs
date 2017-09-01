@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -89,27 +90,42 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             var random = new Random(21);
 
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
             return new MacroStabilityInwardsCalculatorInput.ConstructionProperties
             {
                 AssessmentLevel = random.NextDouble(),
-                SurfaceLine = CreateValidSurfaceLine()
+                SurfaceLine = surfaceLine,
+                SoilProfile = CreateValidSoilProfile(surfaceLine)
             };
         }
 
-        private static MacroStabilityInwardsSoilProfile1D CreateValidSoilProfile()
+        private static MacroStabilityInwardsSoilProfileUnderSurfaceLine CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new MacroStabilityInwardsSoilProfile1D(string.Empty, -2, new[]
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(9),
-                new MacroStabilityInwardsSoilLayer1D(4)
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
-                    Properties =
-                    {
-                        IsAquifer = true
-                    }
-                },
-                new MacroStabilityInwardsSoilLayer1D(2),
-                new MacroStabilityInwardsSoilLayer1D(-1)
+                    surfaceLine.LocalGeometry.First()
+
+                }, new MacroStabilityInwardsSoilLayerProperties()),
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    surfaceLine.LocalGeometry.First()
+
+                }, new MacroStabilityInwardsSoilLayerProperties
+                {
+                    IsAquifer = true
+                }),
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    surfaceLine.LocalGeometry.First()
+
+                }, new MacroStabilityInwardsSoilLayerProperties()),
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    surfaceLine.LocalGeometry.First()
+
+                }, new MacroStabilityInwardsSoilLayerProperties()),
             });
         }
 
