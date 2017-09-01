@@ -81,57 +81,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             TestDelegate test = () => new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Assert
-            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
+            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel" +
+                                           " moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.23)]
-        [TestCase(0.41)]
-        public void AddProbability_DifferentValues_ProbabilityIncreasedAsExpected(double probabilityToAdd)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
-            mocks.ReplayAll();
-
-            double startProbability = new Random(21).NextDouble() * 0.5;
-            var profile = new MacroStabilityInwardsStochasticSoilProfile(startProbability, soilProfile);
-
-            // Call
-            profile.AddProbability(probabilityToAdd);
-
-            // Assert
-            Assert.AreEqual(startProbability + probabilityToAdd, profile.Probability);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.MaxValue)]
-        [TestCase(double.MinValue)]
-        [TestCase(1.0)]
-        [TestCase(-1.0)]
-        [TestCase(double.NaN)]
-        public void AddProbability_DifferentValuesMakingProbabilityInvalid_ThrowsArgumentOutOfRangeException(double probabilityToAdd)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
-            mocks.ReplayAll();
-
-            double startProbability = new Random(21).NextDouble() * 0.5;
-            var profile = new MacroStabilityInwardsStochasticSoilProfile(startProbability, soilProfile);
-
-            // Call
-            TestDelegate test = () => profile.AddProbability(probabilityToAdd);
-
-            // Assert
-            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-            Assert.AreEqual(startProbability, profile.Probability);
             mocks.VerifyAll();
         }
 
@@ -155,37 +107,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        [TestCaseSource(nameof(StochasticProfileUnequalCombinations))]
-        public void Update_WithValidProfile_UpdatesProperties(MacroStabilityInwardsStochasticSoilProfile stochasticProfile, MacroStabilityInwardsStochasticSoilProfile otherStochasticProfile)
+        [TestCaseSource(nameof(StochasticProfileVariousCombinations))]
+        public void Update_WithValidProfile_UpdatesProperties(MacroStabilityInwardsStochasticSoilProfile stochasticProfile,
+                                                              MacroStabilityInwardsStochasticSoilProfile otherStochasticProfile)
         {
             // Call
-            bool updated = stochasticProfile.Update(otherStochasticProfile);
+            stochasticProfile.Update(otherStochasticProfile);
 
             // Assert
-            Assert.IsTrue(updated);
             Assert.AreEqual(otherStochasticProfile.Probability, stochasticProfile.Probability);
             Assert.AreSame(otherStochasticProfile.SoilProfile, stochasticProfile.SoilProfile);
-        }
-
-        [Test]
-        public void Update_WithEqualProfile_ReturnsFalse()
-        {
-            // Setup
-            const double probability = 1.0;
-            var profile = new TestSoilProfile();
-            var stochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, profile);
-            var otherStochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, profile);
-
-            // Precondition
-            Assert.AreEqual(stochasticProfile, otherStochasticProfile);
-
-            // Call
-            bool updated = stochasticProfile.Update(otherStochasticProfile);
-
-            // Assert
-            Assert.IsFalse(updated);
-            Assert.AreEqual(probability, stochasticProfile.Probability);
-            Assert.AreSame(profile, stochasticProfile.SoilProfile);
         }
 
         [Test]
@@ -226,7 +157,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         [Test]
         [TestCaseSource(nameof(StochasticProfileCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsStochasticSoilProfile profile, MacroStabilityInwardsStochasticSoilProfile otherProfile, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsStochasticSoilProfile profile,
+                                                                    MacroStabilityInwardsStochasticSoilProfile otherProfile,
+                                                                    bool expectedEqual)
         {
             // Call
             bool areEqualOne = profile.Equals(otherProfile);
@@ -274,21 +207,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(soilProfile.ToString(), text);
         }
 
-        private static TestCaseData[] StochasticProfileUnequalCombinations()
+        private static TestCaseData[] StochasticProfileVariousCombinations()
         {
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, CreateRandomProfile(22));
             var otherStochasticSoilProfileA = new MacroStabilityInwardsStochasticSoilProfile(0.5, CreateRandomProfile(22));
-            var otherStochasticSoilProfileB = new MacroStabilityInwardsStochasticSoilProfile(1.0, CreateRandomProfile(22));
+            var otherStochasticSoilProfileB = new MacroStabilityInwardsStochasticSoilProfile(1.0, CreateRandomProfile(23));
+
+            const double probability = 1.0;
+            TestSoilProfile profile = CreateRandomProfile(22);
+            var stochasticProfileSameProperties = new MacroStabilityInwardsStochasticSoilProfile(probability, profile);
+            var otherStochasticProfileSameProperties = new MacroStabilityInwardsStochasticSoilProfile(probability, profile);
 
             return new[]
             {
                 new TestCaseData(stochasticSoilProfile, otherStochasticSoilProfileA)
                 {
-                    TestName = "Update_ProfileWithProfileA_UpdatesProperties"
+                    TestName = "Update_ProfileWithProfileADifferentProbability_UpdatesProperties"
                 },
                 new TestCaseData(stochasticSoilProfile, otherStochasticSoilProfileB)
                 {
-                    TestName = "Update_ProfileWithProfileB_UpdatesProperties"
+                    TestName = "Update_ProfileWithProfileBDifferentSoilProfile_UpdatesProperties"
+                },
+                new TestCaseData(stochasticProfileSameProperties, otherStochasticProfileSameProperties)
+                {
+                    TestName = "Update_ProfileWithProfileSameProperties_PropertiesRemainSame"
                 }
             };
         }
@@ -330,8 +272,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private class TestSoilProfile : IMacroStabilityInwardsSoilProfile
         {
-            public TestSoilProfile() {}
-
             public TestSoilProfile(string name)
             {
                 Name = name;

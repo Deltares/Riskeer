@@ -23,13 +23,15 @@ using System;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// This class couples a SoilProfile to a probability of occurrence.
+    /// This class couples a <see cref="IMacroStabilityInwardsSoilProfile"/> 
+    /// to a probability of occurrence.
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilProfile : Observable
     {
@@ -73,27 +75,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
             private set
             {
-                if (!probabilityValidityRange.InRange(value))
-                {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        string.Format(
-                            Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
-                            probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
-                }
+                ProbabilityHelper.ValidateProbability(
+                    value,
+                    nameof(value),
+                    Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_);
+
                 probability = value;
             }
-        }
-
-        /// <summary>
-        /// Updates the probability of the <see cref="MacroStabilityInwardsStochasticSoilProfile"/> 
-        /// by adding <paramref name="probabilityToAdd"/>.
-        /// </summary>
-        /// <param name="probabilityToAdd">The amount to increase the <see cref="Probability"/>
-        /// with.</param>
-        public void AddProbability(double probabilityToAdd)
-        {
-            Probability += probabilityToAdd;
         }
 
         /// <summary>
@@ -105,19 +93,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fromProfile"/>
         /// is <c>null</c>.</exception>
         /// <returns><c>true</c> if the profile has been updated; <c>false</c> otherwise.</returns>
-        public bool Update(MacroStabilityInwardsStochasticSoilProfile fromProfile)
+        public void Update(MacroStabilityInwardsStochasticSoilProfile fromProfile)
         {
             if (fromProfile == null)
             {
                 throw new ArgumentNullException(nameof(fromProfile));
             }
-            if (!Equals(fromProfile))
-            {
-                SoilProfile = fromProfile.SoilProfile;
-                Probability = fromProfile.Probability;
-                return true;
-            }
-            return false;
+
+            SoilProfile = fromProfile.SoilProfile;
+            Probability = fromProfile.Probability;
         }
 
         public override string ToString()

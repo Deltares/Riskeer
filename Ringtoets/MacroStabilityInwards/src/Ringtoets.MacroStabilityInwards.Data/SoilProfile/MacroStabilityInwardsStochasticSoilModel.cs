@@ -105,8 +105,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 );
                 if (sameProfile != null)
                 {
-                    if (sameProfile.Update(fromProfile))
+                    if (!sameProfile.Equals(fromProfile))
                     {
+                        sameProfile.Update(fromProfile);
                         updatedProfiles.Add(sameProfile);
                     }
                 }
@@ -140,7 +141,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return equalNames && equalTypes;
         }
 
-        private static bool IsSame(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile, MacroStabilityInwardsStochasticSoilProfile otherStochasticSoilProfile)
+        private static bool IsSame(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile,
+                                   MacroStabilityInwardsStochasticSoilProfile otherStochasticSoilProfile)
         {
             return IsSame(stochasticSoilProfile.SoilProfile, otherStochasticSoilProfile.SoilProfile);
         }
