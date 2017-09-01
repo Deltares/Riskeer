@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
@@ -35,9 +37,23 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// on.</param>
         /// <param name="properties">The <see cref="LayerProperties"/> containing 
         /// the values that needs to be set on the <see cref="SoilLayerBase"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameter
+        /// is <c>null</c>.</exception>
         public static void SetSoilLayerBaseProperties(SoilLayerBase soilLayer, LayerProperties properties)
         {
-            soilLayer.MaterialName = properties.MaterialName ?? string.Empty;
+            if (soilLayer == null)
+            {
+                throw new ArgumentNullException(nameof(soilLayer));
+            }
+            if (properties == null)
+            {
+                throw new ArgumentNullException(nameof(properties));
+            }
+
+            if (properties.MaterialName != null)
+            {
+                soilLayer.MaterialName = properties.MaterialName;
+            }
             if (properties.IsAquifer.HasValue)
             {
                 soilLayer.IsAquifer = properties.IsAquifer.Value.Equals(1.0);

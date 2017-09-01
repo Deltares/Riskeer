@@ -33,6 +33,36 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilLayerHelperTest
     {
         [Test]
+        public void SetSoilLayerBaseProperties_SoilLayerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var reader = mockRepository.Stub<IRowBasedDatabaseReader>();
+            var properties = new LayerProperties(reader, "");
+
+            // Call
+            TestDelegate call = () => SoilLayerHelper.SetSoilLayerBaseProperties(null, properties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("soilLayer", exception.ParamName);
+        }
+
+        [Test]
+        public void SetSoilLayerBaseProperties_LayerPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var soilLayer = new TestSoilLayerBase();
+
+            // Call
+            TestDelegate call = () => SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("properties", exception.ParamName);
+        }
+
+        [Test]
         public void SetSoilLayerBaseProperties_LayerPropertiesWithValues_ReturnsExpectedValues()
         {
             // Setup
@@ -41,41 +71,41 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const double isAquifer = 1.0;
             const string materialName = "materialName";
             double color = random.NextDouble();
-            int belowPhreaticLevelDistribution = random.Next(0, 3);
+            int belowPhreaticLevelDistribution = random.Next();
             double belowPhreaticLevelShift = random.NextDouble();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
-            int diameterD70Distribution = random.Next(0, 3);
+            int diameterD70Distribution = random.Next();
             double diameterD70Shift = random.NextDouble();
             double diameterD70Mean = random.NextDouble();
             double diameterD70CoefficientOfVariation = random.NextDouble();
-            int permeabilityDistribution = random.Next(0, 3);
+            int permeabilityDistribution = random.Next();
             double permeabilityShift = random.NextDouble();
             double permeabilityMean = random.NextDouble();
             double permeabilityCoefficientOfVariation = random.NextDouble();
             double usePop = random.NextDouble();
             double shearStrengthModel = random.NextDouble();
-            int abovePhreaticLevelDistribution = random.Next(0, 3);
+            int abovePhreaticLevelDistribution = random.Next();
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
             double abovePhreaticLevelShift = random.NextDouble();
-            int cohesionDistribution = random.Next(0, 3);
+            int cohesionDistribution = random.Next();
             double cohesionMean = random.NextDouble();
             double cohesionCoefficientOfVariation = random.NextDouble();
             double cohesionShift = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
-            int frictionAngleDistribution = random.Next(0, 3);
+            int frictionAngleDistribution = random.Next();
             double frictionAngleCoefficientOfVariation = random.NextDouble();
             double frictionAngleShift = random.NextDouble();
-            int shearStrengthRatioDistribution = random.Next(0, 3);
+            int shearStrengthRatioDistribution = random.Next();
             double shearStrengthRatioMean = random.NextDouble();
             double shearStrengthRatioCoefficientOfVariation = random.NextDouble();
             double shearStrengthRatioShift = random.NextDouble();
-            int strengthIncreaseExponentDistribution = random.Next(0, 3);
+            int strengthIncreaseExponentDistribution = random.Next();
             double strengthIncreaseExponentMean = random.NextDouble();
             double strengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
             double strengthIncreaseExponentShift = random.NextDouble();
-            int popDistribution = random.Next(0, 3);
+            int popDistribution = random.Next();
             double popMean = random.NextDouble();
             double popCoefficientOfVariation = random.NextDouble();
             double popShift = random.NextDouble();
