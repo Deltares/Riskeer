@@ -201,8 +201,8 @@ namespace Ringtoets.Common.Forms.Views
 
         private void InitializeEventHandlers()
         {
-            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
-            dataGridViewControl.CellValueChanged += DataGridViewCellValueChanged;
+            dataGridViewControl.CurrentRowChanged += DataGridViewControlOnCurrentRowChanged;
+            dataGridViewControl.CellValueChanged += DataGridViewControlOnCellValueChanged;
             illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
         }
 
@@ -219,6 +219,30 @@ namespace Ringtoets.Common.Forms.Views
 
         #region Event handling
 
+        private void DataGridViewControlOnCurrentRowChanged(object sender, EventArgs e)
+        {
+            if (suspendAllEvents)
+            {
+                return;
+            }
+
+            suspendIllustrationPointsControlSelectionChanges = true;
+            illustrationPointsControl.Data = GetIllustrationPointControlItems();
+            suspendIllustrationPointsControlSelectionChanges = false;
+
+            ProvideLocationSelection();
+        }
+
+        private void DataGridViewControlOnCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (suspendAllEvents || e.ColumnIndex != calculateColumnIndex)
+            {
+                return;
+            }
+
+            UpdateCalculateForSelectedButton();
+        }
+
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
             if (suspendAllEvents || suspendIllustrationPointsControlSelectionChanges)
@@ -233,30 +257,6 @@ namespace Ringtoets.Common.Forms.Views
                             : null;
 
             OnSelectionChanged();
-        }
-
-        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (suspendAllEvents || e.ColumnIndex != calculateColumnIndex)
-            {
-                return;
-            }
-
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
-        {
-            if (suspendAllEvents)
-            {
-                return;
-            }
-
-            suspendIllustrationPointsControlSelectionChanges = true;
-            illustrationPointsControl.Data = GetIllustrationPointControlItems();
-            suspendIllustrationPointsControlSelectionChanges = false;
-
-            ProvideLocationSelection();
         }
 
         /// <summary>
