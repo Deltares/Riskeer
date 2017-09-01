@@ -297,7 +297,7 @@ CREATE TABLE 'AssessmentSectionEntity'
 (
 	'AssessmentSectionEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'ProjectEntityId' INTEGER NOT NULL,
-	'Id' TEXT,
+	'Id' TEXT NOT NULL,
 	'Name' VARCHAR (260),
 	'Comments' TEXT,
 	'LowerLimitNorm' REAL NOT NULL,
