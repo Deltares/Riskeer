@@ -26,6 +26,7 @@ using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -166,8 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 new MacroStabilityInwardsCalculatorInput.ConstructionProperties
                 {
                     AssessmentLevel = inputParameters.AssessmentLevel,
-                    SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = inputParameters.StochasticSoilProfile?.SoilProfile
+                    SurfaceLine = inputParameters.SurfaceLine
                 });
         }
     }

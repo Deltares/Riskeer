@@ -64,8 +64,6 @@
     <Compile Include="MacroStabilityInwardsGridDeterminationTest.cs" />
     <Compile Include="MacroStabilityInwardsGridTest.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDeterminationTest.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayerUnderSurfaceLineTest.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismTest.cs" />
@@ -75,7 +73,6 @@
     <Compile Include="MacroStabilityInwardsSurfaceLineCollectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInputTest.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelCollectionTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelExtensionsTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelTest.cs" />

@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
@@ -44,10 +43,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_WithConstructionProperties_PropertiesAreSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
-            mocks.ReplayAll();
-
             var random = new Random(11);
 
             double hRiverValue = random.NextDouble();
@@ -58,16 +53,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 new MacroStabilityInwardsCalculatorInput.ConstructionProperties
                 {
                     AssessmentLevel = hRiverValue,
-                    SurfaceLine = surfaceLine,
-                    SoilProfile = soilProfile
+                    SurfaceLine = surfaceLine
                 });
 
             // Assert
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
-            Assert.AreSame(soilProfile, input.SoilProfile);
-
-            mocks.VerifyAll();
         }
     }
 }

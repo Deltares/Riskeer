@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {
@@ -32,6 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
         /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
+
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { get; set; }
 
         public void Calculate()
         {

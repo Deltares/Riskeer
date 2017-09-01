@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.MacroStabilityInwards.Primitives;
+
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
@@ -30,5 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// Performs the upliftVan calculation.
         /// </summary>
         void Calculate();
+
+        MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { set; }
     }
 }

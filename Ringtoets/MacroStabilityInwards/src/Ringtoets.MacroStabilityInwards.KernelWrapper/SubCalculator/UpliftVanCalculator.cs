@@ -21,7 +21,9 @@
 
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
+using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.IO;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
@@ -46,6 +48,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
             wrappedCalculator.Run();
+        }
+
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile
+        {
+            set
+            {
+                
+            }
         }
     }
 }
