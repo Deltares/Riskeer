@@ -114,6 +114,10 @@ namespace Ringtoets.Piping.Data.SoilProfile
             {
                 return true;
             }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
             var other = obj as PipingStochasticSoilProfile;
             return other != null && Equals(other);
         }
