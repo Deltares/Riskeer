@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Rechter grid", data.Name);
-            AssertEqualStyle(data.Style, Color.Black, 8, Color.Black, 1, ChartPointSymbol.Plus);
+            AssertEqualStyle(data.Style, Color.Black, 6, Color.Black, 2, ChartPointSymbol.Plus);
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             Assert.IsFalse(data.HasData);
             Assert.AreEqual("Linker grid", data.Name);
-            AssertEqualStyle(data.Style, Color.Black, 8, Color.Black, 1, ChartPointSymbol.Plus);
+            AssertEqualStyle(data.Style, Color.Black, 6, Color.Black, 2, ChartPointSymbol.Plus);
         }
 
         [Test]

@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartPointData CreateRightGridChartData()
         {
             return new ChartPointData(Resources.RightGrid_DisplayName,
-                                      GetGridStyle(Color.Black, Color.Black, ChartPointSymbol.Plus));
+                                      GetGridStyle(Color.Black, ChartPointSymbol.Plus));
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         public static ChartPointData CreateLeftGridChartData()
         {
             return new ChartPointData(Resources.LeftGrid_DisplayName,
-                                      GetGridStyle(Color.Black, Color.Black, ChartPointSymbol.Plus));
+                                      GetGridStyle(Color.Black, ChartPointSymbol.Plus));
         }
 
         /// <summary>
@@ -219,16 +219,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             };
         }
 
-        private static ChartPointStyle GetGridStyle(Color fillColor, Color strokeColor, ChartPointSymbol symbol)
+        private static ChartPointStyle GetGridStyle(Color color, ChartPointSymbol symbol)
         {
             return new ChartPointStyle
             {
-                Color = fillColor,
-                StrokeColor = strokeColor,
-                Size = 8,
-                StrokeThickness = strokeColor == Color.Transparent
+                Color = color,
+                StrokeColor = color,
+                Size = 6,
+                StrokeThickness = color == Color.Transparent
                                       ? 0
-                                      : 1,
+                                      : 2,
                 Symbol = symbol,
                 IsEditable = true
             };
