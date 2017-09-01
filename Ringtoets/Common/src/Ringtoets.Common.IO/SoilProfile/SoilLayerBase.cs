@@ -243,13 +243,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double CohesionShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the the distribution for the friction angle
+        /// Gets or sets the the distribution for the friction angle.
         /// [°]
         /// </summary>
         public long? FrictionAngleDistribution { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the friction angle
+        /// Gets or sets the mean of the distribution for the friction angle.
         /// [°]
         /// </summary>
         public double FrictionAngleMean { get; set; }
@@ -267,13 +267,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double FrictionAngleShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the ratio of shear strength S
+        /// Gets or sets the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
         public long? ShearStrengthRatioDistribution { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the ratio of shear strength S
+        /// Gets or sets the mean of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
         public double ShearStrengthRatioMean { get; set; }
@@ -291,13 +291,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double ShearStrengthRatioShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the strength increase exponent (m)
+        /// Gets or sets the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
         public long? StrengthIncreaseExponentDistribution { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the strength increase exponent (m)
+        /// Gets or sets the mean of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
         public double StrengthIncreaseExponentMean { get; set; }
@@ -315,13 +315,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double StrengthIncreaseExponentShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the POP
+        /// Gets or sets the distribution for the POP.
         /// [kN/m²]
         /// </summary>
         public long? PopDistribution { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the POP
+        /// Gets or sets the mean of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
         public double PopMean { get; set; }

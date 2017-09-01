@@ -316,7 +316,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? CohesionShift { get; }
 
         /// <summary>
-        /// Gets the distribution of the distribution for the friction angle
+        /// Gets the distribution for the friction angle.
         /// [°]
         /// </summary>
         public long? FrictionAngleDistribution { get; }
@@ -364,13 +364,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? ShearStrengthRatioShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the strength increase exponent (m)
+        /// Gets the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
         public long? StrengthIncreaseExponentDistribution { get; }
 
         /// <summary>
-        /// Gets the mean of the distribution for the strength increase exponent (m)
+        /// Gets the mean of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
         public double? StrengthIncreaseExponentMean { get; }
@@ -388,13 +388,13 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? StrengthIncreaseExponentShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the POP
+        /// Gets the distribution for the POP.
         /// [kN/m²]
         /// </summary>
         public long? PopDistribution { get; }
 
         /// <summary>
-        /// Gets mean of the distribution for the POP
+        /// Gets mean of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
         public double? PopMean { get; }
