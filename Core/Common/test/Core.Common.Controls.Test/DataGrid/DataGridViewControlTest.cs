@@ -53,7 +53,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(1, control.Controls.Count);
 
                 Control dataGridView = control.Controls[0];
-                Assert.IsInstanceOf<DoubleBufferedDataGridView>(dataGridView);
+                Assert.IsInstanceOf<EnhancedDataGridView>(dataGridView);
                 Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
             }
         }
@@ -65,7 +65,7 @@ namespace Core.Common.Controls.Test.DataGrid
             using (var control = new DataGridViewControl())
             {
                 // Call
-                var dataGridView = (DoubleBufferedDataGridView) control.Controls[0];
+                var dataGridView = (EnhancedDataGridView) control.Controls[0];
 
                 // Assert
                 Assert.AreEqual(0, dataGridView.ColumnCount);

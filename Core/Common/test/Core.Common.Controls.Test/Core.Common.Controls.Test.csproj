@@ -62,7 +62,7 @@
     <Compile Include="DataGrid\DataGridViewColorColumnTest.cs" />
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapperTest.cs" />
     <Compile Include="DataGrid\DataGridViewControlTest.cs" />
-    <Compile Include="DataGrid\DoubleBufferedDataGridViewTest.cs" />
+    <Compile Include="DataGrid\EnhancedDataGridViewTest.cs" />
     <Compile Include="Dialogs\DialogBaseTest.cs" />
     <Compile Include="PresentationObjects\ObservableWrappedObjectContextBaseTest.cs" />
     <Compile Include="PresentationObjects\WrappedObjectContextBaseTest.cs" />

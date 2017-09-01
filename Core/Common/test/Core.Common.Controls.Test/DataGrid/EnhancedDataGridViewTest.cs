@@ -19,23 +19,62 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Test.DataGrid
 {
     [TestFixture]
-    public class DoubleBufferedDataGridViewTest
+    public class EnhancedDataGridViewTest
     {
         [Test]
         public void Constructor_DefaultValues()
         {
             // Call
-            var dataGridView = new DoubleBufferedDataGridView();
+            var dataGridView = new EnhancedDataGridView();
 
             // Assert
             Assert.IsInstanceOf<DataGridView>(dataGridView);
+        }
+
+        [Test]
+        public void GivenDataGridViewWithDataSource_WhenShown_ThenCurrentCellChangedFiredOnlyOnce()
+        {
+            // Given
+            var count = 0;
+            var dataGridView = new EnhancedDataGridView
+            {
+                DataSource = new List<TestDataRow>
+                {
+                    new TestDataRow
+                    {
+                        A = 1.0,
+                        B = 1.1
+                    },
+                    new TestDataRow
+                    {
+                        A = 2.0,
+                        B = 2.1
+                    }
+                }
+            };
+
+            dataGridView.CurrentCellChanged += (s, e) => count++;
+
+            // When
+            WindowsFormsTestHelper.Show(dataGridView);
+
+            // Then
+            Assert.AreEqual(1, count);
+        }
+
+        private class TestDataRow
+        {
+            public double A { get; set; }
+            public double B { get; set; }
         }
     }
 }

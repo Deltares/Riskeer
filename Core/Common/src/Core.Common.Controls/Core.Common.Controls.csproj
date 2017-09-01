@@ -82,7 +82,7 @@
     <Compile Include="DataGrid\CellStyle.cs" />
     <Compile Include="DataGrid\DataGridViewColorCell.cs" />
     <Compile Include="DataGrid\DataGridViewColorColumn.cs" />
-    <Compile Include="DataGrid\DoubleBufferedDataGridView.cs">
+    <Compile Include="DataGrid\EnhancedDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapper.cs" />

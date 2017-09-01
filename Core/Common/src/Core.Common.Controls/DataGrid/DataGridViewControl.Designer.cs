@@ -51,7 +51,7 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView = new Core.Common.Controls.DataGrid.DoubleBufferedDataGridView();
+            this.dataGridView = new Core.Common.Controls.DataGrid.EnhancedDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,7 +87,7 @@ namespace Core.Common.Controls.DataGrid
 
         #endregion
 
-        private DoubleBufferedDataGridView dataGridView;
+        private EnhancedDataGridView dataGridView;
 
     }
 }

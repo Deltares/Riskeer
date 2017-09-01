@@ -19,24 +19,47 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.DataGrid
 {
     /// <summary>
-    /// Double buffered version of<see cref="DataGridView"/>.
+    /// Enhanced version of <see cref="DataGridView"/>, containing logic for:
+    /// <list type="bullet">
+    /// <item>double buffering;</item>
+    /// <item>suspending current cell change propagation while binding context.</item>
+    /// </list>
     /// </summary>
-    /// <remarks>
-    /// Also see http://stackoverflow.com/questions/252689/why-does-the-doublebuffered-property-default-to-false-on-a-datagridview-and-why.
-    /// </remarks>
-    public sealed class DoubleBufferedDataGridView : DataGridView
+    public sealed class EnhancedDataGridView : DataGridView
     {
+        private bool suspendCurrentCellChanges;
+
         /// <summary>
-        /// Creates a new instance of <see cref="DoubleBufferedDataGridView"/>.
+        /// Creates a new instance of <see cref="EnhancedDataGridView"/>.
         /// </summary>
-        public DoubleBufferedDataGridView()
+        public EnhancedDataGridView()
         {
             DoubleBuffered = true;
+        }
+
+        protected override void OnBindingContextChanged(EventArgs e)
+        {
+            suspendCurrentCellChanges = true;
+
+            base.OnBindingContextChanged(e);
+
+            suspendCurrentCellChanges = false;
+        }
+
+        protected override void OnCurrentCellChanged(EventArgs e)
+        {
+            if (suspendCurrentCellChanges)
+            {
+                return;
+            }
+
+            base.OnCurrentCellChanged(e);
         }
     }
 }
