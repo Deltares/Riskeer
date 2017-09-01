@@ -198,15 +198,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
             MacroStabilityInwardsGrid rightGrid = macroStabilityInwardsInput.RightGrid;
 
-            leftGridChartData.Points = GetGridChartDataPoints(gridDetermination, leftGrid);
-            rightGridChartData.Points = GetGridChartDataPoints(gridDetermination, rightGrid);
-        }
-
-        private static Point2D[] GetGridChartDataPoints(MacroStabilityInwardsGridDetermination gridDetermination, MacroStabilityInwardsGrid grid)
-        {
-            return gridDetermination == MacroStabilityInwardsGridDetermination.Automatic
-                       ? new Point2D[0]
-                       : MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+            leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDetermination);
+            rightGridChartData.Points =  MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDetermination);
         }
     }
 }

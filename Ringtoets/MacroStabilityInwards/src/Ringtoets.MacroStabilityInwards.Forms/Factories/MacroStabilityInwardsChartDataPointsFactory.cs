@@ -291,10 +291,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
         /// </summary>
         /// <param name="grid">The grid to create the grid points for.</param>
+        /// <param name="gridDetermination"></param>
         /// <returns></returns>
-        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid)
+        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDetermination gridDetermination)
         {
-            if (grid == null || !AreGridSettingsValid(grid))
+            if (grid == null
+                || gridDetermination == MacroStabilityInwardsGridDetermination.Automatic
+                || !AreGridSettingsValid(grid))
             {
                 return new Point2D[0];
             }
@@ -302,7 +305,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             var points = new List<Point2D>();
             IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterPolatedVerticalPositions(grid.ZBottom,
                                                                                                         grid.ZTop,
-                                                                                                        grid.NumberOfVerticalPoints).ToArray();
+                                                                                                        grid.NumberOfVerticalPoints);
             foreach (RoundedDouble interPolatedVerticalPosition in interPolatedVerticalPositions)
             {
                 points.AddRange(GetInterPolatedHorizontalPoints(grid.XLeft,
@@ -318,30 +321,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         {
             return grid.NumberOfHorizontalPoints > 0
                    && grid.NumberOfVerticalPoints > 0
-                   && !IsGridCoordinateNaN(grid.XLeft)
-                   && !IsGridCoordinateNaN(grid.XRight)
-                   && !IsGridCoordinateNaN(grid.ZTop) 
-                   && !IsGridCoordinateNaN(grid.ZBottom);
-        }
-
-        private static bool IsGridCoordinateNaN(RoundedDouble gridCoordinate)
-        {
-            return double.IsNaN(gridCoordinate);
+                   && !double.IsNaN(grid.XLeft)
+                   && !double.IsNaN(grid.XRight)
+                   && !double.IsNaN(grid.ZTop)
+                   && !double.IsNaN(grid.ZBottom);
         }
 
         private static IEnumerable<RoundedDouble> GetInterPolatedVerticalPositions(RoundedDouble startPoint,
                                                                                    RoundedDouble endPoint,
-                                                                                   int nrofPoints)
+                                                                                   int nrOfPoints)
         {
-            if (nrofPoints <= 1)
+            if (nrOfPoints <= 1)
             {
                 yield return startPoint;
                 yield break;
             }
 
-            int nrofInterPolatedPoints = nrofPoints - 1;
+            int nrofInterPolatedPoints = nrOfPoints - 1;
             RoundedDouble deltaZ = endPoint - startPoint;
-            RoundedDouble deltaZBetweenPoints = nrofPoints < 2
+            RoundedDouble deltaZBetweenPoints = nrOfPoints < 2
                                                     ? (RoundedDouble) 0.0
                                                     : (RoundedDouble) (deltaZ / nrofInterPolatedPoints);
 
@@ -359,17 +357,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         private static IEnumerable<Point2D> GetInterPolatedHorizontalPoints(RoundedDouble startPoint,
                                                                             RoundedDouble endPoint,
                                                                             RoundedDouble zPoint,
-                                                                            int nrofPoints)
+                                                                            int nrOfPoints)
         {
-            if (nrofPoints <= 1)
+            if (nrOfPoints <= 1)
             {
                 yield return new Point2D(startPoint, zPoint);
                 yield break;
             }
 
-            int nrofInterPolatedPoints = nrofPoints - 1;
+            int nrofInterPolatedPoints = nrOfPoints - 1;
             RoundedDouble deltaX = endPoint - startPoint;
-            RoundedDouble deltaXBetweenPoints = nrofPoints < 2
+            RoundedDouble deltaXBetweenPoints = nrOfPoints < 2
                                                     ? (RoundedDouble) 0
                                                     : (RoundedDouble) (deltaX / nrofInterPolatedPoints);
 
