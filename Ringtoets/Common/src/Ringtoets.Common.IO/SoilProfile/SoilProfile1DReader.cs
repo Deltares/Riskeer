@@ -204,12 +204,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         private static SoilLayer1D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
         {
             var properties = new Layer1DProperties(reader, profileName);
-            var soilLayer = new SoilLayer1D(properties.Top)
-            {
-                MaterialName = properties.MaterialName ?? string.Empty
-            };
+            var soilLayer = new SoilLayer1D(properties.Top);
 
-          SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, properties);
+            SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, properties);
 
             return soilLayer;
         }

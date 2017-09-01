@@ -145,7 +145,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Parses the XML element to create a 2D soil layer.
         /// </summary>
         /// <param name="geometry">The geometry.</param>
-        /// <exception cref="SoilLayerConversionException">XML for inner or outer geometry loops is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">Thrown when 
+        /// XML for inner or outer geometry loops is invalid.</exception>
         private static SoilLayer2D ParseLayer(XDocument geometry)
         {
             var soilLayer = new SoilLayer2D();
@@ -169,7 +170,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// a geometric loop.
         /// </summary>
         /// <param name="loop">The geometric loop element.</param>
-        /// <exception cref="SoilLayerConversionException">XML for any geometry curve is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">Thrown when 
+        /// XML for any geometry curve is invalid.</exception>
         private static IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
         {
             var loops = new Collection<Segment2D>();
@@ -186,7 +188,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Parses the XML element to create a <see cref="Segment2D"/>.
         /// </summary>
         /// <param name="curve">The geometry curve element.</param>
-        /// <exception cref="SoilLayerConversionException">XML for geometry curve is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">Thrown when 
+        /// XML for geometry curve is invalid.</exception>
         private static Segment2D ParseGeometryCurve(XElement curve)
         {
             XElement headDefinition = curve.Element(headPointElementName);
