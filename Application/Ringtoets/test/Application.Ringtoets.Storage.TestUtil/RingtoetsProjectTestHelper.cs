@@ -72,7 +72,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 Name = "assessmentSection",
                 HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
-                ReferenceLine = GetReferenceLine()
+                ReferenceLine = GetReferenceLine(),
+                Id = "12-2"
             };
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);

@@ -64,6 +64,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.NotNull(assessmentSection);
             Assert.AreEqual(expectedAssessmentSectionName, assessmentSection.Name);
+            Assert.AreEqual("12-2", assessmentSection.Id);
 
             AssertHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryDatabase);
 
