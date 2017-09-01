@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         public override string ToString()
         {
-            return Name ?? string.Empty;
+            return Name;
         }
 
         public override bool Equals(object obj)
@@ -139,8 +139,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            var other = obj as MacroStabilityInwardsSoilProfile1D;
-            return other != null && Equals((MacroStabilityInwardsSoilProfile1D) obj);
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsSoilProfile1D) obj);
         }
 
         public override int GetHashCode()
@@ -153,7 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
                 }
                 hashCode = (hashCode * 397) ^ Bottom.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ Name.GetHashCode();
                 return hashCode;
             }
         }
@@ -189,7 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         /// <param name="collection">The collection of <see cref="MacroStabilityInwardsSoilLayer1D"/> to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when
+        /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="collection"/> contains no layers</item>
         /// <item><paramref name="collection"/> contains a layer with the <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> less than

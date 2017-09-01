@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public MacroStabilityInwardsSurfaceLine SurfaceLine { internal get; set; }
 
             /// <summary>
-            /// Gets the profile which contains a 1 dimensional definition of soil layers with properties.
+            /// Gets the profile which contains a definition of soil layers with properties.
             /// </summary>
             public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { internal get; set; }
 

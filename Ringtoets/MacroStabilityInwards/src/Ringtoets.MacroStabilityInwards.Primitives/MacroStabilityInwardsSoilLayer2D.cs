@@ -77,15 +77,18 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            var other = obj as MacroStabilityInwardsSoilLayer2D;
-            return other != null && Equals((MacroStabilityInwardsSoilLayer2D) obj);
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsSoilLayer2D) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode =  Properties.GetHashCode();
+                int hashCode = Properties.GetHashCode();
                 hashCode = (hashCode * 397) ^ OuterRing.GetHashCode();
                 foreach (Ring hole in Holes)
                 {
@@ -98,8 +101,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private bool Equals(MacroStabilityInwardsSoilLayer2D other)
         {
             return Properties.Equals(other.Properties)
-                && OuterRing.Equals(other.OuterRing)
-                && Holes.SequenceEqual(other.Holes);
+                   && OuterRing.Equals(other.OuterRing)
+                   && Holes.SequenceEqual(other.Holes);
         }
     }
 }

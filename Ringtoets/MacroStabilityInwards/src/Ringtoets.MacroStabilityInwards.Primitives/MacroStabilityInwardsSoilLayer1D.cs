@@ -56,8 +56,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            var other = obj as MacroStabilityInwardsSoilLayer1D;
-            return other != null && Equals((MacroStabilityInwardsSoilLayer1D) obj);
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsSoilLayer1D) obj);
         }
 
         public override int GetHashCode()

@@ -78,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsTextFromStochasticSoilModel()
         {
             // Setup
             const string name = "test test 123";
@@ -94,11 +94,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var model = new MacroStabilityInwardsStochasticSoilModel("A");
-
             // Call
-            Image image = info.Image(model);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(FormsResources.StochasticSoilModelIcon, image);

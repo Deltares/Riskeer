@@ -77,17 +77,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_Always_ReturnsSoilProfileName()
         {
             // Setup
             const string testName = "ttt";
 
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
-                0.1,
-                new MacroStabilityInwardsSoilProfile1D(testName, 0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer1D(10)
-                }));
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            soilProfile.Stub(sp => sp.Name).Return(testName);
+            mocks.ReplayAll();
+
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.1, soilProfile);
 
             // Call
             string text = info.Text(stochasticSoilProfile);
@@ -99,16 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
-                0.1,
-                new MacroStabilityInwardsSoilProfile1D("", 0, new[]
-                {
-                    new MacroStabilityInwardsSoilLayer1D(10)
-                }));
-
             // Call
-            Image image = info.Image(stochasticSoilProfile);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.SoilProfileIcon, image);

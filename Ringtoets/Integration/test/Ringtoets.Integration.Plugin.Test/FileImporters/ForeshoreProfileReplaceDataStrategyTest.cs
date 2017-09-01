@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert 
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("foreshoreProfiles", exception.ParamName);
+            Assert.AreEqual("targetCollection", exception.ParamName);
         }
 
         [Test]

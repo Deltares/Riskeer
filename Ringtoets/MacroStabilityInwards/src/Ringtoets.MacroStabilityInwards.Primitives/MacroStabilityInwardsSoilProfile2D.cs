@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         public override string ToString()
         {
-            return Name ?? string.Empty;
+            return Name;
         }
 
         public override bool Equals(object obj)
@@ -104,8 +104,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return true;
             }
-            var other = obj as MacroStabilityInwardsSoilProfile2D;
-            return other != null && Equals((MacroStabilityInwardsSoilProfile2D) obj);
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsSoilProfile2D) obj);
         }
 
         public override int GetHashCode()
@@ -117,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 {
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
                 }
-                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ Name.GetHashCode();
                 return hashCode;
             }
         }

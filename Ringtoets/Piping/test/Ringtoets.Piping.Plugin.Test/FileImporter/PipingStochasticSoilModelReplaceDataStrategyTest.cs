@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         private const string sourceFilePath = "path";
 
         [Test]
-        public void Constructor_WithoutCalculations_CreatesNewInstance()
+        public void Constructor_WithoutFailureMechanism_CreatesNewInstance()
         {
             // Call
             TestDelegate test = () => new PipingStochasticSoilModelReplaceDataStrategy(null);
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Constructor_WithCalculations_CreatesNewInstance()
+        public void Constructor_WitFailureMechanism_CreatesNewInstance()
         {
             // Call
             var strategy = new PipingStochasticSoilModelReplaceDataStrategy(new PipingFailureMechanism());

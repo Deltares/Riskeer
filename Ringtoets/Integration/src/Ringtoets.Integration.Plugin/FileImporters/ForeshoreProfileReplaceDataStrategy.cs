@@ -47,16 +47,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// <param name="failureMechanism">The failure mechanism in which the foreshore 
         /// profiles are updated.</param>
         /// <param name="foreshoreProfiles">The collection containing the foreshore profiles.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         public ForeshoreProfileReplaceDataStrategy(IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
             : base(failureMechanism, foreshoreProfiles)
         {
-            if (foreshoreProfiles == null)
-            {
-                throw new ArgumentNullException(nameof(foreshoreProfiles));
-            }
-
             foreshoreProfileCollection = foreshoreProfiles;
         }
 

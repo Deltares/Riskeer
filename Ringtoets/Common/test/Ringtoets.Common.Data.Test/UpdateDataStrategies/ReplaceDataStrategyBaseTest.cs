@@ -33,11 +33,13 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
     [TestFixture]
     public class ReplaceDataStrategyBaseTest
     {
+        
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ConcreteStrategyClass(null, null);
+            TestDelegate call = () => new ConcreteStrategyClass(null, new TestUniqueItemCollection());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -45,13 +47,14 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
         }
 
         [Test]
-        public void Constructor_FailureMechanisNotNull_DoesNotThrowException()
+        public void Constructor_TargetCollectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ConcreteStrategyClass(new TestFailureMechanism(), null);
 
             // Assert
-            Assert.DoesNotThrow(call);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("targetCollection", paramName);
         }
 
         [Test]

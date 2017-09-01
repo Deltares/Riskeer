@@ -209,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
                 hashCode = (hashCode * 397) ^ Color.GetHashCode();
                 hashCode = (hashCode * 397) ^ UsePop.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int) ShearStrengthModel;
+                hashCode = (hashCode * 397) ^ ShearStrengthModel.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelDeviation.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();

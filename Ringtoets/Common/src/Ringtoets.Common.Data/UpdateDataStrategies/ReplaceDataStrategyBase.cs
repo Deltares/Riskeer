@@ -44,12 +44,16 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the target collection should be updated.</param>
         /// <param name="targetCollection">The collection that needs to be updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected ReplaceDataStrategyBase(TFailureMechanism failureMechanism, ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (targetCollection == null)
+            {
+                throw new ArgumentNullException(nameof(targetCollection));
             }
 
             FailureMechanism = failureMechanism;

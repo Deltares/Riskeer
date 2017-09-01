@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_WithStochasticSoilProfile_ReturnsSoilProfileName()
         {
             // Setup
             const string testName = "ttt";
@@ -94,12 +94,8 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.1,
-                                                                        PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            Image image = info.Image(stochasticSoilProfile);
+          // Call
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.PipingSoilProfileIcon, image);
