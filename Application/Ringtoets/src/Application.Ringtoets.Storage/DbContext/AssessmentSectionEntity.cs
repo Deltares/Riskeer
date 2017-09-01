@@ -48,7 +48,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Id { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public double Norm { get; set; }
+        public double LowerLimitNorm { get; set; }
+        public double SignalingNorm { get; set; }
+        public byte NormativeNorm { get; set; }
         public string HydraulicDatabaseVersion { get; set; }
         public string HydraulicDatabaseLocation { get; set; }
         public byte Composition { get; set; }

@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
@@ -63,14 +64,18 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const double norm = 0.05;
+            const double lowerLimitNorm = 0.05;
+            const double signalingNorm = 0.02;
+            var normativeNorm = new Random(9).NextEnumValue<NormType>();
             var entity = new AssessmentSectionEntity
             {
                 Id = testId,
                 Name = testName,
                 Composition = (byte) assessmentSectionComposition,
                 Comments = comments,
-                Norm = norm
+                LowerLimitNorm = lowerLimitNorm,
+                SignalingNorm = signalingNorm,
+                NormativeNorm = Convert.ToByte(normativeNorm)
             };
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
@@ -84,7 +89,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(testId, section.Id);
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments.Body);
-            Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
+
+            double expectedNorm = normativeNorm == NormType.LowerLimit
+                                      ? lowerLimitNorm
+                                      : signalingNorm;
+            Assert.AreEqual(expectedNorm, section.FailureMechanismContribution.Norm);
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             Assert.IsNull(section.HydraulicBoundaryDatabase);
             Assert.IsNull(section.ReferenceLine);
@@ -847,7 +856,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 InputComments = inputComments,
                 OutputComments = outputComments,
                 NotRelevantComments = notRelevantComments,
-                WaveImpactAsphaltCoverFailureMechanismMetaEntities = 
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
                 }
@@ -1229,7 +1238,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new AssessmentSectionEntity
             {
-                Norm = 1.0 / 30000,
+                LowerLimitNorm = 1.0 / 30000,
+                SignalingNorm = 1.0 / 300000,
+                NormativeNorm = Convert.ToByte(NormType.Signaling),
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

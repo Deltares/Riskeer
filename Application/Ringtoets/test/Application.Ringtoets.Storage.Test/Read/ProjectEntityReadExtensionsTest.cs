@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -68,7 +69,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSections()
         {
             // Setup
-            const double norm = 0.0001;
+            const double lowerLimitNorm = 0.0001;
+            const double signalingNorm = 0.00001;
+            
             var entity = new ProjectEntity
             {
                 Description = "testName",
@@ -76,7 +79,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new AssessmentSectionEntity
                     {
-                        Norm = norm,
+                        SignalingNorm = signalingNorm,
+                        LowerLimitNorm = lowerLimitNorm,
+                        NormativeNorm = Convert.ToByte(NormType.Signaling),
                         Name = "A",
                         Order = 56,
                         Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
@@ -101,7 +106,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                     },
                     new AssessmentSectionEntity
                     {
-                        Norm = norm,
+                        SignalingNorm = signalingNorm,
+                        LowerLimitNorm = lowerLimitNorm,
+                        NormativeNorm = Convert.ToByte(NormType.Signaling),
                         Name = "B",
                         Order = 0,
                         Composition = Convert.ToByte(AssessmentSectionComposition.Dike),

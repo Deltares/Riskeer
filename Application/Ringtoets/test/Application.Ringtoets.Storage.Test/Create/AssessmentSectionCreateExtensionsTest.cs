@@ -26,8 +26,10 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
@@ -63,13 +65,16 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const double norm = 0.05;
-            int order = new Random(65).Next();
+            const double lowerLimitNorm = 0.05;
+            const double signalingNorm = 0.02;
+            var random = new Random(65);
+            int order = random.Next();
 
             const string mapDataName = "map data name";
             const double transparency = 0.3;
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
+            var normativeNorm = random.NextEnumValue<NormType>();
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
                 Id = testId,
@@ -80,7 +85,9 @@ namespace Application.Ringtoets.Storage.Test.Create
                 },
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = norm
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signalingNorm,
+                    NormativeNorm = normativeNorm
                 },
                 BackgroundData =
                 {
@@ -97,11 +104,13 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short) assessmentSectionComposition, entity.Composition);
+            Assert.AreEqual(Convert.ToByte(assessmentSectionComposition), entity.Composition);
             Assert.AreEqual(testId, entity.Id);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
-            Assert.AreEqual(norm, entity.Norm);
+            Assert.AreEqual(lowerLimitNorm, entity.LowerLimitNorm);
+            Assert.AreEqual(signalingNorm, entity.SignalingNorm);
+            Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNorm);
             Assert.AreEqual(18, entity.FailureMechanismEntities.Count);
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards));

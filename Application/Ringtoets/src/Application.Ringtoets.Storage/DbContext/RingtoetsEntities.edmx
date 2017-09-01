@@ -14,7 +14,9 @@
           <Property Name="Id" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="Norm" Type="real" Nullable="false" />
+          <Property Name="LowerLimitNorm" Type="real" Nullable="false" />
+          <Property Name="SignalingNorm" Type="real" Nullable="false" />
+          <Property Name="NormativeNorm" Type="tinyint" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Composition" Type="tinyint" Nullable="false" />
@@ -830,7 +832,7 @@
           </Key>
           <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Bottom" Type="real" />
-          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="SourceType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityPointStructureEntity">
@@ -1116,7 +1118,7 @@
           </Key>
           <Property Name="SurfaceLineEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="ReferenceLineIntersectionX" Type="real" />
           <Property Name="ReferenceLineIntersectionY" Type="real" />
           <Property Name="PointsXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -3736,7 +3738,9 @@
           <Property Name="Id" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Norm" Type="Double" Nullable="false" />
+          <Property Name="LowerLimitNorm" Type="Double" Nullable="false" />
+          <Property Name="SignalingNorm" Type="Double" Nullable="false" />
+          <Property Name="NormativeNorm" Type="Byte" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Composition" Type="Byte" Nullable="false" />
@@ -4694,7 +4698,7 @@
           </Key>
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Bottom" Type="Double" />
-          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SourceType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
@@ -5016,7 +5020,7 @@
           </Key>
           <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="ReferenceLineIntersectionX" Type="Double" />
           <Property Name="ReferenceLineIntersectionY" Type="Double" />
           <Property Name="PointsXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -6485,7 +6489,9 @@
                 <ScalarProperty Name="Composition" ColumnName="Composition" />
                 <ScalarProperty Name="HydraulicDatabaseLocation" ColumnName="HydraulicDatabaseLocation" />
                 <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
-                <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="NormativeNorm" ColumnName="NormativeNorm" />
+                <ScalarProperty Name="SignalingNorm" ColumnName="SignalingNorm" />
+                <ScalarProperty Name="LowerLimitNorm" ColumnName="LowerLimitNorm" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

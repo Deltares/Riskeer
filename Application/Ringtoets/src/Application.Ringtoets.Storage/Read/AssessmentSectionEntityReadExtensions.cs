@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
@@ -60,8 +61,9 @@ namespace Application.Ringtoets.Storage.Read
                 },
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = entity.Norm,
-                    SignalingNorm = entity.Norm
+                    LowerLimitNorm = entity.LowerLimitNorm,
+                    SignalingNorm = entity.SignalingNorm,
+                    NormativeNorm = (NormType) entity.NormativeNorm
                 }
             };
 

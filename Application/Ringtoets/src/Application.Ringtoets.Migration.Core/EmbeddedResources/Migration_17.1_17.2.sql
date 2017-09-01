@@ -7,7 +7,35 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+INSERT INTO AssessmentSectionEntity (
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNorm],
+	[HydraulicDatabaseVersion],
+	[HydraulicDatabaseLocation],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order])
+SELECT 
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[Id],
+	[Name],
+	[Comments],
+	[Norm],
+	[Norm],
+	1,
+	[HydraulicDatabaseVersion],
+	[HydraulicDatabaseLocation],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order]
+FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;

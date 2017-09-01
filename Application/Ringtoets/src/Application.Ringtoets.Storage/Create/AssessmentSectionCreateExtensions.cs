@@ -41,6 +41,7 @@ using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
@@ -66,13 +67,16 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            FailureMechanismContribution contribution = section.FailureMechanismContribution;
             var entity = new AssessmentSectionEntity
             {
                 Id = section.Id.DeepClone(),
                 Name = section.Name.DeepClone(),
-                Composition = (byte) section.Composition,
+                Composition = Convert.ToByte(section.Composition),
                 Comments = section.Comments.Body.DeepClone(),
-                Norm = section.FailureMechanismContribution.LowerLimitNorm,
+                LowerLimitNorm = contribution.LowerLimitNorm,
+                SignalingNorm = contribution.SignalingNorm,
+                NormativeNorm = Convert.ToByte(contribution.NormativeNorm),
                 Order = order
             };
 
