@@ -881,9 +881,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
-
         }
-
 
         [Test]
         [TestCaseSource(nameof(GetGridSettingsNoGridPoints))]
