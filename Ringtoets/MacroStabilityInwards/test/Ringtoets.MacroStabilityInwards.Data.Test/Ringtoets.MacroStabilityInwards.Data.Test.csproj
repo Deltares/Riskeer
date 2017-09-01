@@ -73,6 +73,7 @@
     <Compile Include="MacroStabilityInwardsSurfaceLineCollectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInputTest.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineFactoryTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelCollectionTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelExtensionsTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelTest.cs" />

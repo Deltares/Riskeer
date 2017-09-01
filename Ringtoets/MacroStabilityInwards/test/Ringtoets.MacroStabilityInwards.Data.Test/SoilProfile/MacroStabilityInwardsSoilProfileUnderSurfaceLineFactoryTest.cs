@@ -25,8 +25,10 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilProfileUnderSurfaceLineFactoryTest

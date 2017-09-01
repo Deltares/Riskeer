@@ -25,8 +25,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// Class for constructing soil profiles for which the geometry of the layers lay under a surface line.
