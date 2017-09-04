@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return stochasticSoilProfiles.Select(
                 ssp => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(
                     ssp,
-                    GetTransformedSoilProfile(ssp.SoilProfile)));
+                    GetTransformedSoilProfile(ssp.SoilProfile))).ToArray();
         }
 
         /// <summary>

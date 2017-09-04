@@ -26,7 +26,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
-    /// Class to that can be used to filter stochastic soil models for the macro stability inwards failure mechanism.
+    /// Class that can be used to filter stochastic soil models for the macro stability inwards failure mechanism.
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilModelFilter : IStochasticSoilModelMechanismFilter
     {

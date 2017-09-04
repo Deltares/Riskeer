@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
     public class PipingStochasticSoilModelFilterTest
     {
         [Test]
-        public void Constructor_StochasticSoilModelNull_ThrowsArgumentNullException()
+        public void IsValidForFailureMechanism_StochasticSoilModelNull_ThrowsArgumentNullException()
         {
             // Setup
             var filter = new PipingStochasticSoilModelFilter();
@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
         [Test]
         [TestCaseSource(nameof(StochasticSoilModelsOfInvalidType))]
-        public void Constructor_StochasticSoilModelOfInvalidType_ReturnsFalse(StochasticSoilModel model)
+        public void IsValidForFailureMechanism_StochasticSoilModelOfInvalidType_ReturnsFalse(StochasticSoilModel model)
         {
             // Setup
             var filter = new PipingStochasticSoilModelFilter();
@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Constructor_ValidStochasticSoilModelType_ReturnsFalse()
+        public void IsValidForFailureMechanism_ValidStochasticSoilModelType_ReturnsFalse()
         {
             // Setup
             var filter = new PipingStochasticSoilModelFilter();
@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                        .Select(type => new TestCaseData(
                                        new StochasticSoilModel(type.ToString(), type))
                                    .SetName($"Constructor_InvalidType_ReturnsFalse({type.ToString()})")
-                       );
+                       ).ToArray();
         }
     }
 }

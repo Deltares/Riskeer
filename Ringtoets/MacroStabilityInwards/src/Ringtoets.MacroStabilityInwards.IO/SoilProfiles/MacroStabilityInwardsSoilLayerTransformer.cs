@@ -185,10 +185,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// Validates whether the values of the distribution and shift for the stochastic parameters 
         /// are correct for creating a soil layer.
         /// </summary>
+        /// <param name="soilLayer">The soil layer to validate.</param>
         /// <exception cref="ImportedDataTransformException">Thrown when any of the distributions of the
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
+            ValidateIsLogNormal(soilLayer.AbovePhreaticLevelDistribution,
+                Resources.SoilLayerProperties_AbovePhreaticLevelDistribution_Description);
+
             ValidateIsLogNormal(
                 soilLayer.BelowPhreaticLevelDistribution,
                 Resources.SoilLayerProperties_BelowPhreaticLevelDistribution_Description);
@@ -219,6 +223,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 Resources.SoilLayerProperties_PopDistribution_Description);
         }
 
+        /// <summary>
+        /// Validates if the distribution is a non-shifted log normal distribution.
+        /// </summary>
+        /// <param name="distribution">The distribution type.</param>
+        /// <param name="shift">The value of the shift.</param>
+        /// <param name="incorrectDistibutionParameter">The name of the parameter to be validated.</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
+        /// non-shifted log normal distribution.</exception>
         private static void ValidateIsNonShiftedLogNormal(long? distribution, double shift, string incorrectDistibutionParameter)
         {
             if (distribution.HasValue && (distribution.Value != SoilLayerConstants.LogNormalDistributionValue
@@ -230,6 +242,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
         }
 
+        /// <summary>
+        /// Validates if the distribution is a log normal distribution.
+        /// </summary>
+        /// <param name="distribution">The distribution type.</param>
+        /// <param name="incorrectDistibutionParameter">The name of the parameter to be validated.</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
+        /// log-normal distribution.</exception>
         private static void ValidateIsLogNormal(long? distribution, string incorrectDistibutionParameter)
         {
             if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)

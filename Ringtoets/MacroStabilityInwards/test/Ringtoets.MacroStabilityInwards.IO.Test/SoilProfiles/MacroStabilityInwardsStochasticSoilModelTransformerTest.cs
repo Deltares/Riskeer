@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_TwoStochasticSoilModelsWithSameProfile_ReturnExepctedMacroStabilityInwardsStochasticSoilModel()
+        public void Transform_TwoStochasticSoilModelsWithSameProfile_ReturnExpectedMacroStabilityInwardsStochasticSoilModel()
         {
             // Setup
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();

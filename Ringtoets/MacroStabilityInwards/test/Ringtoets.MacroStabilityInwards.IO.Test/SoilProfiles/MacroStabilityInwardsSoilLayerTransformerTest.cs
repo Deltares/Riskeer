@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer1DTransform_InvalidUsePopValue_ReturnMacroStabilityInwardSoilLayer1D()
+        public void SoilLayer1DTransform_InvalidUsePopValue_ThrowsImportedDataTransformationException()
         {
             // Setup
             var layer = new SoilLayer1D(0)
@@ -195,24 +195,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
+        [TestCaseSource(nameof(IncorrectShiftedLogNormalDistributionsSoilLayer1D))]
+        public void SoilLayer1DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
-            // Setup
-            var layer = new SoilLayer1D(0.0)
-            {
-                BelowPhreaticLevelDistribution = -1
-            };
-
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' is niet verschoven lognormaal verdeeld.", exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer1D))]
+        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsSoilLayer1D))]
         public void SoilLayer1DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer1D layer, string parameter)
         {
             // Call
@@ -370,24 +365,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
+        [TestCaseSource(nameof(IncorrectShiftedLogNormalDistributionsSoilLayer2D))]
+        public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException(
+            SoilLayer2D layer, string parameter)
         {
-            // Setup
-            var layer = new SoilLayer2D
-            {
-                BelowPhreaticLevelDistribution = -1
-            };
-
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
-            Assert.AreEqual("Parameter 'Verzadigd gewicht' is niet verschoven lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual($"Parameter '{parameter}' is niet verschoven lognormaal verdeeld.", exception.Message);
         }
 
         [Test]
-        [TestCaseSource(nameof(IncorrectLogNormalDistributionsSoilLayer2D))]
+        [TestCaseSource(nameof(IncorrectNonShiftedLogNormalDistributionsSoilLayer2D))]
         public void SoilLayer2DTransform_IncorrectLogNormalDistribution_ThrowImportedDataTransformException(SoilLayer2D layer, string parameter)
         {
             // Call
@@ -428,17 +419,48 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             return new Ring(points.Distinct());
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
+        #region Test Data: Shifted Log Normal Distributions
+
+        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsSoilLayer1D()
         {
-            return IncorrectLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+            return IncorrectShiftedLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer2D()
+        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsSoilLayer2D()
         {
-            return IncorrectLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer1D));
+            return IncorrectShiftedLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer2D));
         }
 
-        private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
+        {
+            const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
+
+            SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
+            invalidBelowPhreaticLevel.BelowPhreaticLevelDistribution = -1;
+            yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht")
+                .SetName(string.Format(testNameFormat, typeName, "Distribution"));
+
+            SoilLayerBase invalidAbovePhreaticLevel = soilLayer();
+            invalidAbovePhreaticLevel.AbovePhreaticLevelDistribution = -1;
+            yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht")
+                .SetName(string.Format(testNameFormat, typeName, "Distribution"));
+        }
+
+        #endregion
+
+        #region Test Data:NonShifted Log Normal Distributions
+
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsSoilLayer1D()
+        {
+            return IncorrectNonShiftedLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsSoilLayer2D()
+        {
+            return IncorrectNonShiftedLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer2D));
+        }
+
+        private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
         {
             const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
             const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
@@ -504,5 +526,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             yield return new TestCaseData(invalidPopDistribution, "POP"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
         }
+
+        #endregion
     }
 }

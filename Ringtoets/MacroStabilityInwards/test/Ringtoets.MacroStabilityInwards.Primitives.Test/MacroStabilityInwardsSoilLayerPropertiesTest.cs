@@ -53,23 +53,18 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             Assert.IsNaN(properties.CohesionMean);
             Assert.IsNaN(properties.CohesionDeviation);
-            Assert.IsNaN(properties.CohesionShift);
 
             Assert.IsNaN(properties.FrictionAngleMean);
             Assert.IsNaN(properties.FrictionAngleDeviation);
-            Assert.IsNaN(properties.FrictionAngleShift);
 
             Assert.IsNaN(properties.ShearStrengthRatioMean);
             Assert.IsNaN(properties.ShearStrengthRatioDeviation);
-            Assert.IsNaN(properties.ShearStrengthRatioShift);
 
             Assert.IsNaN(properties.StrengthIncreaseExponentMean);
             Assert.IsNaN(properties.StrengthIncreaseExponentDeviation);
-            Assert.IsNaN(properties.StrengthIncreaseExponentShift);
 
             Assert.IsNaN(properties.PopMean);
             Assert.IsNaN(properties.PopDeviation);
-            Assert.IsNaN(properties.PopShift);
         }
 
         [Test]
@@ -188,19 +183,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionDeviation = 1.0 - lp.CohesionDeviation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionShift = 1.0 - lp.CohesionShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleDeviation = 1.0 - lp.FrictionAngleDeviation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleShift = 1.0 - lp.FrictionAngleShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioMean = 1.0 - lp.ShearStrengthRatioMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioDeviation = 1.0 - lp.ShearStrengthRatioDeviation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioShift = 1.0 - lp.ShearStrengthRatioShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentMean = 1.0 - lp.StrengthIncreaseExponentMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentDeviation = 1.0 - lp.StrengthIncreaseExponentDeviation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentShift = 1.0 - lp.StrengthIncreaseExponentShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopMean = 1.0 - lp.PopMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopDeviation = 1.0 - lp.PopDeviation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopShift = 1.0 - lp.PopShift));
         }
 
         private static TestCaseData[] PropertiesCombinations()
@@ -255,19 +245,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 BelowPhreaticLevelDeviation = random.NextDouble(),
                 CohesionMean = random.NextDouble(),
                 CohesionDeviation = random.NextDouble(),
-                CohesionShift = random.NextDouble(),
                 FrictionAngleMean = random.NextDouble(),
                 FrictionAngleDeviation = random.NextDouble(),
-                FrictionAngleShift = random.NextDouble(),
                 ShearStrengthRatioMean = random.NextDouble(),
                 ShearStrengthRatioDeviation = random.NextDouble(),
-                ShearStrengthRatioShift = random.NextDouble(),
                 StrengthIncreaseExponentMean = random.NextDouble(),
                 StrengthIncreaseExponentDeviation = random.NextDouble(),
-                StrengthIncreaseExponentShift = random.NextDouble(),
                 PopMean = random.NextDouble(),
                 PopDeviation = random.NextDouble(),
-                PopShift = random.NextDouble()
             };
         }
     }

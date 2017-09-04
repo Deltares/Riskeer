@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     {
         /// <summary>
         /// Transforms the generic <paramref name="stochasticSoilProfile"/> into
-        ///  <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
+        /// <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
         /// </summary>
         /// <param name="stochasticSoilProfile">The stochastic soil profile to use
         /// in the transformation.</param>
