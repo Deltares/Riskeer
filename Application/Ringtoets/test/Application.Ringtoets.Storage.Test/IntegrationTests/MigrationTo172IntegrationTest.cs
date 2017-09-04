@@ -176,6 +176,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
+        [SetCulture("en-US")]
         [TestCaseSource(nameof(GetTrajectCombinations))]
         public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormType normType,
                                                                                                             string trajectId,
