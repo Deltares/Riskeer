@@ -61,20 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSoilLayer1D layer = CreateRandomLayer(2);
-            var derivedProfile = new TestLayer(layer);
-
-            // Call
-            bool areEqual = layer.Equals(derivedProfile);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
         public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
@@ -102,7 +88,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCaseSource(nameof(LayerCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilLayer1D otherLayer, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer1D layer,
+                                                                    MacroStabilityInwardsSoilLayer1D otherLayer,
+                                                                    bool expectedEqual)
         {
             // Call
             bool areEqualOne = layer.Equals(otherLayer);
@@ -111,37 +99,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);
             Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private class TestLayer : MacroStabilityInwardsSoilLayer1D
-        {
-            public TestLayer(MacroStabilityInwardsSoilLayer1D layer)
-                : base(layer.Top)
-            {
-                Properties.IsAquifer = layer.Properties.IsAquifer;
-                Properties.Color = layer.Properties.Color;
-                Properties.MaterialName = layer.Properties.MaterialName;
-                Properties.ShearStrengthModel = layer.Properties.ShearStrengthModel;
-                Properties.AbovePhreaticLevelMean = layer.Properties.AbovePhreaticLevelMean;
-                Properties.AbovePhreaticLevelDeviation = layer.Properties.AbovePhreaticLevelDeviation;
-                Properties.BelowPhreaticLevelMean = layer.Properties.BelowPhreaticLevelMean;
-                Properties.BelowPhreaticLevelDeviation = layer.Properties.BelowPhreaticLevelDeviation;
-                Properties.CohesionMean = layer.Properties.CohesionMean;
-                Properties.CohesionDeviation = layer.Properties.CohesionDeviation;
-                Properties.CohesionShift = layer.Properties.CohesionShift;
-                Properties.FrictionAngleMean = layer.Properties.FrictionAngleMean;
-                Properties.FrictionAngleDeviation = layer.Properties.FrictionAngleDeviation;
-                Properties.FrictionAngleShift = layer.Properties.FrictionAngleShift;
-                Properties.StrengthIncreaseExponentMean = layer.Properties.StrengthIncreaseExponentMean;
-                Properties.StrengthIncreaseExponentDeviation = layer.Properties.StrengthIncreaseExponentDeviation;
-                Properties.StrengthIncreaseExponentShift = layer.Properties.StrengthIncreaseExponentShift;
-                Properties.ShearStrengthRatioMean = layer.Properties.ShearStrengthRatioMean;
-                Properties.ShearStrengthRatioDeviation = layer.Properties.ShearStrengthRatioDeviation;
-                Properties.ShearStrengthRatioShift = layer.Properties.ShearStrengthRatioShift;
-                Properties.PopMean = layer.Properties.PopMean;
-                Properties.PopDeviation = layer.Properties.PopDeviation;
-                Properties.PopShift = layer.Properties.PopShift;
-            }
         }
 
         private static TestCaseData[] LayerCombinations()

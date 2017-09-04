@@ -117,20 +117,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSoilProfile2D profile = CreateRandomProfile(2);
-            var derivedProfile = new TestProfile(profile);
-
-            // Call
-            bool areEqual = profile.Equals(derivedProfile);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
@@ -148,7 +134,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCaseSource(nameof(ProfileCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilProfile2D profile, MacroStabilityInwardsSoilProfile2D otherProfile, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilProfile2D profile,
+                                                                    MacroStabilityInwardsSoilProfile2D otherProfile,
+                                                                    bool expectedEqual)
         {
             // Call
             bool areEqualOne = profile.Equals(otherProfile);
@@ -157,13 +145,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);
             Assert.AreEqual(expectedEqual, areEqualTwo);
-        }
-
-        private class TestProfile : MacroStabilityInwardsSoilProfile2D
-        {
-            public TestProfile(MacroStabilityInwardsSoilProfile2D profile)
-                : base(profile.Name,
-                       profile.Layers) {}
         }
 
         private static TestCaseData[] ProfileCombinations()

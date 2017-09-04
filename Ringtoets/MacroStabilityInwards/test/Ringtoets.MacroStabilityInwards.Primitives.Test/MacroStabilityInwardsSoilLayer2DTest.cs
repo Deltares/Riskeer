@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
 
             // Call
-            TestDelegate test= () => new MacroStabilityInwardsSoilLayer2D(null, holes);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null, holes);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -103,8 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void GetHashCode_EqualLayers_AreEqual()
         {
             // Setup
-            var layerA = CreateRandomLayer(21);
-            var layerB = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
 
             // Precondition
             Assert.AreEqual(layerA, layerB);
@@ -113,51 +113,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Call & Assert
             Assert.AreEqual(layerA.GetHashCode(), layerB.GetHashCode());
             Assert.AreEqual(layerB.GetHashCode(), layerA.GetHashCode());
-        }
-
-        [Test]
-        public void Equals_DerivedClassWithEqualProperties_ReturnsTrue()
-        {
-            // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(2);
-            var derivedProfile = new TestLayer(layer);
-
-            // Call
-            bool areEqual = layer.Equals(derivedProfile);
-
-            // Assert
-            Assert.IsTrue(areEqual);
-        }
-
-        private class TestLayer : MacroStabilityInwardsSoilLayer2D
-        {
-            public TestLayer(MacroStabilityInwardsSoilLayer2D layer)
-                : base(layer.OuterRing, layer.Holes)
-            {
-                Properties.IsAquifer = layer.Properties.IsAquifer;
-                Properties.Color = layer.Properties.Color;
-                Properties.MaterialName = layer.Properties.MaterialName;
-                Properties.ShearStrengthModel = layer.Properties.ShearStrengthModel;
-                Properties.AbovePhreaticLevelMean = layer.Properties.AbovePhreaticLevelMean;
-                Properties.AbovePhreaticLevelDeviation = layer.Properties.AbovePhreaticLevelDeviation;
-                Properties.BelowPhreaticLevelMean = layer.Properties.BelowPhreaticLevelMean;
-                Properties.BelowPhreaticLevelDeviation = layer.Properties.BelowPhreaticLevelDeviation;
-                Properties.CohesionMean = layer.Properties.CohesionMean;
-                Properties.CohesionDeviation = layer.Properties.CohesionDeviation;
-                Properties.CohesionShift = layer.Properties.CohesionShift;
-                Properties.FrictionAngleMean = layer.Properties.FrictionAngleMean;
-                Properties.FrictionAngleDeviation = layer.Properties.FrictionAngleDeviation;
-                Properties.FrictionAngleShift = layer.Properties.FrictionAngleShift;
-                Properties.StrengthIncreaseExponentMean = layer.Properties.StrengthIncreaseExponentMean;
-                Properties.StrengthIncreaseExponentDeviation = layer.Properties.StrengthIncreaseExponentDeviation;
-                Properties.StrengthIncreaseExponentShift = layer.Properties.StrengthIncreaseExponentShift;
-                Properties.ShearStrengthRatioMean = layer.Properties.ShearStrengthRatioMean;
-                Properties.ShearStrengthRatioDeviation = layer.Properties.ShearStrengthRatioDeviation;
-                Properties.ShearStrengthRatioShift = layer.Properties.ShearStrengthRatioShift;
-                Properties.PopMean = layer.Properties.PopMean;
-                Properties.PopDeviation = layer.Properties.PopDeviation;
-                Properties.PopShift = layer.Properties.PopShift;
-            }
         }
 
         [Test]
@@ -208,7 +163,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             var layerE = new MacroStabilityInwardsSoilLayer2D(
                 CreateRandomRing(new Random(21)),
-                new [] { CreateRandomRing(new Random(22))})
+                new[]
+                {
+                    CreateRandomRing(new Random(22))
+                })
             {
                 Properties =
                 {
@@ -217,7 +175,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
             var layerF = new MacroStabilityInwardsSoilLayer2D(
                 CreateRandomRing(new Random(31)),
-                new [] { CreateRandomRing(new Random(22))})
+                new[]
+                {
+                    CreateRandomRing(new Random(22))
+                })
             {
                 Properties =
                 {
@@ -226,7 +187,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
             var layerG = new MacroStabilityInwardsSoilLayer2D(
                 CreateRandomRing(new Random(21)),
-                new[] { CreateRandomRing(new Random(32)) })
+                new[]
+                {
+                    CreateRandomRing(new Random(32))
+                })
             {
                 Properties =
                 {
@@ -235,7 +199,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
             var layerH = new MacroStabilityInwardsSoilLayer2D(
                 CreateRandomRing(new Random(21)),
-                new[] { CreateRandomRing(new Random(22)) })
+                new[]
+                {
+                    CreateRandomRing(new Random(22))
+                })
             {
                 Properties =
                 {
