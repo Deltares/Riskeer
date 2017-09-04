@@ -276,13 +276,13 @@ SELECT
 	[Name],
 	[Comments],
 	CASE
-		WHEN [NormativeNorm] == 1 -- If lower limit norm type
+		WHEN SourceAssessmentSection.[LowerLimitNorm] IS NULL OR [NormativeNorm] == 1 -- If lower limit norm type
 			THEN SourceAssessmentSection.[Norm]
 		ELSE
 			1.0 / SourceAssessmentSection.[LowerLimitNorm]
 	END AS [LowerLimitNorm],
 	CASE
-		WHEN [NormativeNorm] == 2 -- If signaling norm type
+		WHEN SourceAssessmentSection.[SignalingNorm] IS NULL OR [NormativeNorm] == 2 -- If signaling norm type
 			THEN SourceAssessmentSection.[Norm]
 		ELSE
 		1.0 / SourceAssessmentSection.[SignalingNorm]
