@@ -91,6 +91,7 @@
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculator.cs" />
     <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculator.cs" />
+    <Compile Include="Probabilistics\SemiProbabilisticDesignValueFactory.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionDesignVariable.cs" />
     <Compile Include="Probabilistics\VariationCoefficientDesignVariable.cs" />
     <Compile Include="Probabilistics\DeterministicDesignVariable.cs" />

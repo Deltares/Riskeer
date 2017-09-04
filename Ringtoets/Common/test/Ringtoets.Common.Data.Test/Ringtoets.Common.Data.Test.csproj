@@ -99,6 +99,7 @@
     <Compile Include="Probabilistics\LogNormalDistributionDesignVariableCalculatorTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableCalculatorTest.cs" />
     <Compile Include="Probabilistics\PercentileBasedDesignVariableCalculatorTest.cs" />
+    <Compile Include="Probabilistics\SemiProbabilisticDesignValueFactoryTest.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\VariationCoefficientDesignVariableTest.cs" />
     <Compile Include="Probabilistics\DeterministicDesignVariableTest.cs" />

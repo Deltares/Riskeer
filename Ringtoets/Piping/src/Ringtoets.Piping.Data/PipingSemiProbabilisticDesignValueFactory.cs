@@ -44,15 +44,6 @@ namespace Ringtoets.Piping.Data
             };
         }
 
-        private static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> CreateDesignVariable(
-            VariationCoefficientLogNormalDistribution distribution, double percentile)
-        {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
-
         private static DesignVariable<LogNormalDistribution> CreateDeterministicDesignVariable(LogNormalDistribution distribution, double deterministicValue)
         {
             return new DeterministicDesignVariable<LogNormalDistribution>(distribution, deterministicValue);
@@ -121,7 +112,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetSeepageLength(PipingInput parameters)
         {
-            return CreateDesignVariable(parameters.SeepageLength, 0.05);
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(parameters.SeepageLength, 0.05);
         }
 
         /// <summary>
@@ -129,7 +120,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDiameter70(PipingInput parameters)
         {
-            return CreateDesignVariable(parameters.Diameter70, 0.05);
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(parameters.Diameter70, 0.05);
         }
 
         /// <summary>
@@ -137,7 +128,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
-            return CreateDesignVariable(parameters.DarcyPermeability, 0.95);
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(parameters.DarcyPermeability, 0.95);
         }
 
         /// <summary>
