@@ -47,9 +47,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             Assert.IsNaN(properties.AbovePhreaticLevelMean);
             Assert.IsNaN(properties.AbovePhreaticLevelDeviation);
+            Assert.IsNaN(properties.AbovePhreaticLevelShift);
 
             Assert.IsNaN(properties.BelowPhreaticLevelMean);
             Assert.IsNaN(properties.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(properties.BelowPhreaticLevelShift);
 
             Assert.IsNaN(properties.CohesionMean);
             Assert.IsNaN(properties.CohesionDeviation);
@@ -179,8 +181,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelDeviation = 1.0 - lp.AbovePhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelShift = 1.0 - lp.AbovePhreaticLevelShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelShift = 1.0 - lp.BelowPhreaticLevelShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionDeviation = 1.0 - lp.CohesionDeviation));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
@@ -241,8 +245,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 ShearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>(),
                 AbovePhreaticLevelMean = random.NextDouble(),
                 AbovePhreaticLevelDeviation = random.NextDouble(),
+                AbovePhreaticLevelShift = random.NextDouble(),
                 BelowPhreaticLevelMean = random.NextDouble(),
                 BelowPhreaticLevelDeviation = random.NextDouble(),
+                BelowPhreaticLevelShift = random.NextDouble(),
                 CohesionMean = random.NextDouble(),
                 CohesionDeviation = random.NextDouble(),
                 FrictionAngleMean = random.NextDouble(),

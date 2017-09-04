@@ -61,8 +61,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelDeviation = random.NextDouble();
+            double abovePhreaticLevelShift = random.NextDouble();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelShift = random.NextDouble();
             double cohesionMean = random.NextDouble();
             double cohesionDeviation = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
@@ -81,8 +83,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 Color = color,
                 AbovePhreaticLevelMean = abovePhreaticLevelMean,
                 AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelDeviation,
+                AbovePhreaticLevelShift = abovePhreaticLevelShift,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                BelowPhreaticLevelShift = belowPhreaticLevelShift,
                 CohesionMean = cohesionMean,
                 CohesionCoefficientOfVariation = cohesionDeviation,
                 FrictionAngleMean = frictionAngleMean,
@@ -107,8 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(color, properties.Color);
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
             Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelDeviation);
+            Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelShift, properties.BelowPhreaticLevelShift);
             Assert.AreEqual(cohesionMean, properties.CohesionMean);
             Assert.AreEqual(cohesionDeviation, properties.CohesionDeviation);
             Assert.AreEqual(frictionAngleMean, properties.FrictionAngleMean);
@@ -241,8 +247,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelDeviation = random.NextDouble();
+            double abovePhreaticLevelShift = random.NextDouble();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelShift = random.NextDouble();
             double cohesionMean = random.NextDouble();
             double cohesionDeviation = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
@@ -260,8 +268,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.Color = color;
             layer.AbovePhreaticLevelMean = abovePhreaticLevelMean;
             layer.AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelDeviation;
+            layer.AbovePhreaticLevelShift = abovePhreaticLevelShift;
             layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
             layer.BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation;
+            layer.BelowPhreaticLevelShift = belowPhreaticLevelShift;
             layer.CohesionMean = cohesionMean;
             layer.CohesionCoefficientOfVariation = cohesionDeviation;
             layer.FrictionAngleMean = frictionAngleMean;
@@ -283,8 +293,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(color, properties.Color);
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
             Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelDeviation);
+            Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelShift, properties.BelowPhreaticLevelShift);
             Assert.AreEqual(cohesionMean, properties.CohesionMean);
             Assert.AreEqual(cohesionDeviation, properties.CohesionDeviation);
             Assert.AreEqual(frictionAngleMean, properties.FrictionAngleMean);

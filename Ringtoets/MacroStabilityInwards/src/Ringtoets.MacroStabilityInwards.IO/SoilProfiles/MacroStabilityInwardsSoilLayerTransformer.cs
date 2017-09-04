@@ -114,8 +114,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.Color = soilLayer.Color;
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
             properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
+            properties.AbovePhreaticLevelShift = soilLayer.AbovePhreaticLevelShift;
             properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
             properties.BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation;
+            properties.BelowPhreaticLevelShift = soilLayer.BelowPhreaticLevelShift;
             properties.CohesionMean = soilLayer.CohesionMean;
             properties.CohesionDeviation = soilLayer.CohesionCoefficientOfVariation;
             properties.FrictionAngleMean = soilLayer.FrictionAngleMean;

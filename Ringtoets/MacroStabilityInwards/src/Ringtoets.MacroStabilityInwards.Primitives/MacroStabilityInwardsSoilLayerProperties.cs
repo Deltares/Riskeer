@@ -92,6 +92,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double AbovePhreaticLevelDeviation { get; set; } = double.NaN;
 
         /// <summary>
+        /// Gets or sets the shift of the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double AbovePhreaticLevelShift { get; set; } = double.NaN;
+
+        /// <summary>
         /// Gets or sets the mean of the distribution for the volumic weight of the layer below the phreatic level.
         /// [kN/m³]
         /// </summary>
@@ -102,6 +108,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelDeviation { get; set; } = double.NaN;
+
+        /// <summary>
+        /// Gets or sets the shift of the distribution for the volumic weight of the layer below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double BelowPhreaticLevelShift { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the cohesion.
@@ -182,8 +194,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ ShearStrengthModel.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ AbovePhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ CohesionMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ CohesionDeviation.GetHashCode();
                 hashCode = (hashCode * 397) ^ FrictionAngleMean.GetHashCode();
@@ -207,8 +221,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                    && ShearStrengthModel == other.ShearStrengthModel
                    && AbovePhreaticLevelMean.Equals(other.AbovePhreaticLevelMean)
                    && AbovePhreaticLevelDeviation.Equals(other.AbovePhreaticLevelDeviation)
+                   && AbovePhreaticLevelShift.Equals(other.AbovePhreaticLevelShift)
                    && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
                    && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
+                   && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
                    && CohesionMean.Equals(other.CohesionMean)
                    && CohesionDeviation.Equals(other.CohesionDeviation)
                    && FrictionAngleMean.Equals(other.FrictionAngleMean)
