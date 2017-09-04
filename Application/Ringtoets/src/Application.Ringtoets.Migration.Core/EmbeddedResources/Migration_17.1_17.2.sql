@@ -79,7 +79,7 @@ INSERT INTO TempAssessmentNorm VALUES
 	('16-2', 30000, 10000),
 	('16-3', 30000, 10000),
 	('16-4', 30000, 10000),
-	('16-5', 0, 10),
+	('16-5', 10, 10), -- Signaling norm set to LowerLimit
 	('17-1', 3000, 1000),
 	('17-2', 3000, 1000),
 	('17-3', 100000, 30000),
@@ -271,20 +271,48 @@ SELECT
 	CASE
 		WHEN [Id] IS NULL
 			THEN ""
-		ELSE
-			[Id]
+		ELSE [Id]
 	END,
 	[Name],
 	[Comments],
-	[Norm],
-	[Norm],
-	1,
+	CASE
+		WHEN [NormativeNorm] == 1 -- If lower limit norm type
+			THEN SourceAssessmentSection.[Norm]
+		ELSE
+			1.0 / SourceAssessmentSection.[LowerLimitNorm]
+	END AS [LowerLimitNorm],
+	CASE
+		WHEN [NormativeNorm] == 2 -- If signaling norm type
+			THEN SourceAssessmentSection.[Norm]
+		ELSE
+		1.0 / SourceAssessmentSection.[SignalingNorm]
+	END AS [SignalingNorm],
+	[NormativeNorm],
 	[HydraulicDatabaseVersion],
 	[HydraulicDatabaseLocation],
 	[Composition],
 	[ReferenceLinePointXml],
 	[Order]
-FROM [SOURCEPROJECT].AssessmentSectionEntity;
+FROM
+(
+	SELECT
+		CASE
+			WHEN [Id] IS NULL OR OriginalNorm BETWEEN ([SignalingNorm] - 0.1) AND ([SignalingNorm] + 0.1)
+				THEN 2 -- Set signaling norm type
+		ELSE 1 -- Set lower limit norm type
+		END AS [NormativeNorm],
+		*
+	FROM
+	(
+		SELECT CAST(1.0 / ASE.[Norm] AS FLOAT) AS OriginalNorm,
+		*
+		FROM [SOURCEPROJECT].AssessmentSectionEntity ASE
+		LEFT JOIN TempAssessmentNorm TA ON 
+		(
+			TA.[AssessmentSectionId] = ASE.[Id]
+		)
+	)
+) AS SourceAssessmentSection;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
