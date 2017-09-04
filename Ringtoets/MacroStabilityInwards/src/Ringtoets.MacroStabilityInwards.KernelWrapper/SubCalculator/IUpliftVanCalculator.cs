@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
@@ -33,6 +34,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// </summary>
         void Calculate();
 
-        MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { set; }
+        /// <summary>
+        /// Sets the soil model.
+        /// </summary>
+        SoilModel SoilModel { set; }
+
+        /// <summary>
+        /// Sets the soil profile.
+        /// </summary>
+        SoilProfile2D SoilProfile { set; }
     }
 }

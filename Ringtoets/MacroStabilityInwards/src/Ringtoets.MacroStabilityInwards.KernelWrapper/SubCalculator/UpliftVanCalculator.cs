@@ -41,7 +41,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         public UpliftVanCalculator()
         {
             wrappedCalculator = new WTIStabilityCalculation();
-            calculatorInput = new StabilityModel();
+            calculatorInput = new StabilityModel
+            {
+                ModelOption = ModelOptions.UpliftVan
+            };
         }
 
         public void Calculate()
@@ -50,11 +53,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             wrappedCalculator.Run();
         }
 
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile
+        public SoilModel SoilModel
         {
             set
             {
-                
+                calculatorInput.SoilModel = value;
+            }
+        }
+
+        public SoilProfile2D SoilProfile
+        {
+            set
+            {
+                calculatorInput.SoilProfile = value;
             }
         }
     }

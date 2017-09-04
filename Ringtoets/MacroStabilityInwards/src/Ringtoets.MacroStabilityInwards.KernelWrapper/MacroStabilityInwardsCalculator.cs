@@ -21,7 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
@@ -86,8 +90,34 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         private IUpliftVanCalculator CreateUpliftVanCalculator()
         {
             IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
-            calculator.SoilProfile = input.SoilProfile;
+            Soil[] soils = MacroStabilityInwardsSoilCreator.Create(input.SoilProfile);
+            calculator.SoilModel = CreateSoilModel(soils);
+            calculator.SoilProfile = CreateSoilProfile(input.SoilProfile.LayersUnderSurfaceLine.ToArray(), soils);
             return calculator;
+        }
+
+        private SoilProfile2D CreateSoilProfile(IList<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers, IList<Soil> soils)
+        {
+            var profile = new SoilProfile2D();
+
+            for (int i = 0; i < layers.Count; i++)
+            {
+                profile.Surfaces.Add(new SoilLayer2D
+                {
+                    IsAquifer = layers[i].Properties.IsAquifer,
+                    Soil = soils[i]
+                });
+            }
+
+            return profile;
+        }
+
+        private SoilModel CreateSoilModel(IEnumerable<Soil> soils)
+        {
+            var soilModel = new SoilModel();
+            soilModel.Soils.AddRange(soils);
+
+            return soilModel;
         }
 
         /// <summary>
