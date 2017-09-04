@@ -178,17 +178,96 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [Test]
         [SetCulture("en-US")]
         [TestCaseSource(nameof(GetTrajectCombinations))]
-        public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormType normType,
+        public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormType expectedNormType,
                                                                                                             string trajectId,
                                                                                                             int signalingReturnPeriod,
                                                                                                             int lowerLimitReturnPeriod)
         {
             // Given
-            const string fileExtension = ".rtd";
             string testName = TestContext.CurrentContext.Test.Name.Replace("\"", string.Empty);
 
-            string sourceFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Source", fileExtension));
-            string targetFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Target", fileExtension));
+            string sourceFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Source", ".sql"));
+            string targetFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Target", ".sql"));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, ".log"));
+
+            var migrator = new RingtoetsSqLiteDatabaseFileMigrator
+            {
+                LogPath = logFilePath
+            };
+
+            using (new FileDisposeHelper(logFilePath))
+            using (new FileDisposeHelper(sourceFilePath))
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                File.Copy(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                                                     "Empty valid Release 17.1.rtd"),
+                          sourceFilePath, true
+                );
+
+                var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
+                using (var databaseFile = new RingtoetsDatabaseFile(sourceFilePath))
+                {
+                    databaseFile.OpenDatabaseConnection();
+
+                    double fromNorm = 1.0 / (expectedNormType == NormType.Signaling
+                                                 ? signalingReturnPeriod
+                                                 : lowerLimitReturnPeriod);
+                    databaseFile.ExecuteQuery("INSERT INTO ProjectEntity ([ProjectEntityId]) VALUES (1);");
+                    databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Id], [Norm]) " +
+                                              $"VALUES (1, 1, 0,\"{trajectId}\", {fromNorm});");
+                }
+
+                // When
+                migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+
+                // Then
+                byte normTypeByte = Convert.ToByte(lowerLimitReturnPeriod == signalingReturnPeriod
+                                                       ? NormType.Signaling
+                                                       : expectedNormType);
+
+                string expectedAssessmentSectionQuery =
+                    "SELECT COUNT() = 1 " +
+                    "FROM AssessmentSectionEntity " +
+                    $"WHERE [Id] = \"{trajectId}\" " +
+                    $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
+                    $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
+                    $"AND [NormativeNorm] = {normTypeByte}";
+
+                using (var reader = new MigratedDatabaseReader(targetFilePath))
+                {
+                    reader.AssertReturnedDataIsValid(expectedAssessmentSectionQuery);
+                }
+
+                using (var reader = new MigrationLogDatabaseReader(logFilePath))
+                {
+                    ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
+                    Assert.AreEqual(2, messages.Count);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
+                        messages[0]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
+                        messages[1]);
+                }
+            }
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        [TestCase(600, NormType.Signaling)]
+        [TestCase(2, NormType.LowerLimit)]
+        public void Given171ProjectWithNormNotInList_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(int originalReturnPeriod,
+                                                                                                            NormType expectedNormType)
+        {
+            // Given
+            const string trajectId = "2-1";
+            const int signalingReturnPeriod = 1000;
+            const int lowerLimitReturnPeriod = 300;
+
+            string testName = TestContext.CurrentContext.Test.Name;
+
+            string sourceFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Source", ".sql"));
+            string targetFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, "Target", ".sql"));
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(testName, ".log"));
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator
             {
@@ -209,9 +288,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     databaseFile.OpenDatabaseConnection();
 
-                    double fromNorm = 1.0 / (normType == NormType.Signaling
-                                                 ? signalingReturnPeriod
-                                                 : lowerLimitReturnPeriod);
+                    double fromNorm = 1.0 / originalReturnPeriod;
                     databaseFile.ExecuteQuery("INSERT INTO ProjectEntity ([ProjectEntityId]) VALUES (1);");
                     databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Id], [Norm]) " +
                                               $"VALUES (1, 1, 0,\"{trajectId}\", {fromNorm});");
@@ -221,16 +298,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Then
-                byte normTypeByte = Convert.ToByte(lowerLimitReturnPeriod == signalingReturnPeriod
-                                                       ? NormType.Signaling
-                                                       : normType);
+                byte normTypeByte = Convert.ToByte(expectedNormType);
 
-                string expectedAssessmentSectionQuery = "SELECT COUNT() = 1 " +
-                                                        "FROM AssessmentSectionEntity " +
-                                                        $"WHERE [Id] = \"{trajectId}\" " +
-                                                        $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
-                                                        $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
-                                                        $"AND [NormativeNorm] = {normTypeByte}";
+                int actualLowerLimitReturnPeriod = expectedNormType == NormType.LowerLimit
+                                                       ? originalReturnPeriod
+                                                       : lowerLimitReturnPeriod;
+
+                int actualSignalingReturnPeriod = expectedNormType == NormType.Signaling
+                                                      ? originalReturnPeriod
+                                                      : signalingReturnPeriod;
+
+                string expectedAssessmentSectionQuery =
+                    "SELECT COUNT() = 1 " +
+                    "FROM AssessmentSectionEntity " +
+                    $"WHERE [Id] = \"{trajectId}\" " +
+                    $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({actualLowerLimitReturnPeriod} - 0.1) AND ({actualLowerLimitReturnPeriod} + 0.1) " +
+                    $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({actualSignalingReturnPeriod} - 0.1) AND ({actualSignalingReturnPeriod} + 0.1) " +
+                    $"AND [NormativeNorm] = {normTypeByte}";
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
