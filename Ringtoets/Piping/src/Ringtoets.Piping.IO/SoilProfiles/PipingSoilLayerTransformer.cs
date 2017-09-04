@@ -28,7 +28,6 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
-using RingtoetsCommonResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfiles
 {
@@ -124,14 +123,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
-            ValidateIsLogNormal(
+            SoilLayerDistributionHelper.ValidateIsLogNormal(
                 soilLayer.BelowPhreaticLevelDistribution,
                 Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
-            ValidateIsNonShiftedLogNormal(
+            SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.DiameterD70Distribution,
                 soilLayer.DiameterD70Shift,
                 Resources.SoilLayer_DiameterD70Distribution_Description);
-            ValidateIsNonShiftedLogNormal(
+            SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.PermeabilityDistribution,
                 soilLayer.PermeabilityShift,
                 Resources.SoilLayer_PermeabilityDistribution_Description);
@@ -153,27 +152,6 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             pipingSoilLayer.DiameterD70CoefficientOfVariation = soilLayer1D.DiameterD70CoefficientOfVariation;
             pipingSoilLayer.PermeabilityMean = soilLayer1D.PermeabilityMean;
             pipingSoilLayer.PermeabilityCoefficientOfVariation = soilLayer1D.PermeabilityCoefficientOfVariation;
-        }
-
-        private static void ValidateIsNonShiftedLogNormal(long? distribution, double shift, string incorrectDistibutionParameter)
-        {
-            if (distribution.HasValue && (distribution.Value != SoilLayerConstants.LogNormalDistributionValue
-                                          || Math.Abs(shift) > 1e-6))
-            {
-                throw new ImportedDataTransformException(string.Format(
-                                                             RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
-                                                             incorrectDistibutionParameter));
-            }
-        }
-
-        private static void ValidateIsLogNormal(long? distribution, string incorrectDistibutionParameter)
-        {
-            if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)
-            {
-                throw new ImportedDataTransformException(string.Format(
-                                                             RingtoetsCommonResources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,
-                                                             incorrectDistibutionParameter));
-            }
         }
 
         private static bool HeightInInnerLoop(Tuple<double, double> tuple, double height)

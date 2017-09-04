@@ -182,10 +182,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ongeldige waarde voor parameter &apos;{0}&apos;..
         /// </summary>
-        public static string MacroStabilityInwardsSoilLayerTransformer_TransformUsePop_Invalid_value_ParameterName_0 {
+        public static string MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0 {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTransformer_TransformUsePop_Invalid_value_Parameter" +
-                        "Name_0", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0", resourceCulture);
             }
         }
         

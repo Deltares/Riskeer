@@ -68,9 +68,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_ValidSoilProfile1D_ReturnMacroStabilityInwardsSoilProfile1D()
         {
             // Setup
-            var profile = new SoilProfile1D(1, "test", 3, new []
+            var profile = new SoilProfile1D(1, "test", 3, new[]
             {
-                new SoilLayer1D(4), 
+                new SoilLayer1D(4)
             });
 
             // Call
@@ -80,14 +80,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(profile.Name, transformedProfile.Name);
             Assert.AreEqual(profile.Bottom, transformedProfile.Bottom);
             Assert.AreEqual(profile.Layers.Count(), transformedProfile.Layers.Count());
-            Assert.IsInstanceOf<MacroStabilityInwardsSoilLayer1D>(transformedProfile.Layers.First());
+            CollectionAssert.AllItemsAreInstancesOfType(transformedProfile.Layers, typeof(MacroStabilityInwardsSoilLayer1D));
         }
 
         [Test]
         public void Transform_ValidSoilProfile2D_ReturnMacroStabilityInwardsSoilProfile1D()
         {
             // Setup
-            var profile = new SoilProfile2D(1, "test", new []
+            var profile = new SoilProfile2D(1, "test", new[]
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2D()
             });
@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(profile.Name, transformedProfile.Name);
             Assert.AreEqual(profile.Layers.Count(), transformedProfile.Layers.Count());
-            Assert.IsInstanceOf<MacroStabilityInwardsSoilLayer2D>(transformedProfile.Layers.First());
+            CollectionAssert.AllItemsAreInstancesOfType(transformedProfile.Layers, typeof(MacroStabilityInwardsSoilLayer2D));
         }
     }
 }
