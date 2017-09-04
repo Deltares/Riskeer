@@ -53,7 +53,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
 
             Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
-            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.AssessmentLevel);
 
             Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);

@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             if (calculationConfiguration.StochasticSoilModelName != null)
             {
                 MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels
-                                                                .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
+                                                                                     .FirstOrDefault(ssm => ssm.Name == calculationConfiguration.StochasticSoilModelName);
 
                 if (soilModel == null)
                 {
@@ -234,9 +234,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 }
 
                 MacroStabilityInwardsStochasticSoilProfile soilProfile = macroStabilityInwardsCalculation.InputParameters
-                                                                                    .StochasticSoilModel
-                                                                                    .StochasticSoilProfiles
-                                                                                    .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
+                                                                                                         .StochasticSoilModel
+                                                                                                         .StochasticSoilProfiles
+                                                                                                         .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
 
                 if (soilProfile == null)
                 {

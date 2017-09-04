@@ -162,7 +162,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, inputParameters.PiezometricHeadExit.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
-            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.AssessmentLevel);
 
             Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);

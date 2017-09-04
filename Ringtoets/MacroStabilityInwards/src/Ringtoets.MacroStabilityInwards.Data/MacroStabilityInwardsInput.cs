@@ -182,14 +182,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// [m]
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
-        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c></exception>
+        /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c>.</exception>
         public RoundedDouble AssessmentLevel
         {
             get
             {
                 if (!UseAssessmentLevelManualInput)
                 {
-                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? new RoundedDouble(2, double.NaN);
+                    return HydraulicBoundaryLocation?.DesignWaterLevel ?? RoundedDouble.NaN;
                 }
 
                 return assessmentLevel;
