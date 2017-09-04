@@ -266,6 +266,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                         .SetName("Given171ProjectWithNorm{1}OfTraject{0}_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase");
                 }
             }
+
+            yield return new TestCaseData(NormType.Signaling,
+                                          "NoValidTrajectId",
+                                          30000,
+                                          30000)
+                .SetName("Given171ProjectWithNorm{1}OfUnknownTraject_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase");
         }
 
         private static IEnumerable<TestCaseData> GetTrajectTestCaseData()

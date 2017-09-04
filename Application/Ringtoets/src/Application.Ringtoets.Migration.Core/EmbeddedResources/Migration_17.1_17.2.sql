@@ -297,7 +297,7 @@ FROM
 (
 	SELECT
 		CASE
-			WHEN [Id] IS NULL OR OriginalNorm BETWEEN ([SignalingNorm] - 0.1) AND ([SignalingNorm] + 0.1)
+			WHEN [SignalingNorm] IS NULL OR OriginalNorm BETWEEN ([SignalingNorm] - 0.1) AND ([SignalingNorm] + 0.1)
 				THEN 2 -- Set signaling norm type
 		ELSE 1 -- Set lower limit norm type
 		END AS [NormativeNorm],
