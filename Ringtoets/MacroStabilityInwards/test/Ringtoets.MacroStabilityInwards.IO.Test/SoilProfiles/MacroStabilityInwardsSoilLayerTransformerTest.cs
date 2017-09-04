@@ -80,19 +80,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 MaterialName = materialName,
                 Color = color,
                 AbovePhreaticLevelMean = abovePhreaticLevelMean,
-                AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation,
+                AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelDeviation,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
                 CohesionMean = cohesionMean,
-                CohesionDeviation = cohesionDeviation,
+                CohesionCoefficientOfVariation = cohesionDeviation,
                 FrictionAngleMean = frictionAngleMean,
-                FrictionAngleDeviation = frictionAngleDeviation,
+                FrictionAngleCoefficientOfVariation = frictionAngleDeviation,
                 ShearStrengthRatioMean = shearStrengthRatioMean,
-                ShearStrengthRatioDeviation = shearStrengthRatioDeviation,
+                ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioDeviation,
                 StrengthIncreaseExponentMean = strengthIncreaseExponentMean,
-                StrengthIncreaseExponentDeviation = strengthIncreaseExponentDeviation,
+                StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentDeviation,
                 PopMean = popMean,
-                PopDeviation = popDeviation
+                PopCoefficientOfVariation = popDeviation
             };
 
             // Call
@@ -264,19 +264,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.MaterialName = materialName;
             layer.Color = color;
             layer.AbovePhreaticLevelMean = abovePhreaticLevelMean;
-            layer.AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation;
+            layer.AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelDeviation;
             layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
             layer.BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation;
             layer.CohesionMean = cohesionMean;
-            layer.CohesionDeviation = cohesionDeviation;
+            layer.CohesionCoefficientOfVariation = cohesionDeviation;
             layer.FrictionAngleMean = frictionAngleMean;
-            layer.FrictionAngleDeviation = frictionAngleDeviation;
+            layer.FrictionAngleCoefficientOfVariation = frictionAngleDeviation;
             layer.ShearStrengthRatioMean = shearStrengthRatioMean;
-            layer.ShearStrengthRatioDeviation = shearStrengthRatioDeviation;
+            layer.ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioDeviation;
             layer.StrengthIncreaseExponentMean = strengthIncreaseExponentMean;
-            layer.StrengthIncreaseExponentDeviation = strengthIncreaseExponentDeviation;
+            layer.StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentDeviation;
             layer.PopMean = popMean;
-            layer.PopDeviation = popDeviation;
+            layer.PopCoefficientOfVariation = popDeviation;
 
             // Call
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);

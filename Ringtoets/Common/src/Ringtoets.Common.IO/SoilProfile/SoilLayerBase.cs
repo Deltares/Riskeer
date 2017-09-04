@@ -51,27 +51,27 @@ namespace Ringtoets.Common.IO.SoilProfile
             PermeabilityShift = double.NaN;
 
             AbovePhreaticLevelMean = double.NaN;
-            AbovePhreaticLevelDeviation = double.NaN;
+            AbovePhreaticLevelCoefficientOfVariation = double.NaN;
             AbovePhreaticLevelShift = double.NaN;
 
             CohesionMean = double.NaN;
-            CohesionDeviation = double.NaN;
+            CohesionCoefficientOfVariation = double.NaN;
             CohesionShift = double.NaN;
 
             FrictionAngleMean = double.NaN;
-            FrictionAngleDeviation = double.NaN;
+            FrictionAngleCoefficientOfVariation = double.NaN;
             FrictionAngleShift = double.NaN;
 
             ShearStrengthRatioMean = double.NaN;
-            ShearStrengthRatioDeviation = double.NaN;
+            ShearStrengthRatioCoefficientOfVariation = double.NaN;
             ShearStrengthRatioShift = double.NaN;
 
             StrengthIncreaseExponentMean = double.NaN;
-            StrengthIncreaseExponentDeviation = double.NaN;
+            StrengthIncreaseExponentCoefficientOfVariation = double.NaN;
             StrengthIncreaseExponentShift = double.NaN;
 
             PopMean = double.NaN;
-            PopDeviation = double.NaN;
+            PopCoefficientOfVariation = double.NaN;
             PopShift = double.NaN;
         }
 
@@ -207,17 +207,17 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double AbovePhreaticLevelMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelDeviation { get; set; }
+        public double AbovePhreaticLevelCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
         public double AbovePhreaticLevelShift { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the distribution for the cohesion.
         /// [kN/m³]
@@ -231,10 +231,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double CohesionMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the cohesion.
+        /// Gets or sets the coefficient of variation of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double CohesionDeviation { get; set; }
+        public double CohesionCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the cohesion.
@@ -255,10 +255,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double FrictionAngleMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the friction angle.
+        /// Gets or sets the coefficient of variation of the distribution for the friction angle.
         /// [°]
         /// </summary>
-        public double FrictionAngleDeviation { get; set; }
+        public double FrictionAngleCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the friction angle.
@@ -279,10 +279,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double ShearStrengthRatioMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the ratio of shear strength S.
+        /// Gets or sets the coefficient of variation of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioDeviation { get; set; }
+        public double ShearStrengthRatioCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the ratio of shear strength S.
@@ -303,10 +303,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double StrengthIncreaseExponentMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the strength increase exponent (m).
+        /// Gets or sets the coefficient of variation of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
-        public double StrengthIncreaseExponentDeviation { get; set; }
+        public double StrengthIncreaseExponentCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the strength increase exponent (m).
@@ -327,10 +327,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double PopMean { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the POP.
+        /// Gets or sets the coefficient of variation of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
-        public double PopDeviation { get; set; }
+        public double PopCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the POP.

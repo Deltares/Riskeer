@@ -113,19 +113,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.IsAquifer = soilLayer.IsAquifer;
             properties.Color = soilLayer.Color;
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
-            properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelDeviation;
+            properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
             properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
             properties.BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation;
             properties.CohesionMean = soilLayer.CohesionMean;
-            properties.CohesionDeviation = soilLayer.CohesionDeviation;
+            properties.CohesionDeviation = soilLayer.CohesionCoefficientOfVariation;
             properties.FrictionAngleMean = soilLayer.FrictionAngleMean;
-            properties.FrictionAngleDeviation = soilLayer.FrictionAngleDeviation;
+            properties.FrictionAngleDeviation = soilLayer.FrictionAngleCoefficientOfVariation;
             properties.ShearStrengthRatioMean = soilLayer.ShearStrengthRatioMean;
-            properties.ShearStrengthRatioDeviation = soilLayer.ShearStrengthRatioDeviation;
+            properties.ShearStrengthRatioDeviation = soilLayer.ShearStrengthRatioCoefficientOfVariation;
             properties.StrengthIncreaseExponentMean = soilLayer.StrengthIncreaseExponentMean;
-            properties.StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentDeviation;
+            properties.StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentCoefficientOfVariation;
             properties.PopMean = soilLayer.PopMean;
-            properties.PopDeviation = soilLayer.PopDeviation;
+            properties.PopDeviation = soilLayer.PopCoefficientOfVariation;
         }
         
         private static bool TransformUsePop(double? usePop)

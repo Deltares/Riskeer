@@ -189,32 +189,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(properties.ShearStrengthModel, soilLayer.ShearStrengthModel);
             Assert.AreEqual(properties.AbovePhreaticLevelDistribution, soilLayer.AbovePhreaticLevelDistribution);
             Assert.AreEqual(properties.AbovePhreaticLevelMean, soilLayer.AbovePhreaticLevelMean);
-            Assert.AreEqual(properties.AbovePhreaticLevelCoefficientOfVariation, soilLayer.AbovePhreaticLevelDeviation);
+            Assert.AreEqual(properties.AbovePhreaticLevelCoefficientOfVariation, soilLayer.AbovePhreaticLevelCoefficientOfVariation);
 
             Assert.AreEqual(properties.AbovePhreaticLevelShift, soilLayer.AbovePhreaticLevelShift);
             Assert.AreEqual(properties.CohesionDistribution, soilLayer.CohesionDistribution);
             Assert.AreEqual(properties.CohesionMean, soilLayer.CohesionMean);
-            Assert.AreEqual(properties.CohesionCoefficientOfVariation, soilLayer.CohesionDeviation);
+            Assert.AreEqual(properties.CohesionCoefficientOfVariation, soilLayer.CohesionCoefficientOfVariation);
 
             Assert.AreEqual(properties.CohesionShift, soilLayer.CohesionShift);
             Assert.AreEqual(properties.FrictionAngleDistribution, soilLayer.FrictionAngleDistribution);
             Assert.AreEqual(properties.FrictionAngleMean, soilLayer.FrictionAngleMean);
-            Assert.AreEqual(properties.FrictionAngleCoefficientOfVariation, soilLayer.FrictionAngleDeviation);
+            Assert.AreEqual(properties.FrictionAngleCoefficientOfVariation, soilLayer.FrictionAngleCoefficientOfVariation);
 
             Assert.AreEqual(properties.FrictionAngleShift, soilLayer.FrictionAngleShift);
             Assert.AreEqual(properties.ShearStrengthRatioDistribution, soilLayer.ShearStrengthRatioDistribution);
             Assert.AreEqual(properties.ShearStrengthRatioMean, soilLayer.ShearStrengthRatioMean);
-            Assert.AreEqual(properties.ShearStrengthRatioCoefficientOfVariation, soilLayer.ShearStrengthRatioDeviation);
+            Assert.AreEqual(properties.ShearStrengthRatioCoefficientOfVariation, soilLayer.ShearStrengthRatioCoefficientOfVariation);
 
             Assert.AreEqual(properties.ShearStrengthRatioShift, soilLayer.ShearStrengthRatioShift);
             Assert.AreEqual(properties.StrengthIncreaseExponentDistribution, soilLayer.StrengthIncreaseExponentDistribution);
             Assert.AreEqual(properties.StrengthIncreaseExponentMean, soilLayer.StrengthIncreaseExponentMean);
-            Assert.AreEqual(properties.StrengthIncreaseExponentCoefficientOfVariation, soilLayer.StrengthIncreaseExponentDeviation);
+            Assert.AreEqual(properties.StrengthIncreaseExponentCoefficientOfVariation, soilLayer.StrengthIncreaseExponentCoefficientOfVariation);
 
             Assert.AreEqual(properties.StrengthIncreaseExponentShift, soilLayer.StrengthIncreaseExponentShift);
             Assert.AreEqual(properties.PopDistribution, soilLayer.PopDistribution);
             Assert.AreEqual(properties.PopMean, soilLayer.PopMean);
-            Assert.AreEqual(properties.PopCoefficientOfVariation, soilLayer.PopDeviation);
+            Assert.AreEqual(properties.PopCoefficientOfVariation, soilLayer.PopCoefficientOfVariation);
             Assert.AreEqual(properties.PopShift, soilLayer.PopShift);
 
             mockRepository.VerifyAll();
@@ -262,32 +262,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Assert.IsNull(soilLayer.AbovePhreaticLevelDistribution);
             Assert.IsNaN(soilLayer.AbovePhreaticLevelMean);
-            Assert.IsNaN(soilLayer.AbovePhreaticLevelDeviation);
+            Assert.IsNaN(soilLayer.AbovePhreaticLevelCoefficientOfVariation);
             Assert.IsNaN(soilLayer.AbovePhreaticLevelShift);
 
             Assert.IsNull(soilLayer.CohesionDistribution);
             Assert.IsNaN(soilLayer.CohesionMean);
-            Assert.IsNaN(soilLayer.CohesionDeviation);
+            Assert.IsNaN(soilLayer.CohesionCoefficientOfVariation);
             Assert.IsNaN(soilLayer.CohesionShift);
 
             Assert.IsNull(soilLayer.FrictionAngleDistribution);
             Assert.IsNaN(soilLayer.FrictionAngleMean);
-            Assert.IsNaN(soilLayer.FrictionAngleDeviation);
+            Assert.IsNaN(soilLayer.FrictionAngleCoefficientOfVariation);
             Assert.IsNaN(soilLayer.FrictionAngleShift);
 
             Assert.IsNull(soilLayer.ShearStrengthRatioDistribution);
             Assert.IsNaN(soilLayer.ShearStrengthRatioMean);
-            Assert.IsNaN(soilLayer.ShearStrengthRatioDeviation);
+            Assert.IsNaN(soilLayer.ShearStrengthRatioCoefficientOfVariation);
             Assert.IsNaN(soilLayer.ShearStrengthRatioShift);
 
             Assert.IsNull(soilLayer.StrengthIncreaseExponentDistribution);
             Assert.IsNaN(soilLayer.StrengthIncreaseExponentMean);
-            Assert.IsNaN(soilLayer.StrengthIncreaseExponentDeviation);
+            Assert.IsNaN(soilLayer.StrengthIncreaseExponentCoefficientOfVariation);
             Assert.IsNaN(soilLayer.StrengthIncreaseExponentShift);
 
             Assert.IsNull(soilLayer.PopDistribution);
             Assert.IsNaN(soilLayer.PopMean);
-            Assert.IsNaN(soilLayer.PopDeviation);
+            Assert.IsNaN(soilLayer.PopCoefficientOfVariation);
             Assert.IsNaN(soilLayer.PopShift);
 
             mockRepository.VerifyAll();

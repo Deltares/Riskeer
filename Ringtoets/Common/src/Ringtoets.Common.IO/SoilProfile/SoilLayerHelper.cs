@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             if (properties.AbovePhreaticLevelCoefficientOfVariation.HasValue)
             {
-                soilLayer.AbovePhreaticLevelDeviation = properties.AbovePhreaticLevelCoefficientOfVariation.Value;
+                soilLayer.AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelCoefficientOfVariation.Value;
             }
             if (properties.CohesionDistribution.HasValue)
             {
@@ -143,7 +143,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             if (properties.CohesionCoefficientOfVariation.HasValue)
             {
-                soilLayer.CohesionDeviation = properties.CohesionCoefficientOfVariation.Value;
+                soilLayer.CohesionCoefficientOfVariation = properties.CohesionCoefficientOfVariation.Value;
             }
             if (properties.FrictionAngleDistribution.HasValue)
             {
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             if (properties.FrictionAngleCoefficientOfVariation.HasValue)
             {
-                soilLayer.FrictionAngleDeviation = properties.FrictionAngleCoefficientOfVariation.Value;
+                soilLayer.FrictionAngleCoefficientOfVariation = properties.FrictionAngleCoefficientOfVariation.Value;
             }
             if (properties.ShearStrengthRatioDistribution.HasValue)
             {
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             if (properties.ShearStrengthRatioCoefficientOfVariation.HasValue)
             {
-                soilLayer.ShearStrengthRatioDeviation = properties.ShearStrengthRatioCoefficientOfVariation.Value;
+                soilLayer.ShearStrengthRatioCoefficientOfVariation = properties.ShearStrengthRatioCoefficientOfVariation.Value;
             }
             if (properties.StrengthIncreaseExponentDistribution.HasValue)
             {
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             if (properties.StrengthIncreaseExponentCoefficientOfVariation.HasValue)
             {
-                soilLayer.StrengthIncreaseExponentDeviation = properties.StrengthIncreaseExponentCoefficientOfVariation.Value;
+                soilLayer.StrengthIncreaseExponentCoefficientOfVariation = properties.StrengthIncreaseExponentCoefficientOfVariation.Value;
             }
             if (properties.PopDistribution.HasValue)
             {
@@ -207,7 +207,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             if (properties.PopCoefficientOfVariation.HasValue)
             {
-                soilLayer.PopDeviation = properties.PopCoefficientOfVariation.Value;
+                soilLayer.PopCoefficientOfVariation = properties.PopCoefficientOfVariation.Value;
             }
         }
     }

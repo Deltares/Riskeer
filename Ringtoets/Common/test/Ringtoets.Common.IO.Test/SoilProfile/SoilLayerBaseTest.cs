@@ -61,32 +61,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Assert.IsNull(layer.AbovePhreaticLevelDistribution);
             Assert.IsNaN(layer.AbovePhreaticLevelMean);
-            Assert.IsNaN(layer.AbovePhreaticLevelDeviation);
+            Assert.IsNaN(layer.AbovePhreaticLevelCoefficientOfVariation);
             Assert.IsNaN(layer.AbovePhreaticLevelShift);
 
             Assert.IsNull(layer.CohesionDistribution);
             Assert.IsNaN(layer.CohesionMean);
-            Assert.IsNaN(layer.CohesionDeviation);
+            Assert.IsNaN(layer.CohesionCoefficientOfVariation);
             Assert.IsNaN(layer.CohesionShift);
 
             Assert.IsNull(layer.FrictionAngleDistribution);
             Assert.IsNaN(layer.FrictionAngleMean);
-            Assert.IsNaN(layer.FrictionAngleDeviation);
+            Assert.IsNaN(layer.FrictionAngleCoefficientOfVariation);
             Assert.IsNaN(layer.FrictionAngleShift);
 
             Assert.IsNull(layer.ShearStrengthRatioDistribution);
             Assert.IsNaN(layer.ShearStrengthRatioMean);
-            Assert.IsNaN(layer.ShearStrengthRatioDeviation);
+            Assert.IsNaN(layer.ShearStrengthRatioCoefficientOfVariation);
             Assert.IsNaN(layer.ShearStrengthRatioShift);
 
             Assert.IsNull(layer.StrengthIncreaseExponentDistribution);
             Assert.IsNaN(layer.StrengthIncreaseExponentMean);
-            Assert.IsNaN(layer.StrengthIncreaseExponentDeviation);
+            Assert.IsNaN(layer.StrengthIncreaseExponentCoefficientOfVariation);
             Assert.IsNaN(layer.StrengthIncreaseExponentShift);
 
             Assert.IsNull(layer.PopDistribution);
             Assert.IsNaN(layer.PopMean);
-            Assert.IsNaN(layer.PopDeviation);
+            Assert.IsNaN(layer.PopCoefficientOfVariation);
             Assert.IsNaN(layer.PopShift);
         }
 
