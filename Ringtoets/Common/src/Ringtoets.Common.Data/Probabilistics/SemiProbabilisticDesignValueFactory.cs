@@ -33,9 +33,9 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// </summary>
         /// <param name="distribution">The distribution to create the design variable for.</param>
         /// <param name="percentile">The percentile used to derive a deterministic value based on the <paramref name="distribution"/>.</param>
-        /// <returns>A new <see cref="VariationCoefficientDesignVariable{T}"/>.</returns>
+        /// <returns>A new <see cref="VariationCoefficientLogNormalDistributionDesignVariable"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> CreateDesignVariable(
+        public static VariationCoefficientLogNormalDistributionDesignVariable CreateDesignVariable(
             VariationCoefficientLogNormalDistribution distribution, double percentile)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(distribution)

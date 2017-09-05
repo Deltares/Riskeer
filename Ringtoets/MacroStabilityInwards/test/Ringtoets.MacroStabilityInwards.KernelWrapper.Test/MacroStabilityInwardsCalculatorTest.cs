@@ -107,25 +107,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 {
                     surfaceLine.LocalGeometry.First()
 
-                }, new MacroStabilityInwardsSoilLayerProperties()),
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     surfaceLine.LocalGeometry.First()
 
-                }, new MacroStabilityInwardsSoilLayerProperties
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     IsAquifer = true
-                }),
+                })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     surfaceLine.LocalGeometry.First()
 
-                }, new MacroStabilityInwardsSoilLayerProperties()),
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     surfaceLine.LocalGeometry.First()
 
-                }, new MacroStabilityInwardsSoilLayerProperties()),
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
             });
         }
 

@@ -21,7 +21,9 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Deltares.WTIStability.Data.Geo;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
@@ -45,7 +47,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             return profile.LayersUnderSurfaceLine.Select(l => new Soil(l.Properties.MaterialName)
             {
                 UsePop = l.Properties.UsePop,
-                ShearStrengthModel = ConvertShearStrengthModel(l.Properties.ShearStrengthModel)
+                ShearStrengthModel = ConvertShearStrengthModel(l.Properties.ShearStrengthModel),
+                AbovePhreaticLevel = l.Properties.AbovePhreaticLevelDesignVariable
             }).ToArray();
         }
 

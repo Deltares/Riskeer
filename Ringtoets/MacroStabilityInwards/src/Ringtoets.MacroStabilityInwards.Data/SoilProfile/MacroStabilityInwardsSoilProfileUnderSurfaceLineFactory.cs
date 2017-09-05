@@ -92,9 +92,27 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                     RingToPoints(layer.OuterRing),
                     layer.Holes.Select(RingToPoints),
-                    layer.Properties));
+                    ToUnderSurfaceLineProperties(layer.Properties)));
 
             return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine);
+        }
+
+        private static MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine ToUnderSurfaceLineProperties(
+            MacroStabilityInwardsSoilLayerProperties properties)
+        {
+            var props = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
+                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                {
+                    AbovePhreaticLevelMean = properties.AbovePhreaticLevelMean,
+                    AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelDeviation,
+                    UsePop = properties.UsePop,
+                    IsAquifer = properties.IsAquifer,
+                    ShearStrengthModel = properties.ShearStrengthModel,
+                    MaterialName = properties.MaterialName
+                });
+
+            props.AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(props).GetDesignValue();
+            return props;
         }
 
         private static Point2D[] RingToPoints(Ring ring)
@@ -112,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 foreach (Point2D[] soilLayerArea in GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometryArray, layer.OuterLoop))
                 {
-                    collection.Add(new MacroStabilityInwardsSoilLayerUnderSurfaceLine(soilLayerArea, layer.Properties));
+                    collection.Add(new MacroStabilityInwardsSoilLayerUnderSurfaceLine(soilLayerArea, ToUnderSurfaceLineProperties(layer.Properties)));
                 }
             }
 

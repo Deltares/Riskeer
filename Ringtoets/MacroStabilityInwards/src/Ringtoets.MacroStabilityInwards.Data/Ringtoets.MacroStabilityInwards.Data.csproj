@@ -50,6 +50,7 @@
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResult.cs" />
     <Compile Include="MacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsOutput.cs" />
+    <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignValueFactory.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticOutput.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDetermination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

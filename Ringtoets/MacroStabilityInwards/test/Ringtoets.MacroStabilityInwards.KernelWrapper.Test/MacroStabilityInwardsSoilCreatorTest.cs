@@ -41,42 +41,42 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerProperties
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     UsePop = true,
                     ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
                     MaterialName = "Sand"
-                }),
+                })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerProperties
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     UsePop = false,
                     ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None,
                     MaterialName = "Mud"
-                }),
+                })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerProperties
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     UsePop = true,
                     ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
                     MaterialName = "Clay"
-                }),
+                })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerProperties
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     UsePop = true,
                     ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
                     MaterialName = "Grass"
-                })
+                }))
             });
 
             // Call
@@ -106,10 +106,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerProperties
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99,
-                })
+                }))
             });
 
             // Call

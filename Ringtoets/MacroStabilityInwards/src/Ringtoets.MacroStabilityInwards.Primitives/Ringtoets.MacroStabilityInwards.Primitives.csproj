@@ -45,6 +45,7 @@
     <Compile Include="IMacroStabilityInwardsSoilProfile.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer1D.cs" />
+    <Compile Include="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayerUnderSurfaceLine.cs" />
     <Compile Include="MacroStabilityInwardsSoilProfile2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilProfile1D.cs" />

@@ -53,7 +53,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0)
-                }, new MacroStabilityInwardsSoilLayerProperties())
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
+                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()))
             });
 
             // Call

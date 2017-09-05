@@ -22,9 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -321,6 +325,61 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
+        public void SoilProfile1DCreate_WithProperties_ReturnsProperties()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 4.0),
+                new Point3D(4, 0, 0.0),
+                new Point3D(8, 0, 4.0)
+            });
+
+            var random = new Random();
+            bool usePop = random.NextBoolean();
+            bool isAquifer = random.NextBoolean();
+            var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
+            double abovePhreaticLevelMean = random.NextDouble();
+            double abovePhreaticLevelDeviation = random.NextDouble();
+            const string material = "Clay";
+
+            var layer = new MacroStabilityInwardsSoilLayer1D(1)
+            {
+                Properties =
+                {
+                    UsePop = usePop,
+                    IsAquifer = isAquifer,
+                    ShearStrengthModel = shearStrengthModel,
+                    AbovePhreaticLevelMean = abovePhreaticLevelMean,
+                    AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation,
+                    MaterialName = material
+                }
+            };
+
+            var profile = new MacroStabilityInwardsSoilProfile1D("name", 0, new[]
+            {
+                layer
+            });
+
+            // Call
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(
+                profile, surfaceLine);
+
+            // Assert
+            MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine layerUnderSurfaceLineProperties = profileUnderSurfaceLine.LayersUnderSurfaceLine.First().Properties;
+            Assert.AreEqual(usePop, layerUnderSurfaceLineProperties.UsePop);
+            Assert.AreEqual(isAquifer, layerUnderSurfaceLineProperties.IsAquifer);
+            Assert.AreEqual(shearStrengthModel, layerUnderSurfaceLineProperties.ShearStrengthModel);
+            Assert.AreEqual(abovePhreaticLevelMean, layerUnderSurfaceLineProperties.AbovePhreaticLevel.Mean, layerUnderSurfaceLineProperties.AbovePhreaticLevel.Mean.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelDeviation, layerUnderSurfaceLineProperties.AbovePhreaticLevel.CoefficientOfVariation, layerUnderSurfaceLineProperties.AbovePhreaticLevel.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(material, layerUnderSurfaceLineProperties.MaterialName);
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(layerUnderSurfaceLineProperties).GetDesignValue(),
+                            layerUnderSurfaceLineProperties.AbovePhreaticLevelDesignVariable);
+        }
+
+
+        [Test]
         public void SoilProfile2DCreate_ProfileWithOuterRingAndHoles_ReturnsEqualGeometries()
         {
             // Setup
@@ -359,6 +418,52 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 holesA.Select(h => h.Points),
                 holesB.Select(h => h.Points)
             }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.Holes));
+        }
+
+        [Test]
+        public void SoilProfile2DCreate_WithProperties_ReturnsProperties()
+        {
+            // Setup
+            var random = new Random();
+            bool usePop = random.NextBoolean();
+            bool isAquifer = random.NextBoolean();
+            var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
+            double abovePhreaticLevelMean = random.NextDouble();
+            double abovePhreaticLevelDeviation = random.NextDouble();
+            const string material = "Clay";
+            
+            MacroStabilityInwardsSoilLayer2D layer = GetSoilLayer();
+            layer.Properties.UsePop = usePop;
+            layer.Properties.IsAquifer = isAquifer;
+            layer.Properties.ShearStrengthModel = shearStrengthModel;
+            layer.Properties.AbovePhreaticLevelMean = abovePhreaticLevelMean;
+            layer.Properties.AbovePhreaticLevelDeviation = abovePhreaticLevelDeviation;
+            layer.Properties.MaterialName = material;
+
+            var profile = new MacroStabilityInwardsSoilProfile2D("name", new[]
+            {
+                layer
+            });
+
+            // Call
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(
+                profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
+
+            // Assert
+            MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine layerUnderSurfaceLineProperties = profileUnderSurfaceLine.LayersUnderSurfaceLine.First().Properties;
+            Assert.AreEqual(usePop, layerUnderSurfaceLineProperties.UsePop);
+            Assert.AreEqual(isAquifer, layerUnderSurfaceLineProperties.IsAquifer);
+            Assert.AreEqual(shearStrengthModel, layerUnderSurfaceLineProperties.ShearStrengthModel);
+            Assert.AreEqual(abovePhreaticLevelMean, layerUnderSurfaceLineProperties.AbovePhreaticLevel.Mean, layerUnderSurfaceLineProperties.AbovePhreaticLevel.Mean.GetAccuracy());
+            Assert.AreEqual(abovePhreaticLevelDeviation, layerUnderSurfaceLineProperties.AbovePhreaticLevel.CoefficientOfVariation, layerUnderSurfaceLineProperties.AbovePhreaticLevel.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(material, layerUnderSurfaceLineProperties.MaterialName);
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(layerUnderSurfaceLineProperties).GetDesignValue(),
+                            layerUnderSurfaceLineProperties.AbovePhreaticLevelDesignVariable);
+        }
+
+        private static MacroStabilityInwardsSoilLayer2D GetSoilLayer()
+        {
+            return new MacroStabilityInwardsSoilLayer2D(CreateRing(21), Enumerable.Empty<Ring>());
         }
 
         private static Ring CreateRing(int seed)
