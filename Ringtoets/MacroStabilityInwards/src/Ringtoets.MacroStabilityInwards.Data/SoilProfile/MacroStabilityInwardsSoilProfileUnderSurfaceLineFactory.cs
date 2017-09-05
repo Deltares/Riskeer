@@ -103,16 +103,39 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             var props = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
                 new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
-                    AbovePhreaticLevelMean = properties.AbovePhreaticLevelMean,
-                    AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelCoefficientOfVariation,
                     UsePop = properties.UsePop,
                     IsAquifer = properties.IsAquifer,
                     ShearStrengthModel = properties.ShearStrengthModel,
-                    MaterialName = properties.MaterialName
+                    MaterialName = properties.MaterialName,
+                    AbovePhreaticLevelMean = properties.AbovePhreaticLevelMean,
+                    AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelCoefficientOfVariation,
+                    BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean,
+                    BelowPhreaticLevelCoefficientOfVariation = properties.BelowPhreaticLevelCoefficientOfVariation,
+                    CohesionMean = properties.CohesionMean,
+                    CohesionCoefficientOfVariation = properties.CohesionCoefficientOfVariation,
+                    FrictionAngleMean = properties.FrictionAngleMean,
+                    FrictionAngleCoefficientOfVariation = properties.FrictionAngleCoefficientOfVariation,
+                    StrengthIncreaseExponentMean = properties.StrengthIncreaseExponentMean,
+                    StrengthIncreaseExponentCoefficientOfVariation = properties.StrengthIncreaseExponentCoefficientOfVariation,
+                    ShearStrengthRatioMean = properties.ShearStrengthRatioMean,
+                    ShearStrengthRatioCoefficientOfVariation = properties.ShearStrengthRatioCoefficientOfVariation,
+                    PopMean = properties.PopMean,
+                    PopCoefficientOfVariation = properties.PopCoefficientOfVariation
                 });
 
-            props.AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(props).GetDesignValue();
+            SetDesignVariables(props);
             return props;
+        }
+
+        private static void SetDesignVariables(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine props)
+        {
+            props.AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(props).GetDesignValue();
+            props.BelowPhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetBelowPhreaticLevel(props).GetDesignValue();
+            props.CohesionDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetCohesion(props).GetDesignValue();
+            props.FrictionAngleDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetFrictionAngle(props).GetDesignValue();
+            props.StrengthIncreaseExponentDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetStrengthIncreaseExponent(props).GetDesignValue();
+            props.ShearStrengthRatioDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetShearStrengthRatio(props).GetDesignValue();
+            props.PopDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPop(props).GetDesignValue();
         }
 
         private static Point2D[] RingToPoints(Ring ring)

@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.IsNaN(properties.AbovePhreaticLevelShift);
 
             Assert.IsNaN(properties.BelowPhreaticLevelMean);
-            Assert.IsNaN(properties.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(properties.BelowPhreaticLevelCoefficientOfVariation);
             Assert.IsNaN(properties.BelowPhreaticLevelShift);
 
             Assert.IsNaN(properties.CohesionMean);
@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelCoefficientOfVariation = 1.0 - lp.AbovePhreaticLevelCoefficientOfVariation));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelShift = 1.0 - lp.AbovePhreaticLevelShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelDeviation = 1.0 - lp.BelowPhreaticLevelDeviation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelCoefficientOfVariation = 1.0 - lp.BelowPhreaticLevelCoefficientOfVariation));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelShift = 1.0 - lp.BelowPhreaticLevelShift));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionCoefficientOfVariation = 1.0 - lp.CohesionCoefficientOfVariation));
@@ -247,7 +247,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 AbovePhreaticLevelCoefficientOfVariation = random.NextDouble(),
                 AbovePhreaticLevelShift = random.NextDouble(),
                 BelowPhreaticLevelMean = random.NextDouble(),
-                BelowPhreaticLevelDeviation = random.NextDouble(),
+                BelowPhreaticLevelCoefficientOfVariation = random.NextDouble(),
                 BelowPhreaticLevelShift = random.NextDouble(),
                 CohesionMean = random.NextDouble(),
                 CohesionCoefficientOfVariation = random.NextDouble(),

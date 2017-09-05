@@ -104,10 +104,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double BelowPhreaticLevelMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the layer below the phreatic level.
+        /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer below the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double BelowPhreaticLevelDeviation { get; set; } = double.NaN;
+        public double BelowPhreaticLevelCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the volumic weight of the layer below the phreatic level.
@@ -196,7 +196,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevelCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ CohesionMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ CohesionCoefficientOfVariation.GetHashCode();
@@ -223,7 +223,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                    && AbovePhreaticLevelCoefficientOfVariation.Equals(other.AbovePhreaticLevelCoefficientOfVariation)
                    && AbovePhreaticLevelShift.Equals(other.AbovePhreaticLevelShift)
                    && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
-                   && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
+                   && BelowPhreaticLevelCoefficientOfVariation.Equals(other.BelowPhreaticLevelCoefficientOfVariation)
                    && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
                    && CohesionMean.Equals(other.CohesionMean)
                    && CohesionCoefficientOfVariation.Equals(other.CohesionCoefficientOfVariation)

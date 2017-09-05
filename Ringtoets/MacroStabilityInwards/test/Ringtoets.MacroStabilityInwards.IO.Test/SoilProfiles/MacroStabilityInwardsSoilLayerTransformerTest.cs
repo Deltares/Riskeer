@@ -113,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(abovePhreaticLevelCoefficientOfVariation, properties.AbovePhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
-            Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(belowPhreaticLevelShift, properties.BelowPhreaticLevelShift);
             Assert.AreEqual(cohesionMean, properties.CohesionMean);
             Assert.AreEqual(cohesionCoefficientOfVariation, properties.CohesionCoefficientOfVariation);
@@ -295,7 +295,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
-            Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(belowPhreaticLevelShift, properties.BelowPhreaticLevelShift);
             Assert.AreEqual(cohesionMean, properties.CohesionMean);
             Assert.AreEqual(cohesionDeviation, properties.CohesionCoefficientOfVariation);
