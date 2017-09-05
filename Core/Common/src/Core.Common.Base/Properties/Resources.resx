@@ -183,4 +183,7 @@
   <data name="ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2" xml:space="preserve">
     <value>{0} moeten een unieke {1} hebben. Gevonden dubbele elementen: {2}.</value>
   </data>
+  <data name="StochasticSoilProfileHelper_GetValidatedStochasticProfilesToTransform_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed" xml:space="preserve">
+    <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
+  </data>
 </root>

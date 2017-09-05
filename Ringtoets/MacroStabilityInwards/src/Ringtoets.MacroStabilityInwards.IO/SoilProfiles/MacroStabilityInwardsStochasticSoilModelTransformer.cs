@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Stability)
             {
-                string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
+                string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
                                                stochasticSoilModel.FailureMechanismType,
                                                FailureMechanismType.Stability);
                 throw new ImportedDataTransformException(message);
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name);
             macroStabilityInwardsModel.Geometry.AddRange(stochasticSoilModel.Geometry);
             macroStabilityInwardsModel.StochasticSoilProfiles.AddRange(
-                TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles).ToArray());
+                TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
             return macroStabilityInwardsModel;
         }
 
@@ -64,13 +64,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// Transforms all generic <see cref="StochasticSoilProfile"/> into <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
         /// </summary>
         /// <param name="stochasticSoilProfiles">The stochastic soil profiles to use in the transformation.</param>
+        /// <param name="soilModelName">The name of the soil model.</param>
         /// <returns>The transformed stochastic soil profiles.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would 
         /// not result in a valid transformed instance.</exception>
         private IEnumerable<MacroStabilityInwardsStochasticSoilProfile> TransformStochasticSoilProfiles(
-            IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
+            IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
+            string soilModelName)
         {
-            return stochasticSoilProfiles.Select(
+            List<StochasticSoilProfile> profilesToTransform =
+                StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
+                                                                                      soilModelName);
+
+            return profilesToTransform.Select(
                 ssp => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(
                     ssp,
                     GetTransformedSoilProfile(ssp.SoilProfile))).ToArray();

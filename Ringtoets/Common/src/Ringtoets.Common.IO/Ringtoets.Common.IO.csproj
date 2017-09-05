@@ -155,6 +155,7 @@
     <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfile.cs" />
     <Compile Include="SoilProfile\IStochasticSoilModelTransformer.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileHelper.cs" />
     <Compile Include="Structures\IStructureUpdateStrategy.cs" />
     <Compile Include="Structures\StructureFilesKeywords.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />

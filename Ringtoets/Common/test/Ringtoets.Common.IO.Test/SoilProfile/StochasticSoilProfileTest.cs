@@ -54,6 +54,57 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-1)]
+        [TestCase(1)]
+        [TestCase(-0.51)]
+        [TestCase(0.51)]
+        public void AddProbability_ProbabilityToAddResultsInInvalidProbability_ThrowsArgumentOutOfrangeException(double probabilityToAdd)
+        {
+            // Setup
+            const double probability = 0.5;
+
+            var mockRepository = new MockRepository();
+            var soilProfile = mockRepository.Stub<ISoilProfile>();
+            mockRepository.ReplayAll();
+
+            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            TestDelegate call = () => stochasticSoilProfile.AddProbability(probabilityToAdd);
+
+            // Assert
+            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.5)]
+        [TestCase(-0.5)]
+        [TestCase(-0.2)]
+        [TestCase(0.2)]
+        public void AddProbability_ProbabilityToAddResultsInValidProbability_ReturnsExpectedProbability(double probabilityToAdd)
+        {
+            // Setup
+            const double probability = 0.5;
+
+            var mockRepository = new MockRepository();
+            var soilProfile = mockRepository.Stub<ISoilProfile>();
+            mockRepository.ReplayAll();
+
+            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            stochasticSoilProfile.AddProbability(probabilityToAdd);
+
+            // Assert
+            double expectedProbability = probability + probabilityToAdd;
+            Assert.AreEqual(expectedProbability, stochasticSoilProfile.Probability, 1e-6);
+        }
+
         [TestCase]
         public void Constructor_SoilProfileNull_ThrowsArgumentNullException()
         {

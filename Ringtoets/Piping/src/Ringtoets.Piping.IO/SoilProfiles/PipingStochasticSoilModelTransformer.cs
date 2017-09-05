@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Piping)
             {
-                string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_tranform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
+                string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
                                                stochasticSoilModel.FailureMechanismType,
                                                FailureMechanismType.Piping);
                 throw new ImportedDataTransformException(message);
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             var pipingModel = new PipingStochasticSoilModel(stochasticSoilModel.Name);
             pipingModel.Geometry.AddRange(stochasticSoilModel.Geometry);
             pipingModel.StochasticSoilProfiles.AddRange(
-                TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles).ToArray());
+                TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
 
             return pipingModel;
         }
@@ -64,15 +64,19 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// Transforms all generic <see cref="StochasticSoilProfile"/> into <see cref="PipingStochasticSoilProfile"/>.
         /// </summary>
         /// <param name="stochasticSoilProfiles">The stochastic soil profiles to use in the transformation.</param>
+        /// <param name="soilModelName">The name of the soil model.</param>
         /// <returns>The transformed piping stochastic soil profiles.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would 
         /// not result in a valid transformed instance.</exception>
-        private IEnumerable<PipingStochasticSoilProfile> TransformStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
+        private IEnumerable<PipingStochasticSoilProfile> TransformStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
+                                                                                         string soilModelName)
         {
-            return stochasticSoilProfiles.Select(
-                ssp => PipingStochasticSoilProfileTransformer.Transform(
-                    ssp,
-                    GetTransformedPipingSoilProfile(ssp.SoilProfile)));
+            List<StochasticSoilProfile> profilesToTransform = StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
+                                                                                                                                    soilModelName);
+
+            return profilesToTransform.Select(ssp => PipingStochasticSoilProfileTransformer.Transform(
+                                                  ssp,
+                                                  GetTransformedPipingSoilProfile(ssp.SoilProfile))).ToArray();
         }
 
         /// <summary>

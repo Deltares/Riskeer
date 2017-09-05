@@ -74,13 +74,26 @@ namespace Ringtoets.Common.IO.SoilProfile
                 if (!probabilityValidityRange.InRange(value))
                 {
                     throw new ArgumentOutOfRangeException(
-                        nameof(value),
+                        null,
                         string.Format(
                             Resources.StochasticSoilProfile_Probability_Should_be_in_range_0_,
                             probabilityValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture)));
                 }
                 probability = value;
             }
+        }
+
+        /// <summary>
+        /// Updates the probability of the <see cref="StochasticSoilProfile"/> 
+        /// by adding <paramref name="probabilityToAdd"/>.
+        /// </summary>
+        /// <param name="probabilityToAdd">The amount to increase the <see cref="Probability"/>
+        /// with.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probabilityToAdd"/>
+        /// is outside the range [0, 1].</exception>
+        public void AddProbability(double probabilityToAdd)
+        {
+            Probability += probabilityToAdd;
         }
     }
 }
