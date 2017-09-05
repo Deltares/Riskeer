@@ -49,21 +49,41 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 CoefficientOfVariation = (RoundedDouble) properties.AbovePhreaticLevelCoefficientOfVariation
             };
 
+            BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) properties.BelowPhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) properties.BelowPhreaticLevelCoefficientOfVariation
+            };
+
+            Cohesion = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) properties.CohesionMean,
+                CoefficientOfVariation = (RoundedDouble) properties.CohesionCoefficientOfVariation
+            };
+
+            FrictionAngle = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) properties.FrictionAngleMean,
+                CoefficientOfVariation = (RoundedDouble) properties.FrictionAngleCoefficientOfVariation
+            };
+
+            ShearStrengthRatio = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) properties.ShearStrengthRatioMean,
+                CoefficientOfVariation = (RoundedDouble) properties.ShearStrengthRatioCoefficientOfVariation
+            };
+
+            Pop = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) properties.PopMean,
+                CoefficientOfVariation = (RoundedDouble) properties.PopCoefficientOfVariation
+            };
+
             IsAquifer = properties.IsAquifer;
             UsePop = properties.UsePop;
             ShearStrengthModel = properties.ShearStrengthModel;
             MaterialName = properties.MaterialName;
         }
-
-        /// <summary>
-        /// Gets the distribution for the volumic weight of the layer above the phreatic level.
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution AbovePhreaticLevel { get; }
-
-        /// <summary>
-        /// Gets the design variable of the distribution for the volumic weight of the layer above the phreatic level.
-        /// </summary>
-        public RoundedDouble AbovePhreaticLevelDesignVariable { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the layer is an aquifer.
@@ -85,6 +105,82 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         public string MaterialName { get; }
 
+        #region distributions
+
+        /// <summary>
+        /// Gets the distribution for the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution AbovePhreaticLevel { get; }
+
+        /// <summary>
+        /// Gets the distribution for the volumic weight of the layer below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution BelowPhreaticLevel { get; }
+
+        /// <summary>
+        /// Gets the distribution for the cohesion.
+        /// [kN/m³]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution Cohesion { get; }
+
+        /// <summary>
+        /// Gets the friction angle.
+        /// [°]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution FrictionAngle { get; }
+
+        /// <summary>
+        /// Gets the shear strength ratio.
+        /// [-]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution ShearStrengthRatio { get; }
+
+        /// <summary>
+        /// Gets the Pop.
+        /// [kN/m²]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution Pop { get; }
+
+        #endregion
+
+        #region Design variables
+
+        /// <summary>
+        /// Gets or sets the design variable of the distribution for the volumic weight of the layer above the phreatic level.
+        /// </summary>
+        public RoundedDouble AbovePhreaticLevelDesignVariable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design variable of the distribution for the volumic weight of the layer below the phreatic level.
+        /// </summary>
+        public RoundedDouble BelowPhreaticLevelDesignVariable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design variable of the distribution for the cohesion.
+        /// </summary>
+        public RoundedDouble CohesionDesignVariable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design variable of the distribution for the friction angle.
+        /// </summary>
+        public RoundedDouble FrictionAngleDesignVariable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design variable of the distribution for the shear strength ratio.
+        /// </summary>
+        public RoundedDouble ShearStrengthRatioDesignVariable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the design variable of the distribution for the Pop.
+        /// </summary>
+        public RoundedDouble PopDesignVariable { get; set; }
+
+        #endregion
+
+        #region ConstructionProperties
+
         public class ConstructionProperties
         {
             /// <summary>
@@ -94,6 +190,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 AbovePhreaticLevelMean = double.NaN;
                 AbovePhreaticLevelCoefficientOfVariation = double.NaN;
+                BelowPhreaticLevelMean = double.NaN;
+                BelowPhreaticLevelCoefficientOfVariation = double.NaN;
+                CohesionMean = double.NaN;
+                CohesionCoefficientOfVariation = double.NaN;
+                FrictionAngleMean = double.NaN;
+                FrictionAngleCoefficientOfVariation = double.NaN;
+                ShearStrengthRatioMean = double.NaN;
+                ShearStrengthRatioCoefficientOfVariation = double.NaN;
+                PopMean = double.NaN;
+                PopCoefficientOfVariation = double.NaN;
                 ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None;
                 MaterialName = string.Empty;
             }
@@ -109,6 +215,66 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             /// [kN/m³]
             /// </summary>
             public double AbovePhreaticLevelCoefficientOfVariation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the mean of the distribution for the volumic weight of the layer below the phreatic level.
+            /// [kN/m³]
+            /// </summary>
+            public double BelowPhreaticLevelMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer below the phreatic level.
+            /// [kN/m³]
+            /// </summary>
+            public double BelowPhreaticLevelCoefficientOfVariation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the mean of the distribution for the cohesion.
+            /// [kN/m³]
+            /// </summary>
+            public double CohesionMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the coefficient of variation of the distribution for the cohesion.
+            /// [kN/m³]
+            /// </summary>
+            public double CohesionCoefficientOfVariation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the mean of the distribution for the friction angle.
+            /// [°]
+            /// </summary>
+            public double FrictionAngleMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the coefficient of variation of the distribution for the friction angle.
+            /// [°]
+            /// </summary>
+            public double FrictionAngleCoefficientOfVariation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the mean of the distribution for the shear strength ratio.
+            /// [-]
+            /// </summary>
+            public double ShearStrengthRatioMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the coefficient of variation of the distribution for the shear strength ratio.
+            /// [-]
+            /// </summary>
+            public double ShearStrengthRatioCoefficientOfVariation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the mean of the distribution for the pop.
+            /// [kN/m²]
+            /// </summary>
+            public double PopMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the coefficient of variation of the distribution for the pop.
+            /// [kN/m²]
+            /// </summary>
+            public double PopCoefficientOfVariation { internal get; set; }
 
             /// <summary>
             /// Gets or sets a value indicating whether the layer is an aquifer.
@@ -130,5 +296,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             /// </summary>
             public string MaterialName { internal get; set; }
         }
+
+        #endregion
     }
 }

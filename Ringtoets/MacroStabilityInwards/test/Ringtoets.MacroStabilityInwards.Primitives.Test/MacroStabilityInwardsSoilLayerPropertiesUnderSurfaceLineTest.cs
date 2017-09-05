@@ -46,14 +46,36 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_WithConstructionProperties_ExpectedValues()
         {
             // Setup
+            const string materialName = "Clay";
+
             var random = new Random();
             var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
             bool usePop = random.NextBoolean();
             bool isAquifer = random.NextBoolean();
+
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
             RoundedDouble abovePhreaticLevelDesignVariable = random.NextRoundedDouble();
-            const string materialName = "Clay";
+
+            double belowPhreaticLevelMean = random.NextDouble();
+            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
+            RoundedDouble belowPhreaticLevelDesignVariable = random.NextRoundedDouble();
+
+            double cohesionMean = random.NextDouble();
+            double cohesionCoefficientOfVariation = random.NextDouble();
+            RoundedDouble cohesionDesignVariable = random.NextRoundedDouble();
+
+            double frictionAngleMean = random.NextDouble();
+            double frictionAngleCoefficientOfVariation = random.NextDouble();
+            RoundedDouble frictionAngleDesignVariable = random.NextRoundedDouble();
+
+            double shearStrengthRatioMean = random.NextDouble();
+            double shearStrengthRatioCoefficientOfVariation = random.NextDouble();
+            RoundedDouble shearStrengthRatioDesignVariable = random.NextRoundedDouble();
+
+            double popMean = random.NextDouble();
+            double popCoefficientOfVariation = random.NextDouble();
+            RoundedDouble popDesignVariable = random.NextRoundedDouble();
 
             var constructionProperties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
             {
@@ -62,13 +84,28 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 IsAquifer = isAquifer,
                 MaterialName = materialName,
                 AbovePhreaticLevelMean = abovePhreaticLevelMean,
-                AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelCoefficientOfVariation
+                AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelCoefficientOfVariation,
+                BelowPhreaticLevelMean = belowPhreaticLevelMean,
+                BelowPhreaticLevelCoefficientOfVariation = belowPhreaticLevelCoefficientOfVariation,
+                CohesionMean = cohesionMean,
+                CohesionCoefficientOfVariation = cohesionCoefficientOfVariation,
+                FrictionAngleMean = frictionAngleMean,
+                FrictionAngleCoefficientOfVariation = frictionAngleCoefficientOfVariation,
+                ShearStrengthRatioMean = shearStrengthRatioMean,
+                ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioCoefficientOfVariation,
+                PopMean = popMean,
+                PopCoefficientOfVariation = popCoefficientOfVariation
             };
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(constructionProperties)
             {
-                AbovePhreaticLevelDesignVariable = abovePhreaticLevelDesignVariable
+                AbovePhreaticLevelDesignVariable = abovePhreaticLevelDesignVariable,
+                BelowPhreaticLevelDesignVariable = belowPhreaticLevelDesignVariable,
+                CohesionDesignVariable = cohesionDesignVariable,
+                FrictionAngleDesignVariable = frictionAngleDesignVariable,
+                ShearStrengthRatioDesignVariable = shearStrengthRatioDesignVariable,
+                PopDesignVariable = popDesignVariable
             };
 
             // Assert
@@ -77,11 +114,41 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(isAquifer, properties.IsAquifer);
             Assert.AreEqual(materialName, properties.MaterialName);
             Assert.AreEqual(abovePhreaticLevelDesignVariable, properties.AbovePhreaticLevelDesignVariable);
+            Assert.AreEqual(belowPhreaticLevelDesignVariable, properties.BelowPhreaticLevelDesignVariable);
+            Assert.AreEqual(cohesionDesignVariable, properties.CohesionDesignVariable);
+            Assert.AreEqual(frictionAngleDesignVariable, properties.FrictionAngleDesignVariable);
+            Assert.AreEqual(shearStrengthRatioDesignVariable, properties.ShearStrengthRatioDesignVariable);
+            Assert.AreEqual(popDesignVariable, properties.PopDesignVariable);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) abovePhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation
             }, properties.AbovePhreaticLevel);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) belowPhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation
+            }, properties.BelowPhreaticLevel);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) cohesionMean,
+                CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
+            }, properties.Cohesion);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) frictionAngleMean,
+                CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
+            }, properties.FrictionAngle);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) shearStrengthRatioMean,
+                CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
+            }, properties.ShearStrengthRatio);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) popMean,
+                CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
+            }, properties.Pop);
         }
 
         [Test]
@@ -96,6 +163,32 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
             }, properties.AbovePhreaticLevel);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, properties.BelowPhreaticLevel);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, properties.Cohesion);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, properties.FrictionAngle);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, properties.ShearStrengthRatio);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, properties.Pop);
+
             Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.None, properties.ShearStrengthModel);
             Assert.IsFalse(properties.UsePop);
             Assert.IsFalse(properties.IsAquifer);
