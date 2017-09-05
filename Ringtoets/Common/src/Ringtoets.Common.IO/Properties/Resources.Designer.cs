@@ -389,6 +389,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ongeldige waarde voor parameter &apos;{0}&apos;..
+        /// </summary>
+        public static string Convert_Invalid_value_ParameterName_0 {
+            get {
+                return ResourceManager.GetString("Convert_Invalid_value_ParameterName_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De regel (&apos;{0}&apos;) bevat ongeldige tekst..
         /// </summary>
         public static string DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid {
@@ -1681,6 +1690,15 @@ namespace Ringtoets.Common.IO.Properties {
         public static string SoilLayer2DGeometryReader_Geometry_is_null {
             get {
                 return ResourceManager.GetString("SoilLayer2DGeometryReader_Geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is aquifer.
+        /// </summary>
+        public static string SoilLayerProperties_IsAquifer_Description {
+            get {
+                return ResourceManager.GetString("SoilLayerProperties_IsAquifer_Description", resourceCulture);
             }
         }
         

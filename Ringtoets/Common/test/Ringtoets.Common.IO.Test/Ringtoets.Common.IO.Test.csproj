@@ -123,6 +123,7 @@
     <Compile Include="SoilProfile\SoilLayerColorConverterTest.cs" />
     <Compile Include="Exceptions\SoilLayerConversionExceptionTest.cs" />
     <Compile Include="SoilProfile\SoilLayerDistributionHelperTest.cs" />
+    <Compile Include="SoilProfile\SoilLayerIsAquiferConverterTest.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilProfile1DTest.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />

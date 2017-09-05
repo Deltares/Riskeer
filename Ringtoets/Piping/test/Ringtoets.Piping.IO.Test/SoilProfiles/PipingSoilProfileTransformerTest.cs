@@ -90,14 +90,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             const double bottom = 0.5;
             const double intersectionX = 1.0;
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(),
-                                                                         new List<Segment2D>
-                                                                         {
-                                                                             new Segment2D(new Point2D(1.0, bottom),
-                                                                                           new Point2D(1.2, 1)),
-                                                                             new Segment2D(new Point2D(1.2, 1),
-                                                                                           new Point2D(1.0, bottom))
-                                                                         });
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new List<Segment2D[]>(),
+                                                                                        new List<Segment2D>
+                                                                                        {
+                                                                                            new Segment2D(new Point2D(1.0, bottom),
+                                                                                                          new Point2D(1.2, 1)),
+                                                                                            new Segment2D(new Point2D(1.2, 1),
+                                                                                                          new Point2D(1.0, bottom))
+                                                                                        });
             var profile = new SoilProfile2D(0, name, new[]
             {
                 layer
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var thirdPoint = new Point2D(0.5, -1.0);
             var fourthPoint = new Point2D(-0.5, -1.0);
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
                 new List<Segment2D[]>(),
                 new List<Segment2D>
                 {
@@ -194,7 +194,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                     new Segment2D(thirdPoint, fourthPoint),
                     new Segment2D(fourthPoint, firstPoint)
                 });
-            layer.IsAquifer = true;
 
             var profile = new SoilProfile2D(0, profileName, new[]
             {
@@ -225,7 +224,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
                                             new List<SoilLayer2D>
                                             {
-                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
                                                     new List<Segment2D[]>(),
                                                     Segment2DLoopCollectionHelper.CreateFromString(
                                                         string.Join(Environment.NewLine,
@@ -240,7 +239,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                                                     "1.2",
                                                                     "4.3",
                                                                     "..."))),
-                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
                                                     new List<Segment2D[]>(),
                                                     Segment2DLoopCollectionHelper.CreateFromString(
                                                         string.Join(Environment.NewLine,
@@ -255,7 +254,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                                                     "1.2",
                                                                     "...",
                                                                     "..."))),
-                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
                                                     new List<Segment2D[]>(),
                                                     Segment2DLoopCollectionHelper.CreateFromString(
                                                         string.Join(Environment.NewLine,
@@ -306,7 +305,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             ".....",
                             "....."));
 
-            SoilLayer2D soilLayer2D = SoilLayer2DTestFactory.CreateSoilLayer2D(
+            SoilLayer2D soilLayer2D = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
                 new[]
                 {
                     loopHole
@@ -319,13 +318,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                 ".....",
                                 ".....",
                                 "1...4")));
-            soilLayer2D.IsAquifer = true;
 
             var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
                                             new List<SoilLayer2D>
                                             {
                                                 soilLayer2D,
-                                                SoilLayer2DTestFactory.CreateSoilLayer2D(
+                                                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
                                                     new List<Segment2D[]>(),
                                                     loopHole)
                                             }
@@ -365,10 +363,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                             bottom,
                                             new[]
                                             {
-                                                new SoilLayer1D(top)
-                                                {
-                                                    IsAquifer = true
-                                                }
+                                                SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming(top)
                                             }
             );
 
@@ -401,11 +396,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                             bottom,
                                             new[]
                                             {
-                                                new SoilLayer1D(top)
-                                                {
-                                                    IsAquifer = true
-                                                },
-                                                new SoilLayer1D(top2)
+                                                SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming(top),
+                                                SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming(top2)
                                             }
             );
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -37,9 +36,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.IsNotNull(layer);
-            Assert.IsFalse(layer.IsAquifer);
+            Assert.IsNull(layer.IsAquifer);
             Assert.IsEmpty(layer.MaterialName);
-            Assert.AreEqual(Color.Empty, layer.Color);
+            Assert.IsNull(layer.Color);
 
             Assert.IsNull(layer.BelowPhreaticLevelDistribution);
             Assert.IsNaN(layer.BelowPhreaticLevelShift);
@@ -88,34 +87,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNaN(layer.PopMean);
             Assert.IsNaN(layer.PopCoefficientOfVariation);
             Assert.IsNaN(layer.PopShift);
-        }
-
-        [Test]
-        public void MaterialName_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var soilLayer = new TestSoilLayerBase();
-
-            // Call
-            TestDelegate test = () => soilLayer.MaterialName = null;
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
-        [Test]
-        public void MaterialName_NotNullValue_ValueSet()
-        {
-            // Setup
-            var soilLayer = new TestSoilLayerBase();
-            const string materialName = "a name";
-
-            // Call
-            soilLayer.MaterialName = materialName;
-
-            // Assert
-            Assert.AreEqual(materialName, soilLayer.MaterialName);
         }
 
         private class TestSoilLayerBase : SoilLayerBase {}

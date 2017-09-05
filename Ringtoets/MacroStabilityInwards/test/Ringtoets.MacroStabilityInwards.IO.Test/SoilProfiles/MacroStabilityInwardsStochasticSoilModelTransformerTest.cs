@@ -84,6 +84,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_ValidStochasticSoilModelWithSoilProfile1D_ReturnsExpectedMacroStabilityInwardsStochasticSoilModel()
         {
             // Setup
+            const double top = 4;
+
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
             var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability)
             {
@@ -91,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 {
                     new StochasticSoilProfile(1, new SoilProfile1D(2, "test", 3, new[]
                     {
-                        new SoilLayer1D(4)
+                       SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming(top)
                     }))
                 }
             };
@@ -106,12 +108,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(4)
+                new MacroStabilityInwardsSoilLayer1D(top)
                 {
                     Properties =
                     {
                         UsePop = true,
-                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
+                        IsAquifer = false
                     }
                 }
             }));
@@ -129,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 {
                     new StochasticSoilProfile(1, new SoilProfile2D(2, "test", new[]
                     {
-                        SoilLayer2DTestFactory.CreateSoilLayer2D()
+                        SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming()
                     }))
                 }
             };
@@ -171,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void Transform_TwoStochasticSoilModelsWithSameProfile_ReturnExpectedMacroStabilityInwardsStochasticSoilModel()
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             var profile = new SoilProfile2D(2, "test", new[]
             {
                 layer
@@ -218,7 +221,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             const string soilProfileName = "SoilProfile";
             const double intersectionX = 1.0;
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             var profile = new SoilProfile2D(0, soilProfileName, new[]
             {
                 layer
@@ -302,7 +305,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             var soilProfile2D = new SoilProfile2D(0, soilProfileName, new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D()
+                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming()
             })
             {
                 IntersectionX = intersectionX
@@ -311,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             var soilProfile1D = new SoilProfile1D(0, soilProfileName, 0, new[]
             {
-                new SoilLayer1D(1)
+               SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming()
             });
             var stochasticSoilProfile1D = new StochasticSoilProfile(0.7, soilProfile1D);
 

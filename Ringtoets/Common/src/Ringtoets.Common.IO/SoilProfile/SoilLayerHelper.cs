@@ -54,14 +54,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.MaterialName = properties.MaterialName;
             }
-            if (properties.IsAquifer.HasValue)
-            {
-                soilLayer.IsAquifer = properties.IsAquifer.Value.Equals(1.0);
-            }
-            if (properties.Color.HasValue)
-            {
-                soilLayer.Color = SoilLayerColorConverter.Convert(properties.Color);
-            }
+            soilLayer.IsAquifer = properties.IsAquifer;
+            soilLayer.Color = properties.Color;
+
             if (properties.BelowPhreaticLevelDistribution.HasValue)
             {
                 soilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution.Value;

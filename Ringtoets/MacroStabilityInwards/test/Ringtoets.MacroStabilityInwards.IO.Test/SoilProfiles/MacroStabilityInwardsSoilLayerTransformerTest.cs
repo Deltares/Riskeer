@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -54,10 +53,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var random = new Random(22);
 
-            bool isAquifer = random.NextBoolean();
+            double isAquifer = random.Next(0, 2);
             double top = random.NextDouble();
             const string materialName = "materialX";
-            Color color = Color.AliceBlue;
+            double color = random.NextDouble();
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
@@ -106,9 +105,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(top, soilLayer1D.Top);
 
             MacroStabilityInwardsSoilLayerProperties properties = soilLayer1D.Properties;
-            Assert.AreEqual(isAquifer, properties.IsAquifer);
+
             Assert.AreEqual(materialName, properties.MaterialName);
-            Assert.AreEqual(color, properties.Color);
+            bool expectedIsAquifer = isAquifer.Equals(1.0);
+            Assert.AreEqual(expectedIsAquifer, properties.IsAquifer);
+            Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
+            Assert.AreEqual(expectedColor, properties.Color);
+
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
             Assert.AreEqual(abovePhreaticLevelCoefficientOfVariation, properties.AbovePhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
@@ -133,10 +136,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_ValidUsePopValue_ReturnMacroStabilityInwardSoilLayer1D(double? usePop, bool transformedUsePopValue)
         {
             // Setup
-            var layer = new SoilLayer1D(0)
-            {
-                UsePop = usePop
-            };
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.UsePop = usePop;
 
             // Call
             MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -149,10 +150,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidUsePopValue_ThrowsImportedDataTransformationException()
         {
             // Setup
-            var layer = new SoilLayer1D(0)
-            {
-                UsePop = 1
-            };
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.UsePop = 1;
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -171,10 +170,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                                             MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
         {
             // Setup
-            var layer = new SoilLayer1D(0)
-            {
-                ShearStrengthModel = sheartStrengthModel
-            };
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.ShearStrengthModel = sheartStrengthModel;
 
             // Call
             MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -187,10 +184,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidShearStrengthModelValue_ThrowsImportedDataTransformException()
         {
             // Setup
-            var layer = new SoilLayer1D(0)
-            {
-                ShearStrengthModel = 2
-            };
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.ShearStrengthModel = 2;
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -198,6 +193,55 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual("Ongeldige waarde voor parameter 'Schuifsterkte model'.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(1.0, true)]
+        [TestCase(0.0, false)]
+        public void SoilLayer1DTransform_ValidIsAquifer_ReturnsMacroStabilityInwardsSoilLayer1D(double isAquifer, bool transformedIsAquifer)
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.IsAquifer = isAquifer;
+
+            // Call
+            MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedIsAquifer, soilLayer1D.Properties.IsAquifer);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase(1.01)]
+        [TestCase(0.01)]
+        public void SoilLayer1DTransform_InvalidIsAquifer_ThrowsImportedDataException(double? isAquifer)
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.IsAquifer = isAquifer;
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetColorCases))]
+        public void SoilLayer1DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer1D(double? color, Color transformedColor)
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.Color = color;
+
+            // Call
+            MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedColor, soilLayer1D.Properties.Color);
         }
 
         [Test]
@@ -241,9 +285,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var random = new Random(22);
 
-            bool isAquifer = random.NextBoolean();
+            double isAquifer = random.Next(0, 2);
             const string materialName = "materialX";
-            Color color = Color.AliceBlue;
+            double color = random.NextDouble();
 
             double abovePhreaticLevelMean = random.NextDouble();
             double abovePhreaticLevelDeviation = random.NextDouble();
@@ -288,9 +332,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             MacroStabilityInwardsSoilLayerProperties properties = soilLayer2D.Properties;
-            Assert.AreEqual(isAquifer, properties.IsAquifer);
+
             Assert.AreEqual(materialName, properties.MaterialName);
-            Assert.AreEqual(color, properties.Color);
+            bool expectedIsAquifer = isAquifer.Equals(1.0);
+            Assert.AreEqual(expectedIsAquifer, properties.IsAquifer);
+            Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
+            Assert.AreEqual(expectedColor, properties.Color);
+
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
             Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
@@ -317,7 +365,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_ValidUsePopValue_ReturnMacroStabilityInwardSoilLayer2D(double? usePop, bool transformedUsePopValue)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             layer.UsePop = usePop;
 
             // Call
@@ -331,7 +379,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_InvalidUsePopValue_ReturnMacroStabilityInwardSoilLayer2D()
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             layer.UsePop = 1;
 
             // Call
@@ -351,7 +399,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                                             MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             layer.ShearStrengthModel = sheartStrengthModel;
 
             // Call
@@ -374,6 +422,55 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual("Ongeldige waarde voor parameter 'Schuifsterkte model'.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(1.0, true)]
+        [TestCase(0.0, false)]
+        public void SoilLayer2DTransform_ValidIsAquifer_ReturnsMacroStabilityInwardsSoilLayer2D(double isAquifer, bool transformedIsAquifer)
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            layer.IsAquifer = isAquifer;
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedIsAquifer, soilLayer2D.Properties.IsAquifer);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase(1.01)]
+        [TestCase(0.01)]
+        public void SoilLayer2DTransform_InvalidIsAquifer_ThrowsImportedDataException(double? isAquifer)
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            layer.IsAquifer = isAquifer;
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetColorCases))]
+        public void SoilLayer2DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer2D(double? color, Color transformedColor)
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            layer.Color = color;
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedColor, soilLayer2D.Properties.Color);
         }
 
         [Test]
@@ -430,6 +527,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             }
             return new Ring(points.Distinct());
         }
+
+        #region Test Data: Color test cases
+
+        private static IEnumerable<TestCaseData> GetColorCases()
+        {
+            yield return new TestCaseData(null, Color.Empty)
+                .SetName("Color result Empty");
+            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180))
+                .SetName("Color result Purple");
+            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
+                .SetName("Color result Pink");
+        }
+
+        #endregion
 
         #region Test Data: Shifted Log Normal Distributions
 

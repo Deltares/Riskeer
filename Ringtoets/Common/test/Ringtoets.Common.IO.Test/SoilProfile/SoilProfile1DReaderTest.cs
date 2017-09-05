@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -299,18 +298,18 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    false,
-                    true,
-                    true,
-                    true
+                    0.0,
+                    1.0,
+                    1.0,
+                    1.0
                 }, profile.Layers.Select(l => l.IsAquifer));
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    Color.FromArgb(70, 130, 180),
-                    Color.FromArgb(255, 0, 0),
-                    Color.FromArgb(255, 0, 0),
-                    Color.FromArgb(192, 192, 255)
+                    -12156236,
+                    -65536,
+                    -65536,
+                    -4144897
                 }, profile.Layers.Select(l => l.Color));
 
                 CollectionAssert.AreEqual(new[]
@@ -613,8 +612,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 SoilLayer1D soilLayer = profile.Layers.Single();
                 Assert.AreEqual("dummy", soilLayer.MaterialName);
                 Assert.AreEqual(1, soilLayer.Top);
-                Assert.IsFalse(soilLayer.IsAquifer);
-                Assert.AreEqual(Color.Empty, soilLayer.Color);
+                Assert.IsNull(soilLayer.IsAquifer);
+                Assert.IsNull(soilLayer.Color);
 
                 Assert.IsNull(soilLayer.BelowPhreaticLevelDistribution);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelMean);

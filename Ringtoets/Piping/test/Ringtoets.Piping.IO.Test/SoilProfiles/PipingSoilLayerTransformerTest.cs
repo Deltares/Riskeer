@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -66,6 +65,55 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                                             "........");
 
         [Test]
+        [TestCase(1.0, true)]
+        [TestCase(0.0, false)]
+        public void SoilLayer1DTransform_ValidIsAquifer_ReturnsPipingSoilLayer1D(double isAquifer, bool transformedIsAquifer)
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.IsAquifer = isAquifer;
+
+            // Call
+            PipingSoilLayer soilLayer = PipingSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedIsAquifer, soilLayer.IsAquifer);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase(1.01)]
+        [TestCase(0.01)]
+        public void SoilLayer1DTransform_InvalidIsAquifer_ThrowsImportedDataException(double? isAquifer)
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.IsAquifer = isAquifer;
+
+            // Call
+            TestDelegate call = () => PipingSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetColorCases))]
+        public void SoilLayer1DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer1D(double? color, Color transformedColor)
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            layer.Color = color;
+
+            // Call
+            PipingSoilLayer soilLayer = PipingSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            Assert.AreEqual(transformedColor, soilLayer.Color);
+        }
+
+        [Test]
         public void SoilLayer1DTransform_SoilLayer1DNull_ThrowsArgumentNullException()
         {
             // Call
@@ -82,10 +130,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Setup
             var random = new Random(22);
 
-            bool isAquifer = random.NextBoolean();
+            double isAquifer = random.Next(0, 2);
             double top = random.NextDouble();
             const string materialName = "materialX";
-            Color color = Color.AliceBlue;
+            double color = random.NextDouble();
 
             const int belowPhreaticLevelDistribution = 3;
             const int belowPhreaticLevelShift = 0;
@@ -125,8 +173,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             PipingSoilLayer pipingSoilLayer = PipingSoilLayerTransformer.Transform(layer);
 
             // Assert
+            Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
+            bool expectedIsAquifer = isAquifer.Equals(1.0);
+            Assert.AreEqual(expectedIsAquifer, pipingSoilLayer.IsAquifer);
+            Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
+            Assert.AreEqual(expectedColor, pipingSoilLayer.Color);
+
             Assert.AreEqual(top, pipingSoilLayer.Top);
-            Assert.AreEqual(isAquifer, pipingSoilLayer.IsAquifer);
             Assert.AreEqual(belowPhreaticLevelMean, pipingSoilLayer.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, pipingSoilLayer.BelowPhreaticLevelDeviation);
             Assert.AreEqual(belowPhreaticLevelShift, pipingSoilLayer.BelowPhreaticLevelShift);
@@ -134,8 +187,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Assert.AreEqual(diameterD70CoefficientOfVariation, pipingSoilLayer.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(permeabilityMean, pipingSoilLayer.PermeabilityMean);
             Assert.AreEqual(permeabilityCoefficientOfVariation, pipingSoilLayer.PermeabilityCoefficientOfVariation);
-            Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
-            Assert.AreEqual(color, pipingSoilLayer.Color);
         }
 
         [Test]
@@ -207,10 +258,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             const double x2 = 1.1;
             const double x3 = 1.2;
             const string materialName = "materialX";
-            Color color = Color.DarkSeaGreen;
+            double color = random.NextDouble();
             double bottom;
 
-            bool isAquifer = random.NextBoolean();
+            double isAquifer = random.Next(0, 2);
             const int logNormalDistribution = 3;
             const int logNormalShift = 0;
 
@@ -261,11 +312,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(1, pipingSoilLayers.Length);
             Assert.AreEqual(y1, bottom, 1e-6);
-            PipingSoilLayer resultLayer = pipingSoilLayers.First();
+            PipingSoilLayer resultLayer = pipingSoilLayers[0];
             Assert.AreEqual(y2, resultLayer.Top, 1e-6);
-            Assert.AreEqual(isAquifer, resultLayer.IsAquifer);
+
             Assert.AreEqual(materialName, resultLayer.MaterialName);
-            Assert.AreEqual(color, resultLayer.Color);
+            bool expectedIsAquifer = isAquifer.Equals(1.0);
+            Assert.AreEqual(expectedIsAquifer, resultLayer.IsAquifer);
+            Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
+            Assert.AreEqual(expectedColor, resultLayer.Color);
 
             Assert.AreEqual(belowPhreaticLevelMean, resultLayer.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, resultLayer.BelowPhreaticLevelDeviation);
@@ -273,6 +327,76 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Assert.AreEqual(diameterD70CoefficientOfVariation, resultLayer.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(permeabilityMean, resultLayer.PermeabilityMean);
             Assert.AreEqual(permeabilityCoefficientOfVariation, resultLayer.PermeabilityCoefficientOfVariation);
+        }
+
+        [Test]
+        [TestCase(1.0, true)]
+        [TestCase(0.0, false)]
+        public void SoilLayer2DTransform_ValidIsAquifer_ReturnsPipingSoilLayers(double isAquifer, bool transformedIsAquifer)
+        {
+            // Setup
+            const double x1 = 1.0;
+            const double x2 = 1.1;
+            const double x3 = 1.2;
+            SoilLayer2D layer = CreateValidConfiguredSoilLayer2D(x1, x3);
+            layer.IsAquifer = isAquifer;
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(layer, x2, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(transformedIsAquifer, pipingSoilLayers[0].IsAquifer);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase(1.01)]
+        [TestCase(0.01)]
+        public void SoilLayer2DTransform_InvalidIsAquifer_ThrowsImportedDataException(double? isAquifer)
+        {
+            // Setup
+            const double x1 = 1.0;
+            const double x2 = 1.1;
+            const double x3 = 1.2;
+            SoilLayer2D layer = CreateValidConfiguredSoilLayer2D(x1, x3);
+            layer.IsAquifer = isAquifer;
+
+            double bottom;
+
+            PipingSoilLayer[] pipingSoilLayers = null;
+
+            // Call
+            TestDelegate call = () => pipingSoilLayers = PipingSoilLayerTransformer.Transform(layer, x2, out bottom).ToArray();
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+
+            Assert.IsNull(pipingSoilLayers);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetColorCases))]
+        public void SoilLayer2DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer1D(double? color, Color transformedColor)
+        {
+            // Setup
+            const double x1 = 1.0;
+            const double x2 = 1.1;
+            const double x3 = 1.2;
+            SoilLayer2D layer = CreateValidConfiguredSoilLayer2D(x1, x3);
+            layer.Color = color;
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(layer, x2, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(transformedColor, pipingSoilLayers[0].Color);
         }
 
         [Test]
@@ -309,15 +433,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             double expectedZ = new Random(22).NextDouble();
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
-                new List<Segment2D[]>(),
-                new List<Segment2D>
-                {
-                    new Segment2D(new Point2D(-0.1, expectedZ),
-                                  new Point2D(0.1, expectedZ)),
-                    new Segment2D(new Point2D(-0.1, expectedZ),
-                                  new Point2D(0.1, expectedZ))
-                });
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new List<Segment2D[]>(), new List<Segment2D>
+            {
+                new Segment2D(new Point2D(-0.1, expectedZ),
+                              new Point2D(0.1, expectedZ)),
+                new Segment2D(new Point2D(-0.1, expectedZ),
+                              new Point2D(0.1, expectedZ))
+            });
+
             double bottom;
 
             // Call
@@ -344,8 +467,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "..4..3..",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
-                new List<Segment2D[]>(), outerLoop);
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new List<Segment2D[]>(), outerLoop);
 
             double bottom;
 
@@ -380,7 +502,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...43...",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop
             }, outerLoop);
@@ -418,7 +540,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...4.3..",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop
             }, outerLoop);
@@ -467,7 +589,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...12...",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop,
                 innerLoop2
@@ -507,7 +629,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "...43..."));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop
             }, outerLoop);
@@ -554,7 +676,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "...43..."));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop,
                 innerLoop2
@@ -592,7 +714,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...43...",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop
             }, outerLoop);
@@ -630,7 +752,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 innerLoopWide);
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop
             }, outerLoop);
@@ -660,7 +782,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 innerLoopWide);
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(new[]
             {
                 innerLoop
             }, outerLoop);
@@ -768,6 +890,27 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Assert.AreEqual($"Parameter '{parameter}' is niet lognormaal verdeeld.", exception.Message);
         }
 
+        private static SoilLayer2D CreateValidConfiguredSoilLayer2D(double x1, double x3)
+        {
+            var random = new Random(21);
+            double y1 = random.NextDouble();
+            double y2 = y1 + random.NextDouble();
+            var outerLoop = new List<Segment2D>
+            {
+                new Segment2D(new Point2D(x1, y1),
+                              new Point2D(x3, y1)),
+                new Segment2D(new Point2D(x3, y1),
+                              new Point2D(x3, y2)),
+                new Segment2D(new Point2D(x3, y2),
+                              new Point2D(x1, y2)),
+                new Segment2D(new Point2D(x1, y1),
+                              new Point2D(x1, y2))
+            };
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(Enumerable.Empty<IEnumerable<Segment2D>>(), outerLoop);
+            return layer;
+        }
+
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
         {
             return IncorrectLogNormalDistributions(() => new SoilLayer1D(0.0), nameof(SoilLayer1D));
@@ -823,6 +966,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             yield return new TestCaseData(invalidPermeabilityShift, "Doorlatendheid"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
+        }
+
+        private static IEnumerable<TestCaseData> GetColorCases()
+        {
+            yield return new TestCaseData(null, Color.Empty)
+                .SetName("Color result Empty");
+            yield return new TestCaseData((double) -12156236, Color.FromArgb(70, 130, 180))
+                .SetName("Color result Purple");
+            yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
+                .SetName("Color result Pink");
         }
     }
 }

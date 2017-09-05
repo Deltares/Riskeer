@@ -68,7 +68,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            const double isAquifer = 1.0;
+            double isAquifer = random.NextDouble();
             const string materialName = "materialName";
             double color = random.NextDouble();
             int belowPhreaticLevelDistribution = random.Next();
@@ -162,13 +162,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, properties);
 
             // Assert
-            bool expectedAquiferValue = properties.IsAquifer.Equals(1.0);
-
-            Assert.AreEqual(expectedAquiferValue, soilLayer.IsAquifer);
+            Assert.AreEqual(properties.IsAquifer, soilLayer.IsAquifer);
             Assert.AreEqual(properties.MaterialName, soilLayer.MaterialName);
-
-            Color expectedColor = Color.FromArgb(Convert.ToInt32(properties.Color));
-            Assert.AreEqual(expectedColor, soilLayer.Color);
+            Assert.AreEqual(properties.Color, soilLayer.Color);
 
             Assert.AreEqual(properties.BelowPhreaticLevelDistribution, soilLayer.BelowPhreaticLevelDistribution);
             Assert.AreEqual(properties.BelowPhreaticLevelShift, soilLayer.BelowPhreaticLevelShift);
@@ -239,8 +235,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.IsEmpty(soilLayer.MaterialName);
-            Assert.IsFalse(soilLayer.IsAquifer);
-            Assert.AreEqual(Color.Empty, soilLayer.Color);
+            Assert.IsNull(soilLayer.IsAquifer);
+            Assert.IsNull(soilLayer.Color);
 
             Assert.IsNull(soilLayer.BelowPhreaticLevelDistribution);
             Assert.IsNaN(soilLayer.BelowPhreaticLevelMean);

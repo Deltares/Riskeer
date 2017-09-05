@@ -55,9 +55,9 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
             var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
             {
-                IsAquifer = soilLayer.IsAquifer,
+                IsAquifer = SoilLayerIsAquiferConverter.Convert(soilLayer.IsAquifer),
                 MaterialName = soilLayer.MaterialName,
-                Color = soilLayer.Color
+                Color = SoilLayerColorConverter.Convert(soilLayer.Color)
             };
 
             SetStochasticParameters(pipingSoilLayer, soilLayer);
@@ -102,9 +102,9 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             {
                 var pipingSoilLayer = new PipingSoilLayer(height)
                 {
-                    IsAquifer = soilLayer.IsAquifer,
+                    IsAquifer = SoilLayerIsAquiferConverter.Convert(soilLayer.IsAquifer),
                     MaterialName = soilLayer.MaterialName,
-                    Color = soilLayer.Color
+                    Color = SoilLayerColorConverter.Convert(soilLayer.Color)
                 };
 
                 SetStochasticParameters(pipingSoilLayer, soilLayer);

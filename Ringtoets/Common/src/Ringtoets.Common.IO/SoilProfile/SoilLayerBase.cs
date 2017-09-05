@@ -29,14 +29,12 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public abstract class SoilLayerBase
     {
-        private string materialName;
-
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayerBase"/>.
         /// </summary>
         protected SoilLayerBase()
         {
-            materialName = string.Empty;
+            MaterialName = string.Empty;
 
             BelowPhreaticLevelMean = double.NaN;
             BelowPhreaticLevelDeviation = double.NaN;
@@ -78,32 +76,17 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Gets or sets a value representing whether the layer is an aquifer.
         /// </summary>
-        public bool IsAquifer { get; set; }
+        public double? IsAquifer { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the layer.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        public string MaterialName
-        {
-            get
-            {
-                return materialName;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-                materialName = value;
-            }
-        }
+        public string MaterialName { get; set; }
 
         /// <summary>
         /// Gets or sets the value representing the color that was used to represent the layer.
         /// </summary>
-        public Color Color { get; set; }
+        public double? Color { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the volumic weight of the layer below the 

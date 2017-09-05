@@ -133,17 +133,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             const string name = "name";
-            const double bottom = 0.5;
             const double intersectionX = 1.0;
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(),
-                                                                         new List<Segment2D>
-                                                                         {
-                                                                             new Segment2D(new Point2D(1.0, bottom),
-                                                                                           new Point2D(1.2, 1)),
-                                                                             new Segment2D(new Point2D(1.2, 1),
-                                                                                           new Point2D(1.0, bottom))
-                                                                         });
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             var profile = new SoilProfile2D(0, "SoilProfile2D", new[]
             {
                 layer
@@ -186,17 +178,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             const string name = "name";
-            const double bottom = 0.5;
             const double intersectionX = 1.0;
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(),
-                                                                         new List<Segment2D>
-                                                                         {
-                                                                             new Segment2D(new Point2D(1.0, bottom),
-                                                                                           new Point2D(1.2, 1)),
-                                                                             new Segment2D(new Point2D(1.2, 1),
-                                                                                           new Point2D(1.0, bottom))
-                                                                         });
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             var profile = new SoilProfile2D(0, "SoilProfile2D", new[]
             {
                 layer
@@ -245,7 +229,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             const string soilProfileName = "SoilProfile";
             const double intersectionX = 1.0;
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
             var profile = new SoilProfile2D(0, soilProfileName, new[]
             {
                 layer
@@ -253,7 +237,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 IntersectionX = intersectionX
             };
-            
+
             const double originalProfileOneProbability = 0.2;
             const double originalProfileTwoProbability = 0.7;
             var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Piping)
@@ -293,7 +277,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = mocks.Stub<ISoilProfile>();
             mocks.ReplayAll();
 
-           
             var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Piping)
             {
                 StochasticSoilProfiles =
@@ -330,7 +313,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             var soilProfile2D = new SoilProfile2D(0, soilProfileName, new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D()
+                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming()
             })
             {
                 IntersectionX = intersectionX
@@ -339,7 +322,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             var soilProfile1D = new SoilProfile1D(0, soilProfileName, 0, new[]
             {
-                new SoilLayer1D(1)
+                SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming()
             });
             var stochasticSoilProfile1D = new StochasticSoilProfile(0.2, soilProfile1D);
 

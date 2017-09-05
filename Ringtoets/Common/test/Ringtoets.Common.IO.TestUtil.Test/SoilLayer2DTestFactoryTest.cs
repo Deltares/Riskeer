@@ -157,5 +157,133 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
             Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
         }
+
+        [Test]
+        public void CreateSoilLayer2DForTransforming_ParameterLess_ExpectedProperties()
+        {
+            // Setup
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+            var pointD = new Point2D(2.0, 1.0);
+
+            // Call
+            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+
+            // Assert
+            Assert.AreEqual(0.0, soilLayer.IsAquifer);
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+
+            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+        }
+
+        [Test]
+        public void CreateSoilLayer2DForTransforming_InnerLoopNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+                null,
+                Enumerable.Empty<Segment2D>());
+
+            // Assert
+            string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("innerLoops", parameter);
+        }
+
+        [Test]
+        public void CreateSoilLayer2DForTransforming_OuterLoopNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+                Enumerable.Empty<Segment2D[]>(),
+                null);
+
+            // Assert
+            string parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("outerLoop", parameter);
+        }
+
+        [Test]
+        public void CreateSoilLayer2DValidForTransforming_InvalidInnerLoop_ThrowsArgumentException()
+        {
+            // Setup
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+
+            // Call
+            TestDelegate test = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+                new[]
+                {
+                    new[]
+                    {
+                        new Segment2D(pointA, pointB),
+                        new Segment2D(pointB, pointC)
+                    }
+                },
+                Enumerable.Empty<Segment2D>());
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void CreateSoilLayer2DForTransforming_InvalidOuterLoop_ThrowsArgumentException()
+        {
+            // Setup
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+
+            // Call
+            TestDelegate test = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+                Enumerable.Empty<Segment2D[]>(),
+                new[]
+                {
+                    new Segment2D(pointA, pointB),
+                    new Segment2D(pointB, pointC)
+                }
+            );
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void CreateSoilLayer2DForTransforming_ValidArguments_ExpectedProperties()
+        {
+            // Setup
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+            var pointD = new Point2D(2.0, 1.0);
+
+            // Call
+            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+                new[]
+                {
+                    new[]
+                    {
+                        new Segment2D(pointC, pointD),
+                        new Segment2D(pointD, pointC)
+                    }
+                },
+                new List<Segment2D>
+                {
+                    new Segment2D(pointA, pointB),
+                    new Segment2D(pointB, pointA)
+                });
+
+            // Assert
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+
+            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+        }
     }
 }

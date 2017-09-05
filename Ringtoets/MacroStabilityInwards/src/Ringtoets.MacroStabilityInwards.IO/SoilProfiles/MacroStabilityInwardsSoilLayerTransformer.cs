@@ -27,6 +27,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -109,8 +110,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.UsePop = TransformUsePop(soilLayer.UsePop);
 
             properties.MaterialName = soilLayer.MaterialName;
-            properties.IsAquifer = soilLayer.IsAquifer;
-            properties.Color = soilLayer.Color;
+            properties.IsAquifer = SoilLayerIsAquiferConverter.Convert(soilLayer.IsAquifer);
+            properties.Color = SoilLayerColorConverter.Convert(soilLayer.Color);
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
             properties.AbovePhreaticLevelCoefficientOfVariation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
             properties.AbovePhreaticLevelShift = soilLayer.AbovePhreaticLevelShift;
