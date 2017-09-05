@@ -294,7 +294,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             mocks.ReplayAll();
 
            
-            var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Stability)
+            var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Piping)
             {
                 StochasticSoilProfiles =
                 {
