@@ -208,6 +208,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             GetAllNodes(illustrationPointNodes.Values.First(), faultTrees, subMechanisms);
 
             Assert.AreEqual(11, faultTrees.Count);
+            Assert.AreEqual(new[]
+            {
+                CombinationType.Or,
+                CombinationType.Or,
+                CombinationType.And,
+                CombinationType.And,
+                CombinationType.Or,
+                CombinationType.And,
+                CombinationType.And,
+                CombinationType.And,
+                CombinationType.Or,
+                CombinationType.And,
+                CombinationType.And
+            }, faultTrees.Select(f => f.CombinationType));
+
             Assert.AreEqual(12, subMechanisms.Count);
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.First();
             Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
@@ -221,6 +236,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             FaultTreeIllustrationPoint faultTreeIllustrationPoint = faultTrees.First();
             Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(2.23881, faultTreeIllustrationPoint.Beta);
+            Assert.AreEqual(CombinationType.Or, faultTreeIllustrationPoint.CombinationType);
             Assert.AreEqual(46, faultTreeIllustrationPoint.Stochasts.Count());
             Assert.AreEqual(new[]
             {

@@ -183,11 +183,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeType}, " +
             $"{IllustrationPointsDatabaseConstants.RecursiveFaultTreeCombine}" +
             ") AS (" +
-            "SELECT FaultTreeId, Id1, Type1, CombinFunction " +
+            "SELECT FaultTreeId, Id1, Type1, combine " +
             "FROM FaultTrees " +
             "LEFT OUTER JOIN combineFunctions ON combineFunctions.id = Id1 " +
             "UNION " +
-            "SELECT FaultTreeId, Id2, Type2, CombinFunction " +
+            "SELECT FaultTreeId, Id2, Type2, combine " +
             "FROM FaultTrees " +
             "LEFT OUTER JOIN combineFunctions ON combineFunctions.id = Id2), " +
             "children(" +
