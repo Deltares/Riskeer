@@ -86,10 +86,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double AbovePhreaticLevelMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelDeviation { get; set; } = double.NaN;
+        public double AbovePhreaticLevelCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the volumic weight of the layer above the phreatic level.
@@ -122,10 +122,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double CohesionMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the cohesion.
+        /// Gets or sets the coefficient of variation of the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double CohesionDeviation { get; set; } = double.NaN;
+        public double CohesionCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the friction angle
@@ -134,10 +134,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double FrictionAngleMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the friction angle.
+        /// Gets or sets the coefficient of variation of the distribution for the friction angle.
         /// [°]
         /// </summary>
-        public double FrictionAngleDeviation { get; set; } = double.NaN;
+        public double FrictionAngleCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the ratio of shear strength S
@@ -146,10 +146,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double ShearStrengthRatioMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the ratio of shear strength S.
+        /// Gets or sets the coefficient of variation of the distribution for the ratio of shear strength S.
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioDeviation { get; set; } = double.NaN;
+        public double ShearStrengthRatioCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the strength increase exponent (m)
@@ -158,10 +158,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double StrengthIncreaseExponentMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the strength increase exponent (m).
+        /// Gets or sets the coefficient of variation of the distribution for the strength increase exponent (m).
         /// [-]
         /// </summary>
-        public double StrengthIncreaseExponentDeviation { get; set; } = double.NaN;
+        public double StrengthIncreaseExponentCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the POP
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets or sets the deviation of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
-        public double PopDeviation { get; set; } = double.NaN;
+        public double PopCoefficientOfVariation { get; set; } = double.NaN;
 
         public override bool Equals(object obj)
         {
@@ -193,21 +193,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ UsePop.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShearStrengthModel.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ AbovePhreaticLevelDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ AbovePhreaticLevelCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ AbovePhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelDeviation.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
                 hashCode = (hashCode * 397) ^ CohesionMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ CohesionDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ CohesionCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ FrictionAngleMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ FrictionAngleDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ FrictionAngleCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShearStrengthRatioMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShearStrengthRatioDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShearStrengthRatioCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ StrengthIncreaseExponentMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentCoefficientOfVariation.GetHashCode();
                 hashCode = (hashCode * 397) ^ PopMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ PopDeviation.GetHashCode();
+                hashCode = (hashCode * 397) ^ PopCoefficientOfVariation.GetHashCode();
                 return hashCode;
             }
         }
@@ -220,21 +220,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                    && UsePop == other.UsePop
                    && ShearStrengthModel == other.ShearStrengthModel
                    && AbovePhreaticLevelMean.Equals(other.AbovePhreaticLevelMean)
-                   && AbovePhreaticLevelDeviation.Equals(other.AbovePhreaticLevelDeviation)
+                   && AbovePhreaticLevelCoefficientOfVariation.Equals(other.AbovePhreaticLevelCoefficientOfVariation)
                    && AbovePhreaticLevelShift.Equals(other.AbovePhreaticLevelShift)
                    && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
                    && BelowPhreaticLevelDeviation.Equals(other.BelowPhreaticLevelDeviation)
                    && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
                    && CohesionMean.Equals(other.CohesionMean)
-                   && CohesionDeviation.Equals(other.CohesionDeviation)
+                   && CohesionCoefficientOfVariation.Equals(other.CohesionCoefficientOfVariation)
                    && FrictionAngleMean.Equals(other.FrictionAngleMean)
-                   && FrictionAngleDeviation.Equals(other.FrictionAngleDeviation)
+                   && FrictionAngleCoefficientOfVariation.Equals(other.FrictionAngleCoefficientOfVariation)
                    && ShearStrengthRatioMean.Equals(other.ShearStrengthRatioMean)
-                   && ShearStrengthRatioDeviation.Equals(other.ShearStrengthRatioDeviation)
+                   && ShearStrengthRatioCoefficientOfVariation.Equals(other.ShearStrengthRatioCoefficientOfVariation)
                    && StrengthIncreaseExponentMean.Equals(other.StrengthIncreaseExponentMean)
-                   && StrengthIncreaseExponentDeviation.Equals(other.StrengthIncreaseExponentDeviation)
+                   && StrengthIncreaseExponentCoefficientOfVariation.Equals(other.StrengthIncreaseExponentCoefficientOfVariation)
                    && PopMean.Equals(other.PopMean)
-                   && PopDeviation.Equals(other.PopDeviation);
+                   && PopCoefficientOfVariation.Equals(other.PopCoefficientOfVariation);
         }
     }
 }

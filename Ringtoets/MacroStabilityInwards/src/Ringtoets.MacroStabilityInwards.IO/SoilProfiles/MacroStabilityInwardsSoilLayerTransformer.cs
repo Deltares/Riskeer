@@ -112,21 +112,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.IsAquifer = soilLayer.IsAquifer;
             properties.Color = soilLayer.Color;
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
-            properties.AbovePhreaticLevelDeviation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
+            properties.AbovePhreaticLevelCoefficientOfVariation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
             properties.AbovePhreaticLevelShift = soilLayer.AbovePhreaticLevelShift;
             properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
             properties.BelowPhreaticLevelDeviation = soilLayer.BelowPhreaticLevelDeviation;
             properties.BelowPhreaticLevelShift = soilLayer.BelowPhreaticLevelShift;
             properties.CohesionMean = soilLayer.CohesionMean;
-            properties.CohesionDeviation = soilLayer.CohesionCoefficientOfVariation;
+            properties.CohesionCoefficientOfVariation = soilLayer.CohesionCoefficientOfVariation;
             properties.FrictionAngleMean = soilLayer.FrictionAngleMean;
-            properties.FrictionAngleDeviation = soilLayer.FrictionAngleCoefficientOfVariation;
+            properties.FrictionAngleCoefficientOfVariation = soilLayer.FrictionAngleCoefficientOfVariation;
             properties.ShearStrengthRatioMean = soilLayer.ShearStrengthRatioMean;
-            properties.ShearStrengthRatioDeviation = soilLayer.ShearStrengthRatioCoefficientOfVariation;
+            properties.ShearStrengthRatioCoefficientOfVariation = soilLayer.ShearStrengthRatioCoefficientOfVariation;
             properties.StrengthIncreaseExponentMean = soilLayer.StrengthIncreaseExponentMean;
-            properties.StrengthIncreaseExponentDeviation = soilLayer.StrengthIncreaseExponentCoefficientOfVariation;
+            properties.StrengthIncreaseExponentCoefficientOfVariation = soilLayer.StrengthIncreaseExponentCoefficientOfVariation;
             properties.PopMean = soilLayer.PopMean;
-            properties.PopDeviation = soilLayer.PopCoefficientOfVariation;
+            properties.PopCoefficientOfVariation = soilLayer.PopCoefficientOfVariation;
         }
 
         private static bool TransformUsePop(double? usePop)
