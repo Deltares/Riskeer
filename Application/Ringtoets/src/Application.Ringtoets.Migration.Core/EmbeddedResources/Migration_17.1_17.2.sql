@@ -1580,6 +1580,17 @@ CREATE TEMP TABLE TempAssessmentSectionChanges
 	[AssessmentSectionName], 
 	[msg]
 );
+INSERT INTO TempAssessmentSectionChanges
+SELECT 
+	[AssessmentSectionEntityId], 
+	[Name],
+	"De norm van het dijktraject is gelijk gesteld aan de " || 
+	CASE 
+		WHEN [NormativeNorm] IS 1
+			THEN "ondergrens"
+		ELSE "signaleringswaarde"
+	END || "."
+	FROM AssessmentSectionEntity;
 
 CREATE TEMP TABLE TempAssessmentSectionFailureMechanism
 (
@@ -1813,7 +1824,7 @@ AssessmentSectionFailureMechanismMessages
 			NULL,
 			NULL,
 			[msg],
-			0
+			1
 			FROM TempAssessmentSectionChanges
 
 		UNION
@@ -1841,7 +1852,7 @@ SELECT
 				CASE WHEN [IsAssessmentSectionHeader] IS 1 
 					THEN "* Traject: '" || [AssessmentSectionName] || "'" 
 				ELSE
-					"  + " || [msg] || [AssessmentSectionName]
+					"  + " || [msg]
 				END	
 		ELSE
 			CASE

@@ -178,7 +178,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         [Test]
         [SetCulture("en-US")]
         [TestCaseSource(nameof(GetTrajectCombinations))]
-        public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormType expectedNormType,
+        public void Given171ProjectOfTrajectWithNorm_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(NormType setNormType,
                                                                                                             string trajectId,
                                                                                                             int signalingReturnPeriod,
                                                                                                             int lowerLimitReturnPeriod)
@@ -209,21 +209,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     databaseFile.OpenDatabaseConnection();
 
-                    double fromNorm = 1.0 / (expectedNormType == NormType.Signaling
+                    double fromNorm = 1.0 / (setNormType == NormType.Signaling
                                                  ? signalingReturnPeriod
                                                  : lowerLimitReturnPeriod);
                     databaseFile.ExecuteQuery("INSERT INTO ProjectEntity ([ProjectEntityId]) VALUES (1);");
-                    databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Id], [Norm]) " +
-                                              $"VALUES (1, 1, 0,\"{trajectId}\", {fromNorm});");
+                    databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Name], [Id], [Norm]) " +
+                                              $"VALUES (1, 1, 0, \"{trajectId}\", \"{trajectId}\", {fromNorm});");
                 }
 
                 // When
                 migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Then
-                byte normTypeByte = Convert.ToByte(lowerLimitReturnPeriod == signalingReturnPeriod
-                                                       ? NormType.Signaling
-                                                       : expectedNormType);
+                NormType expectedNormType = lowerLimitReturnPeriod == signalingReturnPeriod
+                                                ? NormType.Signaling
+                                                : setNormType;
+                byte normTypeByte = Convert.ToByte(expectedNormType);
 
                 string expectedAssessmentSectionQuery =
                     "SELECT COUNT() = 1 " +
@@ -241,13 +242,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(2, messages.Count);
+                    Assert.AreEqual(3, messages.Count);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                         messages[0]);
                     AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
+                        new MigrationLogMessage("17.1", "17.2", $"* Traject: '{trajectId}'"),
                         messages[1]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(expectedNormType)}."),
+                        messages[2]);
                 }
             }
         }
@@ -290,8 +294,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     double fromNorm = 1.0 / originalReturnPeriod;
                     databaseFile.ExecuteQuery("INSERT INTO ProjectEntity ([ProjectEntityId]) VALUES (1);");
-                    databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Id], [Norm]) " +
-                                              $"VALUES (1, 1, 0,\"{trajectId}\", {fromNorm});");
+                    databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Name], [Id], [Norm]) " +
+                                              $"VALUES (1, 1, 0, \"{trajectId}\", \"{trajectId}\", {fromNorm});");
                 }
 
                 // When
@@ -324,15 +328,25 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(2, messages.Count);
+                    Assert.AreEqual(3, messages.Count);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                         messages[0]);
                     AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", "* Geen aanpassingen."),
+                        new MigrationLogMessage("17.1", "17.2", "* Traject: '2-1'"),
                         messages[1]);
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(expectedNormType)}."),
+                        messages[2]);
                 }
             }
+        }
+
+        private static string GetNormTypeString(NormType normType)
+        {
+            return normType == NormType.LowerLimit
+                       ? "ondergrens"
+                       : "signaleringswaarde";
         }
 
         private static IEnumerable<TestCaseData> GetTrajectCombinations()
@@ -857,109 +871,127 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(36, messages.Count);
+                Assert.AreEqual(41, messages.Count);
+                var i = 0;
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
-                    messages[0]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSection'"),
-                    messages[1]);
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
-                    messages[2]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
-                    messages[3]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
-                    messages[4]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
-                    messages[5]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
-                    messages[6]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10004'."),
-                    messages[7]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
-                    messages[8]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10006'."),
-                    messages[9]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
-                    messages[10]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
-                    messages[11]);
+                    messages[i++]);
+
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Demo traject'"),
-                    messages[12]);
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
-                    messages[13]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
-                    messages[14]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
-                    messages[15]);
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
-                    messages[16]);
+                    messages[i++]);
+
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "* Traject: 'Empty'"),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
+                    messages[i++]);
 
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSectionResults'"),
-                    messages[17]);
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
+                    messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Piping'"),
-                    messages[18]);
+                    messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
-                    messages[19],
-                    messages[20]
+                    messages[i++],
+                    messages[i++]
                 });
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
-                    messages[21]);
+                    messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
-                    messages[22],
-                    messages[23]
+                    messages[i++],
+                    messages[i++]
                 });
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
-                    messages[24]);
+                    messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
-                    messages[25],
-                    messages[26]
+                    messages[i++],
+                    messages[i++]
                 });
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
-                    messages[27]);
+                    messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
-                    messages[28],
-                    messages[29]
+                    messages[i++],
+                    messages[i++]
                 });
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
-                    messages[30]);
+                    messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
-                    messages[31],
-                    messages[32]
+                    messages[i++],
+                    messages[i++]
                 });
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
-                    messages[33]);
+                    messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
-                    messages[34],
-                    messages[35]
+                    messages[i++],
+                    messages[i]
                 });
             }
         }
