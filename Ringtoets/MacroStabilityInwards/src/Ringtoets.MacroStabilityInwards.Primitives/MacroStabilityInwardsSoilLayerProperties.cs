@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double PopMean { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the deviation of the distribution for the POP.
+        /// Gets or sets the coefficient of variation of the distribution for the POP.
         /// [kN/m²]
         /// </summary>
         public double PopCoefficientOfVariation { get; set; } = double.NaN;
