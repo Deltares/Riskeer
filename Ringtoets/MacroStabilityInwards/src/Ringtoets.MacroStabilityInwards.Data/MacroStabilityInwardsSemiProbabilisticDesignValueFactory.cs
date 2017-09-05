@@ -37,5 +37,53 @@ namespace Ringtoets.MacroStabilityInwards.Data
         {
             return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.AbovePhreaticLevel, 0.5);
         }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.BelowPhreaticLevel"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.BelowPhreaticLevel, 0.5);
+        }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.Cohesion"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetCohesion(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.Cohesion, 0.05);
+        }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.FrictionAngle"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetFrictionAngle(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.FrictionAngle, 0.05);
+        }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ShearStrengthRatio"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetShearStrengthRatio(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.ShearStrengthRatio, 0.05);
+        }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.StrengthIncreaseExponent"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.StrengthIncreaseExponent, 0.05);
+        }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.Pop"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetPop(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.Pop, 0.05);
+        }
     }
 }

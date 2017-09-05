@@ -67,6 +67,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 CoefficientOfVariation = (RoundedDouble) properties.FrictionAngleCoefficientOfVariation
             };
 
+            StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) properties.StrengthIncreaseExponentMean,
+                CoefficientOfVariation = (RoundedDouble) properties.StrengthIncreaseExponentCoefficientOfVariation
+            };
+
             ShearStrengthRatio = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) properties.ShearStrengthRatioMean,
@@ -132,6 +138,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public VariationCoefficientLogNormalDistribution FrictionAngle { get; }
 
         /// <summary>
+        /// Gets the strength increase component.
+        /// [-]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution StrengthIncreaseExponent { get; set; }
+
+        /// <summary>
         /// Gets the shear strength ratio.
         /// [-]
         /// </summary>
@@ -168,6 +180,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public RoundedDouble FrictionAngleDesignVariable { get; set; }
 
         /// <summary>
+        /// Gets or sets the design variable of the distribution for the strength increase exponent.
+        /// </summary>
+        public RoundedDouble StrengthIncreaseExponentDesignVariable { get; set; }
+
+        /// <summary>
         /// Gets or sets the design variable of the distribution for the shear strength ratio.
         /// </summary>
         public RoundedDouble ShearStrengthRatioDesignVariable { get; set; }
@@ -196,6 +213,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 CohesionCoefficientOfVariation = double.NaN;
                 FrictionAngleMean = double.NaN;
                 FrictionAngleCoefficientOfVariation = double.NaN;
+                StrengthIncreaseExponentMean = double.NaN;
+                StrengthIncreaseExponentCoefficientOfVariation = double.NaN;
                 ShearStrengthRatioMean = double.NaN;
                 ShearStrengthRatioCoefficientOfVariation = double.NaN;
                 PopMean = double.NaN;
@@ -251,6 +270,18 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             /// [°]
             /// </summary>
             public double FrictionAngleCoefficientOfVariation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the mean of the distribution for the strength increase exponent.
+            /// [-]
+            /// </summary>
+            public double StrengthIncreaseExponentMean { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the coefficient of variation of the distribution for the strength increase exponent.
+            /// [-]
+            /// </summary>
+            public double StrengthIncreaseExponentCoefficientOfVariation { internal get; set; }
 
             /// <summary>
             /// Gets or sets the mean of the distribution for the shear strength ratio.

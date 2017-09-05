@@ -69,6 +69,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             double frictionAngleCoefficientOfVariation = random.NextDouble();
             RoundedDouble frictionAngleDesignVariable = random.NextRoundedDouble();
 
+            double strengthIncreaseExponentMean = random.NextDouble();
+            double strengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
+            RoundedDouble strengthIncreaseExponentDesignVariable = random.NextRoundedDouble();
+
             double shearStrengthRatioMean = random.NextDouble();
             double shearStrengthRatioCoefficientOfVariation = random.NextDouble();
             RoundedDouble shearStrengthRatioDesignVariable = random.NextRoundedDouble();
@@ -91,6 +95,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CohesionCoefficientOfVariation = cohesionCoefficientOfVariation,
                 FrictionAngleMean = frictionAngleMean,
                 FrictionAngleCoefficientOfVariation = frictionAngleCoefficientOfVariation,
+                StrengthIncreaseExponentMean = strengthIncreaseExponentMean,
+                StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentCoefficientOfVariation,
                 ShearStrengthRatioMean = shearStrengthRatioMean,
                 ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioCoefficientOfVariation,
                 PopMean = popMean,
@@ -104,6 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 BelowPhreaticLevelDesignVariable = belowPhreaticLevelDesignVariable,
                 CohesionDesignVariable = cohesionDesignVariable,
                 FrictionAngleDesignVariable = frictionAngleDesignVariable,
+                StrengthIncreaseExponentDesignVariable = strengthIncreaseExponentDesignVariable,
                 ShearStrengthRatioDesignVariable = shearStrengthRatioDesignVariable,
                 PopDesignVariable = popDesignVariable
             };
@@ -117,6 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(belowPhreaticLevelDesignVariable, properties.BelowPhreaticLevelDesignVariable);
             Assert.AreEqual(cohesionDesignVariable, properties.CohesionDesignVariable);
             Assert.AreEqual(frictionAngleDesignVariable, properties.FrictionAngleDesignVariable);
+            Assert.AreEqual(strengthIncreaseExponentDesignVariable, properties.StrengthIncreaseExponentDesignVariable);
             Assert.AreEqual(shearStrengthRatioDesignVariable, properties.ShearStrengthRatioDesignVariable);
             Assert.AreEqual(popDesignVariable, properties.PopDesignVariable);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
@@ -139,6 +147,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 Mean = (RoundedDouble) frictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
             }, properties.FrictionAngle);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) strengthIncreaseExponentMean,
+                CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
+            }, properties.StrengthIncreaseExponent);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) shearStrengthRatioMean,
@@ -178,6 +191,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
             }, properties.FrictionAngle);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, properties.StrengthIncreaseExponent);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
