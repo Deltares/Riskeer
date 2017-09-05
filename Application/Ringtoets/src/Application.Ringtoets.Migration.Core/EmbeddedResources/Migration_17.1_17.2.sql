@@ -1535,7 +1535,7 @@ Write migration logging
 */
 ATTACH DATABASE "{1}" AS LOGDATABASE;
 
-CREATE TABLE  IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
+CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity' 
 (
 	'MigrationLogEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
 	'FromVersion' VARCHAR(20) NOT NULL, 
@@ -1574,19 +1574,26 @@ INSERT INTO TempFailureMechanisms VALUES (16, 'Grasbekleding afschuiven binnenta
 INSERT INTO TempFailureMechanisms VALUES (17, 'Sterkte en stabiliteit langsconstructies');
 INSERT INTO TempFailureMechanisms VALUES (18, 'Technische innovaties');
 
-CREATE TEMP TABLE TempAssessmentSectionFailureMechanism 
+CREATE TEMP TABLE TempAssessmentSectionChanges 
 (
 	[AssessmentSectionId], 
 	[AssessmentSectionName], 
-	[FailureMechanismId], 
+	[msg]
+);
+
+CREATE TEMP TABLE TempAssessmentSectionFailureMechanism
+(
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[FailureMechanismId],
 	[FailureMechanismName]
 );
 
 INSERT INTO TempAssessmentSectionFailureMechanism
 SELECT 
-	[AssessmentSectionEntityId], 
-	[Name], 
-	[FailureMechanismEntityId], 
+	[AssessmentSectionEntityId],
+	[Name],
+	[FailureMechanismEntityId],
 	[FailureMechanismName]
 	FROM AssessmentSectionEntity
 	JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
@@ -1594,18 +1601,18 @@ SELECT
 
 CREATE TEMP TABLE TempChanges
 (
-	[AssessmentSectionId], 
-	[AssessmentSectionName], 
-	[FailureMechanismId], 
-	[FailureMechanismName], 
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[FailureMechanismId],
+	[FailureMechanismName],
 	[msg]
 );
 
 INSERT INTO TempChanges
-SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het ID van voorlandprofiel '" || source.[Id] || "' is veranderd naar '" || fp.[Id] || "'."
 	FROM ForeshoreProfileEntity AS fp
@@ -1614,10 +1621,10 @@ SELECT
 	WHERE source.[Id] IS NOT fp.[Id];
 
 INSERT INTO TempChanges
-SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+SELECT
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het ID van kunstwerk '" || source.[Id] || "' is veranderd naar '" || hs.[Id] || "'."
 	FROM HeightStructureEntity AS hs
@@ -1627,9 +1634,9 @@ SELECT
 
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het ID van kunstwerk '" || source.[Id] || "' is veranderd naar '" || cs.[Id] || "'."
 	FROM ClosingStructureEntity AS cs
@@ -1639,9 +1646,9 @@ SELECT
 
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het ID van kunstwerk '" || source.[Id] || "' is veranderd naar '" || sps.[Id] || "'."
 	FROM StabilityPointStructureEntity AS sps
@@ -1651,85 +1658,85 @@ SELECT
 
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM PipingSectionResultEntity as psr
-	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON psr.[rowid] = source.[rowid]    
+	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON psr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = psr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND psr.[LayerThree] IS NULL;
 
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM GrassCoverErosionInwardsSectionResultEntity as gceisr
-	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity AS source ON gceisr.[rowid] = source.[rowid]    
+	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity AS source ON gceisr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = gceisr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND gceisr.[LayerThree] IS NULL;
 
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM ClosingStructuresSectionResultEntity as cssr
-	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON cssr.[rowid] = source.[rowid]    
+	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON cssr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = cssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND cssr.[LayerThree] IS NULL;
 	
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM HeightStructuresSectionResultEntity as hssr
-	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON hssr.[rowid] = source.[rowid]    
+	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON hssr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = hssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND hssr.[LayerThree] IS NULL;
 	
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM StabilityPointStructuresSectionResultEntity as spssr
-	JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity AS source ON spssr.[rowid] = source.[rowid]    
+	JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity AS source ON spssr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = spssr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND spssr.[LayerThree] IS NULL;
 
 INSERT INTO TempChanges
 SELECT 
-	asfm.[AssessmentSectionId], 
-	asfm.[AssessmentSectionName], 
-	asfm.[FailureMechanismId], 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
 	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM MacroStabilityInwardsSectionResultEntity as msisr
-	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON msisr.[rowid] = source.[rowid]    
+	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON msisr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = msisr.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL AND msisr.[LayerThree] IS NULL;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
-	[FromVersion], 
-	[ToVersion], 
+	[FromVersion],
+	[ToVersion],
 	[LogMessage])
 WITH RECURSIVE
 FailureMechanismMessages
@@ -1765,38 +1772,77 @@ AssessmentSectionFailureMechanismMessages
 (
 	[AssessmentSectionId], 
 	[AssessmentSectionName], 
+	[IsAssessmentSectionHeader],
 	[FailureMechanismId], 
 	[FailureMechanismName], 
 	[msg], 
 	[level]
 ) AS (
-SELECT DISTINCT 
+	SELECT DISTINCT 
 	[AssessmentSectionId], 
 	[AssessmentSectionName], 
+	1,
 	NULL, 
 	NULL, 
 	NULL, 
-	0
-	FROM FailureMechanismMessages
-	WHERE [AssessmentSectionId] IS NOT NULL
+	1
+	FROM 
+	( 
+		SELECT 
+			[AssessmentSectionId],
+			[AssessmentSectionName]
+			FROM TempAssessmentSectionChanges
+		UNION
+		SELECT 
+			[AssessmentSectionId],
+			[AssessmentSectionName]
+			FROM FailureMechanismMessages
+		WHERE [AssessmentSectionId] IS NOT NULL
+	)
+
 	UNION
-SELECT 
-	[AssessmentSectionId], 
-	NULL, 
-	fmm.[FailureMechanismId], 
-	fmm.[FailureMechanismName], 
-	[msg], 
-	fmm.[level]
-	FROM FailureMechanismMessages AS fmm
-	WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
-	ORDER BY 1, 3, 6
+
+	SELECT 
+		* 
+	FROM 
+	(
+		SELECT
+			[AssessmentSectionId],
+			[AssessmentSectionName],
+			0,
+			NULL,
+			NULL,
+			[msg],
+			0
+			FROM TempAssessmentSectionChanges
+
+		UNION
+
+		SELECT
+			[AssessmentSectionId], 
+			NULL, 
+			0,
+			fmm.[FailureMechanismId], 
+			fmm.[FailureMechanismName], 
+			[msg], 
+			fmm.[level]
+			FROM FailureMechanismMessages AS fmm
+			WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
+
+	) ORDER BY 1, 4, 7, 3 DESC
+
 )
 SELECT 
 	"17.1",
 	"17.2",
 	CASE 
 		WHEN [AssessmentSectionName] IS NOT NULL 
-			THEN "* Traject: '" || [AssessmentSectionName] || "'" 
+			THEN 
+				CASE WHEN [IsAssessmentSectionHeader] IS 1 
+					THEN "* Traject: '" || [AssessmentSectionName] || "'" 
+				ELSE
+					"  + " || [msg] || [AssessmentSectionName]
+				END	
 		ELSE
 			CASE
 				WHEN [FailureMechanismName] IS NOT NULL 
@@ -1807,6 +1853,7 @@ SELECT
 	END
 FROM AssessmentSectionFailureMechanismMessages;
 
+DROP TABLE TempAssessmentSectionChanges;
 DROP TABLE TempFailureMechanisms;
 DROP TABLE TempAssessmentNorm;
 DROP TABLE TempAssessmentSectionFailureMechanism;
