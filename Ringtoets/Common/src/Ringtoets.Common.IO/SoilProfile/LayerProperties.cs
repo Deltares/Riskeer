@@ -75,6 +75,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 BelowPhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelDeviation;
                 BelowPhreaticLevelDeviation = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation;
+                BelowPhreaticLevelCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = SoilProfileTableDefinitions.DiameterD70Distribution;
                 DiameterD70Distribution = reader.ReadOrDefault<long?>(readColumn);
@@ -204,6 +206,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// [kN/m³]
         /// </summary>
         public double? BelowPhreaticLevelDeviation { get; }
+
+        /// <summary>
+        /// Gets the coefficient of variation of the distribution for the volumic weight of the layer below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double? BelowPhreaticLevelCoefficientOfVariation { get; }
 
         /// <summary>
         /// Gets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 

@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.AbovePhreaticLevelCoefficientOfVariation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
             properties.AbovePhreaticLevelShift = soilLayer.AbovePhreaticLevelShift;
             properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
-            properties.BelowPhreaticLevelCoefficientOfVariation = soilLayer.BelowPhreaticLevelDeviation;
+            properties.BelowPhreaticLevelCoefficientOfVariation = soilLayer.BelowPhreaticLevelCoefficientOfVariation;
             properties.BelowPhreaticLevelShift = soilLayer.BelowPhreaticLevelShift;
             properties.CohesionMean = soilLayer.CohesionMean;
             properties.CohesionCoefficientOfVariation = soilLayer.CohesionCoefficientOfVariation;

@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Drawing;
-
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
@@ -38,6 +35,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             BelowPhreaticLevelMean = double.NaN;
             BelowPhreaticLevelDeviation = double.NaN;
+            BelowPhreaticLevelCoefficientOfVariation = double.NaN;
             BelowPhreaticLevelShift = double.NaN;
 
             DiameterD70Mean = double.NaN;
@@ -114,6 +112,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// [kN/m³]
         /// </summary>
         public double BelowPhreaticLevelDeviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
+        public double BelowPhreaticLevelCoefficientOfVariation { get; set; }
 
         /// <summary>
         /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 

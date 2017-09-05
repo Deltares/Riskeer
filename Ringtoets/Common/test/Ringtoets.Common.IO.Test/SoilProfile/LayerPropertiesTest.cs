@@ -67,13 +67,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            const double isAquifer = 1.0;
+            double isAquifer = random.NextDouble();
             const string materialName = "materialName";
             double color = random.NextDouble();
             int belowPhreaticLevelDistribution = random.Next();
             double belowPhreaticLevelShift = random.NextDouble();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
             int diameterD70Distribution = random.Next();
             double diameterD70Shift = random.NextDouble();
             double diameterD70Mean = random.NextDouble();
@@ -118,6 +119,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelShift)).Return(belowPhreaticLevelShift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelDeviation)).Return(belowPhreaticLevelDeviation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation)).Return(belowPhreaticLevelCoefficientOfVariation);
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.DiameterD70Distribution)).Return(diameterD70Distribution);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Shift)).Return(diameterD70Shift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Mean)).Return(diameterD70Mean);
@@ -165,6 +167,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(belowPhreaticLevelShift, properties.BelowPhreaticLevelShift);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelDeviation, properties.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(belowPhreaticLevelCoefficientOfVariation, properties.BelowPhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(diameterD70Distribution, properties.DiameterD70Distribution);
             Assert.AreEqual(diameterD70Shift, properties.DiameterD70Shift);
             Assert.AreEqual(diameterD70Mean, properties.DiameterD70Mean);
@@ -251,6 +254,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             yield return SoilProfileTableDefinitions.BelowPhreaticLevelShift;
             yield return SoilProfileTableDefinitions.BelowPhreaticLevelMean;
             yield return SoilProfileTableDefinitions.BelowPhreaticLevelDeviation;
+            yield return SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation;
             yield return SoilProfileTableDefinitions.DiameterD70Distribution;
             yield return SoilProfileTableDefinitions.DiameterD70Shift;
             yield return SoilProfileTableDefinitions.DiameterD70Mean;

@@ -73,6 +73,10 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation.Value;
             }
+            if (properties.BelowPhreaticLevelCoefficientOfVariation.HasValue)
+            {
+                soilLayer.BelowPhreaticLevelCoefficientOfVariation = properties.BelowPhreaticLevelCoefficientOfVariation.Value;
+            }
             if (properties.DiameterD70Distribution.HasValue)
             {
                 soilLayer.DiameterD70Distribution = properties.DiameterD70Distribution.Value;

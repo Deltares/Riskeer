@@ -92,6 +92,11 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string BelowPhreaticLevelDeviation = "BelowPhreaticLevelDeviation";
 
         /// <summary>
+        /// The name of the below phreatic level coefficient of variation column.
+        /// </summary>
+        public const string BelowPhreaticLevelCoefficientOfVariation = "BelowPhreaticLevelCoefficientOfVariation";
+
+        /// <summary>
         /// The name of the permeability distribution column.
         /// </summary>
         public const string PermeabilityDistribution = "PermeabKxDistribution";

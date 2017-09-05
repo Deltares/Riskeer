@@ -335,6 +335,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 }, profile.Layers.Select(l => l.BelowPhreaticLevelDeviation));
                 CollectionAssert.AreEqual(new[]
                 {
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01
+                }, profile.Layers.Select(l => l.BelowPhreaticLevelCoefficientOfVariation));
+                CollectionAssert.AreEqual(new[]
+                {
                     0,
                     0,
                     0,
@@ -618,6 +625,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNull(soilLayer.BelowPhreaticLevelDistribution);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelMean);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelDeviation);
+                Assert.IsNaN(soilLayer.BelowPhreaticLevelCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelShift);
 
                 Assert.IsNull(soilLayer.DiameterD70Distribution);

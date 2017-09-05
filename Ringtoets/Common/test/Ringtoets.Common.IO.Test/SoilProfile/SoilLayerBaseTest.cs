@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -44,6 +43,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNaN(layer.BelowPhreaticLevelShift);
             Assert.IsNaN(layer.BelowPhreaticLevelMean);
             Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(layer.BelowPhreaticLevelCoefficientOfVariation);
 
             Assert.IsNull(layer.DiameterD70Distribution);
             Assert.IsNaN(layer.DiameterD70Shift);

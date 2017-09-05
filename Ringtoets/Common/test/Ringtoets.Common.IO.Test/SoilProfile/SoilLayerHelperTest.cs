@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using Core.Common.IO.Readers;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -75,6 +74,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double belowPhreaticLevelShift = random.NextDouble();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
+            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
             int diameterD70Distribution = random.Next();
             double diameterD70Shift = random.NextDouble();
             double diameterD70Mean = random.NextDouble();
@@ -119,6 +119,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelShift)).Return(belowPhreaticLevelShift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelMean)).Return(belowPhreaticLevelMean);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelDeviation)).Return(belowPhreaticLevelDeviation);
+            reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation)).Return(belowPhreaticLevelCoefficientOfVariation);
             reader.Expect(r => r.ReadOrDefault<long?>(SoilProfileTableDefinitions.DiameterD70Distribution)).Return(diameterD70Distribution);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Shift)).Return(diameterD70Shift);
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileTableDefinitions.DiameterD70Mean)).Return(diameterD70Mean);
@@ -170,6 +171,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(properties.BelowPhreaticLevelShift, soilLayer.BelowPhreaticLevelShift);
             Assert.AreEqual(properties.BelowPhreaticLevelMean, soilLayer.BelowPhreaticLevelMean);
             Assert.AreEqual(properties.BelowPhreaticLevelDeviation, soilLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(properties.BelowPhreaticLevelCoefficientOfVariation, soilLayer.BelowPhreaticLevelCoefficientOfVariation);
 
             Assert.AreEqual(properties.DiameterD70Distribution, soilLayer.DiameterD70Distribution);
             Assert.AreEqual(properties.DiameterD70Shift, soilLayer.DiameterD70Shift);
@@ -241,6 +243,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNull(soilLayer.BelowPhreaticLevelDistribution);
             Assert.IsNaN(soilLayer.BelowPhreaticLevelMean);
             Assert.IsNaN(soilLayer.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(soilLayer.BelowPhreaticLevelCoefficientOfVariation);
             Assert.IsNaN(soilLayer.BelowPhreaticLevelShift);
 
             Assert.IsNull(soilLayer.DiameterD70Distribution);

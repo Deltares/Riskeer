@@ -138,6 +138,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "BelowPhreaticLevelShift, " +
                 "BelowPhreaticLevelMean, " +
                 "BelowPhreaticLevelDeviation, " +
+                "BelowPhreaticLevelCoefficientOfVariation, " +
                 "DiameterD70Distribution, " +
                 "DiameterD70Shift, " +
                 "DiameterD70Mean, " +
@@ -198,6 +199,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS BelowPhreaticLevelShift, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS BelowPhreaticLevelMean, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS BelowPhreaticLevelDeviation, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Variation end) AS BelowPhreaticLevelCoefficientOfVariation, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistribution, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS PermeabKxShift, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS PermeabKxMean, " +
@@ -268,6 +270,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "BelowPhreaticLevelShift, " +
                 "BelowPhreaticLevelMean, " +
                 "BelowPhreaticLevelDeviation, " +
+                "BelowPhreaticLevelCoefficientOfVariation, " +
                 "DiameterD70Distribution, " +
                 "DiameterD70Shift, " +
                 "DiameterD70Mean, " +
@@ -329,6 +332,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS BelowPhreaticLevelShift, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS BelowPhreaticLevelMean, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS BelowPhreaticLevelDeviation, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Variation end) AS BelowPhreaticLevelCoefficientOfVariation, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistribution, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS PermeabKxShift, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS PermeabKxMean, " +

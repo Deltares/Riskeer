@@ -37,6 +37,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelShift}, " +
             $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelMean}, " +
             $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelDeviation}, " +
+            $"max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Variation end) AS {SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation}, " +
             $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS {SoilProfileTableDefinitions.PermeabilityDistribution}, " +
             $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS {SoilProfileTableDefinitions.PermeabilityShift}, " +
             $"max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS {SoilProfileTableDefinitions.PermeabilityMean}, " +
@@ -206,6 +207,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.BelowPhreaticLevelShift}, " +
                 $"{SoilProfileTableDefinitions.BelowPhreaticLevelMean}, " +
                 $"{SoilProfileTableDefinitions.BelowPhreaticLevelDeviation}, " +
+                $"{SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation}, " +
                 $"{SoilProfileTableDefinitions.DiameterD70Distribution}, " +
                 $"{SoilProfileTableDefinitions.DiameterD70Shift}, " +
                 $"{SoilProfileTableDefinitions.DiameterD70Mean}, " +
@@ -281,6 +283,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.BelowPhreaticLevelShift}, " +
                 $"{SoilProfileTableDefinitions.BelowPhreaticLevelMean}, " +
                 $"{SoilProfileTableDefinitions.BelowPhreaticLevelDeviation}, " +
+                $"{SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation}, " +
                 $"{SoilProfileTableDefinitions.DiameterD70Distribution}, " +
                 $"{SoilProfileTableDefinitions.DiameterD70Shift}, " +
                 $"{SoilProfileTableDefinitions.DiameterD70Mean}, " +
