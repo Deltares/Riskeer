@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
@@ -41,42 +42,54 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    UsePop = true,
-                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
-                    MaterialName = "Sand"
-                })),
+                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
+                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                    {
+                        UsePop = true,
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
+                        MaterialName = "Sand",
+                        AbovePhreaticLevelMean = 0.1,
+                        AbovePhreaticLevelCoefficientOfVariation = 0.7
+                    })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    UsePop = false,
-                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None,
-                    MaterialName = "Mud"
-                })),
+                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
+                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                    {
+                        UsePop = false,
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None,
+                        MaterialName = "Mud",
+                        AbovePhreaticLevelMean = 0.2,
+                        AbovePhreaticLevelCoefficientOfVariation = 0.6
+                    })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    UsePop = true,
-                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
-                    MaterialName = "Clay"
-                })),
+                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
+                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                    {
+                        UsePop = true,
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
+                        MaterialName = "Clay",
+                        AbovePhreaticLevelMean = 0.3,
+                        AbovePhreaticLevelCoefficientOfVariation = 0.5
+                    })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    UsePop = true,
-                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
-                    MaterialName = "Grass"
-                }))
+                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
+                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                    {
+                        UsePop = true,
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
+                        MaterialName = "Grass",
+                        AbovePhreaticLevelMean = 0.4,
+                        AbovePhreaticLevelCoefficientOfVariation = 0.4
+                    }))
             });
 
             // Call
@@ -92,8 +105,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 ShearStrengthModel.CPhi,
                 ShearStrengthModel.None,
                 ShearStrengthModel.CPhiOrCuCalculated,
-                ShearStrengthModel.CuCalculated, 
+                ShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine
+                                             .Select(l => MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(l.Properties)
+                                                                                                                  .GetDesignValue().Value),
+                                      soils.Select(s => s.AbovePhreaticLevel));
         }
 
         [Test]
@@ -101,14 +118,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
-           {
+            {
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
-                    ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99,
+                    ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
                 }))
             });
 
@@ -117,6 +134,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             // Assert
             Assert.Throws<NotSupportedException>(test);
+        }
+
+        private class TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine : MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine
+        {
+            public TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(ConstructionProperties properties)
+                : base(properties)
+            {
+                AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(this)
+                                                                                                           .GetDesignValue();
+            }
         }
     }
 }
