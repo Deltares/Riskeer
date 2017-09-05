@@ -61,7 +61,6 @@
     <Compile Include="PipingCalculatorTest.cs" />
     <Compile Include="PipingProfileCreatorExceptionTest.cs" />
     <Compile Include="PipingProfileCreatorTest.cs" />
-    <Compile Include="PipingSemiProbabilisticDesignValueFactoryTest.cs" />
     <Compile Include="SubCalculator\PipingProfilePropertyCalculatorTest.cs" />
     <Compile Include="SubCalculator\EffectiveThicknessCalculatorTest.cs" />
     <Compile Include="SubCalculator\HeaveCalculatorTest.cs" />

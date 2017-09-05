@@ -24,10 +24,9 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 
-namespace Ringtoets.Piping.KernelWrapper.Test
+namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
     public class PipingSemiProbabilisticDesignValueFactoryTest

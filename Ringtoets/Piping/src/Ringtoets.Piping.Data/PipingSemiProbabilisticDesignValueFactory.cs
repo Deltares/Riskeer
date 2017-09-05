@@ -24,7 +24,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Factory for creating design variables based on probabilistic distributions.
+    /// Factory for creating design variables based on probabilistic distributions for piping.
     /// </summary>
     public static class PipingSemiProbabilisticDesignValueFactory
     {
