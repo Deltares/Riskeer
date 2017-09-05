@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
             string soilModelName)
         {
-            List<StochasticSoilProfile> profilesToTransform =
+            IEnumerable<StochasticSoilProfile> profilesToTransform =
                 StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
                                                                                       soilModelName);
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Properties;
@@ -42,12 +43,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="stochasticSoilProfiles">The collection of <see cref="StochasticSoilProfile"/>
         /// to validate.</param>
         /// <param name="soilModelName">The name of the soil model.</param>
-        /// <returns></returns>
+        /// <returns>A collection of validated <see cref="StochasticSoilProfile"/> to transform.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="StochasticSoilProfile"/>
         /// is invalid.</exception>
-        public static List<StochasticSoilProfile> GetValidatedStochasticProfilesToTransform(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
-                                                                                            string soilModelName)
+        public static IEnumerable<StochasticSoilProfile> GetValidatedStochasticProfilesToTransform(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles, string soilModelName)
         {
             if (stochasticSoilProfiles == null)
             {
@@ -59,11 +59,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             List<StochasticSoilProfile> profilesToTransform = stochasticSoilProfiles.ToList();
-            List<StochasticSoilProfile> allStochasticSoilProfiles = profilesToTransform.ToList();
+            StochasticSoilProfile[] allStochasticSoilProfiles = profilesToTransform.ToArray();
 
             try
             {
-                for (var i = 1; i < allStochasticSoilProfiles.Count; i++)
+                for (var i = 1; i < allStochasticSoilProfiles.Length; i++)
                 {
                     StochasticSoilProfile previousProfile = allStochasticSoilProfiles[i - 1];
                     StochasticSoilProfile currentProfile = allStochasticSoilProfiles[i];

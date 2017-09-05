@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             };
 
             // Call
-            List<StochasticSoilProfile> profilesToTransform =
+            IEnumerable<StochasticSoilProfile> profilesToTransform =
                 StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
                                                                                       string.Empty);
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 profileTwo
             };
 
-            List<StochasticSoilProfile> profilesToTransform = null;
+            IEnumerable<StochasticSoilProfile> profilesToTransform = null;
 
             // Call
             Action call = () => profilesToTransform =
@@ -120,6 +120,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                      "Kansen van voorkomen worden opgeteld.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
 
+            Assert.IsNotNull(profilesToTransform);
             StochasticSoilProfile profileToTransform = profilesToTransform.Single();
             Assert.AreEqual(profileOne, profileToTransform);
             const double expectedProbability = probabilityOne + probabilityTwo;
@@ -153,7 +154,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double totalProbabilitySum = profileOne.Probability + profileTwo.Probability;
             Assert.GreaterOrEqual(totalProbabilitySum, 1);
 
-            List<StochasticSoilProfile> profilesToTransform = null;
+            IEnumerable<StochasticSoilProfile> profilesToTransform = null;
 
             // Call
             TestDelegate call = () => profilesToTransform =
