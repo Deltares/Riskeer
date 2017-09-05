@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     AbovePhreaticLevelMean = properties.AbovePhreaticLevelMean,
-                    AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelDeviation,
+                    AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelCoefficientOfVariation,
                     UsePop = properties.UsePop,
                     IsAquifer = properties.IsAquifer,
                     ShearStrengthModel = properties.ShearStrengthModel,
