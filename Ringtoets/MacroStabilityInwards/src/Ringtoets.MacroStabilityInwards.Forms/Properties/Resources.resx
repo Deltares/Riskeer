@@ -364,10 +364,10 @@
   <data name="PiezometricHeadPhreaticLine2Outwards_DisplayName" xml:space="preserve">
     <value>Stijghoogte PL 2 buitenwaarts [m+NAP]</value>
   </data>
-  <data name="UseDefaultOffset_Description" xml:space="preserve">
+  <data name="UseDefaultOffsets_Description" xml:space="preserve">
     <value>Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?</value>
   </data>
-  <data name="UseDefaultOffset_DisplayName" xml:space="preserve">
+  <data name="UseDefaultOffsets_DisplayName" xml:space="preserve">
     <value>Gebruik default waarden voor offsets van PL 1</value>
   </data>
   <data name="XCoordinateDrainageConstruction_Description" xml:space="preserve">

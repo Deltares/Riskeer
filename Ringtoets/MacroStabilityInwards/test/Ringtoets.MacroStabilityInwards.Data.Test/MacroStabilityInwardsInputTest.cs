@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(2, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.NumberOfDecimalPlaces);
 
-            Assert.IsTrue(inputParameters.UseDefaultOffset);
+            Assert.IsTrue(inputParameters.UseDefaultOffsets);
 
             Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver);
             Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);

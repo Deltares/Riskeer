@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// </summary>
     public class MacroStabilityInwardsOffsetProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
-        private const int useDefaultOffsetPropertyIndex = 1;
+        private const int useDefaultOffsetsPropertyIndex = 1;
         private const int phreaticLineOffsetBelowDikeTopAtRiverPropertyIndex = 2;
         private const int phreaticLineOffsetBelowDikeTopAtPolderPropertyIndex = 3;
         private const int phreaticLineOffsetBelowShoulderBaseInsidePropertyIndex = 4;
@@ -65,19 +65,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             propertyChangeHandler = handler;
         }
 
-        [PropertyOrder(useDefaultOffsetPropertyIndex)]
+        [PropertyOrder(useDefaultOffsetsPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Offsets_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.UseDefaultOffset_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.UseDefaultOffset_Description))]
-        public bool UseDefaultOffset
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.UseDefaultOffsets_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.UseDefaultOffsets_Description))]
+        public bool UseDefaultOffsets
         {
             get
             {
-                return data.UseDefaultOffset;
+                return data.UseDefaultOffsets;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.UseDefaultOffset = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.UseDefaultOffsets = value, propertyChangeHandler);
             }
         }
 
@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return UseDefaultOffset;
+            return UseDefaultOffsets;
         }
 
         public override string ToString()

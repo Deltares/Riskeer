@@ -1085,18 +1085,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?.
         /// </summary>
-        public static string UseDefaultOffset_Description {
+        public static string UseDefaultOffsets_Description {
             get {
-                return ResourceManager.GetString("UseDefaultOffset_Description", resourceCulture);
+                return ResourceManager.GetString("UseDefaultOffsets_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gebruik default waarden voor offsets van PL 1.
         /// </summary>
-        public static string UseDefaultOffset_DisplayName {
+        public static string UseDefaultOffsets_DisplayName {
             get {
-                return ResourceManager.GetString("UseDefaultOffset_DisplayName", resourceCulture);
+                return ResourceManager.GetString("UseDefaultOffsets_DisplayName", resourceCulture);
             }
         }
         

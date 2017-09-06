@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool useDefaultOffset)
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool useDefaultOffsets)
         {
             // Setup
             var mocks = new MockRepository();
@@ -105,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput
             {
-                UseDefaultOffset = useDefaultOffset
+                UseDefaultOffsets = useDefaultOffsets
             };
 
             // Call
@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder buitenkruin [m]",
                 "Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.",
-                useDefaultOffset);
+                useDefaultOffsets);
 
             PropertyDescriptor phreaticLineOffsetBelowDikeTopAtPolderProperty = dynamicProperties[expectedPhreaticLineOffsetBelowDikeTopAtPolderPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder binnenkruin [m]",
                 "Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.",
-                useDefaultOffset);
+                useDefaultOffsets);
 
             PropertyDescriptor phreaticLineOffsetBelowShoulderBaseInsideProperty = dynamicProperties[expectedPhreaticLineOffsetBelowShoulderBaseInsidePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder insteek binnenberm [m]",
                 "Waterstandsverschil tussen het maaiveld en de freatische lijn onder insteek binnenberm.",
-                useDefaultOffset);
+                useDefaultOffsets);
 
             PropertyDescriptor phreaticLineOffsetBelowDikeToeAtPolderProperty = dynamicProperties[expectedPhreaticLineOffsetBelowDikeToeAtPolderPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -155,7 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 offsetCategory,
                 "PL 1 offset onder teen dijk binnenwaarts [m]",
                 "Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts.",
-                useDefaultOffset);
+                useDefaultOffsets);
 
             mocks.VerifyAll();
         }
@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
 
             // Assert
-            Assert.AreEqual(input.UseDefaultOffset, properties.UseDefaultOffset);
+            Assert.AreEqual(input.UseDefaultOffsets, properties.UseDefaultOffsets);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtRiver, properties.PhreaticLineOffsetBelowDikeTopAtRiver);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtPolder, properties.PhreaticLineOffsetBelowDikeTopAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowShoulderBaseInside, properties.PhreaticLineOffsetBelowShoulderBaseInside);
@@ -193,21 +193,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsOffsetProperties(input, handler);
 
             var random = new Random();
-            bool useDefaultOffset = random.NextBoolean();
+            bool useDefaultOffsets = random.NextBoolean();
             double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
             double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
             double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
             double phreaticLineOffsetBelowDikeToeAtPolder = random.Next();
 
             // When
-            properties.UseDefaultOffset = useDefaultOffset;
+            properties.UseDefaultOffsets = useDefaultOffsets;
             properties.PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtRiver;
             properties.PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtPolder;
             properties.PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) phreaticLineOffsetBelowShoulderBaseInside;
             properties.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeToeAtPolder;
 
             // Then
-            Assert.AreEqual(useDefaultOffset, input.UseDefaultOffset);
+            Assert.AreEqual(useDefaultOffsets, input.UseDefaultOffsets);
             Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver, input.PhreaticLineOffsetBelowDikeTopAtRiver,
                             input.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
             Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder, input.PhreaticLineOffsetBelowDikeTopAtPolder,
@@ -225,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseDefaultOffset = true, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseDefaultOffsets = true, calculation);
         }
 
         [Test]
@@ -271,7 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnlyValidationMethod_Always_DependsDrainageConstructionPresent(bool useDefaultOffset)
+        public void DynamicReadOnlyValidationMethod_Always_DependsDrainageConstructionPresent(bool useDefaultOffsets)
         {
             // Setup
             var mocks = new MockRepository();
@@ -280,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput
             {
-                UseDefaultOffset = useDefaultOffset
+                UseDefaultOffsets = useDefaultOffsets
             };
 
             var properties = new MacroStabilityInwardsOffsetProperties(input, handler);
@@ -289,7 +289,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool result = properties.DynamicReadOnlyValidationMethod("");
 
             // Assert
-            Assert.AreEqual(useDefaultOffset, result);
+            Assert.AreEqual(useDefaultOffsets, result);
         }
 
         [Test]

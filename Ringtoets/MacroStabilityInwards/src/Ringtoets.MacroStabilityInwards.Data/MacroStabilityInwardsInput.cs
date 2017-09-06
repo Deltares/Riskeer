@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             minimumLevelPhreaticLineAtDikeTopRiver = new RoundedDouble(2, double.NaN);
             minimumLevelPhreaticLineAtDikeTopPolder = new RoundedDouble(2, double.NaN);
 
-            UseDefaultOffset = true;
+            UseDefaultOffsets = true;
 
             phreaticLineOffsetBelowDikeTopAtRiver = new RoundedDouble(2, double.NaN);
             phreaticLineOffsetBelowDikeTopAtPolder = new RoundedDouble(2, double.NaN);
@@ -439,7 +439,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets whether the default offset should be used.
         /// </summary>
-        public bool UseDefaultOffset { get; set; }
+        public bool UseDefaultOffsets { get; set; }
 
         /// <summary>
         /// Gets or sets the offset of the phreatic line below dike top at river.
