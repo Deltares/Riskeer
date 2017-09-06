@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Setup
             const string materialName = "Clay";
 
-            var random = new Random();
+            var random = new Random(22);
             var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
             bool usePop = random.NextBoolean();
             bool isAquifer = random.NextBoolean();
