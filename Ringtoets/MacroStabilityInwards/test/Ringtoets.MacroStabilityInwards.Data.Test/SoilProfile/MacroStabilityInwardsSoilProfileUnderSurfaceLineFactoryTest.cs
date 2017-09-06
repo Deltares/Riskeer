@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point3D(8, 0, 4.0)
             });
 
-            var random = new Random();
+            var random = new Random(21);
             bool usePop = random.NextBoolean();
             bool isAquifer = random.NextBoolean();
             var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
@@ -452,7 +452,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             const string material = "Clay";
 
-            var random = new Random();
+            var random = new Random(21);
             bool usePop = random.NextBoolean();
             bool isAquifer = random.NextBoolean();
             var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
