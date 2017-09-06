@@ -421,7 +421,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [TestFixture]
-        public class WaveHeightLocationsViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocation>
+        public class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocation>
         {
             protected override int OutputColumnIndex
             {

@@ -23,7 +23,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 
@@ -33,29 +32,27 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// Class for testing data and selection synchronization in <see cref="LocationsView{T}"/> derivatives.
     /// </summary>
     /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
+    [TestFixture]
     public abstract class LocationsViewSynchronizationTester<T> where T : class
     {
         private Form testForm;
-        private MockRepository mockRepository;
+
+        /// <summary>
+        /// Gets the index of the column containing the locations output.
+        /// </summary>
+        protected abstract int OutputColumnIndex { get; }
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
-            mockRepository = new MockRepository();
         }
 
         [TearDown]
         public void TearDown()
         {
             testForm.Dispose();
-            mockRepository.VerifyAll();
         }
-
-        /// <summary>
-        /// Gets the index of the column containing the locations output.
-        /// </summary>
-        protected abstract int OutputColumnIndex { get; }
 
         /// <summary>
         /// Method for obtaining the view selection object related to the selected location row.
@@ -127,7 +124,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
@@ -144,7 +140,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
@@ -161,7 +156,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
@@ -178,7 +172,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection locationsDataGridViewRows = locationsDataGridView.Rows;
@@ -219,7 +212,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
 
@@ -237,7 +229,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -261,7 +252,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -285,7 +275,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -309,7 +298,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -327,7 +315,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -352,7 +339,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];
@@ -377,7 +363,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
-            mockRepository.ReplayAll();
 
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             locationsDataGridView.CurrentCell = locationsDataGridView.Rows[4].Cells[0];

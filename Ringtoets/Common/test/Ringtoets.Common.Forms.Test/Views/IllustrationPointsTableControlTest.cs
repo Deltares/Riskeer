@@ -244,8 +244,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             var selection = control.Selection as IllustrationPointControlItem;
 
             // Assert
-            var dataBoundItem = dataGridView.Rows[0].DataBoundItem as IllustrationPointRow;
             Assert.NotNull(selection);
+
+            var dataBoundItem = dataGridView.Rows[0].DataBoundItem as IllustrationPointRow;
             Assert.NotNull(dataBoundItem);
             Assert.AreSame(dataBoundItem.IllustrationPointControlItem, selection);
         }

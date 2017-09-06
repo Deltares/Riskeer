@@ -127,6 +127,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 var initialControlSelection = control.Selection as IllustrationPointControlItem;
 
+                // Precondition
+                Assert.IsNotNull(initialControlSelection);
+
                 // Call
                 dataGridView.SetCurrentCell(dataGridView.Rows[1].Cells[0]);
 
