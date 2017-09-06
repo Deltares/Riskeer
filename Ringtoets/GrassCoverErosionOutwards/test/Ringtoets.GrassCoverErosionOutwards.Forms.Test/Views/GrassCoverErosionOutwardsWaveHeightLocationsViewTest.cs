@@ -510,17 +510,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         protected override void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<HydraulicBoundaryLocation> view)
         {
             var locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
-            {
-                WaveHeightCalculation =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = true
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(10.23)
-                }
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0);
 
             locations.Clear();
             locations.Add(hydraulicBoundaryLocation);

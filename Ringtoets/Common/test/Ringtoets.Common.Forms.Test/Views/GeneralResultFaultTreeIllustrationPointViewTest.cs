@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -305,9 +306,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
-                var selection = view.Selection as SelectedTopLevelFaultTreeIllustrationPoint;
-                Assert.IsNotNull(selection);
-                Assert.AreSame(generalResult.TopLevelIllustrationPoints.First(), selection.TopLevelFaultTreeIllustrationPoint);
+                IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelFaultTreeIllustrationPoints = generalResult.TopLevelIllustrationPoints.ToArray();
+                AssertIllustrationPointSelection(topLevelFaultTreeIllustrationPoints.First(),
+                                                 topLevelFaultTreeIllustrationPoints.Select(ip => ip.ClosingSituation),
+                                                 view.Selection);
             }
             mocks.VerifyAll();
         }
@@ -371,11 +373,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
 
-                var selection = view.Selection as SelectedTopLevelFaultTreeIllustrationPoint;
-                Assert.IsNotNull(selection);
-
-                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = generalResult.TopLevelIllustrationPoints.ElementAt(1);
-                Assert.AreSame(topLevelFaultTreeIllustrationPoint, selection.TopLevelFaultTreeIllustrationPoint);
+                IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelFaultTreeIllustrationPoints = generalResult.TopLevelIllustrationPoints.ToArray();
+                TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = topLevelFaultTreeIllustrationPoints.ElementAt(1);
+                AssertIllustrationPointSelection(topLevelFaultTreeIllustrationPoint,
+                                                 topLevelFaultTreeIllustrationPoints.Select(ip => ip.ClosingSituation),
+                                                 view.Selection);
 
                 IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
                 Assert.AreSame(topLevelFaultTreeIllustrationPoint, illustrationPointsFaultTreeControl.Data);
@@ -465,6 +467,16 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(topLevel.WindDirection.Name, selectedSubMechanismContext.WindDirectionName);
             }
             mocks.VerifyAll();
+        }
+
+        private static void AssertIllustrationPointSelection(TopLevelFaultTreeIllustrationPoint expectedSelection,
+                                                             IEnumerable<string> expectedClosingSituations,
+                                                             object selection)
+        {
+            var illustrationPointSelection = selection as SelectedTopLevelFaultTreeIllustrationPoint;
+            Assert.IsNotNull(illustrationPointSelection);
+            Assert.AreSame(expectedSelection, illustrationPointSelection.TopLevelFaultTreeIllustrationPoint);
+            CollectionAssert.AreEqual(expectedClosingSituations, illustrationPointSelection.ClosingSituations);
         }
 
         #endregion
@@ -575,7 +587,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                      topLevelFaultTreeIllustrationPoint1.ClosingSituation,
                                                      faultTreeIllustrationPoint.Stochasts,
                                                      faultTreeIllustrationPoint.Beta),
-
                     new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
                                                      topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
                                                      topLevelFaultTreeIllustrationPoint2.ClosingSituation,
@@ -655,7 +666,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                      topLevelFaultTreeIllustrationPoint1.ClosingSituation,
                                                      faultTreeIllustrationPoint.Stochasts,
                                                      faultTreeIllustrationPoint.Beta),
-
                     new IllustrationPointControlItem(topLevelFaultTreeIllustrationPoint2,
                                                      topLevelFaultTreeIllustrationPoint2.WindDirection.Name,
                                                      topLevelFaultTreeIllustrationPoint2.ClosingSituation,

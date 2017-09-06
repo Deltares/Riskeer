@@ -338,9 +338,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Then
-            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selection);
-            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+            AssertIllustrationPointControlSelection(view.Selection);
         }
 
         [Test]
@@ -358,9 +356,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Precondition
             Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
-            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selection);
-            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+            AssertIllustrationPointControlSelection(view.Selection);
 
             // When
             ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
@@ -385,9 +381,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Precondition
             Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
-            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selection);
-            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+            AssertIllustrationPointControlSelection(view.Selection);
 
             // When
             ClearLocationOutputAndNotifyObservers(view);
@@ -412,9 +406,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Precondition
             Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
-            var selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selection);
-            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+            AssertIllustrationPointControlSelection(view.Selection);
 
             // When
             AddLocationOutputAndNotifyObservers(view);
@@ -422,9 +414,15 @@ namespace Ringtoets.Common.Forms.TestUtil
             // Then
             Assert.AreEqual(4, locationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
-            selection = view.Selection as SelectedTopLevelSubMechanismIllustrationPoint;
-            Assert.IsNotNull(selection);
-            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, selection.TopLevelSubMechanismIllustrationPoint);
+            AssertIllustrationPointControlSelection(view.Selection);
+        }
+
+        private void AssertIllustrationPointControlSelection(object selection)
+        {
+            var illustrationPointSelection = selection as SelectedTopLevelSubMechanismIllustrationPoint;
+            Assert.IsNotNull(illustrationPointSelection);
+            Assert.AreSame(GetIllustrationPointsControl().Data.ElementAt(1).Source, illustrationPointSelection.TopLevelSubMechanismIllustrationPoint);
+            CollectionAssert.AreEqual(GetIllustrationPointsControl().Data.Select(data => data.ClosingSituation), illustrationPointSelection.ClosingSituations);
         }
 
         #endregion
