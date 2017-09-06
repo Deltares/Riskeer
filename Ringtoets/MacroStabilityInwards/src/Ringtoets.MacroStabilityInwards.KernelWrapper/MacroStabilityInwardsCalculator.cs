@@ -85,8 +85,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         {
             IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
             Soil[] soils = MacroStabilityInwardsSoilCreator.Create(input.SoilProfile);
+            calculator.SoilModel = MacroStabilityInwardsSoilModelCreator.Create(soils);
             GeometrySurface[] surfaces = CreateSurfaces(input.SoilProfile);
-            calculator.SoilModel = CreateSoilModel(soils);
             calculator.SoilProfile = CreateSoilProfile(input.SoilProfile.LayersUnderSurfaceLine.ToArray(), soils, surfaces);
             return calculator;
         }
@@ -192,14 +192,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             profile.Geometry = geometryData;
 
             return profile;
-        }
-
-        private static SoilModel CreateSoilModel(IEnumerable<Soil> soils)
-        {
-            var soilModel = new SoilModel();
-            soilModel.Soils.AddRange(soils);
-
-            return soilModel;
         }
 
         /// <summary>

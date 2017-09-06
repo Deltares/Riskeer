@@ -33,6 +33,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
     public class MacroStabilityInwardsSoilCreatorTest
     {
         [Test]
+        public void Create_ProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilCreator.Create(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("profile", exception.ParamName);
+        }
+
+        [Test]
         public void Create_ProfileWithLayers_ReturnsProfileWithLayers()
         {
             // Setup

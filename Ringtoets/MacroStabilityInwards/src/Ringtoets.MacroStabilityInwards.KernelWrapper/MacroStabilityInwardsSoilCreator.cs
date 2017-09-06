@@ -38,10 +38,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// <param name="profile">The <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> from
         /// which to take the information.</param>
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
         /// has an type that can't be converted to <see cref="ShearStrengthModel"/>.</exception>
         public static Soil[] Create(MacroStabilityInwardsSoilProfileUnderSurfaceLine profile)
         {
+            if (profile == null)
+            {
+                throw new ArgumentNullException(nameof(profile));
+            }
+
             return profile.LayersUnderSurfaceLine.Select(l =>
             {
                 MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties = l.Properties;
