@@ -271,8 +271,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         [Test]
         [SetCulture("en-US")]
-        [TestCase(600, NormType.Signaling)]
-        [TestCase(2, NormType.LowerLimit)]
+        [TestCase(2, NormType.LowerLimit, TestName = "Given171ProjectWithNormLargerThenLowerLimit_WhenMigrated_ThenLowerLimitNormSetToNormAndExpectedLogDatabase")]
+        [TestCase(600, NormType.Signaling, TestName = "Given171ProjectWithNormLessThenLowerLimit_WhenMigrated_ThenSignalingNormSetToNormAndExpectedLogDatabase")]
         public void Given171ProjectWithNormNotInList_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(int originalReturnPeriod,
                                                                                                             NormType expectedNormType)
         {
