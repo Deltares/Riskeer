@@ -330,5 +330,50 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"LEFT JOIN ({getLayerPropertiesOfLayer2DQuery}) USING(SL2D_ID) " +
                 "GROUP BY sp2d.SP2D_ID, sl2d.SL2D_ID;";
         }
+
+        /// <summary>
+        /// Returns the SQL query to execute to fetch the preconsolidated stresses belonging to a 
+        /// 2D soil profile from the D-Soil Model database.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        public static string GetSoilProfile2DPreconsolidationStressesQuery()
+        {
+            const string getNrOfPreconsolidationStresses =
+                "SELECT SP2D_ID, COUNT(*) AS PreconsolidationStressesCount " +
+                "FROM PreconsolidationStresses " +
+                "GROUP BY SP2D_ID";
+
+            return
+                "SELECT " +
+                "sp2d.SP2D_Name AS ProfileName, " +
+                $"preconsolidationStressesCount.{PreconsolidationStressTableDefinitions.PreconsolidationstressesCount}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressValue}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressMean}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation}, " +
+                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressShift}, " +
+                $"sp2d.SP2D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
+                "FROM Mechanism AS m " +
+                $"JOIN {SegmentTableDefinitions.TableName} AS segment USING({MechanismTableDefinitions.MechanismId}) " +
+                "JOIN (SELECT SSM_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP2D_ID) ssp USING(SSM_ID) " +
+                "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
+                $"JOIN({getNrOfPreconsolidationStresses}) {PreconsolidationStressTableDefinitions.PreconsolidationstressesCount} USING(SP2D_ID) " +
+                "JOIN" +
+                "(" +
+                "SELECT " +
+                "SP2D_ID, " +
+                $"X as {PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate}, " +
+                $"Z as {PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate}, " +
+                $"Stress as {PreconsolidationStressTableDefinitions.PreconsolidationStressValue}, " +
+                $"s.ST_Dist_Type AS {PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution}, " +
+                $"s.ST_Shift AS {PreconsolidationStressTableDefinitions.PreconsolidationStressShift}, " +
+                $"s.ST_Mean AS {PreconsolidationStressTableDefinitions.PreconsolidationStressMean}, " +
+                $"s.ST_Variation AS {PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation} " +
+                $"FROM {PreconsolidationStressTableDefinitions.TableName} AS ps " +
+                "LEFT JOIN Stochast AS s USING(ST_ID) " +
+                $") {PreconsolidationStressTableDefinitions.TableName} USING(SP2D_ID);";
+        }
     }
 }

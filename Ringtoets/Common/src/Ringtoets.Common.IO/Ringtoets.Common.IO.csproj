@@ -125,6 +125,7 @@
     <Compile Include="SoilProfile\Schema\FailureMechanismType.cs" />
     <Compile Include="SoilProfile\Schema\MechanismTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
+    <Compile Include="SoilProfile\Schema\PreconsolidationStressTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\SegmentPointsTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\SegmentTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\SoilProfileTableDefinitions.cs" />
