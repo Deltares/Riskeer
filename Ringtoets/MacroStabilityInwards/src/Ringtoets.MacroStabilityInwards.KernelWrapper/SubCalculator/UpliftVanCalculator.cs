@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
@@ -49,8 +50,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 
         public void Calculate()
         {
-            wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
-            wrappedCalculator.Run();
+            try
+            {
+                wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
+
+                var messages = wrappedCalculator.Validate();
+                wrappedCalculator.Run();
+            }
+            catch (Exception e)
+            {
+                // Do nothing
+            }
         }
 
         public SoilModel SoilModel

@@ -37,6 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     {
         private readonly MacroStabilityInwardsCalculatorInput input;
         private readonly IMacroStabilityInwardsSubCalculatorFactory factory;
+        private GeometryData geometryData;
 
         /// <summary>
         /// Constructs a new <see cref="MacroStabilityInwardsCalculator"/>. The <paramref name="input"/> is used to
@@ -74,15 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         private IUpliftVanCalculator CalculateUpliftVan()
         {
             IUpliftVanCalculator upliftVanCalculator = CreateUpliftVanCalculator();
-
-            try
-            {
-                upliftVanCalculator.Calculate();
-            }
-            catch (Exception)
-            {
-                // Temporary
-            }
+            
+            upliftVanCalculator.Calculate();
 
             return upliftVanCalculator;
         }
@@ -91,12 +85,97 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         {
             IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
             Soil[] soils = MacroStabilityInwardsSoilCreator.Create(input.SoilProfile);
+            GeometrySurface[] surfaces = CreateSurfaces(input.SoilProfile);
             calculator.SoilModel = CreateSoilModel(soils);
-            calculator.SoilProfile = CreateSoilProfile(input.SoilProfile.LayersUnderSurfaceLine.ToArray(), soils);
+            calculator.SoilProfile = CreateSoilProfile(input.SoilProfile.LayersUnderSurfaceLine.ToArray(), soils, surfaces);
             return calculator;
         }
 
-        private SoilProfile2D CreateSoilProfile(IList<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers, IList<Soil> soils)
+        private GeometrySurface[] CreateSurfaces(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        {
+            geometryData = new GeometryData();
+
+            var surfaces = new List<GeometrySurface>();
+            foreach (MacroStabilityInwardsSoilLayerUnderSurfaceLine layer in soilProfile.LayersUnderSurfaceLine)
+            {
+                var outerLoop = new GeometryLoop();
+                GeometryCurve[] curves = ToCurveList(layer.OuterRing);
+
+                geometryData.Curves.AddRange(curves);
+
+                outerLoop.CurveList.AddRange(curves);
+
+                geometryData.Loops.Add(outerLoop);
+
+                IEnumerable<GeometryLoop> innerloops = layer.Holes.Select(h =>
+                {
+                    GeometryCurve[] geometryCurves = ToCurveList(h);
+                    geometryData.Curves.AddRange(geometryCurves);
+                    return geometryCurves;
+                }).Select(CurvesToLoop);
+
+                geometryData.Loops.AddRange(innerloops);
+
+                var surface = new GeometrySurface
+                {
+                    OuterLoop = outerLoop
+                };
+                surface.InnerLoops.AddRange(innerloops);
+
+                surfaces.Add(surface);
+            }
+
+            geometryData.Surfaces.AddRange(surfaces);
+
+            return surfaces.ToArray();
+        }
+
+        private static GeometryLoop CurvesToLoop(GeometryCurve[] curves)
+        {
+            var loop = new GeometryLoop();
+            loop.CurveList.AddRange(curves);
+            return loop;
+        }
+
+        private GeometryCurve[] ToCurveList(Core.Common.Base.Geometry.Point2D[] points)
+        {
+            var geometryPoints = (List<Point2D>) geometryData.Points;
+
+            var curves = new List<GeometryCurve>();
+
+            var firstPoint = new Point2D(points[0].X, points[0].Y);
+            Point2D lastPoint = null;
+
+            for (int i = 0; i < points.Length-1; i++)
+            {
+                Point2D headPoint = i == 0
+                                        ? firstPoint
+                                        : new Point2D(points[i].X, points[i].Y);
+
+                var endPoint = new Point2D(points[i+1].X, points[i+1].Y);
+
+                geometryPoints.Add(headPoint);
+                geometryPoints.Add(endPoint);
+
+                curves.Add(new GeometryCurve
+                {
+                    HeadPoint = headPoint,
+                    EndPoint = endPoint,
+                });
+
+                lastPoint = endPoint;
+            }
+
+            curves.Add(new GeometryCurve
+            {
+                HeadPoint = lastPoint,
+                EndPoint = firstPoint
+            });
+
+            return curves.ToArray();
+        }
+
+        private SoilProfile2D CreateSoilProfile(IList<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers, IList<Soil> soils, IList<GeometrySurface> surfaces)
         {
             var profile = new SoilProfile2D();
 
@@ -105,14 +184,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 profile.Surfaces.Add(new SoilLayer2D
                 {
                     IsAquifer = layers[i].Properties.IsAquifer,
-                    Soil = soils[i]
+                    Soil = soils[i],
+                    GeometrySurface = surfaces[i]
                 });
             }
+
+            profile.Geometry = geometryData;
 
             return profile;
         }
 
-        private SoilModel CreateSoilModel(IEnumerable<Soil> soils)
+        private static SoilModel CreateSoilModel(IEnumerable<Soil> soils)
         {
             var soilModel = new SoilModel();
             soilModel.Soils.AddRange(soils);
