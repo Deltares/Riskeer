@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using NUnit.Extensions.Forms;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredControl_WhenSelectingCellInRow_ThenSelectionChangedFired()
+        public void GivenFullyConfiguredControl_WhenSelectingCellInSecondRow_ThenSelectionChangedFired()
         {
             // Given
             using (var form = new Form())
@@ -96,24 +96,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 form.Controls.Add(control);
                 form.Show();
 
-                control.Data = new[]
-                {
-                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
-                                                     "SSE",
-                                                     "Regular",
-                                                     Enumerable.Empty<Stochast>(),
-                                                     (RoundedDouble) 3.14)
-                };
+                control.Data = GetIllustrationPointControlItems().ToArray();
 
                 var selectionChangedCount = 0;
                 control.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-                IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
-                dataGridView.SetCurrentCell(dataGridView.Rows[0].Cells[0]);
 
                 // When
-                EventHelper.RaiseEvent(tableControl, "SelectionChanged");
+                dataGridView.SetCurrentCell(dataGridView.Rows[1].Cells[0]);
 
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
@@ -130,21 +120,15 @@ namespace Ringtoets.Common.Forms.Test.Views
                 form.Controls.Add(control);
                 form.Show();
 
-                control.Data = new[]
-                {
-                    new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
-                                                     "SSE",
-                                                     "Regular",
-                                                     Enumerable.Empty<Stochast>(),
-                                                     (RoundedDouble) 3.14)
-                };
+                control.Data = GetIllustrationPointControlItems().ToArray();
 
                 IllustrationPointsTableControl tableControl = ControlTestHelper.GetControls<IllustrationPointsTableControl>(form, "IllustrationPointsTableControl").Single();
                 DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(form, "illustrationPointsDataGridViewControl");
-                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+
+                var initialControlSelection = control.Selection as IllustrationPointControlItem;
 
                 // Call
-                selectedLocationRow.Cells[0].Value = true;
+                dataGridView.SetCurrentCell(dataGridView.Rows[1].Cells[0]);
 
                 // Assert
                 var expectedSelection = tableControl.Selection as IllustrationPointControlItem;
@@ -152,7 +136,25 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsNotNull(expectedSelection);
                 Assert.IsNotNull(controlSelection);
                 Assert.AreSame(expectedSelection, controlSelection);
+
+                Assert.AreNotSame(initialControlSelection, controlSelection);
             }
+        }
+
+        private static IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
+        {
+            var random = new Random(7);
+            yield return new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                          "SSE",
+                                                          "Regular",
+                                                          Enumerable.Empty<Stochast>(),
+                                                          random.NextRoundedDouble());
+
+            yield return new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                          "SSE",
+                                                          "Different",
+                                                          Enumerable.Empty<Stochast>(),
+                                                          random.NextRoundedDouble());
         }
     }
 }

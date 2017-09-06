@@ -232,21 +232,40 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_WithIllustrationPoints_ReturnsSelectedIllustrationPointControlItem()
+        public void Selection_WithIllustrationPoints_ReturnsIllustrationPointControlItem()
         {
             // Setup
             IllustrationPointsTableControl control = ShowControl();
             control.Data = GetControlItems();
 
-            DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
-            DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
 
             // Call
-            selectedLocationRow.Cells[0].Value = true;
+            var selection = control.Selection as IllustrationPointControlItem;
 
             // Assert
+            var dataBoundItem = dataGridView.Rows[0].DataBoundItem as IllustrationPointRow;
+            Assert.NotNull(selection);
+            Assert.NotNull(dataBoundItem);
+            Assert.AreSame(dataBoundItem.IllustrationPointControlItem, selection);
+        }
+
+        [Test]
+        public void GivenControlWithIllustrationPoints_WhenSelectingSecondRow_ThenSelectionReturnsIllustrationPointControlItem()
+        {
+            // Given
+            IllustrationPointsTableControl control = ShowControl();
+            control.Data = GetControlItems();
+
+            DataGridViewControl dataGridView = ControlTestHelper.GetDataGridViewControl(testForm, "illustrationPointsDataGridViewControl");
+
+            // When
+            DataGridViewRow selectedRow = dataGridView.Rows[1];
+            dataGridView.SetCurrentCell(selectedRow.Cells[0]);
+
+            // Then
             var selection = control.Selection as IllustrationPointControlItem;
-            var dataBoundItem = selectedLocationRow.DataBoundItem as IllustrationPointRow;
+            var dataBoundItem = selectedRow.DataBoundItem as IllustrationPointRow;
 
             Assert.NotNull(selection);
             Assert.NotNull(dataBoundItem);
