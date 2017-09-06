@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using Application.Ringtoets.Migration.Core;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -242,16 +243,28 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(3, messages.Count);
+                    Assert.AreEqual(5, messages.Count);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                         messages[0]);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", $"* Traject: '{trajectId}'"),
                         messages[1]);
+                    string lowerLimitLogSuffix = expectedNormType == NormType.LowerLimit
+                                                     ? " (voorheen de waarde van de norm)"
+                                                     : "";
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
+                        messages[2]);
+                    string signalingLogSuffix = expectedNormType == NormType.Signaling
+                                                    ? " (voorheen de waarde van de norm)"
+                                                    : "";
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
+                        messages[3]);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(expectedNormType)}."),
-                        messages[2]);
+                        messages[4]);
                 }
             }
         }
@@ -328,16 +341,28 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(3, messages.Count);
+                    Assert.AreEqual(5, messages.Count);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                         messages[0]);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "* Traject: '2-1'"),
                         messages[1]);
+                    string lowerLimitLogSuffix = expectedNormType == NormType.LowerLimit
+                                                     ? " (voorheen de waarde van de norm)"
+                                                     : "";
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", $"  + De ondergrens is gelijk gesteld aan 1/{actualLowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
+                        messages[2]);
+                    string signalingLogSuffix = expectedNormType == NormType.Signaling
+                                                    ? " (voorheen de waarde van de norm)"
+                                                    : "";
+                    AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("17.1", "17.2", $"  + De signaleringswaarde is gelijk gesteld aan 1/{actualSignalingReturnPeriod}{signalingLogSuffix}."),
+                        messages[3]);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(expectedNormType)}."),
-                        messages[2]);
+                        messages[4]);
                 }
             }
         }
@@ -352,7 +377,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static IEnumerable<TestCaseData> GetTrajectCombinations()
         {
             Array normTypes = Enum.GetValues(typeof(NormType));
-            foreach (TestCaseData data in GetTrajectTestCaseData())
+
+            IEnumerable<TestCaseData> uniqueTrajectNorms = GetAllTrajectTestCaseData()
+                .GroupBy(t => Tuple.Create(t.Arguments[1], t.Arguments[2]))
+                .Select(t => t.First());
+            foreach (TestCaseData data in uniqueTrajectNorms)
             {
                 foreach (NormType normType in normTypes)
                 {
@@ -372,7 +401,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 .SetName("Given171ProjectWithNorm{1}OfUnknownTraject_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase");
         }
 
-        private static IEnumerable<TestCaseData> GetTrajectTestCaseData()
+        private static IEnumerable<TestCaseData> GetAllTrajectTestCaseData()
         {
             yield return new TestCaseData("1-1", 1000, 1000);
             yield return new TestCaseData("1-2", 1000, 1000);
@@ -871,13 +900,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(41, messages.Count);
+                Assert.AreEqual(49, messages.Count);
                 var i = 0;
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSection'"),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/30000."),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm)."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
@@ -917,6 +952,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Demo traject'"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/1000."),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm)."),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
@@ -936,11 +977,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Empty'"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/1000."),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/1000 (voorheen de waarde van de norm)."),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
                     messages[i++]);
 
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSectionResults'"),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/1000."),
+                    messages[i++]);
+                AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/3000 (voorheen de waarde van de norm)."),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),

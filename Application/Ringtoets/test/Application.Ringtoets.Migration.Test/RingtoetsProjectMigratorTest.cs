@@ -454,6 +454,8 @@ namespace Application.Ringtoets.Migration.Test
                                         $@"    - De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID.{Environment.NewLine}" +
                                         $@"Gevolgen van de migratie van versie 17.1 naar versie 17.2:{Environment.NewLine}" +
                                         $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
+                                        $@"  + De ondergrens is gelijk gesteld aan 1/30000.{Environment.NewLine}" +
+                                        $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
                                         $@"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.{Environment.NewLine}" +
                                         $@"  + Toetsspoor: 'Hoogte kunstwerk'{Environment.NewLine}" +
                                         $@"    - Het ID van kunstwerk 'Id' is veranderd naar 'Id00003'.{Environment.NewLine}" +
@@ -471,6 +473,8 @@ namespace Application.Ringtoets.Migration.Test
                                         $@"    - Het ID van kunstwerk 'anId' is veranderd naar 'anId000000002'.{Environment.NewLine}" +
                                         $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP12'.{Environment.NewLine}" +
                                         $@"* Traject: 'Demo traject'{Environment.NewLine}" +
+                                        $@"  + De ondergrens is gelijk gesteld aan 1/1000.{Environment.NewLine}" +
+                                        $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
                                         @"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
 
                 var expectedLogMessagesAndLevel = new[]

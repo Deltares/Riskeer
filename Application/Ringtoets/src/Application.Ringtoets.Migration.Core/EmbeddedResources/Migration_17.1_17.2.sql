@@ -1576,14 +1576,45 @@ INSERT INTO TempFailureMechanisms VALUES (18, 'Technische innovaties');
 
 CREATE TEMP TABLE TempAssessmentSectionChanges 
 (
-	[AssessmentSectionId], 
-	[AssessmentSectionName], 
+	[AssessmentSectionId],
+	[AssessmentSectionName],
+	[Order],
 	[msg]
 );
+
 INSERT INTO TempAssessmentSectionChanges
+SELECT
+	[AssessmentSectionEntityId], 
+	[Name],
+	0,
+	"De ondergrens is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [LowerLimitNorm] AS FLOAT)) AS INT) ||
+	CASE 
+		WHEN [NormativeNorm] IS 1
+			THEN " (voorheen de waarde van de norm)"
+		ELSE ""
+	END || "."
+	FROM AssessmentSectionEntity
+
+UNION
+
+SELECT
+	[AssessmentSectionEntityId],
+	[Name],
+	1,
+	"De signaleringswaarde is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [SignalingNorm] AS FLOAT)) AS INT) ||
+	CASE 
+		WHEN [NormativeNorm] IS 2
+			THEN " (voorheen de waarde van de norm)"
+		ELSE ""
+	END || "."
+	FROM AssessmentSectionEntity
+
+UNION
+
 SELECT 
 	[AssessmentSectionEntityId], 
 	[Name],
+	2,
 	"De norm van het dijktraject is gelijk gesteld aan de " || 
 	CASE 
 		WHEN [NormativeNorm] IS 1
@@ -1787,7 +1818,8 @@ AssessmentSectionFailureMechanismMessages
 	[FailureMechanismId], 
 	[FailureMechanismName], 
 	[msg], 
-	[level]
+	[level],
+	[Order]
 ) AS (
 	SELECT DISTINCT 
 	[AssessmentSectionId], 
@@ -1796,7 +1828,8 @@ AssessmentSectionFailureMechanismMessages
 	NULL, 
 	NULL, 
 	NULL, 
-	1
+	1,
+	0
 	FROM 
 	( 
 		SELECT 
@@ -1824,7 +1857,8 @@ AssessmentSectionFailureMechanismMessages
 			NULL,
 			NULL,
 			[msg],
-			1
+			1,
+			[Order]
 			FROM TempAssessmentSectionChanges
 
 		UNION
@@ -1836,11 +1870,12 @@ AssessmentSectionFailureMechanismMessages
 			fmm.[FailureMechanismId], 
 			fmm.[FailureMechanismName], 
 			[msg], 
-			fmm.[level]
+			fmm.[level],
+			1
 			FROM FailureMechanismMessages AS fmm
 			WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
 
-	) ORDER BY 1, 4, 7, 3 DESC
+	) ORDER BY 1, 4, 7, 3 DESC, 8
 
 )
 SELECT 
