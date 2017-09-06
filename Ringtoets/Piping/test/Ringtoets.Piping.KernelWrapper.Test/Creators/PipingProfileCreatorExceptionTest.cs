@@ -22,8 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Piping.KernelWrapper.Creators;
 
-namespace Ringtoets.Piping.KernelWrapper.Test
+namespace Ringtoets.Piping.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class PipingProfileCreatorExceptionTest :

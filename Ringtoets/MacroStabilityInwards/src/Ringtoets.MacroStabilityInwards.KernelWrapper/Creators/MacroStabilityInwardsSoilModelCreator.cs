@@ -23,7 +23,7 @@ using System;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="SoilModel"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.

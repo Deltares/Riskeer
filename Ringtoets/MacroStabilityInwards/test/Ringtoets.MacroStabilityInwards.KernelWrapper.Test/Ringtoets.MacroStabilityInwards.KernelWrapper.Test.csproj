@@ -63,8 +63,8 @@
     <Compile Include="MacroStabilityInwardsCalculatorInputTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResultTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorTest.cs" />
-    <Compile Include="MacroStabilityInwardsSoilCreatorTest.cs" />
-    <Compile Include="MacroStabilityInwardsSoilModelCreatorTest.cs" />
+    <Compile Include="Creators\MacroStabilityInwardsSoilCreatorTest.cs" />
+    <Compile Include="Creators\MacroStabilityInwardsSoilModelCreatorTest.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculatorTest.cs" />

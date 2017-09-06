@@ -25,9 +25,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Ringtoets.Piping.KernelWrapper.Creators;
 using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.KernelWrapper.Test
+namespace Ringtoets.Piping.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class PipingProfileCreatorTest

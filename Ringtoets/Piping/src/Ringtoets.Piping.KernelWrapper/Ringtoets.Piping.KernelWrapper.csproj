@@ -46,9 +46,9 @@
     <Compile Include="PipingCalculatorException.cs" />
     <Compile Include="PipingCalculatorInput.cs" />
     <Compile Include="PipingCalculatorResult.cs" />
-    <Compile Include="PipingProfileCreator.cs" />
-    <Compile Include="PipingProfileCreatorException.cs" />
-    <Compile Include="PipingSurfaceLineCreator.cs" />
+    <Compile Include="Creators\PipingProfileCreator.cs" />
+    <Compile Include="Creators\PipingProfileCreatorException.cs" />
+    <Compile Include="Creators\PipingSurfaceLineCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\EffectiveThicknessCalculator.cs" />
     <Compile Include="SubCalculator\HeaveCalculator.cs" />

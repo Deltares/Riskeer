@@ -24,7 +24,7 @@ using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="Soil"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.

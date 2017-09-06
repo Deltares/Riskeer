@@ -25,9 +25,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Ringtoets.Piping.KernelWrapper.Creators;
 using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
-namespace Ringtoets.Piping.KernelWrapper.Test
+namespace Ringtoets.Piping.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class PipingSurfaceLineCreatorTest

@@ -22,8 +22,9 @@
 using System;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilModelCreatorTest

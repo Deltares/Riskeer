@@ -46,8 +46,8 @@
     <Compile Include="MacroStabilityInwardsCalculator.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInput.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />
-    <Compile Include="MacroStabilityInwardsSoilCreator.cs" />
-    <Compile Include="MacroStabilityInwardsSoilModelCreator.cs" />
+    <Compile Include="Creators\MacroStabilityInwardsSoilCreator.cs" />
+    <Compile Include="Creators\MacroStabilityInwardsSoilModelCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\IMacroStabilityInwardsSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\IUpliftVanCalculator.cs" />

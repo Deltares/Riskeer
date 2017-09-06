@@ -23,10 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
-using Ringtoets.Piping.Primitives;
 using PipingSurfaceLine = Ringtoets.Piping.Primitives.PipingSurfaceLine;
 
-namespace Ringtoets.Piping.KernelWrapper
+namespace Ringtoets.Piping.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculator"/>.

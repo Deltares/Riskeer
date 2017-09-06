@@ -24,10 +24,11 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilCreatorTest

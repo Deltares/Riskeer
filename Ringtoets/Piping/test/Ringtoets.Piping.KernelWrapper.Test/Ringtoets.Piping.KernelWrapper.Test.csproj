@@ -59,14 +59,14 @@
     <Compile Include="PipingCalculatorInputTest.cs" />
     <Compile Include="PipingCalculatorResultTest.cs" />
     <Compile Include="PipingCalculatorTest.cs" />
-    <Compile Include="PipingProfileCreatorExceptionTest.cs" />
-    <Compile Include="PipingProfileCreatorTest.cs" />
+    <Compile Include="Creators\PipingProfileCreatorExceptionTest.cs" />
+    <Compile Include="Creators\PipingProfileCreatorTest.cs" />
     <Compile Include="SubCalculator\PipingProfilePropertyCalculatorTest.cs" />
     <Compile Include="SubCalculator\EffectiveThicknessCalculatorTest.cs" />
     <Compile Include="SubCalculator\HeaveCalculatorTest.cs" />
     <Compile Include="SubCalculator\PiezoHeadCalculatorTest.cs" />
     <Compile Include="SubCalculator\PipingSubCalculatorFactoryTest.cs" />
-    <Compile Include="PipingSurfaceLineCreatorTest.cs" />
+    <Compile Include="Creators\PipingSurfaceLineCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\SellmeijerCalculatorTest.cs" />
     <Compile Include="SubCalculator\UpliftCalculatorTest.cs" />
