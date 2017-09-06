@@ -21,9 +21,7 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
@@ -44,11 +42,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// has an type that can't be converted to <see cref="ShearStrengthModel"/>.</exception>
         public static Soil[] Create(MacroStabilityInwardsSoilProfileUnderSurfaceLine profile)
         {
-            return profile.LayersUnderSurfaceLine.Select(l => new Soil(l.Properties.MaterialName)
+            return profile.LayersUnderSurfaceLine.Select(l =>
             {
-                UsePop = l.Properties.UsePop,
-                ShearStrengthModel = ConvertShearStrengthModel(l.Properties.ShearStrengthModel),
-                AbovePhreaticLevel = l.Properties.AbovePhreaticLevelDesignVariable
+                MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties = l.Properties;
+
+                return new Soil(properties.MaterialName)
+                {
+                    UsePop = properties.UsePop,
+                    ShearStrengthModel = ConvertShearStrengthModel(properties.ShearStrengthModel),
+                    AbovePhreaticLevel = properties.AbovePhreaticLevelDesignVariable,
+                    BelowPhreaticLevel = properties.BelowPhreaticLevelDesignVariable,
+                    Cohesion = properties.CohesionDesignVariable,
+                    FrictionAngle = properties.FrictionAngleDesignVariable,
+                    RatioCuPc = properties.ShearStrengthRatioDesignVariable,
+                    StrengthIncreaseExponent = properties.StrengthIncreaseExponentDesignVariable,
+                    PoP = properties.PopDesignVariable
+                };
             }).ToArray();
         }
 

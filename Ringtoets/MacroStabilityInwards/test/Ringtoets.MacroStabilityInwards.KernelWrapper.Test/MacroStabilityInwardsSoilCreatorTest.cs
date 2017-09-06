@@ -21,9 +21,9 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
@@ -48,8 +48,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
                         MaterialName = "Sand",
-                        AbovePhreaticLevelMean = 0.1,
-                        AbovePhreaticLevelCoefficientOfVariation = 0.7
                     })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
@@ -60,9 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     {
                         UsePop = false,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None,
-                        MaterialName = "Mud",
-                        AbovePhreaticLevelMean = 0.2,
-                        AbovePhreaticLevelCoefficientOfVariation = 0.6
+                        MaterialName = "Mud"
                     })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
@@ -73,9 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
-                        MaterialName = "Clay",
-                        AbovePhreaticLevelMean = 0.3,
-                        AbovePhreaticLevelCoefficientOfVariation = 0.5
+                        MaterialName = "Clay"
                     })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
@@ -86,9 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
-                        MaterialName = "Grass",
-                        AbovePhreaticLevelMean = 0.4,
-                        AbovePhreaticLevelCoefficientOfVariation = 0.4
+                        MaterialName = "Grass"
                     }))
             });
 
@@ -107,10 +99,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 ShearStrengthModel.CPhiOrCuCalculated,
                 ShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine
-                                             .Select(l => MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(l.Properties)
-                                                                                                                  .GetDesignValue().Value),
-                                      soils.Select(s => s.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.AbovePhreaticLevelDesignVariable.Value), soils.Select(s => s.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.BelowPhreaticLevelDesignVariable.Value), soils.Select(s => s.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.CohesionDesignVariable.Value), soils.Select(s => s.Cohesion));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.FrictionAngleDesignVariable.Value), soils.Select(s => s.FrictionAngle));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.ShearStrengthRatioDesignVariable.Value), soils.Select(s => s.RatioCuPc));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.StrengthIncreaseExponentDesignVariable.Value), soils.Select(s => s.StrengthIncreaseExponent));
+            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.PopDesignVariable.Value), soils.Select(s => s.PoP));
         }
 
         [Test]
@@ -141,8 +136,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             public TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(ConstructionProperties properties)
                 : base(properties)
             {
-                AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(this)
-                                                                                                           .GetDesignValue();
+                var random = new Random(21);
+                AbovePhreaticLevelDesignVariable = random.NextRoundedDouble();
+                BelowPhreaticLevelDesignVariable = random.NextRoundedDouble();
+                CohesionDesignVariable = random.NextRoundedDouble();
+                FrictionAngleDesignVariable = random.NextRoundedDouble();
+                ShearStrengthRatioDesignVariable = random.NextRoundedDouble();
+                StrengthIncreaseExponentDesignVariable = random.NextRoundedDouble();
+                PopDesignVariable = random.NextRoundedDouble();
             }
         }
     }
