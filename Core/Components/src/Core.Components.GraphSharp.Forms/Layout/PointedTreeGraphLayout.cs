@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.GraphSharp.Data;
 using GraphSharp.Algorithms.Layout;
 using GraphSharp.Algorithms.Layout.Simple.Tree;
@@ -52,6 +53,8 @@ namespace Core.Components.GraphSharp.Forms.Layout
                 Direction = LayoutDirection.TopToBottom,
                 SpanningTreeGeneration = SpanningTreeGeneration.DFS
             };
+            AnimationLength = new TimeSpan(0);
+            IsAnimationEnabled = false;
         }
     }
 }

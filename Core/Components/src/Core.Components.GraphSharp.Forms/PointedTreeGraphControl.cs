@@ -94,7 +94,8 @@ namespace Core.Components.GraphSharp.Forms
             {
                 Mode = ZoomControlModes.Original,
                 ModifierMode = ZoomViewModifierMode.None,
-                ZoomDeltaMultiplier = 300
+                ZoomDeltaMultiplier = 300,
+                AnimationLength = new TimeSpan(0)
             };
 
             zoomControl.PreviewMouseWheel += ZoomControl_MouseWheel;

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Threading;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms.Layout;
@@ -47,6 +48,9 @@ namespace Core.Components.GraphSharp.Forms.Test.Layout
             Assert.AreEqual(AlgorithmConstraints.Must, layout.OverlapRemovalConstraint);
             Assert.AreEqual(10, layout.OverlapRemovalParameters.HorizontalGap);
             Assert.AreEqual(10, layout.OverlapRemovalParameters.VerticalGap);
+            Assert.AreEqual(new TimeSpan(0), layout.AnimationLength);
+            Assert.IsFalse(layout.CanAnimate);
+
             var layoutParamaters = (SimpleTreeLayoutParameters) layout.LayoutParameters;
             Assert.AreEqual(10, layoutParamaters.VertexGap);
             Assert.AreEqual(LayoutDirection.TopToBottom, layoutParamaters.Direction);

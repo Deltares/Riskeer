@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -57,6 +58,7 @@ namespace Core.Components.GraphSharp.Forms.Test
                 Assert.AreEqual(300, zoomControl.ZoomDeltaMultiplier);
                 Assert.AreEqual(ZoomControlModes.Original, zoomControl.Mode);
                 Assert.AreEqual(ZoomViewModifierMode.None, zoomControl.ModifierMode);
+                Assert.AreEqual(new TimeSpan(0), zoomControl.AnimationLength);
 
                 Assert.AreEqual(1, zoomControl.Resources.MergedDictionaries.Count);
                 ResourceDictionary templateDictionary = zoomControl.Resources.MergedDictionaries.First();
