@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to obtain the required 
         /// layer property values from.</param>
-        /// <param name="profileName">The profile name used in generating exceptions messages 
+        /// <param name="profileName">The profile name used for generating exception messages 
         /// if reading property values fails.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is 
         /// <c>null</c>.</exception>
