@@ -87,11 +87,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? Color { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the layer below the 
+        /// Gets or sets the distribution type for the volumic weight of the layer below the 
         /// phreatic level.
-        /// [kN/m³]
         /// </summary>
-        public long? BelowPhreaticLevelDistribution { get; set; }
+        public long? BelowPhreaticLevelDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the volumic weight of the layer 
@@ -120,11 +119,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double BelowPhreaticLevelCoefficientOfVariation { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
+        /// Gets or sets the distribution type for the mean diameter of small scale tests applied to different kinds of sand, on which the 
         /// formula of Sellmeijer has been fit.
-        /// [m]
         /// </summary>
-        public long? DiameterD70Distribution { get; set; }
+        public long? DiameterD70DistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
@@ -148,10 +146,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double DiameterD70CoefficientOfVariation { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
+        /// Gets or sets the distribution type for the Darcy-speed with which water flows through the aquifer layer.
         /// </summary>
-        public long? PermeabilityDistribution { get; set; }
+        public long? PermeabilityDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
@@ -182,10 +179,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? ShearStrengthModel { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the layer above the phreatic level.
-        /// [kN/m³]
+        /// Gets or sets the distribution type for the volumic weight of the layer above the phreatic level.
         /// </summary>
-        public long? AbovePhreaticLevelDistribution { get; set; }
+        public long? AbovePhreaticLevelDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.
@@ -206,10 +202,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double AbovePhreaticLevelShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the cohesion.
-        /// [kN/m³]
+        /// Gets or sets the distribution type for the cohesion.
         /// </summary>
-        public long? CohesionDistribution { get; set; }
+        public long? CohesionDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the cohesion.
@@ -230,10 +225,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double CohesionShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the the distribution for the friction angle.
-        /// [°]
+        /// Gets or sets the distribution type for the friction angle.
         /// </summary>
-        public long? FrictionAngleDistribution { get; set; }
+        public long? FrictionAngleDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the friction angle.
@@ -254,10 +248,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double FrictionAngleShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the ratio of shear strength S.
-        /// [-]
+        /// Gets or sets the distribution type for the ratio of shear strength S.
         /// </summary>
-        public long? ShearStrengthRatioDistribution { get; set; }
+        public long? ShearStrengthRatioDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the ratio of shear strength S.
@@ -278,10 +271,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double ShearStrengthRatioShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the strength increase exponent (m).
-        /// [-]
+        /// Gets or sets the distribution type for the strength increase exponent (m).
         /// </summary>
-        public long? StrengthIncreaseExponentDistribution { get; set; }
+        public long? StrengthIncreaseExponentDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the strength increase exponent (m).
@@ -302,10 +294,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double StrengthIncreaseExponentShift { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the POP.
-        /// [kN/m²]
+        /// Gets or sets the distribution type for the POP.
         /// </summary>
-        public long? PopDistribution { get; set; }
+        public long? PopDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean of the distribution for the POP.

@@ -72,9 +72,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string LayerGeometry = "LayerGeometry";
 
         /// <summary>
-        /// The name of the below phreatic level distribution column.
+        /// The name of the below phreatic level distribution type column.
         /// </summary>
-        public const string BelowPhreaticLevelDistribution = "BelowPhreaticLevelDistribution";
+        public const string BelowPhreaticLevelDistributionType = "BelowPhreaticLevelDistributionType";
 
         /// <summary>
         /// The name of the below phreatic level shift column.
@@ -97,9 +97,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string BelowPhreaticLevelCoefficientOfVariation = "BelowPhreaticLevelCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the permeability distribution column.
+        /// The name of the permeability distribution type column.
         /// </summary>
-        public const string PermeabilityDistribution = "PermeabKxDistribution";
+        public const string PermeabilityDistributionType = "PermeabKxDistributionType";
 
         /// <summary>
         /// The name of the permeability shift column.
@@ -117,9 +117,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string PermeabilityCoefficientOfVariation = "PermeabKxCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the diameter D70 distribution column.
+        /// The name of the diameter D70 distribution type column.
         /// </summary>
-        public const string DiameterD70Distribution = "DiameterD70Distribution";
+        public const string DiameterD70DistributionType = "DiameterD70DistributionType";
 
         /// <summary>
         /// The name of the diameter D70 shift column.
@@ -152,9 +152,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string ShearStrengthModel = "ShearStrengthModel";
 
         /// <summary>
-        /// The name of the above phreatic level distribution column.
+        /// The name of the above phreatic level distribution type column.
         /// </summary>
-        public const string AbovePhreaticLevelDistribution = "AbovePhreaticLevelDistribution";
+        public const string AbovePhreaticLevelDistributionType = "AbovePhreaticLevelDistributionType";
 
         /// <summary>
         /// The name of the above phreatic level shift column.
@@ -172,9 +172,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string AbovePhreaticLevelCoefficientOfVariation = "AbovePhreaticLevelCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the cohesion distribution column.
+        /// The name of the cohesion distribution type column.
         /// </summary>
-        public const string CohesionDistribution = "CohesionDistribution";
+        public const string CohesionDistributionType = "CohesionDistributionType";
 
         /// <summary>
         /// The name of the cohesion shift column.
@@ -192,9 +192,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string CohesionCoefficientOfVariation = "CohesionCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the friction angle distribution column.
+        /// The name of the friction angle distribution type column.
         /// </summary>
-        public const string FrictionAngleDistribution = "FrictionAngleDistribution";
+        public const string FrictionAngleDistributionType = "FrictionAngleDistributionType";
 
         /// <summary>
         /// The name of the friction angle shift column.
@@ -212,9 +212,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string FrictionAngleCoefficientOfVariation = "FrictionAngleCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the shear strength ratio distribution column.
+        /// The name of the shear strength ratio distribution type column.
         /// </summary>
-        public const string ShearStrengthRatioDistribution = "ShearStrengthRatioDistribution";
+        public const string ShearStrengthRatioDistributionType = "ShearStrengthRatioDistributionType";
 
         /// <summary>
         /// The name of the shear strength ratio shift column.
@@ -232,9 +232,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string ShearStrengthRatioCoefficientOfVariation = "ShearStrengthRatioCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the strength increase exponent distribution column.
+        /// The name of the strength increase exponent distribution type column.
         /// </summary>
-        public const string StrengthIncreaseExponentDistribution = "StrengthIncreaseExponentDistribution";
+        public const string StrengthIncreaseExponentDistributionType = "StrengthIncreaseExponentDistributionType";
 
         /// <summary>
         /// The name of the strength increase exponent shift column.
@@ -252,9 +252,9 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string StrengthIncreaseExponentCoefficientOfVariation = "StrengthIncreaseExponentCoefficientOfVariation";
 
         /// <summary>
-        /// The name of the POP distribution column.
+        /// The name of the POP distribution type column.
         /// </summary>
-        public const string PopDistribution = "PopDistribution";
+        public const string PopDistributionType = "PopDistributionType";
 
         /// <summary>
         /// The name of the POP shift column.

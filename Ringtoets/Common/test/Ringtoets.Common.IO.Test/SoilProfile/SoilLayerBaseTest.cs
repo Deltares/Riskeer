@@ -39,18 +39,18 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsEmpty(layer.MaterialName);
             Assert.IsNull(layer.Color);
 
-            Assert.IsNull(layer.BelowPhreaticLevelDistribution);
+            Assert.IsNull(layer.BelowPhreaticLevelDistributionType);
             Assert.IsNaN(layer.BelowPhreaticLevelShift);
             Assert.IsNaN(layer.BelowPhreaticLevelMean);
             Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
             Assert.IsNaN(layer.BelowPhreaticLevelCoefficientOfVariation);
 
-            Assert.IsNull(layer.DiameterD70Distribution);
+            Assert.IsNull(layer.DiameterD70DistributionType);
             Assert.IsNaN(layer.DiameterD70Shift);
             Assert.IsNaN(layer.DiameterD70Mean);
             Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
 
-            Assert.IsNull(layer.PermeabilityDistribution);
+            Assert.IsNull(layer.PermeabilityDistributionType);
             Assert.IsNaN(layer.PermeabilityShift);
             Assert.IsNaN(layer.PermeabilityMean);
             Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
@@ -58,32 +58,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsNull(layer.UsePop);
             Assert.IsNull(layer.ShearStrengthModel);
 
-            Assert.IsNull(layer.AbovePhreaticLevelDistribution);
+            Assert.IsNull(layer.AbovePhreaticLevelDistributionType);
             Assert.IsNaN(layer.AbovePhreaticLevelMean);
             Assert.IsNaN(layer.AbovePhreaticLevelCoefficientOfVariation);
             Assert.IsNaN(layer.AbovePhreaticLevelShift);
 
-            Assert.IsNull(layer.CohesionDistribution);
+            Assert.IsNull(layer.CohesionDistributionType);
             Assert.IsNaN(layer.CohesionMean);
             Assert.IsNaN(layer.CohesionCoefficientOfVariation);
             Assert.IsNaN(layer.CohesionShift);
 
-            Assert.IsNull(layer.FrictionAngleDistribution);
+            Assert.IsNull(layer.FrictionAngleDistributionType);
             Assert.IsNaN(layer.FrictionAngleMean);
             Assert.IsNaN(layer.FrictionAngleCoefficientOfVariation);
             Assert.IsNaN(layer.FrictionAngleShift);
 
-            Assert.IsNull(layer.ShearStrengthRatioDistribution);
+            Assert.IsNull(layer.ShearStrengthRatioDistributionType);
             Assert.IsNaN(layer.ShearStrengthRatioMean);
             Assert.IsNaN(layer.ShearStrengthRatioCoefficientOfVariation);
             Assert.IsNaN(layer.ShearStrengthRatioShift);
 
-            Assert.IsNull(layer.StrengthIncreaseExponentDistribution);
+            Assert.IsNull(layer.StrengthIncreaseExponentDistributionType);
             Assert.IsNaN(layer.StrengthIncreaseExponentMean);
             Assert.IsNaN(layer.StrengthIncreaseExponentCoefficientOfVariation);
             Assert.IsNaN(layer.StrengthIncreaseExponentShift);
 
-            Assert.IsNull(layer.PopDistribution);
+            Assert.IsNull(layer.PopDistributionType);
             Assert.IsNaN(layer.PopMean);
             Assert.IsNaN(layer.PopCoefficientOfVariation);
             Assert.IsNaN(layer.PopShift);

@@ -134,42 +134,42 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "MaterialName, " +
                 "IsAquifer, " +
                 "Color, " +
-                "BelowPhreaticLevelDistribution, " +
+                "BelowPhreaticLevelDistributionType, " +
                 "BelowPhreaticLevelShift, " +
                 "BelowPhreaticLevelMean, " +
                 "BelowPhreaticLevelDeviation, " +
                 "BelowPhreaticLevelCoefficientOfVariation, " +
-                "DiameterD70Distribution, " +
+                "DiameterD70DistributionType, " +
                 "DiameterD70Shift, " +
                 "DiameterD70Mean, " +
                 "DiameterD70CoefficientOfVariation, " +
-                "PermeabKxDistribution, " +
+                "PermeabKxDistributionType, " +
                 "PermeabKxShift, " +
                 "PermeabKxMean, " +
                 "PermeabKxCoefficientOfVariation, " +
                 "UsePOP, " +
                 "ShearStrengthModel, " +
-                "AbovePhreaticLevelDistribution, " +
+                "AbovePhreaticLevelDistributionType, " +
                 "AbovePhreaticLevelMean, " +
                 "AbovePhreaticLevelCoefficientOfVariation, " +
                 "AbovePhreaticLevelShift, " +
-                "CohesionDistribution, " +
+                "CohesionDistributionType, " +
                 "CohesionMean, " +
                 "CohesionCoefficientOfVariation, " +
                 "CohesionShift, " +
-                "FrictionAngleDistribution, " +
+                "FrictionAngleDistributionType, " +
                 "FrictionAngleMean, " +
                 "FrictionAngleCoefficientOfVariation, " +
                 "FrictionAngleShift, " +
-                "ShearStrengthRatioDistribution, " +
+                "ShearStrengthRatioDistributionType, " +
                 "ShearStrengthRatioMean, " +
                 "ShearStrengthRatioCoefficientOfVariation, " +
                 "ShearStrengthRatioShift, " +
-                "StrengthIncreaseExponentDistribution, " +
+                "StrengthIncreaseExponentDistributionType, " +
                 "StrengthIncreaseExponentMean, " +
                 "StrengthIncreaseExponentCoefficientOfVariation, " +
                 "StrengthIncreaseExponentShift, " +
-                "PopDistribution, " +
+                "PopDistributionType, " +
                 "PopMean, " +
                 "PopCoefficientOfVariation, " +
                 "PopShift, " +
@@ -195,42 +195,42 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "mat.MA_ID, " +
                 "mat.MA_Name AS MaterialName, " +
                 "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) AS Color, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS BelowPhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS BelowPhreaticLevelDistributionType, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS BelowPhreaticLevelShift, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS BelowPhreaticLevelMean, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS BelowPhreaticLevelDeviation, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Variation end) AS BelowPhreaticLevelCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistribution, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistributionType, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS PermeabKxShift, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS PermeabKxMean, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) AS PermeabKxCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS DiameterD70Distribution, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS DiameterD70DistributionType, " +
                 "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) AS DiameterD70Shift, " +
                 "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) AS DiameterD70Mean, " +
                 "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS DiameterD70CoefficientOfVariation, " +
                 "max(case when pn.PN_Name = 'UsePop' then pv.PV_Value end) AS UsePOP, " +
                 "max(case when pn.PN_Name = 'ShearStrengthModel' then pv.PV_Value end) AS ShearStrengthModel, " +
-                "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Dist_Type end) AS AbovePhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Dist_Type end) AS AbovePhreaticLevelDistributionType, " +
                 "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Shift end) AS AbovePhreaticLevelShift, " +
                 "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Mean end) AS AbovePhreaticLevelMean, " +
                 "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Variation end) AS AbovePhreaticLevelCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Dist_Type end) AS CohesionDistribution, " +
+                "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Dist_Type end) AS CohesionDistributionType, " +
                 "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Shift end) AS CohesionShift, " +
                 "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Mean end) AS CohesionMean, " +
                 "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Variation end) AS CohesionCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Dist_Type end) AS FrictionAngleDistribution, " +
+                "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Dist_Type end) AS FrictionAngleDistributionType, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Shift end) AS FrictionAngleShift, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Mean end) AS FrictionAngleMean, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Variation end) AS FrictionAngleCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistribution, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistributionType, " +
                 "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Shift end) AS ShearStrengthRatioShift, " +
                 "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Mean end) AS ShearStrengthRatioMean, " +
                 "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Variation end) AS ShearStrengthRatioCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS StrengthIncreaseExponentDistribution, " +
+                "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS StrengthIncreaseExponentDistributionType, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Shift end) AS StrengthIncreaseExponentShift, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Mean end) AS StrengthIncreaseExponentMean, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Variation end) AS StrengthIncreaseExponentCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS PopDistribution, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS PopDistributionType, " +
                 "max(case when pn.PN_Name = 'POPStochast' then s.ST_Shift end) AS PopShift, " +
                 "max(case when pn.PN_Name = 'POPStochast' then s.ST_Mean end) AS PopMean, " +
                 "max(case when pn.PN_Name = 'POPStochast' then s.ST_Variation end) AS PopCoefficientOfVariation " +
@@ -266,42 +266,42 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "MaterialName, " +
                 "IsAquifer, " +
                 "Color, " +
-                "BelowPhreaticLevelDistribution, " +
+                "BelowPhreaticLevelDistributionType, " +
                 "BelowPhreaticLevelShift, " +
                 "BelowPhreaticLevelMean, " +
                 "BelowPhreaticLevelDeviation, " +
                 "BelowPhreaticLevelCoefficientOfVariation, " +
-                "DiameterD70Distribution, " +
+                "DiameterD70DistributionType, " +
                 "DiameterD70Shift, " +
                 "DiameterD70Mean, " +
                 "DiameterD70CoefficientOfVariation, " +
-                "PermeabKxDistribution, " +
+                "PermeabKxDistributionType, " +
                 "PermeabKxShift, " +
                 "PermeabKxMean, " +
                 "PermeabKxCoefficientOfVariation, " +
                 "UsePOP, " +
                 "ShearStrengthModel, " +
-                "AbovePhreaticLevelDistribution, " +
+                "AbovePhreaticLevelDistributionType, " +
                 "AbovePhreaticLevelMean, " +
                 "AbovePhreaticLevelCoefficientOfVariation, " +
                 "AbovePhreaticLevelShift, " +
-                "CohesionDistribution, " +
+                "CohesionDistributionType, " +
                 "CohesionMean, " +
                 "CohesionCoefficientOfVariation, " +
                 "CohesionShift, " +
-                "FrictionAngleDistribution, " +
+                "FrictionAngleDistributionType, " +
                 "FrictionAngleMean, " +
                 "FrictionAngleCoefficientOfVariation, " +
                 "FrictionAngleShift, " +
-                "ShearStrengthRatioDistribution, " +
+                "ShearStrengthRatioDistributionType, " +
                 "ShearStrengthRatioMean, " +
                 "ShearStrengthRatioCoefficientOfVariation, " +
                 "ShearStrengthRatioShift, " +
-                "StrengthIncreaseExponentDistribution, " +
+                "StrengthIncreaseExponentDistributionType, " +
                 "StrengthIncreaseExponentMean, " +
                 "StrengthIncreaseExponentCoefficientOfVariation, " +
                 "StrengthIncreaseExponentShift, " +
-                "PopDistribution, " +
+                "PopDistributionType, " +
                 "PopMean, " +
                 "PopCoefficientOfVariation, " +
                 "PopShift, " +
@@ -328,42 +328,42 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "SELECT " +
                 "mat.MA_ID, mat.MA_Name AS MaterialName, " +
                 "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) AS Color, " +
-                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS BelowPhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) AS BelowPhreaticLevelDistributionType, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) AS BelowPhreaticLevelShift, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) AS BelowPhreaticLevelMean, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Deviation end) AS BelowPhreaticLevelDeviation, " +
                 "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Variation end) AS BelowPhreaticLevelCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistribution, " +
+                "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Dist_Type end) AS PermeabKxDistributionType, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Shift end) AS PermeabKxShift, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Mean end) AS PermeabKxMean, " +
                 "max(case when pn.PN_Name = 'PermeabKxStochast' then s.ST_Variation end) AS PermeabKxCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS DiameterD70Distribution, " +
+                "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Dist_Type end) AS DiameterD70DistributionType, " +
                 "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Shift end) AS DiameterD70Shift, " +
                 "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Mean end) AS DiameterD70Mean, " +
                 "max(case when pn.PN_Name = 'DiameterD70Stochast' then s.ST_Variation end) AS DiameterD70CoefficientOfVariation, " +
                 "max(case when pn.PN_Name = 'UsePop' then pv.PV_Value end) AS UsePOP, " +
                 "max(case when pn.PN_Name = 'ShearStrengthModel' then pv.PV_Value end) AS ShearStrengthModel, " +
-                "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Dist_Type end) AS AbovePhreaticLevelDistribution, " +
+                "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Dist_Type end) AS AbovePhreaticLevelDistributionType, " +
                 "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Shift end) AS AbovePhreaticLevelShift, " +
                 "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Mean end) AS AbovePhreaticLevelMean, " +
                 "max(case when pn.PN_Name = 'AbovePhreaticLevelStochast' then s.ST_Variation end) AS AbovePhreaticLevelCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Dist_Type end) AS CohesionDistribution, " +
+                "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Dist_Type end) AS CohesionDistributionType, " +
                 "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Shift end) AS CohesionShift, " +
                 "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Mean end) AS CohesionMean, " +
                 "max(case when pn.PN_Name = 'CohesionStochast' then s.ST_Variation end) AS CohesionCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Dist_Type end) AS FrictionAngleDistribution, " +
+                "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Dist_Type end) AS FrictionAngleDistributionType, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Shift end) AS FrictionAngleShift, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Mean end) AS FrictionAngleMean, " +
                 "max(case when pn.PN_Name = 'FrictionAngleStochast' then s.ST_Variation end) AS FrictionAngleCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistribution, " +
+                "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Dist_Type end) AS ShearStrengthRatioDistributionType, " +
                 "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Shift end) AS ShearStrengthRatioShift, " +
                 "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Mean end) AS ShearStrengthRatioMean, " +
                 "max(case when pn.PN_Name = 'RatioCuPcStochast' then s.ST_Variation end) AS ShearStrengthRatioCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS StrengthIncreaseExponentDistribution, " +
+                "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Dist_Type end) AS StrengthIncreaseExponentDistributionType, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Shift end) AS StrengthIncreaseExponentShift, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Mean end) AS StrengthIncreaseExponentMean, " +
                 "max(case when pn.PN_Name = 'StrengthIncreaseExponentStochast' then s.ST_Variation end) AS StrengthIncreaseExponentCoefficientOfVariation, " +
-                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS PopDistribution, " +
+                "max(case when pn.PN_Name = 'POPStochast' then s.ST_Dist_Type end) AS PopDistributionType, " +
                 "max(case when pn.PN_Name = 'POPStochast' then s.ST_Shift end) AS PopShift, " +
                 "max(case when pn.PN_Name = 'POPStochast' then s.ST_Mean end) AS PopMean, " +
                 "max(case when pn.PN_Name = 'POPStochast' then s.ST_Variation end) AS PopCoefficientOfVariation " +

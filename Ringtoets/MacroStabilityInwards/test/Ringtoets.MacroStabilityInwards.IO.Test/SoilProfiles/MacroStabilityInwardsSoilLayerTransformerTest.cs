@@ -559,12 +559,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
 
             SoilLayerBase invalidBelowPhreaticLevel = soilLayer();
-            invalidBelowPhreaticLevel.BelowPhreaticLevelDistribution = -1;
+            invalidBelowPhreaticLevel.BelowPhreaticLevelDistributionType = -1;
             yield return new TestCaseData(invalidBelowPhreaticLevel, "Verzadigd gewicht")
                 .SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidAbovePhreaticLevel = soilLayer();
-            invalidAbovePhreaticLevel.AbovePhreaticLevelDistribution = -1;
+            invalidAbovePhreaticLevel.AbovePhreaticLevelDistributionType = -1;
             yield return new TestCaseData(invalidAbovePhreaticLevel, "Onverzadigd gewicht")
                 .SetName(string.Format(testNameFormat, typeName, "Distribution"));
         }
@@ -586,65 +586,65 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
         {
             const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
-            const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
             const double validShift = 0.0;
 
             SoilLayerBase invalidCohesionShift = soilLayer();
-            invalidCohesionShift.CohesionDistribution = validDistribution;
+            invalidCohesionShift.CohesionDistributionType = validDistributionType;
             invalidCohesionShift.CohesionShift = -1;
             yield return new TestCaseData(invalidCohesionShift, "Cohesie"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidCohesionDistribution = soilLayer();
-            invalidCohesionDistribution.CohesionDistribution = -1;
+            invalidCohesionDistribution.CohesionDistributionType = -1;
             invalidCohesionDistribution.CohesionShift = validShift;
             yield return new TestCaseData(invalidCohesionDistribution, "Cohesie"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidFrictionAngleShift = soilLayer();
-            invalidFrictionAngleShift.FrictionAngleDistribution = validDistribution;
+            invalidFrictionAngleShift.FrictionAngleDistributionType = validDistributionType;
             invalidFrictionAngleShift.FrictionAngleShift = -1;
             yield return new TestCaseData(invalidFrictionAngleShift, "Wrijvingshoek"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidFrictionAngleDistribution = soilLayer();
-            invalidFrictionAngleDistribution.FrictionAngleDistribution = -1;
+            invalidFrictionAngleDistribution.FrictionAngleDistributionType = -1;
             invalidFrictionAngleDistribution.FrictionAngleShift = validShift;
             yield return new TestCaseData(invalidFrictionAngleDistribution, "Wrijvingshoek"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidShearStrengthRatioShift = soilLayer();
-            invalidShearStrengthRatioShift.ShearStrengthRatioDistribution = validDistribution;
+            invalidShearStrengthRatioShift.ShearStrengthRatioDistributionType = validDistributionType;
             invalidShearStrengthRatioShift.ShearStrengthRatioShift = -1;
             yield return new TestCaseData(invalidShearStrengthRatioShift, "Schuifsterkte ratio S"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidShearStrengthRatioDistribution = soilLayer();
-            invalidShearStrengthRatioDistribution.ShearStrengthRatioDistribution = -1;
+            invalidShearStrengthRatioDistribution.ShearStrengthRatioDistributionType = -1;
             invalidShearStrengthRatioDistribution.ShearStrengthRatioShift = validShift;
             yield return new TestCaseData(invalidShearStrengthRatioDistribution, "Schuifsterkte ratio S"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidStrengthIncreaseExponentShift = soilLayer();
-            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistribution = validDistribution;
+            invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentDistributionType = validDistributionType;
             invalidStrengthIncreaseExponentShift.StrengthIncreaseExponentShift = -1;
             yield return new TestCaseData(invalidStrengthIncreaseExponentShift, "Sterkte toename exponent"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidStrengthIncreaseExponentDistribution = soilLayer();
-            invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentDistribution = -1;
+            invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentDistributionType = -1;
             invalidStrengthIncreaseExponentDistribution.StrengthIncreaseExponentShift = validShift;
             yield return new TestCaseData(invalidStrengthIncreaseExponentDistribution, "Sterkte toename exponent"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidPopShift = soilLayer();
-            invalidPopShift.PopDistribution = validDistribution;
+            invalidPopShift.PopDistributionType = validDistributionType;
             invalidPopShift.PopShift = -1;
             yield return new TestCaseData(invalidPopShift, "POP"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidPopDistribution = soilLayer();
-            invalidPopDistribution.PopDistribution = -1;
+            invalidPopDistribution.PopDistributionType = -1;
             invalidPopDistribution.PopShift = validShift;
             yield return new TestCaseData(invalidPopDistribution, "POP"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));

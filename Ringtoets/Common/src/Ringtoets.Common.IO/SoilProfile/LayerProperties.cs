@@ -67,8 +67,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.Color;
                 Color = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelDistribution;
-                BelowPhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelDistributionType;
+                BelowPhreaticLevelDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelShift;
                 BelowPhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelMean;
@@ -78,8 +78,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.BelowPhreaticLevelCoefficientOfVariation;
                 BelowPhreaticLevelCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.DiameterD70Distribution;
-                DiameterD70Distribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.DiameterD70DistributionType;
+                DiameterD70DistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.DiameterD70Shift;
                 DiameterD70Shift = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.DiameterD70Mean;
@@ -87,8 +87,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.DiameterD70CoefficientOfVariation;
                 DiameterD70CoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.PermeabilityDistribution;
-                PermeabilityDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.PermeabilityDistributionType;
+                PermeabilityDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.PermeabilityShift;
                 PermeabilityShift = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.PermeabilityMean;
@@ -102,8 +102,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.ShearStrengthModel;
                 ShearStrengthModel = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelDistribution;
-                AbovePhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelDistributionType;
+                AbovePhreaticLevelDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelMean;
                 AbovePhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelCoefficientOfVariation;
@@ -111,8 +111,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.AbovePhreaticLevelShift;
                 AbovePhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.CohesionDistribution;
-                CohesionDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.CohesionDistributionType;
+                CohesionDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.CohesionMean;
                 CohesionMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.CohesionCoefficientOfVariation;
@@ -120,8 +120,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.CohesionShift;
                 CohesionShift = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.FrictionAngleDistribution;
-                FrictionAngleDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.FrictionAngleDistributionType;
+                FrictionAngleDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.FrictionAngleMean;
                 FrictionAngleMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.FrictionAngleCoefficientOfVariation;
@@ -129,8 +129,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.FrictionAngleShift;
                 FrictionAngleShift = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.ShearStrengthRatioDistribution;
-                ShearStrengthRatioDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.ShearStrengthRatioDistributionType;
+                ShearStrengthRatioDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.ShearStrengthRatioMean;
                 ShearStrengthRatioMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.ShearStrengthRatioCoefficientOfVariation;
@@ -138,8 +138,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.ShearStrengthRatioShift;
                 ShearStrengthRatioShift = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentDistribution;
-                StrengthIncreaseExponentDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentDistributionType;
+                StrengthIncreaseExponentDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentMean;
                 StrengthIncreaseExponentMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentCoefficientOfVariation;
@@ -147,8 +147,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = SoilProfileTableDefinitions.StrengthIncreaseExponentShift;
                 StrengthIncreaseExponentShift = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = SoilProfileTableDefinitions.PopDistribution;
-                PopDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileTableDefinitions.PopDistributionType;
+                PopDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.PopMean;
                 PopMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = SoilProfileTableDefinitions.PopCoefficientOfVariation;
@@ -181,11 +181,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? Color { get; }
 
         /// <summary>
-        /// Gets the distribution for the volumic weight of the layer below the 
+        /// Gets the distribution type for the volumic weight of the layer below the 
         /// phreatic level.
-        /// [kN/m³]
         /// </summary>
-        public long? BelowPhreaticLevelDistribution { get; }
+        public long? BelowPhreaticLevelDistributionType { get; }
 
         /// <summary>
         /// Gets the shift of the distribution for the volumic weight of the layer 
@@ -214,11 +213,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? BelowPhreaticLevelCoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets the distribution for the mean diameter of small scale tests applied to different kinds of sand, on which the 
+        /// Gets the distribution type for the mean diameter of small scale tests applied to different kinds of sand, on which the 
         /// formula of Sellmeijer has been fit.
-        /// [m]
         /// </summary>
-        public long? DiameterD70Distribution { get; }
+        public long? DiameterD70DistributionType { get; }
 
         /// <summary>
         /// Gets the shift of the distribution for the mean diameter of small scale tests applied to different kinds of sand, 
@@ -242,10 +240,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? DiameterD70CoefficientOfVariation { get; }
 
         /// <summary>
-        /// Gets the distribution for the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
+        /// Gets the distribution type for the Darcy-speed with which water flows through the aquifer layer.
         /// </summary>
-        public long? PermeabilityDistribution { get; }
+        public long? PermeabilityDistributionType { get; }
 
         /// <summary>
         /// Gets the shift of the distribution for the Darcy-speed with which water flows through the aquifer layer.
@@ -276,10 +273,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? ShearStrengthModel { get; }
 
         /// <summary>
-        /// Gets the distribution for the volumic weight of the layer above the phreatic level.
-        /// [kN/m³]
+        /// Gets the distribution type for the volumic weight of the layer above the phreatic level.
         /// </summary>
-        public long? AbovePhreaticLevelDistribution { get; }
+        public long? AbovePhreaticLevelDistributionType { get; }
 
         /// <summary>
         /// Gets the mean of the distribution for the volumic weight of the layer above the phreatic level.
@@ -300,10 +296,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? AbovePhreaticLevelShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the mean of the distribution for the cohesion.
-        /// [kN/m³]
+        /// Gets the distribution type for the mean of the distribution for the cohesion.
         /// </summary>
-        public long? CohesionDistribution { get; }
+        public long? CohesionDistributionType { get; }
 
         /// <summary>
         /// Gets the mean of the distribution for the cohesion.
@@ -324,10 +319,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? CohesionShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the friction angle.
-        /// [°]
+        /// Gets the distribution type for the friction angle.
         /// </summary>
-        public long? FrictionAngleDistribution { get; }
+        public long? FrictionAngleDistributionType { get; }
 
         /// <summary>
         /// Gets the mean of the distribution for the friction angle
@@ -348,10 +342,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? FrictionAngleShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the ratio of shear strength S
-        /// [-]
+        /// Gets the distribution type for the ratio of shear strength S
         /// </summary>
-        public long? ShearStrengthRatioDistribution { get; }
+        public long? ShearStrengthRatioDistributionType { get; }
 
         /// <summary>
         /// Gets the mean of the distribution for the ratio of shear strength S
@@ -372,10 +365,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? ShearStrengthRatioShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the strength increase exponent (m).
-        /// [-]
+        /// Gets the distribution type for the strength increase exponent (m).
         /// </summary>
-        public long? StrengthIncreaseExponentDistribution { get; }
+        public long? StrengthIncreaseExponentDistributionType { get; }
 
         /// <summary>
         /// Gets the mean of the distribution for the strength increase exponent (m).
@@ -396,10 +388,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? StrengthIncreaseExponentShift { get; }
 
         /// <summary>
-        /// Gets the distribution for the POP.
-        /// [kN/m²]
+        /// Gets the distribution type for the POP.
         /// </summary>
-        public long? PopDistribution { get; }
+        public long? PopDistributionType { get; }
 
         /// <summary>
         /// Gets mean of the distribution for the POP.

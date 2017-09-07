@@ -155,15 +155,15 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 MaterialName = materialName,
                 IsAquifer = isAquifer,
                 Color = color,
-                BelowPhreaticLevelDistribution = belowPhreaticLevelDistribution,
+                BelowPhreaticLevelDistributionType = belowPhreaticLevelDistribution,
                 BelowPhreaticLevelShift = belowPhreaticLevelShift,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
-                DiameterD70Distribution = diameterD70Distribution,
+                DiameterD70DistributionType = diameterD70Distribution,
                 DiameterD70Shift = diameterD70Shift,
                 DiameterD70Mean = diameterD70Mean,
                 DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation,
-                PermeabilityDistribution = permeabilityDistribution,
+                PermeabilityDistributionType = permeabilityDistribution,
                 PermeabilityShift = permeabilityShift,
                 PermeabilityMean = permeabilityMean,
                 PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Setup
             var layer = new SoilLayer1D(0.0)
             {
-                BelowPhreaticLevelDistribution = -1
+                BelowPhreaticLevelDistributionType = -1
             };
 
             // Call
@@ -292,15 +292,15 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             layer.MaterialName = materialName;
             layer.IsAquifer = isAquifer;
             layer.Color = color;
-            layer.BelowPhreaticLevelDistribution = logNormalDistribution;
+            layer.BelowPhreaticLevelDistributionType = logNormalDistribution;
             layer.BelowPhreaticLevelShift = logNormalShift;
             layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
             layer.BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation;
-            layer.DiameterD70Distribution = logNormalDistribution;
+            layer.DiameterD70DistributionType = logNormalDistribution;
             layer.DiameterD70Shift = logNormalShift;
             layer.DiameterD70Mean = diameterD70Mean;
             layer.DiameterD70CoefficientOfVariation = diameterD70CoefficientOfVariation;
-            layer.PermeabilityDistribution = logNormalDistribution;
+            layer.PermeabilityDistributionType = logNormalDistribution;
             layer.PermeabilityShift = logNormalShift;
             layer.PermeabilityMean = permeabilityMean;
             layer.PermeabilityCoefficientOfVariation = permeabilityCoefficientOfVariation;
@@ -862,7 +862,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Setup
             var layer = new SoilLayer2D
             {
-                BelowPhreaticLevelDistribution = -1
+                BelowPhreaticLevelDistributionType = -1
             };
 
             double bottom;
@@ -923,44 +923,44 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
         {
             const string testNameFormat = "{0}Transform_Incorrect{1}{{1}}_ThrowsImportedDataTransformException";
-            const long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            const long validDistributionType = SoilLayerConstants.LogNormalDistributionValue;
             const double validShift = 0.0;
 
             SoilLayerBase invalidDiameterD70Distribution = soilLayer();
-            invalidDiameterD70Distribution.BelowPhreaticLevelDistribution = validDistribution;
-            invalidDiameterD70Distribution.DiameterD70Distribution = -1;
+            invalidDiameterD70Distribution.BelowPhreaticLevelDistributionType = validDistributionType;
+            invalidDiameterD70Distribution.DiameterD70DistributionType = -1;
             invalidDiameterD70Distribution.DiameterD70Shift = validShift;
-            invalidDiameterD70Distribution.PermeabilityDistribution = validDistribution;
+            invalidDiameterD70Distribution.PermeabilityDistributionType = validDistributionType;
             invalidDiameterD70Distribution.PermeabilityShift = validShift;
 
             yield return new TestCaseData(invalidDiameterD70Distribution, "Korrelgrootte"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidDiameterD70Shift = soilLayer();
-            invalidDiameterD70Shift.BelowPhreaticLevelDistribution = validDistribution;
-            invalidDiameterD70Shift.DiameterD70Distribution = validDistribution;
+            invalidDiameterD70Shift.BelowPhreaticLevelDistributionType = validDistributionType;
+            invalidDiameterD70Shift.DiameterD70DistributionType = validDistributionType;
             invalidDiameterD70Shift.DiameterD70Shift = -1;
-            invalidDiameterD70Shift.PermeabilityDistribution = validDistribution;
+            invalidDiameterD70Shift.PermeabilityDistributionType = validDistributionType;
             invalidDiameterD70Shift.PermeabilityShift = validShift;
 
             yield return new TestCaseData(invalidDiameterD70Shift, "Korrelgrootte"
             ).SetName(string.Format(testNameFormat, typeName, "Shift"));
 
             SoilLayerBase invalidPermeabilityDistribution = soilLayer();
-            invalidPermeabilityDistribution.BelowPhreaticLevelDistribution = validDistribution;
-            invalidPermeabilityDistribution.DiameterD70Distribution = validDistribution;
+            invalidPermeabilityDistribution.BelowPhreaticLevelDistributionType = validDistributionType;
+            invalidPermeabilityDistribution.DiameterD70DistributionType = validDistributionType;
             invalidPermeabilityDistribution.DiameterD70Shift = validShift;
-            invalidPermeabilityDistribution.PermeabilityDistribution = -1;
+            invalidPermeabilityDistribution.PermeabilityDistributionType = -1;
             invalidPermeabilityDistribution.PermeabilityShift = validShift;
 
             yield return new TestCaseData(invalidPermeabilityDistribution, "Doorlatendheid"
             ).SetName(string.Format(testNameFormat, typeName, "Distribution"));
 
             SoilLayerBase invalidPermeabilityShift = soilLayer();
-            invalidPermeabilityShift.BelowPhreaticLevelDistribution = validDistribution;
-            invalidPermeabilityShift.DiameterD70Distribution = validDistribution;
+            invalidPermeabilityShift.BelowPhreaticLevelDistributionType = validDistributionType;
+            invalidPermeabilityShift.DiameterD70DistributionType = validDistributionType;
             invalidPermeabilityShift.DiameterD70Shift = validShift;
-            invalidPermeabilityShift.PermeabilityDistribution = validDistribution;
+            invalidPermeabilityShift.PermeabilityDistributionType = validDistributionType;
             invalidPermeabilityShift.PermeabilityShift = -1;
 
             yield return new TestCaseData(invalidPermeabilityShift, "Doorlatendheid"

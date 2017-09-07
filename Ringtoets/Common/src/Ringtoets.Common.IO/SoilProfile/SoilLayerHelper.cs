@@ -57,9 +57,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             soilLayer.IsAquifer = properties.IsAquifer;
             soilLayer.Color = properties.Color;
 
-            if (properties.BelowPhreaticLevelDistribution.HasValue)
+            if (properties.BelowPhreaticLevelDistributionType.HasValue)
             {
-                soilLayer.BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution.Value;
+                soilLayer.BelowPhreaticLevelDistributionType = properties.BelowPhreaticLevelDistributionType.Value;
             }
             if (properties.BelowPhreaticLevelShift.HasValue)
             {
@@ -77,9 +77,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.BelowPhreaticLevelCoefficientOfVariation = properties.BelowPhreaticLevelCoefficientOfVariation.Value;
             }
-            if (properties.DiameterD70Distribution.HasValue)
+            if (properties.DiameterD70DistributionType.HasValue)
             {
-                soilLayer.DiameterD70Distribution = properties.DiameterD70Distribution.Value;
+                soilLayer.DiameterD70DistributionType = properties.DiameterD70DistributionType.Value;
             }
             if (properties.DiameterD70Shift.HasValue)
             {
@@ -93,9 +93,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.DiameterD70CoefficientOfVariation = properties.DiameterD70CoefficientOfVariation.Value;
             }
-            if (properties.PermeabilityDistribution.HasValue)
+            if (properties.PermeabilityDistributionType.HasValue)
             {
-                soilLayer.PermeabilityDistribution = properties.PermeabilityDistribution.Value;
+                soilLayer.PermeabilityDistributionType = properties.PermeabilityDistributionType.Value;
             }
             if (properties.PermeabilityShift.HasValue)
             {
@@ -112,9 +112,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             soilLayer.UsePop = properties.UsePop;
             soilLayer.ShearStrengthModel = properties.ShearStrengthModel;
 
-            if (properties.AbovePhreaticLevelDistribution.HasValue)
+            if (properties.AbovePhreaticLevelDistributionType.HasValue)
             {
-                soilLayer.AbovePhreaticLevelDistribution = properties.AbovePhreaticLevelDistribution.Value;
+                soilLayer.AbovePhreaticLevelDistributionType = properties.AbovePhreaticLevelDistributionType.Value;
             }
             if (properties.AbovePhreaticLevelShift.HasValue)
             {
@@ -128,9 +128,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelCoefficientOfVariation.Value;
             }
-            if (properties.CohesionDistribution.HasValue)
+            if (properties.CohesionDistributionType.HasValue)
             {
-                soilLayer.CohesionDistribution = properties.CohesionDistribution.Value;
+                soilLayer.CohesionDistributionType = properties.CohesionDistributionType.Value;
             }
             if (properties.CohesionShift.HasValue)
             {
@@ -144,9 +144,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.CohesionCoefficientOfVariation = properties.CohesionCoefficientOfVariation.Value;
             }
-            if (properties.FrictionAngleDistribution.HasValue)
+            if (properties.FrictionAngleDistributionType.HasValue)
             {
-                soilLayer.FrictionAngleDistribution = properties.FrictionAngleDistribution.Value;
+                soilLayer.FrictionAngleDistributionType = properties.FrictionAngleDistributionType.Value;
             }
             if (properties.FrictionAngleShift.HasValue)
             {
@@ -160,9 +160,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.FrictionAngleCoefficientOfVariation = properties.FrictionAngleCoefficientOfVariation.Value;
             }
-            if (properties.ShearStrengthRatioDistribution.HasValue)
+            if (properties.ShearStrengthRatioDistributionType.HasValue)
             {
-                soilLayer.ShearStrengthRatioDistribution = properties.ShearStrengthRatioDistribution.Value;
+                soilLayer.ShearStrengthRatioDistributionType = properties.ShearStrengthRatioDistributionType.Value;
             }
             if (properties.ShearStrengthRatioShift.HasValue)
             {
@@ -176,9 +176,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.ShearStrengthRatioCoefficientOfVariation = properties.ShearStrengthRatioCoefficientOfVariation.Value;
             }
-            if (properties.StrengthIncreaseExponentDistribution.HasValue)
+            if (properties.StrengthIncreaseExponentDistributionType.HasValue)
             {
-                soilLayer.StrengthIncreaseExponentDistribution = properties.StrengthIncreaseExponentDistribution.Value;
+                soilLayer.StrengthIncreaseExponentDistributionType = properties.StrengthIncreaseExponentDistributionType.Value;
             }
             if (properties.StrengthIncreaseExponentShift.HasValue)
             {
@@ -192,9 +192,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 soilLayer.StrengthIncreaseExponentCoefficientOfVariation = properties.StrengthIncreaseExponentCoefficientOfVariation.Value;
             }
-            if (properties.PopDistribution.HasValue)
+            if (properties.PopDistributionType.HasValue)
             {
-                soilLayer.PopDistribution = properties.PopDistribution.Value;
+                soilLayer.PopDistributionType = properties.PopDistributionType.Value;
             }
             if (properties.PopShift.HasValue)
             {

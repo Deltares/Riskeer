@@ -178,7 +178,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     2,
                     2,
                     2
-                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDistribution));
+                }, soilProfile2D.Layers.Select(l => l.BelowPhreaticLevelDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     24,
@@ -209,7 +209,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.DiameterD70Distribution));
+                }, soilProfile2D.Layers.Select(l => l.DiameterD70DistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.00017,
@@ -234,7 +234,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.PermeabilityDistribution));
+                }, soilProfile2D.Layers.Select(l => l.PermeabilityDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0,
@@ -273,7 +273,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     2,
                     2,
                     2
-                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelDistribution));
+                }, soilProfile2D.Layers.Select(l => l.AbovePhreaticLevelDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     14,
@@ -298,7 +298,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.CohesionDistribution));
+                }, soilProfile2D.Layers.Select(l => l.CohesionDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
@@ -323,7 +323,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.FrictionAngleDistribution));
+                }, soilProfile2D.Layers.Select(l => l.FrictionAngleDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.1,
@@ -348,7 +348,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioDistribution));
+                }, soilProfile2D.Layers.Select(l => l.ShearStrengthRatioDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
@@ -373,7 +373,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentDistribution));
+                }, soilProfile2D.Layers.Select(l => l.StrengthIncreaseExponentDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1,
@@ -398,7 +398,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.Layers.Select(l => l.PopDistribution));
+                }, soilProfile2D.Layers.Select(l => l.PopDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     111,
@@ -444,18 +444,18 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNull(soilLayer.IsAquifer);
                 Assert.IsNull(soilLayer.Color);
 
-                Assert.IsNull(soilLayer.BelowPhreaticLevelDistribution);
+                Assert.IsNull(soilLayer.BelowPhreaticLevelDistributionType);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelMean);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelDeviation);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.BelowPhreaticLevelShift);
 
-                Assert.IsNull(soilLayer.DiameterD70Distribution);
+                Assert.IsNull(soilLayer.DiameterD70DistributionType);
                 Assert.IsNaN(soilLayer.DiameterD70Mean);
                 Assert.IsNaN(soilLayer.DiameterD70CoefficientOfVariation);
                 Assert.IsNaN(soilLayer.DiameterD70Shift);
 
-                Assert.IsNull(soilLayer.PermeabilityDistribution);
+                Assert.IsNull(soilLayer.PermeabilityDistributionType);
                 Assert.IsNaN(soilLayer.PermeabilityMean);
                 Assert.IsNaN(soilLayer.PermeabilityCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.PermeabilityShift);
@@ -463,32 +463,32 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNull(soilLayer.UsePop);
                 Assert.IsNull(soilLayer.ShearStrengthModel);
 
-                Assert.IsNull(soilLayer.AbovePhreaticLevelDistribution);
+                Assert.IsNull(soilLayer.AbovePhreaticLevelDistributionType);
                 Assert.IsNaN(soilLayer.AbovePhreaticLevelMean);
                 Assert.IsNaN(soilLayer.AbovePhreaticLevelCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.AbovePhreaticLevelShift);
 
-                Assert.IsNull(soilLayer.CohesionDistribution);
+                Assert.IsNull(soilLayer.CohesionDistributionType);
                 Assert.IsNaN(soilLayer.CohesionMean);
                 Assert.IsNaN(soilLayer.CohesionCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.CohesionShift);
 
-                Assert.IsNull(soilLayer.FrictionAngleDistribution);
+                Assert.IsNull(soilLayer.FrictionAngleDistributionType);
                 Assert.IsNaN(soilLayer.FrictionAngleMean);
                 Assert.IsNaN(soilLayer.FrictionAngleCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.FrictionAngleShift);
 
-                Assert.IsNull(soilLayer.ShearStrengthRatioDistribution);
+                Assert.IsNull(soilLayer.ShearStrengthRatioDistributionType);
                 Assert.IsNaN(soilLayer.ShearStrengthRatioMean);
                 Assert.IsNaN(soilLayer.ShearStrengthRatioCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.ShearStrengthRatioShift);
 
-                Assert.IsNull(soilLayer.StrengthIncreaseExponentDistribution);
+                Assert.IsNull(soilLayer.StrengthIncreaseExponentDistributionType);
                 Assert.IsNaN(soilLayer.StrengthIncreaseExponentMean);
                 Assert.IsNaN(soilLayer.StrengthIncreaseExponentCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.StrengthIncreaseExponentShift);
 
-                Assert.IsNull(soilLayer.PopDistribution);
+                Assert.IsNull(soilLayer.PopDistributionType);
                 Assert.IsNaN(soilLayer.PopMean);
                 Assert.IsNaN(soilLayer.PopCoefficientOfVariation);
                 Assert.IsNaN(soilLayer.PopShift);

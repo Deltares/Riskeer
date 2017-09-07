@@ -125,14 +125,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
             SoilLayerDistributionHelper.ValidateIsLogNormal(
-                soilLayer.BelowPhreaticLevelDistribution,
+                soilLayer.BelowPhreaticLevelDistributionType,
                 Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
             SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(
-                soilLayer.DiameterD70Distribution,
+                soilLayer.DiameterD70DistributionType,
                 soilLayer.DiameterD70Shift,
                 Resources.SoilLayer_DiameterD70Distribution_Description);
             SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(
-                soilLayer.PermeabilityDistribution,
+                soilLayer.PermeabilityDistributionType,
                 soilLayer.PermeabilityShift,
                 Resources.SoilLayer_PermeabilityDistribution_Description);
         }
