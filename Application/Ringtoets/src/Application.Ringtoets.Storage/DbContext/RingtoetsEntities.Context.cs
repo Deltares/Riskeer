@@ -77,7 +77,14 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
         public virtual DbSet<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
         public virtual DbSet<IllustrationPointResultEntity> IllustrationPointResultEntities { get; set; }
+        public virtual DbSet<MacroStabilityInwardsCharacteristicPointEntity> MacroStabilityInwardsCharacteristicPointEntities { get; set; }
+        public virtual DbSet<MacroStabilityInwardsFailureMechanismMetaEntity> MacroStabilityInwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSectionResultEntity> MacroStabilityInwardsSectionResultEntities { get; set; }
+        public virtual DbSet<MacroStabilityInwardsSoilLayer1DEntity> MacroStabilityInwardsSoilLayer1DEntity { get; set; }
+        public virtual DbSet<MacroStabilityInwardsSoilLayer2DEntity> MacroStabilityInwardsSoilLayer2DEntity { get; set; }
+        public virtual DbSet<MacroStabilityInwardsSoilProfile1DEntity> MacroStabilityInwardsSoilProfile1DEntity { get; set; }
+        public virtual DbSet<MacroStabilityInwardsSoilProfile2DEntity> MacroStabilityInwardsSoilProfile2DEntity { get; set; }
+        public virtual DbSet<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
         public virtual DbSet<MacrostabilityOutwardsSectionResultEntity> MacrostabilityOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }

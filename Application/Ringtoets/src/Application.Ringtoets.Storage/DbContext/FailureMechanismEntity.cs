@@ -50,6 +50,7 @@ namespace Application.Ringtoets.Storage.DbContext
             GrassCoverErosionOutwardsHydraulicLocationEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationEntity>();
             HeightStructureEntities = new HashSet<HeightStructureEntity>();
             HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
+            MacroStabilityInwardsFailureMechanismMetaEntities = new HashSet<MacroStabilityInwardsFailureMechanismMetaEntity>();
             PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
             StabilityPointStructureEntities = new HashSet<StabilityPointStructureEntity>();
             StabilityPointStructuresFailureMechanismMetaEntities = new HashSet<StabilityPointStructuresFailureMechanismMetaEntity>();
@@ -106,6 +107,9 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresFailureMechanismMetaEntity> HeightStructuresFailureMechanismMetaEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacroStabilityInwardsFailureMechanismMetaEntity> MacroStabilityInwardsFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }

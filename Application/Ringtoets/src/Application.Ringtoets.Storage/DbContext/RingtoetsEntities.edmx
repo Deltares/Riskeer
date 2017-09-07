@@ -665,6 +665,29 @@
           <Property Name="Value" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MacroStabilityInwardsCharacteristicPointEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsCharacteristicPointEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsCharacteristicPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="integer" Nullable="false" />
+          <Property Name="Type" Type="smallint" Nullable="false" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
+          <Property Name="Z" Type="real" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="A" Type="real" Nullable="false" />
+          <Property Name="B" Type="real" Nullable="false" />
+          <Property Name="SectionLength" Type="real" />
+          <Property Name="StochasticSoilModelCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="SurfaceLineCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
             <PropertyRef Name="MacroStabilityInwardsSectionResultEntityId" />
@@ -674,6 +697,91 @@
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="real" />
           <Property Name="LayerThree" Type="real" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilLayer1DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilLayer1DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilLayer1DEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacroStabilityInwardsSoilProfile1DEntityId" Type="integer" Nullable="false" />
+          <Property Name="Top" Type="real" />
+          <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
+          <Property Name="Color" Type="integer" Nullable="false" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
+          <Property Name="UsePop" Type="tinyint" Nullable="false" />
+          <Property Name="AbovePhreaticLevelMean" Type="real" />
+          <Property Name="AbovePhreaticLevelDeviation" Type="real" />
+          <Property Name="AbovePhreaticLevelShift" Type="real" />
+          <Property Name="BelowPhreaticLevelMean" Type="real" />
+          <Property Name="BelowPhreaticLevelDeviation" Type="real" />
+          <Property Name="BelowPhreaticLevelShift" Type="real" />
+          <Property Name="CohesionMean" Type="real" />
+          <Property Name="CohesionDeviation" Type="real" />
+          <Property Name="FrictionAngleMean" Type="real" />
+          <Property Name="FrictionAngleDeviation" Type="real" />
+          <Property Name="ShearStrengthRatioMean" Type="real" />
+          <Property Name="ShearStrengthRatioDeviation" Type="real" />
+          <Property Name="StrengthIncreaseExponentMean" Type="real" />
+          <Property Name="StrengthIncreaseExponentDeviation" Type="real" />
+          <Property Name="PopMean" Type="real" />
+          <Property Name="PopDeviation" Type="real" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilLayer2DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilLayer2DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilLayer2DEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacroStabilityInwardsSoilProfile2DEntityId" Type="integer" Nullable="false" />
+          <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
+          <Property Name="Color" Type="integer" />
+          <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
+          <Property Name="UsePop" Type="tinyint" Nullable="false" />
+          <Property Name="AbovePhreaticLevelMean" Type="real" />
+          <Property Name="AbovePhreaticLevelDeviation" Type="real" />
+          <Property Name="AbovePhreaticLevelShift" Type="real" />
+          <Property Name="BelowPhreaticLevelMean" Type="real" />
+          <Property Name="BelowPhreaticLevelDeviation" Type="real" />
+          <Property Name="BelowPhreaticLevelShift" Type="real" />
+          <Property Name="CohesionMean" Type="real" />
+          <Property Name="CohesionDeviation" Type="real" />
+          <Property Name="FrictionAngleMean" Type="real" />
+          <Property Name="FrictionAngleDeviation" Type="real" />
+          <Property Name="ShearStrengthRatioMean" Type="real" />
+          <Property Name="ShearStrengthRatioDeviation" Type="real" />
+          <Property Name="StrengthIncreaseExponentMean" Type="real" />
+          <Property Name="StrengthIncreaseExponentDeviation" Type="real" />
+          <Property Name="PopMean" Type="real" />
+          <Property Name="PopDeviation" Type="real" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilProfile1DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilProfile1DEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Bottom" Type="real" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilProfile2DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilProfile2DEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsStochasticSoilProfileEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsStochasticSoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
+          <Property Name="MacroStabilityInwardsSoilProfile1DEntityId" Type="integer" />
+          <Property Name="MacroStabilityInwardsSoilProfile2DEntityId" Type="integer" />
+          <Property Name="Probability" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
           <Key>
@@ -2061,6 +2169,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
+          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsCharacteristicPointEntity" Type="Self.MacroStabilityInwardsCharacteristicPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCharacteristicPointEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsFailureMechanismMetaEntity" Type="Self.MacroStabilityInwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MacroStabilityInwardsSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="MacroStabilityInwardsSectionResultEntity" Type="Self.MacroStabilityInwardsSectionResultEntity" Multiplicity="*" />
@@ -2070,6 +2202,66 @@
             </Principal>
             <Dependent Role="MacroStabilityInwardsSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsSoilLayer1DEntity_0_0">
+          <End Role="MacroStabilityInwardsSoilProfile1DEntity" Type="Self.MacroStabilityInwardsSoilProfile1DEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsSoilLayer1DEntity" Type="Self.MacroStabilityInwardsSoilLayer1DEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile1DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsSoilLayer1DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsSoilLayer2DEntity_0_0">
+          <End Role="MacroStabilityInwardsSoilProfile2DEntity" Type="Self.MacroStabilityInwardsSoilProfile2DEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsSoilLayer2DEntity" Type="Self.MacroStabilityInwardsSoilLayer2DEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile2DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsSoilLayer2DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0">
+          <End Role="StochasticSoilModelEntity" Type="Self.StochasticSoilModelEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" Type="Self.MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochasticSoilModelEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0">
+          <End Role="MacroStabilityInwardsSoilProfile2DEntity" Type="Self.MacroStabilityInwardsSoilProfile2DEntity" Multiplicity="0..1" />
+          <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" Type="Self.MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile2DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0">
+          <End Role="MacroStabilityInwardsSoilProfile1DEntity" Type="Self.MacroStabilityInwardsSoilProfile1DEntity" Multiplicity="0..1" />
+          <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" Type="Self.MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile1DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2684,7 +2876,14 @@
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="IllustrationPointResultEntity" EntityType="Self.IllustrationPointResultEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsCharacteristicPointEntity" EntityType="Self.MacroStabilityInwardsCharacteristicPointEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsFailureMechanismMetaEntity" EntityType="Self.MacroStabilityInwardsFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSectionResultEntity" EntityType="Self.MacroStabilityInwardsSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsSoilLayer1DEntity" EntityType="Self.MacroStabilityInwardsSoilLayer1DEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsSoilLayer2DEntity" EntityType="Self.MacroStabilityInwardsSoilLayer2DEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsSoilProfile1DEntity" EntityType="Self.MacroStabilityInwardsSoilProfile1DEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsSoilProfile2DEntity" EntityType="Self.MacroStabilityInwardsSoilProfile2DEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntity" EntityType="Self.MacroStabilityInwardsStochasticSoilProfileEntity" store:Type="Tables" />
           <EntitySet Name="MacrostabilityOutwardsSectionResultEntity" EntityType="Self.MacrostabilityOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="MicrostabilitySectionResultEntity" EntityType="Self.MicrostabilitySectionResultEntity" store:Type="Tables" />
           <EntitySet Name="PipingCalculationEntity" EntityType="Self.PipingCalculationEntity" store:Type="Tables" />
@@ -2998,9 +3197,37 @@
             <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntity" />
             <End Role="IllustrationPointResultEntity" EntitySet="IllustrationPointResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" Association="Self.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
+            <End Role="MacroStabilityInwardsCharacteristicPointEntity" EntitySet="MacroStabilityInwardsCharacteristicPointEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" Association="Self.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="MacroStabilityInwardsFailureMechanismMetaEntity" EntitySet="MacroStabilityInwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsSectionResultEntity_0_0" Association="Self.FK_MacroStabilityInwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="MacroStabilityInwardsSectionResultEntity" EntitySet="MacroStabilityInwardsSectionResultEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsSoilLayer1DEntity_0_0" Association="Self.FK_MacroStabilityInwardsSoilLayer1DEntity_0_0">
+            <End Role="MacroStabilityInwardsSoilProfile1DEntity" EntitySet="MacroStabilityInwardsSoilProfile1DEntity" />
+            <End Role="MacroStabilityInwardsSoilLayer1DEntity" EntitySet="MacroStabilityInwardsSoilLayer1DEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsSoilLayer2DEntity_0_0" Association="Self.FK_MacroStabilityInwardsSoilLayer2DEntity_0_0">
+            <End Role="MacroStabilityInwardsSoilProfile2DEntity" EntitySet="MacroStabilityInwardsSoilProfile2DEntity" />
+            <End Role="MacroStabilityInwardsSoilLayer2DEntity" EntitySet="MacroStabilityInwardsSoilLayer2DEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" Association="Self.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0">
+            <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntity" />
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" Association="Self.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0">
+            <End Role="MacroStabilityInwardsSoilProfile2DEntity" EntitySet="MacroStabilityInwardsSoilProfile2DEntity" />
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0" Association="Self.FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0">
+            <End Role="MacroStabilityInwardsSoilProfile1DEntity" EntitySet="MacroStabilityInwardsSoilProfile1DEntity" />
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_MacrostabilityOutwardsSectionResultEntity_0_0" Association="Self.FK_MacrostabilityOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -3238,7 +3465,14 @@
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="IllustrationPointResultEntities" EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" />
+          <EntitySet Name="MacroStabilityInwardsCharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" />
+          <EntitySet Name="MacroStabilityInwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" />
           <EntitySet Name="MacroStabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" />
+          <EntitySet Name="MacroStabilityInwardsSoilLayer1DEntity" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer1DEntity" />
+          <EntitySet Name="MacroStabilityInwardsSoilLayer2DEntity" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer2DEntity" />
+          <EntitySet Name="MacroStabilityInwardsSoilProfile1DEntity" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile1DEntity" />
+          <EntitySet Name="MacroStabilityInwardsSoilProfile2DEntity" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile2DEntity" />
+          <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" />
           <EntitySet Name="MacrostabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" />
           <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
@@ -3423,6 +3657,10 @@
           <AssociationSet Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="HeightStructuresFailureMechanismMetaEntity" EntitySet="HeightStructuresFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="MacroStabilityInwardsFailureMechanismMetaEntity" EntitySet="MacroStabilityInwardsFailureMechanismMetaEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -3651,6 +3889,30 @@
           <AssociationSet Name="FK_IllustrationPointResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_IllustrationPointResultEntity_0_0">
             <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntities" />
             <End Role="IllustrationPointResultEntity" EntitySet="IllustrationPointResultEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
+            <End Role="MacroStabilityInwardsCharacteristicPointEntity" EntitySet="MacroStabilityInwardsCharacteristicPointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsSoilLayer1DEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer1DEntity_0_0">
+            <End Role="MacroStabilityInwardsSoilProfile1DEntity" EntitySet="MacroStabilityInwardsSoilProfile1DEntity" />
+            <End Role="MacroStabilityInwardsSoilLayer1DEntity" EntitySet="MacroStabilityInwardsSoilLayer1DEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsSoilLayer2DEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer2DEntity_0_0">
+            <End Role="MacroStabilityInwardsSoilProfile2DEntity" EntitySet="MacroStabilityInwardsSoilProfile2DEntity" />
+            <End Role="MacroStabilityInwardsSoilLayer2DEntity" EntitySet="MacroStabilityInwardsSoilLayer2DEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0">
+            <End Role="MacroStabilityInwardsSoilProfile1DEntity" EntitySet="MacroStabilityInwardsSoilProfile1DEntity" />
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0">
+            <End Role="MacroStabilityInwardsSoilProfile2DEntity" EntitySet="MacroStabilityInwardsSoilProfile2DEntity" />
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0">
+            <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
@@ -4026,6 +4288,7 @@
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
           <NavigationProperty Name="HeightStructureEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructureEntity" />
           <NavigationProperty Name="HeightStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructuresFailureMechanismMetaEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="MacroStabilityInwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
           <NavigationProperty Name="StabilityPointStructureEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructureEntity" />
           <NavigationProperty Name="StabilityPointStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructuresFailureMechanismMetaEntity" />
@@ -4514,6 +4777,31 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SubMechanismIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_IllustrationPointResultEntity_0_0" FromRole="IllustrationPointResultEntity" ToRole="SubMechanismIllustrationPointEntity" />
         </EntityType>
+        <EntityType Name="MacroStabilityInwardsCharacteristicPointEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsCharacteristicPointEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsCharacteristicPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="Int16" Nullable="false" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="Z" Type="Double" />
+          <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" FromRole="MacroStabilityInwardsCharacteristicPointEntity" ToRole="SurfaceLineEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <Property Name="B" Type="Double" Nullable="false" />
+          <Property Name="SectionLength" Type="Double" />
+          <Property Name="StochasticSoilModelCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SurfaceLineCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" FromRole="MacroStabilityInwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
             <PropertyRef Name="MacroStabilityInwardsSectionResultEntityId" />
@@ -4524,6 +4812,100 @@
           <Property Name="LayerTwoA" Type="Double" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="MacroStabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilLayer1DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilLayer1DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilLayer1DEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MacroStabilityInwardsSoilProfile1DEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Top" Type="Double" />
+          <Property Name="IsAquifer" Type="Byte" Nullable="false" />
+          <Property Name="Color" Type="Int64" Nullable="false" />
+          <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
+          <Property Name="UsePop" Type="Byte" Nullable="false" />
+          <Property Name="AbovePhreaticLevelMean" Type="Double" />
+          <Property Name="AbovePhreaticLevelDeviation" Type="Double" />
+          <Property Name="AbovePhreaticLevelShift" Type="Double" />
+          <Property Name="BelowPhreaticLevelMean" Type="Double" />
+          <Property Name="BelowPhreaticLevelDeviation" Type="Double" />
+          <Property Name="BelowPhreaticLevelShift" Type="Double" />
+          <Property Name="CohesionMean" Type="Double" />
+          <Property Name="CohesionDeviation" Type="Double" />
+          <Property Name="FrictionAngleMean" Type="Double" />
+          <Property Name="FrictionAngleDeviation" Type="Double" />
+          <Property Name="ShearStrengthRatioMean" Type="Double" />
+          <Property Name="ShearStrengthRatioDeviation" Type="Double" />
+          <Property Name="StrengthIncreaseExponentMean" Type="Double" />
+          <Property Name="StrengthIncreaseExponentDeviation" Type="Double" />
+          <Property Name="PopMean" Type="Double" />
+          <Property Name="PopDeviation" Type="Double" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MacroStabilityInwardsSoilProfile1DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer1DEntity_0_0" FromRole="MacroStabilityInwardsSoilLayer1DEntity" ToRole="MacroStabilityInwardsSoilProfile1DEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilLayer2DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilLayer2DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilLayer2DEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MacroStabilityInwardsSoilProfile2DEntityId" Type="Int64" Nullable="false" />
+          <Property Name="IsAquifer" Type="Byte" Nullable="false" />
+          <Property Name="Color" Type="Int64" />
+          <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
+          <Property Name="UsePop" Type="Byte" Nullable="false" />
+          <Property Name="AbovePhreaticLevelMean" Type="Double" />
+          <Property Name="AbovePhreaticLevelDeviation" Type="Double" />
+          <Property Name="AbovePhreaticLevelShift" Type="Double" />
+          <Property Name="BelowPhreaticLevelMean" Type="Double" />
+          <Property Name="BelowPhreaticLevelDeviation" Type="Double" />
+          <Property Name="BelowPhreaticLevelShift" Type="Double" />
+          <Property Name="CohesionMean" Type="Double" />
+          <Property Name="CohesionDeviation" Type="Double" />
+          <Property Name="FrictionAngleMean" Type="Double" />
+          <Property Name="FrictionAngleDeviation" Type="Double" />
+          <Property Name="ShearStrengthRatioMean" Type="Double" />
+          <Property Name="ShearStrengthRatioDeviation" Type="Double" />
+          <Property Name="StrengthIncreaseExponentMean" Type="Double" />
+          <Property Name="StrengthIncreaseExponentDeviation" Type="Double" />
+          <Property Name="PopMean" Type="Double" />
+          <Property Name="PopDeviation" Type="Double" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MacroStabilityInwardsSoilProfile2DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer2DEntity_0_0" FromRole="MacroStabilityInwardsSoilLayer2DEntity" ToRole="MacroStabilityInwardsSoilProfile2DEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilProfile1DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilProfile1DEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Bottom" Type="Double" />
+          <NavigationProperty Name="MacroStabilityInwardsSoilLayer1DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer1DEntity_0_0" FromRole="MacroStabilityInwardsSoilProfile1DEntity" ToRole="MacroStabilityInwardsSoilLayer1DEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsStochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0" FromRole="MacroStabilityInwardsSoilProfile1DEntity" ToRole="MacroStabilityInwardsStochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSoilProfile2DEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSoilProfile2DEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MacroStabilityInwardsSoilLayer2DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer2DEntity_0_0" FromRole="MacroStabilityInwardsSoilProfile2DEntity" ToRole="MacroStabilityInwardsSoilLayer2DEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsStochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" FromRole="MacroStabilityInwardsSoilProfile2DEntity" ToRole="MacroStabilityInwardsStochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsStochasticSoilProfileEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsStochasticSoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
+          <Property Name="MacroStabilityInwardsSoilProfile1DEntityId" Type="Int64" />
+          <Property Name="MacroStabilityInwardsSoilProfile2DEntityId" Type="Int64" />
+          <Property Name="Probability" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MacroStabilityInwardsSoilProfile1DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsSoilProfile1DEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsSoilProfile2DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsSoilProfile2DEntity" />
+          <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
         <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
           <Key>
@@ -4976,6 +5358,7 @@
           <Property Name="StochasticSoilModelSegmentPointXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsStochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="MacroStabilityInwardsStochasticSoilProfileEntity" />
           <NavigationProperty Name="PipingStochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_PipingStochasticSoilProfileEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="PipingStochasticSoilProfileEntity" />
         </EntityType>
         <EntityType Name="StrengthStabilityLengthwiseConstructionSectionResultEntity">
@@ -5026,6 +5409,7 @@
           <Property Name="PointsXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsCharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="MacroStabilityInwardsCharacteristicPointEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="PipingCharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCharacteristicPointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCharacteristicPointEntity" />
         </EntityType>
@@ -5591,6 +5975,18 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="HeightStructuresFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Role="MacroStabilityInwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsFailureMechanismMetaEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -6276,6 +6672,78 @@
             </Principal>
             <Dependent Role="IllustrationPointResultEntity">
               <PropertyRef Name="SubMechanismIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Role="MacroStabilityInwardsCharacteristicPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCharacteristicPointEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsSoilLayer1DEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile1DEntity" Role="MacroStabilityInwardsSoilProfile1DEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer1DEntity" Role="MacroStabilityInwardsSoilLayer1DEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile1DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsSoilLayer1DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsSoilLayer2DEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile2DEntity" Role="MacroStabilityInwardsSoilProfile2DEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer2DEntity" Role="MacroStabilityInwardsSoilLayer2DEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile2DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsSoilLayer2DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile1DEntity" Role="MacroStabilityInwardsSoilProfile1DEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Role="MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile1DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile1DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile2DEntity" Role="MacroStabilityInwardsSoilProfile2DEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Role="MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsSoilProfile2DEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="MacroStabilityInwardsSoilProfile2DEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.StochasticSoilModelEntity" Role="StochasticSoilModelEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Role="MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochasticSoilModelEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7151,6 +7619,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsCharacteristicPointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsCharacteristicPointEntity">
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsCharacteristicPointEntityId" ColumnName="MacroStabilityInwardsCharacteristicPointEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsFailureMechanismMetaEntity">
+                <ScalarProperty Name="SurfaceLineCollectionSourcePath" ColumnName="SurfaceLineCollectionSourcePath" />
+                <ScalarProperty Name="StochasticSoilModelCollectionSourcePath" ColumnName="StochasticSoilModelCollectionSourcePath" />
+                <ScalarProperty Name="SectionLength" ColumnName="SectionLength" />
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsFailureMechanismMetaEntityId" ColumnName="MacroStabilityInwardsFailureMechanismMetaEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MacroStabilityInwardsSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSectionResultEntity">
@@ -7159,6 +7652,96 @@
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsSectionResultEntityId" ColumnName="MacroStabilityInwardsSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsSoilLayer1DEntity">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer1DEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilLayer1DEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="PopDeviation" ColumnName="PopDeviation" />
+                <ScalarProperty Name="PopMean" ColumnName="PopMean" />
+                <ScalarProperty Name="StrengthIncreaseExponentDeviation" ColumnName="StrengthIncreaseExponentDeviation" />
+                <ScalarProperty Name="StrengthIncreaseExponentMean" ColumnName="StrengthIncreaseExponentMean" />
+                <ScalarProperty Name="ShearStrengthRatioDeviation" ColumnName="ShearStrengthRatioDeviation" />
+                <ScalarProperty Name="ShearStrengthRatioMean" ColumnName="ShearStrengthRatioMean" />
+                <ScalarProperty Name="FrictionAngleDeviation" ColumnName="FrictionAngleDeviation" />
+                <ScalarProperty Name="FrictionAngleMean" ColumnName="FrictionAngleMean" />
+                <ScalarProperty Name="CohesionDeviation" ColumnName="CohesionDeviation" />
+                <ScalarProperty Name="CohesionMean" ColumnName="CohesionMean" />
+                <ScalarProperty Name="BelowPhreaticLevelShift" ColumnName="BelowPhreaticLevelShift" />
+                <ScalarProperty Name="BelowPhreaticLevelDeviation" ColumnName="BelowPhreaticLevelDeviation" />
+                <ScalarProperty Name="BelowPhreaticLevelMean" ColumnName="BelowPhreaticLevelMean" />
+                <ScalarProperty Name="AbovePhreaticLevelShift" ColumnName="AbovePhreaticLevelShift" />
+                <ScalarProperty Name="AbovePhreaticLevelDeviation" ColumnName="AbovePhreaticLevelDeviation" />
+                <ScalarProperty Name="AbovePhreaticLevelMean" ColumnName="AbovePhreaticLevelMean" />
+                <ScalarProperty Name="UsePop" ColumnName="UsePop" />
+                <ScalarProperty Name="ShearStrengthModel" ColumnName="ShearStrengthModel" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="IsAquifer" ColumnName="IsAquifer" />
+                <ScalarProperty Name="Top" ColumnName="Top" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilProfile1DEntityId" ColumnName="MacroStabilityInwardsSoilProfile1DEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilLayer1DEntityId" ColumnName="MacroStabilityInwardsSoilLayer1DEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsSoilLayer2DEntity">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer2DEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilLayer2DEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="PopDeviation" ColumnName="PopDeviation" />
+                <ScalarProperty Name="PopMean" ColumnName="PopMean" />
+                <ScalarProperty Name="StrengthIncreaseExponentDeviation" ColumnName="StrengthIncreaseExponentDeviation" />
+                <ScalarProperty Name="StrengthIncreaseExponentMean" ColumnName="StrengthIncreaseExponentMean" />
+                <ScalarProperty Name="ShearStrengthRatioDeviation" ColumnName="ShearStrengthRatioDeviation" />
+                <ScalarProperty Name="ShearStrengthRatioMean" ColumnName="ShearStrengthRatioMean" />
+                <ScalarProperty Name="FrictionAngleDeviation" ColumnName="FrictionAngleDeviation" />
+                <ScalarProperty Name="FrictionAngleMean" ColumnName="FrictionAngleMean" />
+                <ScalarProperty Name="CohesionDeviation" ColumnName="CohesionDeviation" />
+                <ScalarProperty Name="CohesionMean" ColumnName="CohesionMean" />
+                <ScalarProperty Name="BelowPhreaticLevelShift" ColumnName="BelowPhreaticLevelShift" />
+                <ScalarProperty Name="BelowPhreaticLevelDeviation" ColumnName="BelowPhreaticLevelDeviation" />
+                <ScalarProperty Name="BelowPhreaticLevelMean" ColumnName="BelowPhreaticLevelMean" />
+                <ScalarProperty Name="AbovePhreaticLevelShift" ColumnName="AbovePhreaticLevelShift" />
+                <ScalarProperty Name="AbovePhreaticLevelDeviation" ColumnName="AbovePhreaticLevelDeviation" />
+                <ScalarProperty Name="AbovePhreaticLevelMean" ColumnName="AbovePhreaticLevelMean" />
+                <ScalarProperty Name="UsePop" ColumnName="UsePop" />
+                <ScalarProperty Name="ShearStrengthModel" ColumnName="ShearStrengthModel" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="IsAquifer" ColumnName="IsAquifer" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilProfile2DEntityId" ColumnName="MacroStabilityInwardsSoilProfile2DEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilLayer2DEntityId" ColumnName="MacroStabilityInwardsSoilLayer2DEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsSoilProfile1DEntity">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile1DEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilProfile1DEntity">
+                <ScalarProperty Name="Bottom" ColumnName="Bottom" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilProfile1DEntityId" ColumnName="MacroStabilityInwardsSoilProfile1DEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsSoilProfile2DEntity">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfile2DEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilProfile2DEntity">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilProfile2DEntityId" ColumnName="MacroStabilityInwardsSoilProfile2DEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsStochasticSoilProfileEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsStochasticSoilProfileEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilProfile2DEntityId" ColumnName="MacroStabilityInwardsSoilProfile2DEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsSoilProfile1DEntityId" ColumnName="MacroStabilityInwardsSoilProfile1DEntityId" />
+                <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsStochasticSoilProfileEntityId" ColumnName="MacroStabilityInwardsStochasticSoilProfileEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

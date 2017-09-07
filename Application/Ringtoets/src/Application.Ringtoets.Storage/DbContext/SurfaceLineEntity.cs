@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SurfaceLineEntity()
         {
+            MacroStabilityInwardsCharacteristicPointEntities = new HashSet<MacroStabilityInwardsCharacteristicPointEntity>();
             PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
             PipingCharacteristicPointEntities = new HashSet<PipingCharacteristicPointEntity>();
         }
@@ -51,6 +52,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacroStabilityInwardsCharacteristicPointEntity> MacroStabilityInwardsCharacteristicPointEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
