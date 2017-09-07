@@ -82,6 +82,24 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klei dijk op klei (geval 1A).
+        /// </summary>
+        public static string ClayDikeOnClay_DisplayName {
+            get {
+                return ResourceManager.GetString("ClayDikeOnClay_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klei dijk op zand (geval 1B).
+        /// </summary>
+        public static string ClayDikeOnSand_DisplayName {
+            get {
+                return ResourceManager.GetString("ClayDikeOnSand_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geen lagen gevonden voor de ondergrondschematisatie..
         /// </summary>
         public static string Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers {
@@ -96,6 +114,24 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Properties {
         public static string MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zand dijk op klei (geval 2A).
+        /// </summary>
+        public static string SandDikeOnClay_DisplayName {
+            get {
+                return ResourceManager.GetString("SandDikeOnClay_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zand dijk op zand (geval 2B).
+        /// </summary>
+        public static string SandDikeOnSand_DisplayName {
+            get {
+                return ResourceManager.GetString("SandDikeOnSand_DisplayName", resourceCulture);
             }
         }
     }

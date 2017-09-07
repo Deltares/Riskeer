@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Ringtoets.MacroStabilityInwards.Data.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives.Properties;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// The dike soil scenario types.

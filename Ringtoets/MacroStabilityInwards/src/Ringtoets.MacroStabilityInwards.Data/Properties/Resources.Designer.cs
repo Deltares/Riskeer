@@ -91,24 +91,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klei dijk op klei (geval 1A).
-        /// </summary>
-        public static string ClayDikeOnClay_DisplayName {
-            get {
-                return ResourceManager.GetString("ClayDikeOnClay_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klei dijk op zand (geval 1B).
-        /// </summary>
-        public static string ClayDikeOnSand_DisplayName {
-            get {
-                return ResourceManager.GetString("ClayDikeOnSand_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Op laagscheiding.
         /// </summary>
         public static string LayerSeparated_DisplayName {
@@ -150,24 +132,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         public static string Manual_DisplayName {
             get {
                 return ResourceManager.GetString("Manual_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zand dijk op klei (geval 2A).
-        /// </summary>
-        public static string SandDikeOnClay_DisplayName {
-            get {
-                return ResourceManager.GetString("SandDikeOnClay_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zand dijk op zand (geval 2B).
-        /// </summary>
-        public static string SandDikeOnSand_DisplayName {
-            get {
-                return ResourceManager.GetString("SandDikeOnSand_DisplayName", resourceCulture);
             }
         }
         

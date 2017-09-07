@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClayDikeOnClay_DisplayName" xml:space="preserve">
+    <value>Klei dijk op klei (geval 1A)</value>
+  </data>
+  <data name="ClayDikeOnSand_DisplayName" xml:space="preserve">
+    <value>Klei dijk op zand (geval 1B)</value>
+  </data>
   <data name="Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers" xml:space="preserve">
     <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
   </data>
   <data name="MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
     <value>Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
+  </data>
+  <data name="SandDikeOnClay_DisplayName" xml:space="preserve">
+    <value>Zand dijk op klei (geval 2A)</value>
+  </data>
+  <data name="SandDikeOnSand_DisplayName" xml:space="preserve">
+    <value>Zand dijk op zand (geval 2B)</value>
   </data>
 </root>
