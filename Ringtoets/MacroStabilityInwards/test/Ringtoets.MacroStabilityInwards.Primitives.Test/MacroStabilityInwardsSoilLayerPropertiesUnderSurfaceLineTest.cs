@@ -207,7 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CoefficientOfVariation = RoundedDouble.NaN
             }, properties.Pop);
 
-            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.None, properties.ShearStrengthModel);
+            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.CPhi, properties.ShearStrengthModel);
             Assert.IsFalse(properties.UsePop);
             Assert.IsFalse(properties.IsAquifer);
             Assert.AreEqual(string.Empty, properties.MaterialName);

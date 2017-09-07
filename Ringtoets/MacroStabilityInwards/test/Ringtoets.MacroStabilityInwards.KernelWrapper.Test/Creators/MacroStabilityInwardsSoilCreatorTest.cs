@@ -133,29 +133,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
-        [Test]
-        public void Create_UnsupportedShearStrengthModel_ThrowNotSupportedException()
-        {
-            // Setup
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
-            {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None
-                }))
-            });
-
-            // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilCreator.Create(profile);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
-        }
-
         private class TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine : MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine
         {
             public TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(ConstructionProperties properties)

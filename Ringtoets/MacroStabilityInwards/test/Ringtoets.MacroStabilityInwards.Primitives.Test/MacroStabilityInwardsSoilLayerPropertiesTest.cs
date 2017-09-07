@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(Color.Empty, properties.Color);
 
             Assert.IsFalse(properties.UsePop);
-            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.None, properties.ShearStrengthModel);
+            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.CPhi, properties.ShearStrengthModel);
 
             Assert.IsNaN(properties.AbovePhreaticLevelMean);
             Assert.IsNaN(properties.AbovePhreaticLevelCoefficientOfVariation);

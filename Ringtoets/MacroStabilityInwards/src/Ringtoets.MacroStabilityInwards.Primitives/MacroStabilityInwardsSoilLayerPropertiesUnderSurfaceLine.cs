@@ -219,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 ShearStrengthRatioCoefficientOfVariation = double.NaN;
                 PopMean = double.NaN;
                 PopCoefficientOfVariation = double.NaN;
-                ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None;
+                ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi;
                 MaterialName = string.Empty;
             }
 

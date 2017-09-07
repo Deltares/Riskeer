@@ -267,4 +267,7 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="SoilLayerProperties_ShearStrengthModel_Description" xml:space="preserve">
     <value>Schuifsterkte model</value>
   </data>
+  <data name="MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel" xml:space="preserve">
+    <value>Er is geen schuifsterkte model opgegeven.</value>
+  </data>
 </root>

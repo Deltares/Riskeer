@@ -180,6 +180,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen schuifsterkte model opgegeven..
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroSta" +
+                        "bilityInwardsShearStrengthModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string MacroStabilityInwardsSoilProfileReader_Critical_Unexpected_value_on_column {

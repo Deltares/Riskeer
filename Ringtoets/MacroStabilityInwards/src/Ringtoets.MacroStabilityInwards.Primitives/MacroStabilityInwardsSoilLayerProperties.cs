@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         public MacroStabilityInwardsSoilLayerProperties()
         {
-            ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None;
+            ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi;
         }
 
         /// <summary>

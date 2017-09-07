@@ -165,7 +165,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         [TestCase(null, MacroStabilityInwardsShearStrengthModel.CPhi)]
         [TestCase(9, MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated)]
         [TestCase(6, MacroStabilityInwardsShearStrengthModel.SuCalculated)]
-        [TestCase(1, MacroStabilityInwardsShearStrengthModel.None)]
         public void SoilLayer1DTransform_ValidShearStrengthModelValue_ReturnMacroStabilityInwardSoilLayer1D(double? sheartStrengthModel,
                                                                                                             MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
         {
@@ -178,6 +177,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(transformedShearStrengthModel, soilLayer1D.Properties.ShearStrengthModel);
+        }
+
+        [Test]
+        public void SoilLayer1DTransform_ShearStrengthModelValueNone_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
+            layer.ShearStrengthModel = 1;
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Er is geen schuifsterkte model opgegeven.", exception.Message);
         }
 
         [Test]
@@ -394,19 +408,34 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         [TestCase(null, MacroStabilityInwardsShearStrengthModel.CPhi)]
         [TestCase(9, MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated)]
         [TestCase(6, MacroStabilityInwardsShearStrengthModel.SuCalculated)]
-        [TestCase(1, MacroStabilityInwardsShearStrengthModel.None)]
-        public void SoilLayer2DTransform_ValidShearStrengthModelValue_ReturnMacroStabilityInwardSoilLayer2D(double? sheartStrengthModel,
+        public void SoilLayer2DTransform_ValidShearStrengthModelValue_ReturnMacroStabilityInwardSoilLayer2D(double? shearStrengthModel,
                                                                                                             MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
         {
             // Setup
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
-            layer.ShearStrengthModel = sheartStrengthModel;
+            layer.ShearStrengthModel = shearStrengthModel;
 
             // Call
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
             Assert.AreEqual(transformedShearStrengthModel, soilLayer2D.Properties.ShearStrengthModel);
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_ShearStrengthModelValueNone_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
+
+            layer.ShearStrengthModel = 1;
+
+            // Call
+           TestDelegate call =()=> MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Er is geen schuifsterkte model opgegeven.", exception.Message);
         }
 
         [Test]

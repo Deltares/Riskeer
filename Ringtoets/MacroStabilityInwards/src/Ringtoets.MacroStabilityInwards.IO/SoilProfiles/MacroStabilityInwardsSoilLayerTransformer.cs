@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             if (Math.Abs(shearStrengthModel.Value - 1) < tolerance)
             {
-                return MacroStabilityInwardsShearStrengthModel.None;
+                throw new ImportedDataTransformException(Resources.MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel);
             }
 
             throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
