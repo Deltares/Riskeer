@@ -46,11 +46,11 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<StochasticSoilModelEntity, PipingStochasticSoilModel> pipingStochasticSoilModels =
             CreateDictionary<StochasticSoilModelEntity, PipingStochasticSoilModel>();
 
-        private readonly Dictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile> pipingStochasticSoilProfiles =
-            CreateDictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile>();
+        private readonly Dictionary<PipingStochasticSoilProfileEntity, PipingStochasticSoilProfile> pipingStochasticSoilProfiles =
+            CreateDictionary<PipingStochasticSoilProfileEntity, PipingStochasticSoilProfile>();
 
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
-            CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
+        private readonly Dictionary<PipingSoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
+            CreateDictionary<PipingSoilProfileEntity, PipingSoilProfile>();
 
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
@@ -107,11 +107,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was read.</param>
         /// <param name="model">The <see cref="PipingStochasticSoilModel"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(StochasticSoilModelEntity entity, PipingStochasticSoilModel model)
         {
             if (entity == null)
@@ -170,20 +166,16 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region StochasticSoilProfileEntity: Read, Contains, Get
+        #region PipingStochasticSoilProfileEntity: Read, Contains, Get
 
         /// <summary>
-        /// Registers a read operation for <see cref="StochasticSoilProfileEntity"/> and 
+        /// Registers a read operation for <see cref="PipingStochasticSoilProfileEntity"/> and 
         /// the <see cref="PipingStochasticSoilProfile"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> that was read.</param>
+        /// <param name="entity">The <see cref="PipingStochasticSoilProfileEntity"/> that was read.</param>
         /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        internal void Read(StochasticSoilProfileEntity entity, PipingStochasticSoilProfile model)
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(PipingStochasticSoilProfileEntity entity, PipingStochasticSoilProfile model)
         {
             if (entity == null)
             {
@@ -198,12 +190,12 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Checks whether a read operations has been registered for the given <see cref="StochasticSoilProfileEntity"/>.
+        /// Checks whether a read operations has been registered for the given <see cref="PipingStochasticSoilProfileEntity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to check for.</param>
+        /// <param name="entity">The <see cref="PipingStochasticSoilProfileEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="entity"/> was read before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(StochasticSoilProfileEntity entity)
+        internal bool Contains(PipingStochasticSoilProfileEntity entity)
         {
             if (entity == null)
             {
@@ -214,17 +206,17 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Obtains the <see cref="PipingStochasticSoilProfile"/> which was read for the given
-        /// <see cref="StochasticSoilProfileEntity"/>.
+        /// <see cref="PipingStochasticSoilProfileEntity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> for which
+        /// <param name="entity">The <see cref="PipingStochasticSoilProfileEntity"/> for which
         /// a read operation has been registered.</param>
         /// <returns>The constructed <see cref="PipingStochasticSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has been registered for 
-        /// <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StochasticSoilProfileEntity)"/> to find out whether a read operation has been registered for
-        /// <paramref name="entity"/>.</remarks>
-        internal PipingStochasticSoilProfile Get(StochasticSoilProfileEntity entity)
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has been 
+        /// registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(PipingStochasticSoilProfileEntity)"/> to find out 
+        /// whether a read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal PipingStochasticSoilProfile Get(PipingStochasticSoilProfileEntity entity)
         {
             if (entity == null)
             {
@@ -242,20 +234,16 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region SoilProfileEntity: Read, Contains, Get
+        #region PipingSoilProfileEntity: Read, Contains, Get
 
         /// <summary>
-        /// Registers a read operation for <paramref name="entity"/> and the <paramref name="model"/> that
-        /// was constructed with the information.
+        /// Registers a read operation for <paramref name="entity"/> and the <paramref name="model"/> 
+        /// that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> that was read.</param>
+        /// <param name="entity">The <see cref="PipingSoilProfileEntity"/> that was read.</param>
         /// <param name="model">The <see cref="PipingSoilProfile"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        internal void Read(SoilProfileEntity entity, PipingSoilProfile model)
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(PipingSoilProfileEntity entity, PipingSoilProfile model)
         {
             if (entity == null)
             {
@@ -272,10 +260,10 @@ namespace Application.Ringtoets.Storage.Read
         /// <summary>
         /// Checks whether a read operations has been registered for the given <paramref name="entity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> to check for.</param>
+        /// <param name="entity">The <see cref="PipingSoilProfileEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="entity"/> was read before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(SoilProfileEntity entity)
+        internal bool Contains(PipingSoilProfileEntity entity)
         {
             if (entity == null)
             {
@@ -287,14 +275,15 @@ namespace Application.Ringtoets.Storage.Read
         /// <summary>
         /// Obtains the <see cref="PipingSoilProfile"/> which was read for the given <paramref name="entity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> for which a read operation has been registered.</param>
+        /// <param name="entity">The <see cref="PipingSoilProfileEntity"/> for which a read operation 
+        /// has been registered.</param>
         /// <returns>The constructed <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has been registered for 
-        /// <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(SoilProfileEntity)"/> to find out whether a read operation has been registered for
-        /// <paramref name="entity"/>.</remarks>
-        internal PipingSoilProfile Get(SoilProfileEntity entity)
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has been 
+        /// registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(PipingSoilProfileEntity)"/> to find out whether a 
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal PipingSoilProfile Get(PipingSoilProfileEntity entity)
         {
             if (entity == null)
             {
@@ -320,11 +309,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was read.</param>
         /// <param name="model">The <see cref="PipingSurfaceLine"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(SurfaceLineEntity entity, PipingSurfaceLine model)
         {
             if (entity == null)
@@ -392,11 +377,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationEntity"/> that was read.</param>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             if (entity == null)
@@ -464,11 +445,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="DuneLocationEntity"/> that was read.</param>
         /// <param name="model">The <see cref="DuneLocation"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(DuneLocationEntity entity, DuneLocation model)
         {
             if (entity == null)
@@ -536,11 +513,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was read.</param>
         /// <param name="model">The <see cref="FailureMechanismSection"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(FailureMechanismSectionEntity entity, FailureMechanismSection model)
         {
             if (entity == null)
@@ -608,11 +581,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="DikeProfileEntity"/> that was read.</param>
         /// <param name="model">The <see cref="DikeProfile"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(DikeProfileEntity entity, DikeProfile model)
         {
             if (entity == null)
@@ -680,11 +649,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="ForeshoreProfileEntity"/> that was read.</param>
         /// <param name="model">The <see cref="ForeshoreProfile"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(ForeshoreProfileEntity entity, ForeshoreProfile model)
         {
             if (entity == null)
@@ -755,11 +720,7 @@ namespace Application.Ringtoets.Storage.Read
         /// that was read.</param>
         /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> that
         /// was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
         {
             if (entity == null)
@@ -827,11 +788,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> that was read.</param>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             if (entity == null)
@@ -899,11 +856,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="HeightStructureEntity"/> that was read.</param>
         /// <param name="model">The <see cref="HeightStructure"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(HeightStructureEntity entity, HeightStructure model)
         {
             if (entity == null)
@@ -1042,11 +995,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructureEntity"/> that was read.</param>
         /// <param name="model">The <see cref="ClosingStructure"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(ClosingStructureEntity entity, ClosingStructure model)
         {
             if (entity == null)
@@ -1185,11 +1134,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructureEntity"/> that was read.</param>
         /// <param name="model">The <see cref="StabilityPointStructure"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         internal void Read(StabilityPointStructureEntity entity, StabilityPointStructure model)
         {
             if (entity == null)

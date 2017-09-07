@@ -28,17 +28,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class CharacteristicPointEntity
+    public class PipingSoilProfileEntity
     {
-        public long CharacteristicPointEntityId { get; set; }
-        public long SurfaceLineEntityId { get; set; }
-        public byte Type { get; set; }
-        public double? X { get; set; }
-        public double? Y { get; set; }
-        public double? Z { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PipingSoilProfileEntity()
+        {
+            PipingSoilLayerEntities = new HashSet<PipingSoilLayerEntity>();
+            PipingStochasticSoilProfileEntities = new HashSet<PipingStochasticSoilProfileEntity>();
+        }
 
-        public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
+        public long PipingSoilProfileEntityId { get; set; }
+        public double? Bottom { get; set; }
+        public string Name { get; set; }
+        public byte SourceType { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }
     }
 }

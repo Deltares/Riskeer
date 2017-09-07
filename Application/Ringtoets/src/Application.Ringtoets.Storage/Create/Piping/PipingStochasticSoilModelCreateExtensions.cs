@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             for (var i = 0; i < model.StochasticSoilProfiles.Count; i++)
             {
                 PipingStochasticSoilProfile stochasticSoilProfile = model.StochasticSoilProfiles[i];
-                entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
+                entity.PipingStochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
             }
         }
     }

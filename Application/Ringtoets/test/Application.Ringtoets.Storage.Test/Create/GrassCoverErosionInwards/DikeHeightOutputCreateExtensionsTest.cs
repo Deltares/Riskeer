@@ -38,11 +38,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         [Test]
         public void Create_OutputNull_ThrowArgumentNullException()
         {
-            // Setup
-            DikeHeightOutput output = null;
-
             // Call
-            TestDelegate test = () => output.Create();
+            TestDelegate test = () => ((DikeHeightOutput) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

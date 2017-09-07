@@ -38,28 +38,6 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationCreateExtensionsTest
     {
-        private static IEnumerable<TestCaseData> ValidWaveConditionsInputs
-        {
-            get
-            {
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueStepSizeHalf");
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueStepSizeOne");
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueStepSizeTwo");
-
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseStepSizeHalf");
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseStepSizeOne");
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseStepSizeTwo");
-
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWTrueStepSizeHalf");
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWTrueStepSizeOne");
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWTrueStepSizeTwo");
-
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWFalseStepSizeHalf");
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWFalseStepSizeOne");
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWFalseStepSizeTwo");
-            }
-        }
-
         [Test]
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
@@ -232,6 +210,25 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
                 0,
                 1
             }, entity.StabilityStoneCoverWaveConditionsOutputEntities.Select(oe => oe.Order));
+        }
+
+        private static IEnumerable<TestCaseData> ValidWaveConditionsInputs()
+        {
+            yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueStepSizeHalf");
+            yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueStepSizeOne");
+            yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueStepSizeTwo");
+
+            yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseStepSizeHalf");
+            yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseStepSizeOne");
+            yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseStepSizeTwo");
+
+            yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWTrueStepSizeHalf");
+            yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWTrueStepSizeOne");
+            yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWTrueStepSizeTwo");
+
+            yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWFalseStepSizeHalf");
+            yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWFalseStepSizeOne");
+            yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWFalseStepSizeTwo");
         }
     }
 }

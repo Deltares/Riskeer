@@ -79,7 +79,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityPointStructures(reader);
                     AssertForeshoreProfiles(reader);
 
-                    AssertSoilProfiles(reader, sourceFilePath);
+                    AssertPipingSoilProfiles(reader, sourceFilePath);
+                    AssertPipingSoilLayers(reader, sourceFilePath);
+                    AssertPipingStochasticSoilProfiles(reader, sourceFilePath);
+                    AssertPipingCharacteristicPoints(reader, sourceFilePath);
 
                     AssertFailureMechanismSectionResults(reader, "ClosingStructuresSectionResultEntity");
                     AssertFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity");
@@ -646,7 +649,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 "AssessmentSectionEntity",
                 "CalculationGroupEntity",
-                "CharacteristicPointEntity",
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresSectionResultEntity",
@@ -677,8 +679,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "PipingSectionResultEntity",
                 "PipingStructureSectionResultEntity",
                 "ProjectEntity",
-                "SoilLayerEntity",
-                "SoilProfileEntity",
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
@@ -686,7 +686,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
                 "StochasticSoilModelEntity",
-                "StochasticSoilProfileEntity",
                 "StrengthStabilityLengthwiseConstructionSectionResultEntity",
                 "SurfaceLineEntity",
                 "TechnicalInnovationSectionResultEntity",
@@ -1120,13 +1119,43 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(validateStabilityPointStructures);
         }
 
-        private static void AssertSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertPipingSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateSoilProfiles =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilProfileEntity) " +
-                "FROM SoilProfileEntity " +
+                "FROM PipingSoilProfileEntity " +
                 "WHERE [SourceType] IN (1,2);" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertPipingSoilLayers(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity) " +
+                "FROM PipingSoilLayerEntity; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertPipingStochasticSoilProfiles(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StochasticSoilProfileEntity) " +
+                "FROM PipingStochasticSoilProfileEntity; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSoilProfiles);
+        }
+
+        private static void AssertPipingCharacteristicPoints(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSoilProfiles =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].CharacteristicPointEntity) " +
+                "FROM PipingCharacteristicPointEntity; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSoilProfiles);
         }

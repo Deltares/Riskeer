@@ -27,19 +27,19 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingSoilLayer"/> related to creating a <see cref="SoilLayerEntity"/>.
+    /// Extension methods for <see cref="PipingSoilLayer"/> related to creating a <see cref="PipingSoilLayerEntity"/>.
     /// </summary>
     internal static class PipingSoilLayerCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="SoilLayerEntity"/> based on the information of the <see cref="PipingSoilLayer"/>.
+        /// Creates a <see cref="PipingSoilLayerEntity"/> based on the information of the <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="layer">The layer to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
-        internal static SoilLayerEntity Create(this PipingSoilLayer layer, int order)
+        /// <returns>A new <see cref="PipingSoilLayerEntity"/>.</returns>
+        internal static PipingSoilLayerEntity Create(this PipingSoilLayer layer, int order)
         {
-            var entity = new SoilLayerEntity
+            var entity = new PipingSoilLayerEntity
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),
                 Top = layer.Top,

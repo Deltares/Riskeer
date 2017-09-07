@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             if (inputParameters.StochasticSoilProfile != null)
             {
-                entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
+                entity.PipingStochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
             }
 
             entity.ExitPointL = inputParameters.ExitPointL.Value.ToNaNAsNull();

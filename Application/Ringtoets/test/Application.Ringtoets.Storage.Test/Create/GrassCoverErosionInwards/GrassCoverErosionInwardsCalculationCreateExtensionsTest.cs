@@ -24,7 +24,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;

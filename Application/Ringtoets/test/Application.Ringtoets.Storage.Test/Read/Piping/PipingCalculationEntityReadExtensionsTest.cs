@@ -252,14 +252,14 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity();
 
             var stochasticSoilProfile = new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
+            var stochasticSoilProfileEntity = new PipingStochasticSoilProfileEntity
             {
                 StochasticSoilModelEntity = stochasticSoilModelEntity
             };
 
             var entity = new PipingCalculationEntity
             {
-                StochasticSoilProfileEntity = stochasticSoilProfileEntity,
+                PipingStochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1
@@ -281,14 +281,14 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithStochasticSoilProfileEntityNotYetInCollector_CalculationWithCreatedStochasticSoilProfileAndRegisteredNewEntities()
         {
             // Setup
-            var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
+            var stochasticSoilProfileEntity = new PipingStochasticSoilProfileEntity
             {
-                SoilProfileEntity = new SoilProfileEntity
+                PipingSoilProfileEntity = new PipingSoilProfileEntity
                 {
                     Name = "SoilProfile",
-                    SoilLayerEntities =
+                    PipingSoilLayerEntities =
                     {
-                        new SoilLayerEntity()
+                        new PipingSoilLayerEntity()
                     }
                 }
             };
@@ -297,7 +297,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 Name = "StochasticSoilModel",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
-                StochasticSoilProfileEntities =
+                PipingStochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity
                 }
@@ -306,7 +306,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new PipingCalculationEntity
             {
-                StochasticSoilProfileEntity = stochasticSoilProfileEntity,
+                PipingStochasticSoilProfileEntity = stochasticSoilProfileEntity,
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1
@@ -373,7 +373,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNotNull(calculation.SemiProbabilisticOutput);
         }
 
-        private void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
+        private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
         {
             Assert.IsTrue(expectedValue.HasValue);
             Assert.AreEqual(expectedValue.Value, actualValue, actualValue.GetAccuracy());

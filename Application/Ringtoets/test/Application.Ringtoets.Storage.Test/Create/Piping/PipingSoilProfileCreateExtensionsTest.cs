@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithCollectorAndLayers_ReturnsSoilProfileEntityWithPropertiesAndSoilLayerEntitiesSet()
+        public void Create_WithCollectorAndLayers_ReturnsPipingSoilProfileEntityWithPropertiesAndPipingSoilLayerEntitiesSet()
         {
             // Setup
             const string testName = "testName";
@@ -61,13 +61,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            SoilProfileEntity entity = soilProfile.Create(registry);
+            PipingSoilProfileEntity entity = soilProfile.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(bottom, entity.Bottom);
             Assert.AreEqual(testName, entity.Name);
-            Assert.AreEqual(2, entity.SoilLayerEntities.Count);
+            Assert.AreEqual(2, entity.PipingSoilLayerEntities.Count);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            SoilProfileEntity entity = soilProfile.Create(registry);
+            PipingSoilProfileEntity entity = soilProfile.Create(registry);
 
             // Assert
             Assert.AreNotSame(testName, entity.Name,
@@ -93,16 +93,16 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_ForTheSameEntityTwice_ReturnsSameSoilProfileEntityInstance()
+        public void Create_ForTheSameEntityTwice_ReturnsSamePipingSoilProfileEntityInstance()
         {
             // Setup
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var registry = new PersistenceRegistry();
 
-            SoilProfileEntity firstEntity = soilProfile.Create(registry);
+            PipingSoilProfileEntity firstEntity = soilProfile.Create(registry);
 
             // Call
-            SoilProfileEntity secondEntity = soilProfile.Create(registry);
+            PipingSoilProfileEntity secondEntity = soilProfile.Create(registry);
 
             // Assert
             Assert.AreSame(firstEntity, secondEntity);

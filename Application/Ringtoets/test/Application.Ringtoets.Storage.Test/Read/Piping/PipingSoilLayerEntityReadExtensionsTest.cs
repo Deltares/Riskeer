@@ -29,7 +29,7 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
     [TestFixture]
-    public class SoilLayerEntityReadExtensionsTest
+    public class PipingSoilLayerEntityReadExtensionsTest
     {
         [Test]
         [TestCase(true)]
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             double permeabilityMean = random.NextDouble();
             double permeabilityCoefficientOfVariation = random.NextDouble();
 
-            var entity = new SoilLayerEntity
+            var entity = new PipingSoilLayerEntity
             {
                 Top = top,
                 IsAquifer = Convert.ToByte(isAquifer),

@@ -30,23 +30,15 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class SoilLayerEntity
+    public class PipingCharacteristicPointEntity
     {
-        public long SoilLayerEntityId { get; set; }
-        public long SoilProfileEntityId { get; set; }
-        public double? Top { get; set; }
-        public byte IsAquifer { get; set; }
-        public long Color { get; set; }
-        public string MaterialName { get; set; }
-        public double? BelowPhreaticLevelMean { get; set; }
-        public double? BelowPhreaticLevelDeviation { get; set; }
-        public double? DiameterD70Mean { get; set; }
-        public double? DiameterD70CoefficientOfVariation { get; set; }
-        public double? BelowPhreaticLevelShift { get; set; }
-        public double? PermeabilityMean { get; set; }
-        public double? PermeabilityCoefficientOfVariation { get; set; }
-        public int Order { get; set; }
+        public long PipingCharacteristicPointEntityId { get; set; }
+        public long SurfaceLineEntityId { get; set; }
+        public byte Type { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
+        public double? Z { get; set; }
 
-        public virtual SoilProfileEntity SoilProfileEntity { get; set; }
+        public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
     }
 }

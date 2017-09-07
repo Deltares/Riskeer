@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;

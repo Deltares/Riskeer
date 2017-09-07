@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
 
             // Call
-            SoilLayerEntity entity = soilLayer.Create(order);
+            PipingSoilLayerEntity entity = soilLayer.Create(order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
 
             // Call
-            SoilLayerEntity entity = soilLayer.Create(0);
+            PipingSoilLayerEntity entity = soilLayer.Create(0);
 
             // Assert
             Assert.AreNotSame(materialName, entity.MaterialName,

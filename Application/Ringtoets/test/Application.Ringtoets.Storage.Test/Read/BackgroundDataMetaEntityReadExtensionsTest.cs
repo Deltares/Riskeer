@@ -33,11 +33,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         public void Read_EntityNull_ThrowArgumentNullException()
         {
-            // Setup
-            BackgroundDataMetaEntity entity = null;
-
             // Call
-            TestDelegate test = () => entity.Read();
+            TestDelegate test = () => ((BackgroundDataMetaEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

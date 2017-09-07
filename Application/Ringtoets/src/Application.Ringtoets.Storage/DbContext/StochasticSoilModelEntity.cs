@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StochasticSoilModelEntity()
         {
-            StochasticSoilProfileEntities = new HashSet<StochasticSoilProfileEntity>();
+            PipingStochasticSoilProfileEntities = new HashSet<PipingStochasticSoilProfileEntity>();
         }
 
         public long StochasticSoilModelEntityId { get; set; }
@@ -50,6 +50,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }
+        public virtual ICollection<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }
     }
 }

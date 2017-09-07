@@ -37,11 +37,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         [Test]
         public void Create_BackgroundDataNull_ThrowArgumentNullException()
         {
-            // Setup
-            BackgroundData backgroundData = null;
-
             // Call
-            TestDelegate test = () => backgroundData.Create();
+            TestDelegate test = () => ((BackgroundData) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

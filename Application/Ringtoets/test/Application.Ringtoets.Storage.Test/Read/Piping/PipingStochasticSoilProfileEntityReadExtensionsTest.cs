@@ -31,13 +31,13 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
     [TestFixture]
-    public class StochasticSoilProfileEntityReadExtensionsTest
+    public class PipingStochasticSoilProfileEntityReadExtensionsTest
     {
         [Test]
         public void Read_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new StochasticSoilProfileEntity();
+            var entity = new PipingStochasticSoilProfileEntity();
 
             // Call
             TestDelegate test = () => entity.Read(null);
@@ -53,16 +53,16 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var entity = new StochasticSoilProfileEntity
+            var entity = new PipingStochasticSoilProfileEntity
             {
                 Probability = probability,
-                SoilProfileEntity = new SoilProfileEntity
+                PipingSoilProfileEntity = new PipingSoilProfileEntity
                 {
                     Name = "StochasticSoilProfile",
                     SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
-                    SoilLayerEntities =
+                    PipingSoilLayerEntities =
                     {
-                        new SoilLayerEntity()
+                        new PipingSoilLayerEntity()
                     }
                 }
             };
@@ -83,24 +83,24 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var soilProfileEntity = new SoilProfileEntity
+            var soilProfileEntity = new PipingSoilProfileEntity
             {
                 Name = "StochasticSoilProfile",
                 SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
-                SoilLayerEntities =
+                PipingSoilLayerEntities =
                 {
-                    new SoilLayerEntity()
+                    new PipingSoilLayerEntity()
                 }
             };
-            var firstEntity = new StochasticSoilProfileEntity
+            var firstEntity = new PipingStochasticSoilProfileEntity
             {
                 Probability = probability,
-                SoilProfileEntity = soilProfileEntity
+                PipingSoilProfileEntity = soilProfileEntity
             };
-            var secondEntity = new StochasticSoilProfileEntity
+            var secondEntity = new PipingStochasticSoilProfileEntity
             {
                 Probability = 1 - probability,
-                SoilProfileEntity = soilProfileEntity
+                PipingSoilProfileEntity = soilProfileEntity
             };
             var collector = new ReadConversionCollector();
 
@@ -119,15 +119,15 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             // Setup
             var random = new Random(9);
-            var entity = new StochasticSoilProfileEntity
+            var entity = new PipingStochasticSoilProfileEntity
             {
-                SoilProfileEntity = new SoilProfileEntity
+                PipingSoilProfileEntity = new PipingSoilProfileEntity
                 {
                     Name = "StochasticSoilProfile",
                     SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
-                    SoilLayerEntities =
+                    PipingSoilLayerEntities =
                     {
-                        new SoilLayerEntity()
+                        new PipingSoilLayerEntity()
                     }
                 }
             };

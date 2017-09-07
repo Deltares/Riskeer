@@ -29,19 +29,19 @@ namespace Application.Ringtoets.Storage.Read.Piping
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingSoilProfile"/> based on the
-    /// <see cref="SoilProfileEntity"/>.
+    /// <see cref="PipingSoilProfileEntity"/>.
     /// </summary>
-    internal static class SoilProfileEntityReadExtensions
+    internal static class PipingSoilProfileEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SoilProfileEntity"/> and use the information to construct a <see cref="PipingSoilProfile"/>.
+        /// Reads the <see cref="PipingSoilProfileEntity"/> and use the information to construct a <see cref="PipingSoilProfile"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> to create <see cref="PipingSoilProfile"/> for.</param>
+        /// <param name="entity">The <see cref="PipingSoilProfileEntity"/> to create <see cref="PipingSoilProfile"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/> or one from the <paramref name="collector"/> if the 
-        /// <see cref="SoilProfileEntity"/> has been read before.</returns>
+        /// <see cref="PipingSoilProfileEntity"/> has been read before.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static PipingSoilProfile Read(this SoilProfileEntity entity, ReadConversionCollector collector)
+        internal static PipingSoilProfile Read(this PipingSoilProfileEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 return collector.Get(entity);
             }
-            IEnumerable<PipingSoilLayer> layers = entity.SoilLayerEntities.OrderBy(sl => sl.Order)
+            IEnumerable<PipingSoilLayer> layers = entity.PipingSoilLayerEntities.OrderBy(sl => sl.Order)
                                                         .Select(sl => sl.Read())
                                                         .ToArray();
             var pipingSoilProfile = new PipingSoilProfile(entity.Name,

@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             surfaceLine.SetGeometry(geometryPoints);
 
             var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();
-            foreach (CharacteristicPointEntity pointEntity in entity.CharacteristicPointEntities)
+            foreach (PipingCharacteristicPointEntity pointEntity in entity.PipingCharacteristicPointEntities)
             {
                 characteristicPoints[(CharacteristicPointType) pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
                                                                                                pointEntity.Y.ToNullAsNaN(),

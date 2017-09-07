@@ -103,10 +103,10 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 }
             }
 
-            if (entity.StochasticSoilProfileEntity != null)
+            if (entity.PipingStochasticSoilProfileEntity != null)
             {
-                inputParameters.StochasticSoilModel = entity.StochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);
-                inputParameters.StochasticSoilProfile = entity.StochasticSoilProfileEntity.Read(collector);
+                inputParameters.StochasticSoilModel = entity.PipingStochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);
+                inputParameters.StochasticSoilProfile = entity.PipingStochasticSoilProfileEntity.Read(collector);
             }
 
             inputParameters.EntryPointL = (RoundedDouble) entity.EntryPointL.ToNullAsNaN();

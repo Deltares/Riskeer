@@ -50,13 +50,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region StochasticSoilProfileEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutStochasticSoilProfileEntity_ThrowsArgumentNullException()
+        public void Contains_WithoutPipingStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((StochasticSoilProfileEntity) null);
+            TestDelegate test = () => collector.Contains((PipingStochasticSoilProfileEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -64,11 +64,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_StochasticSoilProfileEntityAdded_ReturnsTrue()
+        public void Contains_PipingStochasticSoilProfileEntityAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new StochasticSoilProfileEntity();
+            var entity = new PipingStochasticSoilProfileEntity();
             collector.Read(entity, new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
@@ -79,11 +79,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoStochasticSoilProfileEntityAdded_ReturnsFalse()
+        public void Contains_NoPipingStochasticSoilProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new StochasticSoilProfileEntity();
+            var entity = new PipingStochasticSoilProfileEntity();
 
             // Call
             bool result = collector.Contains(entity);
@@ -93,12 +93,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherStochasticSoilProfileEntityAdded_ReturnsFalse()
+        public void Contains_OtherPipingStochasticSoilProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new StochasticSoilProfileEntity();
-            collector.Read(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
+            var entity = new PipingStochasticSoilProfileEntity();
+            collector.Read(new PipingStochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
                                0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
@@ -109,13 +109,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutStochasticSoilProfileEntity_ThrowsArgumentNullException()
+        public void Get_WithoutPipingStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((StochasticSoilProfileEntity) null);
+            TestDelegate test = () => collector.Get((PipingStochasticSoilProfileEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -123,12 +123,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_StochasticSoilProfileEntityAdded_ReturnsReadStochasticSoilProfile()
+        public void Get_PipingStochasticSoilProfileEntityAdded_ReturnsReadStochasticSoilProfile()
         {
             // Setup
             var collector = new ReadConversionCollector();
             var profile = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var entity = new StochasticSoilProfileEntity();
+            var entity = new PipingStochasticSoilProfileEntity();
             collector.Read(entity, profile);
 
             // Call
@@ -139,11 +139,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_NoStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
+        public void Get_NoPipingStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new StochasticSoilProfileEntity();
+            var entity = new PipingStochasticSoilProfileEntity();
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -153,12 +153,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_OtherStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
+        public void Get_OtherPipingStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new StochasticSoilProfileEntity();
-            collector.Read(new StochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
+            var entity = new PipingStochasticSoilProfileEntity();
+            collector.Read(new PipingStochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
                                0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
 
             // Call
@@ -184,13 +184,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithNullStochasticSoilProfile_ThrowsArgumentNullException()
+        public void Read_WithNullPipingStochasticSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(new StochasticSoilProfileEntity(), null);
+            TestDelegate test = () => collector.Read(new PipingStochasticSoilProfileEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -202,13 +202,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region SoilProfileEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutEntity_ThrowsArgumentNullException()
+        public void Contains_WithoutPipingSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((SoilProfileEntity) null);
+            TestDelegate test = () => collector.Contains((PipingSoilProfileEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -216,11 +216,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_SoilProfileAdded_ReturnsTrue()
+        public void Contains_PipingSoilProfileAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new SoilProfileEntity();
+            var entity = new PipingSoilProfileEntity();
             collector.Read(entity, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
@@ -231,11 +231,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoSoilProfileAdded_ReturnsFalse()
+        public void Contains_NoPipingSoilProfileAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new SoilProfileEntity();
+            var entity = new PipingSoilProfileEntity();
 
             // Call
             bool result = collector.Contains(entity);
@@ -245,12 +245,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherSoilProfileEntityAdded_ReturnsFalse()
+        public void Contains_OtherPipingSoilProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new SoilProfileEntity();
-            collector.Read(new SoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            var entity = new PipingSoilProfileEntity();
+            collector.Read(new PipingSoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             bool result = collector.Contains(entity);
@@ -260,13 +260,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutSoilProfileEntity_ThrowsArgumentNullException()
+        public void Get_WithoutPipingSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((SoilProfileEntity) null);
+            TestDelegate test = () => collector.Get((PipingSoilProfileEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -274,12 +274,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_SoilProfileAdded_ReturnsEntity()
+        public void Get_PipingSoilProfileAdded_ReturnsEntity()
         {
             // Setup
             var collector = new ReadConversionCollector();
             PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var entity = new SoilProfileEntity();
+            var entity = new PipingSoilProfileEntity();
             collector.Read(entity, profile);
 
             // Call
@@ -290,11 +290,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_NoSoilProfileAdded_ThrowsInvalidOperationException()
+        public void Get_NoPipingSoilProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new SoilProfileEntity();
+            var entity = new PipingSoilProfileEntity();
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -304,12 +304,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_OtherSoilProfileAdded_ThrowsInvalidOperationException()
+        public void Get_OtherPipingSoilProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var entity = new SoilProfileEntity();
-            collector.Read(new SoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            var entity = new PipingSoilProfileEntity();
+            collector.Read(new PipingSoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -319,7 +319,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithNullSoilProfileEntity_ThrowsArgumentNullException()
+        public void Read_WithNullPipingSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -333,13 +333,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithNullProfileEntity_ThrowsArgumentNullException()
+        public void Read_WithNullPipingSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(new SoilProfileEntity(), null);
+            TestDelegate test = () => collector.Read(new PipingSoilProfileEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

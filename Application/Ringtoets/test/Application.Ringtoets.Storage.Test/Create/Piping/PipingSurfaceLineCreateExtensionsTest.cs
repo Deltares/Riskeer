@@ -176,8 +176,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
-            Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
-            foreach (CharacteristicPointEntity characteristicPointEntity in entity.CharacteristicPointEntities)
+            Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);
+            foreach (PipingCharacteristicPointEntity characteristicPointEntity in entity.PipingCharacteristicPointEntities)
             {
                 switch (characteristicPointEntity.Type)
                 {
@@ -254,8 +254,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
-            Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
-            byte[] characteristicPointTypeValues = entity.CharacteristicPointEntities
+            Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);
+            byte[] characteristicPointTypeValues = entity.PipingCharacteristicPointEntities
                                                          .Select(cpe => cpe.Type)
                                                          .ToArray();
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DikeToeAtRiver);

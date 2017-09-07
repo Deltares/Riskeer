@@ -27,19 +27,20 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingSoilProfile"/> related to creating a <see cref="SoilProfileEntity"/>.
+    /// Extension methods for <see cref="PipingSoilProfile"/> related to creating a <see cref="PipingSoilProfileEntity"/>.
     /// </summary>
     internal static class PipingSoilProfileCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="SoilProfileEntity"/> based on the information of the <see cref="PipingSoilProfile"/>.
+        /// Creates a <see cref="PipingSoilProfileEntity"/> based on the information of the <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="profile">The profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="SoilProfileEntity"/> or one from the <paramref name="registry"/> if it
-        /// was created for the <see cref="profile"/> earlier.</returns>
+        /// <returns>A new <see cref="PipingSoilProfileEntity"/> or one from the <paramref name="registry"/>
+        /// if it was created for the <see cref="profile"/> earlier.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static SoilProfileEntity Create(this PipingSoilProfile profile, PersistenceRegistry registry)
+        internal static PipingSoilProfileEntity Create(this PipingSoilProfile profile,
+                                                       PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -50,7 +51,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 return registry.Get(profile);
             }
-            var entity = new SoilProfileEntity
+            var entity = new PipingSoilProfileEntity
             {
                 Name = profile.Name.DeepClone(),
                 Bottom = profile.Bottom.ToNaNAsNull()
@@ -62,12 +63,13 @@ namespace Application.Ringtoets.Storage.Create.Piping
             return entity;
         }
 
-        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, SoilProfileEntity entity)
+        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile,
+                                                           PipingSoilProfileEntity entity)
         {
             var index = 0;
             foreach (PipingSoilLayer pipingSoilLayer in profile.Layers)
             {
-                entity.SoilLayerEntities.Add(pipingSoilLayer.Create(index++));
+                entity.PipingSoilLayerEntities.Add(pipingSoilLayer.Create(index++));
             }
         }
     }

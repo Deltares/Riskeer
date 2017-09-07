@@ -31,13 +31,13 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
     [TestFixture]
-    public class SoilProfileEntityReadExtensionsTest
+    public class PipingSoilProfileEntityReadExtensionsTest
     {
         [Test]
         public void Read_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new SoilProfileEntity();
+            var entity = new PipingSoilProfileEntity();
 
             // Call
             TestDelegate test = () => entity.Read(null);
@@ -55,20 +55,20 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var random = new Random(21);
             double bottom = random.NextDouble();
             var sourceType = random.NextEnumValue<SoilProfileType>();
-            var entity = new SoilProfileEntity
+            var entity = new PipingSoilProfileEntity
             {
                 Name = testName,
                 Bottom = bottom,
                 SourceType = (byte) sourceType,
-                SoilLayerEntities =
+                PipingSoilLayerEntities =
                 {
-                    new SoilLayerEntity
+                    new PipingSoilLayerEntity
                     {
                         Top = bottom + 0.5,
                         MaterialName = "A",
                         Order = 1
                     },
-                    new SoilLayerEntity
+                    new PipingSoilLayerEntity
                     {
                         Top = bottom + 1.2,
                         MaterialName = "B",
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             // Setup
             var random = new Random(21);
-            var entity = new SoilProfileEntity
+            var entity = new PipingSoilProfileEntity
             {
                 Name = "Name",
                 Bottom = random.NextDouble(),
@@ -122,18 +122,18 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const string testName = "testName";
             var random = new Random(21);
             double bottom = random.NextDouble();
-            var entity = new SoilProfileEntity
+            var entity = new PipingSoilProfileEntity
             {
                 Name = testName,
                 Bottom = bottom,
                 SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
-                SoilLayerEntities =
+                PipingSoilLayerEntities =
                 {
-                    new SoilLayerEntity
+                    new PipingSoilLayerEntity
                     {
                         Top = bottom + 0.5
                     },
-                    new SoilLayerEntity
+                    new PipingSoilLayerEntity
                     {
                         Top = bottom + 1.2
                     }

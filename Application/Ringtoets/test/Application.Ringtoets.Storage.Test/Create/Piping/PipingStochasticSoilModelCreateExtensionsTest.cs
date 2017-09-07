@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithCollector_ReturnsStochasticSoilModelEntityWithPropertiesSet()
+        public void Create_WithCollector_ReturnsPipingStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
             int order = new Random(1).Next();
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(order, entity.Order);
-            CollectionAssert.IsEmpty(entity.StochasticSoilProfileEntities);
+            CollectionAssert.IsEmpty(entity.PipingStochasticSoilProfileEntities);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesAndStochasticSoilProfileEntitiesSet()
+        public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesAndPipingStochasticSoilProfileEntitiesSet()
         {
             // Setup
             var stochasticSoilModel = new PipingStochasticSoilModel("testName")
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.StochasticSoilProfileEntities.Count);
+            Assert.AreEqual(2, entity.PipingStochasticSoilProfileEntities.Count);
         }
 
         [Test]

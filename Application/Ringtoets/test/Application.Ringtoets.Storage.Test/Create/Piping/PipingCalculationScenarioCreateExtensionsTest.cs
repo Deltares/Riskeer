@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNull(entity.CalculationGroupEntity);
 
             Assert.IsNull(entity.SurfaceLineEntity);
-            Assert.IsNull(entity.StochasticSoilProfileEntity);
+            Assert.IsNull(entity.PipingStochasticSoilProfileEntity);
             Assert.IsNull(entity.HydraulicLocationEntityId);
         }
 
@@ -262,8 +262,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            StochasticSoilProfileEntity expectedStochasticSoilProfileEntity = soilModelEntity.StochasticSoilProfileEntities.First();
-            Assert.AreSame(expectedStochasticSoilProfileEntity, entity.StochasticSoilProfileEntity);
+            PipingStochasticSoilProfileEntity expectedStochasticSoilProfileEntity = soilModelEntity.PipingStochasticSoilProfileEntities.First();
+            Assert.AreSame(expectedStochasticSoilProfileEntity, entity.PipingStochasticSoilProfileEntity);
             Assert.IsTrue(registry.Contains(soilModel));
         }
 

@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithCollector_ReturnsStochasticSoilProfileEntityWithPropertiesSet()
+        public void Create_WithCollector_ReturnsPipingStochasticSoilProfileEntityWithPropertiesSet()
         {
             // Setup
             var random = new Random(21);
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            StochasticSoilProfileEntity entity = stochasticSoilProfile.Create(registry, order);
+            PipingStochasticSoilProfileEntity entity = stochasticSoilProfile.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_DifferentStochasticSoilProfilesWithSamePipingSoilProfile_ReturnsStochasticSoilProfileEntityWithSameSoilProfileEntitySet()
+        public void Create_DifferentStochasticSoilProfilesWithSamePipingSoilProfile_ReturnsPipingStochasticSoilProfileEntityWithSameSoilProfileEntitySet()
         {
             // Setup
             PipingSoilProfile testPipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
@@ -76,15 +76,15 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            StochasticSoilProfileEntity firstEntity = firstStochasticSoilProfile.Create(registry, 0);
-            StochasticSoilProfileEntity secondEntity = secondStochasticSoilProfile.Create(registry, 0);
+            PipingStochasticSoilProfileEntity firstEntity = firstStochasticSoilProfile.Create(registry, 0);
+            PipingStochasticSoilProfileEntity secondEntity = secondStochasticSoilProfile.Create(registry, 0);
 
             // Assert
-            Assert.AreSame(firstEntity.SoilProfileEntity, secondEntity.SoilProfileEntity);
+            Assert.AreSame(firstEntity.PipingSoilProfileEntity, secondEntity.PipingSoilProfileEntity);
         }
 
         [Test]
-        public void Create_SameStochasticSoilProfileMultipleTimes_ReturnSameEntity()
+        public void Create_SamePipingStochasticSoilProfileMultipleTimes_ReturnSameEntity()
         {
             // Setup
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
@@ -92,8 +92,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            StochasticSoilProfileEntity entity1 = stochasticSoilProfile.Create(registry, 0);
-            StochasticSoilProfileEntity entity2 = stochasticSoilProfile.Create(registry, 0);
+            PipingStochasticSoilProfileEntity entity1 = stochasticSoilProfile.Create(registry, 0);
+            PipingStochasticSoilProfileEntity entity2 = stochasticSoilProfile.Create(registry, 0);
 
             // Assert
             Assert.AreSame(entity1, entity2);

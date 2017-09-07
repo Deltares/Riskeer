@@ -27,27 +27,27 @@ namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingStochasticSoilProfile"/> related to creating
-    /// a <see cref="StochasticSoilProfileEntity"/>.
+    /// a <see cref="PipingStochasticSoilProfileEntity"/>.
     /// </summary>
     internal static class PipingStochasticSoilProfileCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StochasticSoilProfileEntity"/> based on the information of the 
+        /// Creates a <see cref="PipingStochasticSoilProfileEntity"/> based on the information of the 
         /// <see cref="PipingStochasticSoilProfile"/>.
         /// </summary>
         /// <param name="profile">The profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>A new <see cref="StochasticSoilProfileEntity"/>.</returns>
+        /// <returns>A new <see cref="PipingStochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StochasticSoilProfileEntity Create(this PipingStochasticSoilProfile profile,
-                                                           PersistenceRegistry registry,
-                                                           int order)
+        internal static PipingStochasticSoilProfileEntity Create(this PipingStochasticSoilProfile profile,
+                                                                 PersistenceRegistry registry,
+                                                                 int order)
         {
-            var entity = new StochasticSoilProfileEntity
+            var entity = new PipingStochasticSoilProfileEntity
             {
                 Probability = profile.Probability,
-                SoilProfileEntity = profile.SoilProfile.Create(registry),
+                PipingSoilProfileEntity = profile.SoilProfile.Create(registry),
                 Order = order
             };
             if (registry.Contains(profile))

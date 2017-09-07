@@ -36,11 +36,8 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         [Test]
         public void Create_NullInput_ThrowsArgumentNullException()
         {
-            // Setup
-            GeneralDuneErosionInput generalinput = null;
-
             // Call
-            TestDelegate call = () => generalinput.Create();
+            TestDelegate call = () => ((GeneralDuneErosionInput) null).Create();
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

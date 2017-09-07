@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
-        public virtual StochasticSoilProfileEntity StochasticSoilProfileEntity { get; set; }
+        public virtual PipingStochasticSoilProfileEntity PipingStochasticSoilProfileEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }

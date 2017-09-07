@@ -229,10 +229,10 @@
     <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingSemiProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\PipingStructures\PipingStructureSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\SoilLayerEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\SoilProfileEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingSoilLayerEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingStochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />

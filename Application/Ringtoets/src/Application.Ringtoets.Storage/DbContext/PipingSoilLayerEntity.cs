@@ -28,29 +28,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class StochasticSoilProfileEntity
+    public class PipingSoilLayerEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StochasticSoilProfileEntity()
-        {
-            PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
-        }
-
-        public long StochasticSoilProfileEntityId { get; set; }
-        public long SoilProfileEntityId { get; set; }
-        public long StochasticSoilModelEntityId { get; set; }
-        public double Probability { get; set; }
+        public long PipingSoilLayerEntityId { get; set; }
+        public long PipingSoilProfileEntityId { get; set; }
+        public double? Top { get; set; }
+        public byte IsAquifer { get; set; }
+        public long Color { get; set; }
+        public string MaterialName { get; set; }
+        public double? BelowPhreaticLevelMean { get; set; }
+        public double? BelowPhreaticLevelDeviation { get; set; }
+        public double? DiameterD70Mean { get; set; }
+        public double? DiameterD70CoefficientOfVariation { get; set; }
+        public double? BelowPhreaticLevelShift { get; set; }
+        public double? PermeabilityMean { get; set; }
+        public double? PermeabilityCoefficientOfVariation { get; set; }
         public int Order { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
-
-        public virtual SoilProfileEntity SoilProfileEntity { get; set; }
-        public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
+        public virtual PipingSoilProfileEntity PipingSoilProfileEntity { get; set; }
     }
 }

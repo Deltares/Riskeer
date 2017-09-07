@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.DbContext
             BackgroundDataEntities.Load();
             BackgroundDataMetaEntities.Load();
             CalculationGroupEntities.Load();
-            CharacteristicPointEntities.Load();
             ClosingStructureEntities.Load();
             ClosingStructuresCalculationEntities.Load();
             ClosingStructuresFailureMechanismMetaEntities.Load();
@@ -89,12 +88,14 @@ namespace Application.Ringtoets.Storage.DbContext
             ProjectEntities.Load();
             PipingCalculationEntities.Load();
             PipingCalculationOutputEntities.Load();
+            PipingCharacteristicPointEntities.Load();
             PipingFailureMechanismMetaEntities.Load();
             PipingSectionResultEntities.Load();
             PipingSemiProbabilisticOutputEntities.Load();
+            PipingSoilLayerEntities.Load();
+            PipingSoilProfileEntities.Load();
             PipingStructureSectionResultEntities.Load();
-            SoilLayerEntities.Load();
-            SoilProfileEntities.Load();
+            PipingStochasticSoilProfileEntities.Load();
             StabilityPointStructureEntities.Load();
             StabilityPointStructuresCalculationEntities.Load();
             StabilityPointStructuresFailureMechanismMetaEntities.Load();
@@ -105,7 +106,6 @@ namespace Application.Ringtoets.Storage.DbContext
             StabilityStoneCoverWaveConditionsCalculationEntities.Load();
             StabilityStoneCoverWaveConditionsOutputEntities.Load();
             StochasticSoilModelEntities.Load();
-            StochasticSoilProfileEntities.Load();
             StrengthStabilityLengthwiseConstructionSectionResultEntities.Load();
             SurfaceLineEntities.Load();
             TechnicalInnovationSectionResultEntities.Load();

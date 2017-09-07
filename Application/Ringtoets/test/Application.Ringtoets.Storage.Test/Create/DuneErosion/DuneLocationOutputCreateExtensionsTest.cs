@@ -37,11 +37,8 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         [Test]
         public void Create_DuneLocationOutputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            DuneLocationOutput duneLocationOutput = null;
-
             // Call
-            TestDelegate call = () => duneLocationOutput.Create();
+            TestDelegate call = () => ((DuneLocationOutput) null).Create();
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

@@ -61,11 +61,11 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<StochasticSoilModelEntity, PipingStochasticSoilModel> pipingStochasticSoilModels =
             CreateDictionary<StochasticSoilModelEntity, PipingStochasticSoilModel>();
 
-        private readonly Dictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile> pipingStochasticSoilProfiles =
-            CreateDictionary<StochasticSoilProfileEntity, PipingStochasticSoilProfile>();
+        private readonly Dictionary<PipingStochasticSoilProfileEntity, PipingStochasticSoilProfile> pipingStochasticSoilProfiles =
+            CreateDictionary<PipingStochasticSoilProfileEntity, PipingStochasticSoilProfile>();
 
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
-            CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
+        private readonly Dictionary<PipingSoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
+            CreateDictionary<PipingSoilProfileEntity, PipingSoilProfile>();
 
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
@@ -143,11 +143,7 @@ namespace Application.Ringtoets.Storage.Create
         /// to be registered.</param>
         /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to
         /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
         {
             Register(grassCoverErosionInwardsCalculations, entity, model);
@@ -159,11 +155,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
         {
             Register(failureMechanismSections, entity, model);
@@ -175,11 +167,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="DikeProfileEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="DikeProfile"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(DikeProfileEntity entity, DikeProfile model)
         {
             Register(dikeProfiles, entity, model);
@@ -191,11 +179,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="ForeshoreProfileEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="ForeshoreProfile"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(ForeshoreProfileEntity entity, ForeshoreProfile model)
         {
             Register(foreshoreProfiles, entity, model);
@@ -207,11 +191,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             Register(hydraulicLocations, entity, model);
@@ -223,11 +203,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             Register(hydraulicLocations, entity, model);
@@ -239,11 +215,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="DuneLocationEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="DuneLocation"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(DuneLocationEntity entity, DuneLocation model)
         {
             Register(duneLocations, entity, model);
@@ -255,11 +227,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="PipingStochasticSoilModel"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(StochasticSoilModelEntity entity, PipingStochasticSoilModel model)
         {
             Register(pipingStochasticSoilModels, entity, model);
@@ -269,14 +237,10 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to be registered.</param>
+        /// <param name="entity">The <see cref="PipingStochasticSoilProfileEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        internal void Register(StochasticSoilProfileEntity entity, PipingStochasticSoilProfile model)
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
+        internal void Register(PipingStochasticSoilProfileEntity entity, PipingStochasticSoilProfile model)
         {
             Register(pipingStochasticSoilProfiles, entity, model);
         }
@@ -285,14 +249,10 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilProfileEntity"/> to be registered.</param>
+        /// <param name="entity">The <see cref="PipingSoilProfileEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="PipingSoilProfile"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        internal void Register(SoilProfileEntity entity, PipingSoilProfile model)
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
+        internal void Register(PipingSoilProfileEntity entity, PipingSoilProfile model)
         {
             Register(pipingSoilProfiles, entity, model);
         }
@@ -303,11 +263,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="PipingSurfaceLine"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(SurfaceLineEntity entity, PipingSurfaceLine model)
         {
             Register(surfaceLines, entity, model);
@@ -319,11 +275,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="HeightStructureEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="HeightStructure"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(HeightStructureEntity entity, HeightStructure model)
         {
             Register(heightStructures, entity, model);
@@ -335,11 +287,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructureEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="ClosingStructure"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(ClosingStructureEntity entity, ClosingStructure model)
         {
             Register(closingStructures, entity, model);
@@ -351,11 +299,7 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructureEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="StabilityPointStructure"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
         internal void Register(StabilityPointStructureEntity entity, StabilityPointStructure model)
         {
             Register(stabilityPointStructures, entity, model);
@@ -622,27 +566,27 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
-        /// Obtains the <see cref="StochasticSoilProfileEntity"/> which was registered for
+        /// Obtains the <see cref="PipingStochasticSoilProfileEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="PipingStochasticSoilProfile"/> for which a create
         /// operation has been registered.</param>
-        /// <returns>The created <see cref="StochasticSoilProfileEntity"/>.</returns>
+        /// <returns>The created <see cref="PipingStochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(PipingStochasticSoilProfile)"/> to find out whether
         /// a create/create operation has been registered for <paramref name="model"/>.</remarks>
-        internal StochasticSoilProfileEntity Get(PipingStochasticSoilProfile model)
+        internal PipingStochasticSoilProfileEntity Get(PipingStochasticSoilProfile model)
         {
             return Get(pipingStochasticSoilProfiles, model);
         }
 
         /// <summary>
-        /// Obtains the <see cref="SoilProfileEntity"/> which was registered for the given
+        /// Obtains the <see cref="PipingSoilProfileEntity"/> which was registered for the given
         /// <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="SoilProfileEntity"/> for which a create
+        /// <param name="model">The <see cref="PipingSoilProfileEntity"/> for which a create
         /// operation has been registered.</param>
         /// <returns>The constructed <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
@@ -650,7 +594,7 @@ namespace Application.Ringtoets.Storage.Create
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(PipingSoilProfile)"/> to find out whether a
         /// create operation has been registered for <paramref name="model"/>.</remarks>
-        internal SoilProfileEntity Get(PipingSoilProfile model)
+        internal PipingSoilProfileEntity Get(PipingSoilProfile model)
         {
             return Get(pipingSoilProfiles, model);
         }

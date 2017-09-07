@@ -33,24 +33,24 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class SoilProfileEntity
+    public class PipingStochasticSoilProfileEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SoilProfileEntity()
+        public PipingStochasticSoilProfileEntity()
         {
-            SoilLayerEntities = new HashSet<SoilLayerEntity>();
-            StochasticSoilProfileEntities = new HashSet<StochasticSoilProfileEntity>();
+            PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
         }
 
-        public long SoilProfileEntityId { get; set; }
-        public double? Bottom { get; set; }
-        public string Name { get; set; }
-        public byte SourceType { get; set; }
+        public long PipingStochasticSoilProfileEntityId { get; set; }
+        public long PipingSoilProfileEntityId { get; set; }
+        public long StochasticSoilModelEntityId { get; set; }
+        public double Probability { get; set; }
+        public int Order { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SoilLayerEntity> SoilLayerEntities { get; set; }
+        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }
+        public virtual PipingSoilProfileEntity PipingSoilProfileEntity { get; set; }
+        public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
     }
 }

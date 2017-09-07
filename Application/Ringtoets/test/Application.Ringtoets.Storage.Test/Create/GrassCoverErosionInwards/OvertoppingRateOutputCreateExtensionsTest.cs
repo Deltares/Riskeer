@@ -38,11 +38,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         [Test]
         public void Create_OutputNull_ThrowArgumentNullException()
         {
-            // Setup
-            OvertoppingRateOutput output = null;
-
             // Call
-            TestDelegate test = () => output.Create();
+            TestDelegate test = () => ((OvertoppingRateOutput) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

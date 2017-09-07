@@ -28,16 +28,16 @@ namespace Application.Ringtoets.Storage.Read.Piping
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingSoilLayer"/> based on the
-    /// <see cref="SoilLayerEntity"/>.
+    /// <see cref="PipingSoilLayerEntity"/>.
     /// </summary>
-    internal static class SoilLayerEntityReadExtensions
+    internal static class PipingSoilLayerEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SoilLayerEntity"/> and use the information to construct a <see cref="PipingSoilLayer"/>.
+        /// Reads the <see cref="PipingSoilLayerEntity"/> and use the information to construct a <see cref="PipingSoilLayer"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SoilLayerEntity"/> to create <see cref="PipingSoilLayer"/> for.</param>
+        /// <param name="entity">The <see cref="PipingSoilLayerEntity"/> to create <see cref="PipingSoilLayer"/> for.</param>
         /// <returns>A new <see cref="PipingSoilLayer"/>.</returns>
-        internal static PipingSoilLayer Read(this SoilLayerEntity entity)
+        internal static PipingSoilLayer Read(this PipingSoilLayerEntity entity)
         {
             var pipingSoilLayer = new PipingSoilLayer(entity.Top.ToNullAsNaN())
             {

@@ -39,7 +39,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<BackgroundDataEntity> BackgroundDataEntities { get; set; }
         public virtual DbSet<BackgroundDataMetaEntity> BackgroundDataMetaEntities { get; set; }
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
-        public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
         public virtual DbSet<ClosingStructureEntity> ClosingStructureEntities { get; set; }
         public virtual DbSet<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
         public virtual DbSet<ClosingStructuresFailureMechanismMetaEntity> ClosingStructuresFailureMechanismMetaEntities { get; set; }
@@ -83,13 +82,15 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         public virtual DbSet<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
+        public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
         public virtual DbSet<PipingSemiProbabilisticOutputEntity> PipingSemiProbabilisticOutputEntities { get; set; }
+        public virtual DbSet<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
+        public virtual DbSet<PipingSoilProfileEntity> PipingSoilProfileEntities { get; set; }
+        public virtual DbSet<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }
         public virtual DbSet<PipingStructureSectionResultEntity> PipingStructureSectionResultEntities { get; set; }
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
-        public virtual DbSet<SoilLayerEntity> SoilLayerEntities { get; set; }
-        public virtual DbSet<SoilProfileEntity> SoilProfileEntities { get; set; }
         public virtual DbSet<StabilityPointStructureEntity> StabilityPointStructureEntities { get; set; }
         public virtual DbSet<StabilityPointStructuresCalculationEntity> StabilityPointStructuresCalculationEntities { get; set; }
         public virtual DbSet<StabilityPointStructuresFailureMechanismMetaEntity> StabilityPointStructuresFailureMechanismMetaEntities { get; set; }
@@ -101,7 +102,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<StabilityStoneCoverWaveConditionsOutputEntity> StabilityStoneCoverWaveConditionsOutputEntities { get; set; }
         public virtual DbSet<StochastEntity> StochastEntities { get; set; }
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
-        public virtual DbSet<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }
         public virtual DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
         public virtual DbSet<SubMechanismIllustrationPointEntity> SubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }

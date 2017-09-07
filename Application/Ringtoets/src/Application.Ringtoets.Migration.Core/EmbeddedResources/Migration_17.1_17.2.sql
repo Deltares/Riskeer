@@ -321,7 +321,21 @@ FROM
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
-INSERT INTO CharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].CharacteristicPointEntity;
+INSERT INTO PipingCharacteristicPointEntity (
+	[PipingCharacteristicPointEntityId],
+	[SurfaceLineEntityId],
+	[Type],
+	[X],
+	[Y],
+	[Z])
+SELECT
+	[CharacteristicPointEntityId],
+	[SurfaceLineEntityId],
+	[Type],
+	[X],
+	[Y],
+	[Z]
+	FROM [SOURCEPROJECT].CharacteristicPointEntity;
 INSERT INTO ClosingStructureEntity (
 	[ClosingStructureEntityId],
 	[FailureMechanismEntityId],
@@ -1096,9 +1110,39 @@ SELECT
 INSERT INTO PipingSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].PipingSemiProbabilisticOutputEntity;
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
-INSERT INTO SoilLayerEntity SELECT * FROM [SOURCEPROJECT].SoilLayerEntity;
-INSERT INTO SoilProfileEntity(
+INSERT INTO PipingSoilLayerEntity(
+	[PipingSoilLayerEntityId],
+	[PipingSoilProfileEntityId],
+	[Top],
+	[IsAquifer],
+	[Color],
+	[MaterialName],
+	[BelowPhreaticLevelMean],
+	[BelowPhreaticLevelDeviation],
+	[DiameterD70Mean],
+	[DiameterD70CoefficientOfVariation],
+	[BelowPhreaticLevelShift],
+	[PermeabilityMean],
+	[PermeabilityCoefficientOfVariation],
+	[Order])
+SELECT 
+	[SoilLayerEntityId],
 	[SoilProfileEntityId],
+	[Top],
+	[IsAquifer],
+	[Color],
+	[MaterialName],
+	[BelowPhreaticLevelMean],
+	[BelowPhreaticLevelDeviation],
+	[DiameterD70Mean],
+	[DiameterD70CoefficientOfVariation],
+	[BelowPhreaticLevelShift],
+	[PermeabilityMean],
+	[PermeabilityCoefficientOfVariation],
+	[Order]
+	FROM [SOURCEPROJECT].SoilLayerEntity;
+INSERT INTO PipingSoilProfileEntity(
+	[PipingSoilProfileEntityId],
 	[Bottom],
 	[Name],
 	[SourceType])
@@ -1117,7 +1161,7 @@ SELECT
 		WHERE SSP.SoilProfileEntityId IS SP.SoilProfileEntityId
 		LIMIT 1
 	) AS [SourceType]
-FROM [SOURCEPROJECT].SoilProfileEntity SP;
+	FROM [SOURCEPROJECT].SoilProfileEntity SP;
 INSERT INTO StabilityPointStructureEntity (
 	[StabilityPointStructureEntityId],
 	[FailureMechanismEntityId],
@@ -1421,8 +1465,7 @@ INSERT INTO StabilityPointStructuresSectionResultEntity(
 	[FailureMechanismSectionEntityId],
 	[StabilityPointStructuresCalculationEntityId],
 	[LayerOne],
-	[LayerThree]
-)
+	[LayerThree])
 SELECT 
 	[StabilityPointStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
@@ -1465,9 +1508,9 @@ SELECT
 	[StochasticSoilModelSegmentPointXml],
 	[Order]
 	FROM [SOURCEPROJECT].StochasticSoilModelEntity;
-INSERT INTO StochasticSoilProfileEntity(
-	[StochasticSoilProfileEntityId],
-	[SoilProfileEntityId],
+INSERT INTO PipingStochasticSoilProfileEntity(
+	[PipingStochasticSoilProfileEntityId],
+	[PipingSoilProfileEntityId],
 	[StochasticSoilModelEntityId],
 	[Probability],
 	[Order])

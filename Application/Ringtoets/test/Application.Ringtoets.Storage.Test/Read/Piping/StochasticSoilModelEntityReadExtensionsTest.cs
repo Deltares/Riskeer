@@ -90,34 +90,34 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollectorWithStochasticSoilProfiles_ReturnsNewStochasticSoilModelWithStochasticSoilProfiles()
+        public void Read_WithCollectorWithPipingStochasticSoilProfiles_ReturnsNewStochasticSoilModelWithPipingStochasticSoilProfiles()
         {
             // Setup
             var entity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
-                StochasticSoilProfileEntities =
+                PipingStochasticSoilProfileEntities =
                 {
-                    new StochasticSoilProfileEntity
+                    new PipingStochasticSoilProfileEntity
                     {
-                        SoilProfileEntity = new SoilProfileEntity
+                        PipingSoilProfileEntity = new PipingSoilProfileEntity
                         {
-                            SoilLayerEntities =
+                            PipingSoilLayerEntities =
                             {
-                                new SoilLayerEntity()
+                                new PipingSoilLayerEntity()
                             },
                             Name = "A"
                         },
                         Order = 1
                     },
-                    new StochasticSoilProfileEntity
+                    new PipingStochasticSoilProfileEntity
                     {
-                        SoilProfileEntity = new SoilProfileEntity
+                        PipingSoilProfileEntity = new PipingSoilProfileEntity
                         {
-                            SoilLayerEntities =
+                            PipingSoilLayerEntities =
                             {
-                                new SoilLayerEntity()
+                                new PipingSoilLayerEntity()
                             },
                             Name = "B"
                         },

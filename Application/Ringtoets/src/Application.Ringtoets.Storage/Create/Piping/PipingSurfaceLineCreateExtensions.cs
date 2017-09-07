@@ -82,15 +82,15 @@ namespace Application.Ringtoets.Storage.Create.Piping
             };
             foreach (Tuple<Point3D, CharacteristicPointType> characteristicPointToSave in characteristicPointAssociations.Where(t => t.Item1 != null))
             {
-                CharacteristicPointEntity characteristicPointEntity = CreateCharacteristicPointEntity(characteristicPointToSave.Item1,
-                                                                                                      characteristicPointToSave.Item2);
-                entity.CharacteristicPointEntities.Add(characteristicPointEntity);
+                PipingCharacteristicPointEntity characteristicPointEntity = CreateCharacteristicPointEntity(characteristicPointToSave.Item1,
+                                                                                                            characteristicPointToSave.Item2);
+                entity.PipingCharacteristicPointEntities.Add(characteristicPointEntity);
             }
         }
 
-        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
+        private static PipingCharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
         {
-            var entity = new CharacteristicPointEntity
+            var entity = new PipingCharacteristicPointEntity
             {
                 Type = (byte) type,
                 X = point.X.ToNaNAsNull(),
