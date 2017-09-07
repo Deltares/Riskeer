@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Properties;
@@ -47,7 +46,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="StochasticSoilProfile"/>
         /// is invalid.</exception>
-        public static IEnumerable<StochasticSoilProfile> GetValidatedStochasticProfilesToTransform(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles, string soilModelName)
+        public static IEnumerable<StochasticSoilProfile> GetValidatedStochasticSoilProfilesToTransform(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
+                                                                                                   string soilModelName)
         {
             if (stochasticSoilProfiles == null)
             {

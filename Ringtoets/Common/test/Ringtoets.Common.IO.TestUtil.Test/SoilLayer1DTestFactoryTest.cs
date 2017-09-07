@@ -28,10 +28,10 @@ namespace Ringtoets.Common.IO.TestUtil.Test
     public class SoilLayer1DTestFactoryTest
     {
         [Test]
-        public void CreateSoilLayer1DForTransforming_ParameterLess_ReturnsExpectedProperties()
+        public void CreateSoilLayer1DWithValidAquifer_ParameterLess_ReturnsExpectedProperties()
         {
             // Call
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
 
             // Assert
             Assert.AreEqual(3.14, layer.Top);
@@ -39,14 +39,14 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer1DForTransforming_WithTop_ReturnsExpectedProperties()
+        public void CreateSoilLayer1DWithValidAquifer_WithTop_ReturnsExpectedProperties()
         {
             // Setup
             var random = new Random(21);
             double top = random.NextDouble();
 
             // Call
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming(top);
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top);
 
             // Assert
             Assert.AreEqual(top, layer.Top);

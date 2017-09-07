@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_ValidUsePopValue_ReturnMacroStabilityInwardSoilLayer1D(double? usePop, bool transformedUsePopValue)
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.UsePop = usePop;
 
             // Call
@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidUsePopValue_ThrowsImportedDataTransformationException()
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.UsePop = 1;
 
             // Call
@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                                             MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.ShearStrengthModel = sheartStrengthModel;
 
             // Call
@@ -184,7 +184,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidShearStrengthModelValue_ThrowsImportedDataTransformException()
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.ShearStrengthModel = 2;
 
             // Call
@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_ValidIsAquifer_ReturnsMacroStabilityInwardsSoilLayer1D(double isAquifer, bool transformedIsAquifer)
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.IsAquifer = isAquifer;
 
             // Call
@@ -218,7 +218,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_InvalidIsAquifer_ThrowsImportedDataException(double? isAquifer)
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.IsAquifer = isAquifer;
 
             // Call
@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer1DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer1D(double? color, Color transformedColor)
         {
             // Setup
-            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming();
+            SoilLayer1D layer = SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer();
             layer.Color = color;
 
             // Call
@@ -365,7 +365,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_ValidUsePopValue_ReturnMacroStabilityInwardSoilLayer2D(double? usePop, bool transformedUsePopValue)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
             layer.UsePop = usePop;
 
             // Call
@@ -379,7 +379,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_InvalidUsePopValue_ReturnMacroStabilityInwardSoilLayer2D()
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
             layer.UsePop = 1;
 
             // Call
@@ -399,7 +399,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                                                                                             MacroStabilityInwardsShearStrengthModel transformedShearStrengthModel)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
             layer.ShearStrengthModel = sheartStrengthModel;
 
             // Call
@@ -430,7 +430,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_ValidIsAquifer_ReturnsMacroStabilityInwardsSoilLayer2D(double isAquifer, bool transformedIsAquifer)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
             layer.IsAquifer = isAquifer;
 
             // Call
@@ -447,7 +447,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_InvalidIsAquifer_ThrowsImportedDataException(double? isAquifer)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
             layer.IsAquifer = isAquifer;
 
             // Call
@@ -463,7 +463,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_ValidColors_ReturnsMacroStabilityInwardsSoilLayer2D(double? color, Color transformedColor)
         {
             // Setup
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
             layer.Color = color;
 
             // Call

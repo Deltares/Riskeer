@@ -892,7 +892,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution" xml:space="preserve">
     <value>Parameter '{0}' is niet verschoven lognormaal verdeeld.</value>
   </data>
-  <data name="SoilLayerProperties_IsAquifer_Description" xml:space="preserve">
+  <data name="SoilLayerProperties_IsAquifer_Name" xml:space="preserve">
     <value>Is aquifer</value>
   </data>
   <data name="Convert_Invalid_value_ParameterName_0" xml:space="preserve">

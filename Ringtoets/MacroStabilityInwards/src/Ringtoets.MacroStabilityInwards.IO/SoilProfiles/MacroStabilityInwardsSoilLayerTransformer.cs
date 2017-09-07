@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.UsePop = TransformUsePop(soilLayer.UsePop);
 
             properties.MaterialName = soilLayer.MaterialName;
-            properties.IsAquifer = SoilLayerIsAquiferConverter.Convert(soilLayer.IsAquifer);
+            properties.IsAquifer = TransformIsAquifer(soilLayer.IsAquifer);
             properties.Color = SoilLayerColorConverter.Convert(soilLayer.Color);
             properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
             properties.AbovePhreaticLevelCoefficientOfVariation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
@@ -130,6 +130,35 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.PopCoefficientOfVariation = soilLayer.PopCoefficientOfVariation;
         }
 
+        /// <summary>
+        /// Transforms a <see cref="double"/> to a <see cref="bool"/> for the 
+        /// is aquifer property of soil layers.
+        /// </summary>
+        /// <param name="isAquifer">The value to transform.</param>
+        /// <returns>A <see cref="bool"/> based on <paramref name="isAquifer"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when
+        /// <paramref name="isAquifer"/> could not be transformed.</exception>
+        private static bool TransformIsAquifer(double? isAquifer)
+        {
+            try
+            {
+                return SoilLayerIsAquiferConverter.Convert(isAquifer);
+            }
+            catch (NotSupportedException)
+            {
+                throw new ImportedDataTransformException(string.Format(Resources.MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0,
+                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_Name));
+            }
+        }
+
+        /// <summary>
+        /// Transforms a <see cref="double"/> to a <see cref="bool"/> for the 
+        /// use POP property of soil layers.
+        /// </summary>
+        /// <param name="usePop">The value to transform.</param>
+        /// <returns>A <see cref="bool"/> based on <paramref name="usePop"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when
+        /// <paramref name="usePop"/> could not be transformed.</exception>
         private static bool TransformUsePop(double? usePop)
         {
             if (!usePop.HasValue)
@@ -146,6 +175,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                                                                    Resources.SoilLayerProperties_UsePop_Description));
         }
 
+        /// <summary>
+        /// Transforms a <see cref="double"/> to a <see cref="MacroStabilityInwardsShearStrengthModel"/> for the 
+        /// shear strength model of soil layers.
+        /// </summary>
+        /// <param name="shearStrengthModel">The value to transform.</param>
+        /// <returns>A <see cref="MacroStabilityInwardsShearStrengthModel"/> based 
+        /// on <paramref name="shearStrengthModel"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when
+        /// <paramref name="shearStrengthModel"/> could not be transformed.</exception>
         private static MacroStabilityInwardsShearStrengthModel TransformShearStrengthModel(double? shearStrengthModel)
         {
             if (!shearStrengthModel.HasValue)

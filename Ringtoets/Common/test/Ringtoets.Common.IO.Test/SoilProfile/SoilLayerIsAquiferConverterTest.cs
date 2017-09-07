@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
@@ -29,8 +29,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilLayerIsAquiferConverterTest
     {
         [Test]
-        [TestCase(1, true)]
+        [TestCase(1.0, true)]
+        [TestCase(1 + 1e-7, true)]
+        [TestCase(1 - 1e-7, true)]
         [TestCase(0, false)]
+        [TestCase(0.0 + 1e-7, false)]
+        [TestCase(0.0 - 1e-7, false)]
         public void Convert_ValidValues_ReturnsExpectedValues(double isAquifer,
                                                               bool expectedResult)
         {
@@ -45,15 +49,21 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [TestCase(null)]
         [TestCase(0.5)]
         [TestCase(1.1)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1 + 1e-6)]
         [TestCase(0.1)]
+        [TestCase(0 - 1e-6)]
+        [TestCase(0 + 1e-6)]
+        [TestCase(double.NaN)]
         public void Convert_InvalidValues_ThrowsImportedDataTransformException(double? isAquifer)
         {
             // Call
-            TestDelegate call = ()=> SoilLayerIsAquiferConverter.Convert(isAquifer);
+            TestDelegate call = () => SoilLayerIsAquiferConverter.Convert(isAquifer);
 
             // Assert
-            var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual("Ongeldige waarde voor parameter 'Is aquifer'.", exception.Message);
+            var exception = Assert.Throws<NotSupportedException>(call);
+            string expectedMessage = $"A value of {isAquifer} for isAquifer cannot be converted to a valid boolean.";
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
     }
 }

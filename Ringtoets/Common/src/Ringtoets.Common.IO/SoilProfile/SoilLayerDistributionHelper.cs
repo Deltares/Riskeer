@@ -34,23 +34,23 @@ namespace Ringtoets.Common.IO.SoilProfile
         private const double tolerance = 1e-6;
 
         /// <summary>
-        /// Validates if the distribution is a non-shifted log normal distribution.
+        /// Validates that the distribution is a non-shifted log normal distribution.
         /// </summary>
-        /// <param name="distribution">The distribution type.</param>
+        /// <param name="distributionType">The distribution type.</param>
         /// <param name="shift">The value of the shift.</param>
         /// <param name="parameterName">The name of the parameter to be validated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parameterName"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
-        /// non-shifted log normal distribution.</exception>
-        public static void ValidateIsNonShiftedLogNormal(long? distribution, double shift, string parameterName)
+        /// log normal distribution with a zero shifty.</exception>
+        public static void ValidateIsNonShiftedLogNormal(long? distributionType, double shift, string parameterName)
         {
             if (parameterName == null)
             {
                 throw new ArgumentNullException(nameof(parameterName));
             }
 
-            if (distribution.HasValue && (distribution.Value != SoilLayerConstants.LogNormalDistributionValue
+            if (distributionType.HasValue && (distributionType.Value != SoilLayerConstants.LogNormalDistributionValue
                                           || Math.Abs(shift) > tolerance))
             {
                 throw new ImportedDataTransformException(string.Format(
@@ -60,22 +60,22 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Validates if the distribution is a log normal distribution.
+        /// Validates that the distribution is a log normal distribution.
         /// </summary>
-        /// <param name="distribution">The distribution type.</param>
+        /// <param name="distributionType">The distribution type.</param>
         /// <param name="parameterName">The name of the parameter to be validated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parameterName"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
         /// log-normal distribution.</exception>
-        public static void ValidateIsLogNormal(long? distribution, string parameterName)
+        public static void ValidateIsLogNormal(long? distributionType, string parameterName)
         {
             if (parameterName == null)
             {
                 throw new ArgumentNullException(nameof(parameterName));
             }
 
-            if (distribution.HasValue && distribution != SoilLayerConstants.LogNormalDistributionValue)
+            if (distributionType.HasValue && distributionType != SoilLayerConstants.LogNormalDistributionValue)
             {
                 throw new ImportedDataTransformException(string.Format(
                                                              Resources.SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution,

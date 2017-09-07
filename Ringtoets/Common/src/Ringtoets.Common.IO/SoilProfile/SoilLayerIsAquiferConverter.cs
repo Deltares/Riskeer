@@ -19,41 +19,42 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.IO.Exceptions;
-using Ringtoets.Common.IO.Properties;
+using System;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// This class provides helpers for converting values from DSoil Model database
+    /// This class provides helpers for converting values from D-Soil Model database
     /// into valid valued of the 'is aquifer' of soil layers.
     /// </summary>
     public static class SoilLayerIsAquiferConverter
     {
+        private const double tolerance = 1e-6;
+
         /// <summary>
         /// Converts a nullable <see cref="double"/> to a <see cref="bool"/>.
         /// </summary>
         /// <param name="isAquifer">The value to convert.</param>
-        /// <returns>A <see cref="bool"/> based on the <paramref name="isAquifer"/>.
-        /// </returns>
-        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="isAquifer"/>
+        /// <returns>A <see cref="bool"/> based on the <paramref name="isAquifer"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="isAquifer"/>
         /// cannot be converted.</exception>
         public static bool Convert(double? isAquifer)
         {
             if (isAquifer.HasValue)
             {
-                if (isAquifer.Equals(0.0))
+                if (isAquifer < 0.0 + tolerance
+                    && isAquifer > 0.0 - tolerance)
                 {
                     return false;
                 }
-                if (isAquifer.Equals(1.0))
+                if (isAquifer < 1.0 + tolerance
+                    && isAquifer > 1.0 - tolerance)
                 {
                     return true;
                 }
             }
 
-            throw new ImportedDataTransformException(string.Format(Resources.Convert_Invalid_value_ParameterName_0,
-                                                                   Resources.SoilLayerProperties_IsAquifer_Description));
+            throw new NotSupportedException($"A value of {isAquifer} for {nameof(isAquifer)} cannot be converted to a valid boolean.");
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                                                                                          string soilModelName)
         {
             IEnumerable<StochasticSoilProfile> profilesToTransform =
-                StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
+                StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(stochasticSoilProfiles,
                                                                                       soilModelName);
 
             return profilesToTransform.Select(ssp => PipingStochasticSoilProfileTransformer.Transform(

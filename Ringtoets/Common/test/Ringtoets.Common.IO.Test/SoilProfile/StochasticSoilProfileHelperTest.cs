@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void GetValidatedSoilProfilesToTransform_StochasticSoilProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(null,
+            TestDelegate call = () => StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(null,
                                                                                                             string.Empty);
 
             // Assert
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             // Call
             TestDelegate call = () =>
-                StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(Enumerable.Empty<StochasticSoilProfile>(),
+                StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(Enumerable.Empty<StochasticSoilProfile>(),
                                                                                       null);
 
             // Assert
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             IEnumerable<StochasticSoilProfile> profilesToTransform =
-                StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
+                StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(stochasticSoilProfiles,
                                                                                       string.Empty);
 
             // Assert
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Call
             Action call = () => profilesToTransform =
-                                    StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
+                                    StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(stochasticSoilProfiles,
                                                                                                           soilModelName);
 
             // Assert
@@ -121,8 +121,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
 
             Assert.IsNotNull(profilesToTransform);
+
             StochasticSoilProfile profileToTransform = profilesToTransform.Single();
-            Assert.AreEqual(profileOne, profileToTransform);
+            Assert.AreSame(profile, profileToTransform.SoilProfile);
             const double expectedProbability = probabilityOne + probabilityTwo;
             Assert.AreEqual(expectedProbability, profileToTransform.Probability, 1e-6);
 
@@ -134,12 +135,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void GetValidatedSoilProfilesToTransform_SameSoilProfileProbabilityInvalid_ThrowsImportedDataException()
         {
             // Setup
-            const string soilProfileName = "A profile name";
-            const string soilModelName = "A model name";
 
             var mocks = new MockRepository();
             var profile = mocks.Stub<ISoilProfile>();
-            profile.Stub(p => p.Name).Return(soilProfileName);
+            profile.Stub(p => p.Name).Return("A profile name");
             mocks.ReplayAll();
 
             var profileOne = new StochasticSoilProfile(0.9, profile);
@@ -152,14 +151,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Precondition
             double totalProbabilitySum = profileOne.Probability + profileTwo.Probability;
-            Assert.GreaterOrEqual(totalProbabilitySum, 1);
+            Assert.Greater(totalProbabilitySum, 1);
 
-            IEnumerable<StochasticSoilProfile> profilesToTransform = null;
 
             // Call
-            TestDelegate call = () => profilesToTransform =
-                                          StochasticSoilProfileHelper.GetValidatedStochasticProfilesToTransform(stochasticSoilProfiles,
-                                                                                                                soilModelName);
+            TestDelegate call = () => StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(stochasticSoilProfiles,
+                                                                                                                string.Empty);
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
@@ -167,8 +164,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                                            "moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedNessage, exception.Message);
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
-
-            Assert.IsNull(profilesToTransform);
         }
     }
 }

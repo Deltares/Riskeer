@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var profile = new SoilProfile1D(1, "test", 3, new[]
             {
-                SoilLayer1DTestFactory.CreateSoilLayer1DForTransforming()
+                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
             });
 
             // Call
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var profile = new SoilProfile2D(1, "test", new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming()
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
             });
 
             // Call

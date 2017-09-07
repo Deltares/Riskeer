@@ -60,7 +60,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [TestCase(1)]
         [TestCase(-0.51)]
         [TestCase(0.51)]
-        public void AddProbability_ProbabilityToAddResultsInInvalidProbability_ThrowsArgumentOutOfrangeException(double probabilityToAdd)
+        [TestCase(double.NaN)]
+        public void AddProbability_ProbabilityToAddResultsInInvalidProbability_ThrowsArgumentOutOfRangeException(double probabilityToAdd)
         {
             // Setup
             const double probability = 0.5;

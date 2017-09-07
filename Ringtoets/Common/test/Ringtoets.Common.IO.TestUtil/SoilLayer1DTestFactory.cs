@@ -30,12 +30,12 @@ namespace Ringtoets.Common.IO.TestUtil
     public static class SoilLayer1DTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer1D"/> which can be used
-        /// for testing transformer implementations.
+        /// Creates a new instance of <see cref="SoilLayer1D"/> with a valid value for the 
+        /// <see cref="SoilLayer1D.IsAquifer"/>.
         /// </summary>
-        /// <param name="top">The value of the <see cref="SoilLayer1D.Top"/></param>
+        /// <param name="top">The value of the <see cref="SoilLayer1D.Top"/>.</param>
         /// <returns>The created <see cref="SoilLayer1D"/>.</returns>
-        public static SoilLayer1D CreateSoilLayer1DForTransforming(double top = 3.14)
+        public static SoilLayer1D CreateSoilLayer1DWithValidAquifer(double top = 3.14)
         {
             return new SoilLayer1D(top)
             {

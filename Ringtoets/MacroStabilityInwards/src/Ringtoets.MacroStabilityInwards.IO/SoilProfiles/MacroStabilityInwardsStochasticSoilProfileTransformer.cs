@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
     /// <summary>
     /// Transforms generic <see cref="StochasticSoilProfile"/> into
-    /// <see cref="MacroStabilityInwardsStochasticSoilProfile"/>
+    /// <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
     /// </summary>
     internal static class MacroStabilityInwardsStochasticSoilProfileTransformer
     {

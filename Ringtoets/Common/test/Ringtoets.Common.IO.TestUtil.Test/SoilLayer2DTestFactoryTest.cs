@@ -140,16 +140,15 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         [Test]
         public void CreateSoilLayer2D_Parameterless_ExpectedProperties()
         {
-            // Setup
+            // Call
+            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+
+            // Assert
             var pointA = new Point2D(0.0, 0.0);
             var pointB = new Point2D(1.0, 0.0);
             var pointC = new Point2D(1.0, 1.0);
             var pointD = new Point2D(2.0, 1.0);
 
-            // Call
-            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2D();
-
-            // Assert
             Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
             Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
 
@@ -159,18 +158,17 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer2DForTransforming_ParameterLess_ExpectedProperties()
+        public void CreateSoilLayer2DWithValidAquifer_ParameterLess_ExpectedProperties()
         {
-            // Setup
+            // Call
+            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer();
+
+            // Assert
             var pointA = new Point2D(0.0, 0.0);
             var pointB = new Point2D(1.0, 0.0);
             var pointC = new Point2D(1.0, 1.0);
             var pointD = new Point2D(2.0, 1.0);
 
-            // Call
-            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming();
-
-            // Assert
             Assert.AreEqual(0.0, soilLayer.IsAquifer);
             Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
             Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
@@ -181,10 +179,10 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer2DForTransforming_InnerLoopNull_ThrowsArgumentNullException()
+        public void CreateSoilLayer2DWithValidAquifer_InnerLoopNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+            TestDelegate call = () => SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(
                 null,
                 Enumerable.Empty<Segment2D>());
 
@@ -194,10 +192,10 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer2DForTransforming_OuterLoopNull_ThrowsArgumentNullException()
+        public void CreateSoilLayer2DWithValidAquifer_OuterLoopNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+            TestDelegate call = () => SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(
                 Enumerable.Empty<Segment2D[]>(),
                 null);
 
@@ -207,7 +205,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer2DValidForTransforming_InvalidInnerLoop_ThrowsArgumentException()
+        public void CreateSoilLayer2DWithValidAquifer_InvalidInnerLoop_ThrowsArgumentException()
         {
             // Setup
             var pointA = new Point2D(0.0, 0.0);
@@ -215,7 +213,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var pointC = new Point2D(1.0, 1.0);
 
             // Call
-            TestDelegate test = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+            TestDelegate test = () => SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(
                 new[]
                 {
                     new[]
@@ -231,7 +229,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer2DForTransforming_InvalidOuterLoop_ThrowsArgumentException()
+        public void CreateSoilLayer2DWithValidAquifer_InvalidOuterLoop_ThrowsArgumentException()
         {
             // Setup
             var pointA = new Point2D(0.0, 0.0);
@@ -239,7 +237,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var pointC = new Point2D(1.0, 1.0);
 
             // Call
-            TestDelegate test = () => SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+            TestDelegate test = () => SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(
                 Enumerable.Empty<Segment2D[]>(),
                 new[]
                 {
@@ -253,7 +251,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateSoilLayer2DForTransforming_ValidArguments_ExpectedProperties()
+        public void CreateSoilLayer2DWithValidAquifer_ValidArguments_ExpectedProperties()
         {
             // Setup
             var pointA = new Point2D(0.0, 0.0);
@@ -262,7 +260,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var pointD = new Point2D(2.0, 1.0);
 
             // Call
-            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2DForTransforming(
+            SoilLayer2D soilLayer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(
                 new[]
                 {
                     new[]

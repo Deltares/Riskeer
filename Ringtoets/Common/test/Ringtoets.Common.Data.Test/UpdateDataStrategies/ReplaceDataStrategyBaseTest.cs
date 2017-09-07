@@ -33,8 +33,6 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
     [TestFixture]
     public class ReplaceDataStrategyBaseTest
     {
-        
-
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {

@@ -28,6 +28,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfiles
 {
@@ -55,7 +56,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
             var pipingSoilLayer = new PipingSoilLayer(soilLayer.Top)
             {
-                IsAquifer = SoilLayerIsAquiferConverter.Convert(soilLayer.IsAquifer),
+                IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
                 MaterialName = soilLayer.MaterialName,
                 Color = SoilLayerColorConverter.Convert(soilLayer.Color)
             };
@@ -102,7 +103,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             {
                 var pipingSoilLayer = new PipingSoilLayer(height)
                 {
-                    IsAquifer = SoilLayerIsAquiferConverter.Convert(soilLayer.IsAquifer),
+                    IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
                     MaterialName = soilLayer.MaterialName,
                     Color = SoilLayerColorConverter.Convert(soilLayer.Color)
                 };
@@ -228,6 +229,27 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         private static bool IsVerticalAtX(Segment2D segment, double atX)
         {
             return segment.FirstPoint.X.Equals(atX) && segment.IsVertical();
+        }
+
+        /// <summary>
+        /// Transforms a <see cref="double"/> to a <see cref="bool"/> for the 
+        /// <see cref="PipingSoilLayer.IsAquifer"/>.
+        /// </summary>
+        /// <param name="isAquifer">The value to transform.</param>
+        /// <returns>A <see cref="bool"/> based on <paramref name="isAquifer"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when
+        /// <paramref name="isAquifer"/> could not be transformed.</exception>
+        private static bool TransformIsAquifer(double? isAquifer)
+        {
+            try
+            {
+                return SoilLayerIsAquiferConverter.Convert(isAquifer);
+            }
+            catch (NotSupportedException)
+            {
+                throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Convert_Invalid_value_ParameterName_0,
+                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_Name));
+            }
         }
     }
 }
