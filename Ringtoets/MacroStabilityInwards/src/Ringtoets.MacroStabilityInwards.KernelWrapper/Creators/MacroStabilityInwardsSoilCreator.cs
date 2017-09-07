@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -39,8 +40,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
         /// which to take the information.</param>
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
+        /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
-        /// has an type that can't be converted to <see cref="ShearStrengthModel"/>.</exception>
+        /// is a valid value but unsupported.</exception>
         public static Soil[] Create(MacroStabilityInwardsSoilProfileUnderSurfaceLine profile)
         {
             if (profile == null)
@@ -67,12 +70,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             }).ToArray();
         }
 
+        /// <summary>
+        /// Converts a <see cref="MacroStabilityInwardsShearStrengthModel"/> to a <see cref="ShearStrengthModel"/>.
+        /// </summary>
+        /// <param name="shearStrengthModel">The <see cref="MacroStabilityInwardsShearStrengthModel"/> to convert.</param>
+        /// <returns>A <see cref="ShearStrengthModel"/> based on the information of <paramref name="shearStrengthModel"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is a valid value but unsupported.</exception>
         private static ShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
         {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))
+            {
+                throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
+                                                       (int) shearStrengthModel,
+                                                       typeof(MacroStabilityInwardsShearStrengthModel));
+            }
+
             switch (shearStrengthModel)
             {
-                case MacroStabilityInwardsShearStrengthModel.None:
-                    return ShearStrengthModel.None;
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
                     return ShearStrengthModel.CuCalculated;
                 case MacroStabilityInwardsShearStrengthModel.CPhi:

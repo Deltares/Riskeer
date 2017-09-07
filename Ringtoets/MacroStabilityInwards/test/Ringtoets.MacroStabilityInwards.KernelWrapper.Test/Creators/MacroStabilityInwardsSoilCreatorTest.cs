@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
@@ -68,17 +69,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                 }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
                     new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                     {
-                        UsePop = false,
-                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None,
-                        MaterialName = "Mud"
-                    })),
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                    {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
                         MaterialName = "Clay"
@@ -100,14 +90,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             Soil[] soils = MacroStabilityInwardsSoilCreator.Create(profile);
 
             // Assert
-            Assert.AreEqual(4, soils.Length);
+            Assert.AreEqual(3, soils.Length);
 
             CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.UsePop), soils.Select(s => s.UsePop));
             CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.MaterialName), soils.Select(s => s.Name));
             CollectionAssert.AreEqual(new[]
             {
                 ShearStrengthModel.CPhi,
-                ShearStrengthModel.None,
                 ShearStrengthModel.CPhiOrCuCalculated,
                 ShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
@@ -121,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void Create_InvalidShearStrengthModel_ThrowNotSupportedException()
+        public void Create_InvalidShearStrengthModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
@@ -133,6 +122,30 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
                     ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
+                }))
+            });
+
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsSoilCreator.Create(profile);
+
+            // Assert
+            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsShearStrengthModel).Name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [Test]
+        public void Create_UnsupportedShearStrengthModel_ThrowNotSupportedException()
+        {
+            // Setup
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                {
+                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.None
                 }))
             });
 
