@@ -44,6 +44,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Creators\MacroStabilityInwardsSoilProfileCreator.cs" />
+    <Compile Include="Creators\StabilityLocationCreator.cs" />
     <Compile Include="MacroStabilityInwardsCalculator.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInput.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />

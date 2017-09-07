@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 
@@ -37,6 +38,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
         public SoilModel SoilModel { get; set; }
 
         public SoilProfile2D SoilProfile { get; set; }
+
+        public StabilityLocation Location { get; set; }
 
         public void Calculate()
         {

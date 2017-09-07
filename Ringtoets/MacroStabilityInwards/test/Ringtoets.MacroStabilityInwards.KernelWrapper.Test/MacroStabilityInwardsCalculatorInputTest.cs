@@ -78,6 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             bool useDefaultOffsets = random.NextBoolean();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
             bool drainageConstructionPresent = random.NextBoolean();
+            var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
 
             // Call
             var input = new MacroStabilityInwardsCalculatorInput(
@@ -105,7 +106,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     PenetrationLength = penetrationLength,
                     UseDefaultOffsets = useDefaultOffsets,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
-                    DrainageConstructionPresent = drainageConstructionPresent
+                    DrainageConstructionPresent = drainageConstructionPresent,
+                    DikeSoilScenario = dikeSoilScenario
                 });
 
             // Assert
@@ -133,6 +135,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(useDefaultOffsets, input.UseDefaultOffsets);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, input.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(drainageConstructionPresent, input.DrainageConstructionPresent);
+
+            Assert.AreEqual(dikeSoilScenario, input.DikeSoilScenario);
         }
     }
 }

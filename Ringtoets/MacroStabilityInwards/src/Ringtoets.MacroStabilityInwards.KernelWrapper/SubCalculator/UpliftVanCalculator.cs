@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Deltares.WaternetCreator;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
@@ -76,6 +77,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             set
             {
                 calculatorInput.SoilProfile = value;
+            }
+        }
+
+        public StabilityLocation Location
+        {
+            set
+            {
+                calculatorInput.Location = value;
             }
         }
     }

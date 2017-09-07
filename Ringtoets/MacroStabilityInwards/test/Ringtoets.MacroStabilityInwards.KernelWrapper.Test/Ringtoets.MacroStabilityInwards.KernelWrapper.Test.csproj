@@ -61,6 +61,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Creators\MacroStabilityInwardsSoilProfileCreatorTest.cs" />
+    <Compile Include="Creators\StabilityLocationCreatorTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInputTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResultTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorTest.cs" />
