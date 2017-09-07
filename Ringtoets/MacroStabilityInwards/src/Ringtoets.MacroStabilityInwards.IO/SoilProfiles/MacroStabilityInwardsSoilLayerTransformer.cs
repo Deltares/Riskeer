@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
             catch (NotSupportedException)
             {
-                throw new ImportedDataTransformException(string.Format(Resources.MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0,
+                throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
                                                                        RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_Name));
             }
         }
@@ -171,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 return false;
             }
 
-            throw new ImportedDataTransformException(string.Format(Resources.MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0,
+            throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
                                                                    Resources.SoilLayerProperties_UsePop_Description));
         }
 
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 return MacroStabilityInwardsShearStrengthModel.None;
             }
 
-            throw new ImportedDataTransformException(string.Format(Resources.MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0,
+            throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
                                                                    Resources.SoilLayerProperties_ShearStrengthModel_Description));
         }
 

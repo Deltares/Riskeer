@@ -180,15 +180,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongeldige waarde voor parameter &apos;{0}&apos;..
-        /// </summary>
-        public static string MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0 {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
         public static string MacroStabilityInwardsSoilProfileReader_Critical_Unexpected_value_on_column {

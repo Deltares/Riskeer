@@ -261,9 +261,6 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="SoilLayerProperties_BelowPhreaticLevelDistribution_Description" xml:space="preserve">
     <value>Verzadigd gewicht</value>
   </data>
-  <data name="MacroStabilityInwardsSoilLayerTransformer_Invalid_value_ParameterName_0" xml:space="preserve">
-    <value>Ongeldige waarde voor parameter '{0}'.</value>
-  </data>
   <data name="SoilLayerProperties_UsePop_Description" xml:space="preserve">
     <value>Gebruik POP</value>
   </data>

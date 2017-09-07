@@ -368,15 +368,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongeldige waarde voor parameter &apos;{0}&apos;..
-        /// </summary>
-        public static string Convert_Invalid_value_ParameterName_0 {
-            get {
-                return ResourceManager.GetString("Convert_Invalid_value_ParameterName_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De regel (&apos;{0}&apos;) bevat ongeldige tekst..
         /// </summary>
         public static string DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid {
@@ -2577,6 +2568,15 @@ namespace Ringtoets.Common.IO.Properties {
         public static string SurfaceLinesCsvReader_SurfaceLineName_0_ {
             get {
                 return ResourceManager.GetString("SurfaceLinesCsvReader_SurfaceLineName_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeldige waarde voor parameter &apos;{0}&apos;..
+        /// </summary>
+        public static string Transform_Invalid_value_ParameterName_0 {
+            get {
+                return ResourceManager.GetString("Transform_Invalid_value_ParameterName_0", resourceCulture);
             }
         }
         

@@ -895,7 +895,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="SoilLayerProperties_IsAquifer_Name" xml:space="preserve">
     <value>Is aquifer</value>
   </data>
-  <data name="Convert_Invalid_value_ParameterName_0" xml:space="preserve">
+  <data name="Transform_Invalid_value_ParameterName_0" xml:space="preserve">
     <value>Ongeldige waarde voor parameter '{0}'.</value>
   </data>
 </root>
