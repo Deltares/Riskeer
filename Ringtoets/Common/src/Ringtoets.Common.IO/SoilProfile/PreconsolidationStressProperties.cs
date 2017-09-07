@@ -66,8 +66,8 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate;
                 ZCoordinate = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressValue;
-                PreconsolidationStressValue = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressCalculationValue;
+                PreconsolidationStressCalculationValue = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution;
                 PreconsolidationStressDistributionType = reader.ReadOrDefault<long?>(readColumn);
@@ -100,10 +100,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double? ZCoordinate { get; }
 
         /// <summary>
-        /// Gets the value representing the stress of the preconsolidation stress location.
+        /// Gets the value representing the calculation value of the preconsolidation stress.
         /// [kN/m³]
         /// </summary>
-        public double? PreconsolidationStressValue { get; }
+        public double? PreconsolidationStressCalculationValue { get; }
 
         /// <summary>
         /// Gets the distribution type of the preconsolidation stress.

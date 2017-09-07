@@ -79,7 +79,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             var reader = mockRepository.StrictMock<IRowBasedDatabaseReader>();
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate)).Return(xCoordinate);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate)).Return(zCoordinate);
-            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressValue)).Return(preconsolidationStressValue);
+            reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCalculationValue)).Return(preconsolidationStressValue);
             reader.Expect(r => r.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution)).Return(preconsolidationStressDistributionType);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressMean)).Return(preconsolidationStressMean);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation)).Return(preconsolidationStressCoefficientOfVariation);
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(xCoordinate, properties.XCoordinate);
             Assert.AreEqual(zCoordinate, properties.ZCoordinate);
-            Assert.AreEqual(preconsolidationStressValue, properties.PreconsolidationStressValue);
+            Assert.AreEqual(preconsolidationStressValue, properties.PreconsolidationStressCalculationValue);
             Assert.AreEqual(preconsolidationStressDistributionType, properties.PreconsolidationStressDistributionType);
             Assert.AreEqual(preconsolidationStressMean, properties.PreconsolidationStressMean);
             Assert.AreEqual(preconsolidationStressCoefficientOfVariation, properties.PreconsolidationStressCoefficientOfVariation);
@@ -143,7 +143,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate;
-            yield return PreconsolidationStressTableDefinitions.PreconsolidationStressValue;
+            yield return PreconsolidationStressTableDefinitions.PreconsolidationStressCalculationValue;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressMean;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation;

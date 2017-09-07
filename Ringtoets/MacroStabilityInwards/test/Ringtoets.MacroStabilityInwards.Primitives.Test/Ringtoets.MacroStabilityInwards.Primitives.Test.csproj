@@ -53,6 +53,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="MacroStabilityInwardsPreconsolidationStressTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer2DTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer1DTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLineTest.cs" />

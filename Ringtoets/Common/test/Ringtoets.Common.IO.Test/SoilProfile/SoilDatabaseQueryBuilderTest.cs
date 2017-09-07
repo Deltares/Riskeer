@@ -398,7 +398,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "preconsolidationStressesCount.PreconsolidationStressesCount, " +
                 "PreconsolidationStressXCoordinate, " +
                 "PreconsolidationStressZCoordinate, " +
-                "PreconsolidationStressValue, " +
+                "PreconsolidationStressCalculationValue, " +
                 "PreconsolidationStressDistribution, " +
                 "PreconsolidationStressMean, " +
                 "PreconsolidationStressCoefficientOfVariation, " +
@@ -427,7 +427,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "SP2D_ID, " +
                 "X as PreconsolidationStressXCoordinate, " +
                 "Z as PreconsolidationStressZCoordinate, " +
-                "Stress as PreconsolidationStressValue, " +
+                "Stress as PreconsolidationStressCalculationValue, " +
                 "s.ST_Dist_Type AS PreconsolidationStressDistribution, " +
                 "s.ST_Shift AS PreconsolidationStressShift, " +
                 "s.ST_Mean AS PreconsolidationStressMean, " +

@@ -43,6 +43,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="IMacroStabilityInwardsSoilProfile.cs" />
+    <Compile Include="MacroStabilityInwardsPreconsolidationStress.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer1D.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.cs" />
