@@ -43,6 +43,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="WTIStability">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -53,6 +56,9 @@
     <Compile Include="SubCalculator\TestMacroStabilityInwardsSubCalculatorFactoryTest.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculatorStubTest.cs" />
     <Compile Include="TestMacroStabilityInwardsSoilProfile1DTest.cs" />
+    <Compile Include="WTIStabilityGeometryCurveComparerTest.cs" />
+    <Compile Include="WTIStabilityGeometryLoopComparerTest.cs" />
+    <Compile Include="WTIStabilityPoint2DComparerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
