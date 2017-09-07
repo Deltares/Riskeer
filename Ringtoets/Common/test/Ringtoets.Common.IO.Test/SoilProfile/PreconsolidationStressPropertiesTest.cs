@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
             double preconsolidationStressValue = random.NextDouble();
-            long preconsolidationStressDistribution = random.Next();
+            long preconsolidationStressDistributionType = random.Next();
             double preconsolidationStressMean = random.Next();
             double preconsolidationStressCoefficientOfVariation = random.Next();
             double preconsolidationStressShift = random.Next();
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate)).Return(xCoordinate);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate)).Return(zCoordinate);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressValue)).Return(preconsolidationStressValue);
-            reader.Expect(r => r.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution)).Return(preconsolidationStressDistribution);
+            reader.Expect(r => r.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution)).Return(preconsolidationStressDistributionType);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressMean)).Return(preconsolidationStressMean);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation)).Return(preconsolidationStressCoefficientOfVariation);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressShift)).Return(preconsolidationStressShift);
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(xCoordinate, properties.XCoordinate);
             Assert.AreEqual(zCoordinate, properties.ZCoordinate);
             Assert.AreEqual(preconsolidationStressValue, properties.PreconsolidationStressValue);
-            Assert.AreEqual(preconsolidationStressDistribution, properties.PreconsolidationStressDistribution);
+            Assert.AreEqual(preconsolidationStressDistributionType, properties.PreconsolidationStressDistributionType);
             Assert.AreEqual(preconsolidationStressMean, properties.PreconsolidationStressMean);
             Assert.AreEqual(preconsolidationStressCoefficientOfVariation, properties.PreconsolidationStressCoefficientOfVariation);
             Assert.AreEqual(preconsolidationStressShift, properties.PreconsolidationStressShift);
