@@ -45,7 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             wrappedCalculator = new WTIStabilityCalculation();
             calculatorInput = new StabilityModel
             {
-                ModelOption = ModelOptions.UpliftVan
+                ModelOption = ModelOptions.UpliftVan,
+                SearchAlgorithm = SearchAlgorithm.Grid,
+                GridOrientation = GridOrientation.Inwards,
             };
         }
 
@@ -85,6 +87,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             set
             {
                 calculatorInput.Location = value;
+            }
+        }
+
+        public bool MoveGrid
+        {
+            set
+            {
+                calculatorInput.MoveGrid = value;
+            }
+        }
+
+        public double MaximumSliceWidth
+        {
+            set
+            {
+                calculatorInput.MaximumSliceWidth = value;
             }
         }
     }

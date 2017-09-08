@@ -85,6 +85,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         private IUpliftVanCalculator CreateUpliftVanCalculator()
         {
             IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
+            calculator.MoveGrid = input.MoveGrid;
+            calculator.MaximumSliceWidth = input.MaximumSliceWidth;
+
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
             calculator.SoilModel = SoilModelCreator.Create(soils);
 

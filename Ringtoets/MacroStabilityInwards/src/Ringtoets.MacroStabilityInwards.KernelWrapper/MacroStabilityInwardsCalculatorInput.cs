@@ -62,12 +62,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             PiezometricHeadPhreaticLine2Outwards = properties.PiezometricHeadPhreaticLine2Outwards;
             PiezometricHeadPhreaticLine2Inwards = properties.PiezometricHeadPhreaticLine2Inwards;
             PenetrationLength = properties.PenetrationLength;
-
             DrainageConstructionPresent = properties.DrainageConstructionPresent;
             AdjustPhreaticLine3And4ForUplift = properties.AdjustPhreaticLine3And4ForUplift;
             UseDefaultOffsets = properties.UseDefaultOffsets;
-
             DikeSoilScenario = properties.DikeSoilScenario;
+            MoveGrid = properties.MoveGrid;
+            MaximumSliceWidth = properties.MaximumSliceWidth;
         }
 
         public class ConstructionProperties
@@ -96,8 +96,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 PiezometricHeadPhreaticLine2Outwards = double.NaN;
                 PiezometricHeadPhreaticLine2Inwards = double.NaN;
                 PenetrationLength = double.NaN;
-
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
+                MaximumSliceWidth = double.NaN;
             }
 
             #region properties
@@ -240,6 +240,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             /// </summary>
             public double PenetrationLength { internal get; set; }
 
+            /// <summary>
+            /// Gets or sets the value whether the grid should be moved.
+            /// </summary>
+            public bool MoveGrid { internal get; set; }
+
+            /// <summary>
+            /// Gets the maximum slice width.
+            /// [m]
+            /// </summary>
+            public double MaximumSliceWidth { internal get; set; }
+
             #endregion
         }
 
@@ -262,126 +273,137 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { get; }
 
         /// <summary>
-        /// Gets or sets the dike soil scenario.
+        /// Gets the dike soil scenario.
         /// </summary>
         public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { get; }
 
         /// <summary>
-        /// Gets or sets the average river water level.
+        /// Gets the average river water level.
         /// [m+NAP]
         /// </summary>
         public double WaterLevelRiverAverage { get; }
 
         /// <summary>
-        /// Gets or sets the polder water level.
+        /// Gets the polder water level.
         /// [m+NAP]
         /// </summary>
         public double WaterLevelPolder { get; }
 
         /// <summary>
-        /// Gets or sets whether a drainage construction is present.
+        /// Gets whether a drainage construction is present.
         /// </summary>
         public bool DrainageConstructionPresent { get; }
 
         /// <summary>
-        /// Gets or sets the x coordinate of the drainage construction.
+        /// Gets the x coordinate of the drainage construction.
         /// [m]
         /// </summary>
         public double XCoordinateDrainageConstruction { get; }
 
         /// <summary>
-        /// Gets or sets the z coordinate of the drainage construction.
+        /// Gets the z coordinate of the drainage construction.
         /// [m+NAP]
         /// </summary>
         public double ZCoordinateDrainageConstruction { get; }
 
         /// <summary>
-        /// Gets or sets the minimum level phreatic line at dike top river.
+        /// Gets the minimum level phreatic line at dike top river.
         /// [m+NAP]
         /// </summary>
         public double MinimumLevelPhreaticLineAtDikeTopRiver { get; }
 
         /// <summary>
-        /// Gets or sets the minimum level phreatic line at dike top polder.
+        /// Gets the minimum level phreatic line at dike top polder.
         /// [m+NAP]
         /// </summary>
         public double MinimumLevelPhreaticLineAtDikeTopPolder { get; }
 
         /// <summary>
-        /// Gets or sets whether the default offset should be used.
+        /// Gets whether the default offset should be used.
         /// </summary>
         public bool UseDefaultOffsets { get; }
 
         /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike top at river.
+        /// Gets the offset of the phreatic line below dike top at river.
         /// [m]
         /// </summary>
         public double PhreaticLineOffsetBelowDikeTopAtRiver { get; }
 
         /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike top at polder.
+        /// Gets the offset of the phreatic line below dike top at polder.
         /// [m]
         /// </summary>
         public double PhreaticLineOffsetBelowDikeTopAtPolder { get; }
 
         /// <summary>
-        /// Gets or sets the offset of the phreatic line below shoulder base inside.
+        /// Gets the offset of the phreatic line below shoulder base inside.
         /// [m]
         /// </summary>
         public double PhreaticLineOffsetBelowShoulderBaseInside { get; }
 
         /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike toe at polder.
+        /// Gets the offset of the phreatic line below dike toe at polder.
         /// [m]
         /// </summary>
         public double PhreaticLineOffsetBelowDikeToeAtPolder { get; }
 
         /// <summary>
-        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for uplift.
+        /// Gets whether phreatic line 3 and 4 should be adjusted for uplift.
         /// </summary>
         public bool AdjustPhreaticLine3And4ForUplift { get; }
 
         /// <summary>
-        /// Gets or sets the leakage length outwards of phreatic line 3.
+        /// Gets the leakage length outwards of phreatic line 3.
         /// [m]
         /// </summary>
         public double LeakageLengthOutwardsPhreaticLine3 { get; }
 
         /// <summary>
-        /// Gets or sets the leakage length inwards of phreatic line 3.
+        /// Gets the leakage length inwards of phreatic line 3.
         /// [m]
         /// </summary>
         public double LeakageLengthInwardsPhreaticLine3 { get; }
 
         /// <summary>
-        /// Gets or sets the leakage length outwards of phreatic line 4.
+        /// Gets the leakage length outwards of phreatic line 4.
         /// [m]
         /// </summary>
         public double LeakageLengthOutwardsPhreaticLine4 { get; }
 
         /// <summary>
-        /// Gets or sets the leakage length inwards of phreatic line 4.
+        /// Gets the leakage length inwards of phreatic line 4.
         /// [m]
         /// </summary>
         public double LeakageLengthInwardsPhreaticLine4 { get; }
 
         /// <summary>
-        /// Gets or sets the piezometric head of the phreatic line 2 outwards.
+        /// Gets the piezometric head of the phreatic line 2 outwards.
         /// [m+NAP]
         /// </summary>
         public double PiezometricHeadPhreaticLine2Outwards { get; }
 
         /// <summary>
-        /// Gets or sets the piezometric head of the phreatic line 2 inwards.
+        /// Gets the piezometric head of the phreatic line 2 inwards.
         /// [m+NAP]
         /// </summary>
         public double PiezometricHeadPhreaticLine2Inwards { get; }
 
         /// <summary>
-        /// Gets or sets the penetration length.
+        /// Gets the penetration length.
         /// [m]
         /// </summary>
         public double PenetrationLength { get; }
+
+        /// <summary>
+        /// Gets the value whether the grid should be moved.
+        /// </summary>
+        public bool MoveGrid { get; }
+
+        /// <summary>
+        /// Gets the maximum slice width.
+        /// [m]
+        /// </summary>
+        public double MaximumSliceWidth { get; }
 
         #endregion
     }

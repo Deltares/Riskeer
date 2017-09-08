@@ -48,5 +48,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// Sets the location.
         /// </summary>
         StabilityLocation Location { set; }
+
+        /// <summary>
+        /// Sets the move grid property.
+        /// </summary>
+        bool MoveGrid { set; }
+
+        /// <summary>
+        /// Sets the maximum slice width.
+        /// </summary>
+        double MaximumSliceWidth { set; }
     }
 }

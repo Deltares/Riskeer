@@ -41,6 +41,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public StabilityLocation Location { get; set; }
 
+        public bool MoveGrid { get; set; }
+
+        public double MaximumSliceWidth { get; set; }
+
         public void Calculate()
         {
             Calculated = true;
