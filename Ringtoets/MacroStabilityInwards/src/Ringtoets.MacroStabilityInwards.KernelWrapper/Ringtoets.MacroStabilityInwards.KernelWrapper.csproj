@@ -45,6 +45,7 @@
     </Compile>
     <Compile Include="Creators\SoilProfileCreator.cs" />
     <Compile Include="Creators\StabilityLocationCreator.cs" />
+    <Compile Include="Creators\SurfaceLineCreator.cs" />
     <Compile Include="MacroStabilityInwardsCalculator.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInput.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />

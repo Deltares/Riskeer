@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Creators\SoilProfileCreatorTest.cs" />
     <Compile Include="Creators\StabilityLocationCreatorTest.cs" />
+    <Compile Include="Creators\SurfaceLineCreatorTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInputTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResultTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorTest.cs" />

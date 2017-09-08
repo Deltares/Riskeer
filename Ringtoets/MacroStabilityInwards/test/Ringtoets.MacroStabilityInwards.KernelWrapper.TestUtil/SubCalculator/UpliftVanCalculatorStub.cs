@@ -45,6 +45,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public double MaximumSliceWidth { get; set; }
 
+        public SurfaceLine2 SurfaceLine { get; set; }
+
         public void Calculate()
         {
             Calculated = true;

@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Deltares.WaternetCreator;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.IO;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
@@ -47,23 +45,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             {
                 ModelOption = ModelOptions.UpliftVan,
                 SearchAlgorithm = SearchAlgorithm.Grid,
-                GridOrientation = GridOrientation.Inwards,
+                GridOrientation = GridOrientation.Inwards
             };
-        }
-
-        public void Calculate()
-        {
-            try
-            {
-                wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
-
-                var messages = wrappedCalculator.Validate();
-                wrappedCalculator.Run();
-            }
-            catch (Exception e)
-            {
-                // Do nothing
-            }
         }
 
         public SoilModel SoilModel
@@ -90,6 +73,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             }
         }
 
+        public SurfaceLine2 SurfaceLine
+        {
+            set
+            {
+                calculatorInput.SurfaceLine2 = value;
+            }
+        }
+
+
         public bool MoveGrid
         {
             set
@@ -103,6 +95,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             set
             {
                 calculatorInput.MaximumSliceWidth = value;
+            }
+        }
+
+        public void Calculate()
+        {
+            try
+            {
+                wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
+
+                string messages = wrappedCalculator.Validate();
+                wrappedCalculator.Run();
+            }
+            catch (Exception e)
+            {
+                // Do nothing
             }
         }
     }

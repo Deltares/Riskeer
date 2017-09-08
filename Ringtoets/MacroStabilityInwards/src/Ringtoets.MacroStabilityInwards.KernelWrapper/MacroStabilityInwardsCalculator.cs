@@ -100,6 +100,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                      .ToDictionary(x => x.layer, x => x.soil);
 
             calculator.SoilProfile = SoilProfileCreator.Create(layersWithSoils);
+            calculator.Location = StabilityLocationCreator.Create(input);
+            calculator.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
             return calculator;
         }
 

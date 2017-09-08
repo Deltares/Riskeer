@@ -50,6 +50,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         StabilityLocation Location { set; }
 
         /// <summary>
+        /// Sets the surface line.
+        /// </summary>
+        SurfaceLine2 SurfaceLine { set; }
+
+        /// <summary>
         /// Sets the move grid property.
         /// </summary>
         bool MoveGrid { set; }
