@@ -71,32 +71,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithoutPreconsolidationStress_ThrowsArgumentNullException()
-        {
-            // Setup
-            var outerRing = new Ring(new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(2, 2)
-            });
-            var holes = new[]
-            {
-                new Ring(new[]
-                {
-                    new Point2D(0, 2),
-                    new Point2D(2, 2)
-                })
-            };
-
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_WithOuterRingAndHoles_ReturnsNewInstance()
         {
             // Setup
