@@ -134,6 +134,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 {
                     hashCode = (hashCode * 397) ^ layer.GetHashCode();
                 }
+                foreach (MacroStabilityInwardsPreconsolidationStress stress in PreconsolidationStresses)
+                {
+                    hashCode = (hashCode * 397) ^ stress.GetHashCode();
+                }
                 hashCode = (hashCode * 397) ^ Name.GetHashCode();
                 return hashCode;
             }
@@ -142,6 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private bool Equals(MacroStabilityInwardsSoilProfile2D other)
         {
             return layers.SequenceEqual(other.layers)
+                   && PreconsolidationStresses.SequenceEqual(other.PreconsolidationStresses)
                    && string.Equals(Name, other.Name);
         }
 
