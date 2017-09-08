@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using System.Collections.ObjectModel;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
 {
     /// <summary>
     /// A <see cref="MacroStabilityInwardsSoilProfile1D"/> configured to be usable immediately for testing

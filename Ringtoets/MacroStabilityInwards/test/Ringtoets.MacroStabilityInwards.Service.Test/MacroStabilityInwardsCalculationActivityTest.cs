@@ -29,7 +29,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {

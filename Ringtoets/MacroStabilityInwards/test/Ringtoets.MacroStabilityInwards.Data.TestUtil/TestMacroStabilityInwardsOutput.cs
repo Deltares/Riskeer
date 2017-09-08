@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.Data;
-
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// A <see cref="MacroStabilityInwardsOutput"/> configured to be used immediately for testing purposes.

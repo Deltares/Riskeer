@@ -190,9 +190,9 @@
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
-      <Project>{3810d738-6412-47d1-8bc0-729d55bc951f}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj">
+      <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

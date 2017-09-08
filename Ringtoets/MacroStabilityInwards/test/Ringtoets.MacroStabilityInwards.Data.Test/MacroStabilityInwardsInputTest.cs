@@ -28,8 +28,8 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -381,9 +381,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // When
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("test");
-            surfaceLine.SetGeometry(new []
+            surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0, 0, 0), 
+                new Point3D(0, 0, 0),
                 new Point3D(1, 1, 1)
             });
             inputParameters.SurfaceLine = surfaceLine;

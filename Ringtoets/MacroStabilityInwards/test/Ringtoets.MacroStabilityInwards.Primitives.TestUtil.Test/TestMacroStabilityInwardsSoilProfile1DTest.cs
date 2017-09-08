@@ -22,7 +22,7 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
 {
     [TestFixture]
     public class TestMacroStabilityInwardsSoilProfile1DTest
