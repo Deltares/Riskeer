@@ -59,6 +59,7 @@
     <Compile Include="Segment2DLoopCollectionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPipingFailureMechanism.cs" />
+    <Compile Include="TestPipingOutput.cs" />
     <Compile Include="TestPipingSemiProbabilisticOutput.cs" />
   </ItemGroup>
   <ItemGroup>

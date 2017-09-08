@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Data;
-
-namespace Ringtoets.Piping.KernelWrapper.TestUtil
+namespace Ringtoets.Piping.Data.TestUtil
 {
     /// <summary>
     /// A <see cref="PipingOutput"/> configured to be used immediately for testing purposes.

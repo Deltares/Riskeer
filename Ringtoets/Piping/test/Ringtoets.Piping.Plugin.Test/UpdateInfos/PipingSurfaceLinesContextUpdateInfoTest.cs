@@ -33,8 +33,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.SurfaceLines;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -45,17 +45,6 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
     {
         private UpdateInfo updateInfo;
         private PipingPlugin plugin;
-
-        public override void Setup()
-        {
-            plugin = new PipingPlugin();
-            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(PipingSurfaceLinesContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-        }
 
         [Test]
         public void Name_Always_ReturnExpectedName()
@@ -270,6 +259,17 @@ namespace Ringtoets.Piping.Plugin.Test.UpdateInfos
             // Assert
             Assert.IsInstanceOf<SurfaceLinesCsvImporter<PipingSurfaceLine>>(importer);
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            plugin = new PipingPlugin();
+            updateInfo = plugin.GetUpdateInfos().First(i => i.DataType == typeof(PipingSurfaceLinesContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
         }
     }
 }

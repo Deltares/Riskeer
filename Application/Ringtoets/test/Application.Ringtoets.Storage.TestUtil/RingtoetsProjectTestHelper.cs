@@ -47,8 +47,9 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Primitives.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
@@ -642,7 +643,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                         },
                         Output = new StructuresOutput(new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
                     },
-
                     new StructuresCalculation<ClosingStructuresInput>
                     {
                         InputParameters =

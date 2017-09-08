@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
 {
