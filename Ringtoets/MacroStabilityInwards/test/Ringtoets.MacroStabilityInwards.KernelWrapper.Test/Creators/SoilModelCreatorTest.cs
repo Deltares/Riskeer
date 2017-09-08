@@ -27,13 +27,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilModelCreatorTest
+    public class SoilModelCreatorTest
     {
         [Test]
         public void Create_SoilsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilModelCreator.Create(null);
+            TestDelegate call = () => SoilModelCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            SoilModel soilModel = MacroStabilityInwardsSoilModelCreator.Create(soils);
+            SoilModel soilModel = SoilModelCreator.Create(soils);
 
             // Assert
             CollectionAssert.AreEqual(soils, soilModel.Soils);

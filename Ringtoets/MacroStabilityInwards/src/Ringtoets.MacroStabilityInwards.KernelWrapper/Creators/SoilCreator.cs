@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
     /// <summary>
     /// Creates <see cref="Soil"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
     /// </summary>
-    internal static class MacroStabilityInwardsSoilCreator
+    internal static class SoilCreator
     {
         /// <summary>
         /// Creates a <see cref="Soil"/> based on information contained in the profile <paramref name="profile"/>,

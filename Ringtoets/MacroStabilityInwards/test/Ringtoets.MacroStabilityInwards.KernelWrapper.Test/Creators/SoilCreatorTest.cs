@@ -32,13 +32,13 @@ using Point2D = Core.Common.Base.Geometry.Point2D;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilCreatorTest
+    public class SoilCreatorTest
     {
         [Test]
         public void Create_ProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilCreator.Create(null);
+            TestDelegate call = () => SoilCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             });
 
             // Call
-            Soil[] soils = MacroStabilityInwardsSoilCreator.Create(profile);
+            Soil[] soils = SoilCreator.Create(profile);
 
             // Assert
             Assert.AreEqual(3, soils.Length);
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilCreator.Create(profile);
+            TestDelegate test = () => SoilCreator.Create(profile);
 
             // Assert
             string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsShearStrengthModel).Name}'.";

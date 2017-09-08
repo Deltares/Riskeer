@@ -43,13 +43,13 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Creators\MacroStabilityInwardsSoilProfileCreator.cs" />
+    <Compile Include="Creators\SoilProfileCreator.cs" />
     <Compile Include="Creators\StabilityLocationCreator.cs" />
     <Compile Include="MacroStabilityInwardsCalculator.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInput.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />
-    <Compile Include="Creators\MacroStabilityInwardsSoilCreator.cs" />
-    <Compile Include="Creators\MacroStabilityInwardsSoilModelCreator.cs" />
+    <Compile Include="Creators\SoilCreator.cs" />
+    <Compile Include="Creators\SoilModelCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\IMacroStabilityInwardsSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\IUpliftVanCalculator.cs" />

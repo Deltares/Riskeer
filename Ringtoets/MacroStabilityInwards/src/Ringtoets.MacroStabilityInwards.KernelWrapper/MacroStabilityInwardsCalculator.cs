@@ -85,8 +85,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         private IUpliftVanCalculator CreateUpliftVanCalculator()
         {
             IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
-            Soil[] soils = MacroStabilityInwardsSoilCreator.Create(input.SoilProfile);
-            calculator.SoilModel = MacroStabilityInwardsSoilModelCreator.Create(soils);
+            Soil[] soils = SoilCreator.Create(input.SoilProfile);
+            calculator.SoilModel = SoilModelCreator.Create(soils);
 
             Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils =
                 input.SoilProfile.LayersUnderSurfaceLine
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                      })
                      .ToDictionary(x => x.layer, x => x.soil);
 
-            calculator.SoilProfile = MacroStabilityInwardsSoilProfileCreator.Create(layersWithSoils);
+            calculator.SoilProfile = SoilProfileCreator.Create(layersWithSoils);
             return calculator;
         }
 

@@ -33,13 +33,13 @@ using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilProfileCreatorTest
+    public class SoilProfileCreatorTest
     {
         [Test]
         public void Create_DictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilProfileCreator.Create(null);
+            TestDelegate call = () => SoilProfileCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             var soil = new Soil();
 
             // Call
-            SoilProfile2D profile = MacroStabilityInwardsSoilProfileCreator.Create(new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>
+            SoilProfile2D profile = SoilProfileCreator.Create(new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>
             {
                 {
                     layer, soil

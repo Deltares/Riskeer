@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
     /// <summary>
     /// Creates <see cref="SoilProfile"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
     /// </summary>
-    internal static class MacroStabilityInwardsSoilProfileCreator
+    internal static class SoilProfileCreator
     {
         private static GeometryData geometryData;
 
