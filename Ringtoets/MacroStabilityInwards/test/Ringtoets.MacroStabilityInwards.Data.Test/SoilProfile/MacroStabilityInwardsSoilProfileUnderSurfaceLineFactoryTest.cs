@@ -428,7 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA),
                 new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB)
             };
-            var profile = new MacroStabilityInwardsSoilProfile2D("name", layers);
+            var profile = new MacroStabilityInwardsSoilProfile2D("name", layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
@@ -497,7 +497,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var profile = new MacroStabilityInwardsSoilProfile2D("name", new[]
             {
                 layer
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
 
             // Call
             MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(

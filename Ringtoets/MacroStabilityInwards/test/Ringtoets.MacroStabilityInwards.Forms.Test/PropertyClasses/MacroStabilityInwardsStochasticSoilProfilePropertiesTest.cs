@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -142,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 CreateMacroStabilityInwardsSoilLayer2D()
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D("name", layers);
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("name", layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
             var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
 
@@ -236,7 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.142, new MacroStabilityInwardsSoilProfile2D("<some name>", new[]
             {
                 CreateMacroStabilityInwardsSoilLayer2D()
-            }));
+            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
@@ -337,7 +338,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers);
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call

@@ -605,6 +605,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.2, stochasticSoilProfile2D.Probability);
             var soilProfile2D = stochasticSoilProfile2D.SoilProfile as MacroStabilityInwardsSoilProfile2D;
             Assert.IsNotNull(soilProfile2D);
+            CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
             AssertMacroStabilityInwardsSoilProfile2D(soilProfile2D);
 
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1D = soilModel.StochasticSoilProfiles[1];

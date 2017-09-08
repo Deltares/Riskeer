@@ -259,7 +259,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                             new Point2D(1, 0),
                             new Point2D(0, 0)
                         }), Enumerable.Empty<Ring>())
-                    }))
+                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
                 }
             };
 

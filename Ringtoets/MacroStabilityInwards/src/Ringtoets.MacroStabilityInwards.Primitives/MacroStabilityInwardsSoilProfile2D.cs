@@ -41,13 +41,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         /// <param name="name">The name of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
+        /// <param name="preconsolidationStresses">The preconsolidation stresses that are part of the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
-        /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfile2D(string name, IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
+        public MacroStabilityInwardsSoilProfile2D(string name,
+                                                  IEnumerable<MacroStabilityInwardsSoilLayer2D> layers,
+                                                  IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
+            if (preconsolidationStresses == null)
+            {
+                throw new ArgumentNullException(nameof(preconsolidationStresses));
+            }
+
             Name = name;
             Layers = layers;
+            PreconsolidationStresses = preconsolidationStresses.ToArray();
         }
 
         /// <summary>
@@ -68,6 +76,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 layers = value.ToArray();
             }
         }
+
+        /// <summary>
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsPreconsolidationStress"/>
+        /// for the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
+        /// </summary>
+        public IEnumerable<MacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
 
         /// <summary>
         /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.

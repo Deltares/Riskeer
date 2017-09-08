@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile2D(null, new Collection<MacroStabilityInwardsSoilLayer2D>());
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(null, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>());
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

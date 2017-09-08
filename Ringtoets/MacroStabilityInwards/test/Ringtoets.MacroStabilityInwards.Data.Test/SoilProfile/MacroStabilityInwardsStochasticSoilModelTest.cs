@@ -216,7 +216,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var expectedRemovedProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
             var newProfile = new MacroStabilityInwardsStochasticSoilProfile(
                 0.2,
-                new MacroStabilityInwardsSoilProfile2D(profileName, CreateLayers2D()));
+                new MacroStabilityInwardsSoilProfile2D(profileName, CreateLayers2D(), Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
             MacroStabilityInwardsStochasticSoilModel model = CreateEmptyModel();
             model.StochasticSoilProfiles.Add(expectedRemovedProfile);
 

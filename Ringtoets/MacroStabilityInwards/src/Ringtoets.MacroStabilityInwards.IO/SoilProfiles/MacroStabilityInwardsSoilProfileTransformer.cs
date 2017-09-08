@@ -96,7 +96,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         {
             return new MacroStabilityInwardsSoilProfile2D(soilProfile.Name,
                                                           soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform));
+                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform), 
+                                                          Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()); //TODO WTI-1341 Placeholder
         }
     }
 }
