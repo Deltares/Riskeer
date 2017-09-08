@@ -422,10 +422,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRing(7),
                 CreateRing(2)
             };
+
+            // TODO: WTI 1341 - Placeholder for Preconsolidation stress 
+            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = new MacroStabilityInwardsPreconsolidationStress[0];
+
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA),
-                new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB)
+                new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA, preconsolidationStresses),
+                new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB, preconsolidationStresses)
             };
             var profile = new MacroStabilityInwardsSoilProfile2D("name", layers);
 
@@ -470,7 +474,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             double strengthIncreaseExponentMean = random.NextDouble();
             double strengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
             double popMean = random.NextDouble();
-            double popCoefficientOfVariation = random.NextDouble();            
+            double popCoefficientOfVariation = random.NextDouble();
 
             MacroStabilityInwardsSoilLayer2D layer = GetSoilLayer();
             layer.Properties.UsePop = usePop;
@@ -580,7 +584,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private static MacroStabilityInwardsSoilLayer2D GetSoilLayer()
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRing(21), Enumerable.Empty<Ring>());
+            return new MacroStabilityInwardsSoilLayer2D(CreateRing(21), Enumerable.Empty<Ring>(), Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
         }
 
         private static Ring CreateRing(int seed)

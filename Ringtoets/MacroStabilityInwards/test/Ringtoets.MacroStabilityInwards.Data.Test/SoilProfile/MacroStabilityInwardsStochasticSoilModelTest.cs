@@ -373,7 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             });
             return new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>().ToArray())
+                new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>(), Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())
             };
         }
 

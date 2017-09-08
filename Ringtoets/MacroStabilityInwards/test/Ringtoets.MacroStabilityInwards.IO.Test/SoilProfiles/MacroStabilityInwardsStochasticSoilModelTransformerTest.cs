@@ -158,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                         new Point2D(1.0, 1.0),
                         new Point2D(2.0, 1.0)
                     })
-                })
+                }, new MacroStabilityInwardsPreconsolidationStress[0])
                 {
                     Properties =
                     {

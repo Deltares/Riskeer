@@ -230,6 +230,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             {
                 CreateRandomRing(random.Next()),
                 CreateRandomRing(random.Next())
+            }, new[]
+            {
+                CreateRandomPreconsolidationStress(random.Next()),
+                CreateRandomPreconsolidationStress(random.Next())
             })
             {
                 Properties =
@@ -252,6 +256,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 pointB,
                 pointC
             });
+        }
+
+        private static MacroStabilityInwardsPreconsolidationStress CreateRandomPreconsolidationStress(int seed)
+        {
+            var random = new Random(seed);
+            return new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble());
         }
 
         private static string GetRandomName(Random random)

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -44,8 +46,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 })
             };
 
+            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses =
+                Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>();
+
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null, holes);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null, holes, preconsolidationStresses);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,8 +67,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new Point2D(2, 2)
             });
 
+            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses =
+                Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>();
+
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null, preconsolidationStresses);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -71,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Constructor_WithOuterRingAndHoles_ReturnsNewInstance()
+        public void Constructor_WithoutPreconsolidationStress_ThrowsArgumentNullException()
         {
             // Setup
             var outerRing = new Ring(new[]
@@ -89,13 +97,40 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
 
             // Call
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
+            TestDelegate call = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithOuterRingAndHoles_ReturnsNewInstance()
+        {
+            // Setup
+            var random = new Random(39);
+            Ring outerRing = CreateRandomRing(random);
+            var holes = new[]
+            {
+                CreateRandomRing(random)
+            };
+
+            var preconsolidationStresses = new[]
+            {
+                CreateRandomPreconsolidationStress(random)
+            };
+
+            // Call
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes, preconsolidationStresses);
 
             // Assert
             Assert.NotNull(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
+            Assert.AreNotSame(preconsolidationStresses, layer.PreconsolidationStresses);
+            TestHelper.AssertCollectionsAreEqual(preconsolidationStresses, layer.PreconsolidationStresses,
+                                                 new ReferenceEqualityComparer<MacroStabilityInwardsPreconsolidationStress>());
             Assert.NotNull(layer.Properties);
         }
 
@@ -166,6 +201,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new[]
                 {
                     CreateRandomRing(new Random(22))
+                }, new[]
+                {
+                    CreateRandomPreconsolidationStress(new Random(20))
                 })
             {
                 Properties =
@@ -178,6 +216,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new[]
                 {
                     CreateRandomRing(new Random(22))
+                }, new[]
+                {
+                    CreateRandomPreconsolidationStress(new Random(20))
                 })
             {
                 Properties =
@@ -190,6 +231,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new[]
                 {
                     CreateRandomRing(new Random(32))
+                }, new[]
+                {
+                    CreateRandomPreconsolidationStress(new Random(20))
                 })
             {
                 Properties =
@@ -202,11 +246,33 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new[]
                 {
                     CreateRandomRing(new Random(22))
+                }, new[]
+                {
+                    CreateRandomPreconsolidationStress(new Random(20))
                 })
             {
                 Properties =
                 {
                     Color = Color.Gold
+                }
+            };
+
+            // TODO: WTI 1341 
+            // - Placeholder for Preconsolidation stress 
+            // - Implement the equals() method
+            var layerI = new MacroStabilityInwardsSoilLayer2D(
+                CreateRandomRing(new Random(21)),
+                new[]
+                {
+                    CreateRandomRing(new Random(22))
+                }, new[]
+                {
+                    CreateRandomPreconsolidationStress(new Random(50))
+                })
+            {
+                Properties =
+                {
+                    Color = Color.Blue
                 }
             };
 
@@ -261,6 +327,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new[]
             {
                 CreateRandomRing(random)
+            }, new[]
+            {
+                CreateRandomPreconsolidationStress(random)
             })
             {
                 Properties =
@@ -268,6 +337,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }
             };
+        }
+
+        private static MacroStabilityInwardsPreconsolidationStress CreateRandomPreconsolidationStress(Random random)
+        {
+            return new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble(),
+                                                                   random.NextDouble());
         }
 
         private static Ring CreateRandomRing(Random random)

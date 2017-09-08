@@ -640,6 +640,7 @@ namespace Demo.Ringtoets.Test.Commands
                 })
             };
             CollectionAssert.AreEqual(holes, soilLayer2D.Holes);
+            CollectionAssert.IsEmpty(soilLayer2D.PreconsolidationStresses);
             Assert.AreEqual("2D Layer", soilLayer2D.Properties.MaterialName);
         }
 

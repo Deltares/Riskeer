@@ -462,7 +462,7 @@ namespace Demo.Ringtoets.Commands
                                     new Point2D(6.9300, 3.032406),
                                     new Point2D(14.8312, 12.673506)
                                 })
-                            })
+                            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())
                         {
                             Properties =
                             {
