@@ -150,7 +150,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     {
                         new MacroStabilityInwardsSoilLayer1D(0)
                     }))
-
                 }
             };
 
@@ -239,7 +238,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
                     {
-                        new MacroStabilityInwardsSoilLayer1D(4), 
+                        new MacroStabilityInwardsSoilLayer1D(4)
                     }))
                 }
             };
@@ -259,7 +258,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                             new Point2D(0, 0),
                             new Point2D(1, 0),
                             new Point2D(0, 0)
-                        }), Enumerable.Empty<Ring>(), Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())
+                        }), Enumerable.Empty<Ring>())
                     }))
                 }
             };

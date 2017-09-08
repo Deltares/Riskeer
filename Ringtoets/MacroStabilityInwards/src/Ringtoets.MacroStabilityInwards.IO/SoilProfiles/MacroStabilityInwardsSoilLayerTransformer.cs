@@ -91,8 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             Ring outerRing = TransformSegmentToRing(soilLayer.OuterLoop);
             Ring[] innerRings = soilLayer.InnerLoops.Select(TransformSegmentToRing).ToArray();
 
-            // TODO: WTI 1341 - Placeholder for Preconsolidation stress 
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings);
             SetProperties(soilLayer, layer.Properties);
 
             return layer;

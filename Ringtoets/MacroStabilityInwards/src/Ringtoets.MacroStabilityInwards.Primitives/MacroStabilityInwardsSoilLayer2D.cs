@@ -35,13 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
         /// <param name="holes">The rings describing the holes within the outer boundaries of 
-        /// the layer.</param>
-        /// <param name="preconsolidationStresses">The preconsolidation stresses that are defined
-        /// for the layer.</param>
+        ///     the layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2D(Ring outerRing,
-                                                IEnumerable<Ring> holes,
-                                                IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes)
         {
             if (outerRing == null)
             {
@@ -51,14 +47,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw new ArgumentNullException(nameof(holes));
             }
-            if (preconsolidationStresses == null)
-            {
-                throw new ArgumentNullException(nameof(preconsolidationStresses));
-            }
 
             Properties = new MacroStabilityInwardsSoilLayerProperties();
             OuterRing = outerRing;
-            PreconsolidationStresses = preconsolidationStresses.ToArray();
             Holes = holes.ToArray();
         }
 
@@ -76,11 +67,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the holes of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public Ring[] Holes { get; }
-
-        /// <summary>
-        /// Gets the preconsolidation stresses that are defined for the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
-        /// </summary>
-        public MacroStabilityInwardsPreconsolidationStress[] PreconsolidationStresses { get; }
 
         public override bool Equals(object obj)
         {

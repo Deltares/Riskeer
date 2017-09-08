@@ -423,13 +423,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRing(2)
             };
 
-            // TODO: WTI 1341 - Placeholder for Preconsolidation stress 
-            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = new MacroStabilityInwardsPreconsolidationStress[0];
-
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA, preconsolidationStresses),
-                new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB, preconsolidationStresses)
+                new MacroStabilityInwardsSoilLayer2D(outerRingA, holesA),
+                new MacroStabilityInwardsSoilLayer2D(outerRingB, holesB)
             };
             var profile = new MacroStabilityInwardsSoilProfile2D("name", layers);
 
@@ -584,7 +581,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private static MacroStabilityInwardsSoilLayer2D GetSoilLayer()
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRing(21), Enumerable.Empty<Ring>(), Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            return new MacroStabilityInwardsSoilLayer2D(CreateRing(21), Enumerable.Empty<Ring>());
         }
 
         private static Ring CreateRing(int seed)

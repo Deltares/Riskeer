@@ -230,10 +230,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             {
                 CreateRandomRing(random.Next()),
                 CreateRandomRing(random.Next())
-            }, new[]
-            {
-                CreateRandomPreconsolidationStress(random.Next()),
-                CreateRandomPreconsolidationStress(random.Next())
             })
             {
                 Properties =
