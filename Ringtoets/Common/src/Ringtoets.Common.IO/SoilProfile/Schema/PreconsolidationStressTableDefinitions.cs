@@ -48,11 +48,6 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string PreconsolidationStressZCoordinate = "PreconsolidationStressZCoordinate";
 
         /// <summary>
-        /// The name of the stress calculation value column. 
-        /// </summary>
-        public const string PreconsolidationStressCalculationValue = "PreconsolidationStressCalculationValue";
-
-        /// <summary>
         /// The name of the preconsolidation stress distribution column.
         /// </summary>
         public const string PreconsolidationStressDistribution = "PreconsolidationStressDistribution";

@@ -265,7 +265,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                    random.NextDouble(),
                                                                    random.NextDouble(),
                                                                    random.NextDouble(),
-                                                                   random.NextDouble(),
                                                                    random.NextDouble());
         }
 

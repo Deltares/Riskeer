@@ -349,7 +349,6 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"preconsolidationStressesCount.{PreconsolidationStressTableDefinitions.PreconsolidationstressesCount}, " +
                 $"{PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate}, " +
                 $"{PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate}, " +
-                $"{PreconsolidationStressTableDefinitions.PreconsolidationStressCalculationValue}, " +
                 $"{PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution}, " +
                 $"{PreconsolidationStressTableDefinitions.PreconsolidationStressMean}, " +
                 $"{PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation}, " +
@@ -366,7 +365,6 @@ namespace Ringtoets.Common.IO.SoilProfile
                 "SP2D_ID, " +
                 $"X as {PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate}, " +
                 $"Z as {PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate}, " +
-                $"Stress as {PreconsolidationStressTableDefinitions.PreconsolidationStressCalculationValue}, " +
                 $"s.ST_Dist_Type AS {PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution}, " +
                 $"s.ST_Shift AS {PreconsolidationStressTableDefinitions.PreconsolidationStressShift}, " +
                 $"s.ST_Mean AS {PreconsolidationStressTableDefinitions.PreconsolidationStressMean}, " +

@@ -32,8 +32,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         /// <param name="xCoordinate">The x coordinate of the preconsolidation stress location.</param>
         /// <param name="zCoordinate">The z coordinate of the preconsolidation stress location.</param>
-        /// <param name="preconsolidationStressCalculationValue">The stress calculation value 
-        /// of the preconsolidation stress.</param>
         /// <param name="preconsolidationStressMean">The mean of the stochastic distribution 
         /// for the preconsolidation stress.</param>
         /// <param name="preconsolidationStressCoefficientOfVariation">The coefficient of 
@@ -42,14 +40,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// for the preconsolidation stress</param>
         public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
                                                            double zCoordinate,
-                                                           double preconsolidationStressCalculationValue,
                                                            double preconsolidationStressMean,
                                                            double preconsolidationStressCoefficientOfVariation,
                                                            double preconsolidationStressShift)
         {
             XCoordinate = xCoordinate;
             ZCoordinate = zCoordinate;
-            PreconsolidationStressCalculationValue = preconsolidationStressCalculationValue;
             PreconsolidationStressMean = preconsolidationStressMean;
             PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation;
             PreconsolidationStressShift = preconsolidationStressShift;
@@ -66,12 +62,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// [m]
         /// </summary>
         public double ZCoordinate { get; }
-
-        /// <summary>
-        /// Gets the value representing the calculation value of the preconsolidation stress.
-        /// [kN/m³]
-        /// </summary>
-        public double PreconsolidationStressCalculationValue { get; }
 
         /// <summary>
         /// Gets the value representing the mean of the distribution for the preconsolidation stress.

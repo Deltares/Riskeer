@@ -35,7 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
-            double stressCalculationValue = random.NextDouble();
             double stressShift = random.NextDouble();
             double stressMean = random.NextDouble();
             double stressCoefficientOfVariation = random.NextDouble();
@@ -43,7 +42,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Call
             var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
                                                                          zCoordinate,
-                                                                         stressCalculationValue,
                                                                          stressMean,
                                                                          stressCoefficientOfVariation,
                                                                          stressShift);
@@ -51,7 +49,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(xCoordinate, stress.XCoordinate);
             Assert.AreEqual(zCoordinate, stress.ZCoordinate);
 
-            Assert.AreEqual(stressCalculationValue, stress.PreconsolidationStressCalculationValue);
             Assert.AreEqual(stressMean, stress.PreconsolidationStressMean);
             Assert.AreEqual(stressCoefficientOfVariation, stress.PreconsolidationStressCoefficientOfVariation);
             Assert.AreEqual(stressShift, stress.PreconsolidationStressShift);
