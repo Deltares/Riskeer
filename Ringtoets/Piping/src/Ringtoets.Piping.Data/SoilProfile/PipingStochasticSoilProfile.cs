@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;

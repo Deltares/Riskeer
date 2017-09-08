@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -35,7 +33,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilProfile : Observable
     {
-        private static readonly Range<double> probabilityValidityRange = new Range<double>(0, 1);
         private double probability;
 
         /// <summary>
