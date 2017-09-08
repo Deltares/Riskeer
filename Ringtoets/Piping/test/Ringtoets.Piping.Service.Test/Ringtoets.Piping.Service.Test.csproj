@@ -113,6 +113,10 @@
       <Project>{955e574d-67ce-4347-aa6b-7df8a04ed754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Primitives.TestUtil\Ringtoets.Piping.Primitives.TestUtil.csproj">
+      <Project>{6F568E38-592A-4F99-A901-86B74C4F24D2}</Project>
+      <Name>Ringtoets.Piping.Primitives.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

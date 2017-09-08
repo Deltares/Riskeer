@@ -99,6 +99,10 @@
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Primitives.TestUtil\Ringtoets.Piping.Primitives.TestUtil.csproj">
+      <Project>{6F568E38-592A-4F99-A901-86B74C4F24D2}</Project>
+      <Name>Ringtoets.Piping.Primitives.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

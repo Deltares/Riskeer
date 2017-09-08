@@ -25,8 +25,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.SoilProfiles;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfiles
 {

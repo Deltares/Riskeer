@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {

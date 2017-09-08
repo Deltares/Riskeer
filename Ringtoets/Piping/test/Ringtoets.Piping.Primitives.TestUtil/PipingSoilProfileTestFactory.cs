@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Primitives;
-
-namespace Ringtoets.Piping.KernelWrapper.TestUtil
+namespace Ringtoets.Piping.Primitives.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="PipingSoilProfile"/> instances that can be used for testing.
@@ -33,9 +31,9 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="Ringtoets.Piping.Primitives.SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name to set for the <see cref="PipingSoilProfile"/>.</param>
@@ -50,9 +48,9 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to "name";</item>
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="Ringtoets.Piping.Primitives.SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
@@ -66,7 +64,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
         /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <paramref name="soilProfileType"/>.</item>
         /// </list>

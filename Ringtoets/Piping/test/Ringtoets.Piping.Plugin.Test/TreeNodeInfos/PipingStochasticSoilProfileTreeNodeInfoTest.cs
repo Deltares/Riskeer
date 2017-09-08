@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-          // Call
+            // Call
             Image image = info.Image(null);
 
             // Assert

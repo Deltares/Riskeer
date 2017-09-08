@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {

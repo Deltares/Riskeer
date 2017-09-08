@@ -51,7 +51,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="PipingSoilProfileTestFactory.cs" />
     <Compile Include="SubCalculator\PipingProfilePropertyCalculatorStub.cs" />
     <Compile Include="SubCalculator\PipingSubCalculatorFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,10 +78,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
-      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
-      <Name>Ringtoets.Piping.Primitives</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
