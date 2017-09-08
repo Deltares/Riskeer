@@ -80,5 +80,44 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// [kN/m³]
         /// </summary>
         public double PreconsolidationStressShift { get; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsPreconsolidationStress) obj);
+        }
+
+        private bool Equals(MacroStabilityInwardsPreconsolidationStress other)
+        {
+            return XCoordinate.Equals(other.XCoordinate)
+                   && ZCoordinate.Equals(other.ZCoordinate)
+                   && PreconsolidationStressMean.Equals(other.PreconsolidationStressMean)
+                   && PreconsolidationStressCoefficientOfVariation.Equals(other.PreconsolidationStressCoefficientOfVariation)
+                   && PreconsolidationStressShift.Equals(other.PreconsolidationStressShift);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = XCoordinate.GetHashCode();
+                hashCode = (hashCode * 397) ^ ZCoordinate.GetHashCode();
+                hashCode = (hashCode * 397) ^ PreconsolidationStressMean.GetHashCode();
+                hashCode = (hashCode * 397) ^ PreconsolidationStressCoefficientOfVariation.GetHashCode();
+                hashCode = (hashCode * 397) ^ PreconsolidationStressShift.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }
