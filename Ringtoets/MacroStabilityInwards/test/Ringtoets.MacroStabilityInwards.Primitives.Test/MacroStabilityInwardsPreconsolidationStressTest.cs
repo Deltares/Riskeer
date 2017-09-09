@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
@@ -29,16 +30,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
     public class MacroStabilityInwardsPreconsolidationStressTest
     {
         [Test]
-        public void Constructor_ReturnsExpectedValues()
+        public void Constructor_ValidArguments_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(21);
 
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
-            double stressShift = random.NextDouble();
             double stressMean = random.NextDouble();
             double stressCoefficientOfVariation = random.NextDouble();
+            double stressShift = random.NextDouble();
 
             // Call
             var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
@@ -53,6 +54,27 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(stressMean, stress.PreconsolidationStressMean);
             Assert.AreEqual(stressCoefficientOfVariation, stress.PreconsolidationStressCoefficientOfVariation);
             Assert.AreEqual(stressShift, stress.PreconsolidationStressShift);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetInvalidConstructorArguments))]
+        public void Constructor_ArgumentsNaN_ThrowsArgumentException(double xCoordinate,
+                                                                     double zCoordinate,
+                                                                     double stressMean,
+                                                                     double stressCoefficientOfVariation,
+                                                                     double stressShift,
+                                                                     string parameterName)
+        {
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
+                                                                                      zCoordinate,
+                                                                                      stressMean,
+                                                                                      stressCoefficientOfVariation,
+                                                                                      stressShift);
+
+            // Assert
+            string expectedMessage = $"De waarde voor '{parameterName}' moet een concreet getal zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -81,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Equals_ToiTself_ReturnsTrue()
+        public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
             var random = new Random(21);
@@ -295,6 +317,23 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                                           baseStress.PreconsolidationStressCoefficientOfVariation,
                                                                                           baseStress.PreconsolidationStressShift + random.NextDouble()))
                 .SetName("Different Shift");
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidConstructorArguments()
+        {
+            var random = new Random(21);
+
+            double xCoordinate = random.NextDouble();
+            double zCoordinate = random.NextDouble();
+            double stressMean = random.NextDouble();
+            double stressCoefficientOfVariation = random.NextDouble();
+            double stressShift = random.NextDouble();
+
+            yield return new TestCaseData(double.NaN, zCoordinate, stressMean, stressCoefficientOfVariation, stressShift, "X-coördinaat").SetName("Invalid XCoordinate");
+            yield return new TestCaseData(xCoordinate, double.NaN, stressMean, stressCoefficientOfVariation, stressShift, "Z-coördinaat").SetName("Invalid ZCoordinate");
+            yield return new TestCaseData(xCoordinate, zCoordinate, double.NaN, stressCoefficientOfVariation, stressShift, "gemiddelde").SetName("Invalid Mean");
+            yield return new TestCaseData(xCoordinate, zCoordinate, stressMean, double.NaN, stressShift, "variatiecoëfficient").SetName("Invalid Coefficient of Variation");
+            yield return new TestCaseData(xCoordinate, zCoordinate, stressMean, stressCoefficientOfVariation, double.NaN, "verschuiving").SetName("Invalid Shift");
         }
 
         private class DerivedMacroStabilityInwardsPreconsolidationStress : MacroStabilityInwardsPreconsolidationStress

@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.MacroStabilityInwards.Primitives.Properties;
+
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
@@ -38,12 +41,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// variation of the stochastic distribution for the preconsolidation stress.</param>
         /// <param name="preconsolidationStressShift">The shift of the stochastic distribution 
         /// for the preconsolidation stress</param>
+        /// <exception cref="ArgumentException">Thrown when any of the parameters has an invalid value.</exception>
         public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
                                                            double zCoordinate,
                                                            double preconsolidationStressMean,
                                                            double preconsolidationStressCoefficientOfVariation,
                                                            double preconsolidationStressShift)
         {
+            ValidateParameter(xCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
+            ValidateParameter(zCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
+            ValidateParameter(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
+            ValidateParameter(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
+            ValidateParameter(preconsolidationStressShift, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressShift_ParameterName);
+
             XCoordinate = xCoordinate;
             ZCoordinate = zCoordinate;
             PreconsolidationStressMean = preconsolidationStressMean;
@@ -80,6 +90,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// [kN/m³]
         /// </summary>
         public double PreconsolidationStressShift { get; }
+
+        /// <summary>
+        /// Validates if the <paramref name="value"/> is a valid value.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="parameterName">The name of the parameter to validate.</param>
+        /// <exception cref="ArgumentException">Thrown if the parameter value is invalid.</exception>
+        private static void ValidateParameter(double value, string parameterName)
+        {
+            if (double.IsNaN(value))
+            {
+                string message = string.Format(Resources.MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value, parameterName);
+                throw new ArgumentException(message);
+            }
+        }
 
         public override bool Equals(object obj)
         {

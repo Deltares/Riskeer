@@ -135,4 +135,22 @@
   <data name="SandDikeOnSand_DisplayName" xml:space="preserve">
     <value>Zand dijk op zand (geval 2B)</value>
   </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value" xml:space="preserve">
+    <value>De waarde voor '{0}' moet een concreet getal zijn.</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName" xml:space="preserve">
+    <value>X-coördinaat</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName" xml:space="preserve">
+    <value>Z-coördinaat</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName" xml:space="preserve">
+    <value>gemiddelde</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName" xml:space="preserve">
+    <value>variatiecoëfficient</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressShift_ParameterName" xml:space="preserve">
+    <value>verschuiving</value>
+  </data>
 </root>
