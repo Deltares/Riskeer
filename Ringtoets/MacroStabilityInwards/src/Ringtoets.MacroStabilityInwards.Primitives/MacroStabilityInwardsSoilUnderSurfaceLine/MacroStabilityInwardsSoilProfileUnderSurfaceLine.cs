@@ -42,11 +42,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
                 throw new ArgumentNullException(nameof(layersUnderSurfaceLine));
             }
             LayersUnderSurfaceLine = layersUnderSurfaceLine;
+            PreconsolidationStresses = new List<MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine>();
         }
 
         /// <summary>
         /// Gets the layers in the profile.
         /// </summary>
         public IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> LayersUnderSurfaceLine { get; }
+
+        /// <summary>
+        /// Gets the preconsolidation stresses in the profile.
+        /// </summary>
+        public List<MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine> PreconsolidationStresses { get; }
     }
 }

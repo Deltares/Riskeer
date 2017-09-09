@@ -52,6 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
 
             // Assert
             Assert.AreSame(layers, profile.LayersUnderSurfaceLine);
+            CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
         }
     }
 }
