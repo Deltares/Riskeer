@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {

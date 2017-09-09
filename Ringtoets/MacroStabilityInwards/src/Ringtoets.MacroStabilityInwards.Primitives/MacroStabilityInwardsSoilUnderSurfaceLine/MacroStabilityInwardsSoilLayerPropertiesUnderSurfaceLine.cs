@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     /// <summary>
     /// Soil layer properties.

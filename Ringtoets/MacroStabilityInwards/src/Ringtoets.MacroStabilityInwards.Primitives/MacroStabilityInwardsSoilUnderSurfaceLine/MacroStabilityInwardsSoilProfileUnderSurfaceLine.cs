@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     /// <summary>
     /// A soil profile for which its soil layers have been adapted using a surface line.

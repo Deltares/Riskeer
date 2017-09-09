@@ -23,8 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilProfileUnderSurfaceLineTest

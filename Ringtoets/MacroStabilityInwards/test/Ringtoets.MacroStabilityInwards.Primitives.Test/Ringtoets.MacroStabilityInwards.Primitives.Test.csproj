@@ -57,11 +57,12 @@
     <Compile Include="MacroStabilityInwardsPreconsolidationStressTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer2DTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer1DTest.cs" />
-    <Compile Include="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLineTest.cs" />
-    <Compile Include="MacroStabilityInwardsSoilLayerUnderSurfaceLineTest.cs" />
+    <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLineTest.cs" />
+    <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLineTest.cs" />
+    <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsSoilLayerUnderSurfaceLineTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilProfile2DTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilProfile1DTest.cs" />
-    <Compile Include="MacroStabilityInwardsSoilProfileUnderSurfaceLineTest.cs" />
+    <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsSoilProfileUnderSurfaceLineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingTest.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineTest.cs" />

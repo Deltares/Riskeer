@@ -25,8 +25,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLineTest
