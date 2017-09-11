@@ -26,7 +26,6 @@ using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
@@ -177,6 +176,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                 expectedInnerLoop1,
                 expectedInnerLoop2
             }, surface.GeometrySurface.InnerLoops, new WTIStabilityGeometryLoopComparer());
+
+            Assert.AreEqual(0, profile.Geometry.Left);
+            Assert.AreEqual(0, profile.Geometry.Bottom);
+            Assert.AreEqual(10, profile.Geometry.Right);
         }
     }
 }

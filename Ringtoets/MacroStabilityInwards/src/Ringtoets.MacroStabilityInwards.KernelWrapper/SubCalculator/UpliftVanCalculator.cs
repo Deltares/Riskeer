@@ -45,7 +45,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             {
                 ModelOption = ModelOptions.UpliftVan,
                 SearchAlgorithm = SearchAlgorithm.Grid,
-                GridOrientation = GridOrientation.Inwards
+                GridOrientation = GridOrientation.Inwards,
+                SlipPlaneConstraints = new SlipPlaneConstraints
+                {
+                    AutomaticForbiddenZones = true,
+                    CreateZones = true
+                }
             };
         }
 
@@ -105,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
                 wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
 
                 string messages = wrappedCalculator.Validate();
-                wrappedCalculator.Run();
+                string result = wrappedCalculator.Run();
             }
             catch (Exception e)
             {

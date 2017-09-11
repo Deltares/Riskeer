@@ -66,7 +66,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                     FrictionAngle = properties.FrictionAngleDesignVariable,
                     RatioCuPc = properties.ShearStrengthRatioDesignVariable,
                     StrengthIncreaseExponent = properties.StrengthIncreaseExponentDesignVariable,
-                    PoP = properties.PopDesignVariable
+                    PoP = properties.PopDesignVariable,
+                    DilatancyType = DilatancyType.Zero
                 };
             }).ToArray();
         }

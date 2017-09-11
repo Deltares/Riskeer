@@ -108,6 +108,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.ShearStrengthRatioDesignVariable.Value), soils.Select(s => s.RatioCuPc));
             CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.StrengthIncreaseExponentDesignVariable.Value), soils.Select(s => s.StrengthIncreaseExponent));
             CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.PopDesignVariable.Value), soils.Select(s => s.PoP));
+
+            foreach (Soil soil in soils)
+            {
+                Assert.AreEqual(DilatancyType.Zero, soil.DilatancyType);
+            }
         }
 
         [Test]

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
@@ -61,6 +62,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                     GeometrySurface = CreateGeometrySurface(layerWithSoil.Key)
                 });
             }
+
+            geometryData.Left = geometryData.Points.Min(gp => gp.X);
+            geometryData.Right = geometryData.Points.Max(gp => gp.X);
+            geometryData.Bottom = geometryData.Points.Min(gp => gp.Z);
 
             profile.Geometry = geometryData;
 
