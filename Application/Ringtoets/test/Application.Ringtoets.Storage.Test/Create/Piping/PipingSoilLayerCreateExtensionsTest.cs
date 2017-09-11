@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
@@ -32,24 +33,21 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingSoilLayerCreateExtensionsTest
     {
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithCollector_ReturnsFailureMechanismEntityWithPropertiesSet(bool isAquifer)
+        public void Create_WithValidProperties_ReturnsEntityWithPropertiesSet()
         {
             // Setup
             var random = new Random(21);
-            double top = random.NextDouble();
             int order = random.Next();
-            var soilLayer = new PipingSoilLayer(top)
+            var soilLayer = new PipingSoilLayer(random.NextDouble())
             {
-                IsAquifer = isAquifer,
-                Color = Color.AliceBlue,
+                IsAquifer = random.NextBoolean(),
+                Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                 MaterialName = "MaterialName",
                 BelowPhreaticLevelMean = random.NextDouble(),
                 BelowPhreaticLevelDeviation = random.NextDouble(),
                 BelowPhreaticLevelShift = random.NextDouble(),
-                DiameterD70Mean = double.NaN,
-                DiameterD70CoefficientOfVariation = double.NaN,
+                DiameterD70Mean = random.NextDouble(),
+                DiameterD70CoefficientOfVariation = random.NextDouble(),
                 PermeabilityMean = random.NextDouble(),
                 PermeabilityCoefficientOfVariation = random.NextDouble()
             };
@@ -59,17 +57,47 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(top, entity.Top);
-            Assert.AreEqual(Convert.ToByte(isAquifer), entity.IsAquifer);
+            Assert.AreEqual(soilLayer.Top, entity.Top);
+            Assert.AreEqual(Convert.ToByte(soilLayer.IsAquifer), entity.IsAquifer);
             Assert.AreEqual(soilLayer.Color.ToArgb(), Convert.ToInt32(entity.Color));
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelMean.ToNaNAsNull(), entity.BelowPhreaticLevelMean);
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation.ToNaNAsNull(), entity.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(soilLayer.BelowPhreaticLevelShift.ToNaNAsNull(), entity.BelowPhreaticLevelShift);
-            Assert.AreEqual(soilLayer.DiameterD70Mean.ToNaNAsNull(), entity.DiameterD70Mean);
-            Assert.AreEqual(soilLayer.DiameterD70CoefficientOfVariation.ToNaNAsNull(), entity.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(soilLayer.PermeabilityMean.ToNaNAsNull(), entity.PermeabilityMean);
-            Assert.AreEqual(soilLayer.PermeabilityCoefficientOfVariation.ToNaNAsNull(), entity.PermeabilityCoefficientOfVariation);
+            Assert.AreEqual(soilLayer.BelowPhreaticLevelMean, entity.BelowPhreaticLevelMean);
+            Assert.AreEqual(soilLayer.BelowPhreaticLevelDeviation, entity.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(soilLayer.BelowPhreaticLevelShift, entity.BelowPhreaticLevelShift);
+            Assert.AreEqual(soilLayer.DiameterD70Mean, entity.DiameterD70Mean);
+            Assert.AreEqual(soilLayer.DiameterD70CoefficientOfVariation, entity.DiameterD70CoefficientOfVariation);
+            Assert.AreEqual(soilLayer.PermeabilityMean, entity.PermeabilityMean);
+            Assert.AreEqual(soilLayer.PermeabilityCoefficientOfVariation, entity.PermeabilityCoefficientOfVariation);
             Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void Create_WithNaNProperties_ReturnsEntityWithPropertiesSetToNull()
+        {
+            // Setup
+            var soilLayer = new PipingSoilLayer(double.NaN)
+            {
+                BelowPhreaticLevelMean = double.NaN,
+                BelowPhreaticLevelDeviation = double.NaN,
+                BelowPhreaticLevelShift = double.NaN,
+                DiameterD70Mean = double.NaN,
+                DiameterD70CoefficientOfVariation = double.NaN,
+                PermeabilityMean = double.NaN,
+                PermeabilityCoefficientOfVariation = double.NaN
+            };
+
+            // Call
+            PipingSoilLayerEntity entity = soilLayer.Create(0);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.IsNull(entity.Top);
+            Assert.IsNull(entity.BelowPhreaticLevelMean);
+            Assert.IsNull(entity.BelowPhreaticLevelDeviation);
+            Assert.IsNull(entity.BelowPhreaticLevelShift);
+            Assert.IsNull(entity.DiameterD70Mean);
+            Assert.IsNull(entity.DiameterD70CoefficientOfVariation);
+            Assert.IsNull(entity.PermeabilityMean);
+            Assert.IsNull(entity.PermeabilityCoefficientOfVariation);
         }
 
         [Test]
@@ -86,9 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingSoilLayerEntity entity = soilLayer.Create(0);
 
             // Assert
-            Assert.AreNotSame(materialName, entity.MaterialName,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(materialName, entity.MaterialName);
+            TestHelper.AssertAreEqualButNotSame(materialName, entity.MaterialName);
         }
     }
 }

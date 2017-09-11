@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\WTI\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -725,7 +725,7 @@
           <Property Name="StrengthIncreaseExponentMean" Type="real" />
           <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="real" />
           <Property Name="PopMean" Type="real" />
-          <Property Name="PopDeviation" Type="real" />
+          <Property Name="PopCoefficientOfVariation" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayer2DEntity">
@@ -754,7 +754,7 @@
           <Property Name="StrengthIncreaseExponentMean" Type="real" />
           <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="real" />
           <Property Name="PopMean" Type="real" />
-          <Property Name="PopDeviation" Type="real" />
+          <Property Name="PopCoefficientOfVariation" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilProfile1DEntity">
@@ -4840,7 +4840,7 @@
           <Property Name="StrengthIncreaseExponentMean" Type="Double" />
           <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="Double" />
           <Property Name="PopMean" Type="Double" />
-          <Property Name="PopDeviation" Type="Double" />
+          <Property Name="PopCoefficientOfVariation" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfile1DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer1DEntity_0_0" FromRole="MacroStabilityInwardsSoilLayer1DEntity" ToRole="MacroStabilityInwardsSoilProfile1DEntity" />
         </EntityType>
@@ -4870,7 +4870,7 @@
           <Property Name="StrengthIncreaseExponentMean" Type="Double" />
           <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="Double" />
           <Property Name="PopMean" Type="Double" />
-          <Property Name="PopDeviation" Type="Double" />
+          <Property Name="PopCoefficientOfVariation" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfile2DEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayer2DEntity_0_0" FromRole="MacroStabilityInwardsSoilLayer2DEntity" ToRole="MacroStabilityInwardsSoilProfile2DEntity" />
         </EntityType>
@@ -7659,7 +7659,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer1DEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilLayer1DEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="PopDeviation" ColumnName="PopDeviation" />
+                <ScalarProperty Name="PopCoefficientOfVariation" ColumnName="PopCoefficientOfVariation" />
                 <ScalarProperty Name="PopMean" ColumnName="PopMean" />
                 <ScalarProperty Name="StrengthIncreaseExponentCoefficientOfVariation" ColumnName="StrengthIncreaseExponentCoefficientOfVariation" />
                 <ScalarProperty Name="StrengthIncreaseExponentMean" ColumnName="StrengthIncreaseExponentMean" />
@@ -7690,7 +7690,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayer2DEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilLayer2DEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="PopDeviation" ColumnName="PopDeviation" />
+                <ScalarProperty Name="PopCoefficientOfVariation" ColumnName="PopCoefficientOfVariation" />
                 <ScalarProperty Name="PopMean" ColumnName="PopMean" />
                 <ScalarProperty Name="StrengthIncreaseExponentCoefficientOfVariation" ColumnName="StrengthIncreaseExponentCoefficientOfVariation" />
                 <ScalarProperty Name="StrengthIncreaseExponentMean" ColumnName="StrengthIncreaseExponentMean" />

@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? StrengthIncreaseExponentMean { get; set; }
         public double? StrengthIncreaseExponentCoefficientOfVariation { get; set; }
         public double? PopMean { get; set; }
-        public double? PopDeviation { get; set; }
+        public double? PopCoefficientOfVariation { get; set; }
         public int Order { get; set; }
 
         public virtual MacroStabilityInwardsSoilProfile2DEntity MacroStabilityInwardsSoilProfile2DEntity { get; set; }

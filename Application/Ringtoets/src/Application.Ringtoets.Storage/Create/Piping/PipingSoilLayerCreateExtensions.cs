@@ -39,10 +39,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <returns>A new <see cref="PipingSoilLayerEntity"/>.</returns>
         internal static PipingSoilLayerEntity Create(this PipingSoilLayer layer, int order)
         {
-            var entity = new PipingSoilLayerEntity
+            return new PipingSoilLayerEntity
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),
-                Top = layer.Top,
+                Top = layer.Top.ToNaNAsNull(),
                 BelowPhreaticLevelMean = layer.BelowPhreaticLevelMean.ToNaNAsNull(),
                 BelowPhreaticLevelDeviation = layer.BelowPhreaticLevelDeviation.ToNaNAsNull(),
                 BelowPhreaticLevelShift = layer.BelowPhreaticLevelShift.ToNaNAsNull(),
@@ -54,8 +54,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 MaterialName = layer.MaterialName.DeepClone(),
                 Order = order
             };
-
-            return entity;
         }
     }
 }
