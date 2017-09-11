@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
+using Point2D = Core.Common.Base.Geometry.Point2D;
+using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
@@ -38,11 +40,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
         /// Creates a <see cref="SoilProfile2D"/> with the given <paramref name="layersWithSoils"/>
         /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
         /// </summary>
+        /// <param name="soilProfile">The soil profile to create the <see cref="SoilProfile2D"/> for.</param>
         /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>
         /// <returns>A new <see cref="SoilProfile2D"/> with the <paramref name="layersWithSoils"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layersWithSoils"/> is <c>null</c>.</exception>
-        public static SoilProfile2D Create(IDictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static SoilProfile2D Create(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile,
+                                           IDictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils)
         {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
             if (layersWithSoils == null)
             {
                 throw new ArgumentNullException(nameof(layersWithSoils));
@@ -51,6 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             geometryData = new GeometryData();
 
             var profile = new SoilProfile2D();
+            profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
 
             foreach (KeyValuePair<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layerWithSoil in layersWithSoils)
             {
@@ -71,6 +80,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             return profile;
         }
 
+        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        {
+            return soilProfile.PreconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
+            {
+                StressValue = preconsolidationStress.PreconsolidationStressDesignVariable,
+                X = preconsolidationStress.XCoordinate,
+                Z = preconsolidationStress.ZCoordinate
+            }).ToArray();
+        }
+
         private static GeometrySurface CreateGeometrySurface(MacroStabilityInwardsSoilLayerUnderSurfaceLine layer)
         {
             var outerLoop = new GeometryLoop();
@@ -82,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             geometryData.Loops.Add(outerLoop);
 
             var innerloops = new List<GeometryLoop>();
-            foreach (Core.Common.Base.Geometry.Point2D[] layerHole in layer.Holes)
+            foreach (Point2D[] layerHole in layer.Holes)
             {
                 GeometryCurve[] holeCurves = ToCurveList(layerHole);
                 geometryData.Curves.AddRange(holeCurves);
@@ -109,18 +128,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             return loop;
         }
 
-        private static GeometryCurve[] ToCurveList(Core.Common.Base.Geometry.Point2D[] points)
+        private static GeometryCurve[] ToCurveList(Point2D[] points)
         {
-            var geometryPoints = (List<Point2D>)geometryData.Points;
+            var geometryPoints = (List<WTIStabilityPoint2D>) geometryData.Points;
 
             var curves = new List<GeometryCurve>();
 
-            var firstPoint = new Point2D(points[0].X, points[0].Y);
-            Point2D lastPoint = null;
+            var firstPoint = new WTIStabilityPoint2D(points[0].X, points[0].Y);
+            WTIStabilityPoint2D lastPoint = null;
 
             for (var i = 0; i < points.Length - 1; i++)
             {
-                Point2D headPoint;
+                Deltares.WTIStability.Data.Geo.Point2D headPoint;
 
                 if (i == 0)
                 {
@@ -132,14 +151,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                     headPoint = lastPoint;
                 }
 
-                var endPoint = new Point2D(points[i + 1].X, points[i + 1].Y);
+                var endPoint = new WTIStabilityPoint2D(points[i + 1].X, points[i + 1].Y);
 
                 geometryPoints.Add(endPoint);
 
                 curves.Add(new GeometryCurve
                 {
                     HeadPoint = headPoint,
-                    EndPoint = endPoint,
+                    EndPoint = endPoint
                 });
 
                 lastPoint = endPoint;

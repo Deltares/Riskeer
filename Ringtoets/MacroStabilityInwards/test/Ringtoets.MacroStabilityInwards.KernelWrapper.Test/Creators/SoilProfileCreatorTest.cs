@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
@@ -36,10 +38,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
     public class SoilProfileCreatorTest
     {
         [Test]
+        public void Create_SoilProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => SoilProfileCreator.Create(null, new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("soilProfile", exception.ParamName);
+        }
+
+        [Test]
         public void Create_DictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null);
+            TestDelegate call = () => SoilProfileCreator.Create(new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
+                                                                    Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>()), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,6 +64,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
         public void Create_WithAllData_ReturnSoilProfile2D()
         {
             // Setup
+            var random = new Random(11);
+            double preconsolidationStressXCoordinate = random.Next();
+            double preconsolidationStressZCoordinate = random.Next();
+            RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
+
             var outerRing = new[]
             {
                 new Point2D(0, 0),
@@ -82,8 +101,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 
             var soil = new Soil();
 
+            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                layer
+            })
+            {
+                PreconsolidationStresses =
+                {
+                    new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine(
+                        new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine.ConstructionProperties
+                        {
+                            XCoordinate = preconsolidationStressXCoordinate,
+                            ZCoordinate = preconsolidationStressZCoordinate
+                        })
+                    {
+                        PreconsolidationStressDesignVariable = preconsolidationStressDesignValue
+                    }
+                }
+            };
+
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>
+            SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>
             {
                 {
                     layer, soil
@@ -92,6 +130,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(1, profile.Surfaces.Count);
+
+            Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
+            PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
+
+            Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
+            Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
+            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
+
             SoilLayer2D surface = profile.Surfaces.First();
             Assert.AreSame(soil, surface.Soil);
             Assert.AreEqual(layer.Properties.IsAquifer, surface.IsAquifer);
