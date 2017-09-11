@@ -41,19 +41,19 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte ShearStrengthModel { get; set; }
         public byte UsePop { get; set; }
         public double? AbovePhreaticLevelMean { get; set; }
-        public double? AbovePhreaticLevelDeviation { get; set; }
+        public double? AbovePhreaticLevelCoefficientOfVariation { get; set; }
         public double? AbovePhreaticLevelShift { get; set; }
         public double? BelowPhreaticLevelMean { get; set; }
-        public double? BelowPhreaticLevelDeviation { get; set; }
+        public double? BelowPhreaticLevelCoefficientOfVariation { get; set; }
         public double? BelowPhreaticLevelShift { get; set; }
         public double? CohesionMean { get; set; }
-        public double? CohesionDeviation { get; set; }
+        public double? CohesionCoefficientOfVariation { get; set; }
         public double? FrictionAngleMean { get; set; }
-        public double? FrictionAngleDeviation { get; set; }
+        public double? FrictionAngleCoefficientOfVariation { get; set; }
         public double? ShearStrengthRatioMean { get; set; }
-        public double? ShearStrengthRatioDeviation { get; set; }
+        public double? ShearStrengthRatioCoefficientOfVariation { get; set; }
         public double? StrengthIncreaseExponentMean { get; set; }
-        public double? StrengthIncreaseExponentDeviation { get; set; }
+        public double? StrengthIncreaseExponentCoefficientOfVariation { get; set; }
         public double? PopMean { get; set; }
         public double? PopDeviation { get; set; }
         public int Order { get; set; }

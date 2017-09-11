@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\WTI\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -711,19 +711,19 @@
           <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
           <Property Name="UsePop" Type="tinyint" Nullable="false" />
           <Property Name="AbovePhreaticLevelMean" Type="real" />
-          <Property Name="AbovePhreaticLevelDeviation" Type="real" />
+          <Property Name="AbovePhreaticLevelCoefficientOfVariation" Type="real" />
           <Property Name="AbovePhreaticLevelShift" Type="real" />
           <Property Name="BelowPhreaticLevelMean" Type="real" />
-          <Property Name="BelowPhreaticLevelDeviation" Type="real" />
+          <Property Name="BelowPhreaticLevelCoefficientOfVariation" Type="real" />
           <Property Name="BelowPhreaticLevelShift" Type="real" />
           <Property Name="CohesionMean" Type="real" />
-          <Property Name="CohesionDeviation" Type="real" />
+          <Property Name="CohesionCoefficientOfVariation" Type="real" />
           <Property Name="FrictionAngleMean" Type="real" />
-          <Property Name="FrictionAngleDeviation" Type="real" />
+          <Property Name="FrictionAngleCoefficientOfVariation" Type="real" />
           <Property Name="ShearStrengthRatioMean" Type="real" />
-          <Property Name="ShearStrengthRatioDeviation" Type="real" />
+          <Property Name="ShearStrengthRatioCoefficientOfVariation" Type="real" />
           <Property Name="StrengthIncreaseExponentMean" Type="real" />
-          <Property Name="StrengthIncreaseExponentDeviation" Type="real" />
+          <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="real" />
           <Property Name="PopMean" Type="real" />
           <Property Name="PopDeviation" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
@@ -740,19 +740,19 @@
           <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
           <Property Name="UsePop" Type="tinyint" Nullable="false" />
           <Property Name="AbovePhreaticLevelMean" Type="real" />
-          <Property Name="AbovePhreaticLevelDeviation" Type="real" />
+          <Property Name="AbovePhreaticLevelCoefficientOfVariation" Type="real" />
           <Property Name="AbovePhreaticLevelShift" Type="real" />
           <Property Name="BelowPhreaticLevelMean" Type="real" />
-          <Property Name="BelowPhreaticLevelDeviation" Type="real" />
+          <Property Name="BelowPhreaticLevelCoefficientOfVariation" Type="real" />
           <Property Name="BelowPhreaticLevelShift" Type="real" />
           <Property Name="CohesionMean" Type="real" />
-          <Property Name="CohesionDeviation" Type="real" />
+          <Property Name="CohesionCoefficientOfVariation" Type="real" />
           <Property Name="FrictionAngleMean" Type="real" />
-          <Property Name="FrictionAngleDeviation" Type="real" />
+          <Property Name="FrictionAngleCoefficientOfVariation" Type="real" />
           <Property Name="ShearStrengthRatioMean" Type="real" />
-          <Property Name="ShearStrengthRatioDeviation" Type="real" />
+          <Property Name="ShearStrengthRatioCoefficientOfVariation" Type="real" />
           <Property Name="StrengthIncreaseExponentMean" Type="real" />
-          <Property Name="StrengthIncreaseExponentDeviation" Type="real" />
+          <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="real" />
           <Property Name="PopMean" Type="real" />
           <Property Name="PopDeviation" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
@@ -4826,19 +4826,19 @@
           <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
           <Property Name="UsePop" Type="Byte" Nullable="false" />
           <Property Name="AbovePhreaticLevelMean" Type="Double" />
-          <Property Name="AbovePhreaticLevelDeviation" Type="Double" />
+          <Property Name="AbovePhreaticLevelCoefficientOfVariation" Type="Double" />
           <Property Name="AbovePhreaticLevelShift" Type="Double" />
           <Property Name="BelowPhreaticLevelMean" Type="Double" />
-          <Property Name="BelowPhreaticLevelDeviation" Type="Double" />
+          <Property Name="BelowPhreaticLevelCoefficientOfVariation" Type="Double" />
           <Property Name="BelowPhreaticLevelShift" Type="Double" />
           <Property Name="CohesionMean" Type="Double" />
-          <Property Name="CohesionDeviation" Type="Double" />
+          <Property Name="CohesionCoefficientOfVariation" Type="Double" />
           <Property Name="FrictionAngleMean" Type="Double" />
-          <Property Name="FrictionAngleDeviation" Type="Double" />
+          <Property Name="FrictionAngleCoefficientOfVariation" Type="Double" />
           <Property Name="ShearStrengthRatioMean" Type="Double" />
-          <Property Name="ShearStrengthRatioDeviation" Type="Double" />
+          <Property Name="ShearStrengthRatioCoefficientOfVariation" Type="Double" />
           <Property Name="StrengthIncreaseExponentMean" Type="Double" />
-          <Property Name="StrengthIncreaseExponentDeviation" Type="Double" />
+          <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="Double" />
           <Property Name="PopMean" Type="Double" />
           <Property Name="PopDeviation" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
@@ -4856,19 +4856,19 @@
           <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
           <Property Name="UsePop" Type="Byte" Nullable="false" />
           <Property Name="AbovePhreaticLevelMean" Type="Double" />
-          <Property Name="AbovePhreaticLevelDeviation" Type="Double" />
+          <Property Name="AbovePhreaticLevelCoefficientOfVariation" Type="Double" />
           <Property Name="AbovePhreaticLevelShift" Type="Double" />
           <Property Name="BelowPhreaticLevelMean" Type="Double" />
-          <Property Name="BelowPhreaticLevelDeviation" Type="Double" />
+          <Property Name="BelowPhreaticLevelCoefficientOfVariation" Type="Double" />
           <Property Name="BelowPhreaticLevelShift" Type="Double" />
           <Property Name="CohesionMean" Type="Double" />
-          <Property Name="CohesionDeviation" Type="Double" />
+          <Property Name="CohesionCoefficientOfVariation" Type="Double" />
           <Property Name="FrictionAngleMean" Type="Double" />
-          <Property Name="FrictionAngleDeviation" Type="Double" />
+          <Property Name="FrictionAngleCoefficientOfVariation" Type="Double" />
           <Property Name="ShearStrengthRatioMean" Type="Double" />
-          <Property Name="ShearStrengthRatioDeviation" Type="Double" />
+          <Property Name="ShearStrengthRatioCoefficientOfVariation" Type="Double" />
           <Property Name="StrengthIncreaseExponentMean" Type="Double" />
-          <Property Name="StrengthIncreaseExponentDeviation" Type="Double" />
+          <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="Double" />
           <Property Name="PopMean" Type="Double" />
           <Property Name="PopDeviation" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
@@ -7661,19 +7661,19 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PopDeviation" ColumnName="PopDeviation" />
                 <ScalarProperty Name="PopMean" ColumnName="PopMean" />
-                <ScalarProperty Name="StrengthIncreaseExponentDeviation" ColumnName="StrengthIncreaseExponentDeviation" />
+                <ScalarProperty Name="StrengthIncreaseExponentCoefficientOfVariation" ColumnName="StrengthIncreaseExponentCoefficientOfVariation" />
                 <ScalarProperty Name="StrengthIncreaseExponentMean" ColumnName="StrengthIncreaseExponentMean" />
-                <ScalarProperty Name="ShearStrengthRatioDeviation" ColumnName="ShearStrengthRatioDeviation" />
+                <ScalarProperty Name="ShearStrengthRatioCoefficientOfVariation" ColumnName="ShearStrengthRatioCoefficientOfVariation" />
                 <ScalarProperty Name="ShearStrengthRatioMean" ColumnName="ShearStrengthRatioMean" />
-                <ScalarProperty Name="FrictionAngleDeviation" ColumnName="FrictionAngleDeviation" />
+                <ScalarProperty Name="FrictionAngleCoefficientOfVariation" ColumnName="FrictionAngleCoefficientOfVariation" />
                 <ScalarProperty Name="FrictionAngleMean" ColumnName="FrictionAngleMean" />
-                <ScalarProperty Name="CohesionDeviation" ColumnName="CohesionDeviation" />
+                <ScalarProperty Name="CohesionCoefficientOfVariation" ColumnName="CohesionCoefficientOfVariation" />
                 <ScalarProperty Name="CohesionMean" ColumnName="CohesionMean" />
                 <ScalarProperty Name="BelowPhreaticLevelShift" ColumnName="BelowPhreaticLevelShift" />
-                <ScalarProperty Name="BelowPhreaticLevelDeviation" ColumnName="BelowPhreaticLevelDeviation" />
+                <ScalarProperty Name="BelowPhreaticLevelCoefficientOfVariation" ColumnName="BelowPhreaticLevelCoefficientOfVariation" />
                 <ScalarProperty Name="BelowPhreaticLevelMean" ColumnName="BelowPhreaticLevelMean" />
                 <ScalarProperty Name="AbovePhreaticLevelShift" ColumnName="AbovePhreaticLevelShift" />
-                <ScalarProperty Name="AbovePhreaticLevelDeviation" ColumnName="AbovePhreaticLevelDeviation" />
+                <ScalarProperty Name="AbovePhreaticLevelCoefficientOfVariation" ColumnName="AbovePhreaticLevelCoefficientOfVariation" />
                 <ScalarProperty Name="AbovePhreaticLevelMean" ColumnName="AbovePhreaticLevelMean" />
                 <ScalarProperty Name="UsePop" ColumnName="UsePop" />
                 <ScalarProperty Name="ShearStrengthModel" ColumnName="ShearStrengthModel" />
@@ -7692,19 +7692,19 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PopDeviation" ColumnName="PopDeviation" />
                 <ScalarProperty Name="PopMean" ColumnName="PopMean" />
-                <ScalarProperty Name="StrengthIncreaseExponentDeviation" ColumnName="StrengthIncreaseExponentDeviation" />
+                <ScalarProperty Name="StrengthIncreaseExponentCoefficientOfVariation" ColumnName="StrengthIncreaseExponentCoefficientOfVariation" />
                 <ScalarProperty Name="StrengthIncreaseExponentMean" ColumnName="StrengthIncreaseExponentMean" />
-                <ScalarProperty Name="ShearStrengthRatioDeviation" ColumnName="ShearStrengthRatioDeviation" />
+                <ScalarProperty Name="ShearStrengthRatioCoefficientOfVariation" ColumnName="ShearStrengthRatioCoefficientOfVariation" />
                 <ScalarProperty Name="ShearStrengthRatioMean" ColumnName="ShearStrengthRatioMean" />
-                <ScalarProperty Name="FrictionAngleDeviation" ColumnName="FrictionAngleDeviation" />
+                <ScalarProperty Name="FrictionAngleCoefficientOfVariation" ColumnName="FrictionAngleCoefficientOfVariation" />
                 <ScalarProperty Name="FrictionAngleMean" ColumnName="FrictionAngleMean" />
-                <ScalarProperty Name="CohesionDeviation" ColumnName="CohesionDeviation" />
+                <ScalarProperty Name="CohesionCoefficientOfVariation" ColumnName="CohesionCoefficientOfVariation" />
                 <ScalarProperty Name="CohesionMean" ColumnName="CohesionMean" />
                 <ScalarProperty Name="BelowPhreaticLevelShift" ColumnName="BelowPhreaticLevelShift" />
-                <ScalarProperty Name="BelowPhreaticLevelDeviation" ColumnName="BelowPhreaticLevelDeviation" />
+                <ScalarProperty Name="BelowPhreaticLevelCoefficientOfVariation" ColumnName="BelowPhreaticLevelCoefficientOfVariation" />
                 <ScalarProperty Name="BelowPhreaticLevelMean" ColumnName="BelowPhreaticLevelMean" />
                 <ScalarProperty Name="AbovePhreaticLevelShift" ColumnName="AbovePhreaticLevelShift" />
-                <ScalarProperty Name="AbovePhreaticLevelDeviation" ColumnName="AbovePhreaticLevelDeviation" />
+                <ScalarProperty Name="AbovePhreaticLevelCoefficientOfVariation" ColumnName="AbovePhreaticLevelCoefficientOfVariation" />
                 <ScalarProperty Name="AbovePhreaticLevelMean" ColumnName="AbovePhreaticLevelMean" />
                 <ScalarProperty Name="UsePop" ColumnName="UsePop" />
                 <ScalarProperty Name="ShearStrengthModel" ColumnName="ShearStrengthModel" />
