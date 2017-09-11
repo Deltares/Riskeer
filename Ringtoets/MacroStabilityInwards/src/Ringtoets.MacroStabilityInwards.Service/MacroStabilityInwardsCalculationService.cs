@@ -167,7 +167,36 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     AssessmentLevel = inputParameters.AssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = inputParameters.SoilProfileUnderSurfaceLine
+                    SoilProfile = inputParameters.SoilProfileUnderSurfaceLine,
+                    DikeSoilScenario = inputParameters.DikeSoilScenario,
+                    WaterLevelRiverAverage = inputParameters.WaterLevelRiverAverage,
+                    WaterLevelPolder = inputParameters.WaterLevelPolder,
+                    XCoordinateDrainageConstruction = inputParameters.XCoordinateDrainageConstruction,
+                    ZCoordinateDrainageConstruction = inputParameters.ZCoordinateDrainageConstruction,
+                    MinimumLevelPhreaticLineAtDikeTopRiver = inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver,
+                    MinimumLevelPhreaticLineAtDikeTopPolder = inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder,
+                    PhreaticLineOffsetBelowDikeTopAtRiver = inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver,
+                    PhreaticLineOffsetBelowDikeTopAtPolder = inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder,
+                    PhreaticLineOffsetBelowShoulderBaseInside = inputParameters.PhreaticLineOffsetBelowShoulderBaseInside,
+                    PhreaticLineOffsetBelowDikeToeAtPolder = inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder,
+                    LeakageLengthOutwardsPhreaticLine3 = inputParameters.LeakageLengthOutwardsPhreaticLine3,
+                    LeakageLengthInwardsPhreaticLine3 = inputParameters.LeakageLengthInwardsPhreaticLine3,
+                    LeakageLengthOutwardsPhreaticLine4 = inputParameters.LeakageLengthOutwardsPhreaticLine4,
+                    LeakageLengthInwardsPhreaticLine4 = inputParameters.LeakageLengthInwardsPhreaticLine4,
+                    PiezometricHeadPhreaticLine2Outwards = inputParameters.PiezometricHeadPhreaticLine2Outwards,
+                    PiezometricHeadPhreaticLine2Inwards = inputParameters.PiezometricHeadPhreaticLine2Inwards,
+                    PenetrationLength = inputParameters.PenetrationLength,
+                    DrainageConstructionPresent = inputParameters.DrainageConstructionPresent,
+                    AdjustPhreaticLine3And4ForUplift = inputParameters.AdjustPhreaticLine3And4ForUplift,
+                    UseDefaultOffsets = inputParameters.UseDefaultOffsets,
+                    MoveGrid = inputParameters.MoveGrid,
+                    MaximumSliceWidth = inputParameters.MaximumSliceWidth,
+                    GridAutomaticDetermined = inputParameters.GridDetermination == MacroStabilityInwardsGridDetermination.Automatic,
+                    LeftGrid = inputParameters.LeftGrid,
+                    RightGrid = inputParameters.RightGrid,
+                    TangentLineAutomaticAtBoundaries = inputParameters.TangentLineDetermination == MacroStabilityInwardsTangentLineDetermination.LayerSeparated,
+                    TangentLineZTop = inputParameters.TangentLineZTop,
+                    TangentLineZBottom = inputParameters.TangentLineZBottom
                 });
         }
     }

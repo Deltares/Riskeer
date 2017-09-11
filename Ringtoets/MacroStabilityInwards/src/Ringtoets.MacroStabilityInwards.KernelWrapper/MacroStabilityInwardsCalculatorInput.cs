@@ -69,6 +69,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             DikeSoilScenario = properties.DikeSoilScenario;
             MoveGrid = properties.MoveGrid;
             MaximumSliceWidth = properties.MaximumSliceWidth;
+            GridAutomaticDetermined = properties.GridAutomaticDetermined;
+            LeftGrid = properties.LeftGrid;
+            RightGrid = properties.RightGrid;
+            TangentLineAutomaticAtBoundaries = properties.TangentLineAutomaticAtBoundaries;
+            TangentLineZTop = properties.TangentLineZTop;
+            TangentLineZBottom = properties.TangentLineZBottom;
         }
 
         public class ConstructionProperties
@@ -79,8 +85,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public ConstructionProperties()
             {
                 AssessmentLevel = double.NaN;
-                SurfaceLine = null;
-                SoilProfile = null;
                 WaterLevelRiverAverage = double.NaN;
                 WaterLevelPolder = double.NaN;
                 XCoordinateDrainageConstruction = double.NaN;
@@ -94,11 +98,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 LeakageLengthOutwardsPhreaticLine3 = double.NaN;
                 LeakageLengthInwardsPhreaticLine3 = double.NaN;
                 LeakageLengthOutwardsPhreaticLine4 = double.NaN;
+                LeakageLengthInwardsPhreaticLine4 = double.NaN;
                 PiezometricHeadPhreaticLine2Outwards = double.NaN;
                 PiezometricHeadPhreaticLine2Inwards = double.NaN;
                 PenetrationLength = double.NaN;
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
                 MaximumSliceWidth = double.NaN;
+                TangentLineZTop = double.NaN;
+                TangentLineZBottom = double.NaN;
             }
 
             #region properties
@@ -247,10 +254,42 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public bool MoveGrid { internal get; set; }
 
             /// <summary>
-            /// Gets the maximum slice width.
+            /// Gets or sets the maximum slice width.
             /// [m]
             /// </summary>
             public double MaximumSliceWidth { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets whether the grid is automatic determined or not.
+            /// </summary>
+            public bool GridAutomaticDetermined { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the left grid.
+            /// </summary>
+            public MacroStabilityInwardsGrid LeftGrid { internal get; set; }
+            
+            /// <summary>
+            /// Gets or sets the right grid.
+            /// </summary>
+            public MacroStabilityInwardsGrid RightGrid { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets whether the tangent line boundaries should be defined automatically.
+            /// </summary>
+            public bool TangentLineAutomaticAtBoundaries { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tangent line z top.
+            /// [m+NAP]
+            /// </summary>
+            public double TangentLineZTop { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tangent line z bottom.
+            /// [m+NAP]
+            /// </summary>
+            public double TangentLineZBottom { internal get; set; }
 
             #endregion
         }
@@ -405,6 +444,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// [m]
         /// </summary>
         public double MaximumSliceWidth { get; }
+
+        /// <summary>
+        /// Gets whether the grid is automatic determined or not.
+        /// </summary>
+        public bool GridAutomaticDetermined { get; }
+
+        /// <summary>
+        /// Gets the left grid.
+        /// </summary>
+        public MacroStabilityInwardsGrid LeftGrid { get; }
+
+        /// <summary>
+        /// Gets the right grid.
+        /// </summary>
+        public MacroStabilityInwardsGrid RightGrid { get; }
+
+        /// <summary>
+        /// Gets whether the tangent line boundaries should be defined automatically.
+        /// </summary>
+        public bool TangentLineAutomaticAtBoundaries { get; }
+
+        /// <summary>
+        /// Gets the tangent line z top.
+        /// [m+NAP]
+        /// </summary>
+        public double TangentLineZTop { get; }
+
+        /// <summary>
+        /// Gets the tangent line z bottom.
+        /// [m+NAP]
+        /// </summary>
+        public double TangentLineZBottom { get; }
 
         #endregion
     }

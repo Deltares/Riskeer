@@ -81,6 +81,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             bool drainageConstructionPresent = random.NextBoolean();
             var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
             bool moveGrid = random.NextBoolean();
+            double maximumSliceWidth = random.NextDouble();
+            bool gridAutomaticDetermined = random.NextBoolean();
+            var leftGrid = new MacroStabilityInwardsGrid();
+            var rightGrid = new MacroStabilityInwardsGrid();
+            bool tangentLineAutomaticAtBoundaries = random.NextBoolean();
+            double tangentLineZTop = random.NextDouble();
+            double tangentLineZBottom = random.NextDouble();
 
             // Call
             var input = new MacroStabilityInwardsCalculatorInput(
@@ -110,7 +117,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
                     DrainageConstructionPresent = drainageConstructionPresent,
                     DikeSoilScenario = dikeSoilScenario,
-                    MoveGrid = moveGrid
+                    MoveGrid = moveGrid,
+                    MaximumSliceWidth = maximumSliceWidth,
+                    GridAutomaticDetermined = gridAutomaticDetermined,
+                    LeftGrid = leftGrid,
+                    RightGrid = rightGrid,
+                    TangentLineAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries,
+                    TangentLineZTop = tangentLineZTop,
+                    TangentLineZBottom = tangentLineZBottom
                 });
 
             // Assert
@@ -141,6 +155,60 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             Assert.AreEqual(dikeSoilScenario, input.DikeSoilScenario);
             Assert.AreEqual(moveGrid, input.MoveGrid);
+            Assert.AreEqual(maximumSliceWidth, input.MaximumSliceWidth);
+            Assert.AreEqual(gridAutomaticDetermined, input.GridAutomaticDetermined);
+
+            Assert.AreSame(leftGrid, input.LeftGrid);
+            Assert.AreSame(rightGrid, input.RightGrid);
+
+            Assert.AreEqual(tangentLineAutomaticAtBoundaries, input.TangentLineAutomaticAtBoundaries);
+            Assert.AreEqual(tangentLineZTop, input.TangentLineZTop);
+            Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom);
+        }
+
+        [Test]
+        public void Constructor_EmptyConstrutionProperties_ExpectedValues()
+        {
+            // Call
+            var input = new MacroStabilityInwardsCalculatorInput(
+                new MacroStabilityInwardsCalculatorInput.ConstructionProperties());
+
+            // Assert
+            Assert.IsNull(input.SurfaceLine);
+            Assert.IsNull(input.SoilProfile);
+            Assert.IsNull(input.LeftGrid);
+            Assert.IsNull(input.RightGrid);
+
+            Assert.IsNaN(input.AssessmentLevel);
+            Assert.IsNaN(input.WaterLevelRiverAverage);
+            Assert.IsNaN(input.WaterLevelPolder);
+            Assert.IsNaN(input.XCoordinateDrainageConstruction);
+            Assert.IsNaN(input.ZCoordinateDrainageConstruction);
+            Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.IsNaN(input.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(input.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.IsNaN(input.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(input.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.IsNaN(input.LeakageLengthOutwardsPhreaticLine3);
+            Assert.IsNaN(input.LeakageLengthInwardsPhreaticLine3);
+            Assert.IsNaN(input.LeakageLengthOutwardsPhreaticLine4);
+            Assert.IsNaN(input.LeakageLengthInwardsPhreaticLine4);
+            Assert.IsNaN(input.PiezometricHeadPhreaticLine2Outwards);
+            Assert.IsNaN(input.PiezometricHeadPhreaticLine2Inwards);
+            Assert.IsNaN(input.PenetrationLength);
+            Assert.IsNaN(input.MaximumSliceWidth);
+            Assert.IsNaN(input.TangentLineZTop);
+            Assert.IsNaN(input.TangentLineZBottom);
+
+            Assert.IsFalse(input.DrainageConstructionPresent);
+            Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
+            Assert.IsFalse(input.UseDefaultOffsets);
+            Assert.IsFalse(input.MoveGrid);
+            Assert.IsFalse(input.GridAutomaticDetermined);           
+            Assert.IsFalse(input.TangentLineAutomaticAtBoundaries);
+
+            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }
     }
 }
