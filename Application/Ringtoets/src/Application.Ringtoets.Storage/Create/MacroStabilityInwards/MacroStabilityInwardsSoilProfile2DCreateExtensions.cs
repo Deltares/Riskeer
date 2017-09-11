@@ -41,6 +41,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer2DEntity"/> or one from the 
         /// <paramref name="registry"/> if it was created for the <see cref="soilProfile"/> earlier.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static MacroStabilityInwardsSoilProfile2DEntity Create(this MacroStabilityInwardsSoilProfile2D soilProfile,
                                                                         PersistenceRegistry registry)
         {

@@ -21,11 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
@@ -43,6 +41,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer1DEntity"/> or one from the 
         /// <paramref name="registry"/> if it was created for the <see cref="soilProfile"/> earlier.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static MacroStabilityInwardsSoilProfile1DEntity Create(this MacroStabilityInwardsSoilProfile1D soilProfile,
                                                                         PersistenceRegistry registry)
         {
@@ -73,7 +72,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         }
 
         private static void AddEntitiesForSoilLayers(IEnumerable<MacroStabilityInwardsSoilLayer1D> layers,
-                                                           MacroStabilityInwardsSoilProfile1DEntity entity)
+                                                     MacroStabilityInwardsSoilProfile1DEntity entity)
         {
             var index = 0;
             foreach (MacroStabilityInwardsSoilLayer1D layer in layers)

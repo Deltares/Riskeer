@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -38,6 +39,7 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
@@ -92,6 +94,50 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             protected override void Register(PersistenceRegistry registry, PipingSoilProfileEntity entity,
                                              PipingSoilProfile model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsStochasticSoilProfileTest : RegistryTest<MacroStabilityInwardsStochasticSoilProfile,
+            MacroStabilityInwardsStochasticSoilProfileEntity>
+        {
+            private MockRepository mockRepository;
+
+            [SetUp]
+            public void Setup()
+            {
+                mockRepository = new MockRepository();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                mockRepository.VerifyAll();
+            }
+
+            protected override MacroStabilityInwardsStochasticSoilProfile CreateDataModel()
+            {
+                var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile>();
+                mockRepository.ReplayAll();
+
+                return new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
+            }
+
+            protected override MacroStabilityInwardsStochasticSoilProfileEntity Get(PersistenceRegistry registry,
+                                                                                    MacroStabilityInwardsStochasticSoilProfile model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilProfile model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilProfileEntity entity,
+                                             MacroStabilityInwardsStochasticSoilProfile model)
             {
                 registry.Register(entity, model);
             }
