@@ -73,5 +73,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// sets whether the grid is automatic determined or not.
         /// </summary>
         bool GridAutomaticDetermined { set; }
+
+        /// <summary>
+        /// Sets the create zones property.
+        /// </summary>
+        bool CreateZones { set; }
+
+        /// <summary>
+        /// Sets the automatic forbidden zones property.
+        /// </summary>
+        bool AutomaticForbidenZones { set; }
+
+        /// <summary>
+        /// Sets the minimum depth of the slip plane.
+        /// [m]
+        /// </summary>
+        double SlipPlaneMinimumDepth { set; }
+
+        /// <summary>
+        /// Sets the minimum length of the slip plane.
+        /// [m]
+        /// </summary>
+        double SlipPlaneMinimumLength { set; }
     }
 }

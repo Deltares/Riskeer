@@ -141,6 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             SoilLayer2D surface = profile.Surfaces.First();
             Assert.AreSame(soil, surface.Soil);
             Assert.AreEqual(layer.Properties.IsAquifer, surface.IsAquifer);
+            Assert.AreEqual(WaterpressureInterpolationModel.Automatic, surface.WaterpressureInterpolationModel);
 
             var point1 = new WTIStabilityPoint2D(0, 0);
             var point2 = new WTIStabilityPoint2D(10, 10);

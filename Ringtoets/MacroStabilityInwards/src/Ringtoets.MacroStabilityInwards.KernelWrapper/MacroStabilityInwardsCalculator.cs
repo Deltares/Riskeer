@@ -106,6 +106,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             calculator.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
             calculator.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input);
             calculator.GridAutomaticDetermined = input.GridAutomaticDetermined;
+            calculator.CreateZones = input.CreateZones;
+            calculator.AutomaticForbidenZones = input.AutomaticForbiddenZones;
             return calculator;
         }
 

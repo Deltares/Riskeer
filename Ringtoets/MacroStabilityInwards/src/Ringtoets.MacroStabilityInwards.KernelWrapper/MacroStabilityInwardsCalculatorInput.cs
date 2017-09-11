@@ -75,6 +75,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             TangentLineAutomaticAtBoundaries = properties.TangentLineAutomaticAtBoundaries;
             TangentLineZTop = properties.TangentLineZTop;
             TangentLineZBottom = properties.TangentLineZBottom;
+            CreateZones = properties.CreateZones;
+            AutomaticForbiddenZones = properties.AutomaticForbiddenZones;
+            SlipPlaneMinimumDepth = properties.SlipPlaneMinimumDepth;
+            SlipPlaneMinimumLength = properties.SlipPlaneMinimumLength;
         }
 
         public class ConstructionProperties
@@ -106,6 +110,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 MaximumSliceWidth = double.NaN;
                 TangentLineZTop = double.NaN;
                 TangentLineZBottom = double.NaN;
+                SlipPlaneMinimumDepth = double.NaN;
+                SlipPlaneMinimumLength = double.NaN;
             }
 
             #region properties
@@ -290,6 +296,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             /// [m+NAP]
             /// </summary>
             public double TangentLineZBottom { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the create zones.
+            /// </summary>
+            public bool CreateZones { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the automatic forbidden zones.
+            /// </summary>
+            public bool AutomaticForbiddenZones { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the minimum depth of the slip plane.
+            /// [m]
+            /// </summary>
+            public double SlipPlaneMinimumDepth { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the minimum length of the slip plane.
+            /// [m]
+            /// </summary>
+            public double SlipPlaneMinimumLength { internal get; set; }
 
             #endregion
         }
@@ -476,6 +504,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// [m+NAP]
         /// </summary>
         public double TangentLineZBottom { get; }
+
+        /// <summary>
+        /// Gets the create zones.
+        /// </summary>
+        public bool CreateZones { get; }
+
+        /// <summary>
+        /// Gets the automatic forbidden zones.
+        /// </summary>
+        public bool AutomaticForbiddenZones { get; }
+
+        /// <summary>
+        /// Gets the minimum depth of the slip plane.
+        /// [m]
+        /// </summary>
+        public double SlipPlaneMinimumDepth { get; }
+
+        /// <summary>
+        /// Gets the minimum length of the slip plane.
+        /// [m]
+        /// </summary>
+        public double SlipPlaneMinimumLength { get; }
 
         #endregion
     }

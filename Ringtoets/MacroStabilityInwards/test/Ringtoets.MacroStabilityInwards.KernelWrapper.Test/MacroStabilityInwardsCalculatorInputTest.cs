@@ -81,13 +81,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             bool drainageConstructionPresent = random.NextBoolean();
             var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
             bool moveGrid = random.NextBoolean();
-            double maximumSliceWidth = random.NextDouble();
+            double maximumSliceWidth = random.Next();
             bool gridAutomaticDetermined = random.NextBoolean();
             var leftGrid = new MacroStabilityInwardsGrid();
             var rightGrid = new MacroStabilityInwardsGrid();
             bool tangentLineAutomaticAtBoundaries = random.NextBoolean();
-            double tangentLineZTop = random.NextDouble();
-            double tangentLineZBottom = random.NextDouble();
+            double tangentLineZTop = random.Next();
+            double tangentLineZBottom = random.Next();
+            bool createZones = random.NextBoolean();
+            bool automaticForbiddenZones = random.NextBoolean();
+            double slipPlaneMinDepth = random.Next();
+            double slipPlaneMinLength = random.Next();
 
             // Call
             var input = new MacroStabilityInwardsCalculatorInput(
@@ -124,7 +128,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     RightGrid = rightGrid,
                     TangentLineAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries,
                     TangentLineZTop = tangentLineZTop,
-                    TangentLineZBottom = tangentLineZBottom
+                    TangentLineZBottom = tangentLineZBottom,
+                    CreateZones = createZones,
+                    AutomaticForbiddenZones = automaticForbiddenZones,
+                    SlipPlaneMinimumDepth = slipPlaneMinDepth,
+                    SlipPlaneMinimumLength = slipPlaneMinLength
                 });
 
             // Assert
@@ -164,6 +172,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(tangentLineAutomaticAtBoundaries, input.TangentLineAutomaticAtBoundaries);
             Assert.AreEqual(tangentLineZTop, input.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom);
+            Assert.AreEqual(createZones, input.CreateZones);
+            Assert.AreEqual(automaticForbiddenZones, input.AutomaticForbiddenZones);
+            Assert.AreEqual(slipPlaneMinDepth, input.SlipPlaneMinimumDepth);
+            Assert.AreEqual(slipPlaneMinLength, input.SlipPlaneMinimumLength);
         }
 
         [Test]
@@ -200,13 +212,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.IsNaN(input.MaximumSliceWidth);
             Assert.IsNaN(input.TangentLineZTop);
             Assert.IsNaN(input.TangentLineZBottom);
+            Assert.IsNaN(input.SlipPlaneMinimumDepth);
+            Assert.IsNaN(input.SlipPlaneMinimumLength);
 
             Assert.IsFalse(input.DrainageConstructionPresent);
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
             Assert.IsFalse(input.UseDefaultOffsets);
             Assert.IsFalse(input.MoveGrid);
-            Assert.IsFalse(input.GridAutomaticDetermined);           
+            Assert.IsFalse(input.GridAutomaticDetermined);
             Assert.IsFalse(input.TangentLineAutomaticAtBoundaries);
+            Assert.IsFalse(input.CreateZones);
+            Assert.IsFalse(input.AutomaticForbiddenZones);
 
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }

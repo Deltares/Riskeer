@@ -67,7 +67,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                 {
                     IsAquifer = layerWithSoil.Key.Properties.IsAquifer,
                     Soil = layerWithSoil.Value,
-                    GeometrySurface = CreateGeometrySurface(layerWithSoil.Key)
+                    GeometrySurface = CreateGeometrySurface(layerWithSoil.Key),
+                    WaterpressureInterpolationModel = WaterpressureInterpolationModel.Automatic
                 });
             }
 

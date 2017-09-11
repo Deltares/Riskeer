@@ -51,6 +51,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public bool GridAutomaticDetermined { get; set; }
 
+        public bool CreateZones { get; set; }
+
+        public bool AutomaticForbidenZones { get; set; }
+
+        public double SlipPlaneMinimumDepth { get; set; }
+
+        public double SlipPlaneMinimumLength { get; set; }
+
         public void Calculate()
         {
             Calculated = true;

@@ -47,11 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
                 ModelOption = ModelOptions.UpliftVan,
                 SearchAlgorithm = SearchAlgorithm.Grid,
                 GridOrientation = GridOrientation.Inwards,
-                SlipPlaneConstraints = new SlipPlaneConstraints
-                {
-                    AutomaticForbiddenZones = true,
-                    CreateZones = true
-                },
+                SlipPlaneConstraints = new SlipPlaneConstraints(),
                 GeneticAlgorithmOptions = new GeneticAlgorithmOptions
                 {
                     EliteCount = 2,
@@ -134,6 +130,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
                 {
                     Auto = value
                 };
+            }
+        }
+
+        public bool CreateZones
+        {
+            set
+            {
+                calculatorInput.SlipPlaneConstraints.CreateZones = value;
+            }
+        }
+
+        public bool AutomaticForbidenZones
+        {
+            set
+            {
+                calculatorInput.SlipPlaneConstraints.AutomaticForbiddenZones = value;
+            }
+        }
+
+        public double SlipPlaneMinimumDepth
+        {
+            set
+            {
+                calculatorInput.SlipPlaneConstraints.SlipPlaneMinDepth = value;
+            }
+        }
+
+        public double SlipPlaneMinimumLength
+        {
+            set
+            {
+                calculatorInput.SlipPlaneConstraints.SlipPlaneMinLength = value;
             }
         }
 
