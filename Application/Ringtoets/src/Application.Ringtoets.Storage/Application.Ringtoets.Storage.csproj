@@ -80,6 +80,7 @@
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -98,6 +98,7 @@
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensionsTest.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensionsTest.cs">
       <SubType>Code</SubType>

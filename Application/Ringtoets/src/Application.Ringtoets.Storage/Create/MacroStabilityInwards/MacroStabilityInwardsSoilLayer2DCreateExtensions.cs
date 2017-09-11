@@ -27,26 +27,24 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="MacroStabilityInwardsSoilLayer1D"/> related to creating 
-    /// a <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.
+    /// Extension methods for <see cref="MacroStabilityInwardsSoilLayer2D"/> related to creating 
+    /// a <see cref="MacroStabilityInwardsSoilLayer2DEntity"/>.
     /// </summary>
-    internal static class MacroStabilityInwardsSoilLayer1DCreateExtensions
+    internal static class MacroStabilityInwardsSoilLayer2DCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsSoilLayer1DEntity"/> based on the information 
-        /// of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
+        /// Creates a <see cref="MacroStabilityInwardsSoilLayer2DEntity"/> based on the information 
+        /// of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="layer">The layer to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.</returns>
-        internal static MacroStabilityInwardsSoilLayer1DEntity Create(this MacroStabilityInwardsSoilLayer1D layer,
+        internal static MacroStabilityInwardsSoilLayer2DEntity Create(this MacroStabilityInwardsSoilLayer2D layer,
                                                                       int order)
         {
             MacroStabilityInwardsSoilLayerProperties properties = layer.Properties;
-            return new MacroStabilityInwardsSoilLayer1DEntity
+            return new MacroStabilityInwardsSoilLayer2DEntity
             {
-                Top = layer.Top.ToNaNAsNull(),
-
                 IsAquifer = Convert.ToByte(properties.IsAquifer),
                 MaterialName = properties.MaterialName.DeepClone(),
                 Color = properties.Color.ToArgb(),
