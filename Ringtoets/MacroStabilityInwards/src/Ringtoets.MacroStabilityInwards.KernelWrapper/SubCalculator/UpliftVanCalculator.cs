@@ -24,6 +24,7 @@ using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.IO;
+using Deltares.WTIStability.Levenberg;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
@@ -50,6 +51,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
                 {
                     AutomaticForbiddenZones = true,
                     CreateZones = true
+                },
+                GeneticAlgorithmOptions = new GeneticAlgorithmOptions
+                {
+                    EliteCount = 2,
+                    PopulationCount = 60,
+                    GenerationCount = 50,
+                    MutationRate = 0.3,
+                    CrossOverScatterFraction = 0,
+                    CrossOverSinglePointFraction = 0.7,
+                    CrossOverDoublePointFraction = 0.3,
+                    MutationJumpFraction = 0,
+                    MutationCreepFraction = 0.9,
+                    MutationInverseFraction = 0.1,
+                    MutationCreepReduction = 0.05,
+                    Seed = 1
                 }
             };
         }
