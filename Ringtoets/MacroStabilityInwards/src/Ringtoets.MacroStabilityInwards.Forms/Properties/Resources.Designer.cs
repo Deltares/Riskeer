@@ -100,6 +100,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zoneringsgrenzen automatisch bepalen of handmatig invoeren?.
+        /// </summary>
+        public static string AutomaticForbiddenZones_Description {
+            get {
+                return ResourceManager.GetString("AutomaticForbiddenZones_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Methode.
+        /// </summary>
+        public static string AutomaticForbiddenZones_DisplayName {
+            get {
+                return ResourceManager.GetString("AutomaticForbiddenZones_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grid.
         /// </summary>
         public static string Categories_Grid {
@@ -123,6 +141,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string Categories_Settings {
             get {
                 return ResourceManager.GetString("Categories_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik zoneringsgrenzen bij het bepalen van het intredepunt van het glijvlak?.
+        /// </summary>
+        public static string CreateZones_Description {
+            get {
+                return ResourceManager.GetString("CreateZones_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bepaling.
+        /// </summary>
+        public static string CreateZones_DisplayName {
+            get {
+                return ResourceManager.GetString("CreateZones_DisplayName", resourceCulture);
             }
         }
         
@@ -959,6 +995,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string SlipPlaneMinimumLength_DisplayName {
             get {
                 return ResourceManager.GetString("SlipPlaneMinimumLength_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eigenschappen van de zonering glijvlak..
+        /// </summary>
+        public static string SlipPlaneSettings_Description {
+            get {
+                return ResourceManager.GetString("SlipPlaneSettings_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zonering glijvlak.
+        /// </summary>
+        public static string SlipPlaneSettings_DisplayName {
+            get {
+                return ResourceManager.GetString("SlipPlaneSettings_DisplayName", resourceCulture);
             }
         }
         

@@ -74,6 +74,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridSettingsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DPropertiesTest.cs" />

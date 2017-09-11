@@ -112,6 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             LeftGrid = new MacroStabilityInwardsGrid();
             RightGrid = new MacroStabilityInwardsGrid();
+
+            CreateZones = true;
         }
 
         /// <summary>
@@ -620,6 +622,22 @@ namespace Ringtoets.MacroStabilityInwards.Data
             set
             {
                 penetrationLength = value.ToPrecision(penetrationLength.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets create zones.
+        /// </summary>
+        public bool CreateZones { get; set; }
+
+        /// <summary>
+        /// Gets the automatic forbidden zones.
+        /// </summary>
+        public MacroStabilityInwardsZoningBoundariesDetermination AutomaticForbiddenZones
+        {
+            get
+            {
+                return MacroStabilityInwardsZoningBoundariesDetermination.Automatic;
             }
         }
 

@@ -62,7 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedSlipPlaneMinimumDepthPropertyIndex = 8;
         private const int expectedSlipPlaneMinimumLengthPropertyIndex = 9;
         private const int expectedMaximumSliceWidthPropertyIndex = 10;
-        private const int expectedGridSettingsPropertyIndex = 11;
+        private const int expectedSlipPlaneSettingsPropertyIndex = 11;
+        private const int expectedGridSettingsPropertyIndex = 12;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -165,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(12, dynamicProperties.Count);
+            Assert.AreEqual(13, dynamicProperties.Count);
 
             const string hydraulicDataCategory = "\t\tHydraulische gegevens";
             const string schematizationCategory = "\tSchematisatie";
@@ -254,6 +255,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Maximale lamelbreedte [m]",
                 "Maximale breedte van een lamel.");
 
+            PropertyDescriptor slipPlaneSettingsProperty = dynamicProperties[expectedSlipPlaneSettingsPropertyIndex];
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsInputContextProperties.SlipPlaneSettings));
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                slipPlaneSettingsProperty,
+                settingsCategory,
+                "Zonering glijvlak",
+                "Eigenschappen van de zonering glijvlak.",
+                true);
+
             PropertyDescriptor gridSettingsProperty = dynamicProperties[expectedGridSettingsPropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsInputContextProperties, ExpandableObjectConverter>(
                 nameof(MacroStabilityInwardsInputContextProperties.GridSettings));
@@ -301,7 +312,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             const string hydraulicDataCategory = "\t\tHydraulische gegevens";
             if (!useManualAssessmentLevelInput)
             {
-                Assert.AreEqual(12, dynamicProperties.Count);
+                Assert.AreEqual(13, dynamicProperties.Count);
 
                 PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -320,7 +331,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             }
             else
             {
-                Assert.AreEqual(11, dynamicProperties.Count);
+                Assert.AreEqual(12, dynamicProperties.Count);
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[0];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -400,6 +411,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.MaximumSliceWidth, properties.MaximumSliceWidth);
 
             Assert.AreSame(inputParameters, properties.GridSettings.Data);
+
+            Assert.AreSame(inputParameters, properties.SlipPlaneSettings.Data);
 
             mocks.VerifyAll();
         }

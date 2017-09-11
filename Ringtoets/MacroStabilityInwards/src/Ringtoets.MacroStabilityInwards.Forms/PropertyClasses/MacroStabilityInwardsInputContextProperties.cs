@@ -34,7 +34,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
@@ -62,7 +61,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int slipPlaneMinimumDepthPropertyIndex = 9;
         private const int slipPlaneMinimumLengthPropertyIndex = 10;
         private const int maximumSliceWidthPropertyIndex = 11;
-        private const int gridSettingsPropertyIndex = 12;
+        private const int slipPlaneSettingsPropertyIndex = 12;
+        private const int gridSettingsPropertyIndex = 13;
 
         private const int hydraulicCategoryIndex = 1;
         private const int schematizationCategoryIndex = 2;
@@ -362,6 +362,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.MaximumSliceWidth = value, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(slipPlaneSettingsPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Settings), settingsCategoryIndex, totalCategoryCount)]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SlipPlaneSettings_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SlipPlaneSettings_Description))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsSlipPlaneSettingsProperties SlipPlaneSettings
+        {
+            get
+            {
+                return new MacroStabilityInwardsSlipPlaneSettingsProperties(data.WrappedData, propertyChangeHandler);
             }
         }
 

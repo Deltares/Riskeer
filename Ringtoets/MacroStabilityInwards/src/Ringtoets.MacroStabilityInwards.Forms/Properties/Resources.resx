@@ -508,4 +508,22 @@
   <data name="SoilLayer_OuterRing_DisplayName" xml:space="preserve">
     <value>Buitenring</value>
   </data>
+  <data name="SlipPlaneSettings_Description" xml:space="preserve">
+    <value>Eigenschappen van de zonering glijvlak.</value>
+  </data>
+  <data name="SlipPlaneSettings_DisplayName" xml:space="preserve">
+    <value>Zonering glijvlak</value>
+  </data>
+  <data name="AutomaticForbiddenZones_Description" xml:space="preserve">
+    <value>Zoneringsgrenzen automatisch bepalen of handmatig invoeren?</value>
+  </data>
+  <data name="AutomaticForbiddenZones_DisplayName" xml:space="preserve">
+    <value>Methode</value>
+  </data>
+  <data name="CreateZones_Description" xml:space="preserve">
+    <value>Gebruik zoneringsgrenzen bij het bepalen van het intredepunt van het glijvlak?</value>
+  </data>
+  <data name="CreateZones_DisplayName" xml:space="preserve">
+    <value>Bepaling</value>
+  </data>
 </root>
