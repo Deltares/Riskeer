@@ -106,12 +106,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             {
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
-                    surfaceLine.LocalGeometry.First()
+                    surfaceLine.LocalGeometry.First(),
+                    surfaceLine.LocalGeometry.Last()
 
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
-                    surfaceLine.LocalGeometry.First()
+                    surfaceLine.LocalGeometry.First(),
+                    surfaceLine.LocalGeometry.Last()
 
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                 {
@@ -119,12 +121,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
-                    surfaceLine.LocalGeometry.First()
+                    surfaceLine.LocalGeometry.First(),
+                    surfaceLine.LocalGeometry.Last()
 
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
-                    surfaceLine.LocalGeometry.First()
+                    surfaceLine.LocalGeometry.First(),
+                    surfaceLine.LocalGeometry.Last()
 
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
             });

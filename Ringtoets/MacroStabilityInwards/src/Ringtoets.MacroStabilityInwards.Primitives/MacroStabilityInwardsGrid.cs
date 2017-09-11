@@ -21,10 +21,10 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// A grid used in the <see cref="MacroStabilityInwardsInput"/>.
+    /// A grid used in the macrostability calculation.
     /// </summary>
     public class MacroStabilityInwardsGrid
     {

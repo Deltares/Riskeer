@@ -61,7 +61,6 @@
     <Compile Include="MacroStabilityInwardsCalculationScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationTest.cs" />
-    <Compile Include="MacroStabilityInwardsGridTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignValueFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDeterminationTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />
