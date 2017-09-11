@@ -23,7 +23,6 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -38,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [SetUp]
         public void Setup()
         {
-            random = new Random();
+            random = new Random(21);
             mean = random.NextDouble();
             coefficientOfVariation = random.NextDouble();
         }
