@@ -73,6 +73,60 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
+        private class PipingStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
+            StochasticSoilModelEntity>
+        {
+            protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
+            {
+                return new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
+            }
+
+            protected override StochasticSoilModelEntity Get(PersistenceRegistry registry,
+                                                             MacroStabilityInwardsStochasticSoilModel model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilModel model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, StochasticSoilModelEntity entity,
+                                             MacroStabilityInwardsStochasticSoilModel model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+
+        [TestFixture]
+        private class PipingStochasticSoilProfileTest : RegistryTest<PipingStochasticSoilProfile,
+            PipingStochasticSoilProfileEntity>
+        {
+            protected override PipingStochasticSoilProfile CreateDataModel()
+            {
+                return new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            }
+
+            protected override PipingStochasticSoilProfileEntity Get(PersistenceRegistry registry,
+                                                                     PipingStochasticSoilProfile model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, PipingStochasticSoilProfile model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, PipingStochasticSoilProfileEntity entity,
+                                             PipingStochasticSoilProfile model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+
+        [TestFixture]
         private class PipingSoilProfileTest : RegistryTest<PipingSoilProfile,
             PipingSoilProfileEntity>
         {
@@ -94,6 +148,33 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             protected override void Register(PersistenceRegistry registry, PipingSoilProfileEntity entity,
                                              PipingSoilProfile model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+        
+        [TestFixture]
+        private class MacroStabilityInwardsStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
+            StochasticSoilModelEntity>
+        {
+            protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
+            {
+                return new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
+            }
+
+            protected override StochasticSoilModelEntity Get(PersistenceRegistry registry,
+                                                             MacroStabilityInwardsStochasticSoilModel model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilModel model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, StochasticSoilModelEntity entity,
+                                             MacroStabilityInwardsStochasticSoilModel model)
             {
                 registry.Register(entity, model);
             }
@@ -553,122 +634,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             bool result = registry.Contains(duneLocation);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_WithoutPipingStochasticSoilModel_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Contains((PipingStochasticSoilModel) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Contains_PipingStochasticSoilModelAdded_ReturnsTrue()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var soilModel = new PipingStochasticSoilModel("A");
-            registry.Register(new StochasticSoilModelEntity(), soilModel);
-
-            // Call
-            bool result = registry.Contains(soilModel);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void Contains_NoPipingStochasticSoilModelAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var soilModel = new PipingStochasticSoilModel("A");
-
-            // Call
-            bool result = registry.Contains(soilModel);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_OtherPipingPipingStochasticSoilModelAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var soilModel = new PipingStochasticSoilModel("A");
-            registry.Register(new StochasticSoilModelEntity(), new PipingStochasticSoilModel("B"));
-
-            // Call
-            bool result = registry.Contains(soilModel);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_WithoutPipingStochasticSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Contains((PipingStochasticSoilProfile) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Contains_PipingStochasticSoilProfileAdded_ReturnsTrue()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            registry.Register(new PipingStochasticSoilProfileEntity(), stochasticSoilProfile);
-
-            // Call
-            bool result = registry.Contains(stochasticSoilProfile);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void Contains_NoPipingStochasticSoilProfileAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            bool result = registry.Contains(stochasticSoilProfile);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_OtherPipingStochasticSoilProfileAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            registry.Register(new PipingStochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
-
-            // Call
-            bool result = registry.Contains(stochasticSoilProfile);
 
             // Assert
             Assert.IsFalse(result);
@@ -1447,124 +1412,6 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutPipingStochasticSoilModel_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Get((PipingStochasticSoilModel) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Get_PipingStochasticSoilModelAdded_ReturnsEntity()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var soilModel = new PipingStochasticSoilModel("6");
-            var entity = new StochasticSoilModelEntity();
-            registry.Register(entity, soilModel);
-
-            // Call
-            StochasticSoilModelEntity result = registry.Get(soilModel);
-
-            // Assert
-            Assert.AreSame(entity, result);
-        }
-
-        [Test]
-        public void Get_NoPipingStochasticSoilModelAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var soilModel = new PipingStochasticSoilModel("6");
-
-            // Call
-            TestDelegate test = () => registry.Get(soilModel);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_OtherPipingStochasticSoilModelAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var soilModel = new PipingStochasticSoilModel("6");
-            registry.Register(new StochasticSoilModelEntity(), new PipingStochasticSoilModel("2"));
-
-            // Call
-            TestDelegate test = () => registry.Get(soilModel);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_WithoutPipingStochasticSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Get((PipingStochasticSoilProfile) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Get_PipingStochasticSoilProfileAdded_ReturnsEntity()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var entity = new PipingStochasticSoilProfileEntity();
-            registry.Register(entity, stochasticSoilProfile);
-
-            // Call
-            PipingStochasticSoilProfileEntity result = registry.Get(stochasticSoilProfile);
-
-            // Assert
-            Assert.AreSame(entity, result);
-        }
-
-        [Test]
-        public void Get_NoPipingStochasticSoilProfileAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            TestDelegate test = () => registry.Get(stochasticSoilProfile);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_OtherPipingStochasticSoilProfileAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            registry.Register(new PipingStochasticSoilProfileEntity(), new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
-
-            // Call
-            TestDelegate test = () => registry.Get(stochasticSoilProfile);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
         public void Get_WithoutFailureMechanismSection_ThrowsArgumentNullException()
         {
             // Setup
@@ -2293,62 +2140,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new DuneLocationEntity(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullPipingStochasticSoilModelEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Register(null, new PipingStochasticSoilModel("some name"));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullPipingStochasticSoilModel_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Register(new StochasticSoilModelEntity(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullPipingStochasticSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Register(null, new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullPipingStochasticSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Register(new PipingStochasticSoilProfileEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

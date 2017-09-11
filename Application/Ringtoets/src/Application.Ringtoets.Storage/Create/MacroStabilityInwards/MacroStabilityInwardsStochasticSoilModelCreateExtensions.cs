@@ -23,37 +23,33 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
-using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.Create.Piping
+namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingStochasticSoilModel"/> related to creating
+    /// Extension methods for <see cref="MacroStabilityInwardsStochasticSoilModel"/> related to creating
     /// a <see cref="StochasticSoilModelEntity"/>.
     /// </summary>
-    internal static class PipingStochasticSoilModelCreateExtensions
+    internal static class MacroStabilityInwardsStochasticSoilModelCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StochasticSoilModelEntity"/> based on the information of the <see cref="PipingStochasticSoilModel"/>.
+        /// Creates a <see cref="StochasticSoilModelEntity"/> based on the information of the 
+        /// <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="model">The model to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="StochasticSoilModelEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static StochasticSoilModelEntity Create(this PipingStochasticSoilModel model,
-                                                         PersistenceRegistry registry,
-                                                         int order)
+        public static StochasticSoilModelEntity Create(this MacroStabilityInwardsStochasticSoilModel model,
+                                                       PersistenceRegistry registry,
+                                                       int order)
         {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
             }
-
             if (registry.Contains(model))
             {
                 return registry.Get(model);
@@ -72,14 +68,14 @@ namespace Application.Ringtoets.Storage.Create.Piping
             return entity;
         }
 
-        private static void AddEntitiesForStochasticSoilProfiles(PipingStochasticSoilModel model,
+        private static void AddEntitiesForStochasticSoilProfiles(MacroStabilityInwardsStochasticSoilModel model,
                                                                  PersistenceRegistry registry,
                                                                  StochasticSoilModelEntity entity)
         {
             for (var i = 0; i < model.StochasticSoilProfiles.Count; i++)
             {
-                PipingStochasticSoilProfile stochasticSoilProfile = model.StochasticSoilProfiles[i];
-                entity.PipingStochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = model.StochasticSoilProfiles[i];
+                entity.MacroStabilityInwardsStochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
             }
         }
     }

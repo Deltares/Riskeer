@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this MacroStabilityInwardsFailureMechanism mechanism, PersistenceRegistry registry)
+        public static FailureMechanismEntity Create(this MacroStabilityInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacroStabilityInwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);

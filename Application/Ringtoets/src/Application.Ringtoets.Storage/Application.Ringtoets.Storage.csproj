@@ -83,6 +83,7 @@
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile2DCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>

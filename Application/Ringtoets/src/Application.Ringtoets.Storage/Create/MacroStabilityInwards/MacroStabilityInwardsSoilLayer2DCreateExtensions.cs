@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsSoilLayer2DEntity Create(this MacroStabilityInwardsSoilLayer2D soilLayer,
+        public static MacroStabilityInwardsSoilLayer2DEntity Create(this MacroStabilityInwardsSoilLayer2D soilLayer,
                                                                       int order)
         {
             if (soilLayer == null)

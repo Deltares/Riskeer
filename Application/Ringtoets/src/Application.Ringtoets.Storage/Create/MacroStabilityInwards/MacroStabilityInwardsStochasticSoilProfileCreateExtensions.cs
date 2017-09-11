@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsStochasticSoilProfileEntity Create(this MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile,
+        public static MacroStabilityInwardsStochasticSoilProfileEntity Create(this MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile,
                                                                                 PersistenceRegistry registry,
                                                                                 int order)
         {

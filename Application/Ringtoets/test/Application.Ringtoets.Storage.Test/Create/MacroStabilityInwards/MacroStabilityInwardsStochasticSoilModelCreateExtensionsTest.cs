@@ -21,26 +21,25 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.Piping;
+using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.SoilProfile;
-using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.Primitives.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.Piping
+namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
-    public class PipingStochasticSoilModelCreateExtensionsTest
+    public class MacroStabilityInwardsStochasticSoilModelCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("name");
 
             // Call
             TestDelegate test = () => stochasticSoilModel.Create(null, 0);
@@ -57,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => ((PipingStochasticSoilModel) null).Create(registry, 0);
+            TestDelegate test = () => ((MacroStabilityInwardsStochasticSoilModel) null).Create(registry, 0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -65,12 +64,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithCollector_ReturnsPipingStochasticSoilModelEntityWithPropertiesSet()
+        public void Create_WithValidProperties_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
             int order = new Random(1).Next();
-            const string testName = "testName";
-            var stochasticSoilModel = new PipingStochasticSoilModel(testName);
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
             var registry = new PersistenceRegistry();
 
             // Call
@@ -78,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(testName, entity.Name);
+            Assert.AreEqual(stochasticSoilModel.Name, entity.Name);
             Assert.AreEqual(order, entity.Order);
             CollectionAssert.IsEmpty(entity.PipingStochasticSoilProfileEntities);
             CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
@@ -88,30 +86,15 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_StringPropertiesDoNotShareReference()
+        public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
-            const string name = "testName";
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(name);
-            var registry = new PersistenceRegistry();
-
-            // Call
-            StochasticSoilModelEntity entity = stochasticSoilModel.Create(registry, 0);
-
-            // Assert
-            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
-        }
-
-        [Test]
-        public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesAndPipingStochasticSoilProfileEntitiesSet()
-        {
-            // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("testName")
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("testName")
             {
                 StochasticSoilProfiles =
                 {
-                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
-                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                    new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D()),
+                    new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D())
                 }
             };
             var registry = new PersistenceRegistry();
@@ -121,16 +104,16 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.PipingStochasticSoilProfileEntities.Count);
-            Assert.AreEqual(0, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(0, entity.PipingStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(2, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
         }
 
         [Test]
-        public void Create_WithGeometryPoints_ReturnsStochasticSoilModelEntityWithPropertiesAndStochasticSoilModelSegmentPointEntitiesSet()
+        public void Create_WithGeometryPoints_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
             var random = new Random(31);
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("testName");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("testName");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
@@ -148,19 +131,34 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_SameModelCreatedMultipleTimes_ReturnSameEntity()
+        public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A");
-
+            const string name = "testName";
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(name);
             var registry = new PersistenceRegistry();
 
             // Call
-            StochasticSoilModelEntity entity1 = soilModel.Create(registry, 0);
-            StochasticSoilModelEntity entity2 = soilModel.Create(registry, 0);
+            StochasticSoilModelEntity entity = stochasticSoilModel.Create(registry, 0);
 
             // Assert
-            Assert.AreSame(entity1, entity2);
+            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
+        }
+
+        [Test]
+        public void Create_ForTheSameObjectTwice_ReturnsSameEntityInstance()
+        {
+            // Setup
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("some name");
+            var registry = new PersistenceRegistry();
+
+            StochasticSoilModelEntity firstEntity = stochasticSoilModel.Create(registry, 0);
+
+            // Call
+            StochasticSoilModelEntity secondEntity = stochasticSoilModel.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(firstEntity, secondEntity);
         }
     }
 }

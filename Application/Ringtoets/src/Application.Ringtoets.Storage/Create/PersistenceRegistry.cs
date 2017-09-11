@@ -69,6 +69,9 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<PipingSoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
             CreateDictionary<PipingSoilProfileEntity, PipingSoilProfile>();
 
+        private readonly Dictionary<StochasticSoilModelEntity, MacroStabilityInwardsStochasticSoilModel> macroStabilityInwardsStochasticSoilModels =
+            CreateDictionary<StochasticSoilModelEntity, MacroStabilityInwardsStochasticSoilModel>();
+
         private readonly Dictionary<MacroStabilityInwardsStochasticSoilProfileEntity, MacroStabilityInwardsStochasticSoilProfile> macroStabilityInwardsStochasticSoilProfiles =
             CreateDictionary<MacroStabilityInwardsStochasticSoilProfileEntity, MacroStabilityInwardsStochasticSoilProfile>();
 
@@ -272,6 +275,18 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsStochasticSoilModel"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
+        internal void Register(StochasticSoilModelEntity entity, MacroStabilityInwardsStochasticSoilModel model)
+        {
+            Register(macroStabilityInwardsStochasticSoilModels, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
         /// <param name="entity">The <see cref="MacroStabilityInwardsStochasticSoilProfileEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="MacroStabilityInwardsStochasticSoilProfile"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
@@ -429,6 +444,17 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(PipingSoilProfile model)
         {
             return ContainsValue(pipingSoilProfiles, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="MacroStabilityInwardsStochasticSoilModel"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(MacroStabilityInwardsStochasticSoilModel model)
+        {
+            return ContainsValue(macroStabilityInwardsStochasticSoilModels, model);
         }
 
         /// <summary>
@@ -677,6 +703,23 @@ namespace Application.Ringtoets.Storage.Create
         internal PipingSoilProfileEntity Get(PipingSoilProfile model)
         {
             return Get(pipingSoilProfiles, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StochasticSoilModelEntity"/> which was registered for
+        /// the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="MacroStabilityInwardsStochasticSoilModel"/> for which a create
+        /// operation has been registered.</param>
+        /// <returns>The created <see cref="StochasticSoilModelEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsStochasticSoilModel)"/> to find out whether
+        /// a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal StochasticSoilModelEntity Get(MacroStabilityInwardsStochasticSoilModel model)
+        {
+            return Get(macroStabilityInwardsStochasticSoilModels, model);
         }
 
         /// <summary>

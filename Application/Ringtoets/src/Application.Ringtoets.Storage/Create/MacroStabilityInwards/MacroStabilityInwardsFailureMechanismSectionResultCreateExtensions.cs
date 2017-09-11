@@ -32,11 +32,12 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
     internal static class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="MacroStabilityInwardsSectionResultEntity"/> based on the information 
+        /// of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSectionResultEntity"/>.</returns>
-        internal static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
+        public static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
         {
             var sectionResultEntity = new MacroStabilityInwardsSectionResultEntity
             {
