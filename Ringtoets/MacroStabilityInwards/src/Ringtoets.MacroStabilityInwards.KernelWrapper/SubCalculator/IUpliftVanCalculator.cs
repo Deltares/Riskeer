@@ -63,5 +63,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// Sets the maximum slice width.
         /// </summary>
         double MaximumSliceWidth { set; }
+
+        /// <summary>
+        /// Sets the slip plane uplift van.
+        /// </summary>
+        SlipPlaneUpliftVan SlipPlaneUpliftVan { set; }
+
+        /// <summary>
+        /// sets whether the grid is automatic determined or not.
+        /// </summary>
+        bool GridAutomaticDetermined { set; }
     }
 }

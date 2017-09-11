@@ -86,7 +86,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             }
         }
 
-
         public bool MoveGrid
         {
             set
@@ -100,6 +99,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             set
             {
                 calculatorInput.MaximumSliceWidth = value;
+            }
+        }
+
+        public SlipPlaneUpliftVan SlipPlaneUpliftVan
+        {
+            set
+            {
+                calculatorInput.SlipPlaneUpliftVan = value;
+            }
+        }
+
+        public bool GridAutomaticDetermined
+        {
+            set
+            {
+                calculatorInput.SlipCircle = new SlipCircle
+                {
+                    Auto = value
+                };
             }
         }
 

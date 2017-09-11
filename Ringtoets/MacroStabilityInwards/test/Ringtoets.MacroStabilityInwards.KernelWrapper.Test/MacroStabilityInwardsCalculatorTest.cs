@@ -96,7 +96,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
-                SoilProfile = CreateValidSoilProfile(surfaceLine)
+                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                LeftGrid = new MacroStabilityInwardsGrid(),
+                RightGrid = new MacroStabilityInwardsGrid()
             };
         }
 

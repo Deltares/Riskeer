@@ -47,6 +47,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public SurfaceLine2 SurfaceLine { get; set; }
 
+        public SlipPlaneUpliftVan SlipPlaneUpliftVan { get; set; }
+
+        public bool GridAutomaticDetermined { get; set; }
+
         public void Calculate()
         {
             Calculated = true;

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
@@ -103,6 +104,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             calculator.SoilProfile = SoilProfileCreator.Create(layersWithSoils);
             calculator.Location = StabilityLocationCreator.Create(input);
             calculator.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+            calculator.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input);
+            calculator.GridAutomaticDetermined = input.GridAutomaticDetermined;
             return calculator;
         }
 
