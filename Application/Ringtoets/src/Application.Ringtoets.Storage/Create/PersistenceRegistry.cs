@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
@@ -66,6 +67,12 @@ namespace Application.Ringtoets.Storage.Create
 
         private readonly Dictionary<PipingSoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
             CreateDictionary<PipingSoilProfileEntity, PipingSoilProfile>();
+
+        private readonly Dictionary<MacroStabilityInwardsSoilProfile1DEntity, MacroStabilityInwardsSoilProfile1D> macroStabilityInwardsSoil1DProfiles =
+            CreateDictionary<MacroStabilityInwardsSoilProfile1DEntity, MacroStabilityInwardsSoilProfile1D>();
+
+        private readonly Dictionary<MacroStabilityInwardsSoilProfile2DEntity, MacroStabilityInwardsSoilProfile2D> macroStabilityInwardsSoil2DProfiles =
+            CreateDictionary<MacroStabilityInwardsSoilProfile2DEntity, MacroStabilityInwardsSoilProfile2D>();
 
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
@@ -261,6 +268,30 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1D"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
+        internal void Register(MacroStabilityInwardsSoilProfile1DEntity entity, MacroStabilityInwardsSoilProfile1D model)
+        {
+            Register(macroStabilityInwardsSoil1DProfiles, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile2D"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
+        internal void Register(MacroStabilityInwardsSoilProfile2DEntity entity, MacroStabilityInwardsSoilProfile2D model)
+        {
+            Register(macroStabilityInwardsSoil2DProfiles, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="PipingSurfaceLine"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown any of the input parameters is <c>null</c>.</exception>
@@ -382,6 +413,28 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(PipingSoilProfile model)
         {
             return ContainsValue(pipingSoilProfiles, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1D"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(MacroStabilityInwardsSoilProfile1D model)
+        {
+            return ContainsValue(macroStabilityInwardsSoil1DProfiles, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile2D"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(MacroStabilityInwardsSoilProfile2D model)
+        {
+            return ContainsValue(macroStabilityInwardsSoil2DProfiles, model);
         }
 
         /// <summary>
@@ -597,6 +650,40 @@ namespace Application.Ringtoets.Storage.Create
         internal PipingSoilProfileEntity Get(PipingSoilProfile model)
         {
             return Get(pipingSoilProfiles, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> which was registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> for which a create
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfile1D)"/> to find out whether a
+        /// create operation has been registered for <paramref name="model"/>.</remarks>
+        internal MacroStabilityInwardsSoilProfile1DEntity Get(MacroStabilityInwardsSoilProfile1D model)
+        {
+            return Get(macroStabilityInwardsSoil1DProfiles, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> which was registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> for which a create
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="MacroStabilityInwardsSoilProfile2D"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfile2D)"/> to find out whether a
+        /// create operation has been registered for <paramref name="model"/>.</remarks>
+        internal MacroStabilityInwardsSoilProfile2DEntity Get(MacroStabilityInwardsSoilProfile2D model)
+        {
+            return Get(macroStabilityInwardsSoil2DProfiles, model);
         }
 
         /// <summary>

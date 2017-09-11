@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
@@ -37,6 +38,8 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
@@ -67,65 +70,273 @@ namespace Application.Ringtoets.Storage.Test.Create
                                    });
         }
 
+        [TestFixture]
+        private class PipingSoilProfileTest : RegistryTest<PipingSoilProfile,
+            PipingSoilProfileEntity>
+        {
+            protected override PipingSoilProfile CreateDataModel()
+            {
+                return PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            }
+
+            protected override PipingSoilProfileEntity Get(PersistenceRegistry registry,
+                                                           PipingSoilProfile model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, PipingSoilProfile model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, PipingSoilProfileEntity entity,
+                                             PipingSoilProfile model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsSoilProfile1DTest : RegistryTest<MacroStabilityInwardsSoilProfile1D,
+            MacroStabilityInwardsSoilProfile1DEntity>
+        {
+            protected override MacroStabilityInwardsSoilProfile1D CreateDataModel()
+            {
+                return new TestMacroStabilityInwardsSoilProfile1D();
+            }
+
+            protected override MacroStabilityInwardsSoilProfile1DEntity Get(PersistenceRegistry registry,
+                                                                            MacroStabilityInwardsSoilProfile1D model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile1D model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile1DEntity entity,
+                                             MacroStabilityInwardsSoilProfile1D model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsSoilProfile2DTest : RegistryTest<MacroStabilityInwardsSoilProfile2D,
+            MacroStabilityInwardsSoilProfile2DEntity>
+        {
+            protected override MacroStabilityInwardsSoilProfile2D CreateDataModel()
+            {
+                return new MacroStabilityInwardsSoilProfile2D("", new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }), new Ring[0])
+                }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            }
+
+            protected override MacroStabilityInwardsSoilProfile2DEntity Get(PersistenceRegistry registry,
+                                                                            MacroStabilityInwardsSoilProfile2D model)
+            {
+                return registry.Get(model);
+            }
+
+            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile2D model)
+            {
+                return registry.Contains(model);
+            }
+
+            protected override void Register(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile2DEntity entity,
+                                             MacroStabilityInwardsSoilProfile2D model)
+            {
+                registry.Register(entity, model);
+            }
+        }
+
+        [TestFixture]
+        private abstract class RegistryTest<TDataModel, TEntity> where TDataModel : class
+                                                                 where TEntity : class, new()
+        {
+            [Test]
+            public void Register_WithNullEntity_ThrowsArgumentNullException()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+
+                // Call
+                TestDelegate test = () => Register(registry, null, CreateDataModel());
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("entity", paramName);
+            }
+
+            [Test]
+            public void Register_WithNullDataModel_ThrowsArgumentNullException()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+
+                // Call
+                TestDelegate test = () => Register(registry, new TEntity(), null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("model", paramName);
+            }
+
+            [Test]
+            public void Contains_DataModelNull_ThrowsArgumentNullException()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+
+                // Call
+                TestDelegate test = () => Contains(registry, null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("model", paramName);
+            }
+
+            [Test]
+            public void Contains_DataModelAdded_ReturnsTrue()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+                TDataModel dataModel = CreateDataModel();
+                Register(registry, new TEntity(), dataModel);
+
+                // Call
+                bool result = Contains(registry, dataModel);
+
+                // Assert
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void Contains_NoDataModelAdded_ReturnsFalse()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+                TDataModel dataModel = CreateDataModel();
+
+                // Call
+                bool result = Contains(registry, dataModel);
+
+                // Assert
+                Assert.IsFalse(result);
+            }
+
+            [Test]
+            public void Get_DataModelNull_ThrowsArgumentNullException()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+
+                // Call
+                TestDelegate test = () => Get(registry, null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("model", paramName);
+            }
+
+            [Test]
+            public void Get_DataModelAdded_ReturnsEntity()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+                TDataModel dataModel = CreateDataModel();
+                var entity = new TEntity();
+
+                Register(registry, entity, dataModel);
+
+                // Call
+                TEntity result = Get(registry, dataModel);
+
+                // Assert
+                Assert.AreSame(entity, result);
+            }
+
+            [Test]
+            public void Get_NoDataModelAdded_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+                TDataModel dataModel = CreateDataModel();
+
+                // Call
+                TestDelegate test = () => Get(registry, dataModel);
+
+                // Assert
+                Assert.Throws<InvalidOperationException>(test);
+            }
+
+            [Test]
+            public void Get_OtherDataModelAdded_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+                Register(registry, new TEntity(), CreateDataModel());
+
+                // Call
+                TestDelegate test = () => Get(registry, CreateDataModel());
+
+                // Assert
+                Assert.Throws<InvalidOperationException>(test);
+            }
+
+            /// <summary>
+            /// Creates a new instance of <see cref="TDataModel"/>.
+            /// </summary>
+            /// <returns></returns>
+            protected abstract TDataModel CreateDataModel();
+
+            /// <summary>
+            /// Obtains the <see cref="TEntity"/> which was registered for the given <paramref name="model"/>.
+            /// </summary>
+            /// <param name="registry">The registry to use.</param>
+            /// <param name="model">The <see cref="TEntity"/> for which a create operation has 
+            /// been registered.</param>
+            /// <returns>The constructed <see cref="TDataModel"/>.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is 
+            /// <c>null</c>.</exception>
+            /// <exception cref="InvalidOperationException">Thrown when no create operation has 
+            /// been registered for <paramref name="model"/>.</exception>
+            protected abstract TEntity Get(PersistenceRegistry registry, TDataModel model);
+
+            /// <summary>
+            /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+            /// </summary>
+            /// <param name="registry">The registry to use.</param>
+            /// <param name="model">The <see cref="TDataModel"/> to check for.</param>
+            /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> 
+            /// otherwise.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is 
+            /// <c>null</c>.</exception>
+            protected abstract bool Contains(PersistenceRegistry registry, TDataModel model);
+
+            /// <summary>
+            /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+            /// that was constructed with the information.
+            /// </summary>
+            /// <param name="registry">The registry to use.</param>
+            /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> 
+            /// to be registered.</param>
+            /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1D"/> to be 
+            /// registered.</param>
+            /// <exception cref="ArgumentNullException">Thrown any of the input parameters is 
+            /// <c>null</c>.</exception>
+            protected abstract void Register(PersistenceRegistry registry, TEntity entity, TDataModel model);
+        }
+
         #region Contains methods
-
-        [Test]
-        public void Contains_WithoutPipingSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Contains((PipingSoilProfile) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Contains_PipingSoilProfileAdded_ReturnsTrue()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            registry.Register(new PipingSoilProfileEntity(), profile);
-
-            // Call
-            bool result = registry.Contains(profile);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void Contains_NoPipingSoilProfileAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-
-            // Call
-            bool result = registry.Contains(profile);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_OtherPipingSoilProfileAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            registry.Register(new PipingSoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            bool result = registry.Contains(profile);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
 
         [Test]
         public void Contains_WithoutPipingSurfaceLine_ThrowsArgumentNullException()
@@ -1011,65 +1222,6 @@ namespace Application.Ringtoets.Storage.Test.Create
         #endregion
 
         #region Get methods
-
-        [Test]
-        public void Get_WithoutPipingSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Get((PipingSoilProfile) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Get_PipingSoilProfileAdded_ReturnsEntity()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var entity = new PipingSoilProfileEntity();
-            registry.Register(entity, profile);
-
-            // Call
-            PipingSoilProfileEntity result = registry.Get(profile);
-
-            // Assert
-            Assert.AreSame(entity, result);
-        }
-
-        [Test]
-        public void Get_NoPipingSoilProfileAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-
-            // Call
-            TestDelegate test = () => registry.Get(profile);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_OtherPipingSoilProfileAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            registry.Register(new PipingSoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            TestDelegate test = () => registry.Get(profile);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
 
         [Test]
         public void Get_WithoutPipingSurfaceLine_ThrowsArgumentNullException()
@@ -2151,37 +2303,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new PipingStochasticSoilProfileEntity(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullPipingSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Register(null, new PipingSoilProfile("name", 0, new[]
-            {
-                new PipingSoilLayer(1)
-            }, SoilProfileType.SoilProfile1D));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullPipingSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Register(new PipingSoilProfileEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

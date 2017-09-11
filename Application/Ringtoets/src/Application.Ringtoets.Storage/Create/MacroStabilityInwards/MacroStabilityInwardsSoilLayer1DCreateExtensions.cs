@@ -36,16 +36,22 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// Creates a <see cref="MacroStabilityInwardsSoilLayer1DEntity"/> based on the information 
         /// of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
-        /// <param name="layer">The layer to create a database entity for.</param>
+        /// <param name="soilLayer">The soil layer to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.</returns>
-        internal static MacroStabilityInwardsSoilLayer1DEntity Create(this MacroStabilityInwardsSoilLayer1D layer,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
+        internal static MacroStabilityInwardsSoilLayer1DEntity Create(this MacroStabilityInwardsSoilLayer1D soilLayer,
                                                                       int order)
         {
-            MacroStabilityInwardsSoilLayerProperties properties = layer.Properties;
+            if (soilLayer == null)
+            {
+                throw new ArgumentNullException(nameof(soilLayer));
+            }
+
+            MacroStabilityInwardsSoilLayerProperties properties = soilLayer.Properties;
             return new MacroStabilityInwardsSoilLayer1DEntity
             {
-                Top = layer.Top.ToNaNAsNull(),
+                Top = soilLayer.Top.ToNaNAsNull(),
 
                 IsAquifer = Convert.ToByte(properties.IsAquifer),
                 MaterialName = properties.MaterialName.DeepClone(),

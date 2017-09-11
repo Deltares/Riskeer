@@ -33,6 +33,17 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
     public class MacroStabilityInwardsSoilLayer1DCreateExtensionsTest
     {
         [Test]
+        public void Create_SoilLayerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((MacroStabilityInwardsSoilLayer1D) null).Create(0);
+
+            // Assert
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("soilLayer", parameterName);
+        }
+
+        [Test]
         public void Create_WithValidProperties_ReturnsEntityWithPropertiesSet()
         {
             // Setup
