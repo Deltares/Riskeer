@@ -317,6 +317,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kruin buitentalud.
+        /// </summary>
+        public static string CharacteristicPoint_DikeTopAtRiver {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeTopAtRiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insteek sloot dijkzijde.
         /// </summary>
         public static string CharacteristicPoint_DitchDikeSide {

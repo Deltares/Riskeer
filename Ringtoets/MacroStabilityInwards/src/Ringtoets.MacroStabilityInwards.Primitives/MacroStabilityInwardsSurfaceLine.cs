@@ -70,6 +70,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public Point3D DikeTopAtPolder { get; private set; }
 
         /// <summary>
+        /// Gets the location of the top of the dike when approaching from 
+        /// outside the polder.
+        /// </summary>
+        public Point3D DikeTopAtRiver { get; private set; }
+
+        /// <summary>
         /// Gets the location where the shoulder on the side of the polder
         /// connects with the dike.
         /// </summary>
@@ -201,6 +207,23 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder);
             }
             DikeTopAtPolder = geometryPoint;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DikeTopAtRiver"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeTopAtRiver"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDikeTopAtRiverAt(Point3D point)
+        {
+            Point3D geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver);
+            }
+            DikeTopAtRiver = geometryPoint;
         }
 
         /// <summary>
@@ -391,6 +414,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ (TrafficLoadInside?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (TrafficLoadOutside?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (DikeTopAtPolder?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (DikeTopAtRiver?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (ShoulderBaseInside?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (ShoulderTopInside?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (DikeToeAtPolder?.GetHashCode() ?? 0);
@@ -410,6 +434,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
             TrafficLoadInside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadInside);
             DikeTopAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeTopAtPolder);
+            DikeTopAtRiver = PointFromGeometryOrNull(fromSurfaceLine.DikeTopAtRiver);
             ShoulderBaseInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderBaseInside);
             ShoulderTopInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderTopInside);
             BottomDitchDikeSide = PointFromGeometryOrNull(fromSurfaceLine.BottomDitchDikeSide);
@@ -441,6 +466,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                    && Equals(TrafficLoadInside, other.TrafficLoadInside)
                    && Equals(TrafficLoadOutside, other.TrafficLoadOutside)
                    && Equals(DikeTopAtPolder, other.DikeTopAtPolder)
+                   && Equals(DikeTopAtRiver, other.DikeTopAtRiver)
                    && Equals(ShoulderBaseInside, other.ShoulderBaseInside)
                    && Equals(ShoulderTopInside, other.ShoulderTopInside)
                    && Equals(DikeToeAtPolder, other.DikeToeAtPolder)

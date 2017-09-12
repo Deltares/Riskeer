@@ -384,4 +384,7 @@
   <data name="FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm" xml:space="preserve">
     <value>De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
   </data>
+  <data name="CharacteristicPoint_DikeTopAtRiver" xml:space="preserve">
+    <value>Kruin buitentalud</value>
+  </data>
 </root>

@@ -349,13 +349,31 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
+        public void Equals_DifferentDikeTopAtRiver_ReturnsFalse()
+        {
+            // Setup
+            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
+            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
+            Point3D[] points = surfaceLineTwo.Points.ToArray();
+            surfaceLineTwo.SetDikeTopAtRiverAt(points[5]);
+
+            // Call
+            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
+            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
+
+            // Assert
+            Assert.IsFalse(isLineOneEqualToLineTwo);
+            Assert.IsFalse(isLineTwoEqualToLineOne);
+        }
+
+        [Test]
         public void Equals_DifferentShoulderBaseInside_ReturnsFalse()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
             MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetShoulderBaseInsideAt(points[5]);
+            surfaceLineTwo.SetShoulderBaseInsideAt(points[1]);
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -712,6 +730,25 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [TestFixture]
+        public class SetDikeTopAtRiverAtTest : SetCharacteristicPointTest
+        {
+            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+            {
+                surfaceLine.SetDikeTopAtRiverAt(point);
+            }
+
+            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+            {
+                return surfaceLine.DikeTopAtRiver;
+            }
+
+            protected override string CharacteristicPointDescription()
+            {
+                return "Kruin buitentalud";
+            }
+        }
+
+        [TestFixture]
         public class SetShoulderBaseInsideAtTest : SetCharacteristicPointTest
         {
             protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
@@ -925,7 +962,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new Point3D(9, 0, 4),
                 new Point3D(10, 0, 3),
                 new Point3D(11, 0, 2),
-                new Point3D(12, 0, 1)
+                new Point3D(12, 0, 1),
+                new Point3D(13, 0, 1)
             };
             surfaceLine.SetGeometry(geometry);
 
@@ -933,15 +971,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             surfaceLine.SetTrafficLoadOutsideAt(geometry[1]);
             surfaceLine.SetTrafficLoadInsideAt(geometry[2]);
             surfaceLine.SetDikeTopAtPolderAt(geometry[3]);
-            surfaceLine.SetShoulderBaseInsideAt(geometry[4]);
-            surfaceLine.SetShoulderTopInsideAt(geometry[5]);
-            surfaceLine.SetBottomDitchDikeSideAt(geometry[6]);
-            surfaceLine.SetBottomDitchPolderSideAt(geometry[7]);
-            surfaceLine.SetDikeToeAtPolderAt(geometry[8]);
-            surfaceLine.SetDikeToeAtRiverAt(geometry[9]);
-            surfaceLine.SetDitchDikeSideAt(geometry[10]);
-            surfaceLine.SetDitchPolderSideAt(geometry[11]);
-            surfaceLine.SetSurfaceLevelInsideAt(geometry[12]);
+            surfaceLine.SetDikeTopAtRiverAt(geometry[4]);
+            surfaceLine.SetShoulderBaseInsideAt(geometry[5]);
+            surfaceLine.SetShoulderTopInsideAt(geometry[6]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometry[7]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometry[8]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[9]);
+            surfaceLine.SetDikeToeAtRiverAt(geometry[10]);
+            surfaceLine.SetDitchDikeSideAt(geometry[11]);
+            surfaceLine.SetDitchPolderSideAt(geometry[12]);
+            surfaceLine.SetSurfaceLevelInsideAt(geometry[13]);
 
             return surfaceLine;
         }

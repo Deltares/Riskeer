@@ -62,6 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             surfaceLine.TrySetSurfaceLevelOutside(characteristicPoints.SurfaceLevelOutside);
             surfaceLine.TrySetDikeToeAtRiver(characteristicPoints.DikeToeAtRiver);
             surfaceLine.TrySetDikeTopAtPolder(characteristicPoints.DikeTopAtPolder);
+            surfaceLine.TrySetDikeTopAtRiver(characteristicPoints.DikeTopAtRiver);
             surfaceLine.TrySetDikeToeAtPolder(characteristicPoints.DikeToeAtPolder);
             surfaceLine.TrySetSurfaceLevelInside(characteristicPoints.SurfaceLevelInside);
 
@@ -231,6 +232,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             catch (ArgumentNullException)
             {
                 throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder), surfaceLine.Name);
+            }
+            catch (ArgumentException e)
+            {
+                throw CreateMandatoryCharacteristicPointException(e.Message, surfaceLine.Name);
+            }
+        }
+
+        /// <summary>
+        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtRiver"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
+        /// <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtRiver"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtRiver"/>.</param>
+        /// <exception cref="ImportedDataTransformException">Thrown when <paramref name="point"/> is <c>null</c> or
+        /// not on the <paramref name="surfaceLine"/>.</exception>
+        private static void TrySetDikeTopAtRiver(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
+        {
+            try
+            {
+                surfaceLine.SetDikeTopAtRiverAt(point);
+            }
+            catch (ArgumentNullException)
+            {
+                throw CreateMandatoryCharacteristicPointException(CreateMissingMandatoryPointMessage(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver), surfaceLine.Name);
             }
             catch (ArgumentException e)
             {

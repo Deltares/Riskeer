@@ -54,6 +54,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 set.DikeTopAtPolder = null;
                 yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
 
+                name = "Missing DikeTopAtRiver";
+                set = CreateCompleteCharacteristicPointSet(name);
+                set.DikeTopAtRiver = null;
+                yield return new TestCaseData(set, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
+
                 name = "Missing DikeToeAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DikeToeAtPolder = null;
@@ -90,6 +95,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                     set,
                     new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeTopAtPolder = p),
                     RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder).SetName(name);
+
+                name = "Moved DikeTopAtRiver";
+                set = CreateCompleteCharacteristicPointSet(name);
+                yield return new TestCaseData(
+                    set,
+                    new Action<CharacteristicPoints, Point3D>((points, p) => points.DikeTopAtRiver = p),
+                    RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver).SetName(name);
 
                 name = "Moved DikeToeAtPolder";
                 set = CreateCompleteCharacteristicPointSet(name);
@@ -205,6 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
 
             // Assert
             Assert.AreEqual(points.DikeTopAtPolder, surfaceLine.DikeTopAtPolder);
+            Assert.AreEqual(points.DikeTopAtRiver, surfaceLine.DikeTopAtRiver);
             Assert.AreEqual(points.ShoulderBaseInside, surfaceLine.ShoulderBaseInside);
             Assert.AreEqual(points.ShoulderTopInside, surfaceLine.ShoulderTopInside);
             Assert.AreEqual(points.TrafficLoadOutside, surfaceLine.TrafficLoadOutside);
@@ -258,7 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             string message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. " +
                              $"De geometrie bevat geen punt op locatie {changedPoint} om als \'{pointDescription}\' in te stellen. " +
                              "Dit karakteristieke punt is verplicht.";
-            Assert.AreEqual(message, exception.Message);
+            ;            Assert.AreEqual(message, exception.Message);
         }
 
         private static IEnumerable<Point3D> CharacteristicPointsToGeometry(CharacteristicPoints points)
@@ -266,6 +279,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             return new[]
             {
                 points.DikeTopAtPolder,
+                points.DikeTopAtRiver,
                 points.ShoulderBaseInside,
                 points.ShoulderTopInside,
                 points.TrafficLoadOutside,
@@ -288,6 +302,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             var trafficLoadOutside = new Point3D(2.25, 2, 5);
             var trafficLoadInside = new Point3D(2.45, 2, 5);
             var dikeTopAtPolder = new Point3D(2.7, 2, 5);
+            var dikeTopAtRiver = new Point3D(2.6, 2, 5);
             var shoulderBaseInside = new Point3D(3.2, 2, 5);
             var shoulderTopInside = new Point3D(3.5, 2, 5);
             var dikeToeAtPolder = new Point3D(4.4, 3, 8);
@@ -308,6 +323,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 SurfaceLevelInside = surfaceLevelInside,
                 DikeToeAtRiver = dikeToeAtRiver,
                 DikeToeAtPolder = dikeToeAtPolder,
+                DikeTopAtRiver = dikeTopAtRiver,
                 DitchDikeSide = ditchDikeSide,
                 BottomDitchDikeSide = bottomDitchDikeSide,
                 BottomDitchPolderSide = bottomDitchPolderSide,

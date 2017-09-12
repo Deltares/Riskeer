@@ -104,6 +104,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                         "Kruin binnentalud")
                     .SetName("Move DikeTopAtPolder");
                 yield return new TestCaseData(
+                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeTopAtRiver = p),
+                        new Func<MacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DikeTopAtRiver),
+                        "Kruin buitentalud")
+                    .SetName("Move DikeTopAtRiver");
+                yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.DikeToeAtPolder = p),
                         new Func<MacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.DikeToeAtPolder),
                         "Teen dijk binnenwaarts")
@@ -237,7 +242,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
 
         [Test]
         [TestCaseSource(nameof(MoveOptionalCharacteristicPoint))]
-        public void Transform_OptionalCharacteristicPointNotOnSurfaceLine_LogErrorAndReturnSurfaceLineWithoutCharacteristicPointSet(Action<CharacteristicPoints, Point3D> pointChange, Func<MacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull, string changedCharacteristicPointName)
+        public void Transform_OptionalCharacteristicPointNotOnSurfaceLine_LogErrorAndReturnSurfaceLineWithoutCharacteristicPointSet(
+            Action<CharacteristicPoints, Point3D> pointChange,
+            Func<MacroStabilityInwardsSurfaceLine, Point3D> pointWhichIsNull,
+            string changedCharacteristicPointName)
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -271,6 +279,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 TrafficLoadOutside = point2,
                 TrafficLoadInside = point2,
                 DikeTopAtPolder = point2,
+                DikeTopAtRiver = point2,
                 ShoulderBaseInside = point3,
                 ShoulderTopInside = point3,
                 BottomDitchDikeSide = point3,
@@ -361,6 +370,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 TrafficLoadOutside = point2,
                 TrafficLoadInside = point2,
                 DikeTopAtPolder = point2,
+                DikeTopAtRiver = point2,
                 ShoulderBaseInside = point3,
                 ShoulderTopInside = point3,
                 BottomDitchDikeSide = point3,
