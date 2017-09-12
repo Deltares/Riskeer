@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                     new StochasticSoilProfile(1.0, new SoilProfile2D(0, name, new[]
                     {
                         new SoilLayer2D()
-                    }))
+                    }, Enumerable.Empty<PreconsolidationStress>()))
                 }
             };
 
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, "SoilProfile2D", new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, "SoilProfile2D", new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, soilProfileName, new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };
@@ -311,7 +311,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var soilProfile2D = new SoilProfile2D(0, soilProfileName, new[]
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };

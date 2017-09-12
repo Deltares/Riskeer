@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(1, "test", new[]
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-            });
+            }, Enumerable.Empty<PreconsolidationStress>()); // TODO: WTI1341: write a transformer for the preconsolidation stresses
 
             // Call
             var transformedProfile = (MacroStabilityInwardsSoilProfile2D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);

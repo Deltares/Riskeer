@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -38,7 +39,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () => new SoilProfile2D(1, null, soilLayer2Ds);
+            TestDelegate test = () => new SoilProfile2D(1, null, soilLayer2Ds, Enumerable.Empty<PreconsolidationStress>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -49,7 +50,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilProfile2D(1, "name", null);
+            TestDelegate test = () => new SoilProfile2D(1, "name", null, Enumerable.Empty<PreconsolidationStress>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -60,11 +61,28 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_NoLayers_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new SoilProfile2D(1, "name", new SoilLayer2D[0]);
+            TestDelegate test = () => new SoilProfile2D(1, "name", new SoilLayer2D[0], Enumerable.Empty<PreconsolidationStress>());
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("Geen lagen gevonden voor de ondergrondschematisatie.", exception.Message);
+        }
+
+        [Test]
+        public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var soilLayer2Ds = new[]
+            {
+                new SoilLayer2D()
+            };
+
+            // Call
+            TestDelegate call = () => new SoilProfile2D(1, string.Empty, soilLayer2Ds, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
         }
 
         [Test]
@@ -78,8 +96,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 new SoilLayer2D()
             };
 
+            var stresses = new[]
+            {
+                new PreconsolidationStress()
+            };
+
             // Call
-            var soilProfile2D = new SoilProfile2D(id, name, soilLayer2Ds);
+            var soilProfile2D = new SoilProfile2D(id, name, soilLayer2Ds, stresses);
 
             // Assert
             Assert.IsInstanceOf<ISoilProfile>(soilProfile2D);
@@ -87,6 +110,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(name, soilProfile2D.Name);
             CollectionAssert.AreEqual(soilLayer2Ds, soilProfile2D.Layers);
             Assert.AreNotSame(soilLayer2Ds, soilProfile2D.Layers);
+            CollectionAssert.AreEqual(stresses, soilProfile2D.PreconsolidationStresses);
+            Assert.AreNotSame(stresses, soilProfile2D.PreconsolidationStresses);
             Assert.IsNaN(soilProfile2D.IntersectionX);
         }
     }

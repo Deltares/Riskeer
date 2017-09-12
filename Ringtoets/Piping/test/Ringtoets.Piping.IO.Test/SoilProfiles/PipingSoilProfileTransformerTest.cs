@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, name, new[]
             {
                 new SoilLayer2D()
-            });
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
@@ -91,17 +91,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             const double intersectionX = 1.0;
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new List<Segment2D[]>(),
-                                                                                        new List<Segment2D>
-                                                                                        {
-                                                                                            new Segment2D(new Point2D(1.0, bottom),
-                                                                                                          new Point2D(1.2, 1)),
-                                                                                            new Segment2D(new Point2D(1.2, 1),
-                                                                                                          new Point2D(1.0, bottom))
-                                                                                        });
+                                                                                         new List<Segment2D>
+                                                                                         {
+                                                                                             new Segment2D(new Point2D(1.0, bottom),
+                                                                                                           new Point2D(1.2, 1)),
+                                                                                             new Segment2D(new Point2D(1.2, 1),
+                                                                                                           new Point2D(1.0, bottom))
+                                                                                         });
             var profile = new SoilProfile2D(0, name, new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, profileName, new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = atX
             };
@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, profileName, new[]
             {
                 new SoilLayer2D()
-            });
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, profileName, new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = 0.0
             };
@@ -269,7 +269,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                                                     "...",
                                                                     "...",
                                                                     "...")))
-                                            })
+                                            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = 1.0
             };
@@ -326,8 +326,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                                 SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(
                                                     new List<Segment2D[]>(),
                                                     loopHole)
-                                            }
-            )
+                                            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = 2.0
             };

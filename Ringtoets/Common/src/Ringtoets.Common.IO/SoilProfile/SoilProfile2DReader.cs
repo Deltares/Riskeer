@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
@@ -182,7 +183,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return new SoilProfile2D(criticalProperties.ProfileId,
                                          criticalProperties.ProfileName,
-                                         soilLayers)
+                                         soilLayers, Enumerable.Empty<PreconsolidationStress>()) // TODO: WTI1341: add read method for the preconsolidaiton stresses
                 {
                     IntersectionX = properties.IntersectionX
                 };

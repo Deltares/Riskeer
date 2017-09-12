@@ -100,7 +100,7 @@
     <Compile Include="Configurations\Helpers\XElementExtensions.cs" />
     <Compile Include="Configurations\CalculationGroupConfiguration.cs" />
     <Compile Include="Configurations\Import\CombinedXmlSchemaDefinition.cs" />
-    <Compile Include="PreconsolidationStress.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStress.cs" />
     <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />

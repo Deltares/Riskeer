@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 {
                     new StochasticSoilProfile(1, new SoilProfile1D(2, "test", 3, new[]
                     {
-                       SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
+                        SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
                     }))
                 }
             };
@@ -133,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                     new StochasticSoilProfile(1, new SoilProfile2D(2, "test", new[]
                     {
                         SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-                    }))
+                    }, Enumerable.Empty<PreconsolidationStress>()))
                 }
             };
 
@@ -178,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(2, "test", new[]
             {
                 layer
-            });
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             var soilModel1 = new StochasticSoilModel("some name", FailureMechanismType.Stability)
             {
@@ -225,11 +225,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(0, soilProfileName, new[]
             {
                 layer
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };
-            
+
             const double originalProfileOneProbability = 0.2;
             const double originalProfileTwoProbability = 0.7;
             var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Stability)
@@ -303,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var soilProfile2D = new SoilProfile2D(0, soilProfileName, new[]
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-            })
+            }, Enumerable.Empty<PreconsolidationStress>())
             {
                 IntersectionX = intersectionX
             };
@@ -311,7 +311,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             var soilProfile1D = new SoilProfile1D(0, soilProfileName, 0, new[]
             {
-               SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
+                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
             });
             var stochasticSoilProfile1D = new StochasticSoilProfile(0.7, soilProfile1D);
 

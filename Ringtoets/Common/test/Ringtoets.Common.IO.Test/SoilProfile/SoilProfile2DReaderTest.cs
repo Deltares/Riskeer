@@ -439,6 +439,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual("Profile", profile.Name);
                 Assert.AreEqual(85.2, profile.IntersectionX);
 
+                CollectionAssert.IsEmpty(profile.);
+
                 SoilLayer2D soilLayer = profile.Layers.Single();
                 Assert.AreEqual("Material1", soilLayer.MaterialName);
                 Assert.IsNull(soilLayer.IsAquifer);

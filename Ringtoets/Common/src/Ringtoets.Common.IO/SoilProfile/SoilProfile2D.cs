@@ -37,20 +37,26 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="id">The database identifier of the soil profile.</param>
         /// <param name="name">The name of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
-        /// is <c>null</c>.</exception>
+        /// <param name="preconsolidationStresses">The preconsolidation stresses that are defined for the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="layers"/> or
+        /// <paramref name="preconsolidationStresses"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
-        public SoilProfile2D(long id, string name, IEnumerable<SoilLayer2D> layers)
+        public SoilProfile2D(long id, string name, IEnumerable<SoilLayer2D> layers, IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
+            }
+            if (preconsolidationStresses == null)
+            {
+                throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
 
             ValidateLayersCollection(layers);
 
             Id = id;
             Name = name;
+            PreconsolidationStresses = preconsolidationStresses.ToArray();
             Layers = layers.ToArray();
             IntersectionX = double.NaN;
         }
@@ -71,6 +77,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double IntersectionX { get; set; }
 
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the collection of preconsolidation stresses that are defined for the profile.
+        /// </summary>
+        public IEnumerable<PreconsolidationStress> PreconsolidationStresses { get; }
 
         /// <summary>
         /// Validates the given <paramref name="layers"/>. A valid <paramref name="layers"/> has layers.

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
