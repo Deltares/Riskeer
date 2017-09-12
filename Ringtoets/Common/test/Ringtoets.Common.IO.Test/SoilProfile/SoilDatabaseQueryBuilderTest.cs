@@ -395,44 +395,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string expectedQuery =
                 "SELECT " +
                 "sp2d.SP2D_Name AS ProfileName, " +
-                "preconsolidationStressesCount.PreconsolidationStressesCount, " +
-                "PreconsolidationStressXCoordinate, " +
-                "PreconsolidationStressZCoordinate, " +
-                "PreconsolidationStressDistribution, " +
-                "PreconsolidationStressMean, " +
-                "PreconsolidationStressCoefficientOfVariation, " +
-                "PreconsolidationStressShift, " +
-                "sp2d.SP2D_ID AS SoilProfileId " +
-                "FROM Mechanism AS m " +
-                "JOIN Segment AS segment USING(ME_ID) " +
-                "JOIN " +
-                "(" +
-                "SELECT SSM_ID, SP2D_ID " +
-                "FROM StochasticSoilProfile " +
-                "GROUP BY SSM_ID, SP2D_ID" +
-                ") ssp USING(SSM_ID) " +
-                "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
-                "JOIN" +
-                "(" +
-                "SELECT " +
-                "SP2D_ID, " +
-                "COUNT(*) AS PreconsolidationStressesCount " +
-                "FROM PreconsolidationStresses " +
-                "GROUP BY SP2D_ID" +
-                ") PreconsolidationStressesCount USING(SP2D_ID) " +
-                "JOIN" +
-                "(" +
-                "SELECT " +
-                "SP2D_ID, " +
-                "X as PreconsolidationStressXCoordinate, " +
-                "Z as PreconsolidationStressZCoordinate, " +
-                "s.ST_Dist_Type AS PreconsolidationStressDistribution, " +
-                "s.ST_Shift AS PreconsolidationStressShift, " +
+                "SP2D_ID AS SoilProfileId, " +
+                "X AS PreconsolidationStressXCoordinate, " +
+                "Z AS PreconsolidationStressZCoordinate, " +
+                "s.ST_Dist_Type AS PreconsolidationStressDistributionType, " +
                 "s.ST_Mean AS PreconsolidationStressMean, " +
-                "s.ST_Variation AS PreconsolidationStressCoefficientOfVariation " +
+                "s.ST_Variation AS PreconsolidationStressCoefficientOfVariation, " +
+                "s.ST_Shift AS PreconsolidationStressShift " +
                 "FROM PreconsolidationStresses AS ps " +
+                "JOIN SoilProfile2D AS sp2d USING(SP2D_ID) " +
                 "LEFT JOIN Stochast AS s USING(ST_ID) " +
-                ") PreconsolidationStresses USING(SP2D_ID);";
+                "ORDER BY SP2D_ID;";
 
             Assert.AreEqual(expectedQuery, query);
         }

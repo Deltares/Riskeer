@@ -33,11 +33,6 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         public const string TableName = "PreconsolidationStresses";
 
         /// <summary>
-        /// The name of the alias used for the number of stresses that can be read.
-        /// </summary>
-        public const string PreconsolidationstressesCount = "PreconsolidationStressesCount";
-
-        /// <summary>
         /// The name of the X coordinate column. 
         /// </summary>
         public const string PreconsolidationStressXCoordinate = "PreconsolidationStressXCoordinate";
@@ -50,7 +45,7 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         /// <summary>
         /// The name of the preconsolidation stress distribution column.
         /// </summary>
-        public const string PreconsolidationStressDistribution = "PreconsolidationStressDistribution";
+        public const string PreconsolidationStressDistribution = "PreconsolidationStressDistributionType";
 
         /// <summary>
         /// The name of the preconsolidation stress mean column.

@@ -39,11 +39,6 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double ZCoordinate { get; set; } = double.NaN;
 
         /// <summary>
-        /// Gets or sets the calculation value of the preconsolidation stress.
-        /// </summary>
-        public double PreconsolidationStressCalculationValue { get; set; } = double.NaN;
-
-        /// <summary>
         /// Gets or sets distribution type of the preconsolidation stress.
         /// </summary>
         public long? PreconsolidationStressDistributionType { get; set; }
