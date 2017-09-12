@@ -108,8 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             {
                 PreconsolidationStresses =
                 {
-                    new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine(
-                        new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine.ConstructionProperties
+                    new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
+                        new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
                         {
                             XCoordinate = preconsolidationStressXCoordinate,
                             ZCoordinate = preconsolidationStressZCoordinate

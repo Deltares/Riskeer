@@ -46,7 +46,7 @@
     <Compile Include="MacroStabilityInwardsDikeSoilScenario.cs" />
     <Compile Include="MacroStabilityInwardsGrid.cs" />
     <Compile Include="MacroStabilityInwardsPreconsolidationStress.cs" />
-    <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine.cs" />
+    <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayer1D.cs" />
     <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.cs" />

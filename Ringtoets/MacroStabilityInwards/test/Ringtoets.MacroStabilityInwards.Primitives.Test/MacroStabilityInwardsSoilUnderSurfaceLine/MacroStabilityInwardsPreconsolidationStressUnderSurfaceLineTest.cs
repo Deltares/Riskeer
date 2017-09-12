@@ -30,13 +30,13 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     [TestFixture]
-    public class MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLineTest
+    public class MacroStabilityInwardsPreconsolidationStressUnderSurfaceLineTest
     {
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine(null);
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -47,10 +47,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         public void Constructor_DefaultConstructionProperties_ReturnsExpectedValues()
         {
             // Setup
-            var constructionProperties = new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine.ConstructionProperties();
+            var constructionProperties = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties();
 
             // Call
-            var stressProperties = new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine(constructionProperties);
+            var stressProperties = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(constructionProperties);
 
             // Assert
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         {
             // Setup
             var random = new Random(30);
-            var constructionProperties = new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine.ConstructionProperties
+            var constructionProperties = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
             {
                 XCoordinate = random.NextDouble(),
                 ZCoordinate = random.NextDouble(),
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
             RoundedDouble preconsolidationStressDesignVariable = random.NextRoundedDouble();
 
             // Call
-            var stressProperties = new MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine(constructionProperties)
+            var stressProperties = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(constructionProperties)
             {
                 PreconsolidationStressDesignVariable = preconsolidationStressDesignVariable
             };

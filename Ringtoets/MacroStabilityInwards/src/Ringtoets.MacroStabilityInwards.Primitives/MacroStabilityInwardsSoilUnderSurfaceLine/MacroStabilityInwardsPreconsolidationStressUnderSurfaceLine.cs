@@ -28,15 +28,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
     /// <summary>
     /// Preconsolidation stress properties.
     /// </summary>
-    public class MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine
+    public class MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="properties">The object containing the value for the properties of 
-        /// the new <see cref="MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine"/>.</param>
+        /// the new <see cref="MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine(ConstructionProperties properties)
+        public MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(ConstructionProperties properties)
         {
             if (properties == null)
             {
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
 
         /// <summary>
         /// Class holding the properties for constructing a 
-        /// <see cref="MacroStabilityInwardsPreconsolidationStressPropertiesUnderSurfaceLine"/>.
+        /// <see cref="MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine"/>.
         /// </summary>
         public class ConstructionProperties
         {
