@@ -407,6 +407,32 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
+        public void SoilProfile1DCreate_Always_ReturnsEmptyPreconsolidationStresses()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 4.0),
+                new Point3D(4, 0, 0.0),
+                new Point3D(8, 0, 4.0)
+            });
+
+            var layer = new MacroStabilityInwardsSoilLayer1D(1);
+            var profile = new MacroStabilityInwardsSoilProfile1D("name", 0, new[]
+            {
+                layer
+            });
+
+            // Call
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(
+                profile, surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(profileUnderSurfaceLine.PreconsolidationStresses);
+        }
+
+        [Test]
         public void SoilProfile2DCreate_ProfileWithOuterRingAndHoles_ReturnsEqualGeometries()
         {
             // Setup
@@ -521,6 +547,49 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                   popMean, popCoefficientOfVariation);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetPreconsolidationStresses))]
+        public void SoilProfile2DCreate_WithPreconsolidationStresses_ReturnsExpectedPreconsolidationStresses(
+            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        {
+            // Setup
+            MacroStabilityInwardsPreconsolidationStress[] expectedStresses = preconsolidationStresses.ToArray();
+            var profile = new MacroStabilityInwardsSoilProfile2D("name", new[]
+            {
+                GetSoilLayer()
+            }, expectedStresses);
+
+            // Call
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(
+                profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
+
+            // Assert
+            MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine[] preconsolidationStressesUnderSurfaceLine = profileUnderSurfaceLine.PreconsolidationStresses.ToArray();
+            int expectedNrOfStresses = expectedStresses.Length;
+            Assert.AreEqual(expectedNrOfStresses, preconsolidationStressesUnderSurfaceLine.Length);
+            for (var i = 0; i < expectedNrOfStresses; i++)
+            {
+                AssertPreconsolidationStress(expectedStresses[i], preconsolidationStressesUnderSurfaceLine[i]);
+            }
+        }
+
+        private static void AssertPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress preconsolidationStress,
+                                                         MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine preconsolidationStressUnderSurfaceLine)
+        {
+            Assert.AreEqual(preconsolidationStress.XCoordinate, preconsolidationStressUnderSurfaceLine.XCoordinate);
+            Assert.AreEqual(preconsolidationStress.ZCoordinate, preconsolidationStressUnderSurfaceLine.ZCoordinate);
+
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean,
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.Mean,
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.Mean.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation,
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation.GetAccuracy());
+
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine).GetDesignValue(),
+                           preconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable);
+        }
+
         private static void AssertDistributionsAndDesignVariables(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties,
                                                                   double abovePhreaticLevelMean, double abovePhreaticLevelCoefficientOfVariation,
                                                                   double belowPhreaticLevelMean, double belowPhreaticLevelCoefficientOfVariation,
@@ -604,6 +673,29 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(x3, y3),
                 new Point2D(x4, y4)
             });
+        }
+
+        private static IEnumerable<TestCaseData> GetPreconsolidationStresses()
+        {
+            yield return new TestCaseData(Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())
+                .SetName("No preconsolidation stresses");
+
+            var random = new Random(21);
+            var preconsolidationStresses = new List<MacroStabilityInwardsPreconsolidationStress>
+            {
+                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                random.NextDouble()),
+                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                random.NextDouble())
+            };
+            yield return new TestCaseData(preconsolidationStresses)
+                .SetName("Multiple preconsolidation stresses");
         }
     }
 }

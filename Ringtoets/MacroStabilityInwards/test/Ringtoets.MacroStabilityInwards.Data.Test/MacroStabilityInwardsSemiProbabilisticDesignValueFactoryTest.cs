@@ -175,10 +175,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             AssertPercentile(0.05, pop);
         }
 
+        [Test]
+        public void GetPreconsolidationStress_ValidPreconsolidationStress_CreateDesignVariableForPreconsolidationStress()
+        {
+            // Setup
+            var preconsolidationStressUnderSurfaceLine = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
+                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
+                {
+                    PreconsolidationStressMean = mean,
+                    PreconsolidationStressCoefficientOfVariation = coefficientOfVariation
+                });
+
+            // Call
+            VariationCoefficientLogNormalDistributionDesignVariable preconsoldationStress =
+                MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine);
+
+            // Assert
+            DistributionAssert.AreEqual(preconsolidationStressUnderSurfaceLine.PreconsolidationStress, preconsoldationStress.Distribution);
+            AssertPercentile(0.05, preconsoldationStress);
+        }
+
         private static void AssertPercentile(double percentile, VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariable>(designVariable);
-            var percentileBasedDesignVariable = (VariationCoefficientLogNormalDistributionDesignVariable)designVariable;
+            var percentileBasedDesignVariable = (VariationCoefficientLogNormalDistributionDesignVariable) designVariable;
             Assert.AreEqual(percentile, percentileBasedDesignVariable.Percentile);
         }
     }

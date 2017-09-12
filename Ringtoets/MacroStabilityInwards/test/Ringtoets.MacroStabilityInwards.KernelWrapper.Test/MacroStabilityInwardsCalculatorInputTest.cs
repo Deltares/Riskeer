@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -57,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     new Point2D(0, 0)
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
                     new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()))
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
             
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();

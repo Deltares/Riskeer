@@ -133,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                     surfaceLine.LocalGeometry.Last()
 
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
         }
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()

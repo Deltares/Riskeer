@@ -34,7 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         public void Constructor_WithoutLayersUnderSurfaceLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(null,
+                                                                                           Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -42,17 +43,31 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         }
 
         [Test]
+        public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>(),
+                                                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_WithLayersUnderSurfaceLine_NewInstanceWithPropertiesSet()
         {
             // Call
             IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers = Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>();
+            IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStresses =
+                Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>();
 
             // Setup
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layers);
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layers, preconsolidationStresses);
 
             // Assert
             Assert.AreSame(layers, profile.LayersUnderSurfaceLine);
-            CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
+            Assert.AreSame(preconsolidationStresses, profile.PreconsolidationStresses);
         }
     }
 }

@@ -33,16 +33,21 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="layersUnderSurfaceLine">The layers in the profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layersUnderSurfaceLine"/>
-        /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine)
+        /// <param name="preconsolidationStresses">The preconsolidation stresses defined for the profile.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine,
+                                                                IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStresses)
         {
             if (layersUnderSurfaceLine == null)
             {
                 throw new ArgumentNullException(nameof(layersUnderSurfaceLine));
             }
+            if (preconsolidationStresses == null)
+            {
+                throw new ArgumentNullException(nameof(preconsolidationStresses));
+            }
             LayersUnderSurfaceLine = layersUnderSurfaceLine;
-            PreconsolidationStresses = new List<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>();
+            PreconsolidationStresses = preconsolidationStresses;
         }
 
         /// <summary>
@@ -53,6 +58,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// <summary>
         /// Gets the preconsolidation stresses in the profile.
         /// </summary>
-        public List<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> PreconsolidationStresses { get; }
+        public IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> PreconsolidationStresses { get; }
     }
 }

@@ -95,7 +95,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     layer.Holes.Select(RingToPoints),
                     ToUnderSurfaceLineProperties(layer.Properties)));
 
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine);
+            IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStressesUnderSurfaceLine =
+                soilProfile.PreconsolidationStresses.Select(ToPreconsolidationStressUnderSurfaceLine).ToArray();
+
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine, preconsolidationStressesUnderSurfaceLine);
         }
 
         private static MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine ToUnderSurfaceLineProperties(
@@ -124,11 +127,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     PopCoefficientOfVariation = properties.PopCoefficientOfVariation
                 });
 
-            SetDesignVariables(props);
+            SetDesignVariablesOfProperties(props);
             return props;
         }
 
-        private static void SetDesignVariables(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine props)
+        private static MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine ToPreconsolidationStressUnderSurfaceLine
+            (MacroStabilityInwardsPreconsolidationStress preconsolidationStress)
+        {
+            var macroStabilityInwardsPreconsolidationStressUnderSurfaceLine = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
+                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
+                {
+                    XCoordinate = preconsolidationStress.XCoordinate,
+                    ZCoordinate = preconsolidationStress.ZCoordinate,
+                    PreconsolidationStressMean = preconsolidationStress.PreconsolidationStressMean,
+                    PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStressCoefficientOfVariation
+                });
+
+            macroStabilityInwardsPreconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable =
+                MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(macroStabilityInwardsPreconsolidationStressUnderSurfaceLine)
+                                                                        .GetDesignValue();
+
+            return macroStabilityInwardsPreconsolidationStressUnderSurfaceLine;
+        }
+
+        private static void SetDesignVariablesOfProperties(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine props)
         {
             props.AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(props).GetDesignValue();
             props.BelowPhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetBelowPhreaticLevel(props).GetDesignValue();
@@ -158,7 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 }
             }
 
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(collection);
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(collection, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
         }
 
         private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilProfile1D soilProfile, double minX, double maxX)

@@ -53,7 +53,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
         {
             // Call
             TestDelegate call = () => SoilProfileCreator.Create(new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
-                                                                    Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>()), null);
+                                                                    Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>(),
+                                                                    Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>()),
+                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -104,21 +106,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
                 layer
-            })
+            }, new[]
             {
-                PreconsolidationStresses =
-                {
-                    new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
-                        new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
-                        {
-                            XCoordinate = preconsolidationStressXCoordinate,
-                            ZCoordinate = preconsolidationStressZCoordinate
-                        })
+                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
+                    new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
                     {
-                        PreconsolidationStressDesignVariable = preconsolidationStressDesignValue
-                    }
+                        XCoordinate = preconsolidationStressXCoordinate,
+                        ZCoordinate = preconsolidationStressZCoordinate
+                    })
+                {
+                    PreconsolidationStressDesignVariable = preconsolidationStressDesignValue
                 }
-            };
+            });
 
             // Call
             SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>

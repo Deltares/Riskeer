@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
                         MaterialName = "Grass"
                     }))
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
 
             // Call
             Soil[] soils = SoilCreator.Create(profile);
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                 {
                     ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
                 }))
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
 
             // Call
             TestDelegate test = () => SoilCreator.Create(profile);

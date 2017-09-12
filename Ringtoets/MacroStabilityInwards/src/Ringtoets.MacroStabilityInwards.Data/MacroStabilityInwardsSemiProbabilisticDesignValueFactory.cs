@@ -86,5 +86,13 @@ namespace Ringtoets.MacroStabilityInwards.Data
         {
             return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.Pop, 0.05);
         }
+
+        /// <summary>
+        /// Creates the design variable for <see cref="MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine"/>.
+        /// </summary>
+        public static VariationCoefficientLogNormalDistributionDesignVariable GetPreconsolidationStress(MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine preconsolidationStressUnderSurfaceLine)
+        {
+            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(preconsolidationStressUnderSurfaceLine.PreconsolidationStress, 0.05);
+        }
     }
 }
