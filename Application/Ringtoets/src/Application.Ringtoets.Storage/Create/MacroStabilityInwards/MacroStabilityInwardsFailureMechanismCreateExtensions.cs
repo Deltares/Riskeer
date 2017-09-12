@@ -22,7 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Utils.Extensions;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
@@ -38,12 +41,54 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        public static FailureMechanismEntity Create(this MacroStabilityInwardsFailureMechanism mechanism, PersistenceRegistry registry)
+        public static FailureMechanismEntity Create(this MacroStabilityInwardsFailureMechanism mechanism,
+                                                    PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacroStabilityInwards, registry);
+
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
+            AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
+            AddEntitiesForSurfaceLines(mechanism, registry, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(MacroStabilityInwardsFailureMechanism mechanism,
+                                                               FailureMechanismEntity entity)
+        {
+            var metaEntity = new MacroStabilityInwardsFailureMechanismMetaEntity
+            {
+                A = mechanism.MacroStabilityInwardsProbabilityAssessmentInput.A,
+                B = mechanism.MacroStabilityInwardsProbabilityAssessmentInput.B,
+                SectionLength = mechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength.ToNaNAsNull(),
+                StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
+                SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone()
+            };
+
+            entity.MacroStabilityInwardsFailureMechanismMetaEntities.Add(metaEntity);
+        }
+
+        private static void AddEntitiesForStochasticSoilModels(MacroStabilityInwardsFailureMechanism mechanism,
+                                                               PersistenceRegistry registry,
+                                                               FailureMechanismEntity entity)
+        {
+            var index = 0;
+            foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in mechanism.StochasticSoilModels)
+            {
+                entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry, index++));
+            }
+        }
+
+        private static void AddEntitiesForSurfaceLines(MacroStabilityInwardsFailureMechanism mechanism,
+                                                       PersistenceRegistry registry,
+                                                       FailureMechanismEntity entity)
+        {
+            var index = 0;
+            foreach (MacroStabilityInwardsSurfaceLine surfaceLine in mechanism.SurfaceLines)
+            {
+                entity.SurfaceLineEntities.Add(surfaceLine.Create(registry, index++));
+            }
         }
 
         private static void AddEntitiesForSectionResults(

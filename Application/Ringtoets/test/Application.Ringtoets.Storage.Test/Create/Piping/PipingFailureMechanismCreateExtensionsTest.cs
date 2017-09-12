@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
@@ -53,14 +54,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
         {
             // Setup
+            var random = new Random(31);
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = isRelevant,
+                IsRelevant = random.NextBoolean(),
                 InputComments =
                 {
                     Body = "Some input text"
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.Piping, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
@@ -107,22 +107,19 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string originalInput = "Some input text";
-            const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
             var failureMechanism = new PipingFailureMechanism
             {
                 InputComments =
                 {
-                    Body = originalInput
+                    Body = "Some input text"
                 },
                 OutputComments =
                 {
-                    Body = originalOutput
+                    Body = "Some output text"
                 },
                 NotRelevantComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = "Really not relevant"
                 }
             };
             var registry = new PersistenceRegistry();
@@ -131,15 +128,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(originalInput, entity.InputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreNotSame(originalOutput, entity.OutputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
 
         [Test]
@@ -147,12 +138,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            const string somePath = "some/path/to/file";
-            failureMechanism.StochasticSoilModels.AddRange(new[]
+            PipingStochasticSoilModelCollection stochasticSoilModels = failureMechanism.StochasticSoilModels;
+
+            stochasticSoilModels.AddRange(new[]
             {
                 new PipingStochasticSoilModel("name"),
                 new PipingStochasticSoilModel("name2")
-            }, somePath);
+            }, "some/path/to/file");
 
             var registry = new PersistenceRegistry();
 
@@ -162,13 +154,17 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
-            Assert.AreEqual(1, entity.PipingFailureMechanismMetaEntities.Count);
+            for (var i = 0; i < stochasticSoilModels.Count; i++)
+            {
+                AssertStochasticSoilModel(stochasticSoilModels.ElementAt(i),
+                                          entity.StochasticSoilModelEntities.ElementAt(i));
+            }
 
+            Assert.AreEqual(1, entity.PipingFailureMechanismMetaEntities.Count);
             string stochasticSoilModelCollectionSourcePath = entity.PipingFailureMechanismMetaEntities
                                                                    .Single()
                                                                    .StochasticSoilModelCollectionSourcePath;
-            Assert.AreNotSame(somePath, stochasticSoilModelCollectionSourcePath);
-            Assert.AreEqual(somePath, stochasticSoilModelCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(stochasticSoilModels.SourcePath, stochasticSoilModelCollectionSourcePath);
         }
 
         [Test]
@@ -193,13 +189,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithSurfaceLines_ReturnFailureMechanismEntityWithSurfaceLineEntities()
         {
             // Setup
-            var random = new Random();
             var failureMechanism = new PipingFailureMechanism();
-            const string somePath = "path";
-            failureMechanism.SurfaceLines.AddRange(new[]
+            PipingSurfaceLineCollection failureMechanismSurfaceLines = failureMechanism.SurfaceLines;
+
+            failureMechanismSurfaceLines.AddRange(new[]
             {
-                CreateSurfaceLine(random)
-            }, somePath);
+                CreateSurfaceLine(new Random(31))
+            }, "path");
 
             var registry = new PersistenceRegistry();
 
@@ -208,13 +204,16 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(failureMechanism.SurfaceLines.Count, entity.SurfaceLineEntities.Count);
+            Assert.AreEqual(failureMechanismSurfaceLines.Count, entity.SurfaceLineEntities.Count);
+            for (var i = 0; i < failureMechanismSurfaceLines.Count; i++)
+            {
+                AssertSurfaceLine(failureMechanismSurfaceLines.ElementAt(i), entity.SurfaceLineEntities.ElementAt(i));
+            }
 
             string surfaceLineCollectionSourcePath = entity.PipingFailureMechanismMetaEntities
                                                            .Single()
                                                            .SurfaceLineCollectionSourcePath;
-            Assert.AreNotSame(somePath, surfaceLineCollectionSourcePath);
-            Assert.AreEqual(somePath, surfaceLineCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(failureMechanismSurfaceLines.SourcePath, surfaceLineCollectionSourcePath);
         }
 
         [Test]
@@ -245,9 +244,26 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(1, childGroupEntities[1].Order);
         }
 
+        private static void AssertSurfaceLine(PipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
+        {
+            Assert.AreEqual(surfaceLine.Name, entity.Name);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
+
+            Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);
+            Assert.AreEqual(0, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
+        }
+
+        private static void AssertStochasticSoilModel(PipingStochasticSoilModel model, StochasticSoilModelEntity entity)
+        {
+            Assert.AreEqual(model.Name, entity.Name);
+            Assert.AreEqual(model.StochasticSoilProfiles.Count, entity.PipingStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(0, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
+        }
+
         private PipingSurfaceLine CreateSurfaceLine(Random random)
         {
-            var surfaceLine = new PipingSurfaceLine("A")
+            var surfaceLine = new PipingSurfaceLine(nameof(PipingSurfaceLine))
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };

@@ -25,8 +25,12 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -48,14 +52,13 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
         {
             // Setup
+            var random = new Random(31);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                IsRelevant = isRelevant,
+                IsRelevant = random.NextBoolean(),
                 InputComments =
                 {
                     Body = "Some input text"
@@ -77,32 +80,37 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.MacroStabilityInwards, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
+            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.ToArray()[0];
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.B, failureMechanismMetaEntity.B);
+            Assert.IsNull(failureMechanismMetaEntity.SectionLength);
+            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
+            Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }
 
         [Test]
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string originalInput = "Some input text";
-            const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 InputComments =
                 {
-                    Body = originalInput
+                    Body = "Some input text"
                 },
                 OutputComments =
                 {
-                    Body = originalOutput
+                    Body = "Some output text"
                 },
                 NotRelevantComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = "Really not relevant"
                 }
             };
             var registry = new PersistenceRegistry();
@@ -111,16 +119,118 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(originalInput, entity.InputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreNotSame(originalOutput, entity.OutputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
+
+        [Test]
+        public void Create_WithStochasticSoilModels_ReturnsFailureMechanismEntityWithStochasticSoilModelEntities()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = failureMechanism.StochasticSoilModels;
+
+            stochasticSoilModels.AddRange(new[]
+            {
+                new MacroStabilityInwardsStochasticSoilModel("name"),
+                new MacroStabilityInwardsStochasticSoilModel("name2")
+            }, "some/path/to/file");
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
+            for (var i = 0; i < stochasticSoilModels.Count; i++)
+            {
+                AssertStochasticSoilModel(stochasticSoilModels.ElementAt(i),
+                                          entity.StochasticSoilModelEntities.ElementAt(i));
+            }
+
+            Assert.AreEqual(1, entity.MacroStabilityInwardsFailureMechanismMetaEntities.Count);
+            string stochasticSoilModelCollectionSourcePath = entity.MacroStabilityInwardsFailureMechanismMetaEntities
+                                                                   .Single()
+                                                                   .StochasticSoilModelCollectionSourcePath;
+            TestHelper.AssertAreEqualButNotSame(stochasticSoilModels.SourcePath, stochasticSoilModelCollectionSourcePath);
+        }
+
+        [Test]
+        public void Create_WithSurfaceLines_ReturnFailureMechanismEntityWithSurfaceLineEntities()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            MacroStabilityInwardsSurfaceLineCollection failureMechanismSurfaceLines = failureMechanism.SurfaceLines;
+
+            failureMechanismSurfaceLines.AddRange(new[]
+            {
+                CreateSurfaceLine(new Random(31))
+            }, "path");
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(failureMechanismSurfaceLines.Count, entity.SurfaceLineEntities.Count);
+            for (var i = 0; i < failureMechanismSurfaceLines.Count; i++)
+            {
+                AssertSurfaceLine(failureMechanismSurfaceLines.ElementAt(i), entity.SurfaceLineEntities.ElementAt(i));
+            }
+
+            string surfaceLineCollectionSourcePath = entity.MacroStabilityInwardsFailureMechanismMetaEntities
+                                                           .Single()
+                                                           .SurfaceLineCollectionSourcePath;
+            TestHelper.AssertAreEqualButNotSame(failureMechanismSurfaceLines.SourcePath, surfaceLineCollectionSourcePath);
+        }
+
+        private static void AssertSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine, SurfaceLineEntity entity)
+        {
+            Assert.AreEqual(surfaceLine.Name, entity.Name);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
+            Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
+
+            Assert.AreEqual(0, entity.PipingCharacteristicPointEntities.Count);
+            Assert.AreEqual(14, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
+        }
+
+        private MacroStabilityInwardsSurfaceLine CreateSurfaceLine(Random random)
+        {
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(nameof(MacroStabilityInwardsSurfaceLine))
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
+            };
+
+            var geometryPoints = new Point3D[14];
+            for (var i = 0; i < geometryPoints.Length; i++)
+            {
+                geometryPoints[i] = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
+            }
+            surfaceLine.SetGeometry(geometryPoints);
+
+            surfaceLine.SetDitchPolderSideAt(geometryPoints[1]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[2]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[3]);
+            surfaceLine.SetDitchDikeSideAt(geometryPoints[4]);
+            surfaceLine.SetDikeTopAtPolderAt(geometryPoints[5]);
+            surfaceLine.SetDikeTopAtRiverAt(geometryPoints[6]);
+            surfaceLine.SetShoulderBaseInsideAt(geometryPoints[7]);
+            surfaceLine.SetShoulderTopInsideAt(geometryPoints[8]);
+            surfaceLine.SetTrafficLoadInsideAt(geometryPoints[9]);
+            surfaceLine.SetTrafficLoadOutsideAt(geometryPoints[10]);
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[11]);
+            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[12]);
+            surfaceLine.SetSurfaceLevelInsideAt(geometryPoints[13]);
+            surfaceLine.SetSurfaceLevelOutsideAt(geometryPoints[0]);
+
+            return surfaceLine;
+        }
+
 
         [Test]
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
@@ -148,6 +258,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Count());
+        }
+
+        private static void AssertStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel model, StochasticSoilModelEntity entity)
+        {
+            Assert.AreEqual(model.Name, entity.Name);
+            Assert.AreEqual(model.StochasticSoilProfiles.Count, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
         }
     }
 }

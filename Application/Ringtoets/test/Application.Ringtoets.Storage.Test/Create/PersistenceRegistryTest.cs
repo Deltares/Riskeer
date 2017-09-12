@@ -378,6 +378,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             /// model is registered in the registry.</param>
             /// <param name="getFromRegistry">The action to perform to get the data model from
             ///  the registry.</param>
+            /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
             /// <example>public DerivedRegistryTest() : base(
             /// (r, e, m) => r.Register(e, m),
             /// (r, m) => r.Contains(m),
@@ -386,6 +387,19 @@ namespace Application.Ringtoets.Storage.Test.Create
                                    Func<PersistenceRegistry, TDataModel, bool> containsInRegistry,
                                    Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry)
             {
+                if (registerToRegistry == null)
+                {
+                    throw new ArgumentNullException(nameof(registerToRegistry));
+                }
+                if (containsInRegistry == null)
+                {
+                    throw new ArgumentNullException(nameof(containsInRegistry));
+                }
+                if (getFromRegistry == null)
+                {
+                    throw new ArgumentNullException(nameof(getFromRegistry));
+                }
+
                 this.registerToRegistry = registerToRegistry;
                 this.containsInRegistry = containsInRegistry;
                 this.getFromRegistry = getFromRegistry;
