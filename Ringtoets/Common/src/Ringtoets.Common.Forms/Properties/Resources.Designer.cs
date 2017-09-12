@@ -725,6 +725,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kruin van het talud wanneer de dijk van buiten de polder wordt benaderd..
+        /// </summary>
+        public static string CharacteristicPoint_DikeTopAtRiver_Description {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeTopAtRiver_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd..
         /// </summary>
         public static string CharacteristicPoint_DitchDikeSide_Description {

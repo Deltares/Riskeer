@@ -1235,4 +1235,7 @@ Pf = {1}</value>
   <data name="GraphNode_CombinationType_Or" xml:space="preserve">
     <value>Of</value>
   </data>
+  <data name="CharacteristicPoint_DikeTopAtRiver_Description" xml:space="preserve">
+    <value>De kruin van het talud wanneer de dijk van buiten de polder wordt benaderd.</value>
+  </data>
 </root>

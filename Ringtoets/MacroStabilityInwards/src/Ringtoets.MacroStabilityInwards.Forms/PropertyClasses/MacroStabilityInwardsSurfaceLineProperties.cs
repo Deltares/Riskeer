@@ -83,6 +83,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DikeTopAtRiver_Description))]
+        public Point3D DikeTopAtRiver
+        {
+            get
+            {
+                return data.DikeTopAtRiver;
+            }
+        }
+
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
         [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadOutside))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_TrafficLoadOutside_Description))]
         public Point3D TrafficLoadOutside
