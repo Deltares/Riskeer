@@ -42,13 +42,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         {
             if (isAquifer.HasValue)
             {
-                if (isAquifer < 0.0 + tolerance
-                    && isAquifer > 0.0 - tolerance)
+                if (Math.Abs(0.0 - isAquifer.Value) < tolerance)
                 {
                     return false;
                 }
-                if (isAquifer < 1.0 + tolerance
-                    && isAquifer > 1.0 - tolerance)
+                if (Math.Abs(1.0 - isAquifer.Value) < tolerance)
                 {
                     return true;
                 }

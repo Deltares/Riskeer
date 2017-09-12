@@ -49,11 +49,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [TestCase(null)]
         [TestCase(0.5)]
         [TestCase(1.1)]
-        [TestCase(1 - 1e-6)]
-        [TestCase(1 + 1e-6)]
         [TestCase(0.1)]
-        [TestCase(0 - 1e-6)]
-        [TestCase(0 + 1e-6)]
+        [TestCase(1 - 1e-5)]
+        [TestCase(1 + 1e-5)]
+        [TestCase(0 - 1e-5)]
+        [TestCase(0 + 1e-5)]
         [TestCase(double.NaN)]
         public void Convert_InvalidValues_ThrowsImportedDataTransformException(double? isAquifer)
         {

@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parameterName"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
-        /// log normal distribution with a zero shifty.</exception>
+        /// log normal distribution with a zero shift.</exception>
         public static void ValidateIsNonShiftedLogNormal(long? distributionType, double shift, string parameterName)
         {
             if (parameterName == null)
