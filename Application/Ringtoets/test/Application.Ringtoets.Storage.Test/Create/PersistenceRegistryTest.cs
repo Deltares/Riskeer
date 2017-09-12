@@ -73,29 +73,17 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class PipingStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
+        private class PipingStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel, 
             StochasticSoilModelEntity>
         {
+            public PipingStochasticSoilModelTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
             {
                 return new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
-            }
-
-            protected override StochasticSoilModelEntity Get(PersistenceRegistry registry,
-                                                             MacroStabilityInwardsStochasticSoilModel model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilModel model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, StochasticSoilModelEntity entity,
-                                             MacroStabilityInwardsStochasticSoilModel model)
-            {
-                registry.Register(entity, model);
             }
         }
 
@@ -103,26 +91,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         private class PipingStochasticSoilProfileTest : RegistryTest<PipingStochasticSoilProfile,
             PipingStochasticSoilProfileEntity>
         {
+            public PipingStochasticSoilProfileTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override PipingStochasticSoilProfile CreateDataModel()
             {
                 return new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            }
-
-            protected override PipingStochasticSoilProfileEntity Get(PersistenceRegistry registry,
-                                                                     PipingStochasticSoilProfile model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, PipingStochasticSoilProfile model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, PipingStochasticSoilProfileEntity entity,
-                                             PipingStochasticSoilProfile model)
-            {
-                registry.Register(entity, model);
             }
         }
 
@@ -130,53 +106,29 @@ namespace Application.Ringtoets.Storage.Test.Create
         private class PipingSoilProfileTest : RegistryTest<PipingSoilProfile,
             PipingSoilProfileEntity>
         {
+            public PipingSoilProfileTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override PipingSoilProfile CreateDataModel()
             {
                 return PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             }
-
-            protected override PipingSoilProfileEntity Get(PersistenceRegistry registry,
-                                                           PipingSoilProfile model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, PipingSoilProfile model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, PipingSoilProfileEntity entity,
-                                             PipingSoilProfile model)
-            {
-                registry.Register(entity, model);
-            }
         }
-        
+
         [TestFixture]
         private class MacroStabilityInwardsStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
             StochasticSoilModelEntity>
         {
+            public MacroStabilityInwardsStochasticSoilModelTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
             {
                 return new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
-            }
-
-            protected override StochasticSoilModelEntity Get(PersistenceRegistry registry,
-                                                             MacroStabilityInwardsStochasticSoilModel model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilModel model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, StochasticSoilModelEntity entity,
-                                             MacroStabilityInwardsStochasticSoilModel model)
-            {
-                registry.Register(entity, model);
             }
         }
 
@@ -198,6 +150,11 @@ namespace Application.Ringtoets.Storage.Test.Create
                 mockRepository.VerifyAll();
             }
 
+            public MacroStabilityInwardsStochasticSoilProfileTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override MacroStabilityInwardsStochasticSoilProfile CreateDataModel()
             {
                 var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile>();
@@ -205,49 +162,20 @@ namespace Application.Ringtoets.Storage.Test.Create
 
                 return new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
             }
-
-            protected override MacroStabilityInwardsStochasticSoilProfileEntity Get(PersistenceRegistry registry,
-                                                                                    MacroStabilityInwardsStochasticSoilProfile model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilProfile model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, MacroStabilityInwardsStochasticSoilProfileEntity entity,
-                                             MacroStabilityInwardsStochasticSoilProfile model)
-            {
-                registry.Register(entity, model);
-            }
         }
 
         [TestFixture]
         private class MacroStabilityInwardsSoilProfile1DTest : RegistryTest<MacroStabilityInwardsSoilProfile1D,
             MacroStabilityInwardsSoilProfile1DEntity>
         {
+            public MacroStabilityInwardsSoilProfile1DTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override MacroStabilityInwardsSoilProfile1D CreateDataModel()
             {
                 return new TestMacroStabilityInwardsSoilProfile1D();
-            }
-
-            protected override MacroStabilityInwardsSoilProfile1DEntity Get(PersistenceRegistry registry,
-                                                                            MacroStabilityInwardsSoilProfile1D model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile1D model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile1DEntity entity,
-                                             MacroStabilityInwardsSoilProfile1D model)
-            {
-                registry.Register(entity, model);
             }
         }
 
@@ -255,6 +183,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         private class MacroStabilityInwardsSoilProfile2DTest : RegistryTest<MacroStabilityInwardsSoilProfile2D,
             MacroStabilityInwardsSoilProfile2DEntity>
         {
+            public MacroStabilityInwardsSoilProfile2DTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
             protected override MacroStabilityInwardsSoilProfile2D CreateDataModel()
             {
                 return new MacroStabilityInwardsSoilProfile2D("", new[]
@@ -266,29 +199,16 @@ namespace Application.Ringtoets.Storage.Test.Create
                     }), new Ring[0])
                 }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
             }
-
-            protected override MacroStabilityInwardsSoilProfile2DEntity Get(PersistenceRegistry registry,
-                                                                            MacroStabilityInwardsSoilProfile2D model)
-            {
-                return registry.Get(model);
-            }
-
-            protected override bool Contains(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile2D model)
-            {
-                return registry.Contains(model);
-            }
-
-            protected override void Register(PersistenceRegistry registry, MacroStabilityInwardsSoilProfile2DEntity entity,
-                                             MacroStabilityInwardsSoilProfile2D model)
-            {
-                registry.Register(entity, model);
-            }
         }
 
         [TestFixture]
         private abstract class RegistryTest<TDataModel, TEntity> where TDataModel : class
                                                                  where TEntity : class, new()
         {
+            private readonly Action<PersistenceRegistry, TEntity, TDataModel> registerToRegistry;
+            private readonly Func<PersistenceRegistry, TDataModel, bool> containsInRegistry;
+            private readonly Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry;
+
             [Test]
             public void Register_WithNullEntity_ThrowsArgumentNullException()
             {
@@ -296,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => Register(registry, null, CreateDataModel());
+                TestDelegate test = () => registerToRegistry(registry, null, CreateDataModel());
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -310,7 +230,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => Register(registry, new TEntity(), null);
+                TestDelegate test = () => registerToRegistry(registry, new TEntity(), null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -324,7 +244,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => Contains(registry, null);
+                TestDelegate test = () => containsInRegistry(registry, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -337,10 +257,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 // Setup
                 var registry = new PersistenceRegistry();
                 TDataModel dataModel = CreateDataModel();
-                Register(registry, new TEntity(), dataModel);
+                registerToRegistry(registry, new TEntity(), dataModel);
 
                 // Call
-                bool result = Contains(registry, dataModel);
+                bool result = containsInRegistry(registry, dataModel);
 
                 // Assert
                 Assert.IsTrue(result);
@@ -354,7 +274,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 TDataModel dataModel = CreateDataModel();
 
                 // Call
-                bool result = Contains(registry, dataModel);
+                bool result = containsInRegistry(registry, dataModel);
 
                 // Assert
                 Assert.IsFalse(result);
@@ -367,7 +287,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 var registry = new PersistenceRegistry();
 
                 // Call
-                TestDelegate test = () => Get(registry, null);
+                TestDelegate test = () => getFromRegistry(registry, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -382,10 +302,10 @@ namespace Application.Ringtoets.Storage.Test.Create
                 TDataModel dataModel = CreateDataModel();
                 var entity = new TEntity();
 
-                Register(registry, entity, dataModel);
+                registerToRegistry(registry, entity, dataModel);
 
                 // Call
-                TEntity result = Get(registry, dataModel);
+                TEntity result = getFromRegistry(registry, dataModel);
 
                 // Assert
                 Assert.AreSame(entity, result);
@@ -399,7 +319,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 TDataModel dataModel = CreateDataModel();
 
                 // Call
-                TestDelegate test = () => Get(registry, dataModel);
+                TestDelegate test = () => getFromRegistry(registry, dataModel);
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
@@ -410,13 +330,35 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 // Setup
                 var registry = new PersistenceRegistry();
-                Register(registry, new TEntity(), CreateDataModel());
+                registerToRegistry(registry, new TEntity(), CreateDataModel());
 
                 // Call
-                TestDelegate test = () => Get(registry, CreateDataModel());
+                TestDelegate test = () => getFromRegistry(registry, CreateDataModel());
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
+            }
+
+            /// <summary>
+            /// Creates a new instance of <see cref="RegistryTest{T,T}"/>.
+            /// </summary>
+            /// <param name="registerToRegistry">The action to perform to register the data model
+            /// to the registry.</param>
+            /// <param name="containsInRegistry">The action to perform to check whether the data 
+            /// model is registered in the registry.</param>
+            /// <param name="getFromRegistry">The action to perform to get the data model from
+            ///  the registry.</param>
+            /// <example>public DerivedRegistryTest() : base(
+            /// (r, e, m) => r.Register(e, m),
+            /// (r, m) => r.Contains(m),
+            /// (r, m) => r.Get(m)) {}</example>
+            protected RegistryTest(Action<PersistenceRegistry, TEntity, TDataModel> registerToRegistry,
+                                   Func<PersistenceRegistry, TDataModel, bool> containsInRegistry,
+                                   Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry)
+            {
+                this.registerToRegistry = registerToRegistry;
+                this.containsInRegistry = containsInRegistry;
+                this.getFromRegistry = getFromRegistry;
             }
 
             /// <summary>
@@ -424,43 +366,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             /// </summary>
             /// <returns></returns>
             protected abstract TDataModel CreateDataModel();
-
-            /// <summary>
-            /// Obtains the <see cref="TEntity"/> which was registered for the given <paramref name="model"/>.
-            /// </summary>
-            /// <param name="registry">The registry to use.</param>
-            /// <param name="model">The <see cref="TEntity"/> for which a create operation has 
-            /// been registered.</param>
-            /// <returns>The constructed <see cref="TDataModel"/>.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is 
-            /// <c>null</c>.</exception>
-            /// <exception cref="InvalidOperationException">Thrown when no create operation has 
-            /// been registered for <paramref name="model"/>.</exception>
-            protected abstract TEntity Get(PersistenceRegistry registry, TDataModel model);
-
-            /// <summary>
-            /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
-            /// </summary>
-            /// <param name="registry">The registry to use.</param>
-            /// <param name="model">The <see cref="TDataModel"/> to check for.</param>
-            /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> 
-            /// otherwise.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is 
-            /// <c>null</c>.</exception>
-            protected abstract bool Contains(PersistenceRegistry registry, TDataModel model);
-
-            /// <summary>
-            /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-            /// that was constructed with the information.
-            /// </summary>
-            /// <param name="registry">The registry to use.</param>
-            /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> 
-            /// to be registered.</param>
-            /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1D"/> to be 
-            /// registered.</param>
-            /// <exception cref="ArgumentNullException">Thrown any of the input parameters is 
-            /// <c>null</c>.</exception>
-            protected abstract void Register(PersistenceRegistry registry, TEntity entity, TDataModel model);
         }
 
         #region Contains methods
