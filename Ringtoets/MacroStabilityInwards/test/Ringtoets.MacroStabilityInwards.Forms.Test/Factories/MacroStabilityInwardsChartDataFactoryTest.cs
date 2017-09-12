@@ -119,6 +119,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateDikeTopAtRiverChartData_ReturnsChartPointDataWithExpectedStyling()
+        {
+            // Call
+            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtRiverChartData();
+
+            // Assert
+            Assert.IsFalse(data.HasData);
+            Assert.AreEqual("Kruin buitentalud", data.Name);
+            AssertEqualStyle(data.Style, Color.LightSteelBlue, 8, Color.SeaGreen, 1, ChartPointSymbol.Triangle);
+        }
+
+        [Test]
         public void CreateRightGridChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call

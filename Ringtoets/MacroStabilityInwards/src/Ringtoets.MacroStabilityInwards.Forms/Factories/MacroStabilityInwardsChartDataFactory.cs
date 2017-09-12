@@ -128,6 +128,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
+        /// of type dike top at river.
+        /// </summary>
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDikeTopAtRiverChartData()
+        {
+            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver,
+                                      GetCharacteristicPointStyle(Color.LightSteelBlue,
+                                                                  Color.SeaGreen,
+                                                                  ChartPointSymbol.Triangle));
+        }
+
+        /// <summary>
         /// Creates <see cref="ChartPointData"/> with default styling for grids for the right grid.
         /// </summary>
         /// <returns>The created <see cref="ChartPointData"/>.</returns>

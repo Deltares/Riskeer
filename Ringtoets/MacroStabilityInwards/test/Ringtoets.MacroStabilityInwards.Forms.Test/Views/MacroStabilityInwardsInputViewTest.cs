@@ -53,10 +53,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int dikeTopAtPolderIndex = 10;
         private const int trafficLoadOutsideIndex = 11;
         private const int dikeToeAtRiverIndex = 12;
-        private const int surfaceLevelOutsideIndex = 13;
-        private const int leftGridIndex = 14;
-        private const int rightGridIndex = 15;
-        private const int nrOfChartData = 16;
+        private const int dikeTopAtRiverIndex = 13;
+        private const int surfaceLevelOutsideIndex = 14;
+        private const int leftGridIndex = 15;
+        private const int rightGridIndex = 16;
+        private const int nrOfChartData = 17;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -656,6 +657,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var dikeTopAtPolderData = (ChartPointData) chartDatasList[dikeTopAtPolderIndex];
             var trafficLoadOutsideData = (ChartPointData) chartDatasList[trafficLoadOutsideIndex];
             var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
+            var dikeTopAtRiverData = (ChartPointData) chartDatasList[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
             var leftGridOutsideData = (ChartPointData) chartDatasList[leftGridIndex];
             var rightGridOutsideData = (ChartPointData) chartDatasList[rightGridIndex];
@@ -673,6 +675,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(dikeTopAtPolderData.Points);
             CollectionAssert.IsEmpty(trafficLoadOutsideData.Points);
             CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
+            CollectionAssert.IsEmpty(dikeTopAtRiverData.Points);
             CollectionAssert.IsEmpty(surfaceLevelOutsideData.Points);
             CollectionAssert.IsEmpty(leftGridOutsideData.Points);
             CollectionAssert.IsEmpty(rightGridOutsideData.Points);
@@ -690,6 +693,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Kruin binnentalud", dikeTopAtPolderData.Name);
             Assert.AreEqual("Verkeersbelasting kant buitenwaarts", trafficLoadOutsideData.Name);
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
+            Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
             Assert.AreEqual("Linker grid", leftGridOutsideData.Name);
             Assert.AreEqual("Rechter grid", rightGridOutsideData.Name);

@@ -106,6 +106,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a dike top at river point in 2D space based on the provided <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to create the dike top at river point for.</param>
+        /// <returns>An array with a dike top at river point in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>the dike top at river point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateDikeTopAtRiverPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.DikeTopAtRiver);
+        }
+
+        /// <summary>
         /// Create a dike toe at river point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the dike toe at river point for.</param>

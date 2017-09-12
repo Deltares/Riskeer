@@ -371,6 +371,45 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateDikeTopAtRiverPoint_SurfaceLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDikeTopAtRiverPoint_DikeTopAtRiverNull_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(points);
+        }
+
+        [Test]
+        public void CreateDikeTopAtRiverPoint_GivenSurfaceLineWithDikeTopAtRiver_ReturnsDikeTopAtRiverPointsArray()
+        {
+            // Setup
+            var dikeTopAtRiver = new Point3D(1.2, 2.3, 4.0);
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+            surfaceLine.SetDikeTopAtRiverAt(dikeTopAtRiver);
+
+            // Call
+            Point2D[] points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
+
+            // Assert
+            AssertEqualLocalPointCollection(dikeTopAtRiver, surfaceLine, points);
+        }
+
+        [Test]
         public void CreateDitchDikeSidePoint_SurfaceLineNull_ReturnsEmptyPointsArray()
         {
             // Call
