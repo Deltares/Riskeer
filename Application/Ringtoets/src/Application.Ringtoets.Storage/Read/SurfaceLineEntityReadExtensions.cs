@@ -27,7 +27,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.Read.Piping
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="PipingSurfaceLine"/>

@@ -73,10 +73,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class PipingStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
+        private class PipingStochasticSoilModelRegistryTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
             StochasticSoilModelEntity>
         {
-            public PipingStochasticSoilModelTest() : base(
+            public PipingStochasticSoilModelRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -88,10 +88,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class PipingStochasticSoilProfileTest : RegistryTest<PipingStochasticSoilProfile,
+        private class PipingStochasticSoilProfileRegistryTest : RegistryTest<PipingStochasticSoilProfile,
             PipingStochasticSoilProfileEntity>
         {
-            public PipingStochasticSoilProfileTest() : base(
+            public PipingStochasticSoilProfileRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -103,10 +103,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class PipingSoilProfileTest : RegistryTest<PipingSoilProfile,
+        private class PipingSoilProfileRegistryTest : RegistryTest<PipingSoilProfile,
             PipingSoilProfileEntity>
         {
-            public PipingSoilProfileTest() : base(
+            public PipingSoilProfileRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -118,10 +118,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class PipingSurfaceLineTest : RegistryTest<PipingSurfaceLine,
+        private class PipingSurfaceLineRegistryTest : RegistryTest<PipingSurfaceLine,
             SurfaceLineEntity>
         {
-            public PipingSurfaceLineTest() : base(
+            public PipingSurfaceLineRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -133,10 +133,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
+        private class MacroStabilityInwardsStochasticSoilModelRegistryTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
             StochasticSoilModelEntity>
         {
-            public MacroStabilityInwardsStochasticSoilModelTest() : base(
+            public MacroStabilityInwardsStochasticSoilModelRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsStochasticSoilProfileTest : RegistryTest<MacroStabilityInwardsStochasticSoilProfile,
+        private class MacroStabilityInwardsStochasticSoilProfileRegistryTest : RegistryTest<MacroStabilityInwardsStochasticSoilProfile,
             MacroStabilityInwardsStochasticSoilProfileEntity>
         {
             private MockRepository mockRepository;
@@ -165,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 mockRepository.VerifyAll();
             }
 
-            public MacroStabilityInwardsStochasticSoilProfileTest() : base(
+            public MacroStabilityInwardsStochasticSoilProfileRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -180,10 +180,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile1DTest : RegistryTest<MacroStabilityInwardsSoilProfile1D,
+        private class MacroStabilityInwardsSoilProfile1DRegistryTest : RegistryTest<MacroStabilityInwardsSoilProfile1D,
             MacroStabilityInwardsSoilProfile1DEntity>
         {
-            public MacroStabilityInwardsSoilProfile1DTest() : base(
+            public MacroStabilityInwardsSoilProfile1DRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -195,10 +195,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile2DTest : RegistryTest<MacroStabilityInwardsSoilProfile2D,
+        private class MacroStabilityInwardsSoilProfile2DRegistryTest : RegistryTest<MacroStabilityInwardsSoilProfile2D,
             MacroStabilityInwardsSoilProfile2DEntity>
         {
-            public MacroStabilityInwardsSoilProfile2DTest() : base(
+            public MacroStabilityInwardsSoilProfile2DRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -217,10 +217,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSurfaceLineTest : RegistryTest<MacroStabilityInwardsSurfaceLine,
+        private class MacroStabilityInwardsSurfaceLineRegistryTest : RegistryTest<MacroStabilityInwardsSurfaceLine,
             SurfaceLineEntity>
         {
-            public MacroStabilityInwardsSurfaceLineTest() : base(
+            public MacroStabilityInwardsSurfaceLineRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -231,13 +231,54 @@ namespace Application.Ringtoets.Storage.Test.Create
             }
         }
 
-        [TestFixture]
+        /// <summary>
+        /// Test class to test the <see cref="PersistenceRegistry"/> for the combination of 
+        /// <see cref="TDataModel"/> and <see cref="TEntity"/>.
+        /// </summary>
+        /// <typeparam name="TDataModel">The data model.</typeparam>
+        /// <typeparam name="TEntity">The database entity.</typeparam>
         private abstract class RegistryTest<TDataModel, TEntity> where TDataModel : class
                                                                  where TEntity : class, new()
         {
             private readonly Action<PersistenceRegistry, TEntity, TDataModel> registerToRegistry;
             private readonly Func<PersistenceRegistry, TDataModel, bool> containsInRegistry;
             private readonly Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="RegistryTest{T,T}"/>.
+            /// </summary>
+            /// <param name="registerToRegistry">The action to perform to register the data model
+            /// to the registry.</param>
+            /// <param name="containsInRegistry">The action to perform to check whether the data 
+            /// model is registered in the registry.</param>
+            /// <param name="getFromRegistry">The action to perform to get the data model from
+            ///  the registry.</param>
+            /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+            /// <example>public DerivedRegistryTest() : base(
+            /// (r, e, m) => r.Register(e, m),
+            /// (r, m) => r.Contains(m),
+            /// (r, m) => r.Get(m)) {}</example>
+            protected RegistryTest(Action<PersistenceRegistry, TEntity, TDataModel> registerToRegistry,
+                                   Func<PersistenceRegistry, TDataModel, bool> containsInRegistry,
+                                   Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry)
+            {
+                if (registerToRegistry == null)
+                {
+                    throw new ArgumentNullException(nameof(registerToRegistry));
+                }
+                if (containsInRegistry == null)
+                {
+                    throw new ArgumentNullException(nameof(containsInRegistry));
+                }
+                if (getFromRegistry == null)
+                {
+                    throw new ArgumentNullException(nameof(getFromRegistry));
+                }
+
+                this.registerToRegistry = registerToRegistry;
+                this.containsInRegistry = containsInRegistry;
+                this.getFromRegistry = getFromRegistry;
+            }
 
             [Test]
             public void Register_WithNullEntity_ThrowsArgumentNullException()
@@ -370,45 +411,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             }
 
             /// <summary>
-            /// Creates a new instance of <see cref="RegistryTest{T,T}"/>.
-            /// </summary>
-            /// <param name="registerToRegistry">The action to perform to register the data model
-            /// to the registry.</param>
-            /// <param name="containsInRegistry">The action to perform to check whether the data 
-            /// model is registered in the registry.</param>
-            /// <param name="getFromRegistry">The action to perform to get the data model from
-            ///  the registry.</param>
-            /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-            /// <example>public DerivedRegistryTest() : base(
-            /// (r, e, m) => r.Register(e, m),
-            /// (r, m) => r.Contains(m),
-            /// (r, m) => r.Get(m)) {}</example>
-            protected RegistryTest(Action<PersistenceRegistry, TEntity, TDataModel> registerToRegistry,
-                                   Func<PersistenceRegistry, TDataModel, bool> containsInRegistry,
-                                   Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry)
-            {
-                if (registerToRegistry == null)
-                {
-                    throw new ArgumentNullException(nameof(registerToRegistry));
-                }
-                if (containsInRegistry == null)
-                {
-                    throw new ArgumentNullException(nameof(containsInRegistry));
-                }
-                if (getFromRegistry == null)
-                {
-                    throw new ArgumentNullException(nameof(getFromRegistry));
-                }
-
-                this.registerToRegistry = registerToRegistry;
-                this.containsInRegistry = containsInRegistry;
-                this.getFromRegistry = getFromRegistry;
-            }
-
-            /// <summary>
             /// Creates a new instance of <see cref="TDataModel"/>.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>An instance of <see cref="TDataModel"/>.</returns>
             protected abstract TDataModel CreateDataModel();
         }
 

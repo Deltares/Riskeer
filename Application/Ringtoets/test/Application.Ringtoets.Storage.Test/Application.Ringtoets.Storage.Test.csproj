@@ -238,9 +238,9 @@
     <Compile Include="Read\PipingStructures\PipingStructureSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingSoilLayerEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StochasticSoilModelEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingStochasticSoilProfileEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosion\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
@@ -248,7 +248,7 @@
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />

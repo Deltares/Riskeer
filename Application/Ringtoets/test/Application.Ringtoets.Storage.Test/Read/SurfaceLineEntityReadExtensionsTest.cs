@@ -23,13 +23,12 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Read.Piping
+namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
     public class SurfaceLineEntityReadExtensionsTest

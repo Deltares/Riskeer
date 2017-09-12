@@ -22,10 +22,11 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
 using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.Read.Piping
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingStochasticSoilModel"/> 

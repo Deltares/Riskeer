@@ -47,306 +47,234 @@ namespace Application.Ringtoets.Storage.Test.Read
     [TestFixture]
     public class ReadConversionCollectorTest
     {
-        #region StochasticSoilProfileEntity: Read, Contains, Get
-
-        [Test]
-        public void Contains_WithoutPipingStochasticSoilProfileEntity_ThrowsArgumentNullException()
+        /// <summary>
+        /// Test class to test the <see cref="ReadConversionCollector"/> for the combination of 
+        /// <see cref="TDataModel"/> and <see cref="TEntity"/>.
+        /// </summary>
+        /// <typeparam name="TDataModel">The data model.</typeparam>
+        /// <typeparam name="TEntity">The database entity.</typeparam>
+        private abstract class CollectorTest<TDataModel, TEntity> where TDataModel : class
+                                                                  where TEntity : class, new()
         {
-            // Setup
-            var collector = new ReadConversionCollector();
+            private readonly Action<ReadConversionCollector, TEntity, TDataModel> registerToCollector;
+            private readonly Func<ReadConversionCollector, TEntity, bool> containsInCollector;
+            private readonly Func<ReadConversionCollector, TEntity, TDataModel> getFromCollector;
 
-            // Call
-            TestDelegate test = () => collector.Contains((PipingStochasticSoilProfileEntity) null);
+            /// <summary>
+            /// Creates a new instance of <see cref="CollectorTest{T,T}"/>.
+            /// </summary>
+            /// <param name="registerToCollector">The action to perform to register the entity
+            /// to the collector.</param>
+            /// <param name="containsInCollector">The action to perform to check whether the entity 
+            /// is registered in the collector.</param>
+            /// <param name="getFromCollector">The action to perform to get the entity from
+            ///  the collector.</param>
+            /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+            /// <example>public CollectorTest() : base(
+            /// (c, e, m) => c.Read(e, m),
+            /// (c, e) => c.Contains(e),
+            /// (c, e) => c.Get(e)) {}</example>
+            protected CollectorTest(Action<ReadConversionCollector, TEntity, TDataModel> registerToCollector,
+                                    Func<ReadConversionCollector, TEntity, bool> containsInCollector,
+                                    Func<ReadConversionCollector, TEntity, TDataModel> getFromCollector)
+            {
+                if (registerToCollector == null)
+                {
+                    throw new ArgumentNullException(nameof(registerToCollector));
+                }
+                if (containsInCollector == null)
+                {
+                    throw new ArgumentNullException(nameof(containsInCollector));
+                }
+                if (getFromCollector == null)
+                {
+                    throw new ArgumentNullException(nameof(getFromCollector));
+                }
 
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
+                this.registerToCollector = registerToCollector;
+                this.containsInCollector = containsInCollector;
+                this.getFromCollector = getFromCollector;
+            }
+
+            [Test]
+            public void Contains_EntityNull_ThrowsArgumentNullException()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+
+                // Call
+                TestDelegate test = () => containsInCollector(collector, null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("entity", paramName);
+            }
+
+            [Test]
+            public void Contains_DataModelAdded_ReturnsTrue()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+                var entity = new TEntity();
+                registerToCollector(collector, entity, CreateDataModel());
+
+                // Call
+                bool result = containsInCollector(collector, entity);
+
+                // Assert
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void Contains_NoDataModelAdded_ReturnsFalse()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+                var entity = new TEntity();
+
+                // Call
+                bool result = containsInCollector(collector, entity);
+
+                // Assert
+                Assert.IsFalse(result);
+            }
+
+            [Test]
+            public void Contains_OtherEntityAdded_ReturnsFalse()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+                registerToCollector(collector, new TEntity(), CreateDataModel());
+
+                // Call
+                bool result = containsInCollector(collector, new TEntity());
+
+                // Assert
+                Assert.IsFalse(result);
+            }
+
+            [Test]
+            public void Get_EntityNull_ThrowsArgumentNullException()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+
+                // Call
+                TestDelegate test = () => getFromCollector(collector, null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("entity", paramName);
+            }
+
+            [Test]
+            public void Get_DataModelAdded_ReturnsEntity()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+                TDataModel dataModel = CreateDataModel();
+                var entity = new TEntity();
+                registerToCollector(collector, entity, dataModel);
+
+                // Call
+                TDataModel result = getFromCollector(collector, entity);
+
+                // Assert
+                Assert.AreSame(dataModel, result);
+            }
+
+            [Test]
+            public void Get_NoDataModelAdded_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+                var entity = new TEntity();
+
+                // Call
+                TestDelegate test = () => getFromCollector(collector, entity);
+
+                // Assert
+                Assert.Throws<InvalidOperationException>(test);
+            }
+
+            [Test]
+            public void Get_OtherDataModelAdded_ThrowsInvalidOperationException()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+                registerToCollector(collector, new TEntity(), CreateDataModel());
+
+                // Call
+                TestDelegate test = () => getFromCollector(collector, new TEntity());
+
+                // Assert
+                Assert.Throws<InvalidOperationException>(test);
+            }
+
+            [Test]
+            public void Read_EntityNull_ThrowsArgumentNullException()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+
+                // Call
+                TestDelegate test = () => registerToCollector(collector, null, CreateDataModel());
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("entity", paramName);
+            }
+
+            [Test]
+            public void Read_DataModelNull_ThrowsArgumentNullException()
+            {
+                // Setup
+                var collector = new ReadConversionCollector();
+
+                // Call
+                TestDelegate test = () => registerToCollector(collector, new TEntity(), null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("model", paramName);
+            }
+
+            /// <summary>
+            /// Creates a new instance of <see cref="TDataModel"/>.
+            /// </summary>
+            /// <returns>An instance of <see cref="TDataModel"/>.</returns>
+            protected abstract TDataModel CreateDataModel();
         }
 
-        [Test]
-        public void Contains_PipingStochasticSoilProfileEntityAdded_ReturnsTrue()
+        [TestFixture]
+        private class PipingSoilProfileCollectorTest : CollectorTest<PipingSoilProfile,
+            PipingSoilProfileEntity>
         {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingStochasticSoilProfileEntity();
-            collector.Read(entity, new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
+            public PipingSoilProfileCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e)) {}
 
-            // Call
-            bool result = collector.Contains(entity);
-
-            // Assert
-            Assert.IsTrue(result);
+            protected override PipingSoilProfile CreateDataModel()
+            {
+                return PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            }
         }
 
-        [Test]
-        public void Contains_NoPipingStochasticSoilProfileEntityAdded_ReturnsFalse()
+        [TestFixture]
+        private class PipingStochasticSoilProfileCollectorTest : CollectorTest<PipingStochasticSoilProfile,
+            PipingStochasticSoilProfileEntity>
         {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingStochasticSoilProfileEntity();
+            public PipingStochasticSoilProfileCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e)) {}
 
-            // Call
-            bool result = collector.Contains(entity);
-
-            // Assert
-            Assert.IsFalse(result);
+            protected override PipingStochasticSoilProfile CreateDataModel()
+            {
+                return new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            }
         }
-
-        [Test]
-        public void Contains_OtherPipingStochasticSoilProfileEntityAdded_ReturnsFalse()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingStochasticSoilProfileEntity();
-            collector.Read(new PipingStochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
-                               0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
-
-            // Call
-            bool result = collector.Contains(entity);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Get_WithoutPipingStochasticSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Get((PipingStochasticSoilProfileEntity) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Get_PipingStochasticSoilProfileEntityAdded_ReturnsReadStochasticSoilProfile()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var profile = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var entity = new PipingStochasticSoilProfileEntity();
-            collector.Read(entity, profile);
-
-            // Call
-            PipingStochasticSoilProfile result = collector.Get(entity);
-
-            // Assert
-            Assert.AreSame(profile, result);
-        }
-
-        [Test]
-        public void Get_NoPipingStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingStochasticSoilProfileEntity();
-
-            // Call
-            TestDelegate test = () => collector.Get(entity);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_OtherPipingStochasticSoilProfileEntityAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingStochasticSoilProfileEntity();
-            collector.Read(new PipingStochasticSoilProfileEntity(), new PipingStochasticSoilProfile(
-                               0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
-
-            // Call
-            TestDelegate test = () => collector.Get(entity);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Read_WithNullStochasticSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Read(null, new PipingStochasticSoilProfile(
-                                                         0.7, PipingSoilProfileTestFactory.CreatePipingSoilProfile()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Read_WithNullPipingStochasticSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Read(new PipingStochasticSoilProfileEntity(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        #endregion
-
-        #region SoilProfileEntity: Read, Contains, Get
-
-        [Test]
-        public void Contains_WithoutPipingSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Contains((PipingSoilProfileEntity) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Contains_PipingSoilProfileAdded_ReturnsTrue()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingSoilProfileEntity();
-            collector.Read(entity, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            bool result = collector.Contains(entity);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void Contains_NoPipingSoilProfileAdded_ReturnsFalse()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingSoilProfileEntity();
-
-            // Call
-            bool result = collector.Contains(entity);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_OtherPipingSoilProfileEntityAdded_ReturnsFalse()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingSoilProfileEntity();
-            collector.Read(new PipingSoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            bool result = collector.Contains(entity);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Get_WithoutPipingSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Get((PipingSoilProfileEntity) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Get_PipingSoilProfileAdded_ReturnsEntity()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var entity = new PipingSoilProfileEntity();
-            collector.Read(entity, profile);
-
-            // Call
-            PipingSoilProfile result = collector.Get(entity);
-
-            // Assert
-            Assert.AreSame(profile, result);
-        }
-
-        [Test]
-        public void Get_NoPipingSoilProfileAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingSoilProfileEntity();
-
-            // Call
-            TestDelegate test = () => collector.Get(entity);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_OtherPipingSoilProfileAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var entity = new PipingSoilProfileEntity();
-            collector.Read(new PipingSoilProfileEntity(), PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Call
-            TestDelegate test = () => collector.Get(entity);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Read_WithNullPipingSoilProfileEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Read(null, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Read_WithNullPipingSoilProfile_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Read(new PipingSoilProfileEntity(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        #endregion
 
         #region SurfaceLineEntity: Read, Contains, Get
 

@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> based on the
