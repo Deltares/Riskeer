@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 
             for (var i = 0; i < points.Length - 1; i++)
             {
-                Deltares.WTIStability.Data.Geo.Point2D headPoint;
+                WTIStabilityPoint2D headPoint;
 
                 if (i == 0)
                 {

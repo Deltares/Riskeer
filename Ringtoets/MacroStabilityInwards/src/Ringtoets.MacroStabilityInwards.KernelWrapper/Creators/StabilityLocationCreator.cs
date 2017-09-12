@@ -74,7 +74,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                 LeakageLengthOutwardsPl3 = input.LeakageLengthOutwardsPhreaticLine3,
                 LeakageLengthInwardsPl3 = input.LeakageLengthInwardsPhreaticLine3,
                 LeakageLengthOutwardsPl4 = input.LeakageLengthOutwardsPhreaticLine4,
-                LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4
+                LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
+                WaternetCreationMode = WaternetCreationMode.CreateWaternet
             };
         }
 

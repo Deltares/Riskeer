@@ -167,6 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             Assert.AreEqual(leakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);
             Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, location.LeakageLengthOutwardsPl4);
             Assert.AreEqual(leakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
+            Assert.AreEqual(WaternetCreationMode.CreateWaternet, location.WaternetCreationMode);
         }
     }
 }
