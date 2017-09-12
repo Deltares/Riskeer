@@ -142,6 +142,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.SurfaceLevelOutside));
             }
+            if (ReferenceEquals(surfaceLine.DikeTopAtRiver, surfaceLinePoint))
+            {
+                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DikeTopAtRiver));
+            }
 
             return characteristicPoints;
         }

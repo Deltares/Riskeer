@@ -182,7 +182,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                 new Point3D(9, 0, 0),
                 new Point3D(10, 0, 2),
                 new Point3D(11, 0, 3),
-                new Point3D(12, 0, 0)
+                new Point3D(12, 0, 0),
+                new Point3D(13, 0, 2)
             };
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
@@ -200,6 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             surfaceLine.SetTrafficLoadOutsideAt(geometry[10]);
             surfaceLine.SetShoulderBaseInsideAt(geometry[11]);
             surfaceLine.SetShoulderTopInsideAt(geometry[12]);
+            surfaceLine.SetDikeTopAtRiverAt(geometry[13]);
 
             // Call
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
@@ -233,6 +235,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.TrafficLoadOutside).LocationEquals(ToGeometryPoint(geometry[10])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderBaseInside).LocationEquals(ToGeometryPoint(geometry[11])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderTopInside).LocationEquals(ToGeometryPoint(geometry[12])));
+            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[13])));
         }
 
         private static GeometryPoint ToGeometryPoint(Point3D point)
