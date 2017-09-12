@@ -129,16 +129,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to verschuiving.
-        /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressShift_ParameterName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressShift_Parameter" +
-                        "Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value {

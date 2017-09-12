@@ -88,7 +88,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
                                                                 random.NextDouble(),
                                                                 random.NextDouble(),
-                                                                random.NextDouble(),
                                                                 random.NextDouble())
             };
 
@@ -154,7 +153,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var preconsolidationStresses = new[]
             {
                 new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                random.NextDouble(),
                                                                 random.NextDouble(),
                                                                 random.NextDouble(),
                                                                 random.NextDouble())

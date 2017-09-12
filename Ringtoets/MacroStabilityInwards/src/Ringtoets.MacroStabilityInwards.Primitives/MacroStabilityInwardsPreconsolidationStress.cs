@@ -36,29 +36,24 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="xCoordinate">The x coordinate of the preconsolidation stress location.</param>
         /// <param name="zCoordinate">The z coordinate of the preconsolidation stress location.</param>
         /// <param name="preconsolidationStressMean">The mean of the stochastic distribution 
-        /// for the preconsolidation stress.</param>
+        ///     for the preconsolidation stress.</param>
         /// <param name="preconsolidationStressCoefficientOfVariation">The coefficient of 
-        /// variation of the stochastic distribution for the preconsolidation stress.</param>
-        /// <param name="preconsolidationStressShift">The shift of the stochastic distribution 
-        /// for the preconsolidation stress</param>
+        ///     variation of the stochastic distribution for the preconsolidation stress.</param>
         /// <exception cref="ArgumentException">Thrown when any of the parameters has an invalid value.</exception>
         public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
                                                            double zCoordinate,
                                                            double preconsolidationStressMean,
-                                                           double preconsolidationStressCoefficientOfVariation,
-                                                           double preconsolidationStressShift)
+                                                           double preconsolidationStressCoefficientOfVariation)
         {
             ValidateParameter(xCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
             ValidateParameter(zCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
             ValidateParameter(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
             ValidateParameter(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
-            ValidateParameter(preconsolidationStressShift, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressShift_ParameterName);
 
             XCoordinate = xCoordinate;
             ZCoordinate = zCoordinate;
             PreconsolidationStressMean = preconsolidationStressMean;
             PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation;
-            PreconsolidationStressShift = preconsolidationStressShift;
         }
 
         /// <summary>
@@ -84,12 +79,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// [kN/m³]
         /// </summary>
         public double PreconsolidationStressCoefficientOfVariation { get; }
-
-        /// <summary>
-        /// Gets the value representing the shift of the distribution for the preconsolidation stress.
-        /// [kN/m³]
-        /// </summary>
-        public double PreconsolidationStressShift { get; }
 
         /// <summary>
         /// Validates if the <paramref name="value"/> is a valid value.
@@ -128,8 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             return XCoordinate.Equals(other.XCoordinate)
                    && ZCoordinate.Equals(other.ZCoordinate)
                    && PreconsolidationStressMean.Equals(other.PreconsolidationStressMean)
-                   && PreconsolidationStressCoefficientOfVariation.Equals(other.PreconsolidationStressCoefficientOfVariation)
-                   && PreconsolidationStressShift.Equals(other.PreconsolidationStressShift);
+                   && PreconsolidationStressCoefficientOfVariation.Equals(other.PreconsolidationStressCoefficientOfVariation);
         }
 
         public override int GetHashCode()
@@ -140,7 +128,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ ZCoordinate.GetHashCode();
                 hashCode = (hashCode * 397) ^ PreconsolidationStressMean.GetHashCode();
                 hashCode = (hashCode * 397) ^ PreconsolidationStressCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ PreconsolidationStressShift.GetHashCode();
                 return hashCode;
             }
         }

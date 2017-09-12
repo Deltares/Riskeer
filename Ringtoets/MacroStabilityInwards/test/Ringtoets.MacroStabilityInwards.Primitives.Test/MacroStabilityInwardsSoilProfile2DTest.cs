@@ -324,7 +324,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             return new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
                                                                    random.NextDouble(),
                                                                    random.NextDouble(),
-                                                                   random.NextDouble(),
                                                                    random.NextDouble());
         }
 

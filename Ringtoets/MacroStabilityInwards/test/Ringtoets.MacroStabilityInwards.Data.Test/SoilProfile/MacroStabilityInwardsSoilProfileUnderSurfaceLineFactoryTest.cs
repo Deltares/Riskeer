@@ -686,10 +686,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
                                                                 random.NextDouble(),
                                                                 random.NextDouble(),
-                                                                random.NextDouble(),
                                                                 random.NextDouble()),
                 new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                random.NextDouble(),
                                                                 random.NextDouble(),
                                                                 random.NextDouble(),
                                                                 random.NextDouble())

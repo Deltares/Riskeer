@@ -150,7 +150,4 @@
   <data name="MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName" xml:space="preserve">
     <value>variatiecoëfficient</value>
   </data>
-  <data name="MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressShift_ParameterName" xml:space="preserve">
-    <value>verschuiving</value>
-  </data>
 </root>
