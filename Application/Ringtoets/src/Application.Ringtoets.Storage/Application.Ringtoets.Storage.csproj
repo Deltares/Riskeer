@@ -85,6 +85,7 @@
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -229,6 +230,7 @@
     <Compile Include="DbContext\MacroStabilityInwardsCharacteristicPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\MacroStabilityInwardsCharacteristicPointType.cs" />
     <Compile Include="DbContext\MacroStabilityInwardsFailureMechanismMetaEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -472,7 +474,7 @@
     <Compile Include="Create\RingtoetsProjectCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
-    <Compile Include="DbContext\CharacteristicPointType.cs" />
+    <Compile Include="DbContext\PipingCharacteristicPointType.cs" />
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
     <Compile Include="FingerprintHelper.cs" />
@@ -495,7 +497,7 @@
     <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\PipingStochasticSoilProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingSurfaceLineEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\DuneErosion\DuneErosionSectionResultEntityReadExtensions.cs" />

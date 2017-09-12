@@ -41,14 +41,19 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <param name="surfaceLine">The surface line to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>a new <see cref="AssessmentSectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <returns>A new <see cref="SurfaceLineEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static SurfaceLineEntity Create(this PipingSurfaceLine surfaceLine, PersistenceRegistry registry, int order)
         {
+            if (surfaceLine == null)
+            {
+                throw new ArgumentNullException(nameof(surfaceLine));
+            }
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(surfaceLine))
             {
                 return registry.Get(surfaceLine);
@@ -73,14 +78,14 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             var characteristicPointAssociations = new[]
             {
-                Tuple.Create(surfaceLine.BottomDitchPolderSide, CharacteristicPointType.BottomDitchPolderSide),
-                Tuple.Create(surfaceLine.BottomDitchDikeSide, CharacteristicPointType.BottomDitchDikeSide),
-                Tuple.Create(surfaceLine.DikeToeAtPolder, CharacteristicPointType.DikeToeAtPolder),
-                Tuple.Create(surfaceLine.DikeToeAtRiver, CharacteristicPointType.DikeToeAtRiver),
-                Tuple.Create(surfaceLine.DitchDikeSide, CharacteristicPointType.DitchDikeSide),
-                Tuple.Create(surfaceLine.DitchPolderSide, CharacteristicPointType.DitchPolderSide)
+                Tuple.Create(surfaceLine.BottomDitchPolderSide, PipingCharacteristicPointType.BottomDitchPolderSide),
+                Tuple.Create(surfaceLine.BottomDitchDikeSide, PipingCharacteristicPointType.BottomDitchDikeSide),
+                Tuple.Create(surfaceLine.DikeToeAtPolder, PipingCharacteristicPointType.DikeToeAtPolder),
+                Tuple.Create(surfaceLine.DikeToeAtRiver, PipingCharacteristicPointType.DikeToeAtRiver),
+                Tuple.Create(surfaceLine.DitchDikeSide, PipingCharacteristicPointType.DitchDikeSide),
+                Tuple.Create(surfaceLine.DitchPolderSide, PipingCharacteristicPointType.DitchPolderSide)
             };
-            foreach (Tuple<Point3D, CharacteristicPointType> characteristicPointToSave in characteristicPointAssociations.Where(t => t.Item1 != null))
+            foreach (Tuple<Point3D, PipingCharacteristicPointType> characteristicPointToSave in characteristicPointAssociations.Where(t => t.Item1 != null))
             {
                 PipingCharacteristicPointEntity characteristicPointEntity = CreateCharacteristicPointEntity(characteristicPointToSave.Item1,
                                                                                                             characteristicPointToSave.Item2);
@@ -88,7 +93,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             }
         }
 
-        private static PipingCharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
+        private static PipingCharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, PipingCharacteristicPointType type)
         {
             var entity = new PipingCharacteristicPointEntity
             {

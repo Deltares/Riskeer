@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
@@ -36,7 +37,21 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingSurfaceLineCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
+        public void Create_SurfaceLineNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => ((PipingSurfaceLine) null).Create(registry, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
         {
             // Setup
             var surfaceLine = new PipingSurfaceLine(string.Empty);
@@ -45,18 +60,20 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             TestDelegate call = () => surfaceLine.Create(null, 0);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
         public void Create_SurfaceLineWithoutGeometry_ReturnSurfaceLineEntityWithoutAddingPointEntities()
         {
             // Setup
-            int order = new Random(96).Next();
+            var random = new Random(31);
+            int order = random.Next();
             var registry = new PersistenceRegistry();
             var surfaceLine = new PipingSurfaceLine("Test")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(1235.439, 49308.346)
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
 
             // Call
@@ -80,39 +97,38 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
+            var random = new Random(31);
             var registry = new PersistenceRegistry();
-            const string originalName = "Test";
-            var surfaceLine = new PipingSurfaceLine(originalName)
+            const string name = "Test";
+            var surfaceLine = new PipingSurfaceLine(name)
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(1235.439, 49308.346)
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
 
             // Call
             SurfaceLineEntity entity = surfaceLine.Create(registry, 0);
 
             // Assert
-            Assert.AreNotSame(originalName, entity.Name,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(originalName, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
         }
 
         [Test]
         public void Create_SurfaceLineWithGeometryWithoutCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntities()
         {
             // Setup
-            int order = new Random(21).Next();
+            var random = new Random(31);
+            int order = random.Next();
             var registry = new PersistenceRegistry();
-            var geometry = new[]
-            {
-                new Point3D(1.1, 2.2, 3.3),
-                new Point3D(4.4, 5.5, 6.6),
-                new Point3D(7.7, 8.8, 9.9)
-            };
             var surfaceLine = new PipingSurfaceLine("Test")
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
             };
-            surfaceLine.SetGeometry(geometry);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble())
+            });
 
             // Call
             SurfaceLineEntity entity = surfaceLine.Create(registry, order);
@@ -123,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
             Assert.AreEqual(order, entity.Order);
 
-            string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
+            string expectedXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
@@ -136,20 +152,21 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var registry = new PersistenceRegistry();
+            var random = new Random(31);
             var geometry = new[]
             {
-                new Point3D(1.1, 2.2, 3.3),
-                new Point3D(4.4, 5.5, 6.6),
-                new Point3D(7.7, 8.8, 9.9),
-                new Point3D(10.10, 11.11, 12.12),
-                new Point3D(13.13, 14.14, 15.15),
-                new Point3D(16.16, 17.17, 18.18),
-                new Point3D(19.19, 20.20, 21.21),
-                new Point3D(22.22, 23.23, 24.24)
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             var surfaceLine = new PipingSurfaceLine("Test")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(3.3, 4.4)
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
             surfaceLine.SetGeometry(geometry);
             const int bottomDitchDikeIndex = 1;
@@ -181,32 +198,32 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 switch (characteristicPointEntity.Type)
                 {
-                    case (byte) CharacteristicPointType.BottomDitchDikeSide:
+                    case (byte) PipingCharacteristicPointType.BottomDitchDikeSide:
                         Assert.AreEqual(geometry[bottomDitchDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[bottomDitchDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[bottomDitchDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte) CharacteristicPointType.BottomDitchPolderSide:
+                    case (byte) PipingCharacteristicPointType.BottomDitchPolderSide:
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte) CharacteristicPointType.DikeToeAtPolder:
+                    case (byte) PipingCharacteristicPointType.DikeToeAtPolder:
                         Assert.AreEqual(geometry[toePolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[toePolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[toePolderIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte) CharacteristicPointType.DikeToeAtRiver:
+                    case (byte) PipingCharacteristicPointType.DikeToeAtRiver:
                         Assert.AreEqual(geometry[toeDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[toeDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[toeDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte) CharacteristicPointType.DitchDikeSide:
+                    case (byte) PipingCharacteristicPointType.DitchDikeSide:
                         Assert.AreEqual(geometry[ditchDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[ditchDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[ditchDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (byte) CharacteristicPointType.DitchPolderSide:
+                    case (byte) PipingCharacteristicPointType.DitchPolderSide:
                         Assert.AreEqual(geometry[ditchPolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[ditchPolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[ditchPolderIndex].Z, characteristicPointEntity.Z);
@@ -216,24 +233,21 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                         break;
                 }
             }
-
-            Assert.AreEqual(0, entity.SurfaceLineEntityId);
-            Assert.AreEqual(0, entity.FailureMechanismEntityId);
-            Assert.IsNull(entity.FailureMechanismEntity);
         }
 
         [Test]
         public void Create_SurfaceLineWithCharacteristicPointsOnSameGeometryPoint_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
         {
             // Setup
+            var random = new Random(31);
             var registry = new PersistenceRegistry();
             var geometry = new[]
             {
-                new Point3D(1.1, 2.2, 3.3)
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             var surfaceLine = new PipingSurfaceLine("Test")
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(3.3, 4.4)
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
             surfaceLine.SetGeometry(geometry);
             surfaceLine.SetBottomDitchDikeSideAt(geometry[0]);
@@ -258,12 +272,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             byte[] characteristicPointTypeValues = entity.PipingCharacteristicPointEntities
                                                          .Select(cpe => cpe.Type)
                                                          .ToArray();
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DikeToeAtRiver);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DikeToeAtPolder);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.BottomDitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.BottomDitchPolderSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) CharacteristicPointType.DitchPolderSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DikeToeAtRiver);
+            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DikeToeAtPolder);
+            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DitchDikeSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchDikeSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchPolderSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DitchPolderSide);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
@@ -271,29 +285,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_SurfaceLine_RegisterNewEntityToPersistenceRegistry()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty)
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            // Call
-            surfaceLine.Create(registry, 0);
-
-            // Assert
-            Assert.IsTrue(registry.Contains(surfaceLine));
-        }
-
-        [Test]
         public void Create_CreatingEntityForSameSurfaceLine_ReturnSamenEntity()
         {
             // Setup
+            var random = new Random(31);
             var surfaceLine = new PipingSurfaceLine(string.Empty)
             {
-                ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
+                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
 
             var registry = new PersistenceRegistry();

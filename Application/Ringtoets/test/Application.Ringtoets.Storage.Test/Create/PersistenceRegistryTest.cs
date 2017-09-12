@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class PipingStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel, 
+        private class PipingStochasticSoilModelTest : RegistryTest<MacroStabilityInwardsStochasticSoilModel,
             StochasticSoilModelEntity>
         {
             public PipingStochasticSoilModelTest() : base(
@@ -114,6 +114,21 @@ namespace Application.Ringtoets.Storage.Test.Create
             protected override PipingSoilProfile CreateDataModel()
             {
                 return PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            }
+        }
+
+        [TestFixture]
+        private class PipingSurfaceLineTest : RegistryTest<PipingSurfaceLine,
+            SurfaceLineEntity>
+        {
+            public PipingSurfaceLineTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
+            protected override PipingSurfaceLine CreateDataModel()
+            {
+                return new PipingSurfaceLine(nameof(PipingSurfaceLine));
             }
         }
 
@@ -198,6 +213,21 @@ namespace Application.Ringtoets.Storage.Test.Create
                         new Point2D(1, 1)
                     }), new Ring[0])
                 }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsSurfaceLineTest : RegistryTest<MacroStabilityInwardsSurfaceLine,
+            SurfaceLineEntity>
+        {
+            public MacroStabilityInwardsSurfaceLineTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+
+            protected override MacroStabilityInwardsSurfaceLine CreateDataModel()
+            {
+                return new MacroStabilityInwardsSurfaceLine(nameof(MacroStabilityInwardsSurfaceLine));
             }
         }
 
@@ -369,64 +399,6 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         #region Contains methods
-
-        [Test]
-        public void Contains_WithoutPipingSurfaceLine_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Contains((PipingSurfaceLine) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Contains_PipingSurfaceLineAdded_ReturnsTrue()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            registry.Register(new SurfaceLineEntity(), surfaceLine);
-
-            // Call
-            bool result = registry.Contains(surfaceLine);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void Contains_NoPipingSurfaceLineAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-
-            // Call
-            bool result = registry.Contains(surfaceLine);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Contains_OtherPipingSurfaceLineAdded_ReturnsFalse()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine(string.Empty));
-
-            // Call
-            bool result = registry.Contains(surfaceLine);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
 
         [Test]
         public void Contains_WithoutHydraulicBoundaryLocation_ThrowsArgumentNullException()
@@ -1138,65 +1110,6 @@ namespace Application.Ringtoets.Storage.Test.Create
         #endregion
 
         #region Get methods
-
-        [Test]
-        public void Get_WithoutPipingSurfaceLine_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate test = () => registry.Get((PipingSurfaceLine) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        [Test]
-        public void Get_PipingSurfaceLineAdded_ReturnsEntity()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            var entity = new SurfaceLineEntity();
-            registry.Register(entity, surfaceLine);
-
-            // Call
-            SurfaceLineEntity result = registry.Get(surfaceLine);
-
-            // Assert
-            Assert.AreSame(entity, result);
-        }
-
-        [Test]
-        public void Get_NoPipingSurfaceLineAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-
-            // Call
-            TestDelegate test = () => registry.Get(surfaceLine);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        public void Get_OtherPipingSurfaceLineAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            registry.Register(new SurfaceLineEntity(), new PipingSurfaceLine(string.Empty));
-
-            // Call
-            TestDelegate test = () => registry.Get(surfaceLine);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
 
         [Test]
         public void Get_WithoutHydraulicBoundaryLocation_ThrowsArgumentNullException()

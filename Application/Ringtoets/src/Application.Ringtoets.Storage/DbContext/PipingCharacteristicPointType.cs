@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.DbContext
     /// Denotes a <see cref="Point3D"/> as being used to mark a particular
     /// characteristic point of a <see cref="PipingSurfaceLine"/>.
     /// </summary>
-    public enum CharacteristicPointType
+    public enum PipingCharacteristicPointType
     {
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="PipingSurfaceLine.DikeToeAtRiver"/>.

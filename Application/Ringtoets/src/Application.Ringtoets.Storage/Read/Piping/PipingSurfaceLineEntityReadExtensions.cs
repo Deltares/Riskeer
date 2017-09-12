@@ -75,45 +75,45 @@ namespace Application.Ringtoets.Storage.Read.Piping
             Point3D[] geometryPoints = new Point3DXmlSerializer().FromXml(entity.PointsXml);
             surfaceLine.SetGeometry(geometryPoints);
 
-            var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();
+            var characteristicPoints = new Dictionary<PipingCharacteristicPointType, Point3D>();
             foreach (PipingCharacteristicPointEntity pointEntity in entity.PipingCharacteristicPointEntities)
             {
-                characteristicPoints[(CharacteristicPointType) pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
+                characteristicPoints[(PipingCharacteristicPointType) pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
                                                                                                pointEntity.Y.ToNullAsNaN(),
                                                                                                pointEntity.Z.ToNullAsNaN());
             }
-            foreach (KeyValuePair<CharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
+            foreach (KeyValuePair<PipingCharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
             {
                 SetCharacteristicPoint(surfaceLine, keyValuePair.Key, keyValuePair.Value);
             }
         }
 
-        private static void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, CharacteristicPointType type, Point3D geometryPoint)
+        private static void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, PipingCharacteristicPointType type, Point3D geometryPoint)
         {
             switch (type)
             {
-                case CharacteristicPointType.DikeToeAtRiver:
+                case PipingCharacteristicPointType.DikeToeAtRiver:
                     surfaceLine.SetDikeToeAtRiverAt(geometryPoint);
                     break;
-                case CharacteristicPointType.DikeToeAtPolder:
+                case PipingCharacteristicPointType.DikeToeAtPolder:
                     surfaceLine.SetDikeToeAtPolderAt(geometryPoint);
                     break;
-                case CharacteristicPointType.DitchDikeSide:
+                case PipingCharacteristicPointType.DitchDikeSide:
                     surfaceLine.SetDitchDikeSideAt(geometryPoint);
                     break;
-                case CharacteristicPointType.BottomDitchDikeSide:
+                case PipingCharacteristicPointType.BottomDitchDikeSide:
                     surfaceLine.SetBottomDitchDikeSideAt(geometryPoint);
                     break;
-                case CharacteristicPointType.BottomDitchPolderSide:
+                case PipingCharacteristicPointType.BottomDitchPolderSide:
                     surfaceLine.SetBottomDitchPolderSideAt(geometryPoint);
                     break;
-                case CharacteristicPointType.DitchPolderSide:
+                case PipingCharacteristicPointType.DitchPolderSide:
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(type),
                                                            (int) type,
-                                                           typeof(CharacteristicPointType));
+                                                           typeof(PipingCharacteristicPointType));
             }
         }
     }

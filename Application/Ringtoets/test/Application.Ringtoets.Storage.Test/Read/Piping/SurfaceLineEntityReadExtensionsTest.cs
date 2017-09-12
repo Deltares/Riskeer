@@ -196,12 +196,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 ReferenceLineIntersectionY = intersectionY,
                 PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[1], CharacteristicPointType.BottomDitchDikeSide));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[2], CharacteristicPointType.BottomDitchPolderSide));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[3], CharacteristicPointType.DikeToeAtPolder));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[4], CharacteristicPointType.DikeToeAtRiver));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[5], CharacteristicPointType.DitchDikeSide));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[6], CharacteristicPointType.DitchPolderSide));
+            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[1], PipingCharacteristicPointType.BottomDitchDikeSide));
+            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[2], PipingCharacteristicPointType.BottomDitchPolderSide));
+            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[3], PipingCharacteristicPointType.DikeToeAtPolder));
+            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[4], PipingCharacteristicPointType.DikeToeAtRiver));
+            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[5], PipingCharacteristicPointType.DitchDikeSide));
+            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[6], PipingCharacteristicPointType.DitchPolderSide));
 
             // Call
             PipingSurfaceLine surfaceLine = entity.Read(collector);
@@ -253,42 +253,42 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                         X = x,
                         Y = y,
                         Z = z,
-                        Type = (byte) CharacteristicPointType.BottomDitchDikeSide
+                        Type = (byte) PipingCharacteristicPointType.BottomDitchDikeSide
                     },
                     new PipingCharacteristicPointEntity
                     {
                         X = x,
                         Y = y,
                         Z = z,
-                        Type = (byte) CharacteristicPointType.BottomDitchPolderSide
+                        Type = (byte) PipingCharacteristicPointType.BottomDitchPolderSide
                     },
                     new PipingCharacteristicPointEntity
                     {
                         X = x,
                         Y = y,
                         Z = z,
-                        Type = (byte) CharacteristicPointType.DikeToeAtPolder
+                        Type = (byte) PipingCharacteristicPointType.DikeToeAtPolder
                     },
                     new PipingCharacteristicPointEntity
                     {
                         X = x,
                         Y = y,
                         Z = z,
-                        Type = (byte) CharacteristicPointType.DikeToeAtRiver
+                        Type = (byte) PipingCharacteristicPointType.DikeToeAtRiver
                     },
                     new PipingCharacteristicPointEntity
                     {
                         X = x,
                         Y = y,
                         Z = z,
-                        Type = (byte) CharacteristicPointType.DitchDikeSide
+                        Type = (byte) PipingCharacteristicPointType.DitchDikeSide
                     },
                     new PipingCharacteristicPointEntity
                     {
                         X = x,
                         Y = y,
                         Z = z,
-                        Type = (byte) CharacteristicPointType.DitchPolderSide
+                        Type = (byte) PipingCharacteristicPointType.DitchPolderSide
                     }
                 }
             };
@@ -333,7 +333,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreSame(surfaceLine1, surfaceLine2);
         }
 
-        private static PipingCharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
+        private static PipingCharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, PipingCharacteristicPointType type)
         {
             return new PipingCharacteristicPointEntity
             {
