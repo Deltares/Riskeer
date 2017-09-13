@@ -115,6 +115,7 @@
     <Compile Include="SoilProfile\PreconsolidationStressReadValuesTest.cs" />
     <Compile Include="SoilProfile\PreconsolidationStressReaderTest.cs" />
     <Compile Include="SoilProfile\PreconsolidationStressTest.cs" />
+    <Compile Include="SoilProfile\Schema\PreconsolidationStressTableDefinitionsTest.cs" />
     <Compile Include="SoilProfile\SegmentPointReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseConstraintsReaderTest.cs" />
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilderTest.cs" />
@@ -134,7 +135,7 @@
     <Compile Include="Exceptions\SoilProfileReadExceptionTest.cs" />
     <Compile Include="Exceptions\StochasticSoilModelExceptionTest.cs" />
     <Compile Include="SoilProfile\SoilLayerHelperTest.cs" />
-    <Compile Include="SoilProfile\SoilProfileTableDefinitionsTest.cs" />
+    <Compile Include="SoilProfile\Schema\SoilProfileTableDefinitionsTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelImporterConfigurationTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelImporterTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelReaderTest.cs" />
