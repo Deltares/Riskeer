@@ -65,6 +65,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             };
 
             AddEntitiesForSoilLayers(soilProfile.Layers, entity);
+            AddEntitiesForPreconsolidationStresses(soilProfile.PreconsolidationStresses, entity);
 
             registry.Register(entity, soilProfile);
             return entity;
@@ -77,6 +78,16 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
             {
                 entity.MacroStabilityInwardsSoilLayerTwoDEntities.Add(layer.Create(index++));
+            }
+        }
+
+        private static void AddEntitiesForPreconsolidationStresses(IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses,
+                                                                   MacroStabilityInwardsSoilProfileTwoDEntity entity)
+        {
+            var index = 0;
+            foreach (MacroStabilityInwardsPreconsolidationStress preconsolidationStress in preconsolidationStresses)
+            {
+                entity.MacroStabilityInwardsPreconsolidationStressEntities.Add(preconsolidationStress.Create(index++));
             }
         }
     }

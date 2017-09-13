@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -83,15 +84,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 }), Enumerable.Empty<Ring>())
             };
 
-            var preconsolidationStresses = new[]
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D(name, layers, new[]
             {
-                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble())
-            };
-
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D(name, layers, preconsolidationStresses);
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
+            });
             var registry = new PersistenceRegistry();
 
             // Call
@@ -100,6 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.MacroStabilityInwardsSoilLayerTwoDEntities.Count);
+            Assert.AreEqual(1, entity.MacroStabilityInwardsPreconsolidationStressEntities.Count);
         }
 
         [Test]

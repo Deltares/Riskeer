@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_PreconsolidationStressNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsPreconsolidationStress) null).Create();
+            TestDelegate test = () => ((MacroStabilityInwardsPreconsolidationStress) null).Create(0);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,9 +50,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                                                                          random.NextDouble(),
                                                                          random.NextDouble(),
                                                                          random.NextDouble());
+            int order = random.Next();
 
             // Call
-            MacroStabilityInwardsPreconsolidationStressEntity entity = stress.Create();
+            MacroStabilityInwardsPreconsolidationStressEntity entity = stress.Create(order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -60,6 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(stress.ZCoordinate, entity.CoordinateZ);
             Assert.AreEqual(stress.PreconsolidationStressMean, entity.PreconsolidationStressMean);
             Assert.AreEqual(stress.PreconsolidationStressCoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation);
+            Assert.AreEqual(order, entity.Order);
         }
     }
 }

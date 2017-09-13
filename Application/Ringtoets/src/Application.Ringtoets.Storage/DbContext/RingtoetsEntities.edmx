@@ -698,6 +698,7 @@
           <Property Name="CoordinateZ" Type="real" Nullable="false" />
           <Property Name="PreconsolidationStressMean" Type="real" Nullable="false" />
           <Property Name="PreconsolidationStressCoefficientOfVariation" Type="real" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
           <Key>
@@ -4847,6 +4848,7 @@
           <Property Name="CoordinateZ" Type="Double" Nullable="false" />
           <Property Name="PreconsolidationStressMean" Type="Double" Nullable="false" />
           <Property Name="PreconsolidationStressCoefficientOfVariation" Type="Double" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsPreconsolidationStressEntity_0_0" FromRole="MacroStabilityInwardsPreconsolidationStressEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
@@ -7709,6 +7711,7 @@
           <EntitySetMapping Name="MacroStabilityInwardsPreconsolidationStressEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsPreconsolidationStressEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PreconsolidationStressCoefficientOfVariation" ColumnName="PreconsolidationStressCoefficientOfVariation" />
                 <ScalarProperty Name="PreconsolidationStressMean" ColumnName="PreconsolidationStressMean" />
                 <ScalarProperty Name="CoordinateZ" ColumnName="CoordinateZ" />

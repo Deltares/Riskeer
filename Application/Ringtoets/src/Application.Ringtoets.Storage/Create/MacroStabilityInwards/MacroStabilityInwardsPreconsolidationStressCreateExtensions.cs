@@ -36,9 +36,11 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// of the <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
         /// </summary>
         /// <param name="preconsolidationStress">PreconsolidationStress to create a database entity for.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsPreconsolidationStressEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="preconsolidationStress"/> is <c>null</c>.</exception>
-        public static MacroStabilityInwardsPreconsolidationStressEntity Create(this MacroStabilityInwardsPreconsolidationStress preconsolidationStress)
+        public static MacroStabilityInwardsPreconsolidationStressEntity Create(this MacroStabilityInwardsPreconsolidationStress preconsolidationStress,
+                                                                               int order)
         {
             if (preconsolidationStress == null)
             {
@@ -50,7 +52,8 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 CoordinateX = preconsolidationStress.XCoordinate,
                 CoordinateZ = preconsolidationStress.ZCoordinate,
                 PreconsolidationStressMean = preconsolidationStress.PreconsolidationStressMean,
-                PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStressCoefficientOfVariation
+                PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
+                Order = order
             };
         }
     }
