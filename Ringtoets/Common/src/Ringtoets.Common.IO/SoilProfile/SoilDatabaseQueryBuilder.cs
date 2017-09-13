@@ -341,10 +341,10 @@ namespace Ringtoets.Common.IO.SoilProfile
             return
                 "SELECT " +
                 "sp2d.SP2D_Name AS ProfileName, " +
-                $"SP2D_ID AS {SoilProfileTableDefinitions.SoilProfileId}, " +
+                $"{StochasticSoilProfileTableDefinitions.SoilProfile2DId} AS {SoilProfileTableDefinitions.SoilProfileId}, " +
                 $"X AS {PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate}, " +
                 $"Z AS {PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate}, " +
-                $"s.ST_Dist_Type AS {PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution}, " +
+                $"s.ST_Dist_Type AS {PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType}, " +
                 $"s.ST_Mean AS {PreconsolidationStressTableDefinitions.PreconsolidationStressMean}, " +
                 $"s.ST_Variation AS {PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation}, " +
                 $"s.ST_Shift AS {PreconsolidationStressTableDefinitions.PreconsolidationStressShift} " +

@@ -31,13 +31,13 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class PreconsolidationStressPropertiesTest
+    public class PreconsolidationStressReadValuesTest
     {
         [Test]
         public void PreconsolidationStressProperties_ReaderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PreconsolidationStressProperties(null, string.Empty);
+            TestDelegate call = () => new PreconsolidationStressReadValues(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PreconsolidationStressProperties(reader, null);
+            TestDelegate call = () => new PreconsolidationStressReadValues(reader, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,14 +78,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             var reader = mockRepository.StrictMock<IRowBasedDatabaseReader>();
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate)).Return(xCoordinate);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate)).Return(zCoordinate);
-            reader.Expect(r => r.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution)).Return(preconsolidationStressDistributionType);
+            reader.Expect(r => r.ReadOrDefault<long?>(PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType)).Return(preconsolidationStressDistributionType);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressMean)).Return(preconsolidationStressMean);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation)).Return(preconsolidationStressCoefficientOfVariation);
             reader.Expect(r => r.ReadOrDefault<double?>(PreconsolidationStressTableDefinitions.PreconsolidationStressShift)).Return(preconsolidationStressShift);
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new PreconsolidationStressProperties(reader, string.Empty);
+            var properties = new PreconsolidationStressReadValues(reader, string.Empty);
 
             // Assert
             Assert.AreEqual(xCoordinate, properties.XCoordinate);
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PreconsolidationStressProperties(reader, profileName);
+            TestDelegate test = () => new PreconsolidationStressReadValues(reader, profileName);
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{path}' (ondergrondschematisatie '{profileName}'): " +
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         {
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressXCoordinate;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate;
-            yield return PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution;
+            yield return PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressMean;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation;
             yield return PreconsolidationStressTableDefinitions.PreconsolidationStressShift;

@@ -29,13 +29,13 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Class responsible for reading preconsolidation stress properties from a 
+    /// Class responsible for reading preconsolidation stress values from a 
     /// database reader.
     /// </summary>
-    public class PreconsolidationStressProperties
+    public class PreconsolidationStressReadValues
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PreconsolidationStressProperties"/>
+        /// Creates a new instance of <see cref="PreconsolidationStressReadValues"/>
         /// which contains properties that are required to create preconsolidation
         /// stresses for a soil layer.
         /// </summary>
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// are <c>null</c>.</exception>
         /// <exception cref="SoilProfileReadException">Thrown when the values in the database
         /// cannot be casted to the expected column types.</exception>
-        public PreconsolidationStressProperties(IRowBasedDatabaseReader reader, string profileName)
+        public PreconsolidationStressReadValues(IRowBasedDatabaseReader reader, string profileName)
         {
             if (reader == null)
             {
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressZCoordinate;
                 ZCoordinate = reader.ReadOrDefault<double?>(readColumn);
 
-                readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressDistribution;
+                readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType;
                 PreconsolidationStressDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressMean;
                 PreconsolidationStressMean = reader.ReadOrDefault<double?>(readColumn);
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Gets the distribution type of the preconsolidation stress.
         /// </summary>
-        public double? PreconsolidationStressDistributionType { get; }
+        public long? PreconsolidationStressDistributionType { get; }
 
         /// <summary>
         /// Gets the value representing the mean of the distribution for the preconsolidation stress.

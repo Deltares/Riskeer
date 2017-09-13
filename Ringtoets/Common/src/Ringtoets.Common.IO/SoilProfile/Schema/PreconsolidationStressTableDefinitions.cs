@@ -45,7 +45,7 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
         /// <summary>
         /// The name of the preconsolidation stress distribution column.
         /// </summary>
-        public const string PreconsolidationStressDistribution = "PreconsolidationStressDistributionType";
+        public const string PreconsolidationStressDistributionType = "PreconsolidationStressDistributionType";
 
         /// <summary>
         /// The name of the preconsolidation stress mean column.

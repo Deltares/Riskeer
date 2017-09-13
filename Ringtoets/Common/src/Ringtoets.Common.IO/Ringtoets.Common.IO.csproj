@@ -123,7 +123,8 @@
     <Compile Include="SoilProfile\IStochasticSoilModelMechanismFilter.cs" />
     <Compile Include="SoilProfile\IStochasticSoilModelUpdateModelStrategy.cs" />
     <Compile Include="SoilProfile\LayerProperties.cs" />
-    <Compile Include="SoilProfile\PreconsolidationStressProperties.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressReadValues.cs" />
+    <Compile Include="SoilProfile\PreconsolidationStressReader.cs" />
     <Compile Include="SoilProfile\Schema\FailureMechanismType.cs" />
     <Compile Include="SoilProfile\Schema\MechanismTableDefinitions.cs" />
     <Compile Include="SoilProfile\Schema\MetaTableDefinitions.cs" />
