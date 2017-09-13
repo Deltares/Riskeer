@@ -271,7 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             string message = $"Profielschematisatie '{points.Name}' kan niet gebruikt worden. " +
                              $"De geometrie bevat geen punt op locatie {changedPoint} om als \'{pointDescription}\' in te stellen. " +
                              "Dit karakteristieke punt is verplicht.";
-            ;            Assert.AreEqual(message, exception.Message);
+            Assert.AreEqual(message, exception.Message);
         }
 
         private static IEnumerable<Point3D> CharacteristicPointsToGeometry(CharacteristicPoints points)
