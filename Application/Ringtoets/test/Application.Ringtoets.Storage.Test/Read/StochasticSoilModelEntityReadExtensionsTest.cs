@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(model);
             Assert.AreEqual(testName, model.Name);
-            Assert.IsTrue(collector.Contains(entity));
+            Assert.IsTrue(collector.ContainsPipingStochasticSoilModel(entity));
         }
 
         [Test]

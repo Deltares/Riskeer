@@ -51,9 +51,9 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException(nameof(collector));
             }
-            if (collector.Contains(entity))
+            if (collector.ContainsPipingStochasticSoilModel(entity))
             {
-                return collector.Get(entity);
+                return collector.GetPipingStochasticSoilModel(entity);
             }
 
             var model = new PipingStochasticSoilModel(entity.Name);

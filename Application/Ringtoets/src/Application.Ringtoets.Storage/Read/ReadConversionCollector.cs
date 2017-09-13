@@ -57,6 +57,9 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
 
+        private readonly Dictionary<StochasticSoilModelEntity, MacroStabilityInwardsStochasticSoilModel> macroStabilityInwardsStochasticSoilModels =
+            CreateDictionary<StochasticSoilModelEntity, MacroStabilityInwardsStochasticSoilModel>();
+
         private readonly Dictionary<MacroStabilityInwardsStochasticSoilProfileEntity, MacroStabilityInwardsStochasticSoilProfile> macroStabilityInwardsStochasticSoilProfiles =
             CreateDictionary<MacroStabilityInwardsStochasticSoilProfileEntity, MacroStabilityInwardsStochasticSoilProfile>();
 
@@ -139,7 +142,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="entity"/> was read before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(StochasticSoilModelEntity entity)
+        internal bool ContainsPipingStochasticSoilModel(StochasticSoilModelEntity entity)
         {
             if (entity == null)
             {
@@ -157,9 +160,9 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has been registered for 
         /// <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StochasticSoilModelEntity)"/> to find out 
+        /// <remarks>Use <see cref="ContainsPipingStochasticSoilModel"/> to find out 
         /// whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal PipingStochasticSoilModel Get(StochasticSoilModelEntity entity)
+        internal PipingStochasticSoilModel GetPipingStochasticSoilModel(StochasticSoilModelEntity entity)
         {
             if (entity == null)
             {
@@ -168,6 +171,70 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return pipingStochasticSoilModels[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Registers a read operation for <see cref="StochasticSoilModelEntity"/> and the
+        /// <see cref="MacroStabilityInwardsStochasticSoilModel"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsStochasticSoilModel"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(StochasticSoilModelEntity entity, MacroStabilityInwardsStochasticSoilModel model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            macroStabilityInwardsStochasticSoilModels[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operations has been registered for the given <see cref="StochasticSoilModelEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool ContainsMacroStabilityInwardsStochasticSoilModel(StochasticSoilModelEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            return macroStabilityInwardsStochasticSoilModels.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="MacroStabilityInwardsStochasticSoilModel"/> which was read 
+        /// for the given <see cref="StochasticSoilModelEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> for which a read 
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has been registered for 
+        /// <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="ContainsMacroStabilityInwardsStochasticSoilModel"/> to find out 
+        /// whether a read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal MacroStabilityInwardsStochasticSoilModel GetMacroStabilityInwardsStochasticSoilModel(StochasticSoilModelEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            try
+            {
+                return macroStabilityInwardsStochasticSoilModels[entity];
             }
             catch (KeyNotFoundException e)
             {

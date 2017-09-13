@@ -288,9 +288,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             public PipingStochasticSoilModelCollectorTest() : base(
                 (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e))
-            { }
+                (c, e) => c.ContainsPipingStochasticSoilModel(e),
+                (c, e) => c.GetPipingStochasticSoilModel(e)) {}
 
             protected override PipingStochasticSoilModel CreateDataModel()
             {
@@ -364,6 +363,21 @@ namespace Application.Ringtoets.Storage.Test.Read
             protected override MacroStabilityInwardsStochasticSoilProfile CreateDataModel()
             {
                 return new MacroStabilityInwardsStochasticSoilProfile(1, new TestMacroStabilityInwardsSoilProfile1D());
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsStochasticSoilModelCollectorTest : CollectorTest<MacroStabilityInwardsStochasticSoilModel,
+            StochasticSoilModelEntity>
+        {
+            public MacroStabilityInwardsStochasticSoilModelCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.ContainsMacroStabilityInwardsStochasticSoilModel(e),
+                (c, e) => c.GetMacroStabilityInwardsStochasticSoilModel(e)) {}
+
+            protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
+            {
+                return new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
             }
         }
 

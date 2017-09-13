@@ -319,7 +319,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
-            Assert.IsTrue(collector.Contains(stochasticSoilModelEntity));
+            Assert.IsTrue(collector.ContainsPipingStochasticSoilModel(stochasticSoilModelEntity));
         }
 
         [Test]
