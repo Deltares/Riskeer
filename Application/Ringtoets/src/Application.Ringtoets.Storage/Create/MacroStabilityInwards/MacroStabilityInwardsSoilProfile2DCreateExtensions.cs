@@ -29,20 +29,20 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilProfile2D"/> related to creating 
-    /// a <see cref="MacroStabilityInwardsSoilProfile2DEntity"/>.
+    /// a <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSoilProfile2DCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> based on the information 
+        /// Creates a <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/> based on the information 
         /// of the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer2DEntity"/> or one from the 
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> or one from the 
         /// <paramref name="registry"/> if it was created for the <see cref="soilProfile"/> earlier.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSoilProfile2DEntity Create(this MacroStabilityInwardsSoilProfile2D soilProfile,
+        public static MacroStabilityInwardsSoilProfileTwoDEntity Create(this MacroStabilityInwardsSoilProfile2D soilProfile,
                                                                         PersistenceRegistry registry)
         {
             if (soilProfile == null)
@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 return registry.Get(soilProfile);
             }
 
-            var entity = new MacroStabilityInwardsSoilProfile2DEntity
+            var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
                 Name = soilProfile.Name.DeepClone()
             };
@@ -71,12 +71,12 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         }
 
         private static void AddEntitiesForSoilLayers(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers,
-                                                     MacroStabilityInwardsSoilProfile2DEntity entity)
+                                                     MacroStabilityInwardsSoilProfileTwoDEntity entity)
         {
             var index = 0;
             foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
             {
-                entity.MacroStabilityInwardsSoilLayer2DEntity.Add(layer.Create(index++));
+                entity.MacroStabilityInwardsSoilLayerTwoDEntities.Add(layer.Create(index++));
             }
         }
     }

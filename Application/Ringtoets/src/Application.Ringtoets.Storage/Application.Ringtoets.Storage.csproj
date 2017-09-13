@@ -234,19 +234,22 @@
     <Compile Include="DbContext\MacroStabilityInwardsFailureMechanismMetaEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\MacroStabilityInwardsPreconsolidationStressEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilLayer1DEntity.cs">
+    <Compile Include="DbContext\MacroStabilityInwardsSoilLayerOneDEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilLayer2DEntity.cs">
+    <Compile Include="DbContext\MacroStabilityInwardsSoilLayerTwoDEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilProfile1DEntity.cs">
+    <Compile Include="DbContext\MacroStabilityInwardsSoilProfileOneDEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSoilProfile2DEntity.cs">
+    <Compile Include="DbContext\MacroStabilityInwardsSoilProfileTwoDEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsStochasticSoilProfileEntity.cs">
@@ -405,8 +408,8 @@
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DEntityReadExtensions.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DEntityReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensions.cs" />
     <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensions.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />

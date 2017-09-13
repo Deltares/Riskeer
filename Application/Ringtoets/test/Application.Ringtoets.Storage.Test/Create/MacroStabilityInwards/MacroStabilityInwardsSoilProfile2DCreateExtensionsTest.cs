@@ -95,11 +95,11 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            MacroStabilityInwardsSoilProfile2DEntity entity = soilProfile.Create(registry);
+            MacroStabilityInwardsSoilProfileTwoDEntity entity = soilProfile.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.MacroStabilityInwardsSoilLayer2DEntity.Count);
+            Assert.AreEqual(2, entity.MacroStabilityInwardsSoilLayerTwoDEntities.Count);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            MacroStabilityInwardsSoilProfile2DEntity entity = soilProfile.Create(registry);
+            MacroStabilityInwardsSoilProfileTwoDEntity entity = soilProfile.Create(registry);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(name, entity.Name);
@@ -124,10 +124,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsSoilProfile2D soilProfile = CreateMacroStabilityInwardsSoilProfile2D();
             var registry = new PersistenceRegistry();
 
-            MacroStabilityInwardsSoilProfile2DEntity firstEntity = soilProfile.Create(registry);
+            MacroStabilityInwardsSoilProfileTwoDEntity firstEntity = soilProfile.Create(registry);
 
             // Call
-            MacroStabilityInwardsSoilProfile2DEntity secondEntity = soilProfile.Create(registry);
+            MacroStabilityInwardsSoilProfileTwoDEntity secondEntity = soilProfile.Create(registry);
 
             // Assert
             Assert.AreSame(firstEntity, secondEntity);

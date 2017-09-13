@@ -188,7 +188,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
 
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
-               entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
+                entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
             string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
             Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
             Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);

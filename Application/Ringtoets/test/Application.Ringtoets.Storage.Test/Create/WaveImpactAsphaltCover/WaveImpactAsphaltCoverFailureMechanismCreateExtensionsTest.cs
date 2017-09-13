@@ -165,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             CollectionAssert.IsEmpty(entity.ForeshoreProfileEntities);
 
             WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity =
-               entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
+                entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
             Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
         }
 

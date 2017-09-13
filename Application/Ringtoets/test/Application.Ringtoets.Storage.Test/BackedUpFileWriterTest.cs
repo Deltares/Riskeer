@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test
                 var writer = new BackedUpFileWriter(filePath);
 
                 // Call
-                TestDelegate test = () => writer.Perform(() => { });
+                TestDelegate test = () => writer.Perform(() => {});
 
                 // Assert
                 string message = Assert.Throws<IOException>(test).Message;
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test
                 var writer = new BackedUpFileWriter(filePath);
 
                 // Call
-                TestDelegate test = () => writer.Perform(() => { });
+                TestDelegate test = () => writer.Perform(() => {});
 
                 directoryHelper.LockDirectory(FileSystemRights.Write);
                 // Assert
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test
                 var helper = new BackedUpFileWriter(filePath);
 
                 // Call
-                TestDelegate test = () => helper.Perform(() => { });
+                TestDelegate test = () => helper.Perform(() => {});
 
                 directoryHelper.LockDirectory(FileSystemRights.Delete);
                 // Assert

@@ -79,8 +79,8 @@ namespace Application.Ringtoets.Storage.Read
             foreach (PipingCharacteristicPointEntity pointEntity in entity.PipingCharacteristicPointEntities)
             {
                 characteristicPoints[(PipingCharacteristicPointType) pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
-                                                                                               pointEntity.Y.ToNullAsNaN(),
-                                                                                               pointEntity.Z.ToNullAsNaN());
+                                                                                                     pointEntity.Y.ToNullAsNaN(),
+                                                                                                     pointEntity.Z.ToNullAsNaN());
             }
             foreach (KeyValuePair<PipingCharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
             {

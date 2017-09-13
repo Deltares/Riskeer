@@ -28,19 +28,19 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilLayer2D"/> related to creating 
-    /// a <see cref="MacroStabilityInwardsSoilLayer2DEntity"/>.
+    /// a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSoilLayer2DCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsSoilLayer2DEntity"/> based on the information 
+        /// Creates a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> based on the information 
         /// of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayerOneDEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSoilLayer2DEntity Create(this MacroStabilityInwardsSoilLayer2D soilLayer,
+        public static MacroStabilityInwardsSoilLayerTwoDEntity Create(this MacroStabilityInwardsSoilLayer2D soilLayer,
                                                                       int order)
         {
             if (soilLayer == null)
@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             }
 
             MacroStabilityInwardsSoilLayerProperties properties = soilLayer.Properties;
-            return new MacroStabilityInwardsSoilLayer2DEntity
+            return new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 IsAquifer = Convert.ToByte(properties.IsAquifer),
                 MaterialName = properties.MaterialName.DeepClone(),

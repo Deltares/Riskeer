@@ -219,7 +219,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-           
+
             var persistenceRegistry = new PersistenceRegistry();
 
             // Call
@@ -229,7 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.AreEqual(0, entity.HeightStructureEntities.Count);
 
             HeightStructuresFailureMechanismMetaEntity metaEntity =
-              entity.HeightStructuresFailureMechanismMetaEntities.Single();
+                entity.HeightStructuresFailureMechanismMetaEntities.Single();
             Assert.IsNull(metaEntity.HeightStructureCollectionSourcePath);
         }
 
@@ -250,7 +250,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.AreEqual(0, entity.HeightStructureEntities.Count);
 
             HeightStructuresFailureMechanismMetaEntity metaEntity =
-              entity.HeightStructuresFailureMechanismMetaEntities.Single();
+                entity.HeightStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath);
         }
 
@@ -277,7 +277,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.IsTrue(persistenceRegistry.Contains(structure));
 
             HeightStructuresFailureMechanismMetaEntity metaEntity =
-              entity.HeightStructuresFailureMechanismMetaEntities.Single();
+                entity.HeightStructuresFailureMechanismMetaEntities.Single();
             string metaEntityHeightStructureCollectionSourcePath = metaEntity.HeightStructureCollectionSourcePath;
             Assert.AreNotSame(filePath, metaEntityHeightStructureCollectionSourcePath);
             Assert.AreEqual(filePath, metaEntityHeightStructureCollectionSourcePath);

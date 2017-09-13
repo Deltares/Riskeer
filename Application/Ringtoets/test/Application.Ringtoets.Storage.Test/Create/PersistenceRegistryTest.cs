@@ -180,10 +180,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile1DRegistryTest : RegistryTest<MacroStabilityInwardsSoilProfile1D,
-            MacroStabilityInwardsSoilProfile1DEntity>
+        private class MacroStabilityInwardsSoilProfileOneDRegistryTest : RegistryTest<MacroStabilityInwardsSoilProfile1D,
+            MacroStabilityInwardsSoilProfileOneDEntity>
         {
-            public MacroStabilityInwardsSoilProfile1DRegistryTest() : base(
+            public MacroStabilityInwardsSoilProfileOneDRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}
@@ -195,10 +195,10 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile2DRegistryTest : RegistryTest<MacroStabilityInwardsSoilProfile2D,
-            MacroStabilityInwardsSoilProfile2DEntity>
+        private class MacroStabilityInwardsSoilProfileTwoDRegistryTest : RegistryTest<MacroStabilityInwardsSoilProfile2D,
+            MacroStabilityInwardsSoilProfileTwoDEntity>
         {
-            public MacroStabilityInwardsSoilProfile2DRegistryTest() : base(
+            public MacroStabilityInwardsSoilProfileTwoDRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
                 (r, m) => r.Get(m)) {}

@@ -42,8 +42,8 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static MacroStabilityInwardsStochasticSoilProfileEntity Create(this MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile,
-                                                                                PersistenceRegistry registry,
-                                                                                int order)
+                                                                              PersistenceRegistry registry,
+                                                                              int order)
         {
             if (stochasticSoilProfile == null)
             {
@@ -78,13 +78,13 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             var soilProfile1D = soilProfile as MacroStabilityInwardsSoilProfile1D;
             if (soilProfile1D != null)
             {
-                entity.MacroStabilityInwardsSoilProfile1DEntity = soilProfile1D.Create(registry);
+                entity.MacroStabilityInwardsSoilProfileOneDEntity = soilProfile1D.Create(registry);
             }
 
             var soilProfile2D = soilProfile as MacroStabilityInwardsSoilProfile2D;
             if (soilProfile2D != null)
             {
-                entity.MacroStabilityInwardsSoilProfile2DEntity = soilProfile2D.Create(registry);
+                entity.MacroStabilityInwardsSoilProfileTwoDEntity = soilProfile2D.Create(registry);
             }
         }
     }

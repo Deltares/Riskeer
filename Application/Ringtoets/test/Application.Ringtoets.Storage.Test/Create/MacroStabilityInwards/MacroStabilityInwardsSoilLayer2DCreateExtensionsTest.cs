@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             int order = random.Next();
 
             // Call
-            MacroStabilityInwardsSoilLayer2DEntity entity = soilLayer.Create(order);
+            MacroStabilityInwardsSoilLayerTwoDEntity entity = soilLayer.Create(order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             };
 
             // Call
-            MacroStabilityInwardsSoilLayer2DEntity entity = soilLayer.Create(0);
+            MacroStabilityInwardsSoilLayerTwoDEntity entity = soilLayer.Create(0);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             };
 
             // Call
-            MacroStabilityInwardsSoilLayer2DEntity entity = soilLayer.Create(0);
+            MacroStabilityInwardsSoilLayerTwoDEntity entity = soilLayer.Create(0);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(materialName, entity.MaterialName);

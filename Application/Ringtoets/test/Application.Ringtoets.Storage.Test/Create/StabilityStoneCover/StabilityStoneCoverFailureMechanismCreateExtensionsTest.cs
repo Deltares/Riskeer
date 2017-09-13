@@ -165,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             CollectionAssert.IsEmpty(entity.ForeshoreProfileEntities);
 
             StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
-              entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
+                entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
             Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
         }
 
@@ -188,7 +188,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
 
             StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
-               entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
+                entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
             string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
             Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
             Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);

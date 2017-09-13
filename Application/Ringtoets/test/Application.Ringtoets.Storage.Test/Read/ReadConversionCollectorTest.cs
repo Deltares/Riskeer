@@ -281,10 +281,10 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile1DCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile1D,
-            MacroStabilityInwardsSoilProfile1DEntity>
+        private class MacroStabilityInwardsSoilProfileOneDCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile1D,
+            MacroStabilityInwardsSoilProfileOneDEntity>
         {
-            public MacroStabilityInwardsSoilProfile1DCollectorTest() : base(
+            public MacroStabilityInwardsSoilProfileOneDCollectorTest() : base(
                 (c, e, m) => c.Read(e, m),
                 (c, e) => c.Contains(e),
                 (c, e) => c.Get(e)) {}
@@ -305,10 +305,10 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile2DCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile2D,
-            MacroStabilityInwardsSoilProfile2DEntity>
+        private class MacroStabilityInwardsSoilProfileTwoDCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile2D,
+            MacroStabilityInwardsSoilProfileTwoDEntity>
         {
-            public MacroStabilityInwardsSoilProfile2DCollectorTest() : base(
+            public MacroStabilityInwardsSoilProfileTwoDCollectorTest() : base(
                 (c, e, m) => c.Read(e, m),
                 (c, e) => c.Contains(e),
                 (c, e) => c.Get(e)) {}

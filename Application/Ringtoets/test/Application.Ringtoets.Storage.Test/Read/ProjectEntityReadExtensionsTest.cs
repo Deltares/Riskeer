@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             const double lowerLimitNorm = 0.0001;
             const double signalingNorm = 0.00001;
-            
+
             var entity = new ProjectEntity
             {
                 Description = "testName",

@@ -56,11 +56,11 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
 
-        private readonly Dictionary<MacroStabilityInwardsSoilProfile1DEntity, MacroStabilityInwardsSoilProfile1D> macroStabilityInwardsSoil1DProfiles =
-            CreateDictionary<MacroStabilityInwardsSoilProfile1DEntity, MacroStabilityInwardsSoilProfile1D>();
+        private readonly Dictionary<MacroStabilityInwardsSoilProfileOneDEntity, MacroStabilityInwardsSoilProfile1D> macroStabilityInwardsSoil1DProfiles =
+            CreateDictionary<MacroStabilityInwardsSoilProfileOneDEntity, MacroStabilityInwardsSoilProfile1D>();
 
-        private readonly Dictionary<MacroStabilityInwardsSoilProfile2DEntity, MacroStabilityInwardsSoilProfile2D> macroStabilityInwardsSoil2DProfiles =
-            CreateDictionary<MacroStabilityInwardsSoilProfile2DEntity, MacroStabilityInwardsSoilProfile2D>();
+        private readonly Dictionary<MacroStabilityInwardsSoilProfileTwoDEntity, MacroStabilityInwardsSoilProfile2D> macroStabilityInwardsSoil2DProfiles =
+            CreateDictionary<MacroStabilityInwardsSoilProfileTwoDEntity, MacroStabilityInwardsSoilProfile2D>();
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
@@ -376,16 +376,16 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region MacroStabilityInwardsSoilProfile1DEntity: Read, Contains, Get
+        #region MacroStabilityInwardsSoilProfileOneDEntity: Read, Contains, Get
 
         /// <summary>
-        /// Registers a read operation for <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> and the
+        /// Registers a read operation for <see cref="MacroStabilityInwardsSoilProfileOneDEntity"/> and the
         /// <see cref="MacroStabilityInwardsSoilProfile1D"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> that was read.</param>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfileOneDEntity"/> that was read.</param>
         /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1D"/> that was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Read(MacroStabilityInwardsSoilProfile1DEntity entity, MacroStabilityInwardsSoilProfile1D model)
+        internal void Read(MacroStabilityInwardsSoilProfileOneDEntity entity, MacroStabilityInwardsSoilProfile1D model)
         {
             if (entity == null)
             {
@@ -400,12 +400,12 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="MacroStabilityInwardsSoilProfile1DEntity"/>.
+        /// Checks whether a read operation has been registered for a given <see cref="MacroStabilityInwardsSoilProfileOneDEntity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> to check for.</param>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfileOneDEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(MacroStabilityInwardsSoilProfile1DEntity entity)
+        internal bool Contains(MacroStabilityInwardsSoilProfileOneDEntity entity)
         {
             if (entity == null)
             {
@@ -416,17 +416,17 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Obtains the <see cref="MacroStabilityInwardsSoilProfile1D"/> which was read for the
-        /// given <see cref="MacroStabilityInwardsSoilProfile1DEntity"/>.
+        /// given <see cref="MacroStabilityInwardsSoilProfileOneDEntity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> for which a read operation
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfileOneDEntity"/> for which a read operation
         /// has been registered.</param>
         /// <returns>The constructed <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has
         /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfile1DEntity)"/> to find out whether a
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfileOneDEntity)"/> to find out whether a
         /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal MacroStabilityInwardsSoilProfile1D Get(MacroStabilityInwardsSoilProfile1DEntity entity)
+        internal MacroStabilityInwardsSoilProfile1D Get(MacroStabilityInwardsSoilProfileOneDEntity entity)
         {
             if (entity == null)
             {
@@ -444,16 +444,16 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region MacroStabilityInwardsSoilProfile2DEntity: Read, Contains, Get
+        #region MacroStabilityInwardsSoilProfileTwoDEntity: Read, Contains, Get
 
         /// <summary>
-        /// Registers a read operation for <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> and the
+        /// Registers a read operation for <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/> and the
         /// <see cref="MacroStabilityInwardsSoilProfile2D"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> that was read.</param>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/> that was read.</param>
         /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile2D"/> that was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Read(MacroStabilityInwardsSoilProfile2DEntity entity, MacroStabilityInwardsSoilProfile2D model)
+        internal void Read(MacroStabilityInwardsSoilProfileTwoDEntity entity, MacroStabilityInwardsSoilProfile2D model)
         {
             if (entity == null)
             {
@@ -468,12 +468,12 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="MacroStabilityInwardsSoilProfile2DEntity"/>.
+        /// Checks whether a read operation has been registered for a given <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> to check for.</param>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(MacroStabilityInwardsSoilProfile2DEntity entity)
+        internal bool Contains(MacroStabilityInwardsSoilProfileTwoDEntity entity)
         {
             if (entity == null)
             {
@@ -484,17 +484,17 @@ namespace Application.Ringtoets.Storage.Read
 
         /// <summary>
         /// Obtains the <see cref="MacroStabilityInwardsSoilProfile2D"/> which was read for the
-        /// given <see cref="MacroStabilityInwardsSoilProfile2DEntity"/>.
+        /// given <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> for which a read operation
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/> for which a read operation
         /// has been registered.</param>
         /// <returns>The constructed <see cref="MacroStabilityInwardsSoilProfile2D"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has
         /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfile2DEntity)"/> to find out whether a
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfileTwoDEntity)"/> to find out whether a
         /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal MacroStabilityInwardsSoilProfile2D Get(MacroStabilityInwardsSoilProfile2DEntity entity)
+        internal MacroStabilityInwardsSoilProfile2D Get(MacroStabilityInwardsSoilProfileTwoDEntity entity)
         {
             if (entity == null)
             {

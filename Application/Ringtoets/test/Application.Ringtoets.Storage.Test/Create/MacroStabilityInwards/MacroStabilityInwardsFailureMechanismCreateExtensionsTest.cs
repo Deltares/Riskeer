@@ -189,6 +189,34 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             TestHelper.AssertAreEqualButNotSame(failureMechanismSurfaceLines.SourcePath, surfaceLineCollectionSourcePath);
         }
 
+        [Test]
+        public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+        }
+
+        [Test]
+        public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.AddSection(new TestFailureMechanismSection());
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Count());
+        }
+
         private static void AssertSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine, SurfaceLineEntity entity)
         {
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -229,35 +257,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             surfaceLine.SetSurfaceLevelOutsideAt(geometryPoints[0]);
 
             return surfaceLine;
-        }
-
-
-        [Test]
-        public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            // Call
-            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
-
-            // Assert
-            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
-        }
-
-        [Test]
-        public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
-
-            // Call
-            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
-
-            // Assert
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Count());
         }
 
         private static void AssertStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel model, StochasticSoilModelEntity entity)

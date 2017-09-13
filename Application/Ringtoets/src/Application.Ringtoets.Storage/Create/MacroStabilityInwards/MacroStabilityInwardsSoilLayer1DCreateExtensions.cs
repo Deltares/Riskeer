@@ -28,19 +28,19 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilLayer1D"/> related to creating 
-    /// a <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.
+    /// a <see cref="MacroStabilityInwardsSoilLayerOneDEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSoilLayer1DCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsSoilLayer1DEntity"/> based on the information 
+        /// Creates a <see cref="MacroStabilityInwardsSoilLayerOneDEntity"/> based on the information 
         /// of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayer1DEntity"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayerOneDEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSoilLayer1DEntity Create(this MacroStabilityInwardsSoilLayer1D soilLayer,
+        public static MacroStabilityInwardsSoilLayerOneDEntity Create(this MacroStabilityInwardsSoilLayer1D soilLayer,
                                                                       int order)
         {
             if (soilLayer == null)
@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             }
 
             MacroStabilityInwardsSoilLayerProperties properties = soilLayer.Properties;
-            return new MacroStabilityInwardsSoilLayer1DEntity
+            return new MacroStabilityInwardsSoilLayerOneDEntity
             {
                 Top = soilLayer.Top.ToNaNAsNull(),
 

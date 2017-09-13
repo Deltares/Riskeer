@@ -146,8 +146,8 @@
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensionsTest.cs" />

@@ -34,13 +34,13 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long MacroStabilityInwardsStochasticSoilProfileEntityId { get; set; }
         public long StochasticSoilModelEntityId { get; set; }
-        public long? MacroStabilityInwardsSoilProfile1DEntityId { get; set; }
-        public long? MacroStabilityInwardsSoilProfile2DEntityId { get; set; }
+        public long? MacroStabilityInwardsSoilProfileOneDEntityId { get; set; }
+        public long? MacroStabilityInwardsSoilProfileTwoDEntityId { get; set; }
         public double Probability { get; set; }
         public int Order { get; set; }
 
-        public virtual MacroStabilityInwardsSoilProfile1DEntity MacroStabilityInwardsSoilProfile1DEntity { get; set; }
-        public virtual MacroStabilityInwardsSoilProfile2DEntity MacroStabilityInwardsSoilProfile2DEntity { get; set; }
+        public virtual MacroStabilityInwardsSoilProfileOneDEntity MacroStabilityInwardsSoilProfileOneDEntity { get; set; }
+        public virtual MacroStabilityInwardsSoilProfileTwoDEntity MacroStabilityInwardsSoilProfileTwoDEntity { get; set; }
         public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
     }
 }

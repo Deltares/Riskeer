@@ -21,10 +21,10 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
+using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
 {

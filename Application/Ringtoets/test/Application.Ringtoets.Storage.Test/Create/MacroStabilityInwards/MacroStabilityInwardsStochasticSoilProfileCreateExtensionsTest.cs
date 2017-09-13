@@ -90,24 +90,24 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(stochasticSoilProfile.Probability, entity.Probability);
 
-            var soilProfile1D =  soilProfile as MacroStabilityInwardsSoilProfile1D;
+            var soilProfile1D = soilProfile as MacroStabilityInwardsSoilProfile1D;
             if (soilProfile1D == null)
             {
-                Assert.IsNull(entity.MacroStabilityInwardsSoilProfile1DEntity);
+                Assert.IsNull(entity.MacroStabilityInwardsSoilProfileOneDEntity);
             }
             else
             {
-                Assert.AreEqual(soilProfile1D.Name, entity.MacroStabilityInwardsSoilProfile1DEntity.Name);
+                Assert.AreEqual(soilProfile1D.Name, entity.MacroStabilityInwardsSoilProfileOneDEntity.Name);
             }
 
-            var soilProfile2D =  soilProfile as MacroStabilityInwardsSoilProfile2D;
+            var soilProfile2D = soilProfile as MacroStabilityInwardsSoilProfile2D;
             if (soilProfile2D == null)
             {
-                Assert.IsNull(entity.MacroStabilityInwardsSoilProfile2DEntity);
+                Assert.IsNull(entity.MacroStabilityInwardsSoilProfileTwoDEntity);
             }
             else
             {
-                Assert.AreEqual(soilProfile2D.Name, entity.MacroStabilityInwardsSoilProfile2DEntity.Name);
+                Assert.AreEqual(soilProfile2D.Name, entity.MacroStabilityInwardsSoilProfileTwoDEntity.Name);
             }
 
             Assert.AreEqual(order, entity.Order);
@@ -133,19 +133,19 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             if (!expectedToBeSame)
             {
-                if (firstEntity.MacroStabilityInwardsSoilProfile1DEntity != null)
+                if (firstEntity.MacroStabilityInwardsSoilProfileOneDEntity != null)
                 {
-                    Assert.AreNotSame(firstEntity.MacroStabilityInwardsSoilProfile1DEntity, secondEntity.MacroStabilityInwardsSoilProfile1DEntity);
+                    Assert.AreNotSame(firstEntity.MacroStabilityInwardsSoilProfileOneDEntity, secondEntity.MacroStabilityInwardsSoilProfileOneDEntity);
                 }
-                if (firstEntity.MacroStabilityInwardsSoilProfile2DEntity != null)
+                if (firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity != null)
                 {
-                    Assert.AreNotSame(firstEntity.MacroStabilityInwardsSoilProfile2DEntity, secondEntity.MacroStabilityInwardsSoilProfile2DEntity);
+                    Assert.AreNotSame(firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity, secondEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
                 }
             }
             else
             {
-                Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfile1DEntity, secondEntity.MacroStabilityInwardsSoilProfile1DEntity);
-                Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfile2DEntity, secondEntity.MacroStabilityInwardsSoilProfile2DEntity);
+                Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfileOneDEntity, secondEntity.MacroStabilityInwardsSoilProfileOneDEntity);
+                Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity, secondEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
             }
         }
 

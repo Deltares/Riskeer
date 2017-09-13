@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            ClosingStructuresFailureMechanismMetaEntity metaEntity = 
+            ClosingStructuresFailureMechanismMetaEntity metaEntity =
                 entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
             Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
@@ -214,9 +214,9 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var path = "some path";
-            failureMechanism.ClosingStructures.AddRange(new []
+            failureMechanism.ClosingStructures.AddRange(new[]
             {
-              structure
+                structure
             }, path);
 
             var persistenceRegistry = new PersistenceRegistry();
@@ -228,7 +228,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual(1, entity.ClosingStructureEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(structure));
 
-            ClosingStructuresFailureMechanismMetaEntity metaEntity = 
+            ClosingStructuresFailureMechanismMetaEntity metaEntity =
                 entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             string entitySourcePath = metaEntity.ClosingStructureCollectionSourcePath;
             Assert.AreEqual(path, entitySourcePath);

@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 Tuple.Create(surfaceLine.DikeToeAtRiver, MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver),
                 Tuple.Create(surfaceLine.DitchDikeSide, MacroStabilityInwardsCharacteristicPointType.DitchDikeSide),
                 Tuple.Create(surfaceLine.DitchPolderSide, MacroStabilityInwardsCharacteristicPointType.DitchPolderSide),
-                Tuple.Create(surfaceLine.SurfaceLevelInside, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside),
+                Tuple.Create(surfaceLine.SurfaceLevelInside, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside)
             };
             foreach (Tuple<Point3D, MacroStabilityInwardsCharacteristicPointType> characteristicPointToSave in characteristicPointAssociations.Where(t => t.Item1 != null))
             {
