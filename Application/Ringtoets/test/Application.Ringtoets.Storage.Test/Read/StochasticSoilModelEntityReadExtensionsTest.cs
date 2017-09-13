@@ -34,13 +34,13 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class StochasticSoilModelEntityReadExtensionsTest
     {
         [Test]
-        public void Read_WithoutCollector_ThrowsArgumentNullException()
+        public void ReadAsPipingStochasticSoilModel_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new StochasticSoilModelEntity();
 
             // Call
-            TestDelegate test = () => entity.Read(null);
+            TestDelegate test = () => entity.ReadAsPipingStochasticSoilModel(null);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,9 +48,20 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadAsPipingStochasticSoilModel_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((StochasticSoilModelEntity)null).ReadAsPipingStochasticSoilModel(new ReadConversionCollector());
+
+            // Assert
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", parameter);
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void Read_StochasticSoilModelSegmentPointXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void ReadAsPipingStochasticSoilModel_StochasticSoilModelSegmentPointXmlNullOrEmpty_ThrowsArgumentException(string xml)
         {
             // Setup
             var entity = new StochasticSoilModelEntity
@@ -60,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            TestDelegate test = () => entity.Read(new ReadConversionCollector());
+            TestDelegate test = () => entity.ReadAsPipingStochasticSoilModel(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;
@@ -68,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSetAndEntityRegistered()
+        public void ReadAsPipingStochasticSoilModel_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             const string testName = "testName";
@@ -80,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingStochasticSoilModel model = entity.Read(collector);
+            PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
             Assert.IsNotNull(model);
@@ -89,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithCollectorWithPipingStochasticSoilProfiles_ReturnsNewStochasticSoilModelWithPipingStochasticSoilProfiles()
+        public void ReadAsPipingStochasticSoilModel_WithCollectorWithPipingStochasticSoilProfiles_ReturnsNewStochasticSoilModelWithPipingStochasticSoilProfiles()
         {
             // Setup
             var entity = new StochasticSoilModelEntity
@@ -127,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingStochasticSoilModel model = entity.Read(collector);
+            PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
@@ -139,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithCollectorWithStochasticSoilModelSegmentPointEntity_ReturnsNewStochasticSoilModelWithGeometryPoints()
+        public void ReadAsPipingStochasticSoilModel_WithCollectorWithStochasticSoilModelSegmentPointEntity_ReturnsNewStochasticSoilModelWithGeometryPoints()
         {
             // Setup
             var segmentPoints = new[]
@@ -156,14 +167,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingStochasticSoilModel model = entity.Read(collector);
+            PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
             CollectionAssert.AreEqual(segmentPoints, model.Geometry);
         }
 
         [Test]
-        public void Read_SameStochasticSoilModelEntityMultipleTimes_ReturnSameStochasticSoilModel()
+        public void ReadAsPipingStochasticSoilModel_SameStochasticSoilModelEntityMultipleTimes_ReturnSameStochasticSoilModel()
         {
             // Setup
             var entity = new StochasticSoilModelEntity
@@ -175,8 +186,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingStochasticSoilModel soilModel1 = entity.Read(collector);
-            PipingStochasticSoilModel soilModel2 = entity.Read(collector);
+            PipingStochasticSoilModel soilModel1 = entity.ReadAsPipingStochasticSoilModel(collector);
+            PipingStochasticSoilModel soilModel2 = entity.ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
             Assert.AreSame(soilModel1, soilModel2);

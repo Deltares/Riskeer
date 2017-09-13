@@ -29,7 +29,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingStochasticSoilModel"/> 
+    /// This class defines extension methods for read operations for a stochastic soil model
     /// based on the <see cref="StochasticSoilModelEntity"/>.
     /// </summary>
     internal static class StochasticSoilModelEntityReadExtensions
@@ -41,23 +41,28 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to create <see cref="PipingStochasticSoilModel"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingStochasticSoilModel"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="StochasticSoilModelEntity.StochasticSoilModelSegmentPointXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        internal static PipingStochasticSoilModel Read(this StochasticSoilModelEntity entity,
+        internal static PipingStochasticSoilModel ReadAsPipingStochasticSoilModel(this StochasticSoilModelEntity entity,
                                                        ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.ContainsPipingStochasticSoilModel(entity))
             {
                 return collector.GetPipingStochasticSoilModel(entity);
             }
 
             var model = new PipingStochasticSoilModel(entity.Name);
-            entity.ReadStochasticSoilProfiles(model, collector);
+            entity.ReadPipingStochasticSoilProfiles(model, collector);
             entity.ReadSegmentPoints(model);
 
             collector.Read(entity, model);
@@ -65,7 +70,7 @@ namespace Application.Ringtoets.Storage.Read
             return model;
         }
 
-        private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity,
+        private static void ReadPipingStochasticSoilProfiles(this StochasticSoilModelEntity entity,
                                                        PipingStochasticSoilModel model,
                                                        ReadConversionCollector collector)
         {

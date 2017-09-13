@@ -142,7 +142,7 @@ namespace Application.Ringtoets.Storage.Read
             {
                 failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
                                                                      .OrderBy(ssm => ssm.Order)
-                                                                     .Select(e => e.Read(collector))
+                                                                     .Select(e => e.ReadAsPipingStochasticSoilModel(collector))
                                                                      .ToArray(),
                                                                stochasticSoilModelCollectionSourcePath);
             }

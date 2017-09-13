@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
             if (entity.PipingStochasticSoilProfileEntity != null)
             {
-                inputParameters.StochasticSoilModel = entity.PipingStochasticSoilProfileEntity.StochasticSoilModelEntity.Read(collector);
+                inputParameters.StochasticSoilModel = entity.PipingStochasticSoilProfileEntity.StochasticSoilModelEntity.ReadAsPipingStochasticSoilModel(collector);
                 inputParameters.StochasticSoilProfile = entity.PipingStochasticSoilProfileEntity.Read(collector);
             }
 
