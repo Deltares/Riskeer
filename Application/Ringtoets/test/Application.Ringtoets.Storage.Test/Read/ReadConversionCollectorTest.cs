@@ -39,7 +39,9 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
@@ -281,6 +283,22 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [TestFixture]
+        private class PipingStochasticSoilModelCollectorTest : CollectorTest<PipingStochasticSoilModel,
+            StochasticSoilModelEntity>
+        {
+            public PipingStochasticSoilModelCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e))
+            { }
+
+            protected override PipingStochasticSoilModel CreateDataModel()
+            {
+                return new PipingStochasticSoilModel(nameof(PipingStochasticSoilModel));
+            }
+        }
+
+        [TestFixture]
         private class MacroStabilityInwardsSoilProfileOneDCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile1D,
             MacroStabilityInwardsSoilProfileOneDEntity>
         {
@@ -331,6 +349,21 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>())
                 };
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsStochasticSoilProfileCollectorTest : CollectorTest<MacroStabilityInwardsStochasticSoilProfile,
+            MacroStabilityInwardsStochasticSoilProfileEntity>
+        {
+            public MacroStabilityInwardsStochasticSoilProfileCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e)) {}
+
+            protected override MacroStabilityInwardsStochasticSoilProfile CreateDataModel()
+            {
+                return new MacroStabilityInwardsStochasticSoilProfile(1, new TestMacroStabilityInwardsSoilProfile1D());
             }
         }
 

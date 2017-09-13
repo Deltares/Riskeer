@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
-    public class MacroStabilityInwardsPreconsolidationStressReadExtensionsTest
+    public class MacroStabilityInwardsPreconsolidationStressEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()

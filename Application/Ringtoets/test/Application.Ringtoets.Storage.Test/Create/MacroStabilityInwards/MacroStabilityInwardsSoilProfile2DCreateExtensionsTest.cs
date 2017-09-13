@@ -97,6 +97,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.MacroStabilityInwardsSoilLayerTwoDEntities.Count);
             Assert.AreEqual(1, entity.MacroStabilityInwardsPreconsolidationStressEntities.Count);
+
+            AssertPreconsolidationStress(soilProfile.PreconsolidationStresses.First(),
+                                         entity.MacroStabilityInwardsPreconsolidationStressEntities.First());
         }
 
         [Test]
@@ -128,6 +131,15 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.AreSame(firstEntity, secondEntity);
+        }
+
+        private static void AssertPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress preconsolidationStress,
+                                                         MacroStabilityInwardsPreconsolidationStressEntity entity)
+        {
+            Assert.AreEqual(preconsolidationStress.XCoordinate, entity.CoordinateX);
+            Assert.AreEqual(preconsolidationStress.ZCoordinate, entity.CoordinateZ);
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean, entity.PreconsolidationStressMean);
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation);
         }
 
         private static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()

@@ -29,7 +29,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsPreconsolidationStress"/> 
     /// based on the <see cref="MacroStabilityInwardsPreconsolidationStressEntity"/>.
     /// </summary>
-    internal static class MacroStabilityInwardsPreconsolidationStressReadExtensions
+    internal static class MacroStabilityInwardsPreconsolidationStressEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="MacroStabilityInwardsPreconsolidationStressEntity"/> and use the information 
