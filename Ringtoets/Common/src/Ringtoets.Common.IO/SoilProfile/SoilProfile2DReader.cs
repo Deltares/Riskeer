@@ -39,6 +39,7 @@ namespace Ringtoets.Common.IO.SoilProfile
     public class SoilProfile2DReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
         private IDataReader dataReader;
+        private PreconsolidationStressReader preconsolidationStressReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfile2DReader"/> which will use the 
@@ -120,6 +121,13 @@ namespace Ringtoets.Common.IO.SoilProfile
                 dataReader.Dispose();
                 dataReader = null;
             }
+
+            if (preconsolidationStressReader != null)
+            {
+                preconsolidationStressReader.Dispose();
+                preconsolidationStressReader = null;
+            }
+
             base.Dispose(disposing);
         }
 
@@ -142,6 +150,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             try
             {
                 dataReader = CreateDataReader(soilProfile2DQuery);
+
+                preconsolidationStressReader = new PreconsolidationStressReader(Path);
+                preconsolidationStressReader.Initialize();
             }
             catch (SQLiteException exception)
             {
@@ -179,11 +190,13 @@ namespace Ringtoets.Common.IO.SoilProfile
                 throw;
             }
 
+            PreconsolidationStress[] preconsolidationStresses = preconsolidationStressReader.ReadPreconsolidationStresses()
+                                                                                            .ToArray();
             try
             {
                 return new SoilProfile2D(criticalProperties.ProfileId,
                                          criticalProperties.ProfileName,
-                                         soilLayers, Enumerable.Empty<PreconsolidationStress>()) // TODO: WTI1341: add read method for the preconsolidaiton stresses
+                                         soilLayers, preconsolidationStresses)
                 {
                     IntersectionX = properties.IntersectionX
                 };

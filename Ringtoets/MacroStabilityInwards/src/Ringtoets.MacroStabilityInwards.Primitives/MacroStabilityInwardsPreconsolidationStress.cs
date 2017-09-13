@@ -36,9 +36,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="xCoordinate">The x coordinate of the preconsolidation stress location.</param>
         /// <param name="zCoordinate">The z coordinate of the preconsolidation stress location.</param>
         /// <param name="preconsolidationStressMean">The mean of the stochastic distribution 
-        ///     for the preconsolidation stress.</param>
+        /// for the preconsolidation stress.</param>
         /// <param name="preconsolidationStressCoefficientOfVariation">The coefficient of 
-        ///     variation of the stochastic distribution for the preconsolidation stress.</param>
+        /// variation of the stochastic distribution for the preconsolidation stress.</param>
         /// <exception cref="ArgumentException">Thrown when any of the parameters has an invalid value.</exception>
         public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
                                                            double zCoordinate,

@@ -277,7 +277,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressMean);
                 Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
                 Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressShift);
-
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

@@ -151,6 +151,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 // Assert
                 Assert.AreEqual(1, soilProfile2D.Id);
                 Assert.AreEqual("Profile", soilProfile2D.Name);
+                CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
                 Assert.AreEqual(85.2, soilProfile2D.IntersectionX);
                 Assert.AreEqual(3, soilProfile2D.Layers.Count());
 
@@ -423,7 +424,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_DatabaseWith1DProfile1LayerWithAllNullValues_ReturnsProfileWithDefaultValues()
+        public void ReadSoilProfile_DatabaseWith2DProfile1LayerWithAllNullValues_ReturnsProfileWithDefaultValues()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dprofileWithLayerWithNullValuesOnly.soil");
@@ -438,7 +439,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(1, profile.Id);
                 Assert.AreEqual("Profile", profile.Name);
                 Assert.AreEqual(85.2, profile.IntersectionX);
-
                 CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
 
                 SoilLayer2D soilLayer = profile.Layers.Single();
@@ -496,6 +496,95 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNaN(soilLayer.PopShift);
             }
 
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_DatabaseWith2DProfileWithPreconsolidationStresses_ReturnOneProfileWithStresses()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStresses.soil");
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call 
+                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual(4, soilProfile2D.PreconsolidationStresses.Count());
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    1,
+                    2,
+                    3,
+                    4
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.XCoordinate));
+                CollectionAssert.AreEqual(new[]
+                {
+                    5,
+                    6,
+                    7,
+                    8
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.ZCoordinate));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    3,
+                    3,
+                    3,
+                    3
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressDistributionType));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1337,
+                    3371,
+                    8.5,
+                    9.3
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressMean));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.0074794315632011965,
+                    0.0029664787896766538,
+                    1.8823529411764706,
+                    0.8064516129032258
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
+                CollectionAssert.AreEqual(new[]
+                {
+                    11,
+                    12,
+                    0,
+                    0
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressShift));
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_DatabaseWith2DProfileWithPreconsolidationStressesNullValues_ReturnsOneProfileWithDefaultStressValues()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStressesNullValues.soil");
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call 
+                SoilProfile2D soilProfile2D = reader.ReadSoilProfile();
+
+                // Assert
+                PreconsolidationStress[] preconsolidationStresses = soilProfile2D.PreconsolidationStresses.ToArray();
+                Assert.AreEqual(1, preconsolidationStresses.Length);
+                PreconsolidationStress actualPreconsolidationStress = preconsolidationStresses[0];
+
+                Assert.IsNaN(actualPreconsolidationStress.XCoordinate);
+                Assert.IsNaN(actualPreconsolidationStress.ZCoordinate);
+                Assert.IsNull(actualPreconsolidationStress.PreconsolidationStressDistributionType);
+                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressMean);
+                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
+                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressShift);
+            }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
