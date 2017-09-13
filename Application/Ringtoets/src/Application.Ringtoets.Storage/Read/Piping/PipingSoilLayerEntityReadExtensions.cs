@@ -37,9 +37,15 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// </summary>
         /// <param name="entity">The <see cref="PipingSoilLayerEntity"/> to create <see cref="PipingSoilLayer"/> for.</param>
         /// <returns>A new <see cref="PipingSoilLayer"/>.</returns>
-        internal static PipingSoilLayer Read(this PipingSoilLayerEntity entity)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        public static PipingSoilLayer Read(this PipingSoilLayerEntity entity)
         {
-            var pipingSoilLayer = new PipingSoilLayer(entity.Top.ToNullAsNaN())
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            return new PipingSoilLayer(entity.Top.ToNullAsNaN())
             {
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                 Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
@@ -52,7 +58,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 PermeabilityMean = entity.PermeabilityMean.ToNullAsNaN(),
                 PermeabilityCoefficientOfVariation = entity.PermeabilityCoefficientOfVariation.ToNullAsNaN()
             };
-            return pipingSoilLayer;
         }
     }
 }

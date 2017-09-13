@@ -40,9 +40,13 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/> or one from the <paramref name="collector"/> if the 
         /// <see cref="PipingSoilProfileEntity"/> has been read before.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static PipingSoilProfile Read(this PipingSoilProfileEntity entity, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public static PipingSoilProfile Read(this PipingSoilProfileEntity entity, ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));

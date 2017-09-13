@@ -23,21 +23,20 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.Piping;
-using Core.Common.TestUtil;
+using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using NUnit.Framework;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Read.Piping
+namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
-    public class PipingSoilProfileEntityReadExtensionsTest
+    public class MacroStabilityInwardsSoilProfile1DEntityReadExtensionsTest
     {
         [Test]
         public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new PipingSoilProfileEntity();
+            var entity = new MacroStabilityInwardsSoilProfile1DEntity();
 
             // Call
             TestDelegate test = () => entity.Read(null);
@@ -54,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((PipingSoilProfileEntity) null).Read(collector);
+            TestDelegate test = () => ((MacroStabilityInwardsSoilProfile1DEntity) null).Read(collector);
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -62,27 +61,24 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSet()
+        public void Read_WithCollector_ReturnsNewSoilProfileWithPropertiesSet()
         {
             // Setup
-            const string testName = "testName";
-            var random = new Random(21);
+            var random = new Random(31);
             double bottom = random.NextDouble();
-            var sourceType = random.NextEnumValue<SoilProfileType>();
-            var entity = new PipingSoilProfileEntity
+            var entity = new MacroStabilityInwardsSoilProfile1DEntity
             {
-                Name = testName,
+                Name = nameof(MacroStabilityInwardsSoilProfile1DEntity),
                 Bottom = bottom,
-                SourceType = (byte) sourceType,
-                PipingSoilLayerEntities =
+                MacroStabilityInwardsSoilLayer1DEntity =
                 {
-                    new PipingSoilLayerEntity
+                    new MacroStabilityInwardsSoilLayer1DEntity
                     {
                         Top = bottom + 0.5,
                         MaterialName = "A",
                         Order = 1
                     },
-                    new PipingSoilLayerEntity
+                    new MacroStabilityInwardsSoilLayer1DEntity
                     {
                         Top = bottom + 1.2,
                         MaterialName = "B",
@@ -93,39 +89,38 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingSoilProfile profile = entity.Read(collector);
+            MacroStabilityInwardsSoilProfile1D profile = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(profile);
-            Assert.AreEqual(testName, profile.Name);
-            Assert.AreEqual(bottom, profile.Bottom, 1e-6);
-            Assert.AreEqual(sourceType, profile.SoilProfileSourceType);
+            Assert.AreEqual(entity.Name, profile.Name);
+            Assert.AreEqual(bottom, profile.Bottom);
             CollectionAssert.AreEqual(new[]
             {
                 "B",
                 "A"
-            }, profile.Layers.Select(l => l.MaterialName));
+            }, profile.Layers.Select(l => l.Properties.MaterialName));
         }
 
         [Test]
-        public void Read_WithNullValues_ReturnsPipingSoilProfileWithNaNValues()
+        public void Read_WithNullValues_ReturnsSoilProfileWithNaNValues()
         {
             // Setup
-            var entity = new PipingSoilProfileEntity
+            var entity = new MacroStabilityInwardsSoilProfile1DEntity
             {
-                Name = nameof(PipingSoilProfileEntity),
-                PipingSoilLayerEntities =
+                Name = nameof(MacroStabilityInwardsSoilProfile1DEntity),
+                MacroStabilityInwardsSoilLayer1DEntity =
                 {
-                    new PipingSoilLayerEntity
+                    new MacroStabilityInwardsSoilLayer1DEntity
                     {
-                        MaterialName = nameof(PipingSoilLayerEntity)
+                        MaterialName = nameof(MacroStabilityInwardsSoilLayer1DEntity)
                     }
                 }
             };
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingSoilProfile profile = entity.Read(collector);
+            MacroStabilityInwardsSoilProfile1D profile = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(profile);
@@ -133,21 +128,20 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNaN(profile.Bottom);
             Assert.AreEqual(1, profile.Layers.Count());
 
-            PipingSoilLayer layer = profile.Layers.ElementAt(0);
+            MacroStabilityInwardsSoilLayer1D layer = profile.Layers.ElementAt(0);
             Assert.IsNaN(layer.Top);
-            Assert.AreEqual(entity.PipingSoilLayerEntities.First().MaterialName, layer.MaterialName);
+            Assert.AreEqual(entity.MacroStabilityInwardsSoilLayer1DEntity.First().MaterialName, layer.Properties.MaterialName);
         }
 
         [Test]
         public void Read_WithCollectorWithoutLayers_ThrowsArgumentException()
         {
             // Setup
-            var random = new Random(21);
-            var entity = new PipingSoilProfileEntity
+            var random = new Random(31);
+            var entity = new MacroStabilityInwardsSoilProfile1DEntity
             {
                 Name = "Name",
-                Bottom = random.NextDouble(),
-                SourceType = (byte) random.NextEnumValue<SoilProfileType>()
+                Bottom = random.NextDouble()
             };
             var collector = new ReadConversionCollector();
 
@@ -159,24 +153,23 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollectorReadTwice_ReturnsSamePipingSoilProfile()
+        public void Read_WithCollectorReadTwice_ReturnsSameSoilProfile()
         {
             // Setup
             const string testName = "testName";
-            var random = new Random(21);
+            var random = new Random(31);
             double bottom = random.NextDouble();
-            var entity = new PipingSoilProfileEntity
+            var entity = new MacroStabilityInwardsSoilProfile1DEntity
             {
                 Name = testName,
                 Bottom = bottom,
-                SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
-                PipingSoilLayerEntities =
+                MacroStabilityInwardsSoilLayer1DEntity =
                 {
-                    new PipingSoilLayerEntity
+                    new MacroStabilityInwardsSoilLayer1DEntity
                     {
                         Top = bottom + 0.5
                     },
-                    new PipingSoilLayerEntity
+                    new MacroStabilityInwardsSoilLayer1DEntity
                     {
                         Top = bottom + 1.2
                     }
@@ -184,10 +177,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
             var collector = new ReadConversionCollector();
 
-            PipingSoilProfile profile = entity.Read(collector);
+            MacroStabilityInwardsSoilProfile1D profile = entity.Read(collector);
 
             // Call
-            PipingSoilProfile secondProfile = entity.Read(collector);
+            MacroStabilityInwardsSoilProfile1D secondProfile = entity.Read(collector);
 
             // Assert
             Assert.AreSame(profile, secondProfile);

@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -36,6 +39,7 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
@@ -273,6 +277,60 @@ namespace Application.Ringtoets.Storage.Test.Read
             protected override PipingStochasticSoilProfile CreateDataModel()
             {
                 return new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsSoilProfile1DCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile1D,
+            MacroStabilityInwardsSoilProfile1DEntity>
+        {
+            public MacroStabilityInwardsSoilProfile1DCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e)) {}
+
+            protected override MacroStabilityInwardsSoilProfile1D CreateDataModel()
+            {
+                return new MacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D), 0.0, new[]
+                {
+                    new MacroStabilityInwardsSoilLayer1D(0.0)
+                    {
+                        Properties =
+                        {
+                            IsAquifer = true
+                        }
+                    }
+                });
+            }
+        }
+
+        [TestFixture]
+        private class MacroStabilityInwardsSoilProfile2DCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile2D,
+            MacroStabilityInwardsSoilProfile2DEntity>
+        {
+            public MacroStabilityInwardsSoilProfile2DCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e)) {}
+
+            protected override MacroStabilityInwardsSoilProfile2D CreateDataModel()
+            {
+                return new MacroStabilityInwardsSoilProfile2D(nameof(MacroStabilityInwardsSoilProfile1D),
+                                                              CreateLayers2D(),
+                                                              Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            }
+
+            private static IEnumerable<MacroStabilityInwardsSoilLayer2D> CreateLayers2D()
+            {
+                var outerRing = new Ring(new[]
+                {
+                    new Point2D(3, 2),
+                    new Point2D(3, 5)
+                });
+                return new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>())
+                };
             }
         }
 

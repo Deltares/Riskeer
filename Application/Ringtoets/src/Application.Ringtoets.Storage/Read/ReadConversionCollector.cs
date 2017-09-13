@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
@@ -54,6 +55,12 @@ namespace Application.Ringtoets.Storage.Read
 
         private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
+
+        private readonly Dictionary<MacroStabilityInwardsSoilProfile1DEntity, MacroStabilityInwardsSoilProfile1D> macroStabilityInwardsSoil1DProfiles =
+            CreateDictionary<MacroStabilityInwardsSoilProfile1DEntity, MacroStabilityInwardsSoilProfile1D>();
+
+        private readonly Dictionary<MacroStabilityInwardsSoilProfile2DEntity, MacroStabilityInwardsSoilProfile2D> macroStabilityInwardsSoil2DProfiles =
+            CreateDictionary<MacroStabilityInwardsSoilProfile2DEntity, MacroStabilityInwardsSoilProfile2D>();
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
@@ -360,6 +367,142 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return surfaceLines[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region MacroStabilityInwardsSoilProfile1DEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> and the
+        /// <see cref="MacroStabilityInwardsSoilProfile1D"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile1D"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(MacroStabilityInwardsSoilProfile1DEntity entity, MacroStabilityInwardsSoilProfile1D model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            macroStabilityInwardsSoil1DProfiles[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="MacroStabilityInwardsSoilProfile1DEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(MacroStabilityInwardsSoilProfile1DEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            return macroStabilityInwardsSoil1DProfiles.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="MacroStabilityInwardsSoilProfile1D"/> which was read for the
+        /// given <see cref="MacroStabilityInwardsSoilProfile1DEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile1DEntity"/> for which a read operation
+        /// has been registered.</param>
+        /// <returns>The constructed <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfile1DEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal MacroStabilityInwardsSoilProfile1D Get(MacroStabilityInwardsSoilProfile1DEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            try
+            {
+                return macroStabilityInwardsSoil1DProfiles[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region MacroStabilityInwardsSoilProfile2DEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> and the
+        /// <see cref="MacroStabilityInwardsSoilProfile2D"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSoilProfile2D"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(MacroStabilityInwardsSoilProfile2DEntity entity, MacroStabilityInwardsSoilProfile2D model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            macroStabilityInwardsSoil2DProfiles[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="MacroStabilityInwardsSoilProfile2DEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(MacroStabilityInwardsSoilProfile2DEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            return macroStabilityInwardsSoil2DProfiles.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="MacroStabilityInwardsSoilProfile2D"/> which was read for the
+        /// given <see cref="MacroStabilityInwardsSoilProfile2DEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSoilProfile2DEntity"/> for which a read operation
+        /// has been registered.</param>
+        /// <returns>The constructed <see cref="MacroStabilityInwardsSoilProfile2D"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(MacroStabilityInwardsSoilProfile2DEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal MacroStabilityInwardsSoilProfile2D Get(MacroStabilityInwardsSoilProfile2DEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            try
+            {
+                return macroStabilityInwardsSoil2DProfiles[entity];
             }
             catch (KeyNotFoundException e)
             {

@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
@@ -32,16 +33,26 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     public class PipingSoilLayerEntityReadExtensionsTest
     {
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithValues_ReturnPipingSoilLayerWithDoubleParameterValues(bool isAquifer)
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((PipingSoilLayerEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_WithValues_ReturnsPipingSoilLayerWithDoubleParameterValues()
         {
             // Setup
             var random = new Random(21);
             double top = random.NextDouble();
-            int color = Color.AliceBlue.ToArgb();
+            int color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToArgb();
             const string materialName = "sand";
 
+            bool isAquifer = random.NextBoolean();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelDeviation = random.NextDouble();
             double belowPhreaticLevelShift = random.NextDouble();
@@ -82,6 +93,32 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(diameterD70CoefficientOfVariation, layer.DiameterD70CoefficientOfVariation);
             Assert.AreEqual(permeabilityMean, layer.PermeabilityMean);
             Assert.AreEqual(permeabilityCoefficientOfVariation, layer.PermeabilityCoefficientOfVariation);
+        }
+
+        [Test]
+        public void Read_WithNullValues_ReturnsPipingSoilLayerWithNaNValues()
+        {
+            // Setup
+            var entity = new PipingSoilLayerEntity
+            {
+                MaterialName = nameof(PipingSoilLayerEntity)
+            };
+
+            // Call
+            PipingSoilLayer layer = entity.Read();
+
+            // Assert
+            Assert.IsNotNull(layer);
+            Assert.AreEqual(entity.MaterialName, layer.MaterialName);
+
+            Assert.IsNaN(layer.Top);
+            Assert.IsNaN(layer.BelowPhreaticLevelMean);
+            Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(layer.BelowPhreaticLevelShift);
+            Assert.IsNaN(layer.DiameterD70Mean);
+            Assert.IsNaN(layer.DiameterD70CoefficientOfVariation);
+            Assert.IsNaN(layer.PermeabilityMean);
+            Assert.IsNaN(layer.PermeabilityCoefficientOfVariation);
         }
     }
 }
