@@ -387,4 +387,7 @@
   <data name="CharacteristicPoint_DikeTopAtRiver" xml:space="preserve">
     <value>Kruin buitentalud</value>
   </data>
+  <data name="PreconsolidationStress_Name" xml:space="preserve">
+    <value>Grensspanning</value>
+  </data>
 </root>

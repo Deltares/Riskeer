@@ -64,6 +64,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationSchemaIdentifiersTest.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsPreconsolidationStressTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformerTest.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelFilterTest.cs" />

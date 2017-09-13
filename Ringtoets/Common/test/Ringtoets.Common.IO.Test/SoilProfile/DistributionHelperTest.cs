@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayerDistributionHelperTest
+    public class DistributionHelperTest
     {
         [Test]
         public void ValidateIsNonShiftedLogNormal_ParameterNameNull_ThrowsArgumentNullException()
@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             double shift = random.NextDouble();
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
+            TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
                                                                                                 shift,
                                                                                                 null);
 
@@ -58,7 +58,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string parameterName = "Just a name";
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
+            TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
                                                                                                 shift,
                                                                                                 parameterName);
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const double shift = 0;
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
+            TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(distributionType,
                                                                                                 shift,
                                                                                                 string.Empty);
 
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string parameterName = "Just a name";
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsNonShiftedLogNormal(null,
+            TestDelegate call = () => DistributionHelper.ValidateIsNonShiftedLogNormal(null,
                                                                                                 shift,
                                                                                                 parameterName);
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             long distributionType = random.Next();
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsLogNormal(distributionType,
+            TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(distributionType,
                                                                                       null);
 
             // Assert
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string parameterName = "Just a name";
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsLogNormal(invalidDistributionType,
+            TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(invalidDistributionType,
                                                                                       parameterName);
 
             // Assert
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const long distributionType = 3;
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsLogNormal(distributionType,
+            TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(distributionType,
                                                                                       string.Empty);
 
             // Assert
@@ -153,7 +153,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string parameterName = "Just a name";
 
             // Call
-            TestDelegate call = () => SoilLayerDistributionHelper.ValidateIsLogNormal(null,
+            TestDelegate call = () => DistributionHelper.ValidateIsLogNormal(null,
                                                                                       parameterName);
 
             // Assert

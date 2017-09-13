@@ -728,6 +728,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grensspanning.
+        /// </summary>
+        public static string PreconsolidationStress_Name {
+            get {
+                return ResourceManager.GetString("PreconsolidationStress_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kans moet in het bereik {0} liggen..
         /// </summary>
         public static string Probability_Must_be_in_Range_0_ {

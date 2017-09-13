@@ -26,10 +26,10 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Class which provides helper methods for validating distributions of 
-    /// <see cref="SoilLayerBase"/>.
+    /// Class which provides helper methods for validating distributions coming from
+    /// D-Soil model files.
     /// </summary>
-    public static class SoilLayerDistributionHelper
+    public static class DistributionHelper
     {
         private const double tolerance = 1e-6;
 

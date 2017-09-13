@@ -38,6 +38,7 @@
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\MacroStabilityInwardsCalculationConfigurationImporter.cs" />
+    <Compile Include="SoilProfiles\MacroStabilityInwardsPreconsolidationStressTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilLayerTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsSoilProfileTransformer.cs" />
     <Compile Include="SoilProfiles\MacroStabilityInwardsStochasticSoilModelFilter.cs" />
