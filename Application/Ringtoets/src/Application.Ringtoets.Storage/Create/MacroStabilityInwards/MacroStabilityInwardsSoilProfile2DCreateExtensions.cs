@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// </summary>
         /// <param name="soilProfile">The soil profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> or one from the 
+        /// <returns>A new <see cref="MacroStabilityInwardsSoilProfileTwoDEntity"/> or one from the 
         /// <paramref name="registry"/> if it was created for the <see cref="soilProfile"/> earlier.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static MacroStabilityInwardsSoilProfileTwoDEntity Create(this MacroStabilityInwardsSoilProfile2D soilProfile,
