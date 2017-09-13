@@ -526,4 +526,22 @@
   <data name="CreateZones_DisplayName" xml:space="preserve">
     <value>Bepaling</value>
   </data>
+  <data name="MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_Description" xml:space="preserve">
+    <value>Grensspanning op de aangegeven locatie.</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_DisplayName" xml:space="preserve">
+    <value>Grensspanning [kN/m³]</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_Description" xml:space="preserve">
+    <value>Lokale x-coördinaat van het punt waarvoor de grensspanning is opgegeven.</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_DisplayName" xml:space="preserve">
+    <value>X [m]</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_Description" xml:space="preserve">
+    <value>Lokale z-coördinaat van het punt waarvoor de grensspanning is opgegeven.</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_DisplayName" xml:space="preserve">
+    <value>Z [m+NAP]</value>
+  </data>
 </root>

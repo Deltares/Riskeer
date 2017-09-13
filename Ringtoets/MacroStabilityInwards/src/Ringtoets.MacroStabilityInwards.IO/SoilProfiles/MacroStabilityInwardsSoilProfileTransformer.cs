@@ -81,7 +81,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             return new MacroStabilityInwardsSoilProfile1D(soilProfile.Name,
                                                           soilProfile.Bottom,
                                                           soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform));
+                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
+                                                                     .ToArray());
         }
 
         /// <summary>
@@ -96,8 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         {
             return new MacroStabilityInwardsSoilProfile2D(soilProfile.Name,
                                                           soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform), 
-                                                          Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()); //TODO WTI-1341 Placeholder
+                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
+                                                                     .ToArray(),
+                                                          soilProfile.PreconsolidationStresses
+                                                                     .Select(MacroStabilityInwardsPreconsolidationStressTransformer.Transform)
+                                                                     .ToArray());
         }
     }
 }

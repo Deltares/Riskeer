@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = new SoilProfile2D(1, "test", new[]
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-            }, Enumerable.Empty<PreconsolidationStress>()); // TODO: WTI1341: write a transformer for the preconsolidation stresses
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             var transformedProfile = (MacroStabilityInwardsSoilProfile2D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
@@ -99,6 +99,50 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(profile.Name, transformedProfile.Name);
             Assert.AreEqual(profile.Layers.Count(), transformedProfile.Layers.Count());
             CollectionAssert.AllItemsAreInstancesOfType(transformedProfile.Layers, typeof(MacroStabilityInwardsSoilLayer2D));
+            CollectionAssert.IsEmpty(transformedProfile.PreconsolidationStresses);
+        }
+
+        [Test]
+        public void Transform_SoilProfile2DWithPreconsolidationStresses_ReturnMacroStabilityInwardsSoilProfile2DWithStresses()
+        {
+            // Setup
+            var random = new Random(21);
+            var preconsolidationStress = new PreconsolidationStress
+            {
+                XCoordinate = random.NextDouble(),
+                ZCoordinate = random.NextDouble(),
+                PreconsolidationStressDistributionType = 3,
+                PreconsolidationStressMean = random.NextDouble(),
+                PreconsolidationStressCoefficientOfVariation = random.NextDouble(),
+                PreconsolidationStressShift = 0
+            };
+
+            var profile = new SoilProfile2D(1, "test", new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+            }, new[]
+            {
+                preconsolidationStress
+            });
+
+            // Call
+            var transformedProfile = (MacroStabilityInwardsSoilProfile2D) MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            AssertPreconsolidationStress(preconsolidationStress, transformedProfile.PreconsolidationStresses.Single());
+        }
+
+        private static void AssertPreconsolidationStress(PreconsolidationStress preconsolidationStress,
+                                                         MacroStabilityInwardsPreconsolidationStress transformedPreconsolidationStress)
+        {
+            Assert.AreEqual(preconsolidationStress.XCoordinate,
+                            transformedPreconsolidationStress.XCoordinate);
+            Assert.AreEqual(preconsolidationStress.ZCoordinate,
+                            transformedPreconsolidationStress.ZCoordinate);
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean,
+                            transformedPreconsolidationStress.PreconsolidationStressMean);
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
+                            transformedPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
         }
     }
 }
