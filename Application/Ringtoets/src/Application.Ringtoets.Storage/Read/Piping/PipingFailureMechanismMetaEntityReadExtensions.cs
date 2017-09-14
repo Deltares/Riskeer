@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Piping.Data;
@@ -38,8 +39,18 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for A from.</param>
         /// <param name="input">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
         /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
-        internal static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity, PipingProbabilityAssessmentInput input)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity, PipingProbabilityAssessmentInput input)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
             input.A = entity.A;
         }
 
@@ -51,8 +62,18 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// WaterVolumetricWeight from.</param>
         /// <param name="input">The <see cref="GeneralPipingInput"/> to set the 
         /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
-        internal static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity, GeneralPipingInput input)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity, GeneralPipingInput input)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
             input.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
         }
     }

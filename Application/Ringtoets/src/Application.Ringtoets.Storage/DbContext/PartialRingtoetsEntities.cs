@@ -82,7 +82,15 @@ namespace Application.Ringtoets.Storage.DbContext
             HeightStructuresSectionResultEntities.Load();
             HydraulicLocationEntities.Load();
             HydraulicLocationOutputEntities.Load();
+            MacroStabilityInwardsCharacteristicPointEntities.Load();
             MacroStabilityInwardsSectionResultEntities.Load();
+            MacroStabilityInwardsFailureMechanismMetaEntities.Load();
+            MacroStabilityInwardsSoilProfileOneDEntities.Load();
+            MacroStabilityInwardsSoilLayerOneDEntities.Load();
+            MacroStabilityInwardsSoilProfileTwoDEntities.Load();
+            MacroStabilityInwardsSoilLayerTwoDEntities.Load();
+            MacroStabilityInwardsStochasticSoilProfileEntities.Load();
+            MacroStabilityInwardsPreconsolidationStressEntities.Load();
             MacrostabilityOutwardsSectionResultEntities.Load();
             MicrostabilitySectionResultEntities.Load();
             ProjectEntities.Load();

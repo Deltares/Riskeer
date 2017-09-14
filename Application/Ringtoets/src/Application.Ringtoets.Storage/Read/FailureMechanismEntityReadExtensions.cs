@@ -111,16 +111,16 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="PipingFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="failureMechanism"/> is <c>null</c></item>
-        /// <item><paramref name="collector"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
         internal static void ReadAsPipingFailureMechanism(this FailureMechanismEntity entity,
                                                           PipingFailureMechanism failureMechanism,
                                                           ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -503,11 +503,49 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void ReadAsMacroStabilityInwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                          MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                          ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+            if (collector == null)
+            {
+                throw new ArgumentNullException(nameof(collector));
+            }
+
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
+            metaEntity.ReadProbabilityAssessmentInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
+
+            string stochasticSoilModelCollectionSourcePath = metaEntity.StochasticSoilModelCollectionSourcePath;
+            if (stochasticSoilModelCollectionSourcePath != null)
+            {
+                failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
+                                                                     .OrderBy(ssm => ssm.Order)
+                                                                     .Select(e => e.ReadAsMacroStabilityInwardsStochasticSoilModel(collector))
+                                                                     .ToArray(),
+                                                               stochasticSoilModelCollectionSourcePath);
+            }
+
+            string surfaceLineCollectionSourcePath = metaEntity.SurfaceLineCollectionSourcePath;
+            if (surfaceLineCollectionSourcePath != null)
+            {
+                failureMechanism.SurfaceLines.AddRange(entity.SurfaceLineEntities
+                                                             .OrderBy(sl => sl.Order)
+                                                             .Select(e => e.ReadAsMacroStabilityInwardsSurfaceLine(collector))
+                                                             .ToArray(),
+                                                       surfaceLineCollectionSourcePath);
+            }
+
             entity.ReadMacroStabilityInwardsMechanismSectionResults(failureMechanism, collector);
         }
 

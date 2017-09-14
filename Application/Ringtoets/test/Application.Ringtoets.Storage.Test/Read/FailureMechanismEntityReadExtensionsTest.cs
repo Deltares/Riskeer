@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -38,6 +39,8 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.StabilityPointStructures.Data;
@@ -226,7 +229,23 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region Piping
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithoutFailureMechanism_ThrowsArgumentNullException()
+        public void ReadAsPipingFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsPipingFailureMechanism(failureMechanism,
+                                                                                                   collector);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", parameter);
+        }
+
+        [Test]
+        public void ReadAsPipingFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
@@ -240,7 +259,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        public void ReadAsPipingFailureMechanism_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
@@ -254,11 +273,11 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ReadAsPipingFailureMechanism_WithCollector_ReturnsNewPipingFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsPipingFailureMechanism_WithProperties_SetsPipingFailureMechanismWithProperties()
         {
             // Setup
+            var random = new Random(31);
+            bool isRelevant = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
@@ -270,8 +289,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        A = 0.95,
-                        WaterVolumetricWeight = 5.48
+                        A = random.NextDouble(),
+                        WaterVolumetricWeight = random.NextDouble()
                     }
                 }
             };
@@ -293,14 +312,15 @@ namespace Application.Ringtoets.Storage.Test.Read
             PipingFailureMechanismMetaEntity[] pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
             PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
-            Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight.Value);
+            Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight,
+                            failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
 
             Assert.IsNull(pipingFailureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(pipingFailureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        public void ReadAsPipingFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_SetsFailureMechanismSourcePath()
         {
             // Setup
             const string sourcePath = "some/Path";
@@ -328,7 +348,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_ReturnsNewPipingFailureMechanismWithStochasticSoilModelsSet()
+        public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_SetsPipingFailureMechanismWithStochasticSoilModels()
         {
             // Setup
             string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
@@ -376,7 +396,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithoutSurfaceLinesWithSourcePath_ReturnsFailureMechanismWithSourcePathSet()
+        public void ReadAsPipingFailureMechanism_WithoutSurfaceLinesWithSourcePath_SetsFailureMechanismSourcePath()
         {
             // Setup
             const string sourcePath = "some/path";
@@ -404,7 +424,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithSurfaceLines_ReturnsNewPipingFailureMechanismWithSurfaceLinesSet()
+        public void ReadAsPipingFailureMechanism_WithSurfaceLines_SetsPipingFailureMechanismSurfaceLines()
         {
             // Setup
             string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
@@ -452,7 +472,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithSectionsSet_ReturnsNewPipingFailureMechanismWithFailureMechanismSectionsSet()
+        public void ReadAsPipingFailureMechanism_WithSectionsSet_SetsPipingFailureMechanismWithFailureMechanismSections()
         {
             // Setup
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
@@ -484,7 +504,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithCalculationGroup_ReturnsNewPipingFailureMechanismWithCalculationGroupSet()
+        public void ReadAsPipingFailureMechanism_WithCalculationGroup_SetsPipingFailureMechanismCalculationGroup()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -526,6 +546,308 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism,
+                                                                                                                  collector);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", parameter);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", parameter);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(new MacroStabilityInwardsFailureMechanism(), null);
+
+            // Assert 
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("collector", parameter);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithPropertiesSet_SetsMacroStabilityInwardsFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool isRelevant = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = "Some input text",
+                OutputComments = "Some output text",
+                NotRelevantComments = "Really not relevant",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                MacroStabilityInwardsFailureMechanismMetaEntities = new[]
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        A = random.NextDouble(),
+                        SectionLength = random.NextDouble()
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
+            Assert.AreEqual(metaEntity.SectionLength, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+
+            Assert.IsNull(metaEntity.StochasticSoilModelCollectionSourcePath);
+            Assert.IsNull(metaEntity.SurfaceLineCollectionSourcePath);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithNullPropertiesSet_SetsMacroStabilityInwardsFailureMechanismPropertiesToNaN()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                MacroStabilityInwardsFailureMechanismMetaEntities = new[]
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+
+            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
+            Assert.IsNaN(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_FailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string sourcePath = "some/Path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        StochasticSoilModelCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = failureMechanism.StochasticSoilModels;
+            Assert.AreEqual(sourcePath, stochasticSoilModels.SourcePath);
+            CollectionAssert.IsEmpty(stochasticSoilModels);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithStochasticSoilModelsSet_MacroStabilityInwardsFailureMechanismWithStochasticSoilModelsSet()
+        {
+            // Setup
+            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            const string sourcePath = "some/Path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StochasticSoilModelEntities =
+                {
+                    new StochasticSoilModelEntity
+                    {
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml,
+                        Name = "A",
+                        Order = 1
+                    },
+                    new StochasticSoilModelEntity
+                    {
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml,
+                        Name = "B",
+                        Order = 0
+                    }
+                },
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        StochasticSoilModelCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(sourcePath, failureMechanism.StochasticSoilModels.SourcePath);
+            CollectionAssert.AreEqual(new[]
+            {
+                "B",
+                "A"
+            }, failureMechanism.StochasticSoilModels.Select(s => s.Name));
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutSurfaceLinesWithSourcePath_FailureMechanismWithSourcePathSet()
+        {
+            // Setup
+            const string sourcePath = "some/path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        SurfaceLineCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            MacroStabilityInwardsSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
+            Assert.AreEqual(sourcePath, surfaceLines.SourcePath);
+            CollectionAssert.IsEmpty(surfaceLines);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithSurfaceLines_MacroStabilityInwardsFailureMechanismWithSurfaceLinesSet()
+        {
+            // Setup
+            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            const string sourcePath = "some/path";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                SurfaceLineEntities =
+                {
+                    new SurfaceLineEntity
+                    {
+                        PointsXml = emptyPointsXml,
+                        Name = "1",
+                        Order = 1
+                    },
+                    new SurfaceLineEntity
+                    {
+                        PointsXml = emptyPointsXml,
+                        Name = "2",
+                        Order = 0
+                    }
+                },
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        SurfaceLineCollectionSourcePath = sourcePath
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+            Assert.AreEqual(sourcePath, failureMechanism.SurfaceLines.SourcePath);
+            CollectionAssert.AreEqual(new[]
+            {
+                "2",
+                "1"
+            }, failureMechanism.SurfaceLines.Select(sl => sl.Name));
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithSectionsSet_MacroStabilityInwardsFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
         }
 
         #endregion

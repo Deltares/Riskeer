@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
+        public void Create_WithoutAllPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
         {
             // Setup
             var random = new Random(31);
@@ -86,10 +86,56 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
-            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.ToArray()[0];
+            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.B, failureMechanismMetaEntity.B);
             Assert.IsNull(failureMechanismMetaEntity.SectionLength);
+            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
+            Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+        }
+
+        [Test]
+        public void Create_WithPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
+        {
+            // Setup
+            var random = new Random(31);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
+            {
+                IsRelevant = random.NextBoolean(),
+                InputComments =
+                {
+                    Body = "Some input text"
+                },
+                OutputComments =
+                {
+                    Body = "Some output text"
+                },
+                NotRelevantComments =
+                {
+                    Body = "Really not relevant"
+                },
+                MacroStabilityInwardsProbabilityAssessmentInput =
+                {
+                    A = random.NextDouble(),
+                    SectionLength = random.NextDouble()
+                }
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual((short) FailureMechanismType.MacroStabilityInwards, entity.FailureMechanismType);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
+            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
+            MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength, failureMechanismMetaEntity.SectionLength);
             Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }

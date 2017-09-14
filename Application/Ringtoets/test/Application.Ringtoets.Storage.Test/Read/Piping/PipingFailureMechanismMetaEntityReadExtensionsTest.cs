@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -30,37 +32,93 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     public class PipingFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadPipingProbabilityAssessmentInput_Always_ReturnsNewPipingProbabilityAssessmentInputWithPropertiesSet()
+        public void ReadPipingProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new PipingFailureMechanismMetaEntity
-            {
-                A = 0.95
-            };
-            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
+            var input = new PipingProbabilityAssessmentInput();
 
             // Call
-            entity.ReadProbabilityAssessmentInput(pipingProbabilityAssessmentInput);
+            TestDelegate test = () => ((PipingFailureMechanismMetaEntity)null).ReadProbabilityAssessmentInput(input);
 
             // Assert
-            Assert.AreEqual(entity.A, pipingProbabilityAssessmentInput.A);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
         }
 
         [Test]
-        public void ReadGeneralPipingInput_Always_ReturnsNewGeneralPipingInputWithPropertiesSet()
+        public void ReadPipingProbabilityAssessmentInput_PipingProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new PipingFailureMechanismMetaEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadProbabilityAssessmentInput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadPipingProbabilityAssessmentInput_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
         {
             // Setup
             var entity = new PipingFailureMechanismMetaEntity
             {
-                WaterVolumetricWeight = 5.39
+                A = new Random(31).NextDouble()
             };
-            var generalInput = new GeneralPipingInput();
+            var input = new PipingProbabilityAssessmentInput();
 
             // Call
-            entity.ReadGeneralPipingInput(generalInput);
+            entity.ReadProbabilityAssessmentInput(input);
 
             // Assert
-            Assert.AreEqual(entity.WaterVolumetricWeight, generalInput.WaterVolumetricWeight.Value);
+            Assert.AreEqual(entity.A, input.A);
+        }
+
+        [Test]
+        public void ReadGeneralPipingInput_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new GeneralPipingInput();
+
+            // Call
+            TestDelegate test = () => ((PipingFailureMechanismMetaEntity)null).ReadGeneralPipingInput(input);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadGeneralPipingInput_GeneralPipingInputInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new PipingFailureMechanismMetaEntity();
+
+            // Call
+            TestDelegate test = () => entity.ReadGeneralPipingInput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadGeneralPipingInput_ValidParameters_SetGeneralPipingInputWithProperties()
+        {
+            // Setup
+            var entity = new PipingFailureMechanismMetaEntity
+            {
+                WaterVolumetricWeight = new Random(31).NextDouble()
+            };
+            var input = new GeneralPipingInput();
+
+            // Call
+            entity.ReadGeneralPipingInput(input);
+
+            // Assert
+            Assert.AreEqual(entity.WaterVolumetricWeight, input.WaterVolumetricWeight, input.WaterVolumetricWeight.GetAccuracy());
         }
     }
 }

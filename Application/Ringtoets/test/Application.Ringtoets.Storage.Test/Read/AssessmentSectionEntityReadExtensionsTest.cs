@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -220,13 +221,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithPipingFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInPipingFailureMechanism(bool isRelevant)
+        public void Read_WithPipingFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInPipingFailureMechanism()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
             double parameterA = random.NextDouble() / 10;
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
@@ -434,6 +434,187 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
+        }
+
+        [Test]
+        public void Read_WithMacroStabilityInwardsFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInMacroStabilityInwardsFailureMechanism()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double parameterA = random.NextDouble();
+            double parameterSectionLength = random.NextDouble();
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        A = parameterA,
+                        SectionLength = parameterSectionLength
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.MacroStabilityInwards.IsRelevant);
+            Assert.AreEqual(inputComments, section.MacroStabilityInwards.InputComments.Body);
+            Assert.AreEqual(outputComments, section.MacroStabilityInwards.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.MacroStabilityInwards.NotRelevantComments.Body);
+
+            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityInwards
+                                                                                                .MacroStabilityInwardsProbabilityAssessmentInput;
+            Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
+            Assert.AreEqual(parameterSectionLength, probabilityAssessmentInput.SectionLength);
+        }
+
+        [Test]
+        public void Read_WithMacroStabilityInwardsWithStochasticSoilModels_ReturnsMacroStabilityInwardsWithStochasticSoilModels()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+
+            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            const string stochasticSoilModelSourcePath = "path";
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StochasticSoilModelEntities =
+                {
+                    new StochasticSoilModelEntity
+                    {
+                        Name = "modelA",
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
+                    },
+                    new StochasticSoilModelEntity
+                    {
+                        Name = "modelB",
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
+                    }
+                },
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        StochasticSoilModelCollectionSourcePath = stochasticSoilModelSourcePath
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.MacroStabilityInwards.StochasticSoilModels.Count);
+            Assert.AreEqual(stochasticSoilModelSourcePath, section.MacroStabilityInwards.StochasticSoilModels.SourcePath);
+        }
+
+        [Test]
+        public void Read_WithMacroStabilityInwardsWithSurfaceLines_ReturnsMacroStabilityInwardsWithSurfaceLines()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+
+            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            const string surfaceLineSourcePath = "some/path";
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                SurfaceLineEntities =
+                {
+                    new SurfaceLineEntity
+                    {
+                        PointsXml = emptyPointsXml,
+                        Name = "Line A"
+                    },
+                    new SurfaceLineEntity
+                    {
+                        PointsXml = emptyPointsXml,
+                        Name = "Line B"
+                    }
+                },
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity
+                    {
+                        SurfaceLineCollectionSourcePath = surfaceLineSourcePath
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.MacroStabilityInwards.SurfaceLines.Count);
+            Assert.AreEqual(surfaceLineSourcePath, section.MacroStabilityInwards.SurfaceLines.SourcePath);
+        }
+
+        [Test]
+        public void Read_WithMacroStabilityInwardsWithFailureMechanismSections_ReturnsMacroStabilityInwardsWithFailureMechanismSections()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
+                MacroStabilityInwardsFailureMechanismMetaEntities =
+                {
+                    new MacroStabilityInwardsFailureMechanismMetaEntity()
+                }
+            };
+            FailureMechanismSectionEntity sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
+            FailureMechanismSectionEntity sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
+            sectionA.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
+            {
+                FailureMechanismSectionEntity = sectionA
+            });
+            sectionB.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
+            {
+                FailureMechanismSectionEntity = sectionB
+            });
+
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.MacroStabilityInwards.Sections.Count());
         }
 
         [Test]
@@ -1170,31 +1351,42 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithStandAloneFailureMechanisms_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
+        public void Read_WithStandAloneFailureMechanisms_ReturnsNewAssessmentSectionWithFailureMechanismsSet()
         {
             // Setup
+            var random = new Random(31);
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            FailureMechanismEntity macroStabilityInwards = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.MacroStabilityInwards);
-            FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.MacrostabilityOutwards);
-            FailureMechanismEntity microstability = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.Microstability);
-            FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.StrengthAndStabilityParallelConstruction);
-            FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.WaterOverpressureAsphaltRevetment);
-            FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.GrassRevetmentSlidingOutwards);
-            FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.GrassRevetmentSlidingInwards);
-            FailureMechanismEntity technicalInnovations = CreateFailureMechanismEntity(
-                isRelevant, FailureMechanismType.TechnicalInnovations);
+            bool macrostabilityOutwardsIsRelevant = random.NextBoolean();
+            bool microstabilityIsRelevant = random.NextBoolean();
+            bool strengthAndStabilityParallelConstructionIsRelevant = random.NextBoolean();
+            bool waterOverpressureAsphaltRevetmentIsRelevant = random.NextBoolean();
+            bool grassRevetmentSlidingOutwardsIsRelevant = random.NextBoolean();
+            bool grassRevetmentSlidingInwardsIsRelevant = random.NextBoolean();
+            bool technicalInnovationsIsRelevant = random.NextBoolean();
 
-            entity.FailureMechanismEntities.Add(macroStabilityInwards);
+            FailureMechanismEntity macrostabilityOutwards = CreateFailureMechanismEntity(
+                macrostabilityOutwardsIsRelevant,
+                FailureMechanismType.MacrostabilityOutwards);
+            FailureMechanismEntity microstability = CreateFailureMechanismEntity(
+                microstabilityIsRelevant,
+                FailureMechanismType.Microstability);
+            FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
+                strengthAndStabilityParallelConstructionIsRelevant,
+                FailureMechanismType.StrengthAndStabilityParallelConstruction);
+            FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
+                waterOverpressureAsphaltRevetmentIsRelevant,
+                FailureMechanismType.WaterOverpressureAsphaltRevetment);
+            FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
+                grassRevetmentSlidingOutwardsIsRelevant,
+                FailureMechanismType.GrassRevetmentSlidingOutwards);
+            FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
+                grassRevetmentSlidingInwardsIsRelevant,
+                FailureMechanismType.GrassRevetmentSlidingInwards);
+            FailureMechanismEntity technicalInnovations = CreateFailureMechanismEntity(
+                technicalInnovationsIsRelevant,
+                FailureMechanismType.TechnicalInnovations);
+
             entity.FailureMechanismEntities.Add(macrostabilityOutwards);
             entity.FailureMechanismEntities.Add(microstability);
             entity.FailureMechanismEntities.Add(strengthAndStabilityParallelConstruction);
@@ -1210,27 +1402,41 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            AssertFailureMechanismEqual(isRelevant, 2, macroStabilityInwards.InputComments,
-                                        macroStabilityInwards.OutputComments, macroStabilityInwards.NotRelevantComments,
-                                        section.MacroStabilityInwards);
-            AssertFailureMechanismEqual(isRelevant, 2, macrostabilityOutwards.InputComments,
-                                        macrostabilityOutwards.OutputComments, macrostabilityOutwards.NotRelevantComments,
+            AssertFailureMechanismEqual(macrostabilityOutwardsIsRelevant,
+                                        2,
+                                        macrostabilityOutwards.InputComments,
+                                        macrostabilityOutwards.OutputComments,
+                                        macrostabilityOutwards.NotRelevantComments,
                                         section.MacrostabilityOutwards);
-            AssertFailureMechanismEqual(isRelevant, 2, microstability.InputComments,
-                                        microstability.OutputComments, microstability.NotRelevantComments, section.Microstability);
-            AssertFailureMechanismEqual(isRelevant, 2, strengthAndStabilityParallelConstruction.InputComments,
+            AssertFailureMechanismEqual(microstabilityIsRelevant,
+                                        2,
+                                        microstability.InputComments,
+                                        microstability.OutputComments,
+                                        microstability.NotRelevantComments,
+                                        section.Microstability);
+            AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionIsRelevant,
+                                        2,
+                                        strengthAndStabilityParallelConstruction.InputComments,
                                         strengthAndStabilityParallelConstruction.OutputComments,
                                         strengthAndStabilityParallelConstruction.NotRelevantComments,
                                         section.StrengthStabilityLengthwiseConstruction);
-            AssertFailureMechanismEqual(isRelevant, 2, waterOverpressureAsphaltRevetment.InputComments,
+            AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentIsRelevant,
+                                        2,
+                                        waterOverpressureAsphaltRevetment.InputComments,
                                         waterOverpressureAsphaltRevetment.OutputComments,
                                         waterOverpressureAsphaltRevetment.NotRelevantComments,
                                         section.WaterPressureAsphaltCover);
-            AssertFailureMechanismEqual(isRelevant, 2, grassRevetmentSlidingOutwards.InputComments,
-                                        grassRevetmentSlidingOutwards.OutputComments, grassRevetmentSlidingOutwards.NotRelevantComments,
+            AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsIsRelevant,
+                                        2,
+                                        grassRevetmentSlidingOutwards.InputComments,
+                                        grassRevetmentSlidingOutwards.OutputComments,
+                                        grassRevetmentSlidingOutwards.NotRelevantComments,
                                         section.GrassCoverSlipOffOutwards);
-            AssertFailureMechanismEqual(isRelevant, 2, technicalInnovations.InputComments,
-                                        technicalInnovations.OutputComments, technicalInnovations.NotRelevantComments,
+            AssertFailureMechanismEqual(technicalInnovationsIsRelevant,
+                                        2,
+                                        technicalInnovations.InputComments,
+                                        technicalInnovations.OutputComments,
+                                        technicalInnovations.NotRelevantComments,
                                         section.TechnicalInnovation);
         }
 

@@ -1569,9 +1569,18 @@ SELECT
 	LEFT JOIN [SOURCEPROJECT].ForeshoreProfileEntity USING (FailureMechanismEntityID)
 	WHERE FailureMechanismType = 3
 	GROUP BY FailureMechanismEntityID;
+
 /*
 Insert new data
 */
+INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity (
+		[FailureMechanismEntityId], 
+		[A],
+		[B])
+SELECT FailureMechanismEntityId,
+		0.033,
+		50.0
+		FROM FailureMechanismEntity WHERE FailureMechanismType = 2;
 
 /* 
 Write migration logging 
