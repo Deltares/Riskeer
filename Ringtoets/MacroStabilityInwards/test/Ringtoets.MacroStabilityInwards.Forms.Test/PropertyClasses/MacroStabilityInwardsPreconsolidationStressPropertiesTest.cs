@@ -104,5 +104,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Grensspanning op de aangegeven locatie.",
                 true);
         }
+
+        [Test]
+        public void ToString_Always_ReturnsEmptyString()
+        {
+            // Setup
+            var properties = new MacroStabilityInwardsPreconsolidationStressProperties(
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress());
+
+            // Call
+            string result = properties.ToString();
+
+            // Assert
+            Assert.IsEmpty(result);
+        }
     }
 }

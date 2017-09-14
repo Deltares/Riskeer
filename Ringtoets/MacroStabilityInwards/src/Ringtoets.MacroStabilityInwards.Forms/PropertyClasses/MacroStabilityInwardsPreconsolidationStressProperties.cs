@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -34,6 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsPreconsolidationStress"/> for properties panel.
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MacroStabilityInwardsPreconsolidationStressProperties : ObjectProperties<MacroStabilityInwardsPreconsolidationStress>
     {
         /// <summary>
@@ -89,6 +91,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 };
                 return new VariationCoefficientLogNormalDistributionProperties(variationCoefficientLogNormalDistribution);
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }

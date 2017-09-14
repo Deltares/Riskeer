@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                                       stressCoefficientOfVariation);
 
             // Assert
-            string expectedMessage = $"De waarde voor '{parameterName}' moet een concreet getal zijn.";
+            string expectedMessage = $"De waarde van parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -294,7 +294,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             double zCoordinate = random.NextDouble();
             double stressMean = random.NextDouble();
             double stressCoefficientOfVariation = random.NextDouble();
-            double stressShift = random.NextDouble();
 
             yield return new TestCaseData(double.NaN, zCoordinate, stressMean, stressCoefficientOfVariation, "X-coördinaat").SetName("Invalid XCoordinate");
             yield return new TestCaseData(xCoordinate, double.NaN, stressMean, stressCoefficientOfVariation, "Z-coördinaat").SetName("Invalid ZCoordinate");

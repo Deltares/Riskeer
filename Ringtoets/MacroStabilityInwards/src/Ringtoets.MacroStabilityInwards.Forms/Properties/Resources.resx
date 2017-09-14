@@ -544,4 +544,10 @@
   <data name="MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_DisplayName" xml:space="preserve">
     <value>Z [m+NAP]</value>
   </data>
+  <data name="PreconsolidationStresses_Description" xml:space="preserve">
+    <value>De grensspanningen in de ondergrondschematisatie.</value>
+  </data>
+  <data name="PreconsolidationStresses_DisplayName" xml:space="preserve">
+    <value>Grensspanningen</value>
+  </data>
 </root>

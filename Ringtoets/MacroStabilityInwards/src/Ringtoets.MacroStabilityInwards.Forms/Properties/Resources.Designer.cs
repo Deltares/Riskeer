@@ -1001,6 +1001,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De grensspanningen in de ondergrondschematisatie..
+        /// </summary>
+        public static string PreconsolidationStresses_Description {
+            get {
+                return ResourceManager.GetString("PreconsolidationStresses_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grensspanningen.
+        /// </summary>
+        public static string PreconsolidationStresses_DisplayName {
+            get {
+                return ResourceManager.GetString("PreconsolidationStresses_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eigenschappen van het rechter grid..
         /// </summary>
         public static string RightGrid_Description {

@@ -127,11 +127,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
             bool layers1DVisible = properties.DynamicVisibleValidationMethod("Layers1D");
             bool layers2DVisible = properties.DynamicVisibleValidationMethod("Layers2D");
+            bool preconsolidationStressesVisible = properties.DynamicVisibleValidationMethod("PresonsolidationStresses");
 
             // Assert
             Assert.IsTrue(bottomVisible);
             Assert.IsTrue(layers1DVisible);
             Assert.IsFalse(layers2DVisible);
+            Assert.IsFalse(preconsolidationStressesVisible);
         }
 
         [Test]
@@ -151,11 +153,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool bottomVisible = properties.DynamicVisibleValidationMethod("Bottom");
             bool layers1DVisible = properties.DynamicVisibleValidationMethod("Layers1D");
             bool layers2DVisible = properties.DynamicVisibleValidationMethod("Layers2D");
+            bool preconsolidationStressesVisible = properties.DynamicVisibleValidationMethod("PreconsolidationStresses");
 
             // Assert
             Assert.IsFalse(bottomVisible);
             Assert.IsFalse(layers1DVisible);
             Assert.IsTrue(layers2DVisible);
+            Assert.IsTrue(preconsolidationStressesVisible);
         }
 
         [Test]
@@ -244,7 +248,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -272,6 +276,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             generalCategoryName,
                                                                             "Type",
                                                                             "Het type van de ondergrondschematisatie.",
+                                                                            true);
+
+            PropertyDescriptor preconsolidationProperty = dynamicProperties[4];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(preconsolidationProperty,
+                                                                            generalCategoryName,
+                                                                            "Grensspanningen",
+                                                                            "De grensspanningen in de ondergrondschematisatie.",
                                                                             true);
         }
 
@@ -332,13 +343,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
             MacroStabilityInwardsSoilLayer2D layerTwo = CreateMacroStabilityInwardsSoilLayer2D();
-            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = new[]
+            var layers = new[]
             {
                 layerOne,
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            var stresses = new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
+            };
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers, stresses);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call
@@ -348,7 +364,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(soilProfile.Name, properties.Name);
             Assert.AreEqual(soilProfile.Name, properties.ToString());
 
-            Assert.AreEqual(2, properties.Layers2D.Length);
+            Assert.AreEqual(layers.Length, properties.Layers2D.Length);
             Assert.AreSame(layerOne, properties.Layers2D[0].Data);
             Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
 
@@ -357,6 +373,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("2D profiel", properties.Type);
+
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilProfileProperties.PreconsolidationStresses));
+            Assert.AreEqual(stresses.Length, properties.PreconsolidationStresses.Length);
+            Assert.AreSame(stresses[0], properties.PreconsolidationStresses[0].Data);
         }
 
         private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
