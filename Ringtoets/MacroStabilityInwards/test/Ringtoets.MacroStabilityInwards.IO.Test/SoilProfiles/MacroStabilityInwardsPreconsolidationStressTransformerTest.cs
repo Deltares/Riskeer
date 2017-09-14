@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            string expectedMessage = $"De waarde voor '{parameterName}' moet een concreet getal zijn.";
+            string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.AreEqual($"Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
+            Assert.AreEqual("Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
         }
 
         private static IEnumerable<TestCaseData> GetInvalidStochastConfiguration()

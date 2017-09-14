@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                                       stressCoefficientOfVariation);
 
             // Assert
-            string expectedMessage = $"De waarde van parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
+            string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
