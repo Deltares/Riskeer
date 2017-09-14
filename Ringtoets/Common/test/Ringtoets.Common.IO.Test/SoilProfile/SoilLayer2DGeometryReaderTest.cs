@@ -295,6 +295,89 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(result.OuterLoop.ElementAt(0), result.OuterLoop.ElementAt(1));
         }
 
+        [Test]
+        public void Read_XmlDocumentSegmentsNotSubsequentAndReversed_ReturnsSegmentsSubsequentInSameDirection()
+        {
+            // Setup
+            XDocument xmlDoc = GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>2.92</Z></HeadPoint><EndPoint><X>0</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>2.92</Z></HeadPoint><EndPoint><X>42</X><Y>0</Y><Z>3.23</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>111</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>42</X><Y>0</Y><Z>3.23</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(xmlDoc);
+
+            // Assert
+            Assert.NotNull(result);
+            var expectedSegments = new[]
+            {
+                new Segment2D(new Point2D(0, 1.25), new Point2D(111, 1.25)),
+                new Segment2D(new Point2D(111, 1.25), new Point2D(42, 3.23)),
+                new Segment2D(new Point2D(42, 3.23), new Point2D(0, 2.92)),
+                new Segment2D(new Point2D(0, 2.92), new Point2D(0, 1.25))
+            };
+
+            CollectionAssert.AreEqual(expectedSegments, result.OuterLoop);
+        }
+
+        [Test]
+        public void Read_XmlDocumentOneSegment_ThrowSoilLayerConversionException()
+        {
+            // Setup
+            XDocument xmlDoc = GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
+        }
+
+        [Test]
+        public void Read_XmlDocumentSegmentsNotConnected_ThrowSoilLayerConversionException()
+        {
+            // Setup
+            XDocument xmlDoc = GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>2.92</Z></HeadPoint><EndPoint><X>42</X><Y>0</Y><Z>3.23</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
+        }
+
         private static void Read_XmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint()
         {
             // Setup

@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -174,14 +174,52 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// XML for any geometry curve is invalid.</exception>
         private static IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
         {
-            var loops = new Collection<Segment2D>();
             IEnumerable<XElement> curves = loop.XPathSelectElements($".//{geometryCurveElementName}");
+            return SortCurves(curves.Select(ParseGeometryCurve).ToArray());
+        }
 
-            foreach (XElement curve in curves)
+        private static IEnumerable<Segment2D> SortCurves(Segment2D[] curves)
+        {
+            if (!curves.Any())
             {
-                loops.Add(ParseGeometryCurve(curve));
+                yield break;
             }
-            return loops;
+
+            Segment2D firstCurve = curves.First();
+            yield return firstCurve;
+
+            Point2D startPoint = firstCurve.FirstPoint;
+            Segment2D currentCurve = firstCurve;
+            Point2D currentPoint = currentCurve.SecondPoint;
+
+            List<Segment2D> availableCurves = curves.ToList();
+            availableCurves.Remove(firstCurve);
+            while (!Equals(currentPoint, startPoint))
+            {
+                if (!availableCurves.Any())
+                {
+                    throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
+                }
+
+                Segment2D nextCurve = availableCurves.FirstOrDefault(c => !ReferenceEquals(c, currentCurve)
+                                                                          && (Equals(c.FirstPoint, currentPoint)
+                                                                              || Equals(c.SecondPoint, currentPoint)));
+
+                if (nextCurve == null)
+                {
+                    throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
+                }
+
+                availableCurves.Remove(nextCurve);
+
+                currentCurve = Equals(nextCurve.FirstPoint, currentPoint)
+                                   ? nextCurve
+                                   : new Segment2D(nextCurve.SecondPoint, nextCurve.FirstPoint);
+
+                yield return currentCurve;
+
+                currentPoint = currentCurve.SecondPoint;
+            }
         }
 
         /// <summary>
