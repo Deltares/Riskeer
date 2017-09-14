@@ -1575,11 +1575,9 @@ Insert new data
 */
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity (
 	[FailureMechanismEntityId], 
-	[A],
-	[B])
+	[A])
 SELECT FailureMechanismEntityId,
-	0.033,
-	50.0
+	0.033
 	FROM FailureMechanismEntity WHERE FailureMechanismType = 2;
 
 /* 

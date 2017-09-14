@@ -683,7 +683,6 @@
           <Property Name="MacroStabilityInwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="A" Type="real" Nullable="false" />
-          <Property Name="B" Type="real" Nullable="false" />
           <Property Name="SectionLength" Type="real" />
           <Property Name="StochasticSoilModelCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SurfaceLineCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
@@ -4832,7 +4831,6 @@
           <Property Name="MacroStabilityInwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="A" Type="Double" Nullable="false" />
-          <Property Name="B" Type="Double" Nullable="false" />
           <Property Name="SectionLength" Type="Double" />
           <Property Name="StochasticSoilModelCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SurfaceLineCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -7701,7 +7699,6 @@
                 <ScalarProperty Name="SurfaceLineCollectionSourcePath" ColumnName="SurfaceLineCollectionSourcePath" />
                 <ScalarProperty Name="StochasticSoilModelCollectionSourcePath" ColumnName="StochasticSoilModelCollectionSourcePath" />
                 <ScalarProperty Name="SectionLength" ColumnName="SectionLength" />
-                <ScalarProperty Name="B" ColumnName="B" />
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsFailureMechanismMetaEntityId" ColumnName="MacroStabilityInwardsFailureMechanismMetaEntityId" />
