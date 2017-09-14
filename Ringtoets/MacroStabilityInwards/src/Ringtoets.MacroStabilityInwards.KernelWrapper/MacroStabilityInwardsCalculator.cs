@@ -22,12 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
@@ -40,7 +37,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     {
         private readonly MacroStabilityInwardsCalculatorInput input;
         private readonly IMacroStabilityInwardsSubCalculatorFactory factory;
-        private GeometryData geometryData;
 
         /// <summary>
         /// Constructs a new <see cref="MacroStabilityInwardsCalculator"/>. The <paramref name="input"/> is used to
@@ -75,11 +71,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             return new MacroStabilityInwardsCalculatorResult();
         }
 
+        /// <summary>
+        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="MacroStabilityInwardsCalculatorInput"/>
+        /// which was provided to this <see cref="MacroStabilityInwardsCalculator"/> and are determined by the kernel.
+        /// </summary>
+        public List<string> Validate()
+        {
+            return new List<string>();
+        }
+
         private IUpliftVanCalculator CalculateUpliftVan()
         {
             IUpliftVanCalculator upliftVanCalculator = CreateUpliftVanCalculator();
-            
-            upliftVanCalculator.Calculate();
+
+            try
+            {
+                upliftVanCalculator.Calculate();
+            }
+            catch (Exception e)
+            {
+                // Temporary do nothing
+            }
 
             return upliftVanCalculator;
         }
@@ -108,16 +120,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             calculator.GridAutomaticDetermined = input.GridAutomaticDetermined;
             calculator.CreateZones = input.CreateZones;
             calculator.AutomaticForbidenZones = input.AutomaticForbiddenZones;
+            calculator.SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth;
+            calculator.SlipPlaneMinimumLength = input.SlipPlaneMinimumLength;
             return calculator;
-        }
-
-        /// <summary>
-        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="MacroStabilityInwardsCalculatorInput"/>
-        /// which was provided to this <see cref="MacroStabilityInwardsCalculator"/> and are determined by the kernel.
-        /// </summary>
-        public List<string> Validate()
-        {
-            return new List<string>();
         }
     }
 }

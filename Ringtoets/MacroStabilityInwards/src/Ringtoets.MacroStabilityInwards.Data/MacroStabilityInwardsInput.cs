@@ -71,9 +71,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
             assessmentLevel = new RoundedDouble(2, double.NaN);
             useAssessmentLevelManualInput = false;
 
-            slipPlaneMinimumDepth = new RoundedDouble(2, 10);
-            slipPlaneMinimumLength = new RoundedDouble(2, 30);
-            maximumSliceWidth = new RoundedDouble(2, 5);
+            slipPlaneMinimumDepth = new RoundedDouble(2);
+            slipPlaneMinimumLength = new RoundedDouble(2);
+            maximumSliceWidth = new RoundedDouble(2, 1);
 
             MoveGrid = true;
             DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;

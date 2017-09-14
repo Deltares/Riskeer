@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
@@ -167,17 +166,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 
         public void Calculate()
         {
-            try
-            {
-                wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
+            wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
 
-                string messages = wrappedCalculator.Validate();
-                string result = wrappedCalculator.Run();
-            }
-            catch (Exception e)
-            {
-                // Do nothing
-            }
+            string messages = wrappedCalculator.Validate();
+            string result = wrappedCalculator.Run();
+
+            StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);
         }
     }
 }

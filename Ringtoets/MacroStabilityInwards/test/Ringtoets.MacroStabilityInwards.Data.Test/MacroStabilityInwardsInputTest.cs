@@ -57,13 +57,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
 
-            Assert.AreEqual(10, inputParameters.SlipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
+            Assert.AreEqual(0, inputParameters.SlipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(2, inputParameters.SlipPlaneMinimumDepth.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(30, inputParameters.SlipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength.GetAccuracy());
+            Assert.AreEqual(0, inputParameters.SlipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength.GetAccuracy());
             Assert.AreEqual(2, inputParameters.SlipPlaneMinimumLength.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(5, inputParameters.MaximumSliceWidth, inputParameters.MaximumSliceWidth.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.MaximumSliceWidth, inputParameters.MaximumSliceWidth.GetAccuracy());
             Assert.AreEqual(2, inputParameters.MaximumSliceWidth.NumberOfDecimalPlaces);
 
             Assert.IsTrue(inputParameters.MoveGrid);
