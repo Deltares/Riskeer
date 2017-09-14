@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             if (entity.SurfaceLineEntity != null)
             {
-                inputParameters.SurfaceLine = entity.SurfaceLineEntity.Read(collector);
+                inputParameters.SurfaceLine = entity.SurfaceLineEntity.ReadAsPipingSurfaceLine(collector);
             }
 
             inputParameters.UseAssessmentLevelManualInput = Convert.ToBoolean(entity.UseAssessmentLevelManualInput);

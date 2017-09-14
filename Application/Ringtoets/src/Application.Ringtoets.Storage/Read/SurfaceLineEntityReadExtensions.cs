@@ -25,6 +25,7 @@ using System.ComponentModel;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read
@@ -43,15 +44,20 @@ namespace Application.Ringtoets.Storage.Read
         /// <see cref="PipingSurfaceLine"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingSurfaceLine"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        public static PipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
+        public static PipingSurfaceLine ReadAsPipingSurfaceLine(this SurfaceLineEntity entity, ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.ContainsPipingSurfaceLine(entity))
             {
                 return collector.GetPipingSurfaceLine(entity);
@@ -63,18 +69,17 @@ namespace Application.Ringtoets.Storage.Read
                     entity.ReferenceLineIntersectionX.ToNullAsNaN(),
                     entity.ReferenceLineIntersectionY.ToNullAsNaN())
             };
-            entity.ReadSurfaceLineGeometryAndCharacteristicPoints(surfaceLine);
+
+            surfaceLine.SetGeometry(ReadGeometryPoints(entity));
+            entity.ReadCharacteristicPoints(surfaceLine);
 
             collector.Read(entity, surfaceLine);
 
             return surfaceLine;
         }
 
-        private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, PipingSurfaceLine surfaceLine)
+        private static void ReadCharacteristicPoints(this SurfaceLineEntity entity, PipingSurfaceLine surfaceLine)
         {
-            Point3D[] geometryPoints = new Point3DXmlSerializer().FromXml(entity.PointsXml);
-            surfaceLine.SetGeometry(geometryPoints);
-
             var characteristicPoints = new Dictionary<PipingCharacteristicPointType, Point3D>();
             foreach (PipingCharacteristicPointEntity pointEntity in entity.PipingCharacteristicPointEntities)
             {
@@ -82,13 +87,18 @@ namespace Application.Ringtoets.Storage.Read
                                                                                                      pointEntity.Y.ToNullAsNaN(),
                                                                                                      pointEntity.Z.ToNullAsNaN());
             }
-            foreach (KeyValuePair<PipingCharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
-            {
-                SetCharacteristicPoint(surfaceLine, keyValuePair.Key, keyValuePair.Value);
-            }
+
+            characteristicPoints.ForEachElementDo(cp => SetCharacteristicPoint(surfaceLine, cp.Key, cp.Value));
         }
 
-        private static void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, PipingCharacteristicPointType type, Point3D geometryPoint)
+        private static IEnumerable<Point3D> ReadGeometryPoints(SurfaceLineEntity entity)
+        {
+            return new Point3DXmlSerializer().FromXml(entity.PointsXml);
+        }
+
+        private static void SetCharacteristicPoint(PipingSurfaceLine surfaceLine,
+                                                   PipingCharacteristicPointType type,
+                                                   Point3D geometryPoint)
         {
             switch (type)
             {

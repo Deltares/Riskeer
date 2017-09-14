@@ -34,44 +34,37 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class SurfaceLineEntityReadExtensionsTest
     {
         [Test]
-        public void Read_ReadConversionCollectorIsNull_ThrowArgumentNullException()
+        public void ReadAsPipingSurfaceLine_CollectorNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new SurfaceLineEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            TestDelegate call = () => entity.ReadAsPipingSurfaceLine(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
-        public void Read_EntityNotReadBefore_EntityRegistered()
+        public void ReadAsPipingSurfaceLine_EntityNull_ThrowArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
-            var entity = new SurfaceLineEntity
-            {
-                Name = "surface line",
-                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
-            };
-
-            // Precondition
-            Assert.IsFalse(collector.ContainsPipingSurfaceLine(entity));
-
             // Call
-            entity.Read(collector);
+            TestDelegate call = () => ((SurfaceLineEntity) null).ReadAsPipingSurfaceLine(collector);
 
             // Assert
-            Assert.IsTrue(collector.ContainsPipingSurfaceLine(entity));
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
         }
 
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void Read_PointsXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void ReadAsPipingSurfaceLine_PointsXmlNullOrEmpty_ThrowsArgumentException(string xml)
         {
             var entity = new SurfaceLineEntity
             {
@@ -80,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            TestDelegate call = () => entity.Read(new ReadConversionCollector());
+            TestDelegate call = () => entity.ReadAsPipingSurfaceLine(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -88,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityWithoutGeometryPointEntities_ReturnSurfaceLine()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithoutGeometryPointEntities_ReturnSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -106,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            PipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.ReadAsPipingSurfaceLine(collector);
 
             // Assert
             Assert.AreEqual(name, surfaceLine.Name);
@@ -124,37 +117,34 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityWithGeometryPointEntitiesButNoCharacteristicPoints_ReturnSurfaceLineGeometry()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithGeometryPointEntitiesButNoCharacteristicPoints_ReturnSurfaceLineWithGeometry()
         {
             // Setup
             var collector = new ReadConversionCollector();
-
-            const string name = "Better name.";
-            const double intersectionX = 3.4;
-            const double intersectionY = 7.5;
+            var random = new Random(31);
 
             var points = new[]
             {
-                new Point3D(1.1, 2.2, 3.3),
-                new Point3D(4.4, 5.5, 6.6),
-                new Point3D(7.7, 8.8, 9.9)
+                CreatePoint3D(random),
+                CreatePoint3D(random),
+                CreatePoint3D(random)
             };
 
             var entity = new SurfaceLineEntity
             {
-                Name = name,
-                ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY,
+                Name = nameof(SurfaceLineEntity),
+                ReferenceLineIntersectionX = random.NextDouble(),
+                ReferenceLineIntersectionY = random.NextDouble(),
                 PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
 
             // Call
-            PipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.ReadAsPipingSurfaceLine(collector);
 
             // Assert
-            Assert.AreEqual(name, surfaceLine.Name);
-            Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
-            Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
+            Assert.AreEqual(entity.Name, surfaceLine.Name);
+            Assert.AreEqual(entity.ReferenceLineIntersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
+            Assert.AreEqual(entity.ReferenceLineIntersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
             CollectionAssert.AreEqual(points, surfaceLine.Points);
 
@@ -167,48 +157,44 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityWithGeometryPointEntitiesAndCharacteristicPoints_ReturnFullSurfaceLine()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithGeometryPointEntitiesAndCharacteristicPoints_ReturnFullSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
-
-            const string name = "Better name.";
-            const double intersectionX = 3.4;
-            const double intersectionY = 7.5;
+            var random = new Random(31);
 
             var points = new[]
             {
-                new Point3D(1.1, 2.2, 3.3),
-                new Point3D(4.4, 5.5, 6.6),
-                new Point3D(7.7, 8.8, 9.9),
-                new Point3D(10.10, 11.11, 12.12),
-                new Point3D(13.13, 14.14, 15.15),
-                new Point3D(16.16, 17.17, 18.18),
-                new Point3D(19.19, 20.20, 21.21),
-                new Point3D(22.22, 23.23, 24.24)
+                CreatePoint3D(random),
+                CreatePoint3D(random),
+                CreatePoint3D(random),
+                CreatePoint3D(random),
+                CreatePoint3D(random),
+                CreatePoint3D(random),
+                CreatePoint3D(random)
             };
 
             var entity = new SurfaceLineEntity
             {
-                Name = name,
-                ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY,
+                Name = "Better name.",
+                ReferenceLineIntersectionX = random.NextDouble(),
+                ReferenceLineIntersectionY = random.NextDouble(),
                 PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[1], PipingCharacteristicPointType.BottomDitchDikeSide));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[2], PipingCharacteristicPointType.BottomDitchPolderSide));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[3], PipingCharacteristicPointType.DikeToeAtPolder));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[4], PipingCharacteristicPointType.DikeToeAtRiver));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[5], PipingCharacteristicPointType.DitchDikeSide));
-            entity.PipingCharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[6], PipingCharacteristicPointType.DitchPolderSide));
+            entity.PipingCharacteristicPointEntities.Add(CreatePipingCharacteristicPointEntity(points[1], PipingCharacteristicPointType.BottomDitchDikeSide));
+            entity.PipingCharacteristicPointEntities.Add(CreatePipingCharacteristicPointEntity(points[2], PipingCharacteristicPointType.BottomDitchPolderSide));
+            entity.PipingCharacteristicPointEntities.Add(CreatePipingCharacteristicPointEntity(points[3], PipingCharacteristicPointType.DikeToeAtPolder));
+            entity.PipingCharacteristicPointEntities.Add(CreatePipingCharacteristicPointEntity(points[4], PipingCharacteristicPointType.DikeToeAtRiver));
+            entity.PipingCharacteristicPointEntities.Add(CreatePipingCharacteristicPointEntity(points[5], PipingCharacteristicPointType.DitchDikeSide));
+            entity.PipingCharacteristicPointEntities.Add(CreatePipingCharacteristicPointEntity(points[6], PipingCharacteristicPointType.DitchPolderSide));
 
             // Call
-            PipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.ReadAsPipingSurfaceLine(collector);
 
             // Assert
-            Assert.AreEqual(name, surfaceLine.Name);
-            Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
-            Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
+            Assert.AreEqual(entity.Name, surfaceLine.Name);
+            Assert.AreEqual(entity.ReferenceLineIntersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
+            Assert.AreEqual(entity.ReferenceLineIntersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
             CollectionAssert.AreEqual(points, surfaceLine.Points);
 
@@ -221,84 +207,42 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityWithGeometryPointEntityMarkedForAllCharacteristicPoints_ReturnFullSurfaceLineWithCharacteristicPointsToOneGeometryPoint()
+        public void ReadAsPipingSurfaceLine_FullSurfaceLineEntity_ReturnFullSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
+            var random = new Random(31);
 
-            const string name = "Better name.";
-            const double intersectionX = 3.4;
-            const double intersectionY = 7.5;
-
-            const double x = 1.0;
-            const double y = 2.0;
-            const double z = 3.0;
             var points = new[]
             {
-                new Point3D(x, y, z),
-                new Point3D(5.0, 6.0, 7.0)
+                CreatePoint3D(random),
+                CreatePoint3D(random)
             };
 
             var entity = new SurfaceLineEntity
             {
-                Name = name,
-                ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY,
+                Name = "Better name.",
+                ReferenceLineIntersectionX = random.NextDouble(),
+                ReferenceLineIntersectionY = random.NextDouble(),
                 PointsXml = new Point3DXmlSerializer().ToXml(points),
                 PipingCharacteristicPointEntities =
                 {
-                    new PipingCharacteristicPointEntity
-                    {
-                        X = x,
-                        Y = y,
-                        Z = z,
-                        Type = (byte) PipingCharacteristicPointType.BottomDitchDikeSide
-                    },
-                    new PipingCharacteristicPointEntity
-                    {
-                        X = x,
-                        Y = y,
-                        Z = z,
-                        Type = (byte) PipingCharacteristicPointType.BottomDitchPolderSide
-                    },
-                    new PipingCharacteristicPointEntity
-                    {
-                        X = x,
-                        Y = y,
-                        Z = z,
-                        Type = (byte) PipingCharacteristicPointType.DikeToeAtPolder
-                    },
-                    new PipingCharacteristicPointEntity
-                    {
-                        X = x,
-                        Y = y,
-                        Z = z,
-                        Type = (byte) PipingCharacteristicPointType.DikeToeAtRiver
-                    },
-                    new PipingCharacteristicPointEntity
-                    {
-                        X = x,
-                        Y = y,
-                        Z = z,
-                        Type = (byte) PipingCharacteristicPointType.DitchDikeSide
-                    },
-                    new PipingCharacteristicPointEntity
-                    {
-                        X = x,
-                        Y = y,
-                        Z = z,
-                        Type = (byte) PipingCharacteristicPointType.DitchPolderSide
-                    }
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchDikeSide),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchPolderSide),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DikeToeAtPolder),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DikeToeAtRiver),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DitchDikeSide),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DitchPolderSide)
                 }
             };
 
             // Call
-            PipingSurfaceLine surfaceLine = entity.Read(collector);
+            PipingSurfaceLine surfaceLine = entity.ReadAsPipingSurfaceLine(collector);
 
             // Assert
-            Assert.AreEqual(name, surfaceLine.Name);
-            Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
-            Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
+            Assert.AreEqual(entity.Name, surfaceLine.Name);
+            Assert.AreEqual(entity.ReferenceLineIntersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
+            Assert.AreEqual(entity.ReferenceLineIntersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
             Point3D[] geometry = surfaceLine.Points.ToArray();
             Assert.AreEqual(2, geometry.Length);
@@ -313,7 +257,56 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_SurfaceLineEntityReadMultipleTimes_ReturnSameSurfaceLine()
+        public void ReadAsPipingSurfaceLine_WithNullValues_ReturnsPipingSurfaceLineWithNaNValues()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var random = new Random(31);
+
+            var point3D = new Point3D(double.NaN, double.NaN, double.NaN);
+            var points = new[]
+            {
+                point3D,
+                CreatePoint3D(random)
+            };
+
+            var entity = new SurfaceLineEntity
+            {
+                Name = "name",
+                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PipingCharacteristicPointEntities =
+                {
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchDikeSide),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchPolderSide),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DikeToeAtPolder),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DikeToeAtRiver),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DitchDikeSide),
+                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DitchPolderSide)
+                }
+            };
+
+            // Call
+            PipingSurfaceLine surfaceLine = entity.ReadAsPipingSurfaceLine(collector);
+
+            // Assert
+            Assert.AreEqual(entity.Name, surfaceLine.Name);
+            Assert.IsNaN(surfaceLine.ReferenceLineIntersectionWorldPoint.X);
+            Assert.IsNaN(surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
+
+            Point3D[] geometry = surfaceLine.Points.ToArray();
+            Assert.AreEqual(2, geometry.Length);
+            Point3D geometryPoint = geometry[0];
+
+            Assert.AreSame(geometryPoint, surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(geometryPoint, surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(geometryPoint, surfaceLine.DitchDikeSide);
+            Assert.AreSame(geometryPoint, surfaceLine.DitchPolderSide);
+        }
+
+        [Test]
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityReadMultipleTimes_ReturnSameSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -325,14 +318,20 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            PipingSurfaceLine surfaceLine1 = entity.Read(collector);
-            PipingSurfaceLine surfaceLine2 = entity.Read(collector);
+            PipingSurfaceLine surfaceLine1 = entity.ReadAsPipingSurfaceLine(collector);
+            PipingSurfaceLine surfaceLine2 = entity.ReadAsPipingSurfaceLine(collector);
 
             // Assert
             Assert.AreSame(surfaceLine1, surfaceLine2);
         }
 
-        private static PipingCharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, PipingCharacteristicPointType type)
+        private static Point3D CreatePoint3D(Random random)
+        {
+            return new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
+        }
+
+        private static PipingCharacteristicPointEntity CreatePipingCharacteristicPointEntity(Point3D point,
+                                                                                             PipingCharacteristicPointType type)
         {
             return new PipingCharacteristicPointEntity
             {
