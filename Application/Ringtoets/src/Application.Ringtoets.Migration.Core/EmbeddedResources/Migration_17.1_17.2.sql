@@ -1574,13 +1574,13 @@ SELECT
 Insert new data
 */
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity (
-		[FailureMechanismEntityId], 
-		[A],
-		[B])
+	[FailureMechanismEntityId], 
+	[A],
+	[B])
 SELECT FailureMechanismEntityId,
-		0.033,
-		50.0
-		FROM FailureMechanismEntity WHERE FailureMechanismType = 2;
+	0.033,
+	50.0
+	FROM FailureMechanismEntity WHERE FailureMechanismType = 2;
 
 /* 
 Write migration logging 

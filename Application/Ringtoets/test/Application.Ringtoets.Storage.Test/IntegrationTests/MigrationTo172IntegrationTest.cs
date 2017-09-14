@@ -65,6 +65,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertTablesContentMigrated(reader, sourceFilePath);
 
+                    AssertMacroStabilityInwardsFailureMechanism(reader);
                     AssertGrassCoverErosionOutwardsFailureMechanism(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
                     AssertWaveImpactAsphaltCoverFailureMechanism(reader);
@@ -728,6 +729,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE ShouldWaveHeightIllustrationPointsBeCalculated != 0 " +
                 "|| ShouldDesignWaterLevelIllustrationPointsBeCalculated != 0;";
             reader.AssertReturnedDataIsValid(validateCalculations);
+        }
+
+        private static void AssertMacroStabilityInwardsFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateFailureMechanisms =
+                "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 2) " +
+                "FROM MacroStabilityInwardsFailureMechanismMetaEntity " +
+                "WHERE A = 0.033 " +
+                "AND FailureMechanismEntityId IN " +
+                "(SELECT FailureMechanismEntityId FROM FailureMechanismEntity WHERE FailureMechanismType = 2);";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
