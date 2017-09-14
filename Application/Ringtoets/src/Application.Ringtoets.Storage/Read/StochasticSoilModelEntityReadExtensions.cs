@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base.Geometry;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.Piping.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Read
@@ -44,8 +48,8 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="StochasticSoilModelEntity.StochasticSoilModelSegmentPointXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        internal static PipingStochasticSoilModel ReadAsPipingStochasticSoilModel(this StochasticSoilModelEntity entity,
-                                                       ReadConversionCollector collector)
+        public static PipingStochasticSoilModel ReadAsPipingStochasticSoilModel(this StochasticSoilModelEntity entity,
+                                                                                ReadConversionCollector collector)
         {
             if (entity == null)
             {
@@ -62,15 +66,52 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             var model = new PipingStochasticSoilModel(entity.Name);
-            entity.ReadPipingStochasticSoilProfiles(model, collector);
-            entity.ReadSegmentPoints(model);
+            entity.ReadStochasticSoilProfiles(model, collector);
+            model.Geometry.AddRange(ReadSegmentPoints(entity));
 
             collector.Read(entity, model);
 
             return model;
         }
 
-        private static void ReadPipingStochasticSoilProfiles(this StochasticSoilModelEntity entity,
+        /// <summary>
+        /// Reads the <see cref="StochasticSoilModelEntity"/> and use the information to construct 
+        /// a <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to create <see cref="MacroStabilityInwardsStochasticSoilModel"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="StochasticSoilModelEntity.StochasticSoilModelSegmentPointXml"/> 
+        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
+        public static MacroStabilityInwardsStochasticSoilModel ReadAsMacroStabilityInwardsStochasticSoilModel(this StochasticSoilModelEntity entity,
+                                                                                                              ReadConversionCollector collector)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (collector == null)
+            {
+                throw new ArgumentNullException(nameof(collector));
+            }
+
+            if (collector.ContainsMacroStabilityInwardsStochasticSoilModel(entity))
+            {
+                return collector.GetMacroStabilityInwardsStochasticSoilModel(entity);
+            }
+
+            var model = new MacroStabilityInwardsStochasticSoilModel(entity.Name);
+
+            entity.ReadStochasticSoilProfiles(model, collector);
+            model.Geometry.AddRange(ReadSegmentPoints(entity));
+
+            collector.Read(entity, model);
+
+            return model;
+        }
+
+        private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity,
                                                        PipingStochasticSoilModel model,
                                                        ReadConversionCollector collector)
         {
@@ -81,10 +122,20 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadSegmentPoints(this StochasticSoilModelEntity entity,
-                                              PipingStochasticSoilModel model)
+        private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity,
+                                                       MacroStabilityInwardsStochasticSoilModel model,
+                                                       ReadConversionCollector collector)
         {
-            model.Geometry.AddRange(new Point2DXmlSerializer().FromXml(entity.StochasticSoilModelSegmentPointXml));
+            foreach (MacroStabilityInwardsStochasticSoilProfileEntity stochasticSoilProfileEntity in entity.MacroStabilityInwardsStochasticSoilProfileEntities
+                                                                                                           .OrderBy(ssp => ssp.Order))
+            {
+                model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
+            }
+        }
+
+        private static IEnumerable<Point2D> ReadSegmentPoints(StochasticSoilModelEntity entity)
+        {
+            return new Point2DXmlSerializer().FromXml(entity.StochasticSoilModelSegmentPointXml);
         }
     }
 }
