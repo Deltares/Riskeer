@@ -298,6 +298,21 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [TestFixture]
+        private class PipingSurfaceLineCollectorTest : CollectorTest<PipingSurfaceLine,
+            SurfaceLineEntity>
+        {
+            public PipingSurfaceLineCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.ContainsPipingSurfaceLine(e),
+                (c, e) => c.GetPipingSurfaceLine(e)) {}
+
+            protected override PipingSurfaceLine CreateDataModel()
+            {
+                return new PipingSurfaceLine(nameof(PipingSurfaceLine));
+            }
+        }
+
+        [TestFixture]
         private class MacroStabilityInwardsSoilProfileOneDCollectorTest : CollectorTest<MacroStabilityInwardsSoilProfile1D,
             MacroStabilityInwardsSoilProfileOneDEntity>
         {
@@ -381,167 +396,20 @@ namespace Application.Ringtoets.Storage.Test.Read
             }
         }
 
-        #region SurfaceLineEntity: Read, Contains, Get
-
-        [Test]
-        public void Contains_SurfaceLineEntityIsNull_ThrowsArgumentNullException()
+        [TestFixture]
+        private class MacroStabilityInwardsSurfaceLineCollectorTest : CollectorTest<MacroStabilityInwardsSurfaceLine,
+            SurfaceLineEntity>
         {
-            // Setup
-            var collector = new ReadConversionCollector();
+            public MacroStabilityInwardsSurfaceLineCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.ContainsMacroStabilityInwardsSurfaceLine(e),
+                (c, e) => c.GetMacroStabilityInwardsSurfaceLine(e)) {}
 
-            // Call
-            TestDelegate call = () => collector.Contains((SurfaceLineEntity) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("entity", paramName);
+            protected override MacroStabilityInwardsSurfaceLine CreateDataModel()
+            {
+                return new MacroStabilityInwardsSurfaceLine(nameof(MacroStabilityInwardsSurfaceLine));
+            }
         }
-
-        [Test]
-        public void Contains_SurfaceLineEntityAdded_ReturnsTrue()
-        {
-            // Setup
-            var entity = new SurfaceLineEntity();
-            var model = new PipingSurfaceLine(string.Empty);
-
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, model);
-
-            // Call
-            bool hasEntity = collector.Contains(entity);
-
-            // Assert
-            Assert.IsTrue(hasEntity);
-        }
-
-        [Test]
-        public void Contains_SurfaceLineEntityNotAdded_ReturnsFalse()
-        {
-            // Setup
-            var entity = new SurfaceLineEntity();
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            bool hasEntity = collector.Contains(entity);
-
-            // Assert
-            Assert.IsFalse(hasEntity);
-        }
-
-        [Test]
-        public void Contains_OtherSurfaceLineEntityAdded_ReturnsFalse()
-        {
-            // Setup
-            var registeredEntity = new SurfaceLineEntity();
-            var model = new PipingSurfaceLine(string.Empty);
-
-            var collector = new ReadConversionCollector();
-            collector.Read(registeredEntity, model);
-
-            var unregisteredEntity = new SurfaceLineEntity();
-
-            // Call
-            bool hasEntity = collector.Contains(unregisteredEntity);
-
-            // Assert
-            Assert.IsFalse(hasEntity);
-        }
-
-        [Test]
-        public void Get_SurfaceLineEntityIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate call = () => collector.Get((SurfaceLineEntity) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Get_SurfaceLineEntityAdded_ReturnsPipingSurfaceLine()
-        {
-            // Setup
-            var entity = new SurfaceLineEntity();
-            var model = new PipingSurfaceLine(string.Empty);
-
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, model);
-
-            // Call
-            PipingSurfaceLine retrievedGeometryPoint = collector.Get(entity);
-
-            // Assert
-            Assert.AreSame(model, retrievedGeometryPoint);
-        }
-
-        [Test]
-        public void Get_SurfaceLineEntityNotAdded_ThrowInvalidOperationException()
-        {
-            // Setup
-            var entity = new SurfaceLineEntity();
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate call = () => collector.Get(entity);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(call);
-        }
-
-        [Test]
-        public void Get_DifferentSurfaceLineEntityAdded_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var registeredEntity = new SurfaceLineEntity();
-            var model = new PipingSurfaceLine(string.Empty);
-
-            var collector = new ReadConversionCollector();
-            collector.Read(registeredEntity, model);
-
-            var unregisteredEntity = new SurfaceLineEntity();
-
-            // Call
-            TestDelegate call = () => collector.Get(unregisteredEntity);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(call);
-        }
-
-        [Test]
-        public void Read_SurfaceLineEntityIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Read(null, new PipingSurfaceLine(string.Empty));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Read_PipingSurfaceLineIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => collector.Read(new SurfaceLineEntity(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
-        #endregion
 
         #region HydraulicLocationEntity: Read, Contains, Get
 

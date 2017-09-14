@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<PipingSoilProfileEntity, PipingSoilProfile> pipingSoilProfiles =
             CreateDictionary<PipingSoilProfileEntity, PipingSoilProfile>();
 
-        private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> surfaceLines =
+        private readonly Dictionary<SurfaceLineEntity, PipingSurfaceLine> pipingSurfaceLines =
             CreateDictionary<SurfaceLineEntity, PipingSurfaceLine>();
 
         private readonly Dictionary<StochasticSoilModelEntity, MacroStabilityInwardsStochasticSoilModel> macroStabilityInwardsStochasticSoilModels =
@@ -68,6 +68,9 @@ namespace Application.Ringtoets.Storage.Read
 
         private readonly Dictionary<MacroStabilityInwardsSoilProfileTwoDEntity, MacroStabilityInwardsSoilProfile2D> macroStabilityInwardsSoil2DProfiles =
             CreateDictionary<MacroStabilityInwardsSoilProfileTwoDEntity, MacroStabilityInwardsSoilProfile2D>();
+
+        private readonly Dictionary<SurfaceLineEntity, MacroStabilityInwardsSurfaceLine> macroStabilityInwardsSurfaceLines =
+            CreateDictionary<SurfaceLineEntity, MacroStabilityInwardsSurfaceLine>();
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
@@ -399,7 +402,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(model));
             }
 
-            surfaceLines[entity] = model;
+            pipingSurfaceLines[entity] = model;
         }
 
         /// <summary>
@@ -408,13 +411,13 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="SurfaceLineEntity"/> to check for.</param>
         /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(SurfaceLineEntity entity)
+        internal bool ContainsPipingSurfaceLine(SurfaceLineEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            return surfaceLines.ContainsKey(entity);
+            return pipingSurfaceLines.ContainsKey(entity);
         }
 
         /// <summary>
@@ -427,9 +430,9 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has
         /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(SurfaceLineEntity)"/> to find out whether a
+        /// <remarks>Use <see cref="ContainsPipingSurfaceLine"/> to find out whether a
         /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal PipingSurfaceLine Get(SurfaceLineEntity entity)
+        internal PipingSurfaceLine GetPipingSurfaceLine(SurfaceLineEntity entity)
         {
             if (entity == null)
             {
@@ -437,7 +440,71 @@ namespace Application.Ringtoets.Storage.Read
             }
             try
             {
-                return surfaceLines[entity];
+                return pipingSurfaceLines[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Registers a read operation for <see cref="SurfaceLineEntity"/> and the
+        /// <see cref="MacroStabilityInwardsSurfaceLine"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="SurfaceLineEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="MacroStabilityInwardsSurfaceLine"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(SurfaceLineEntity entity, MacroStabilityInwardsSurfaceLine model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            macroStabilityInwardsSurfaceLines[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="SurfaceLineEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="SurfaceLineEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool ContainsMacroStabilityInwardsSurfaceLine(SurfaceLineEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            return macroStabilityInwardsSurfaceLines.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="MacroStabilityInwardsSurfaceLine"/> which was read for the
+        /// given <see cref="SurfaceLineEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="SurfaceLineEntity"/> for which a read operation
+        /// has been registered.</param>
+        /// <returns>The constructed <see cref="MacroStabilityInwardsSurfaceLine"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="ContainsMacroStabilityInwardsSurfaceLine"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal MacroStabilityInwardsSurfaceLine GetMacroStabilityInwardsSurfaceLine(SurfaceLineEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            try
+            {
+                return macroStabilityInwardsSurfaceLines[entity];
             }
             catch (KeyNotFoundException e)
             {

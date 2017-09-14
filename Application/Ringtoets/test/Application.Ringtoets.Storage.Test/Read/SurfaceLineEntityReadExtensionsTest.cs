@@ -59,13 +59,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Precondition
-            Assert.IsFalse(collector.Contains(entity));
+            Assert.IsFalse(collector.ContainsPipingSurfaceLine(entity));
 
             // Call
             entity.Read(collector);
 
             // Assert
-            Assert.IsTrue(collector.Contains(entity));
+            Assert.IsTrue(collector.ContainsPipingSurfaceLine(entity));
         }
 
         [Test]

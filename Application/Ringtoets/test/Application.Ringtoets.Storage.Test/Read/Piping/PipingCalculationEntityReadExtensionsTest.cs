@@ -186,7 +186,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
-            Assert.IsTrue(collector.Contains(surfaceLineEntity));
+            Assert.IsTrue(collector.ContainsPipingSurfaceLine(surfaceLineEntity));
             CollectionAssert.AreEqual(points, calculation.InputParameters.SurfaceLine.Points);
         }
 

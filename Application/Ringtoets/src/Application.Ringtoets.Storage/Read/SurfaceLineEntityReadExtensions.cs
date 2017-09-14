@@ -46,15 +46,15 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        internal static PipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
+        public static PipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
-            if (collector.Contains(entity))
+            if (collector.ContainsPipingSurfaceLine(entity))
             {
-                return collector.Get(entity);
+                return collector.GetPipingSurfaceLine(entity);
             }
 
             var surfaceLine = new PipingSurfaceLine(entity.Name)
