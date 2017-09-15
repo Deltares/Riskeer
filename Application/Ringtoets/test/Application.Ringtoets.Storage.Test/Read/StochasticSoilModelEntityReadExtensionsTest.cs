@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -292,7 +293,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             MacroStabilityInwardsSoilLayerTwoDEntities =
                             {
-                                new MacroStabilityInwardsSoilLayerTwoDEntity()
+                                MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
                             },
                             Name = "B"
                         },

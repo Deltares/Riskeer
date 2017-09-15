@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -51,6 +52,9 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             MacroStabilityInwardsSoilLayerProperties properties = soilLayer.Properties;
             return new MacroStabilityInwardsSoilLayerTwoDEntity
             {
+                OuterRingXml = new Point2DXmlSerializer().ToXml(soilLayer.OuterRing.Points),
+                HolesXml = new RingXmlSerializer().ToXml(soilLayer.Holes),
+
                 IsAquifer = Convert.ToByte(properties.IsAquifer),
                 MaterialName = properties.MaterialName.DeepClone(),
                 Color = properties.Color.ToArgb(),

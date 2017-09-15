@@ -24,6 +24,9 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
+using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -64,6 +67,21 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_WithCollector_ReturnsSoilProfileWithPropertiesSet()
         {
             // Setup
+            var random = new Random(31);
+
+            var outerRingA = new Ring(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
+            var outerRingB = new Ring(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
+
+            var point2DXmlSerializer = new Point2DXmlSerializer();
+            var ringXmlSerializer = new RingXmlSerializer();
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
                 Name = nameof(MacroStabilityInwardsSoilProfileTwoDEntity),
@@ -72,11 +90,15 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                     new MacroStabilityInwardsSoilLayerTwoDEntity
                     {
                         MaterialName = "A",
+                        OuterRingXml = point2DXmlSerializer.ToXml(outerRingA.Points),
+                        HolesXml = ringXmlSerializer.ToXml(new Ring[0]),
                         Order = 1
                     },
                     new MacroStabilityInwardsSoilLayerTwoDEntity
                     {
                         MaterialName = "B",
+                        OuterRingXml = point2DXmlSerializer.ToXml(outerRingB.Points),
+                        HolesXml = ringXmlSerializer.ToXml(new Ring[0]),
                         Order = 0
                     }
                 }
@@ -94,6 +116,18 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 "B",
                 "A"
             }, profile.Layers.Select(l => l.Properties.MaterialName));
+
+            CollectionAssert.AreEqual(new[]
+            {
+                outerRingB,
+                outerRingA
+            }, profile.Layers.Select(l => l.OuterRing));
+
+            CollectionAssert.AreEqual(new[]
+            {
+                new Ring[0],
+                new Ring[0]
+            }, profile.Layers.Select(l => l.Holes));
         }
 
         [Test]
@@ -105,10 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 Name = nameof(MacroStabilityInwardsSoilProfileTwoDEntity),
                 MacroStabilityInwardsSoilLayerTwoDEntities =
                 {
-                    new MacroStabilityInwardsSoilLayerTwoDEntity
-                    {
-                        MaterialName = nameof(MacroStabilityInwardsSoilLayerTwoDEntity)
-                    }
+                    MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -120,9 +151,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNotNull(profile);
             Assert.AreEqual(entity.Name, profile.Name);
             Assert.AreEqual(1, profile.Layers.Count());
-
-            MacroStabilityInwardsSoilLayer2D layer = profile.Layers.ElementAt(0);
-            Assert.AreEqual(entity.MacroStabilityInwardsSoilLayerTwoDEntities.First().MaterialName, layer.Properties.MaterialName);
         }
 
         [Test]
@@ -146,14 +174,13 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_WithCollectorReadTwice_ReturnsSameSoilProfile()
         {
             // Setup
-            const string testName = "testName";
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
-                Name = testName,
+                Name = "testName",
                 MacroStabilityInwardsSoilLayerTwoDEntities =
                 {
-                    new MacroStabilityInwardsSoilLayerTwoDEntity(),
-                    new MacroStabilityInwardsSoilLayerTwoDEntity()
+                    MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity(),
+                    MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
                 }
             };
             var collector = new ReadConversionCollector();

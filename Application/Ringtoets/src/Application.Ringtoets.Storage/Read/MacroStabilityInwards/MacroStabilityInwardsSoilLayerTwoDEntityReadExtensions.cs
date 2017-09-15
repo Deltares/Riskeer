@@ -22,7 +22,7 @@
 using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Geometry;
+using Application.Ringtoets.Storage.Serializers;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
@@ -48,11 +48,10 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }), new Ring[0])
+            var outerRing = new Ring(new Point2DXmlSerializer().FromXml(entity.OuterRingXml));
+            Ring[] holes = new RingXmlSerializer().FromXml(entity.HolesXml);
+
+            return new MacroStabilityInwardsSoilLayer2D(outerRing, holes)
             {
                 Properties =
                 {

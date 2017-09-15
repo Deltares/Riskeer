@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -110,6 +111,21 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(properties.PopMean, entity.PopMean);
             Assert.AreEqual(properties.PopCoefficientOfVariation, entity.PopCoefficientOfVariation);
             Assert.AreEqual(order, entity.Order);
+
+            AssertOuterRing(soilLayer.OuterRing, entity);
+            AssertHoles(soilLayer, entity);
+        }
+
+        private static void AssertHoles(MacroStabilityInwardsSoilLayer2D soilLayer, MacroStabilityInwardsSoilLayerTwoDEntity entity)
+        {
+            string expectedHolesXml = new RingXmlSerializer().ToXml(soilLayer.Holes);
+            Assert.AreEqual(expectedHolesXml, entity.HolesXml);
+        }
+
+        private static void AssertOuterRing(Ring outerRing, MacroStabilityInwardsSoilLayerTwoDEntity entity)
+        {
+            string expectedOuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points);
+            Assert.AreEqual(expectedOuterRingXml, entity.OuterRingXml);
         }
 
         [Test]

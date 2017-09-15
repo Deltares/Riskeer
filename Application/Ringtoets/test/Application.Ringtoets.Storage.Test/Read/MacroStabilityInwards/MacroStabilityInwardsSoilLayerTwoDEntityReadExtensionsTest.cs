@@ -23,6 +23,8 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
+using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -67,6 +69,20 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             double popMean = random.NextDouble();
             double popCoefficientOfVariation = random.NextDouble();
 
+            var outerRingPoints = new[]
+            {
+                CreateRandomPoint2D(random),
+                CreateRandomPoint2D(random),
+                CreateRandomPoint2D(random),
+                CreateRandomPoint2D(random)
+            };
+            var holes = new[]
+            {
+                CreateRandomRing(random),
+                CreateRandomRing(random),
+                CreateRandomRing(random)
+            };
+
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 IsAquifer = Convert.ToByte(isAquifer),
@@ -93,7 +109,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentCoefficientOfVariation,
 
                 PopMean = popMean,
-                PopCoefficientOfVariation = popCoefficientOfVariation
+                PopCoefficientOfVariation = popCoefficientOfVariation,
+
+                OuterRingXml = new Point2DXmlSerializer().ToXml(outerRingPoints),
+                HolesXml = new RingXmlSerializer().ToXml(holes)
             };
 
             // Call
@@ -128,6 +147,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             Assert.AreEqual(popMean, properties.PopMean);
             Assert.AreEqual(popCoefficientOfVariation, properties.PopCoefficientOfVariation);
+
+            Assert.AreEqual(outerRingPoints, layer.OuterRing.Points);
+            CollectionAssert.AreEqual(holes, layer.Holes);
         }
 
         [Test]
@@ -136,7 +158,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Setup
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
-                MaterialName = nameof(MacroStabilityInwardsSoilLayerTwoDEntity)
+                MaterialName = nameof(MacroStabilityInwardsSoilLayerTwoDEntity),
+                OuterRingXml = new Point2DXmlSerializer().ToXml(CreateRandomRing(new Random(31)).Points),
+                HolesXml = new RingXmlSerializer().ToXml(new Ring[0])
             };
 
             // Call
@@ -169,6 +193,20 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             Assert.IsNaN(properties.PopMean);
             Assert.IsNaN(properties.PopCoefficientOfVariation);
+        }
+
+        private static Ring CreateRandomRing(Random random)
+        {
+            return new Ring(new[]
+            {
+                CreateRandomPoint2D(random),
+                CreateRandomPoint2D(random)
+            });
+        }
+
+        private static Point2D CreateRandomPoint2D(Random random)
+        {
+            return new Point2D(random.NextDouble(), random.NextDouble());
         }
     }
 }
