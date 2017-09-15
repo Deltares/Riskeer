@@ -36,6 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         private readonly double assessmentSectionLength;
         private readonly double contribution;
 
+        private readonly double stabilityFactor;
         private double macroStabilityInwardsProbability;
         private double macroStabilityInwardsReliability;
 
@@ -52,14 +53,20 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of macro stability inwards to the total failure.</param>
-        private MacroStabilityInwardsSemiProbabilisticCalculationService(double norm, double constantA,
-                                                                         double constantB, double assessmentSectionLength, double contribution)
+        /// <param name="stabilityFactor">The stability factor of the calculation result.</param>
+        private MacroStabilityInwardsSemiProbabilisticCalculationService(double norm,
+                                                                         double constantA,
+                                                                         double constantB,
+                                                                         double assessmentSectionLength,
+                                                                         double contribution,
+                                                                         double stabilityFactor)
         {
             this.norm = norm;
             this.constantA = constantA;
             this.constantB = constantB;
             this.assessmentSectionLength = assessmentSectionLength;
             this.contribution = contribution;
+            this.stabilityFactor = stabilityFactor;
         }
 
         /// <summary>
@@ -67,22 +74,32 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// </summary>
         /// <param name="calculation">The calculation which is used as input for the semi-probabilistic assessment. If the semi-
         /// probabilistic calculation is successful, <see cref="MacroStabilityInwardsCalculation.SemiProbabilisticOutput"/> is set.</param>
-        /// <param name="macroStabilityInwardsProbabilityAssessmentInput">General input that influences the probability estimate for a
+        /// <param name="probabilityAssessmentInput">General input that influences the probability estimate for a
         /// macro stability inwards assessment.</param>
         /// <param name="norm">The norm to assess for.</param>
         /// <param name="contribution">The contribution of macro stability inwards as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="probabilityAssessmentInput"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when calculation has no output from a macro stability inwards calculation.</exception>
         public static void Calculate(MacroStabilityInwardsCalculation calculation,
-                                     MacroStabilityInwardsProbabilityAssessmentInput macroStabilityInwardsProbabilityAssessmentInput,
+                                     MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput,
                                      double norm, double contribution)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (probabilityAssessmentInput == null)
+            {
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
+            }
             var calculator = new MacroStabilityInwardsSemiProbabilisticCalculationService(
                 norm,
-                macroStabilityInwardsProbabilityAssessmentInput.A,
-                macroStabilityInwardsProbabilityAssessmentInput.B,
-                macroStabilityInwardsProbabilityAssessmentInput.SectionLength,
-                contribution / 100);
+                probabilityAssessmentInput.A,
+                probabilityAssessmentInput.B,
+                probabilityAssessmentInput.SectionLength,
+                contribution / 100, calculation.Output.FactorOfStability);
 
             calculator.Calculate();
 
@@ -100,39 +117,32 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// </summary>
         private void Calculate()
         {
-            CalculateMacroStabilityInwardsReliability();
+            requiredProbability = CalculateRequiredProbability();
+            requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
-            CalculateRequiredReliability();
+            macroStabilityInwardsReliability = CalculateEstimatedReliability();
+            macroStabilityInwardsProbability = StatisticsConverter.ReliabilityToProbability(macroStabilityInwardsReliability);
 
             macroStabilityInwardsFactorOfSafety = macroStabilityInwardsReliability / requiredReliability;
-        }
-
-        /// <summary>
-        /// Calculates the required reliability based on the norm and length of the assessment section and the contribution of
-        /// macro stability inwards.
-        /// </summary>
-        private void CalculateRequiredReliability()
-        {
-            requiredProbability = RequiredProbability();
-            requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
-        }
-
-        /// <summary>
-        /// Calculates the reliability of macro stability inwards based on the factors of safety from the sub-mechanisms.
-        /// </summary>
-        private void CalculateMacroStabilityInwardsReliability()
-        {
-            macroStabilityInwardsProbability = RequiredProbability();
-            macroStabilityInwardsReliability = StatisticsConverter.ProbabilityToReliability(macroStabilityInwardsProbability);
         }
 
         /// <summary>
         /// Calculates the required probability of the macro stability inwards failure mechanism for the complete assessment section.
         /// </summary>
         /// <returns>A value representing the required probability.</returns>
-        private double RequiredProbability()
+        private double CalculateRequiredProbability()
         {
             return (norm * contribution) / (1 + (constantA * assessmentSectionLength) / constantB);
+        }
+
+        /// <summary>
+        /// Calculates the estimated reliability of the macro stability inwards failure mechanism 
+        /// based on the stability factor.
+        /// </summary>
+        /// <returns>The estimated reliability based on the stability factor.</returns>
+        private double CalculateEstimatedReliability()
+        {
+            return (6.21 * stabilityFactor) - 2.88;
         }
     }
 }
