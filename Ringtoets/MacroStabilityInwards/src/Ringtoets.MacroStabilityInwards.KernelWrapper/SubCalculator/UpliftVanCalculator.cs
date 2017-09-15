@@ -172,6 +172,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             string result = wrappedCalculator.Run();
 
             StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);
+
+            FactoryOfStability = convertedResult.FactorOfSafety;
         }
+
+        public double FactoryOfStability { get; private set; }
     }
 }

@@ -95,5 +95,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// [m]
         /// </summary>
         double SlipPlaneMinimumLength { set; }
+
+        /// <summary>
+        /// Gets the factory of stability.
+        /// </summary>
+        double FactoryOfStability { get; }
     }
 }

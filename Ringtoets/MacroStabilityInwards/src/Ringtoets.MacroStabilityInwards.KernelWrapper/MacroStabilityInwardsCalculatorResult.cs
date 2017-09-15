@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
     /// <summary>
@@ -27,8 +29,49 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     public class MacroStabilityInwardsCalculatorResult
     {
         /// <summary>
-        /// Constructs a new <see cref="MacroStabilityInwardsCalculatorResult"/>. The result will hold all the values which were given.
+        /// Constructs a new <see cref="MacroStabilityInwardsCalculatorResult"/>. 
+        /// The result will hold all the values which were given.
         /// </summary>
-        internal MacroStabilityInwardsCalculatorResult() {}
+        /// <param name="properties">The container of the properties for the
+        /// <see cref="MacroStabilityInwardsCalculatorResult"/></param>
+        /// <exception cref="ArgumentNullException">Thrown when the 
+        /// <paramref name="properties"/> is <c>null</c>.</exception>
+        internal MacroStabilityInwardsCalculatorResult(ConstructionProperties properties)
+        {
+            if (properties == null)
+            {
+                throw new ArgumentNullException(nameof(properties));
+            }
+
+            FactorOfStability = properties.FactorOfStability;
+        }
+
+        #region properties
+
+        /// <summary>
+        /// Gets the factory of stability of the uplift van calculation.
+        /// </summary>
+        public double FactorOfStability { get; }
+
+        #endregion
+
+        /// <summary>
+        /// Container for properties for constructing a <see cref="MacroStabilityInwardsCalculatorResult"/>.
+        /// </summary>s
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                FactorOfStability = double.NaN;
+            }
+
+            /// <summary>
+            /// Gets or sets the factory of stability of the uplift van calculation.
+            /// </summary>
+            public double FactorOfStability { internal get; set; }
+        }
     }
 }

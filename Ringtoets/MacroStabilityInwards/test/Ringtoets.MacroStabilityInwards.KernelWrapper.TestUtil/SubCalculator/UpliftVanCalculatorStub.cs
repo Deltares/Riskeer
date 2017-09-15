@@ -59,6 +59,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public double SlipPlaneMinimumLength { get; set; }
 
+        public double FactoryOfStability { get; set; }
+
         public void Calculate()
         {
             Calculated = true;

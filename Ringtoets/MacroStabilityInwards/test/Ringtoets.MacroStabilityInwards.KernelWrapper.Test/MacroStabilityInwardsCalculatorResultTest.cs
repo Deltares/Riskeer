@@ -19,10 +19,52 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculatorResultTest {}
+    public class MacroStabilityInwardsCalculatorResultTest
+    {
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsCalculatorResult(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("properties", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_EmptyConstructionProperties_ExpectedValues()
+        {
+            // Call
+            var result = new MacroStabilityInwardsCalculatorResult(new MacroStabilityInwardsCalculatorResult.ConstructionProperties());
+
+            // Assert
+            Assert.IsNaN(result.FactorOfStability);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithData_ExcpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            double factorOfStability = random.NextDouble();
+
+            var constructionProperties = new MacroStabilityInwardsCalculatorResult.ConstructionProperties
+            {
+                FactorOfStability = factorOfStability
+            };
+
+            // Call
+            var result = new MacroStabilityInwardsCalculatorResult(constructionProperties);
+
+            // Assert
+            Assert.AreEqual(factorOfStability, result.FactorOfStability);
+        }
+    }
 }
