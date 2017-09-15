@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -56,6 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             double macroStabilityInwardsProbability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
             double macroStabilityInwardsFactorOfSafety = random.NextDouble();
+            double macroStabilityInwardsFactorOfStability = random.NextDouble();
 
             var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
                 requiredProbability,
@@ -64,7 +66,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 macroStabilityInwardsReliability,
                 macroStabilityInwardsFactorOfSafety);
 
-            var output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
+            var output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties()
+            {
+                FactorOfStability = macroStabilityInwardsFactorOfStability
+            });
 
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
@@ -73,6 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
+            Assert.AreEqual(new RoundedDouble(3, macroStabilityInwardsFactorOfStability), properties.MacroStabilityInwardsFactorOfStability);
+
             const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(string.Format(probabilityFormat, 1.0 / requiredProbability), properties.RequiredProbability);
             Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
@@ -138,39 +145,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string macroStabilityInwardsCategory = "Macrostabiliteit binnenwaarts";
+            
+            PropertyDescriptor stabilityFactor = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stabilityFactor,
+                                                                            macroStabilityInwardsCategory,
+                                                                            "Stabiliteitsfactor [-]",
+                                                                            "Het quotient van de weerstandbiedende- en aadrijvende krachten langs een glijvlak.",
+                                                                            true);
 
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[0];
+            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Faalkanseis [1/jaar]",
                                                                             "De maximaal toegestane kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt.",
                                                                             true);
 
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[1];
+            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Betrouwbaarheidsindex faalkanseis [-]",
                                                                             "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor macrostabiliteit binnenwaarts.",
                                                                             true);
 
-            PropertyDescriptor macroStabilityInwardsProbabilityProperty = dynamicProperties[2];
+            PropertyDescriptor macroStabilityInwardsProbabilityProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsProbabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Benaderde faalkans [1/jaar]",
                                                                             "De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor macroStabilityInwardsReliabilityProperty = dynamicProperties[3];
+            PropertyDescriptor macroStabilityInwardsReliabilityProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsReliabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor macroStabilityInwardsFactorOfSafetyProperty = dynamicProperties[4];
+            PropertyDescriptor macroStabilityInwardsFactorOfSafetyProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsFactorOfSafetyProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Veiligheidsfactor [-]",
