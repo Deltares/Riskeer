@@ -25,5 +25,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     /// A <see cref="MacroStabilityInwardsOutput"/> configured to be used immediately for testing purposes.
     /// </summary>
     /// <seealso cref="MacroStabilityInwardsOutput" />
-    public class TestMacroStabilityInwardsOutput : MacroStabilityInwardsOutput {}
+    public class TestMacroStabilityInwardsOutput : MacroStabilityInwardsOutput
+    {
+        public TestMacroStabilityInwardsOutput() : base(new ConstructionProperties
+        {
+            FactorOfStability = 1.1
+        }) {}
+    }
 }

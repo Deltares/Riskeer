@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void MacroStabilityInwardsReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double expectedResult, double assessmentSectionLength, double contribution)
         {
             // Setup
-            var calculatorResult = new MacroStabilityInwardsOutput();
+            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void RequiredReliability_DifferentInputs_ReturnsExpectedValue(int returnPeriod, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup
-            var calculatorResult = new MacroStabilityInwardsOutput();
+            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             const double contribution = 24;
             const double expectedResult = 1;
 
-            var calculatorResult = new MacroStabilityInwardsOutput();
+            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             [Values(12, 24)] double contribution)
         {
             // Setup
-            var calculatorResult = new MacroStabilityInwardsOutput();
+            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength

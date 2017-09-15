@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     public class MacroStabilityInwardsCalculatorResult
     {
         /// <summary>
-        /// Constructs a new <see cref="MacroStabilityInwardsCalculatorResult"/>. 
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculatorResult"/>. 
         /// The result will hold all the values which were given.
         /// </summary>
         /// <param name="properties">The container of the properties for the

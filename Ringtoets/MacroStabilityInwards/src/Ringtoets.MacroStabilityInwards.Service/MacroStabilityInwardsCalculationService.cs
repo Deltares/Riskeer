@@ -92,7 +92,10 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 MacroStabilityInwardsCalculatorResult macroStabilityInwardsResult = new MacroStabilityInwardsCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsSubCalculatorFactory.Instance).Calculate();
 
-                calculation.Output = new MacroStabilityInwardsOutput();
+                calculation.Output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+                {
+                    FactorOfStability = macroStabilityInwardsResult.FactorOfStability
+                });
             }
             finally
             {
