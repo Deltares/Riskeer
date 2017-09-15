@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Create
                 Comments = section.Comments.Body.DeepClone(),
                 LowerLimitNorm = contribution.LowerLimitNorm,
                 SignalingNorm = contribution.SignalingNorm,
-                NormativeNorm = Convert.ToByte(contribution.NormativeNorm),
+                NormativeNormType = Convert.ToByte(contribution.NormativeNorm),
                 Order = order
             };
 

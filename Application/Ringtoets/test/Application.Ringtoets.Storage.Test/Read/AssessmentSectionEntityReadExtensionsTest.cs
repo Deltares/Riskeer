@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Comments = comments,
                 LowerLimitNorm = lowerLimitNorm,
                 SignalingNorm = signalingNorm,
-                NormativeNorm = Convert.ToByte(normativeNorm)
+                NormativeNormType = Convert.ToByte(normativeNorm)
             };
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
@@ -1446,7 +1446,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 LowerLimitNorm = 1.0 / 30000,
                 SignalingNorm = 1.0 / 300000,
-                NormativeNorm = Convert.ToByte(NormType.Signaling),
+                NormativeNormType = Convert.ToByte(NormType.Signaling),
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

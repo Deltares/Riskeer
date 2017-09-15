@@ -259,7 +259,7 @@ INSERT INTO AssessmentSectionEntity (
 	[Comments],
 	[LowerLimitNorm],
 	[SignalingNorm],
-	[NormativeNorm],
+	[NormativeNormType],
 	[HydraulicDatabaseVersion],
 	[HydraulicDatabaseLocation],
 	[Composition],
@@ -276,18 +276,18 @@ SELECT
 	[Name],
 	[Comments],
 	CASE
-		WHEN SourceAssessmentSection.[LowerLimitNorm] IS NULL OR [NormativeNorm] == 1 -- If lower limit norm type
+		WHEN SourceAssessmentSection.[LowerLimitNorm] IS NULL OR [NormativeNormType] == 1 -- If lower limit norm type
 			THEN SourceAssessmentSection.[Norm]
 		ELSE
 			1.0 / SourceAssessmentSection.[LowerLimitNorm]
 	END AS [LowerLimitNorm],
 	CASE
-		WHEN SourceAssessmentSection.[SignalingNorm] IS NULL OR [NormativeNorm] == 2 -- If signaling norm type
+		WHEN SourceAssessmentSection.[SignalingNorm] IS NULL OR [NormativeNormType] == 2 -- If signaling norm type
 			THEN SourceAssessmentSection.[Norm]
 		ELSE
-		1.0 / SourceAssessmentSection.[SignalingNorm]
+			1.0 / SourceAssessmentSection.[SignalingNorm]
 	END AS [SignalingNorm],
-	[NormativeNorm],
+	[NormativeNormType],
 	[HydraulicDatabaseVersion],
 	[HydraulicDatabaseLocation],
 	[Composition],
@@ -305,7 +305,7 @@ FROM
 			)
 				THEN 2 -- Set signaling norm type
 		ELSE 1 -- Set lower limit norm type
-		END AS [NormativeNorm],
+		END AS [NormativeNormType],
 		*
 	FROM
 	(
@@ -1639,7 +1639,7 @@ SELECT
 	0,
 	"De ondergrens is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [LowerLimitNorm] AS FLOAT)) AS INT) ||
 	CASE 
-		WHEN [NormativeNorm] IS 1
+		WHEN [NormativeNormType] IS 1
 			THEN " (voorheen de waarde van de norm)"
 		ELSE ""
 	END || "."
@@ -1653,7 +1653,7 @@ SELECT
 	1,
 	"De signaleringswaarde is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [SignalingNorm] AS FLOAT)) AS INT) ||
 	CASE 
-		WHEN [NormativeNorm] IS 2
+		WHEN [NormativeNormType] IS 2
 			THEN " (voorheen de waarde van de norm)"
 		ELSE ""
 	END || "."
@@ -1667,7 +1667,7 @@ SELECT
 	2,
 	"De norm van het dijktraject is gelijk gesteld aan de " || 
 	CASE 
-		WHEN [NormativeNorm] IS 1
+		WHEN [NormativeNormType] IS 1
 			THEN "ondergrens"
 		ELSE "signaleringswaarde"
 	END || "."

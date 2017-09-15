@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     LowerLimitNorm = entity.LowerLimitNorm,
                     SignalingNorm = entity.SignalingNorm,
-                    NormativeNorm = (NormType) entity.NormativeNorm
+                    NormativeNorm = (NormType) entity.NormativeNormType
                 }
             };
 

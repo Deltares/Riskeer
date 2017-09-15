@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(comments, entity.Comments);
             Assert.AreEqual(lowerLimitNorm, entity.LowerLimitNorm);
             Assert.AreEqual(signalingNorm, entity.SignalingNorm);
-            Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNorm);
+            Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNormType);
             Assert.AreEqual(18, entity.FailureMechanismEntities.Count);
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards));

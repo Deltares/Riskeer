@@ -237,7 +237,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     $"WHERE [Id] = \"{trajectId}\" " +
                     $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
                     $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
-                    $"AND [NormativeNorm] = {normTypeByte}";
+                    $"AND [NormativeNormType] = {normTypeByte}";
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
@@ -335,7 +335,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     $"WHERE [Id] = \"{trajectId}\" " +
                     $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({actualLowerLimitReturnPeriod} - 0.1) AND ({actualLowerLimitReturnPeriod} + 0.1) " +
                     $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({actualSignalingReturnPeriod} - 0.1) AND ({actualSignalingReturnPeriod} + 0.1) " +
-                    $"AND [NormativeNorm] = {normTypeByte}";
+                    $"AND [NormativeNormType] = {normTypeByte}";
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {

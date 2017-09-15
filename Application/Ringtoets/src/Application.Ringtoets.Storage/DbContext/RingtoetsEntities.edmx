@@ -11,12 +11,12 @@
           </Key>
           <Property Name="AssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
-          <Property Name="Id" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Id" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="LowerLimitNorm" Type="real" Nullable="false" />
           <Property Name="SignalingNorm" Type="real" Nullable="false" />
-          <Property Name="NormativeNorm" Type="tinyint" Nullable="false" />
+          <Property Name="NormativeNormType" Type="tinyint" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Composition" Type="tinyint" Nullable="false" />
@@ -4032,12 +4032,12 @@
           </Key>
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="LowerLimitNorm" Type="Double" Nullable="false" />
           <Property Name="SignalingNorm" Type="Double" Nullable="false" />
-          <Property Name="NormativeNorm" Type="Byte" Nullable="false" />
+          <Property Name="NormativeNormType" Type="Byte" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Composition" Type="Byte" Nullable="false" />
@@ -7019,7 +7019,7 @@
                 <ScalarProperty Name="Composition" ColumnName="Composition" />
                 <ScalarProperty Name="HydraulicDatabaseLocation" ColumnName="HydraulicDatabaseLocation" />
                 <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
-                <ScalarProperty Name="NormativeNorm" ColumnName="NormativeNorm" />
+                <ScalarProperty Name="NormativeNormType" ColumnName="NormativeNormType" />
                 <ScalarProperty Name="SignalingNorm" ColumnName="SignalingNorm" />
                 <ScalarProperty Name="LowerLimitNorm" ColumnName="LowerLimitNorm" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />

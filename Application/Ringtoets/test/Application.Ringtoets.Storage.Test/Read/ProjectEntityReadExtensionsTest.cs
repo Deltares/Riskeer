@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         SignalingNorm = signalingNorm,
                         LowerLimitNorm = lowerLimitNorm,
-                        NormativeNorm = Convert.ToByte(NormType.Signaling),
+                        NormativeNormType = Convert.ToByte(NormType.Signaling),
                         Name = "A",
                         Order = 56,
                         Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         SignalingNorm = signalingNorm,
                         LowerLimitNorm = lowerLimitNorm,
-                        NormativeNorm = Convert.ToByte(NormType.Signaling),
+                        NormativeNormType = Convert.ToByte(NormType.Signaling),
                         Name = "B",
                         Order = 0,
                         Composition = Convert.ToByte(AssessmentSectionComposition.Dike),

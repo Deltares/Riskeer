@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Comments { get; set; }
         public double LowerLimitNorm { get; set; }
         public double SignalingNorm { get; set; }
-        public byte NormativeNorm { get; set; }
+        public byte NormativeNormType { get; set; }
         public string HydraulicDatabaseVersion { get; set; }
         public string HydraulicDatabaseLocation { get; set; }
         public byte Composition { get; set; }
