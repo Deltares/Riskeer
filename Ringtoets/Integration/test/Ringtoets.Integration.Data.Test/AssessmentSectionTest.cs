@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void ReferenceLine_SomeReferenceLine_GeneralPipingInputSectionLengthSet()
+        public void ReferenceLine_SomeReferenceLine_RelevantGeneralInputSectionLengthSet()
         {
             // Setup
             var random = new Random(21);
@@ -320,10 +320,11 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
         }
 
         [Test]
-        public void ReferenceLine_Null_GeneralPipingInputSectionLengthNaN()
+        public void ReferenceLine_Null_RelevantGeneralInputSectionLengthNaN()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -333,6 +334,7 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
         }
 
         [Test]

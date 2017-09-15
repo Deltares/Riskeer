@@ -200,6 +200,7 @@ namespace Ringtoets.Integration.Data
             {
                 referenceLine = value;
                 PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+                MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
             }
         }
 
