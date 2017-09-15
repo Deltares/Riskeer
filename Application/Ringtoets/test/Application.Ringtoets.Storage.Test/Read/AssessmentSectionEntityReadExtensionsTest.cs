@@ -91,10 +91,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments.Body);
 
-            double expectedNorm = normativeNorm == NormType.LowerLimit
-                                      ? lowerLimitNorm
-                                      : signalingNorm;
-            Assert.AreEqual(expectedNorm, section.FailureMechanismContribution.Norm);
+            Assert.AreEqual(lowerLimitNorm, section.FailureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(signalingNorm, section.FailureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeNorm);
+
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             Assert.IsNull(section.HydraulicBoundaryDatabase);
             Assert.IsNull(section.ReferenceLine);

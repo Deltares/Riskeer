@@ -214,12 +214,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     databaseFile.OpenDatabaseConnection();
 
-                    double fromNorm = 1.0 / (setNormType == NormType.Signaling
-                                                 ? signalingReturnPeriod
-                                                 : lowerLimitReturnPeriod);
+                    double originalNorm = 1.0 / (setNormType == NormType.Signaling
+                                                     ? signalingReturnPeriod
+                                                     : lowerLimitReturnPeriod);
                     databaseFile.ExecuteQuery("INSERT INTO ProjectEntity ([ProjectEntityId]) VALUES (1);");
                     databaseFile.ExecuteQuery("INSERT INTO AssessmentSectionEntity ([ProjectEntityId], [Composition], [Order], [Name], [Id], [Norm]) " +
-                                              $"VALUES (1, 1, 0, \"{trajectId}\", \"{trajectId}\", {fromNorm});");
+                                              $"VALUES (1, 1, 0, \"{trajectId}\", \"{trajectId}\", {originalNorm});");
                 }
 
                 // When
@@ -229,15 +229,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 NormType expectedNormType = lowerLimitReturnPeriod == signalingReturnPeriod
                                                 ? NormType.Signaling
                                                 : setNormType;
-                byte normTypeByte = Convert.ToByte(expectedNormType);
 
-                string expectedAssessmentSectionQuery =
-                    "SELECT COUNT() = 1 " +
-                    "FROM AssessmentSectionEntity " +
-                    $"WHERE [Id] = \"{trajectId}\" " +
-                    $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
-                    $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
-                    $"AND [NormativeNormType] = {normTypeByte}";
+                string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
+                                                                                          lowerLimitReturnPeriod,
+                                                                                          signalingReturnPeriod, expectedNormType);
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
@@ -248,27 +243,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
                     Assert.AreEqual(5, messages.Count);
+
+                    var i = 0;
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
-                        messages[0]);
+                        messages[i++]);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", $"* Traject: '{trajectId}'"),
-                        messages[1]);
-                    string lowerLimitLogSuffix = expectedNormType == NormType.LowerLimit
-                                                     ? " (voorheen de waarde van de norm)"
-                                                     : "";
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
-                        messages[2]);
-                    string signalingLogSuffix = expectedNormType == NormType.Signaling
-                                                    ? " (voorheen de waarde van de norm)"
-                                                    : "";
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
-                        messages[3]);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(expectedNormType)}."),
-                        messages[4]);
+                        messages[i++]);
+
+                    AssertAssessmentSectionNormMigrationMessage(new[]
+                    {
+                        messages[i++],
+                        messages[i++],
+                        messages[i]
+                    }, lowerLimitReturnPeriod, signalingReturnPeriod, expectedNormType);
                 }
             }
         }
@@ -319,23 +308,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Then
-                byte normTypeByte = Convert.ToByte(expectedNormType);
+                int expectedLowerLimitReturnPeriod = expectedNormType == NormType.LowerLimit
+                                                         ? originalReturnPeriod
+                                                         : lowerLimitReturnPeriod;
 
-                int actualLowerLimitReturnPeriod = expectedNormType == NormType.LowerLimit
-                                                       ? originalReturnPeriod
-                                                       : lowerLimitReturnPeriod;
+                int expectedSignalingReturnPeriod = expectedNormType == NormType.Signaling
+                                                        ? originalReturnPeriod
+                                                        : signalingReturnPeriod;
 
-                int actualSignalingReturnPeriod = expectedNormType == NormType.Signaling
-                                                      ? originalReturnPeriod
-                                                      : signalingReturnPeriod;
-
-                string expectedAssessmentSectionQuery =
-                    "SELECT COUNT() = 1 " +
-                    "FROM AssessmentSectionEntity " +
-                    $"WHERE [Id] = \"{trajectId}\" " +
-                    $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({actualLowerLimitReturnPeriod} - 0.1) AND ({actualLowerLimitReturnPeriod} + 0.1) " +
-                    $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({actualSignalingReturnPeriod} - 0.1) AND ({actualSignalingReturnPeriod} + 0.1) " +
-                    $"AND [NormativeNormType] = {normTypeByte}";
+                string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
+                                                                                          expectedLowerLimitReturnPeriod,
+                                                                                          expectedSignalingReturnPeriod, expectedNormType);
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
@@ -346,29 +329,59 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
                     Assert.AreEqual(5, messages.Count);
+
+                    var i = 0;
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
-                        messages[0]);
+                        messages[i++]);
                     AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("17.1", "17.2", "* Traject: '2-1'"),
-                        messages[1]);
-                    string lowerLimitLogSuffix = expectedNormType == NormType.LowerLimit
-                                                     ? " (voorheen de waarde van de norm)"
-                                                     : "";
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", $"  + De ondergrens is gelijk gesteld aan 1/{actualLowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
-                        messages[2]);
-                    string signalingLogSuffix = expectedNormType == NormType.Signaling
-                                                    ? " (voorheen de waarde van de norm)"
-                                                    : "";
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", $"  + De signaleringswaarde is gelijk gesteld aan 1/{actualSignalingReturnPeriod}{signalingLogSuffix}."),
-                        messages[3]);
-                    AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.1", "17.2", $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(expectedNormType)}."),
-                        messages[4]);
+                        messages[i++]);
+
+                    AssertAssessmentSectionNormMigrationMessage(new[]
+                    {
+                        messages[i++],
+                        messages[i++],
+                        messages[i]
+                    }, expectedLowerLimitReturnPeriod, expectedSignalingReturnPeriod, expectedNormType);
                 }
             }
+        }
+
+        private static void AssertAssessmentSectionNormMigrationMessage(MigrationLogMessage[] messages,
+                                                                        int lowerLimitReturnPeriod,
+                                                                        int signalingReturnPeriod, NormType normType)
+        {
+            Assert.AreEqual(3, messages.Length);
+
+            string lowerLimitLogSuffix = normType == NormType.LowerLimit
+                                             ? " (voorheen de waarde van de norm)"
+                                             : "";
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
+                messages[0]);
+            string signalingLogSuffix = normType == NormType.Signaling
+                                            ? " (voorheen de waarde van de norm)"
+                                            : "";
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
+                messages[1]);
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
+                messages[2]);
+        }
+
+        private static string GetExpectedAssessmentSectionQuery(string trajectId,
+                                                                int lowerLimitReturnPeriod,
+                                                                int signalingReturnPeriod,
+                                                                NormType normType)
+        {
+            return "SELECT COUNT() = 1 " +
+                   "FROM AssessmentSectionEntity " +
+                   $"WHERE [Id] = \"{trajectId}\" " +
+                   $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
+                   $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
+                   $"AND [NormativeNormType] = {Convert.ToByte(normType)}";
         }
 
         private static string GetNormTypeString(NormType normType)
@@ -382,18 +395,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Array normTypes = Enum.GetValues(typeof(NormType));
 
-            IEnumerable<TestCaseData> uniqueTrajectNorms = GetAllTrajectTestCaseData()
-                .GroupBy(t => Tuple.Create(t.Arguments[1], t.Arguments[2]))
+            IEnumerable<AssessmentSectionReturnPeriod> uniqueTrajectPeriods = GetAllTrajectTestCaseData()
+                .GroupBy(t => Tuple.Create(t.SignalingReturnPeriod, t.LowerLimitPeriod))
                 .Select(t => t.First());
-            foreach (TestCaseData data in uniqueTrajectNorms)
+            foreach (AssessmentSectionReturnPeriod data in uniqueTrajectPeriods)
             {
                 foreach (NormType normType in normTypes)
                 {
-                    var trajectId = (string) data.Arguments[0];
                     yield return new TestCaseData(normType,
-                                                  trajectId,
-                                                  data.Arguments[1],
-                                                  data.Arguments[2])
+                                                  data.Id,
+                                                  data.SignalingReturnPeriod,
+                                                  data.LowerLimitPeriod)
                         .SetName("Given171ProjectWithNorm{1}OfTraject{0}_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase");
                 }
             }
@@ -405,243 +417,243 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 .SetName("Given171ProjectWithNorm{1}OfUnknownTraject_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase");
         }
 
-        private static IEnumerable<TestCaseData> GetAllTrajectTestCaseData()
+        private static IEnumerable<AssessmentSectionReturnPeriod> GetAllTrajectTestCaseData()
         {
-            yield return new TestCaseData("1-1", 1000, 1000);
-            yield return new TestCaseData("1-2", 1000, 1000);
-            yield return new TestCaseData("2-1", 1000, 300);
-            yield return new TestCaseData("2-2", 1000, 1000);
-            yield return new TestCaseData("3-1", 3000, 3000);
-            yield return new TestCaseData("3-2", 1000, 1000);
-            yield return new TestCaseData("4-1", 300, 300);
-            yield return new TestCaseData("4-2", 1000, 300);
-            yield return new TestCaseData("5-1", 3000, 1000);
-            yield return new TestCaseData("5-2", 3000, 3000);
-            yield return new TestCaseData("6-1", 3000, 1000);
-            yield return new TestCaseData("6-2", 3000, 1000);
-            yield return new TestCaseData("6-3", 3000, 1000);
-            yield return new TestCaseData("6-4", 3000, 1000);
-            yield return new TestCaseData("6-5", 3000, 1000);
-            yield return new TestCaseData("6-6", 3000, 1000);
-            yield return new TestCaseData("6-7", 10000, 3000);
-            yield return new TestCaseData("7-1", 3000, 1000);
-            yield return new TestCaseData("7-2", 3000, 1000);
-            yield return new TestCaseData("8-1", 30000, 10000);
-            yield return new TestCaseData("8-2", 30000, 10000);
-            yield return new TestCaseData("8-3", 30000, 10000);
-            yield return new TestCaseData("8-4", 30000, 10000);
-            yield return new TestCaseData("8-5", 3000, 1000);
-            yield return new TestCaseData("8-6", 3000, 1000);
-            yield return new TestCaseData("8-7", 3000, 1000);
-            yield return new TestCaseData("9-1", 1000, 300);
-            yield return new TestCaseData("9-2", 3000, 1000);
-            yield return new TestCaseData("10-1", 3000, 1000);
-            yield return new TestCaseData("10-2", 3000, 1000);
-            yield return new TestCaseData("10-3", 10000, 3000);
-            yield return new TestCaseData("11-1", 3000, 1000);
-            yield return new TestCaseData("11-2", 3000, 1000);
-            yield return new TestCaseData("11-3", 300, 100);
-            yield return new TestCaseData("12-1", 1000, 1000);
-            yield return new TestCaseData("12-2", 3000, 1000);
-            yield return new TestCaseData("13-1", 3000, 1000);
-            yield return new TestCaseData("13-2", 3000, 3000);
-            yield return new TestCaseData("13-3", 3000, 1000);
-            yield return new TestCaseData("13-4", 3000, 1000);
-            yield return new TestCaseData("13-5", 3000, 1000);
-            yield return new TestCaseData("13-6", 3000, 1000);
-            yield return new TestCaseData("13-7", 3000, 1000);
-            yield return new TestCaseData("13-8", 3000, 1000);
-            yield return new TestCaseData("13-9", 3000, 1000);
-            yield return new TestCaseData("13a-1", 300, 100);
-            yield return new TestCaseData("13b-1", 300, 100);
-            yield return new TestCaseData("14-1", 30000, 10000);
-            yield return new TestCaseData("14-10", 30000, 30000);
-            yield return new TestCaseData("14-2", 100000, 30000);
-            yield return new TestCaseData("14-3", 10000, 10000);
-            yield return new TestCaseData("14-4", 10000, 3000);
-            yield return new TestCaseData("14-5", 30000, 10000);
-            yield return new TestCaseData("14-6", 30000, 10000);
-            yield return new TestCaseData("14-7", 30000, 10000);
-            yield return new TestCaseData("14-8", 30000, 10000);
-            yield return new TestCaseData("14-9", 30000, 30000);
-            yield return new TestCaseData("15-1", 30000, 10000);
-            yield return new TestCaseData("15-2", 10000, 3000);
-            yield return new TestCaseData("15-3", 10000, 3000);
-            yield return new TestCaseData("16-1", 100000, 30000);
-            yield return new TestCaseData("16-2", 30000, 10000);
-            yield return new TestCaseData("16-3", 30000, 10000);
-            yield return new TestCaseData("16-4", 30000, 10000);
-            yield return new TestCaseData("16-5", 10, 10); // Signaling norm set to LowerLimit
-            yield return new TestCaseData("17-1", 3000, 1000);
-            yield return new TestCaseData("17-2", 3000, 1000);
-            yield return new TestCaseData("17-3", 100000, 30000);
-            yield return new TestCaseData("18-1", 10000, 3000);
-            yield return new TestCaseData("19-1", 100000, 30000);
-            yield return new TestCaseData("20-1", 30000, 10000);
-            yield return new TestCaseData("20-2", 10000, 10000);
-            yield return new TestCaseData("20-3", 30000, 10000);
-            yield return new TestCaseData("20-4", 1000, 300);
-            yield return new TestCaseData("21-1", 3000, 1000);
-            yield return new TestCaseData("21-2", 300, 100);
-            yield return new TestCaseData("22-1", 3000, 1000);
-            yield return new TestCaseData("22-2", 10000, 3000);
-            yield return new TestCaseData("23-1", 3000, 1000);
-            yield return new TestCaseData("24-1", 10000, 3000);
-            yield return new TestCaseData("24-2", 1000, 300);
-            yield return new TestCaseData("24-3", 10000, 10000);
-            yield return new TestCaseData("25-1", 3000, 1000);
-            yield return new TestCaseData("25-2", 1000, 300);
-            yield return new TestCaseData("25-3", 300, 100);
-            yield return new TestCaseData("25-4", 300, 300);
-            yield return new TestCaseData("26-1", 3000, 1000);
-            yield return new TestCaseData("26-2", 3000, 1000);
-            yield return new TestCaseData("26-3", 10000, 3000);
-            yield return new TestCaseData("26-4", 1000, 1000);
-            yield return new TestCaseData("27-1", 3000, 3000);
-            yield return new TestCaseData("27-2", 10000, 10000);
-            yield return new TestCaseData("27-3", 3000, 1000);
-            yield return new TestCaseData("27-4", 1000, 300);
-            yield return new TestCaseData("28-1", 1000, 300);
-            yield return new TestCaseData("29-1", 3000, 1000);
-            yield return new TestCaseData("29-2", 10000, 3000);
-            yield return new TestCaseData("29-3", 100000, 30000);
-            yield return new TestCaseData("29-4", 1000, 1000);
-            yield return new TestCaseData("30-1", 3000, 1000);
-            yield return new TestCaseData("30-2", 100000, 100000);
-            yield return new TestCaseData("30-3", 3000, 1000);
-            yield return new TestCaseData("30-4", 1000000, 1000000);
-            yield return new TestCaseData("31-1", 30000, 10000);
-            yield return new TestCaseData("31-2", 10000, 3000);
-            yield return new TestCaseData("31-3", 300, 100);
-            yield return new TestCaseData("32-1", 1000, 300);
-            yield return new TestCaseData("32-2", 1000, 300);
-            yield return new TestCaseData("32-3", 3000, 1000);
-            yield return new TestCaseData("32-4", 3000, 1000);
-            yield return new TestCaseData("33-1", 300, 100);
-            yield return new TestCaseData("34-1", 1000, 300);
-            yield return new TestCaseData("34-2", 1000, 300);
-            yield return new TestCaseData("34-3", 3000, 1000);
-            yield return new TestCaseData("34-4", 1000, 300);
-            yield return new TestCaseData("34-5", 300, 100);
-            yield return new TestCaseData("34a-1", 3000, 1000);
-            yield return new TestCaseData("35-1", 10000, 3000);
-            yield return new TestCaseData("35-2", 3000, 1000);
-            yield return new TestCaseData("36-1", 10000, 3000);
-            yield return new TestCaseData("36-2", 30000, 10000);
-            yield return new TestCaseData("36-3", 30000, 10000);
-            yield return new TestCaseData("36-4", 10000, 3000);
-            yield return new TestCaseData("36-5", 10000, 3000);
-            yield return new TestCaseData("36a-1", 3000, 1000);
-            yield return new TestCaseData("37-1", 10000, 3000);
-            yield return new TestCaseData("38-1", 30000, 10000);
-            yield return new TestCaseData("38-2", 10000, 3000);
-            yield return new TestCaseData("39-1", 3000, 3000);
-            yield return new TestCaseData("40-1", 30000, 30000);
-            yield return new TestCaseData("40-2", 10000, 3000);
-            yield return new TestCaseData("41-1", 30000, 10000);
-            yield return new TestCaseData("41-2", 10000, 3000);
-            yield return new TestCaseData("41-3", 3000, 3000);
-            yield return new TestCaseData("41-4", 10000, 3000);
-            yield return new TestCaseData("42-1", 10000, 3000);
-            yield return new TestCaseData("43-1", 30000, 10000);
-            yield return new TestCaseData("43-2", 10000, 3000);
-            yield return new TestCaseData("43-3", 30000, 10000);
-            yield return new TestCaseData("43-4", 30000, 10000);
-            yield return new TestCaseData("43-5", 30000, 10000);
-            yield return new TestCaseData("43-6", 30000, 10000);
-            yield return new TestCaseData("44-1", 30000, 10000);
-            yield return new TestCaseData("44-2", 300, 100);
-            yield return new TestCaseData("44-3", 30000, 10000);
-            yield return new TestCaseData("45-1", 100000, 30000);
-            yield return new TestCaseData("45-2", 300, 100);
-            yield return new TestCaseData("45-3", 300, 100);
-            yield return new TestCaseData("46-1", 300, 100);
-            yield return new TestCaseData("47-1", 3000, 1000);
-            yield return new TestCaseData("48-1", 30000, 10000);
-            yield return new TestCaseData("48-2", 10000, 3000);
-            yield return new TestCaseData("48-3", 10000, 3000);
-            yield return new TestCaseData("49-1", 300, 100);
-            yield return new TestCaseData("49-2", 10000, 3000);
-            yield return new TestCaseData("50-1", 30000, 10000);
-            yield return new TestCaseData("50-2", 3000, 1000);
-            yield return new TestCaseData("51-1", 1000, 300);
-            yield return new TestCaseData("52-1", 3000, 1000);
-            yield return new TestCaseData("52-2", 3000, 1000);
-            yield return new TestCaseData("52-3", 3000, 1000);
-            yield return new TestCaseData("52-4", 3000, 1000);
-            yield return new TestCaseData("52a-1", 3000, 1000);
-            yield return new TestCaseData("53-1", 3000, 1000);
-            yield return new TestCaseData("53-2", 10000, 3000);
-            yield return new TestCaseData("53-3", 10000, 3000);
-            yield return new TestCaseData("54-1", 1000, 300);
-            yield return new TestCaseData("55-1", 1000, 300);
-            yield return new TestCaseData("56-1", 300, 100);
-            yield return new TestCaseData("57-1", 300, 100);
-            yield return new TestCaseData("58-1", 300, 100);
-            yield return new TestCaseData("59-1", 300, 100);
-            yield return new TestCaseData("60-1", 300, 100);
-            yield return new TestCaseData("61-1", 300, 100);
-            yield return new TestCaseData("63-1", 300, 100);
-            yield return new TestCaseData("64-1", 300, 100);
-            yield return new TestCaseData("65-1", 300, 100);
-            yield return new TestCaseData("66-1", 300, 100);
-            yield return new TestCaseData("67-1", 300, 100);
-            yield return new TestCaseData("68-1", 1000, 300);
-            yield return new TestCaseData("68-2", 300, 100);
-            yield return new TestCaseData("69-1", 1000, 300);
-            yield return new TestCaseData("70-1", 300, 100);
-            yield return new TestCaseData("71-1", 300, 100);
-            yield return new TestCaseData("72-1", 300, 100);
-            yield return new TestCaseData("73-1", 300, 100);
-            yield return new TestCaseData("74-1", 300, 100);
-            yield return new TestCaseData("75-1", 300, 100);
-            yield return new TestCaseData("76-1", 300, 100);
-            yield return new TestCaseData("76-2", 300, 100);
-            yield return new TestCaseData("76a-1", 300, 100);
-            yield return new TestCaseData("77-1", 300, 100);
-            yield return new TestCaseData("78-1", 300, 100);
-            yield return new TestCaseData("78a-1", 300, 100);
-            yield return new TestCaseData("79-1", 300, 100);
-            yield return new TestCaseData("80-1", 300, 100);
-            yield return new TestCaseData("81-1", 300, 100);
-            yield return new TestCaseData("82-1", 300, 100);
-            yield return new TestCaseData("83-1", 300, 100);
-            yield return new TestCaseData("85-1", 300, 100);
-            yield return new TestCaseData("86-1", 300, 100);
-            yield return new TestCaseData("87-1", 1000, 300);
-            yield return new TestCaseData("88-1", 300, 100);
-            yield return new TestCaseData("89-1", 300, 100);
-            yield return new TestCaseData("90-1", 3000, 1000);
-            yield return new TestCaseData("91-1", 300, 300);
-            yield return new TestCaseData("92-1", 300, 100);
-            yield return new TestCaseData("93-1", 1000, 300);
-            yield return new TestCaseData("94-1", 300, 100);
-            yield return new TestCaseData("95-1", 300, 100);
-            yield return new TestCaseData("201", 10000, 3000);
-            yield return new TestCaseData("202", 10000, 3000);
-            yield return new TestCaseData("204a", 10000, 3000);
-            yield return new TestCaseData("204b", 1000, 300);
-            yield return new TestCaseData("205", 3000, 1000);
-            yield return new TestCaseData("206", 10000, 3000);
-            yield return new TestCaseData("208", 100000, 30000);
-            yield return new TestCaseData("209", 100000, 30000);
-            yield return new TestCaseData("210", 100000, 30000);
-            yield return new TestCaseData("211", 3000, 1000);
-            yield return new TestCaseData("212", 10000, 3000);
-            yield return new TestCaseData("213", 10000, 3000);
-            yield return new TestCaseData("214", 3000, 1000);
-            yield return new TestCaseData("215", 30000, 10000);
-            yield return new TestCaseData("216", 3000, 1000);
-            yield return new TestCaseData("217", 30000, 10000);
-            yield return new TestCaseData("218", 30000, 10000);
-            yield return new TestCaseData("219", 30000, 10000);
-            yield return new TestCaseData("221", 10000, 3000);
-            yield return new TestCaseData("222", 30000, 10000);
-            yield return new TestCaseData("223", 30000, 10000);
-            yield return new TestCaseData("224", 30000, 10000);
-            yield return new TestCaseData("225", 30000, 10000);
-            yield return new TestCaseData("226", 3000, 1000);
-            yield return new TestCaseData("227", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("1-1", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("1-2", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("2-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("2-2", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("3-1", 3000, 3000);
+            yield return new AssessmentSectionReturnPeriod("3-2", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("4-1", 300, 300);
+            yield return new AssessmentSectionReturnPeriod("4-2", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("5-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("5-2", 3000, 3000);
+            yield return new AssessmentSectionReturnPeriod("6-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("6-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("6-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("6-4", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("6-5", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("6-6", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("6-7", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("7-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("7-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("8-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("8-2", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("8-3", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("8-4", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("8-5", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("8-6", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("8-7", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("9-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("9-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("10-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("10-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("10-3", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("11-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("11-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("11-3", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("12-1", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("12-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-2", 3000, 3000);
+            yield return new AssessmentSectionReturnPeriod("13-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-4", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-5", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-6", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-7", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-8", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13-9", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("13a-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("13b-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("14-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("14-10", 30000, 30000);
+            yield return new AssessmentSectionReturnPeriod("14-2", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("14-3", 10000, 10000);
+            yield return new AssessmentSectionReturnPeriod("14-4", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("14-5", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("14-6", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("14-7", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("14-8", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("14-9", 30000, 30000);
+            yield return new AssessmentSectionReturnPeriod("15-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("15-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("15-3", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("16-1", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("16-2", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("16-3", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("16-4", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("16-5", 10, 10); // Signaling norm set to LowerLimit
+            yield return new AssessmentSectionReturnPeriod("17-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("17-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("17-3", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("18-1", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("19-1", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("20-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("20-2", 10000, 10000);
+            yield return new AssessmentSectionReturnPeriod("20-3", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("20-4", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("21-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("21-2", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("22-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("22-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("23-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("24-1", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("24-2", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("24-3", 10000, 10000);
+            yield return new AssessmentSectionReturnPeriod("25-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("25-2", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("25-3", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("25-4", 300, 300);
+            yield return new AssessmentSectionReturnPeriod("26-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("26-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("26-3", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("26-4", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("27-1", 3000, 3000);
+            yield return new AssessmentSectionReturnPeriod("27-2", 10000, 10000);
+            yield return new AssessmentSectionReturnPeriod("27-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("27-4", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("28-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("29-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("29-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("29-3", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("29-4", 1000, 1000);
+            yield return new AssessmentSectionReturnPeriod("30-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("30-2", 100000, 100000);
+            yield return new AssessmentSectionReturnPeriod("30-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("30-4", 1000000, 1000000);
+            yield return new AssessmentSectionReturnPeriod("31-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("31-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("31-3", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("32-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("32-2", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("32-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("32-4", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("33-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("34-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("34-2", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("34-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("34-4", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("34-5", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("34a-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("35-1", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("35-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("36-1", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("36-2", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("36-3", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("36-4", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("36-5", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("36a-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("37-1", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("38-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("38-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("39-1", 3000, 3000);
+            yield return new AssessmentSectionReturnPeriod("40-1", 30000, 30000);
+            yield return new AssessmentSectionReturnPeriod("40-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("41-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("41-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("41-3", 3000, 3000);
+            yield return new AssessmentSectionReturnPeriod("41-4", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("42-1", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("43-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("43-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("43-3", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("43-4", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("43-5", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("43-6", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("44-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("44-2", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("44-3", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("45-1", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("45-2", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("45-3", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("46-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("47-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("48-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("48-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("48-3", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("49-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("49-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("50-1", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("50-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("51-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("52-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("52-2", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("52-3", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("52-4", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("52a-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("53-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("53-2", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("53-3", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("54-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("55-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("56-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("57-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("58-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("59-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("60-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("61-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("63-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("64-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("65-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("66-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("67-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("68-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("68-2", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("69-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("70-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("71-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("72-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("73-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("74-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("75-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("76-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("76-2", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("76a-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("77-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("78-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("78a-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("79-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("80-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("81-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("82-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("83-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("85-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("86-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("87-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("88-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("89-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("90-1", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("91-1", 300, 300);
+            yield return new AssessmentSectionReturnPeriod("92-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("93-1", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("94-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("95-1", 300, 100);
+            yield return new AssessmentSectionReturnPeriod("201", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("202", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("204a", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("204b", 1000, 300);
+            yield return new AssessmentSectionReturnPeriod("205", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("206", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("208", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("209", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("210", 100000, 30000);
+            yield return new AssessmentSectionReturnPeriod("211", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("212", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("213", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("214", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("215", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("216", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("217", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("218", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("219", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("221", 10000, 3000);
+            yield return new AssessmentSectionReturnPeriod("222", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("223", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("224", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("225", 30000, 10000);
+            yield return new AssessmentSectionReturnPeriod("226", 3000, 1000);
+            yield return new AssessmentSectionReturnPeriod("227", 3000, 1000);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -916,18 +928,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[i++]);
+
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSection'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/30000."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm)."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
-                    messages[i++]);
+                AssertAssessmentSectionNormMigrationMessage(new[]
+                {
+                    messages[i++],
+                    messages[i++],
+                    messages[i++]
+                }, 30000, 30000, NormType.Signaling);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
                     messages[i++]);
@@ -962,15 +972,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Demo traject'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/1000."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm)."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
-                    messages[i++]);
+                AssertAssessmentSectionNormMigrationMessage(new[]
+                {
+                    messages[i++],
+                    messages[i++],
+                    messages[i++]
+                }, 1000, 30000, NormType.Signaling);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
@@ -987,28 +994,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'Empty'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/1000."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/1000 (voorheen de waarde van de norm)."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
-                    messages[i++]);
+                AssertAssessmentSectionNormMigrationMessage(new[]
+                {
+                    messages[i++],
+                    messages[i++],
+                    messages[i++]
+                }, 1000, 1000, NormType.Signaling);
 
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSectionResults'"),
                     messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De ondergrens is gelijk gesteld aan 1/1000."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + De signaleringswaarde is gelijk gesteld aan 1/3000 (voorheen de waarde van de norm)."),
-                    messages[i++]);
-                AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(NormType.Signaling)}."),
-                    messages[i++]);
+                AssertAssessmentSectionNormMigrationMessage(new[]
+                {
+                    messages[i++],
+                    messages[i++],
+                    messages[i++]
+                }, 1000, 3000, NormType.Signaling);
                 AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Piping'"),
                     messages[i++]);
@@ -1180,6 +1181,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE LayerThree < 0 OR LayerThree > 1";
 
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
+        }
+
+        /// <summary>
+        /// Class for combination of an assessment section id with signaling and lower limit return period.
+        /// </summary>
+        private class AssessmentSectionReturnPeriod
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="AssessmentSectionReturnPeriod"/>.
+            /// </summary>
+            /// <param name="id">The assessment section identifier.</param>
+            /// <param name="signalingReturnPeriod">The signaling return period.</param>
+            /// <param name="lowerLimitPeriod">The lower limit return period.</param>
+            public AssessmentSectionReturnPeriod(string id, int signalingReturnPeriod, int lowerLimitPeriod)
+            {
+                Id = id;
+                SignalingReturnPeriod = signalingReturnPeriod;
+                LowerLimitPeriod = lowerLimitPeriod;
+            }
+
+            /// <summary>
+            /// Gets the identifier of the assessment section.
+            /// </summary>
+            public string Id { get; }
+
+            /// <summary>
+            /// Gets the signaling return period which has been defined on the assessment section.
+            /// </summary>
+            public int SignalingReturnPeriod { get; }
+
+            /// <summary>
+            /// Gets the lower limit return period which has been defined on the assessment section.
+            /// </summary>
+            public int LowerLimitPeriod { get; }
         }
 
         /// <summary>
