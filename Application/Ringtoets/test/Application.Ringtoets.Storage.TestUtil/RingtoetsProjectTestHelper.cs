@@ -45,6 +45,8 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
@@ -76,6 +78,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                 ReferenceLine = GetReferenceLine(),
                 Id = "12-2"
             };
+
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
+            ConfigureMacroStabilityInwardsFailureMechanism(macroStabilityInwardsFailureMechanism, assessmentSection);
+            AddSections(macroStabilityInwardsFailureMechanism);
+            SetSectionResults(macroStabilityInwardsFailureMechanism.SectionResults);
+
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
             AddSections(pipingFailureMechanism);
@@ -132,8 +140,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
-            AddSections(assessmentSection.MacroStabilityInwards);
-            SetSectionResults(assessmentSection.MacroStabilityInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityOutwards);
             SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
             AddSections(assessmentSection.Microstability);
@@ -201,16 +207,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
@@ -1046,6 +1042,178 @@ namespace Application.Ringtoets.Storage.TestUtil
             surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[6]);
             surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[7]);
             surfaceLine.SetDitchPolderSideAt(geometryPoints[8]);
+
+            return surfaceLine;
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards FailureMechanism
+
+        private static void ConfigureMacroStabilityInwardsFailureMechanism(MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
+                                                                           AssessmentSection assessmentSection)
+        {
+            macroStabilityInwardsFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A = 0.9;
+            macroStabilityInwardsFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = 0.09;
+
+            Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
+
+            var soilLayer1D = new MacroStabilityInwardsSoilLayer1D(5)
+            {
+                Properties =
+                {
+                    IsAquifer = true,
+                    MaterialName = "SeaShellLayer",
+                    Color = Color.SeaShell,
+                    UsePop = true,
+                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
+                    AbovePhreaticLevelMean = 0.01,
+                    AbovePhreaticLevelCoefficientOfVariation = 0.02,
+                    AbovePhreaticLevelShift = 0.03,
+                    BelowPhreaticLevelMean = 0.04,
+                    BelowPhreaticLevelCoefficientOfVariation = 0.05,
+                    BelowPhreaticLevelShift = 0.06,
+                    CohesionMean = 0.07,
+                    CohesionCoefficientOfVariation = 0.08,
+                    FrictionAngleMean = 0.09,
+                    FrictionAngleCoefficientOfVariation = 0.1,
+                    ShearStrengthRatioMean = 0.11,
+                    ShearStrengthRatioCoefficientOfVariation = 0.12,
+                    StrengthIncreaseExponentMean = 0.13,
+                    StrengthIncreaseExponentCoefficientOfVariation = 0.14,
+                    PopMean = 0.15,
+                    PopCoefficientOfVariation = 0.16
+                }
+            };
+
+            var soilProfile1D = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile1D",
+                                                                       -10,
+                                                                       new[]
+                                                                       {
+                                                                           soilLayer1D
+                                                                       });
+
+            var soilLayer2D = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }), new[]
+            {
+                new Ring(new[]
+                {
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                })
+            })
+            {
+                Properties =
+                {
+                    IsAquifer = false,
+                    MaterialName = "GainsboroLayer",
+                    Color = Color.Gainsboro,
+                    UsePop = false,
+                    ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
+                    AbovePhreaticLevelMean = 10.901,
+                    AbovePhreaticLevelCoefficientOfVariation = 0.902,
+                    AbovePhreaticLevelShift = 0.903,
+                    BelowPhreaticLevelMean = 0.904,
+                    BelowPhreaticLevelCoefficientOfVariation = 0.905,
+                    BelowPhreaticLevelShift = 0.906,
+                    CohesionMean = 0.907,
+                    CohesionCoefficientOfVariation = 0.908,
+                    FrictionAngleMean = 0.909,
+                    FrictionAngleCoefficientOfVariation = 0.91,
+                    ShearStrengthRatioMean = 0.911,
+                    ShearStrengthRatioCoefficientOfVariation = 0.912,
+                    StrengthIncreaseExponentMean = 0.913,
+                    StrengthIncreaseExponentCoefficientOfVariation = 0.914,
+                    PopMean = 0.915,
+                    PopCoefficientOfVariation = 0.916
+                }
+            };
+
+            var soilProfile2D = new MacroStabilityInwardsSoilProfile2D("MacroStabilityInwardsSoilProfile2D", new[]
+            {
+                soilLayer2D
+            }, new[]
+            {
+                new MacroStabilityInwardsPreconsolidationStress(0.1, 0.2, 0.3, 0.4)
+            });
+
+            macroStabilityInwardsFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                new MacroStabilityInwardsStochasticSoilModel("MacroStabilityInwards model name")
+                {
+                    Geometry =
+                    {
+                        referenceLineGeometryPoints[1],
+                        referenceLineGeometryPoints[2],
+                        referenceLineGeometryPoints[3]
+                    },
+                    StochasticSoilProfiles =
+                    {
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1D),
+                        new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2D)
+                    }
+                }
+            }, "some/path/to/stochasticSoilModelFile");
+            macroStabilityInwardsFailureMechanism.SurfaceLines.AddRange(new[]
+            {
+                GetMacroStabilityInwardsSurfaceLine()
+            }, "some/path/to/surfaceLineFile");
+        }
+
+        private static void SetSectionResults(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static MacroStabilityInwardsSurfaceLine GetMacroStabilityInwardsSurfaceLine()
+        {
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("MacroStabilityInwards surface line")
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(4.4, 6.6)
+            };
+
+            var geometryPoints = new[]
+            {
+                new Point3D(1.0, 6.0, -2.3),
+                new Point3D(2.8, 6.0, -2.3),
+                new Point3D(3.6, 6.0, 3.4),
+                new Point3D(4.2, 6.0, 3.5),
+                new Point3D(5.0, 6.0, 0.5),
+                new Point3D(6.8, 6.0, 0.5),
+                new Point3D(7.6, 6.0, 0.2),
+                new Point3D(8.4, 6.0, 0.25),
+                new Point3D(9.2, 6.0, 0.5),
+                new Point3D(10.0, 6.0, 0.5),
+                new Point3D(11.0, 6.0, -2.3),
+                new Point3D(12.8, 6.0, -2.3),
+                new Point3D(13.6, 6.0, 3.4),
+                new Point3D(14.2, 6.0, 3.5),
+                new Point3D(15.0, 6.0, 0.5)
+            };
+            surfaceLine.SetGeometry(geometryPoints);
+
+            surfaceLine.SetSurfaceLevelOutsideAt(geometryPoints[14]);
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[13]);
+            surfaceLine.SetTrafficLoadOutsideAt(geometryPoints[12]);
+            surfaceLine.SetTrafficLoadInsideAt(geometryPoints[11]);
+            surfaceLine.SetDikeTopAtPolderAt(geometryPoints[10]);
+            surfaceLine.SetDikeTopAtRiverAt(geometryPoints[9]);
+            surfaceLine.SetShoulderBaseInsideAt(geometryPoints[8]);
+            surfaceLine.SetShoulderTopInsideAt(geometryPoints[7]);
+            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[6]);
+            surfaceLine.SetDitchDikeSideAt(geometryPoints[5]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[4]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[3]);
+            surfaceLine.SetDitchPolderSideAt(geometryPoints[2]);
+            surfaceLine.SetSurfaceLevelInsideAt(geometryPoints[1]);
 
             return surfaceLine;
         }

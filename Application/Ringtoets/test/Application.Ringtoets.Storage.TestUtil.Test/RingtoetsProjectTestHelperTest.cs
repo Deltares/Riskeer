@@ -34,6 +34,9 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -47,7 +50,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
     public class RingtoetsProjectTestHelperTest
     {
         [Test]
-        public void RingtoetsProjectHelper_Always_ReturnsFullProject()
+        public void GetFullTestProject_Always_ReturnsFullProject()
         {
             // Setup
             const string expectedProjectName = "tempProjectFile";
@@ -69,6 +72,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             AssertHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryDatabase);
 
             AssertPipingFailureMechanism(assessmentSection);
+
+            AssertMacroStabilityInwardsFailureMechanism(assessmentSection);
 
             AssertGrassCoverErosionInwardsFailureMechanism(assessmentSection);
 
@@ -140,6 +145,60 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var calculationWithoutOutput = (PipingCalculationScenario) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
+        }
+
+        private static void AssertMacroStabilityInwardsFailureMechanism(AssessmentSection assessmentSection)
+        {
+            MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
+            Assert.AreEqual("some/path/to/stochasticSoilModelFile", failureMechanism.StochasticSoilModels.SourcePath);
+            Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
+            MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
+            Assert.AreEqual("MacroStabilityInwards model name", soilModel.Name);
+            Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
+            Assert.AreEqual(0.3, stochasticSoilProfile1.Probability);
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
+            Assert.AreEqual(0.7, stochasticSoilProfile2.Probability);
+
+            Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);
+            Assert.AreEqual(1, failureMechanism.SurfaceLines.Count);
+            MacroStabilityInwardsSurfaceLine surfaceLine = failureMechanism.SurfaceLines.First();
+            Assert.AreEqual("MacroStabilityInwards surface line", surfaceLine.Name);
+            Assert.AreEqual(new Point2D(4.4, 6.6), surfaceLine.ReferenceLineIntersectionWorldPoint);
+            var geometryPoints = new[]
+            {
+                new Point3D(1.0, 6.0, -2.3),
+                new Point3D(2.8, 6.0, -2.3),
+                new Point3D(3.6, 6.0, 3.4),
+                new Point3D(4.2, 6.0, 3.5),
+                new Point3D(5.0, 6.0, 0.5),
+                new Point3D(6.8, 6.0, 0.5),
+                new Point3D(7.6, 6.0, 0.2),
+                new Point3D(8.4, 6.0, 0.25),
+                new Point3D(9.2, 6.0, 0.5),
+                new Point3D(10.0, 6.0, 0.5),
+                new Point3D(11.0, 6.0, -2.3),
+                new Point3D(12.8, 6.0, -2.3),
+                new Point3D(13.6, 6.0, 3.4),
+                new Point3D(14.2, 6.0, 3.5),
+                new Point3D(15.0, 6.0, 0.5)
+            };
+            CollectionAssert.AreEqual(geometryPoints, surfaceLine.Points);
+
+            Assert.AreEqual(surfaceLine.Points[14], surfaceLine.SurfaceLevelOutside);
+            Assert.AreEqual(surfaceLine.Points[13], surfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(surfaceLine.Points[12], surfaceLine.TrafficLoadOutside);
+            Assert.AreEqual(surfaceLine.Points[11], surfaceLine.TrafficLoadInside);
+            Assert.AreEqual(surfaceLine.Points[10], surfaceLine.DikeTopAtPolder);
+            Assert.AreEqual(surfaceLine.Points[9], surfaceLine.DikeTopAtRiver);
+            Assert.AreEqual(surfaceLine.Points[8], surfaceLine.ShoulderBaseInside);
+            Assert.AreEqual(surfaceLine.Points[7], surfaceLine.ShoulderTopInside);
+            Assert.AreEqual(surfaceLine.Points[6], surfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(surfaceLine.Points[5], surfaceLine.DitchDikeSide);
+            Assert.AreEqual(surfaceLine.Points[4], surfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(surfaceLine.Points[3], surfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(surfaceLine.Points[2], surfaceLine.DitchPolderSide);
+            Assert.AreEqual(surfaceLine.Points[1], surfaceLine.SurfaceLevelInside);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanism(AssessmentSection assessmentSection)

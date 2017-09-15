@@ -53,6 +53,8 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -277,6 +279,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
                 AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
+                AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
                 AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
                 AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
                 AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
@@ -390,19 +393,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
-                                     });
-        }
-
-        private static void AssertFailureMechanismSectionResults(
             IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
         {
@@ -499,91 +489,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
         }
 
-        private static void AssertStochasticSoilModels(PipingStochasticSoilModelCollection expectedModels,
-                                                       PipingStochasticSoilModelCollection actualModels)
-        {
-            Assert.Less(0, actualModels.Count);
-
-            Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
-            AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
-            {
-                Assert.AreEqual(expectedItem.Name, actualItem.Name);
-                AssertSegmentPoints(expectedItem.Geometry, actualItem.Geometry);
-                AssertStochasticSoilProfiles(expectedItem.StochasticSoilProfiles, actualItem.StochasticSoilProfiles);
-            });
-        }
-
         private static void AssertSegmentPoints(IEnumerable<Point2D> expectedSoilModelSegmentPoints,
                                                 IEnumerable<Point2D> actualSoilModelSegmentPoints)
         {
             Assert.Greater(expectedSoilModelSegmentPoints.Count(), 0);
 
             CollectionAssert.AreEqual(expectedSoilModelSegmentPoints, actualSoilModelSegmentPoints);
-        }
-
-        private static void AssertStochasticSoilProfiles(IEnumerable<PipingStochasticSoilProfile> expectedStochasticSoilProfiles,
-                                                         IEnumerable<PipingStochasticSoilProfile> actualStochasticSoilProfiles)
-        {
-            Assert.Less(0, actualStochasticSoilProfiles.Count());
-
-            AssertCollectionAndItems(expectedStochasticSoilProfiles,
-                                     actualStochasticSoilProfiles,
-                                     AssertPipingSoilProfile);
-        }
-
-        private static void AssertPipingSoilProfile(PipingStochasticSoilProfile expectedProfile, PipingStochasticSoilProfile actualProfile)
-        {
-            Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
-            Assert.AreEqual(expectedProfile.SoilProfile.Bottom, actualProfile.SoilProfile.Bottom);
-            Assert.AreEqual(expectedProfile.SoilProfile.Name, actualProfile.SoilProfile.Name);
-            AssertSoilLayers(expectedProfile.SoilProfile.Layers, actualProfile.SoilProfile.Layers);
-        }
-
-        private static void AssertSoilLayers(IEnumerable<PipingSoilLayer> expectedLayers, IEnumerable<PipingSoilLayer> actualLayers)
-        {
-            AssertCollectionAndItems(expectedLayers,
-                                     actualLayers,
-                                     AssertPipingSoilLayer);
-        }
-
-        private static void AssertPipingSoilLayer(PipingSoilLayer expectedLayer, PipingSoilLayer actualLayer)
-        {
-            Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
-            Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
-            Assert.AreEqual(expectedLayer.BelowPhreaticLevelMean, actualLayer.BelowPhreaticLevelMean);
-            Assert.AreEqual(expectedLayer.BelowPhreaticLevelDeviation, actualLayer.BelowPhreaticLevelDeviation);
-            Assert.AreEqual(expectedLayer.BelowPhreaticLevelShift, actualLayer.BelowPhreaticLevelShift);
-            Assert.AreEqual(expectedLayer.DiameterD70Mean, actualLayer.DiameterD70Mean);
-            Assert.AreEqual(expectedLayer.DiameterD70CoefficientOfVariation, actualLayer.DiameterD70CoefficientOfVariation);
-            Assert.AreEqual(expectedLayer.PermeabilityMean, actualLayer.PermeabilityMean);
-            Assert.AreEqual(expectedLayer.PermeabilityCoefficientOfVariation, actualLayer.PermeabilityCoefficientOfVariation);
-        }
-
-        private static void AssertSurfaceLines(PipingSurfaceLineCollection expectedSurfaceLines,
-                                               PipingSurfaceLineCollection actualSurfaceLines)
-        {
-            Assert.Greater(expectedSurfaceLines.Count, 0);
-
-            Assert.AreEqual(expectedSurfaceLines.SourcePath, actualSurfaceLines.SourcePath);
-            AssertCollectionAndItems(expectedSurfaceLines,
-                                     actualSurfaceLines,
-                                     AssertSurfaceLine);
-        }
-
-        private static void AssertSurfaceLine(PipingSurfaceLine expectedSurfaceLine,
-                                              PipingSurfaceLine actualSurfaceLine)
-        {
-            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
-            Assert.AreEqual(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint, actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
-
-            CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
-
-            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
-            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
-            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
         }
 
         private static void AssertCalculationGroup(CalculationGroup expectedRootCalculationGroup,
@@ -1291,16 +1202,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         #region Piping FailureMechanism
 
-        private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism,
-                                                         PipingFailureMechanism actualPipingFailureMechanism)
+        private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedFailureMechanism,
+                                                         PipingFailureMechanism actualFailureMechanism)
         {
-            AssertProbabilityAssessmentInput(expectedPipingFailureMechanism.PipingProbabilityAssessmentInput, actualPipingFailureMechanism.PipingProbabilityAssessmentInput);
-            AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
-            AssertSurfaceLines(expectedPipingFailureMechanism.SurfaceLines, actualPipingFailureMechanism.SurfaceLines);
-            AssertCalculationGroup(expectedPipingFailureMechanism.CalculationsGroup, actualPipingFailureMechanism.CalculationsGroup);
-            AssertComments(expectedPipingFailureMechanism.InputComments, actualPipingFailureMechanism.InputComments);
-            AssertComments(expectedPipingFailureMechanism.OutputComments, actualPipingFailureMechanism.OutputComments);
-            AssertComments(expectedPipingFailureMechanism.NotRelevantComments, actualPipingFailureMechanism.NotRelevantComments);
+            AssertProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
+            AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
+            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
+            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
+            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
+
+            Assert.AreEqual(expectedFailureMechanism.SurfaceLines.SourcePath, actualFailureMechanism.SurfaceLines.SourcePath);
+            AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
+                                     actualFailureMechanism.SurfaceLines,
+                                     AssertPipingSurfaceLine);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -1404,6 +1319,226 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedOutput.PipingReliability, actualOutput.PipingReliability);
                 Assert.AreEqual(expectedOutput.PipingProbability, actualOutput.PipingProbability);
             }
+        }
+
+        private static void AssertPipingStochasticSoilModels(PipingStochasticSoilModelCollection expectedModels,
+                                                             PipingStochasticSoilModelCollection actualModels)
+        {
+            Assert.Less(0, actualModels.Count);
+
+            Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
+            AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
+            {
+                Assert.AreEqual(expectedItem.Name, actualItem.Name);
+                AssertSegmentPoints(expectedItem.Geometry, actualItem.Geometry);
+                AssertCollectionAndItems(expectedItem.StochasticSoilProfiles, actualItem.StochasticSoilProfiles,
+                                         AssertPipingStochasticSoilProfile);
+            });
+        }
+
+        private static void AssertPipingStochasticSoilProfile(PipingStochasticSoilProfile expectedProfile, PipingStochasticSoilProfile actualProfile)
+        {
+            Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
+            AssertPipingSoilProfile(expectedProfile.SoilProfile, actualProfile.SoilProfile);
+        }
+
+        private static void AssertPipingSoilProfile(PipingSoilProfile expectedProfile, PipingSoilProfile actualProfile)
+        {
+            Assert.AreEqual(expectedProfile.Bottom, actualProfile.Bottom);
+            Assert.AreEqual(expectedProfile.Name, actualProfile.Name);
+            AssertCollectionAndItems(expectedProfile.Layers, actualProfile.Layers,
+                                     AssertPipingSoilLayer);
+        }
+
+        private static void AssertPipingSoilLayer(PipingSoilLayer expectedLayer, PipingSoilLayer actualLayer)
+        {
+            Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
+            Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
+            Assert.AreEqual(expectedLayer.BelowPhreaticLevelMean, actualLayer.BelowPhreaticLevelMean);
+            Assert.AreEqual(expectedLayer.BelowPhreaticLevelDeviation, actualLayer.BelowPhreaticLevelDeviation);
+            Assert.AreEqual(expectedLayer.BelowPhreaticLevelShift, actualLayer.BelowPhreaticLevelShift);
+            Assert.AreEqual(expectedLayer.DiameterD70Mean, actualLayer.DiameterD70Mean);
+            Assert.AreEqual(expectedLayer.DiameterD70CoefficientOfVariation, actualLayer.DiameterD70CoefficientOfVariation);
+            Assert.AreEqual(expectedLayer.PermeabilityMean, actualLayer.PermeabilityMean);
+            Assert.AreEqual(expectedLayer.PermeabilityCoefficientOfVariation, actualLayer.PermeabilityCoefficientOfVariation);
+        }
+
+        private static void AssertPipingSurfaceLine(PipingSurfaceLine expectedSurfaceLine,
+                                                    PipingSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
+            Assert.AreEqual(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint, actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
+
+            CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
+
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards FailureMechanism
+
+        private static void AssertMacroStabilityInwardsFailureMechanism(MacroStabilityInwardsFailureMechanism expectedFailureMechanism,
+                                                                        MacroStabilityInwardsFailureMechanism actualFailureMechanism)
+        {
+            AssertProbabilityAssessmentInput(expectedFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput, actualFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
+            AssertMacroStabilityInwardsStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
+            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
+            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
+            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
+
+            Assert.AreEqual(expectedFailureMechanism.SurfaceLines.SourcePath, actualFailureMechanism.SurfaceLines.SourcePath);
+            AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
+                                     actualFailureMechanism.SurfaceLines,
+                                     AssertMacroStabilityInwardsSurfaceLine);
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
+                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
+                                     });
+        }
+
+        private static void AssertProbabilityAssessmentInput(MacroStabilityInwardsProbabilityAssessmentInput expectedModel,
+                                                             MacroStabilityInwardsProbabilityAssessmentInput actualModel)
+        {
+            Assert.AreEqual(expectedModel.A, actualModel.A);
+            Assert.AreEqual(expectedModel.SectionLength, actualModel.SectionLength);
+        }
+
+        private static void AssertMacroStabilityInwardsStochasticSoilModels(MacroStabilityInwardsStochasticSoilModelCollection expectedModels,
+                                                                            MacroStabilityInwardsStochasticSoilModelCollection actualModels)
+        {
+            Assert.Less(0, actualModels.Count);
+
+            Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
+            AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
+            {
+                Assert.AreEqual(expectedItem.Name, actualItem.Name);
+                AssertSegmentPoints(expectedItem.Geometry, actualItem.Geometry);
+                AssertCollectionAndItems(expectedItem.StochasticSoilProfiles,
+                                         actualItem.StochasticSoilProfiles,
+                                         AssertMacroStabilityInwardsStochasticSoilProfile);
+            });
+        }
+
+        private static void AssertMacroStabilityInwardsStochasticSoilProfile(MacroStabilityInwardsStochasticSoilProfile expectedProfile,
+                                                                             MacroStabilityInwardsStochasticSoilProfile actualProfile)
+        {
+            Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
+
+            var expectedSoilProfile1D = expectedProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            if (expectedSoilProfile1D != null)
+            {
+                var actualSoilProfile1D = actualProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+                Assert.IsNotNull(actualSoilProfile1D);
+                AssertMacroStabilityInwardsSoilProfile(expectedSoilProfile1D, actualSoilProfile1D);
+            }
+
+            var expectedSoilProfile2D = expectedProfile.SoilProfile as MacroStabilityInwardsSoilProfile2D;
+            if (expectedSoilProfile2D != null)
+            {
+                var actualSoilProfile2D = actualProfile.SoilProfile as MacroStabilityInwardsSoilProfile2D;
+                Assert.IsNotNull(actualSoilProfile2D);
+                AssertMacroStabilityInwardsSoilProfile(expectedSoilProfile2D, actualSoilProfile2D);
+            }
+        }
+
+        private static void AssertMacroStabilityInwardsSoilProfile(MacroStabilityInwardsSoilProfile1D expectedSoilProfile,
+                                                                   MacroStabilityInwardsSoilProfile1D actualSoilProfile)
+        {
+            Assert.AreEqual(expectedSoilProfile.Bottom, actualSoilProfile.Bottom);
+            Assert.AreEqual(expectedSoilProfile.Name, actualSoilProfile.Name);
+            AssertCollectionAndItems(expectedSoilProfile.Layers,
+                                     actualSoilProfile.Layers,
+                                     AssertMacroStabilityInwardsSoilLayer);
+        }
+
+        private static void AssertMacroStabilityInwardsSoilProfile(MacroStabilityInwardsSoilProfile2D expectedSoilProfile,
+                                                                   MacroStabilityInwardsSoilProfile2D actualSoilProfile)
+        {
+            Assert.AreEqual(expectedSoilProfile.Name, actualSoilProfile.Name);
+            AssertCollectionAndItems(expectedSoilProfile.Layers,
+                                     actualSoilProfile.Layers,
+                                     AssertMacroStabilityInwardsSoilLayer);
+        }
+
+        private static void AssertMacroStabilityInwardsSoilLayer(MacroStabilityInwardsSoilLayer1D expectedLayer,
+                                                                 MacroStabilityInwardsSoilLayer1D actualLayer)
+        {
+            Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
+            AssertMacroStabilityInwardsSoilLayerProperties(expectedLayer.Properties, actualLayer.Properties);
+        }
+
+        private static void AssertMacroStabilityInwardsSoilLayer(MacroStabilityInwardsSoilLayer2D expectedLayer,
+                                                                 MacroStabilityInwardsSoilLayer2D actualLayer)
+        {
+            Assert.AreEqual(expectedLayer.OuterRing, actualLayer.OuterRing);
+            CollectionAssert.AreEqual(expectedLayer.Holes, actualLayer.Holes);
+            AssertMacroStabilityInwardsSoilLayerProperties(expectedLayer.Properties, actualLayer.Properties);
+        }
+
+        private static void AssertMacroStabilityInwardsSoilLayerProperties(MacroStabilityInwardsSoilLayerProperties expectedProperties,
+                                                                           MacroStabilityInwardsSoilLayerProperties actualProperties)
+        {
+            Assert.AreEqual(expectedProperties.IsAquifer, actualProperties.IsAquifer);
+            Assert.AreEqual(expectedProperties.MaterialName, actualProperties.MaterialName);
+            Assert.AreEqual(expectedProperties.Color.ToArgb(), actualProperties.Color.ToArgb());
+            Assert.AreEqual(expectedProperties.UsePop, actualProperties.UsePop);
+            Assert.AreEqual(expectedProperties.ShearStrengthModel, actualProperties.ShearStrengthModel);
+            Assert.AreEqual(expectedProperties.AbovePhreaticLevelMean, actualProperties.AbovePhreaticLevelMean);
+            Assert.AreEqual(expectedProperties.AbovePhreaticLevelCoefficientOfVariation, actualProperties.AbovePhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(expectedProperties.AbovePhreaticLevelShift, actualProperties.AbovePhreaticLevelShift);
+            Assert.AreEqual(expectedProperties.BelowPhreaticLevelMean, actualProperties.BelowPhreaticLevelMean);
+            Assert.AreEqual(expectedProperties.BelowPhreaticLevelCoefficientOfVariation, actualProperties.BelowPhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(expectedProperties.BelowPhreaticLevelShift, actualProperties.BelowPhreaticLevelShift);
+            Assert.AreEqual(expectedProperties.CohesionMean, actualProperties.CohesionMean);
+            Assert.AreEqual(expectedProperties.CohesionCoefficientOfVariation, actualProperties.CohesionCoefficientOfVariation);
+            Assert.AreEqual(expectedProperties.FrictionAngleMean, actualProperties.FrictionAngleMean);
+            Assert.AreEqual(expectedProperties.FrictionAngleCoefficientOfVariation, actualProperties.FrictionAngleCoefficientOfVariation);
+            Assert.AreEqual(expectedProperties.ShearStrengthRatioMean, actualProperties.ShearStrengthRatioMean);
+            Assert.AreEqual(expectedProperties.ShearStrengthRatioCoefficientOfVariation, actualProperties.ShearStrengthRatioCoefficientOfVariation);
+            Assert.AreEqual(expectedProperties.StrengthIncreaseExponentMean, actualProperties.StrengthIncreaseExponentMean);
+            Assert.AreEqual(expectedProperties.StrengthIncreaseExponentCoefficientOfVariation, actualProperties.StrengthIncreaseExponentCoefficientOfVariation);
+            Assert.AreEqual(expectedProperties.PopMean, actualProperties.PopMean);
+            Assert.AreEqual(expectedProperties.PopCoefficientOfVariation, actualProperties.PopCoefficientOfVariation);
+        }
+
+        private static void AssertMacroStabilityInwardsSurfaceLine(MacroStabilityInwardsSurfaceLine expectedSurfaceLine,
+                                                                   MacroStabilityInwardsSurfaceLine actualSurfaceLine)
+        {
+            Assert.AreEqual(expectedSurfaceLine.Name, actualSurfaceLine.Name);
+            Assert.AreEqual(expectedSurfaceLine.ReferenceLineIntersectionWorldPoint, actualSurfaceLine.ReferenceLineIntersectionWorldPoint);
+
+            CollectionAssert.AreEqual(expectedSurfaceLine.Points, actualSurfaceLine.Points);
+
+            Assert.AreEqual(expectedSurfaceLine.SurfaceLevelOutside, actualSurfaceLine.SurfaceLevelOutside);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(expectedSurfaceLine.TrafficLoadOutside, actualSurfaceLine.TrafficLoadOutside);
+            Assert.AreEqual(expectedSurfaceLine.TrafficLoadInside, actualSurfaceLine.TrafficLoadInside);
+            Assert.AreEqual(expectedSurfaceLine.DikeTopAtPolder, actualSurfaceLine.DikeTopAtPolder);
+            Assert.AreEqual(expectedSurfaceLine.DikeTopAtRiver, actualSurfaceLine.DikeTopAtRiver);
+            Assert.AreEqual(expectedSurfaceLine.ShoulderBaseInside, actualSurfaceLine.ShoulderBaseInside);
+            Assert.AreEqual(expectedSurfaceLine.ShoulderTopInside, actualSurfaceLine.ShoulderTopInside);
+            Assert.AreEqual(expectedSurfaceLine.DikeToeAtPolder, actualSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(expectedSurfaceLine.DitchDikeSide, actualSurfaceLine.DitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchDikeSide, actualSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(expectedSurfaceLine.SurfaceLevelInside, actualSurfaceLine.SurfaceLevelInside);
         }
 
         #endregion
