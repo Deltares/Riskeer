@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms.Integration;
-using Core.Common.Utils.Reflection;
 using Core.Components.GraphSharp.Data;
 using Core.Components.GraphSharp.Forms;
 using Core.Components.GraphSharp.Forms.Layout;
@@ -56,12 +56,11 @@ namespace Core.Components.GraphSharp.TestUtil.Test
                 PointedTreeGraph pointedTreeGraph = PointedTreeGraphControlHelper.GetPointedTreeGraph(control);
 
                 // Assert
-                var elementHost = TypeUtils.GetField<ElementHost>(control, "wpfElementHost");
+                ElementHost elementHost = control.Controls.OfType<ElementHost>().First();
                 var zoomControl = (ZoomControl) elementHost.Child;
                 var graphLayout = (PointedTreeGraphLayout) zoomControl.Content;
-                PointedTreeGraph expectedGraph = graphLayout.Graph;
 
-                Assert.AreSame(expectedGraph, pointedTreeGraph);
+                Assert.AreSame(graphLayout.Graph, pointedTreeGraph);
             }
         }
 
@@ -86,7 +85,7 @@ namespace Core.Components.GraphSharp.TestUtil.Test
                 ZoomControl zoomControl = PointedTreeGraphControlHelper.GetZoomControl(control);
 
                 // Assert
-                var elementHost = TypeUtils.GetField<ElementHost>(control, "wpfElementHost");
+                ElementHost elementHost = control.Controls.OfType<ElementHost>().First();
                 var expectedZoomControl = (ZoomControl) elementHost.Child;
 
                 Assert.AreSame(expectedZoomControl, zoomControl);
