@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
@@ -46,6 +47,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             // Assert
             Assert.IsNaN(result.FactorOfStability);
+            Assert.IsNaN(result.ZValue);
+            Assert.IsNaN(result.ForbiddenZonesXEntryMin);
+            Assert.IsNaN(result.ForbiddenZonesXEntryMax);
+            Assert.IsFalse(result.ForbiddenZonesAutomaticallyCalculated);
         }
 
         [Test]
@@ -54,10 +59,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             // Setup
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
+            double zValue = random.NextDouble();
+            double xEntryMin = random.NextDouble();
+            double xEntryMax = random.NextDouble();
+            bool forbiddenZonesAutomaticallyCalculated = random.NextBoolean();
 
             var constructionProperties = new MacroStabilityInwardsCalculatorResult.ConstructionProperties
             {
-                FactorOfStability = factorOfStability
+                FactorOfStability = factorOfStability,
+                ZValue = zValue,
+                ForbiddenZonesXEntryMin = xEntryMin,
+                ForbiddenZonesXEntryMax = xEntryMax,
+                ForbiddenZonesAutomaticallyCalculated = forbiddenZonesAutomaticallyCalculated
             };
 
             // Call
@@ -65,6 +78,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(factorOfStability, result.FactorOfStability);
+            Assert.AreEqual(zValue, result.ZValue);
+            Assert.AreEqual(xEntryMin, result.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(xEntryMax, result.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(forbiddenZonesAutomaticallyCalculated, result.ForbiddenZonesAutomaticallyCalculated);
         }
     }
 }

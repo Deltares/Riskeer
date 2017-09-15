@@ -44,14 +44,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             }
 
             FactorOfStability = properties.FactorOfStability;
+            ZValue = properties.ZValue;
+            ForbiddenZonesXEntryMin = properties.ForbiddenZonesXEntryMin;
+            ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
+            ForbiddenZonesAutomaticallyCalculated = properties.ForbiddenZonesAutomaticallyCalculated;
         }
 
         #region properties
 
         /// <summary>
-        /// Gets the factory of stability of the uplift van calculation.
+        /// Gets the factor of stability of the uplift van calculation.
         /// </summary>
         public double FactorOfStability { get; }
+
+        /// <summary>
+        /// Gets the z value.
+        /// </summary>
+        public double ZValue { get; }
+
+        /// <summary>
+        /// Gets the forbidden zones x entry min.
+        /// </summary>
+        public double ForbiddenZonesXEntryMin { get; }
+
+        /// <summary>
+        /// Gets the forbidden zones x entry max.
+        /// </summary>
+        public double ForbiddenZonesXEntryMax { get; }
+
+        /// <summary>
+        /// Gets whether the forbidden zones are automatically calculated.
+        /// </summary>
+        public bool ForbiddenZonesAutomaticallyCalculated { get; }
 
         #endregion
 
@@ -66,12 +90,35 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public ConstructionProperties()
             {
                 FactorOfStability = double.NaN;
+                ZValue = double.NaN;
+                ForbiddenZonesXEntryMin = double.NaN;
+                ForbiddenZonesXEntryMax = double.NaN;
             }
 
             /// <summary>
-            /// Gets or sets the factory of stability of the uplift van calculation.
+            /// Gets or sets the factor of stability of the uplift van calculation.
             /// </summary>
             public double FactorOfStability { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the z value.
+            /// </summary>
+            public double ZValue { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the forbidden zones x entry min.
+            /// </summary>
+            public double ForbiddenZonesXEntryMin { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the forbidden zones x entry max.
+            /// </summary>
+            public double ForbiddenZonesXEntryMax { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets whether the forbidden zones are automatically calculated.
+            /// </summary>
+            public bool ForbiddenZonesAutomaticallyCalculated { internal get; set; }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         #region properties
 
         /// <summary>
-        /// Gets the factory of stability of the upliftVan calculation.
+        /// Gets the factor of stability of the upliftVan calculation.
         /// </summary>
         public double FactorOfStability { get; }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             /// <summary>
-            /// Gets or sets the factory of stability of the upliftVan calculation.
+            /// Gets or sets the factor of stability of the upliftVan calculation.
             /// </summary>
             public double FactorOfStability { internal get; set; }
         }

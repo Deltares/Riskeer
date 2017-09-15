@@ -30,11 +30,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
     public interface IUpliftVanCalculator
     {
         /// <summary>
-        /// Performs the upliftVan calculation.
-        /// </summary>
-        void Calculate();
-
-        /// <summary>
         /// Sets the soil model.
         /// </summary>
         SoilModel SoilModel { set; }
@@ -97,8 +92,43 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         double SlipPlaneMinimumLength { set; }
 
         /// <summary>
-        /// Gets the factory of stability.
+        /// Gets the factor of stability.
         /// </summary>
         double FactoryOfStability { get; }
+
+        /// <summary>
+        /// Gets the z value.
+        /// </summary>
+        double ZValue { get; }
+
+        /// <summary>
+        /// Gets the forbidden zones x entry min.
+        /// </summary>
+        double ForbiddenZonesXEntryMin { get; }
+
+        /// <summary>
+        /// Gets the forbidden zones x entry max.
+        /// </summary>
+        double ForbiddenZonesXEntryMax { get; }
+
+        /// <summary>
+        /// Gets whether the forbidden zones are automatically calculated.
+        /// </summary>
+        bool ForbiddenZonesAutomaticallyCalculated { get; }
+
+        /// <summary>
+        /// Gets the sliding curve.
+        /// </summary>
+        SlidingCurve SlidingCurve { get; }
+
+        /// <summary>
+        /// Gets the slip plane.
+        /// </summary>
+        SlipPlaneUpliftVan SlipPlane { get; }
+
+        /// <summary>
+        /// Performs the upliftVan calculation.
+        /// </summary>
+        void Calculate();
     }
 }

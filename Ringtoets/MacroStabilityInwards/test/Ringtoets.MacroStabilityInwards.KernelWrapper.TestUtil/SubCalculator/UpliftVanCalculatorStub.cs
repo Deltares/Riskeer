@@ -61,6 +61,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public double FactoryOfStability { get; set; }
 
+        public double ZValue { get; set; }
+
+        public double ForbiddenZonesXEntryMin { get; set; }
+
+        public double ForbiddenZonesXEntryMax { get; set; }
+
+        public bool ForbiddenZonesAutomaticallyCalculated { get; set; }
+
+        public SlidingCurve SlidingCurve { get; set; }
+
+        public SlipPlaneUpliftVan SlipPlane { get; set; }
+
         public void Calculate()
         {
             Calculated = true;

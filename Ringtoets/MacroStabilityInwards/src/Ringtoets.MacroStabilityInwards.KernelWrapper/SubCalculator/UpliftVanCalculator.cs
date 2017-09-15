@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
@@ -164,6 +166,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             }
         }
 
+        public double FactoryOfStability { get; private set; }
+
+        public double ZValue { get; private set; }
+
+        public double ForbiddenZonesXEntryMin { get; private set; }
+
+        public double ForbiddenZonesXEntryMax { get; private set; }
+
+        public bool ForbiddenZonesAutomaticallyCalculated { get; private set; }
+
+        public SlidingCurve SlidingCurve { get; private set; }
+
+        public SlipPlaneUpliftVan SlipPlane { get; private set; }
+
         public void Calculate()
         {
             wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
@@ -171,11 +187,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             string messages = wrappedCalculator.Validate();
             string result = wrappedCalculator.Run();
 
-            StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);
-
-            FactoryOfStability = convertedResult.FactorOfSafety;
+            ReadResult(result);
         }
 
-        public double FactoryOfStability { get; private set; }
+        private void ReadResult(string result)
+        {
+            StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);
+
+            if (convertedResult.Messages.Any())
+            {
+                throw new Exception();
+            }
+
+            FactoryOfStability = convertedResult.FactorOfSafety;
+            ZValue = convertedResult.ZValue;
+
+            ForbiddenZonesXEntryMin = convertedResult.XMinEntry;
+            ForbiddenZonesXEntryMax = convertedResult.XMaxEntry;
+            ForbiddenZonesAutomaticallyCalculated = convertedResult.AreForbiddenZonesAuto;
+
+            SlidingCurve = convertedResult.Curve;
+            SlipPlane = convertedResult.SlipPlaneUpliftVan;
+        }
     }
 }

@@ -71,7 +71,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
             return new MacroStabilityInwardsCalculatorResult(new MacroStabilityInwardsCalculatorResult.ConstructionProperties
             {
-                FactorOfStability = upliftVanCalculator.FactoryOfStability
+                FactorOfStability = upliftVanCalculator.FactoryOfStability,
+                ZValue = upliftVanCalculator.ZValue,
+                ForbiddenZonesXEntryMin = upliftVanCalculator.ForbiddenZonesXEntryMin,
+                ForbiddenZonesXEntryMax = upliftVanCalculator.ForbiddenZonesXEntryMax,
+                ForbiddenZonesAutomaticallyCalculated = upliftVanCalculator.ForbiddenZonesAutomaticallyCalculated
             });
         }
 
