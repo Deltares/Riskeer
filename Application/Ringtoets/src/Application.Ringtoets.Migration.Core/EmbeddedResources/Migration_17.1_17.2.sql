@@ -7,14 +7,14 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
-CREATE TEMP TABLE TempAssessmentNorm 
+CREATE TEMP TABLE TempAssessmentReturnPeriod 
 (
-	[AssessmentSectionId] TEXT NOT NULL,
-	[SignalingNorm] INTEGER NOT NULL,
-	[LowerLimitNorm] INTEGER NOT NULL
+	[AssessmentSectionId] TEXT,
+	[SignalingReturnPeriod] INTEGER NOT NULL,
+	[LowerLimitReturnPeriod] INTEGER NOT NULL
 );
 
-INSERT INTO TempAssessmentNorm VALUES 
+INSERT INTO TempAssessmentReturnPeriod VALUES 
 	('1-1', 1000, 1000),
 	('1-2', 1000, 1000),
 	('2-1', 1000, 300),
@@ -79,7 +79,7 @@ INSERT INTO TempAssessmentNorm VALUES
 	('16-2', 30000, 10000),
 	('16-3', 30000, 10000),
 	('16-4', 30000, 10000),
-	('16-5', 10, 10), -- Signaling norm set to LowerLimit
+	('16-5', 10, 10), -- Signaling return period set to LowerLimit
 	('17-1', 3000, 1000),
 	('17-2', 3000, 1000),
 	('17-3', 100000, 30000),
@@ -276,17 +276,17 @@ SELECT
 	[Name],
 	[Comments],
 	CASE
-		WHEN SourceAssessmentSection.[LowerLimitNorm] IS NULL OR [NormativeNormType] == 1 -- If lower limit norm type
+		WHEN SourceAssessmentSection.[LowerLimitReturnPeriod] IS NULL OR [NormativeNormType] == 1 -- If lower limit norm type
 			THEN SourceAssessmentSection.[Norm]
 		ELSE
-			1.0 / SourceAssessmentSection.[LowerLimitNorm]
-	END AS [LowerLimitNorm],
+			1.0 / SourceAssessmentSection.[LowerLimitReturnPeriod]
+	END,
 	CASE
-		WHEN SourceAssessmentSection.[SignalingNorm] IS NULL OR [NormativeNormType] == 2 -- If signaling norm type
+		WHEN SourceAssessmentSection.[SignalingReturnPeriod] IS NULL OR [NormativeNormType] == 2 -- If signaling norm type
 			THEN SourceAssessmentSection.[Norm]
 		ELSE
-			1.0 / SourceAssessmentSection.[SignalingNorm]
-	END AS [SignalingNorm],
+			1.0 / SourceAssessmentSection.[SignalingReturnPeriod]
+	END,
 	[NormativeNormType],
 	[HydraulicDatabaseVersion],
 	[HydraulicDatabaseLocation],
@@ -297,11 +297,11 @@ FROM
 (
 	SELECT
 		CASE
-			WHEN [SignalingNorm] IS NULL OR OriginalNorm BETWEEN ([SignalingNorm] - 0.1) AND ([SignalingNorm] + 0.1) OR
+			WHEN [SignalingReturnPeriod] IS NULL OR OriginalNorm BETWEEN ([SignalingReturnPeriod] - 0.1) AND ([SignalingReturnPeriod] + 0.1) OR
 			(
-				OriginalNorm NOT BETWEEN ([SignalingNorm] - 0.1) AND ([SignalingNorm] + 0.1) 
-				AND OriginalNorm NOT BETWEEN ([LowerLimitNorm] - 0.1) AND ([LowerLimitNorm] + 0.1) 
-				AND OriginalNorm > [LowerLimitNorm]
+				OriginalNorm NOT BETWEEN ([SignalingReturnPeriod] - 0.1) AND ([SignalingReturnPeriod] + 0.1) 
+				AND OriginalNorm NOT BETWEEN ([LowerLimitReturnPeriod] - 0.1) AND ([LowerLimitReturnPeriod] + 0.1) 
+				AND OriginalNorm > [LowerLimitReturnPeriod]
 			)
 				THEN 2 -- Set signaling norm type
 		ELSE 1 -- Set lower limit norm type
@@ -312,7 +312,7 @@ FROM
 		SELECT CAST(1.0 / ASE.[Norm] AS FLOAT) AS OriginalNorm,
 		*
 		FROM [SOURCEPROJECT].AssessmentSectionEntity ASE
-		LEFT JOIN TempAssessmentNorm TA ON 
+		LEFT JOIN TempAssessmentReturnPeriod TA ON 
 		(
 			TA.[AssessmentSectionId] = ASE.[Id]
 		)
@@ -1858,7 +1858,7 @@ SELECT
 	2
 	FROM TempChanges
 	WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
-	ORDER BY 1, 3
+	ORDER BY [FailureMechanismId], [AssessmentSectionId]
 ),
 AssessmentSectionFailureMechanismMessages
 (
@@ -1903,11 +1903,11 @@ AssessmentSectionFailureMechanismMessages
 		SELECT
 			[AssessmentSectionId],
 			[AssessmentSectionName],
-			0,
-			NULL,
+			0 AS [IsAssessmentSectionHeader],
+			NULL AS [FailureMechanismId],
 			NULL,
 			[msg],
-			1,
+			1 AS [level],
 			[Order]
 			FROM TempAssessmentSectionChanges
 
@@ -1916,17 +1916,16 @@ AssessmentSectionFailureMechanismMessages
 		SELECT
 			[AssessmentSectionId], 
 			NULL, 
-			0,
-			fmm.[FailureMechanismId], 
+			0 AS [IsAssessmentSectionHeader],
+			fmm.[FailureMechanismId] AS [FailureMechanismId], 
 			fmm.[FailureMechanismName], 
 			[msg], 
-			fmm.[level],
-			1
+			fmm.[level] AS [level],
+			1 AS [Order]
 			FROM FailureMechanismMessages AS fmm
 			WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
 
-	) ORDER BY 1, 4, 7, 3 DESC, 8
-
+	) ORDER BY [AssessmentSectionId], [FailureMechanismId], [level], [IsAssessmentSectionHeader] DESC, [Order]
 )
 SELECT 
 	"17.1",
@@ -1951,7 +1950,7 @@ FROM AssessmentSectionFailureMechanismMessages;
 
 DROP TABLE TempAssessmentSectionChanges;
 DROP TABLE TempFailureMechanisms;
-DROP TABLE TempAssessmentNorm;
+DROP TABLE TempAssessmentReturnPeriod;
 DROP TABLE TempAssessmentSectionFailureMechanism;
 DROP TABLE TempChanges;
 
