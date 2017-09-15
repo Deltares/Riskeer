@@ -296,7 +296,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentSegmentsNotSubsequentAndReversed_ReturnsSegmentsSubsequentInSameDirection()
+        public void Read_XmlDocumentSegmentsNotConnectedAndReversed_ReturnsSegmentsConnectedInSameDirection()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument(

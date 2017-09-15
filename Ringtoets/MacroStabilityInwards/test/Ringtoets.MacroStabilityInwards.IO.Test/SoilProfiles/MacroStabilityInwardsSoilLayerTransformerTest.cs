@@ -431,8 +431,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             layer.ShearStrengthModel = 1;
 
             // Call
-           TestDelegate call =()=> MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
-            
+            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
             Assert.AreEqual("Er is geen schuifsterkte model opgegeven.", exception.Message);
@@ -537,6 +537,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.Throws<ImportedDataTransformException>(test);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetSoilLayerWithInvalidGeometry))]
+        public void SoilLayer2DTransform_SoilLayer2DWithInvalidLoops_ThrowsImportedDataException(SoilLayer2D soilLayer)
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilLayerTransformer.Transform(soilLayer);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("De laag bevat een ongeldige geometrie.", exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
         private static void AssertRings(SoilLayer2D soilLayer, MacroStabilityInwardsSoilLayer2D macroStabilityInwardsSoilLayer)
         {
             Assert.AreEqual(GetRingFromSegment(soilLayer.OuterLoop), macroStabilityInwardsSoilLayer.OuterRing);
@@ -567,6 +580,35 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 .SetName("Color result Purple");
             yield return new TestCaseData((double) -65281, Color.FromArgb(255, 0, 255))
                 .SetName("Color result Pink");
+        }
+
+        #endregion
+
+        #region Test Data: Invalid 2D SoilLayer geometries
+
+        private static IEnumerable<TestCaseData> GetSoilLayerWithInvalidGeometry()
+        {
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var segmentOne = new Segment2D(pointA, pointB);
+            var segmentTwo = new Segment2D(pointB, pointA);
+            
+            var validGeometry = new[]
+            {
+                segmentOne,
+                segmentTwo
+            };
+
+            yield return new TestCaseData(SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0],
+                                                                                   Enumerable.Empty<Segment2D>()))
+                .SetName("OuterLoop_ContainsNoSegments");
+
+            yield return new TestCaseData(SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
+                                                                                   {
+                                                                                       Enumerable.Empty<Segment2D>()
+                                                                                   },
+                                                                                   validGeometry))
+                .SetName("Innerloop_ContainsCollectionWithElementWithNoSegments");
         }
 
         #endregion

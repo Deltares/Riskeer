@@ -207,18 +207,32 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                                                                    Resources.SoilLayerProperties_ShearStrengthModel_Description));
         }
 
+        /// <summary>
+        /// Transforms a collection of <see cref="Segment2D"/> to <see cref="Ring"/>.
+        /// </summary>
+        /// <param name="segments">The segments to transform.</param>
+        /// <returns>A <see cref="Ring"/> based on <paramref name="segments"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when 
+        /// <paramref name="segments"/> could not be transformed to a <see cref="Ring"/>.</exception>
         private static Ring TransformSegmentToRing(IEnumerable<Segment2D> segments)
         {
-            var points = new List<Point2D>();
-            foreach (Segment2D segment in segments)
+            try
             {
-                points.AddRange(new[]
+                var points = new List<Point2D>();
+                foreach (Segment2D segment in segments)
                 {
-                    segment.FirstPoint,
-                    segment.SecondPoint
-                });
+                    points.AddRange(new[]
+                    {
+                        segment.FirstPoint,
+                        segment.SecondPoint
+                    });
+                }
+                return new Ring(points.Distinct());
             }
-            return new Ring(points.Distinct());
+            catch (ArgumentException e)
+            {
+                throw new ImportedDataTransformException(Resources.MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring, e);
+            }
         }
 
         /// <summary>
@@ -231,7 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
             DistributionHelper.ValidateIsLogNormal(soilLayer.AbovePhreaticLevelDistributionType,
-                                                            Resources.SoilLayerProperties_AbovePhreaticLevelDistribution_Description);
+                                                   Resources.SoilLayerProperties_AbovePhreaticLevelDistribution_Description);
 
             DistributionHelper.ValidateIsLogNormal(
                 soilLayer.BelowPhreaticLevelDistributionType,

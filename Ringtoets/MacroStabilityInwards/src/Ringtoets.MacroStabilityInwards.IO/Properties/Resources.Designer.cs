@@ -180,6 +180,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De laag bevat een ongeldige geometrie..
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry" +
+                        "_for_Ring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen schuifsterkte model opgegeven..
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel {
