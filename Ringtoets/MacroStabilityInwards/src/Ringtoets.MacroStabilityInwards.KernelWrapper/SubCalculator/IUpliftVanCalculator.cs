@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// <summary>
         /// Gets the sliding curve.
         /// </summary>
-        SlidingCurve SlidingCurve { get; }
+        SlidingDualCircle SlidingCurve { get; }
 
         /// <summary>
         /// Gets the slip plane.

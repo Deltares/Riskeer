@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public bool ForbiddenZonesAutomaticallyCalculated { get; set; }
 
-        public SlidingCurve SlidingCurve { get; set; }
+        public SlidingDualCircle SlidingCurve { get; set; }
 
         public SlipPlaneUpliftVan SlipPlane { get; set; }
 

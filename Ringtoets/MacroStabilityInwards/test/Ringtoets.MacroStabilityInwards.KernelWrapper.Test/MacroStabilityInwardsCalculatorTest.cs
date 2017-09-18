@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         }
 
         [Test]
-        public void Calculate_Always_ReturnResult()
+        public void Calculate_CompleteValidInput_ReturnsResult()
         {
             // Setup
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
@@ -69,6 +69,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             // Assert
             Assert.IsNotNull(actual);
+            Assert.IsFalse(double.IsNaN(actual.FactorOfStability));
+            Assert.IsFalse(double.IsNaN(actual.ZValue));
+            Assert.IsFalse(double.IsNaN(actual.ForbiddenZonesXEntryMax));
+            Assert.IsFalse(double.IsNaN(actual.ForbiddenZonesXEntryMin));
 
             Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator.Calculated);
         }
