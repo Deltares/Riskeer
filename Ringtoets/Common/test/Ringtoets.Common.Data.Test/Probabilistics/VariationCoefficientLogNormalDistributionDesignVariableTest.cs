@@ -37,11 +37,12 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var logNormalDistribution = new VariationCoefficientLogNormalDistribution(2);
 
             // Call
-            var designValue = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution);
+            var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution);
 
             // Assert
-            Assert.AreSame(logNormalDistribution, designValue.Distribution);
-            Assert.AreEqual(0.5, designValue.Percentile);
+            Assert.IsInstanceOf<VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution>>(designVariable);
+            Assert.AreSame(logNormalDistribution, designVariable.Distribution);
+            Assert.AreEqual(0.5, designVariable.Percentile);
         }
 
         /// <summary>

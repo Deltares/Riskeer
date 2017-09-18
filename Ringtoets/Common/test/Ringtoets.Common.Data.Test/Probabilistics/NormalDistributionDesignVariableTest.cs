@@ -30,17 +30,18 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     public class NormalDistributionDesignVariableTest
     {
         [Test]
-        public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
+        public void ParameterdConstructor_ValidNormalDistribution_ExpectedValues()
         {
             // Setup
             var normalDistribution = new NormalDistribution(3);
 
             // Call
-            var designValue = new NormalDistributionDesignVariable(normalDistribution);
+            var designVariable = new NormalDistributionDesignVariable(normalDistribution);
 
             // Assert
-            Assert.AreSame(normalDistribution, designValue.Distribution);
-            Assert.AreEqual(0.5, designValue.Percentile);
+            Assert.IsInstanceOf<PercentileBasedDesignVariable<NormalDistribution>>(designVariable);
+            Assert.AreSame(normalDistribution, designVariable.Distribution);
+            Assert.AreEqual(0.5, designVariable.Percentile);
         }
 
         /// <summary>

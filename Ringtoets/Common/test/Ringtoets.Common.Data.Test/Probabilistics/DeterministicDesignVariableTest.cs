@@ -44,47 +44,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var designVariable = new DeterministicDesignVariable<IDistribution>(distribution);
 
             // Assert
+            Assert.IsInstanceOf<DesignVariable<IDistribution>>(designVariable);
             Assert.AreSame(distribution, designVariable.Distribution);
             Assert.AreEqual(0, designVariable.GetDesignValue().Value);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DeterministicDesignVariable<IDistribution>(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
-        }
-
-        [Test]
-        public void Distribution_SetToNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            mocks.ReplayAll();
-
-            var designVariable = new DeterministicDesignVariable<IDistribution>(distribution);
-
-            // Call
-            TestDelegate call = () => designVariable.Distribution = null;
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
-            mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         [Test]
