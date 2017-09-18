@@ -232,7 +232,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
                                                                                           lowerLimitReturnPeriod,
-                                                                                          signalingReturnPeriod, expectedNormType);
+                                                                                          signalingReturnPeriod, 
+                                                                                          expectedNormType);
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
@@ -318,7 +319,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
                                                                                           expectedLowerLimitReturnPeriod,
-                                                                                          expectedSignalingReturnPeriod, expectedNormType);
+                                                                                          expectedSignalingReturnPeriod, 
+                                                                                          expectedNormType);
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
@@ -346,29 +348,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     }, expectedLowerLimitReturnPeriod, expectedSignalingReturnPeriod, expectedNormType);
                 }
             }
-        }
-
-        private static void AssertAssessmentSectionNormMigrationMessage(MigrationLogMessage[] messages,
-                                                                        int lowerLimitReturnPeriod,
-                                                                        int signalingReturnPeriod, NormType normType)
-        {
-            Assert.AreEqual(3, messages.Length);
-
-            string lowerLimitLogSuffix = normType == NormType.LowerLimit
-                                             ? " (voorheen de waarde van de norm)"
-                                             : "";
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
-                messages[0]);
-            string signalingLogSuffix = normType == NormType.Signaling
-                                            ? " (voorheen de waarde van de norm)"
-                                            : "";
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
-                messages[1]);
-            AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
-                messages[2]);
         }
 
         private static string GetExpectedAssessmentSectionQuery(string trajectId,
@@ -1071,6 +1050,30 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
                 messages[1]);
+        }
+
+        private static void AssertAssessmentSectionNormMigrationMessage(MigrationLogMessage[] messages,
+                                                                        int lowerLimitReturnPeriod,
+                                                                        int signalingReturnPeriod,
+                                                                        NormType normType)
+        {
+            Assert.AreEqual(3, messages.Length);
+
+            string lowerLimitLogSuffix = normType == NormType.LowerLimit
+                                             ? " (voorheen de waarde van de norm)"
+                                             : "";
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
+                messages[0]);
+            string signalingLogSuffix = normType == NormType.Signaling
+                                            ? " (voorheen de waarde van de norm)"
+                                            : "";
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
+                messages[1]);
+            AssertMigrationLogMessageEqual(
+                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
+                messages[2]);
         }
 
         private static void AssertMigrationLogMessageEqual(MigrationLogMessage expected, MigrationLogMessage actual)

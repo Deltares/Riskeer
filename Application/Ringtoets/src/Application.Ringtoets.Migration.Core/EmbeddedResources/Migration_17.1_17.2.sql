@@ -297,11 +297,11 @@ FROM
 (
 	SELECT
 		CASE
-			WHEN [SignalingReturnPeriod] IS NULL OR OriginalNorm BETWEEN ([SignalingReturnPeriod] - 0.1) AND ([SignalingReturnPeriod] + 0.1) OR
+			WHEN [SignalingReturnPeriod] IS NULL OR OriginalReturnPeriod BETWEEN ([SignalingReturnPeriod] - 0.1) AND ([SignalingReturnPeriod] + 0.1) OR
 			(
-				OriginalNorm NOT BETWEEN ([SignalingReturnPeriod] - 0.1) AND ([SignalingReturnPeriod] + 0.1) 
-				AND OriginalNorm NOT BETWEEN ([LowerLimitReturnPeriod] - 0.1) AND ([LowerLimitReturnPeriod] + 0.1) 
-				AND OriginalNorm > [LowerLimitReturnPeriod]
+				OriginalReturnPeriod NOT BETWEEN ([SignalingReturnPeriod] - 0.1) AND ([SignalingReturnPeriod] + 0.1) 
+				AND OriginalReturnPeriod NOT BETWEEN ([LowerLimitReturnPeriod] - 0.1) AND ([LowerLimitReturnPeriod] + 0.1) 
+				AND OriginalReturnPeriod > [LowerLimitReturnPeriod]
 			)
 				THEN 2 -- Set signaling norm type
 		ELSE 1 -- Set lower limit norm type
@@ -309,7 +309,7 @@ FROM
 		*
 	FROM
 	(
-		SELECT CAST(1.0 / ASE.[Norm] AS FLOAT) AS OriginalNorm,
+		SELECT CAST(1.0 / ASE.[Norm] AS FLOAT) AS OriginalReturnPeriod,
 		*
 		FROM [SOURCEPROJECT].AssessmentSectionEntity ASE
 		LEFT JOIN TempAssessmentReturnPeriod TA ON 
