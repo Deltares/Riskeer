@@ -186,7 +186,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 "PK001_0002",
                 "PK001_0003",
                 "PK001_0004"
-            }, dikeSection.PipingFailureMechanism.SurfaceLines.Select(sm => sm.Name));
+            }, dikeSection.Piping.SurfaceLines.Select(sm => sm.Name));
         }
 
         [Test]
@@ -202,21 +202,21 @@ namespace Ringtoets.Integration.TestUtils.Test
                 "PK001_0002_Piping",
                 "PK001_0003_Piping",
                 "PK001_0004_Piping"
-            }, dikeSection.PipingFailureMechanism.StochasticSoilModels.Select(sm => sm.Name));
+            }, dikeSection.Piping.StochasticSoilModels.Select(sm => sm.Name));
             CollectionAssert.AreEqual(new[]
             {
                 1,
                 1,
                 1,
                 1
-            }, dikeSection.PipingFailureMechanism.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
+            }, dikeSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.Probability)));
             CollectionAssert.AreEqual(new[]
             {
                 "W1-6_0_1D1",
                 "W1-6_4_1D1",
                 "W1-7_0_1D1",
                 "W1-8_6_1D1"
-            }, dikeSection.PipingFailureMechanism.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
+            }, dikeSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
         }
 
         [Test]

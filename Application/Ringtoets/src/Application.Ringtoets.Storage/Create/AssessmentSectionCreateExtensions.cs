@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Create
 
             entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
 
-            entity.FailureMechanismEntities.Add(section.PipingFailureMechanism.Create(registry));
+            entity.FailureMechanismEntities.Add(section.Piping.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.HeightStructures.Create(registry));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityLengthwiseConstruction.Create(registry));

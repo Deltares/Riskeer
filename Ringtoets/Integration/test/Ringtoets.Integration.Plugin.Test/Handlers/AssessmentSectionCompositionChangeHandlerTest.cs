@@ -611,7 +611,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             {
                 expectedAffectedObjects.AddRange(new IFailureMechanism[]
                 {
-                    assessmentSection.PipingFailureMechanism,
+                    assessmentSection.Piping,
                     assessmentSection.GrassCoverErosionInwards,
                     assessmentSection.GrassCoverErosionOutwards,
                     assessmentSection.ClosingStructures,

@@ -112,10 +112,10 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(composition, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
-            CollectionAssert.IsEmpty(section.PipingFailureMechanism.StochasticSoilModels);
-            CollectionAssert.IsEmpty(section.PipingFailureMechanism.SurfaceLines);
+            CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
+            CollectionAssert.IsEmpty(section.Piping.SurfaceLines);
 
-            Assert.NotNull(section.PipingFailureMechanism);
+            Assert.NotNull(section.Piping);
             Assert.NotNull(section.GrassCoverErosionInwards);
             Assert.NotNull(section.MacroStabilityInwards);
             Assert.NotNull(section.MacrostabilityOutwards);
@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(codes, section.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
             Assert.AreEqual(Enumerable.Repeat(1.0 / 30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
-            Assert.AreEqual(double.NaN, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, section.Piping.PipingProbabilityAssessmentInput.SectionLength);
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 
@@ -195,7 +195,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(18, failureMechanisms.Length);
             CollectionAssert.AreEqual(new IFailureMechanism[]
             {
-                assessmentSection.PipingFailureMechanism,
+                assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,
                 assessmentSection.MacroStabilityInwards,
                 assessmentSection.MacrostabilityOutwards,
@@ -270,7 +270,7 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             AssertExpectedContributions(composition, assessmentSection);
-            Assert.AreEqual(relevancies[0], assessmentSection.PipingFailureMechanism.IsRelevant);
+            Assert.AreEqual(relevancies[0], assessmentSection.Piping.IsRelevant);
             Assert.AreEqual(relevancies[1], assessmentSection.GrassCoverErosionInwards.IsRelevant);
             Assert.AreEqual(relevancies[2], assessmentSection.MacroStabilityInwards.IsRelevant);
             Assert.AreEqual(relevancies[3], assessmentSection.StabilityStoneCover.IsRelevant);
@@ -319,7 +319,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = referenceLine;
 
             // Assert
-            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
         }
 
@@ -333,7 +333,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = null;
 
             // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
         }
 
@@ -356,7 +356,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             return new IFailureMechanism[]
             {
-                section.PipingFailureMechanism,
+                section.Piping,
                 section.GrassCoverErosionInwards,
                 section.MacroStabilityInwards,
                 section.StabilityStoneCover,
@@ -374,7 +374,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             double[] contributions = GetContributionsArray(composition);
 
-            Assert.AreEqual(contributions[0], assessmentSection.PipingFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
             Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
             Assert.AreEqual(contributions[2], assessmentSection.MacroStabilityInwards.Contribution);
             Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);

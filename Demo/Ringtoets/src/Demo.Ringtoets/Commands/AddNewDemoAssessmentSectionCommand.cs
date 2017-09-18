@@ -644,7 +644,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
         {
-            PipingFailureMechanism pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism failureMechanism = demoAssessmentSection.Piping;
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
                                                                                    true,
@@ -652,11 +652,11 @@ namespace Demo.Ringtoets.Commands
                                                                                    "DR6_surfacelines.krp.csv"))
             {
                 var surfaceLinesImporter = new SurfaceLinesCsvImporter<PipingSurfaceLine>(
-                    pipingFailureMechanism.SurfaceLines,
+                    failureMechanism.SurfaceLines,
                     Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                  "DR6_surfacelines.csv"),
                     new ImportMessageProvider(),
-                    SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(demoAssessmentSection.PipingFailureMechanism, demoAssessmentSection.ReferenceLine));
+                    SurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(demoAssessmentSection.Piping, demoAssessmentSection.ReferenceLine));
                 surfaceLinesImporter.Import();
             }
 
@@ -664,24 +664,24 @@ namespace Demo.Ringtoets.Commands
             {
                 var soilProfilesImporter =
                     new StochasticSoilModelImporter<PipingStochasticSoilModel>(
-                        pipingFailureMechanism.StochasticSoilModels,
+                        failureMechanism.StochasticSoilModels,
                         Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"),
                         new ImportMessageProvider(),
-                        PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(pipingFailureMechanism));
+                        PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(failureMechanism));
                 soilProfilesImporter.Import();
             }
 
-            var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);
-            pipingFailureMechanism.CalculationsGroup.Children.Add(calculation);
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             NormalDistribution originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution(originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces)
             {
                 Mean = (RoundedDouble) 3.0,
                 StandardDeviation = originalPhreaticLevelExit.StandardDeviation
             };
-            calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+            calculation.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
 
-            PipingStochasticSoilModel stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
+            PipingStochasticSoilModel stochasticSoilModel = failureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
             calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);

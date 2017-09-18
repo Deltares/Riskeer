@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             Assert.AreEqual(42, observables.Length);
 
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingFailureMechanism);

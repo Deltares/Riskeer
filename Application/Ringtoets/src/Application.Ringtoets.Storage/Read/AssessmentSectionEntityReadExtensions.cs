@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Read
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             FailureMechanismEntity pipingFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.Piping);
-            pipingFailureMechanismEntity?.ReadAsPipingFailureMechanism(assessmentSection.PipingFailureMechanism, collector);
+            pipingFailureMechanismEntity?.ReadAsPipingFailureMechanism(assessmentSection.Piping, collector);
         }
 
         private static void ReadGrassCoverErosionInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

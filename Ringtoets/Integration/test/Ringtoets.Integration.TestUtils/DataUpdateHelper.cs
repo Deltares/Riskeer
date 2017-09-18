@@ -57,10 +57,10 @@ namespace Ringtoets.Integration.TestUtils
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_updated.soil");
                 var activity = new FileImportActivity(
                     new StochasticSoilModelImporter<PipingStochasticSoilModel>(
-                        assessmentSection.PipingFailureMechanism.StochasticSoilModels,
+                        assessmentSection.Piping.StochasticSoilModels,
                         filePath,
                         new UpdateMessageProvider(),
-                        PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(assessmentSection.PipingFailureMechanism)),
+                        PipingStochasticSoilModelImporterConfigurationFactory.CreateUpdateStrategyConfiguration(assessmentSection.Piping)),
                     "StochasticSoilModelUpdater");
                 activity.Run();
                 activity.Finish();

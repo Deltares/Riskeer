@@ -172,10 +172,10 @@ namespace Ringtoets.Integration.Service.Test
                                                             .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                             .Select(c => c.InputParameters)
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
-            expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
                                                             .Cast<PipingCalculation>()
                                                             .Where(c => c.HasOutput));
-            expectedAffectedItems.AddRange(assessmentSection.PipingFailureMechanism.Calculations
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
                                                             .Cast<PipingCalculation>()
                                                             .Select(c => c.InputParameters)
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Service.Test
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.PipingFailureMechanism.Calculations.Cast<PipingCalculation>()
+            Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<PipingCalculation>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
@@ -503,7 +503,7 @@ namespace Ringtoets.Integration.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
@@ -616,7 +616,7 @@ namespace Ringtoets.Integration.Service.Test
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
             Assert.AreEqual(42, changedObjects.Length);
 
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.StochasticSoilModels);
@@ -716,7 +716,7 @@ namespace Ringtoets.Integration.Service.Test
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
             Assert.AreEqual(42, changedObjects.Length);
 
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.StochasticSoilModels);
@@ -1408,7 +1408,7 @@ namespace Ringtoets.Integration.Service.Test
         private IList<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
         {
             var expectedRemovedObjects = new List<object>();
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingFailureMechanism));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacrostabilityOutwards));

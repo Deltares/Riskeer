@@ -378,22 +378,22 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertPipingFailureMechanism(AssessmentSection demoAssessmentSection)
         {
-            PipingStochasticSoilModel[] soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
+            PipingStochasticSoilModel[] soilModels = demoAssessmentSection.Piping.StochasticSoilModels.ToArray();
             Assert.AreEqual(4, soilModels.Length);
-            PipingSurfaceLine[] surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
+            PipingSurfaceLine[] surfaceLines = demoAssessmentSection.Piping.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 
-            Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
-            PipingCalculationScenario pipingCalculationScenario = demoAssessmentSection.PipingFailureMechanism
+            Assert.AreEqual(1, demoAssessmentSection.Piping.CalculationsGroup.Children.Count);
+            PipingCalculationScenario pipingCalculationScenario = demoAssessmentSection.Piping
                                                                                        .CalculationsGroup.GetCalculations()
                                                                                        .OfType<PipingCalculationScenario>()
                                                                                        .First();
             AssertCalculationAbleToCalculate(pipingCalculationScenario);
             AssertCalculationInFailureMechanismSectionResult(
                 pipingCalculationScenario,
-                demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray(),
-                demoAssessmentSection.PipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>());
+                demoAssessmentSection.Piping.SectionResults.ToArray(),
+                demoAssessmentSection.Piping.Calculations.OfType<PipingCalculationScenario>());
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)

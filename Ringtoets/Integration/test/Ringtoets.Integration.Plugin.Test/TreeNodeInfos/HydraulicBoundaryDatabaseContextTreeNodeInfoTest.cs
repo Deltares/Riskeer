@@ -555,7 +555,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 SemiProbabilisticOutput = pipingSemiProbabilisticOutput
             };
 
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation);
             assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             // Precondition

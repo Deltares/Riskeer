@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data
                 Name = defaultWellKnownTileSource.GetDisplayName()
             };
 
-            PipingFailureMechanism = new PipingFailureMechanism();
+            Piping = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
 
             MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; }
+        public PipingFailureMechanism Piping { get; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.Data
             set
             {
                 referenceLine = value;
-                PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+                Piping.PipingProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
                 MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
             }
         }
@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Data
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
-            yield return PipingFailureMechanism;
+            yield return Piping;
             yield return GrassCoverErosionInwards;
             yield return MacroStabilityInwards;
             yield return MacrostabilityOutwards;
@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Data
             switch (newComposition)
             {
                 case AssessmentSectionComposition.Dike:
-                    PipingFailureMechanism.Contribution = 24;
+                    Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Data
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
                     break;
                 case AssessmentSectionComposition.Dune:
-                    PipingFailureMechanism.Contribution = 0;
+                    Piping.Contribution = 0;
                     GrassCoverErosionInwards.Contribution = 0;
                     MacroStabilityInwards.Contribution = 0;
                     StabilityStoneCover.Contribution = 0;
@@ -265,7 +265,7 @@ namespace Ringtoets.Integration.Data
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
-                    PipingFailureMechanism.Contribution = 24;
+                    Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
@@ -289,7 +289,7 @@ namespace Ringtoets.Integration.Data
 
         private void SetFailureMechanismRelevancy()
         {
-            PipingFailureMechanism.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            Piping.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             GrassCoverErosionInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             MacroStabilityInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             StabilityStoneCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
@@ -304,7 +304,7 @@ namespace Ringtoets.Integration.Data
 
         private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
         {
-            yield return PipingFailureMechanism;
+            yield return Piping;
             yield return GrassCoverErosionInwards;
             yield return MacroStabilityInwards;
             yield return StabilityStoneCover;

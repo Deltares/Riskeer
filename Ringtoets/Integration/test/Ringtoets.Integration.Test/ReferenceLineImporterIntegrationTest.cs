@@ -133,8 +133,8 @@ namespace Ringtoets.Integration.Test
             {
                 failureMechanism.Attach(failureMechanismObserver);
             }
-            assessmentSection.PipingFailureMechanism.StochasticSoilModels.Attach(stochasticSoilModelsObserver);
-            assessmentSection.PipingFailureMechanism.SurfaceLines.Attach(surfaceLinesObserver);
+            assessmentSection.Piping.StochasticSoilModels.Attach(stochasticSoilModelsObserver);
+            assessmentSection.Piping.SurfaceLines.Attach(surfaceLinesObserver);
 
             // When
             bool importSuccessful = importer.Import();
@@ -152,9 +152,9 @@ namespace Ringtoets.Integration.Test
             {
                 CollectionAssert.IsEmpty(failureMechanism.Sections);
             }
-            CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.SurfaceLines);
-            CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.StochasticSoilModels);
-            CollectionAssert.IsEmpty(assessmentSection.PipingFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
+            CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
+            CollectionAssert.IsEmpty(assessmentSection.Piping.CalculationsGroup.Children);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +

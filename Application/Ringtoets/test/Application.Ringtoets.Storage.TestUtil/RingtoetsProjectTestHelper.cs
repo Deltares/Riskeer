@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(macroStabilityInwardsFailureMechanism);
             SetSectionResults(macroStabilityInwardsFailureMechanism.SectionResults);
 
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
             AddSections(pipingFailureMechanism);
             SetSectionResults(pipingFailureMechanism.SectionResults);

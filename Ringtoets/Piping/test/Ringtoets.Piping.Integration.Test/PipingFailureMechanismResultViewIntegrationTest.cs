@@ -57,12 +57,12 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Set all necessary data to the view
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                failureMechanismResultView.Data = assessmentSection.PipingFailureMechanism.SectionResults;
-                failureMechanismResultView.FailureMechanism = assessmentSection.PipingFailureMechanism;
+                failureMechanismResultView.Data = assessmentSection.Piping.SectionResults;
+                failureMechanismResultView.FailureMechanism = assessmentSection.Piping;
 
                 // Import failure mechanism sections and ensure the data grid view is updated
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.PipingFailureMechanism;
+                IFailureMechanism failureMechanism = assessmentSection.Piping;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Integration.Test
                 {
                     InputParameters =
                     {
-                        SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(
+                        SurfaceLine = assessmentSection.Piping.SurfaceLines.First(
                             sl => sl.Name == "PK001_0001")
                     }
                 };
@@ -85,22 +85,22 @@ namespace Ringtoets.Piping.Integration.Test
                 {
                     InputParameters =
                     {
-                        SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(
+                        SurfaceLine = assessmentSection.Piping.SurfaceLines.First(
                             sl => sl.Name == "PK001_0001")
                     }
                 };
 
                 // Add a piping calculation and ensure it is shown in the data grid view
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
+                assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation1);
+                assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Add group and ensure the data grid view is not changed
                 var nestedPipingCalculationGroup = new CalculationGroup("New group", false);
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
+                assessmentSection.Piping.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
+                assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
-                pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(
+                pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.Piping.SurfaceLines.First(
                     sl => sl.Name == "PK001_0001");
                 pipingCalculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);

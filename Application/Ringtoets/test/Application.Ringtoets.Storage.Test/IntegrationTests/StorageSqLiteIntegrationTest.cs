@@ -278,7 +278,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
-                AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
+                AssertPipingFailureMechanism(expectedAssessmentSection.Piping, actualAssessmentSection.Piping);
                 AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
                 AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
                 AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
@@ -297,8 +297,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 }
 
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.PipingFailureMechanism.SectionResults,
-                    actualAssessmentSection.PipingFailureMechanism.SectionResults);
+                    expectedAssessmentSection.Piping.SectionResults,
+                    actualAssessmentSection.Piping.SectionResults);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.GrassCoverErosionInwards.SectionResults,
                     actualAssessmentSection.GrassCoverErosionInwards.SectionResults);

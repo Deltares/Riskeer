@@ -179,7 +179,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             CollectionAssert.AreEqual(points, section.ReferenceLine.Points);
-            Assert.AreEqual(Math2D.Length(points), section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(Math2D.Length(points), section.Piping.PipingProbabilityAssessmentInput.SectionLength);
         }
 
         [Test]
@@ -257,11 +257,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
-            Assert.AreEqual(inputComments, section.PipingFailureMechanism.InputComments.Body);
-            Assert.AreEqual(outputComments, section.PipingFailureMechanism.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.PipingFailureMechanism.NotRelevantComments.Body);
-            Assert.AreEqual(parameterA, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.A);
+            Assert.AreEqual(isRelevant, section.Piping.IsRelevant);
+            Assert.AreEqual(inputComments, section.Piping.InputComments.Body);
+            Assert.AreEqual(outputComments, section.Piping.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.Piping.NotRelevantComments.Body);
+            Assert.AreEqual(parameterA, section.Piping.PipingProbabilityAssessmentInput.A);
         }
 
         [Test]
@@ -306,8 +306,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(2, section.PipingFailureMechanism.StochasticSoilModels.Count);
-            Assert.AreEqual(stochasticSoilModelSourcePath, section.PipingFailureMechanism.StochasticSoilModels.SourcePath);
+            Assert.AreEqual(2, section.Piping.StochasticSoilModels.Count);
+            Assert.AreEqual(stochasticSoilModelSourcePath, section.Piping.StochasticSoilModels.SourcePath);
         }
 
         [Test]
@@ -352,8 +352,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(2, section.PipingFailureMechanism.SurfaceLines.Count);
-            Assert.AreEqual(surfaceLineSourcePath, section.PipingFailureMechanism.SurfaceLines.SourcePath);
+            Assert.AreEqual(2, section.Piping.SurfaceLines.Count);
+            Assert.AreEqual(surfaceLineSourcePath, section.Piping.SurfaceLines.SourcePath);
         }
 
         [Test]
@@ -393,7 +393,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            List<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
+            List<ICalculationBase> childCalculationGroups = section.Piping.CalculationsGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
         }
 
@@ -433,7 +433,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
+            Assert.AreEqual(2, section.Piping.Sections.Count());
         }
 
         [Test]

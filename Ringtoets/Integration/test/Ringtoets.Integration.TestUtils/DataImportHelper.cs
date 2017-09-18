@@ -195,10 +195,10 @@ namespace Ringtoets.Integration.TestUtils
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
                 var activity = new FileImportActivity(new SurfaceLinesCsvImporter<PipingSurfaceLine>(
-                                                          assessmentSection.PipingFailureMechanism.SurfaceLines,
+                                                          assessmentSection.Piping.SurfaceLines,
                                                           filePath,
                                                           new ImportMessageProvider(),
-                                                          PipingSurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.PipingFailureMechanism, assessmentSection.ReferenceLine)),
+                                                          PipingSurfaceLinesCsvImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.Piping, assessmentSection.ReferenceLine)),
                                                       "PipingSurfaceLinesCsvImporter")
                     ;
                 activity.Run();
@@ -221,10 +221,10 @@ namespace Ringtoets.Integration.TestUtils
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
                 var activity = new FileImportActivity(
                     new StochasticSoilModelImporter<PipingStochasticSoilModel>(
-                        assessmentSection.PipingFailureMechanism.StochasticSoilModels,
+                        assessmentSection.Piping.StochasticSoilModels,
                         filePath,
                         new ImportMessageProvider(),
-                        PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.PipingFailureMechanism)),
+                        PipingStochasticSoilModelImporterConfigurationFactory.CreateReplaceStrategyConfiguration(assessmentSection.Piping)),
                     "StochasticSoilModelImporter");
                 activity.Run();
                 activity.Finish();
