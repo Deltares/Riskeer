@@ -89,15 +89,26 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         /// <param name="calculation">The calculation which is used as input for the semi-probabilistic assessment. If the semi-
         /// probabilistic calculation is successful, <see cref="PipingCalculation.SemiProbabilisticOutput"/> is set.</param>
-        /// <param name="pipingProbabilityAssessmentInput">General input that influences the probability estimate for a piping
+        /// <param name="probabilityAssessmentInput">General input that influences the probability estimate for a piping
         /// assessment.</param>
         /// <param name="norm">The norm to assess for.</param>
         /// <param name="contribution">The contribution of piping as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or 
+        /// <paramref name="probabilityAssessmentInput"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when calculation has no output from a piping calculation.</exception>
-        public static void Calculate(PipingCalculation calculation, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput,
+        public static void Calculate(PipingCalculation calculation, PipingProbabilityAssessmentInput probabilityAssessmentInput,
                                      double norm, double contribution)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+            if (probabilityAssessmentInput == null)
+            {
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
+            }
+
             ValidateOutputOnCalculation(calculation);
 
             PipingOutput pipingOutput = calculation.Output;
@@ -107,9 +118,9 @@ namespace Ringtoets.Piping.Service
                 pipingOutput.HeaveFactorOfSafety,
                 pipingOutput.SellmeijerFactorOfSafety,
                 norm,
-                pipingProbabilityAssessmentInput.A,
-                pipingProbabilityAssessmentInput.B,
-                pipingProbabilityAssessmentInput.SectionLength,
+                probabilityAssessmentInput.A,
+                probabilityAssessmentInput.B,
+                probabilityAssessmentInput.SectionLength,
                 contribution / 100);
 
             calculator.Calculate();

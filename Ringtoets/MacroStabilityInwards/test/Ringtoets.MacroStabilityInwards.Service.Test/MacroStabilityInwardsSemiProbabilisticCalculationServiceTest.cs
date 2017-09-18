@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(new MacroStabilityInwardsCalculation(), 
+            TestDelegate call = () => MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(new MacroStabilityInwardsCalculation(),
                                                                                                          null,
                                                                                                          random.NextDouble(),
                                                                                                          random.NextDouble());
@@ -219,7 +219,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                      double constantB,
                                                      double assessmentSectionLength)
         {
-            return (norm * contribution / 100) / (1 + (constantA * assessmentSectionLength) / constantB);
+            double contributionPercentage = contribution / 100;
+            return (norm * contributionPercentage) / (1 + (constantA * assessmentSectionLength) / constantB);
         }
 
         private static MacroStabilityInwardsCalculation AsMacroStabilityInwardsCalculation(MacroStabilityInwardsOutput macroStabilityInwardsOutput)
