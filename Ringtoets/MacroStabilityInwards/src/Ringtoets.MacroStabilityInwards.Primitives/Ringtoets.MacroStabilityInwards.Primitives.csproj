@@ -54,6 +54,7 @@
     <Compile Include="MacroStabilityInwardsSoilProfile2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilProfile1D.cs" />
     <Compile Include="MacroStabilityInwardsSoilUnderSurfaceLine\MacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
+    <Compile Include="Output\MacroStabilityInwardsSlice.cs" />
     <Compile Include="Output\MacroStabilityInwardsSlidingCircle.cs" />
     <Compile Include="Output\MacroStabilityInwardsSlidingCurve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
