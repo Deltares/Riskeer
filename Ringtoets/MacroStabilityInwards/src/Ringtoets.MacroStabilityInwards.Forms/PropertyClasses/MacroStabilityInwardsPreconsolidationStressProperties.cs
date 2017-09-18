@@ -56,8 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_Description))]
         public RoundedDouble XCoordinate
         {
             get
@@ -67,8 +67,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_Description))]
         public RoundedDouble ZCoordinate
         {
             get
@@ -78,8 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_Description))]
         public VariationCoefficientLogNormalDistributionProperties PreconsolidationStress
         {
             get

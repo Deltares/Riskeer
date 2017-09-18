@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 dynamicProperties[2],
                 generalCategory,
-                "Grensspanning [kN/m³]",
+                "Grensspanning [kN/m²]",
                 "Grensspanning op de aangegeven locatie.",
                 true);
         }

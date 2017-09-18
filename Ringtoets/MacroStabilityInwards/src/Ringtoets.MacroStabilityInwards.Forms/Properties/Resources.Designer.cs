@@ -649,56 +649,54 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Grensspanning op de aangegeven locatie..
         /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_Description {
+        public static string MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_Description {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_Desc" +
-                        "ription", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grensspanning [kN/m³].
+        ///   Looks up a localized string similar to Grensspanning [kN/m²].
         /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_DisplayName {
+        public static string MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_DisplayName {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStressProperties_PreconsolidationStress_Disp" +
-                        "layName", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lokale x-coördinaat van het punt waarvoor de grensspanning is opgegeven..
         /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_Description {
+        public static string MacroStabilityInwardsPreconsolidationStress_XCoordinate_Description {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_Description", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_XCoordinate_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to X [m].
         /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_DisplayName {
+        public static string MacroStabilityInwardsPreconsolidationStress_XCoordinate_DisplayName {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStressProperties_XCoordinate_DisplayName", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_XCoordinate_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lokale z-coördinaat van het punt waarvoor de grensspanning is opgegeven..
         /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_Description {
+        public static string MacroStabilityInwardsPreconsolidationStress_ZCoordinate_Description {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_Description", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_ZCoordinate_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z [m+NAP].
         /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_DisplayName {
+        public static string MacroStabilityInwardsPreconsolidationStress_ZCoordinate_DisplayName {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStressProperties_ZCoordinate_DisplayName", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_ZCoordinate_DisplayName", resourceCulture);
             }
         }
         
