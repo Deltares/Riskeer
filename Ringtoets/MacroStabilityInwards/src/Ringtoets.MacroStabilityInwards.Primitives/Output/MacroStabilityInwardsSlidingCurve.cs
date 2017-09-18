@@ -33,9 +33,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// </summary>
         /// <param name="leftCircle">The left circle of the curve.</param>
         /// <param name="rightCircle">The right circle of the curve.</param>
+        /// <param name="nonIteratedHorizontalForce">The non iterated horizontal
+        /// force of the curve.</param>
+        /// <param name="iteratedHorizontalForce">The iterated horizontal force
+        /// of the curve.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircle leftCircle, MacroStabilityInwardsSlidingCircle rightCircle)
+        public MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircle leftCircle, MacroStabilityInwardsSlidingCircle rightCircle,
+                                                 double nonIteratedHorizontalForce, double iteratedHorizontalForce)
         {
             if (leftCircle == null)
             {
@@ -48,6 +53,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
 
             LeftCircle = leftCircle;
             RightCircle = rightCircle;
+            NonIteratedHorizontalForce = nonIteratedHorizontalForce;
+            IteratedHorizontalForce = iteratedHorizontalForce;
         }
 
         /// <summary>
@@ -59,5 +66,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// Gets the right circle.
         /// </summary>
         public MacroStabilityInwardsSlidingCircle RightCircle { get; }
+
+        /// <summary>
+        /// Gets the non iterated horizontal force.
+        /// </summary>
+        public double NonIteratedHorizontalForce { get; }
+
+        /// <summary>
+        /// Gets the iterated horizontal force.
+        /// </summary>
+        public double IteratedHorizontalForce { get; }
     }
 }

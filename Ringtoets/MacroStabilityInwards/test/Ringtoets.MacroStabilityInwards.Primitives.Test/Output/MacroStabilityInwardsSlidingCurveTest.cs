@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.Output;
 
@@ -36,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
             var rightCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(0, 0), 3, false);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(null, rightCircle);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(null, rightCircle, 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
             var leftCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(0, 0), 3, true);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(leftCircle, null);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(leftCircle, null, 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,15 +62,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var leftCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(0, 0), 5, true);
-            var rightCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(10, 10), 2, false);
+            var random = new Random(21);
+            var leftCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(random.NextDouble(), random.NextDouble()), random.NextDouble(), random.NextBoolean());
+            var rightCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(random.NextDouble(), random.NextDouble()), random.NextDouble(), random.NextBoolean());
+            double nonIteratedHorizontalForce = random.NextDouble();
+            double iteratedHorizontalForce = random.NextDouble();
 
             // Call
-            var curve = new MacroStabilityInwardsSlidingCurve(leftCircle, rightCircle);
+            var curve = new MacroStabilityInwardsSlidingCurve(leftCircle, rightCircle, nonIteratedHorizontalForce, iteratedHorizontalForce);
 
             // Assert
             Assert.AreSame(leftCircle, curve.LeftCircle);
             Assert.AreSame(rightCircle, curve.RightCircle);
+            Assert.AreEqual(nonIteratedHorizontalForce, curve.NonIteratedHorizontalForce);
+            Assert.AreEqual(iteratedHorizontalForce, curve.IteratedHorizontalForce);
         }
     }
 }
