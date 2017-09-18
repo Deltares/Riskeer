@@ -33,7 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_TopLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0));
+            TestDelegate call = () => new MacroStabilityInwardsSlice(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -44,7 +45,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_TopRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0));
+            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
+                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_BottomLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0));
+            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
+                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -66,11 +69,23 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_BottomRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
+            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
+                                                                     new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("bottomRightPoint", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("properties", exception.ParamName);
         }
 
         [Test]
@@ -83,13 +98,162 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
             var bottomRightPoint = new Point2D(3, 3);
 
             // Call
-            var slice = new MacroStabilityInwardsSlice(topLeftPoint, topRightPoint, bottomLeftPoint, bottomRightPoint);
+            var slice = new MacroStabilityInwardsSlice(topLeftPoint, topRightPoint, bottomLeftPoint, bottomRightPoint,
+                                                       new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
             Assert.AreEqual(topLeftPoint, slice.TopLeftPoint);
             Assert.AreEqual(topRightPoint, slice.TopRightPoint);
             Assert.AreEqual(bottomLeftPoint, slice.BottomLeftPoint);
             Assert.AreEqual(bottomRightPoint, slice.BottomRightPoint);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesEmpty_ExpectedValues()
+        {
+            // Call
+            var slice = new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+                                                       new MacroStabilityInwardsSlice.ConstructionProperties());
+
+            // Assert
+            Assert.IsNaN(slice.Cohesion);
+            Assert.IsNaN(slice.FrictionAngle);
+            Assert.IsNaN(slice.CriticalPressure);
+            Assert.IsNaN(slice.OverConsolidationRatio);
+            Assert.IsNaN(slice.Pop);
+            Assert.IsNaN(slice.DegreeOfConsolidationPorePressureSoil);
+            Assert.IsNaN(slice.DegreeOfConsolidationPorePressureLoad);
+            Assert.IsNaN(slice.Dilatancy);
+            Assert.IsNaN(slice.ExternalLoad);
+            Assert.IsNaN(slice.HydrostaticPorePressure);
+            Assert.IsNaN(slice.LeftForce);
+            Assert.IsNaN(slice.LeftForceAngle);
+            Assert.IsNaN(slice.LeftForceY);
+            Assert.IsNaN(slice.RightForce);
+            Assert.IsNaN(slice.RightForceAngle);
+            Assert.IsNaN(slice.RightForceY);
+            Assert.IsNaN(slice.LoadStress);
+            Assert.IsNaN(slice.NormalStress);
+            Assert.IsNaN(slice.PorePressure);
+            Assert.IsNaN(slice.HorizontalPorePressure);
+            Assert.IsNaN(slice.VerticalPorePressure);
+            Assert.IsNaN(slice.PiezometricPorePressure);
+            Assert.IsNaN(slice.EffectiveStress);
+            Assert.IsNaN(slice.EffectiveStressDaily);
+            Assert.IsNaN(slice.ExcessPorePressure);
+            Assert.IsNaN(slice.ShearStress);
+            Assert.IsNaN(slice.SoilStress);
+            Assert.IsNaN(slice.TotalPorePressure);
+            Assert.IsNaN(slice.TotalStress);
+            Assert.IsNaN(slice.Weight);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesSet_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            double cohesion = random.NextDouble();
+            double frictionAngle = random.NextDouble();
+            double criticalPressure = random.NextDouble();
+            double overConsolidationRatio = random.NextDouble();
+            double pop = random.NextDouble();
+            double degreeOfConsolidationPorePressureSoil = random.NextDouble();
+            double degreeOfConsolidationPorePressureLoad = random.NextDouble();
+            double dilatancy = random.NextDouble();
+            double externalLoad = random.NextDouble();
+            double hydrostaticPorePressure = random.NextDouble();
+            double leftForce = random.NextDouble();
+            double leftForceAngle = random.NextDouble();
+            double leftForceY = random.NextDouble();
+            double rightForce = random.NextDouble();
+            double rightForceAngle = random.NextDouble();
+            double rightForceY = random.NextDouble();
+            double loadStress = random.NextDouble();
+            double normalStress = random.NextDouble();
+            double porePressure = random.NextDouble();
+            double horizontalPorePressure = random.NextDouble();
+            double verticalPorePressure = random.NextDouble();
+            double piezometricPorePressure = random.NextDouble();
+            double effectiveStress = random.NextDouble();
+            double effectiveStressDaily = random.NextDouble();
+            double excessPorePressure = random.NextDouble();
+            double shearStress = random.NextDouble();
+            double soilStress = random.NextDouble();
+            double totalPorePressure = random.NextDouble();
+            double totalStress = random.NextDouble();
+            double weight = random.NextDouble();
+
+            var properties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                Cohesion = cohesion,
+                FrictionAngle = frictionAngle,
+                CriticalPressure = criticalPressure,
+                OverConsolidationRatio = overConsolidationRatio,
+                DegreeOfConsolidationPorePressureSoil = degreeOfConsolidationPorePressureSoil,
+                DegreeOfConsolidationPorePressureLoad = degreeOfConsolidationPorePressureLoad,
+                Pop = pop,
+                Dilatancy = dilatancy,
+                ExternalLoad = externalLoad,
+                HydrostaticPorePressure = hydrostaticPorePressure,
+                LeftForce = leftForce,
+                LeftForceAngle = leftForceAngle,
+                LeftForceY = leftForceY,
+                RightForce = rightForce,
+                RightForceAngle = rightForceAngle,
+                RightForceY = rightForceY,
+                LoadStress = loadStress,
+                NormalStress = normalStress,
+                PorePressure = porePressure,
+                HorizontalPorePressure = horizontalPorePressure,
+                VerticalPorePressure = verticalPorePressure,
+                PiezometricPorePressure = piezometricPorePressure,
+                EffectiveStress = effectiveStress,
+                EffectiveStressDaily = effectiveStressDaily,
+                ExcessPorePressure = excessPorePressure,
+                ShearStress = shearStress,
+                SoilStress = soilStress,
+                TotalPorePressure = totalPorePressure,
+                TotalStress = totalStress,
+                Weight = weight
+            };
+
+            // Call
+            var slice = new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0),
+                                                       new Point2D(0, 0), new Point2D(0, 0),
+                                                       properties);
+
+            // Assert
+            Assert.AreEqual(cohesion, slice.Cohesion);
+            Assert.AreEqual(frictionAngle, slice.FrictionAngle);
+            Assert.AreEqual(criticalPressure, slice.CriticalPressure);
+            Assert.AreEqual(overConsolidationRatio, slice.OverConsolidationRatio);
+            Assert.AreEqual(pop, slice.Pop);
+            Assert.AreEqual(degreeOfConsolidationPorePressureSoil, slice.DegreeOfConsolidationPorePressureSoil);
+            Assert.AreEqual(degreeOfConsolidationPorePressureLoad, slice.DegreeOfConsolidationPorePressureLoad);
+            Assert.AreEqual(dilatancy, slice.Dilatancy);
+            Assert.AreEqual(externalLoad, slice.ExternalLoad);
+            Assert.AreEqual(hydrostaticPorePressure, slice.HydrostaticPorePressure);
+            Assert.AreEqual(leftForce, slice.LeftForce);
+            Assert.AreEqual(leftForceAngle, slice.LeftForceAngle);
+            Assert.AreEqual(leftForceY, slice.LeftForceY);
+            Assert.AreEqual(rightForce, slice.RightForce);
+            Assert.AreEqual(rightForceAngle, slice.RightForceAngle);
+            Assert.AreEqual(rightForceY, slice.RightForceY);
+            Assert.AreEqual(loadStress, slice.LoadStress);
+            Assert.AreEqual(normalStress, slice.NormalStress);
+            Assert.AreEqual(porePressure, slice.PorePressure);
+            Assert.AreEqual(horizontalPorePressure, slice.HorizontalPorePressure);
+            Assert.AreEqual(verticalPorePressure, slice.VerticalPorePressure);
+            Assert.AreEqual(piezometricPorePressure, slice.PiezometricPorePressure);
+            Assert.AreEqual(effectiveStress, slice.EffectiveStress);
+            Assert.AreEqual(effectiveStressDaily, slice.EffectiveStressDaily);
+            Assert.AreEqual(excessPorePressure, slice.ExcessPorePressure);
+            Assert.AreEqual(shearStress, slice.ShearStress);
+            Assert.AreEqual(soilStress, slice.SoilStress);
+            Assert.AreEqual(totalPorePressure, slice.TotalPorePressure);
+            Assert.AreEqual(totalStress, slice.TotalStress);
+            Assert.AreEqual(weight, slice.Weight);
         }
     }
 }
