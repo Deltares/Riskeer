@@ -469,7 +469,7 @@ namespace Demo.Ringtoets.Commands
                                 MaterialName = "2D Layer"
                             }
                         }
-                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())); //TODO WTI1341: Temporary placeholder
+                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
             soilModel.StochasticSoilProfiles.Add(soilProfile2D);
 
             var soilProfile1D = new MacroStabilityInwardsStochasticSoilProfile(

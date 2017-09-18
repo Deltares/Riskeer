@@ -582,8 +582,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                       soilProfile.Name,
                                                                       soilProfile.Layers.Select(s => new MacroStabilityInwardsSoilLayer2D(
                                                                                                     new Ring(s.OuterRing.Points.Select(p => new Point2D(p.Y - 1, p.Y))),
-                                                                                                    s.Holes)), 
-                                                                      Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())); //TODO WTI1341: temporary placeholder
+                                                                                                    s.Holes)),
+                                                                      soilProfile.PreconsolidationStresses.Select(stress => new MacroStabilityInwardsPreconsolidationStress(
+                                                                                                                      stress.XCoordinate + 1,
+                                                                                                                      stress.ZCoordinate,
+                                                                                                                      stress.PreconsolidationStressMean,
+                                                                                                                      stress.PreconsolidationStressCoefficientOfVariation))));
         }
 
         private static MacroStabilityInwardsStochasticSoilProfile CloneAndSlightlyModify1DProfile(MacroStabilityInwardsStochasticSoilProfile profile)
