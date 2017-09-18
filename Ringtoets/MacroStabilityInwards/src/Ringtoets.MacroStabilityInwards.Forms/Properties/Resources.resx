@@ -551,7 +551,7 @@
     <value>Grensspanningen</value>
   </data>
   <data name="MacroStabilityInwardsOutputContext_FactorOfStability_Description" xml:space="preserve">
-    <value>Het quotient van de weerstandbiedende- en aadrijvende krachten langs een glijvlak.</value>
+    <value>Het quotiënt van de weerstandbiedende- en aadrijvende krachten langs een glijvlak.</value>
   </data>
   <data name="MacroStabilityInwardsOutputContext_FactorOfStability_DisplayName" xml:space="preserve">
     <value>Stabiliteitsfactor [-]</value>

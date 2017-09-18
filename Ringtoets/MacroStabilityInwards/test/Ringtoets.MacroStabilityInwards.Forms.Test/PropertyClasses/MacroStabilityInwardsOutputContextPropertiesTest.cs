@@ -149,11 +149,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             const string macroStabilityInwardsCategory = "Macrostabiliteit binnenwaarts";
             
-            PropertyDescriptor stabilityFactor = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stabilityFactor,
+            PropertyDescriptor stabilityFactorProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stabilityFactorProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Stabiliteitsfactor [-]",
-                                                                            "Het quotient van de weerstandbiedende- en aadrijvende krachten langs een glijvlak.",
+                                                                            "Het quotiënt van de weerstandbiedende- en aadrijvende krachten langs een glijvlak.",
                                                                             true);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[1];

@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int macroStabilityInwardsReliabilityIndex = 5;
         private const int macroStabilityInwardsFactorOfSafetyIndex = 6;
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_FactorOfStability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_FactorOfStability_Description))]
         [PropertyOrder(macroStabilityInwardsFactorOfStabilityIndex)]
@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredProbability_Description))]
         [PropertyOrder(requiredProbabilityIndex)]
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredReliability_Description))]
         [PropertyOrder(requiredReliabilityIndex)]
@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsProbability_Description))]
         [PropertyOrder(macroStabilityInwardsProbabilityIndex)]
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsReliability_Description))]
         [PropertyOrder(macroStabilityInwardsReliabilityIndex)]
@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards), 1, 1)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsFactorOfSafety_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsFactorOfSafety_Description))]
         [PropertyOrder(macroStabilityInwardsFactorOfSafetyIndex)]
