@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Output
 {
@@ -33,6 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// </summary>
         /// <param name="leftCircle">The left circle of the curve.</param>
         /// <param name="rightCircle">The right circle of the curve.</param>
+        /// <param name="slices">The slices of the curve.</param>
         /// <param name="nonIteratedHorizontalForce">The non iterated horizontal
         /// force of the curve.</param>
         /// <param name="iteratedHorizontalForce">The iterated horizontal force
@@ -40,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         public MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircle leftCircle, MacroStabilityInwardsSlidingCircle rightCircle,
-                                                 double nonIteratedHorizontalForce, double iteratedHorizontalForce)
+                                                 IEnumerable<MacroStabilityInwardsSlice> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
         {
             if (leftCircle == null)
             {
@@ -50,9 +52,14 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
             {
                 throw new ArgumentNullException(nameof(rightCircle));
             }
+            if (slices == null)
+            {
+                throw new ArgumentNullException(nameof(slices));
+            }
 
             LeftCircle = leftCircle;
             RightCircle = rightCircle;
+            Slices = slices;
             NonIteratedHorizontalForce = nonIteratedHorizontalForce;
             IteratedHorizontalForce = iteratedHorizontalForce;
         }
@@ -66,6 +73,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// Gets the right circle.
         /// </summary>
         public MacroStabilityInwardsSlidingCircle RightCircle { get; }
+
+        /// <summary>
+        /// Gets the slices.
+        /// </summary>
+        public IEnumerable<MacroStabilityInwardsSlice> Slices { get; }
 
         /// <summary>
         /// Gets the non iterated horizontal force.
