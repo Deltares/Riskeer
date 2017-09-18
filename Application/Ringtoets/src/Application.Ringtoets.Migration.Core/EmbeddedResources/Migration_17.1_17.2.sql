@@ -1119,9 +1119,9 @@ INSERT INTO PipingSoilLayerEntity(
 	[MaterialName],
 	[BelowPhreaticLevelMean],
 	[BelowPhreaticLevelDeviation],
+	[BelowPhreaticLevelShift],
 	[DiameterD70Mean],
 	[DiameterD70CoefficientOfVariation],
-	[BelowPhreaticLevelShift],
 	[PermeabilityMean],
 	[PermeabilityCoefficientOfVariation],
 	[Order])
@@ -1134,9 +1134,9 @@ SELECT
 	[MaterialName],
 	[BelowPhreaticLevelMean],
 	[BelowPhreaticLevelDeviation],
+	[BelowPhreaticLevelShift],
 	[DiameterD70Mean],
 	[DiameterD70CoefficientOfVariation],
-	[BelowPhreaticLevelShift],
 	[PermeabilityMean],
 	[PermeabilityCoefficientOfVariation],
 	[Order]
