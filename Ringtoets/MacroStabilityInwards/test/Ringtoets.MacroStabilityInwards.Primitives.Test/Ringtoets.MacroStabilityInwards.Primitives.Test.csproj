@@ -102,6 +102,10 @@
       <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj">
+      <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

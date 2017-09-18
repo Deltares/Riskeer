@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_CenterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCircle(null, 0.1, true);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCircle(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,14 +49,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
             var center = new Point2D(random.NextDouble(), random.NextDouble());
             double radius = random.NextDouble();
             bool isActive = random.NextBoolean();
+            double nonIteratedForce = random.NextDouble();
+            double iteratedForce = random.NextDouble();
+            double drivingMoment = random.NextDouble();
+            double resistingMoment = random.NextDouble();
 
             // Call
-            var circle = new MacroStabilityInwardsSlidingCircle(center, radius, isActive);
+            var circle = new MacroStabilityInwardsSlidingCircle(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
 
             // Assert
             Assert.AreEqual(center, circle.Center);
             Assert.AreEqual(radius, circle.Radius);
             Assert.AreEqual(isActive, circle.IsActive);
+            Assert.AreEqual(nonIteratedForce, circle.NonIteratedForce);
+            Assert.AreEqual(iteratedForce, circle.IteratedForce);
+            Assert.AreEqual(drivingMoment, circle.DrivingMoment);
+            Assert.AreEqual(resistingMoment, circle.ResistingMoment);
         }
     }
 }

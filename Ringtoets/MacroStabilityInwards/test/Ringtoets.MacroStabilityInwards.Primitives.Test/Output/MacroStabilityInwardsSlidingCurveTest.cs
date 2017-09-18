@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives.Output;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
 {
@@ -34,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_LeftCircleNull_ThrowsArgumentNullException()
         {
             // Setup
-            var rightCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(0, 0), 3, false);
+            MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(null, rightCircle, 0, 0);
@@ -48,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_RightCircleNull_ThrowsArgumentNullException()
         {
             // Setup
-            var leftCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(0, 0), 3, true);
+            MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(leftCircle, null, 0, 0);
@@ -63,8 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         {
             // Setup
             var random = new Random(21);
-            var leftCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(random.NextDouble(), random.NextDouble()), random.NextDouble(), random.NextBoolean());
-            var rightCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(random.NextDouble(), random.NextDouble()), random.NextDouble(), random.NextBoolean());
+            MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
+            MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
             double nonIteratedHorizontalForce = random.NextDouble();
             double iteratedHorizontalForce = random.NextDouble();
 

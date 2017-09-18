@@ -35,9 +35,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// <param name="center">The center coordinate of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="isActive">Indicator whether the circle is active or not.</param>
+        /// <param name="nonIteratedForce">The non iterated force of the circle.</param>
+        /// <param name="iteratedForce">The iterated force of the circle.</param>
+        /// <param name="drivingMoment">The driving moment of the circle.</param>
+        /// <param name="resistingMoment">The resisting moment of the circle.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="center"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlidingCircle(Point2D center, double radius, bool isActive)
+        public MacroStabilityInwardsSlidingCircle(Point2D center, double radius, bool isActive,
+                                                  double nonIteratedForce, double iteratedForce,
+                                                  double drivingMoment, double resistingMoment)
         {
             if (center == null)
             {
@@ -46,6 +52,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
             Center = center;
             Radius = radius;
             IsActive = isActive;
+            NonIteratedForce = nonIteratedForce;
+            IteratedForce = iteratedForce;
+            DrivingMoment = drivingMoment;
+            ResistingMoment = resistingMoment;
         }
 
         /// <summary>
@@ -62,5 +72,25 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// Gets whether the circle is the active circle or not.
         /// </summary>
         public bool IsActive { get; }
+
+        /// <summary>
+        /// Gets the non iterated force of the circle.
+        /// </summary>
+        public double NonIteratedForce { get; }
+
+        /// <summary>
+        /// Gets the iterated force of the circle.
+        /// </summary>
+        public double IteratedForce { get; }
+
+        /// <summary>
+        /// Gets the driving moment of the circle.
+        /// </summary>
+        public double DrivingMoment { get; }
+
+        /// <summary>
+        /// Gets the resisting moment of the circle.
+        /// </summary>
+        public double ResistingMoment { get; }
     }
 }
