@@ -919,10 +919,7 @@
             <summary>
             Create an instance of the test engine.
             </summary>
-            <remarks>If private copy is false, the search order is the NUnit install directory for the current user, then
-            the install directory for the local machine and finally the current AppDomain's ApplicationBase.</remarks>
-            <param name="privateCopy">if set to <c>true</c> loads the engine found in the application base directory, 
-            otherwise searches for the test engine with the highest version installed. Defaults to <c>true</c>.</param>
+            <param name="unused">This parameter is no longer used but has not been removed to ensure API compatibility.</param>
             <exception cref="T:NUnit.Engine.NUnitEngineNotFoundException">Thrown when a test engine of the required minimum version is not found</exception>
             <returns>An <see cref="T:NUnit.Engine.ITestEngine"/></returns>
         </member>
@@ -930,12 +927,9 @@
             <summary>
             Create an instance of the test engine with a minimum version.
             </summary>
-            <remarks>If private copy is false, the search order is the NUnit install directory for the current user, then
-            the install directory for the local machine and finally the current AppDomain's ApplicationBase.</remarks>
             <param name="minVersion">The minimum version of the engine to return inclusive.</param>
-            <param name="privateCopy">if set to <c>true</c> loads the engine found in the application base directory, 
-            otherwise searches for the test engine with the highest version installed. Defaults to <c>true</c>.</param>
-            <exception cref="T:NUnit.Engine.NUnitEngineNotFoundException">Thrown when a test engine of the given minimum version is not found</exception>
+            <param name="unused">This parameter is no longer used but has not been removed to ensure API compatibility.</param>
+            <exception cref="T:NUnit.Engine.NUnitEngineNotFoundException">Thrown when a test engine of the required minimum version is not found</exception>
             <returns>An <see cref="T:NUnit.Engine.ITestEngine"/></returns>
         </member>
         <member name="T:NUnit.Engine.TestFilter">
