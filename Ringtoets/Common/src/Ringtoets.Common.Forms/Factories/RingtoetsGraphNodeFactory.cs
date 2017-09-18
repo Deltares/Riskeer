@@ -30,7 +30,7 @@ using Core.Components.PointedTree.Data;
 namespace Ringtoets.Common.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="GraphNode"/> based on information used as input.
+    /// Factory for creating <see cref="GraphNode"/>.
     /// </summary>
     public static class RingtoetsGraphNodeFactory
     {
@@ -46,9 +46,19 @@ namespace Ringtoets.Common.Forms.Factories
         /// <param name="title">The title to set for this node.</param>
         /// <param name="content">The content to set for this node.</param>
         /// <returns>The created <see cref="GraphNode"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static GraphNode CreateEndGraphNode(string title, string content)
         {
-            return new GraphNode(GetGraphNodeContentXml(title, content),
+            if (title == null)
+            {
+                throw new ArgumentNullException(nameof(title));
+            }
+            if (content == null)
+            {
+                throw new ArgumentNullException(nameof(content));
+            }
+
+            return new GraphNode(GetGraphNodeContentXml(content, title),
                                  new GraphNode[0],
                                  true,
                                  new GraphNodeStyle(GraphNodeShape.Rectangle, Color.SkyBlue, Color.Black, 1));
@@ -61,15 +71,23 @@ namespace Ringtoets.Common.Forms.Factories
         /// <param name="content">The content to set for this node.</param>
         /// <param name="childNodes">The child nodes of this node.</param>
         /// <returns>The created <see cref="GraphNode"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="childNodes"/> is 
-        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static GraphNode CreateCompositeGraphNode(string title, string content, IEnumerable<GraphNode> childNodes)
         {
+            if (title == null)
+            {
+                throw new ArgumentNullException(nameof(title));
+            }
+            if (content == null)
+            {
+                throw new ArgumentNullException(nameof(content));
+            }
             if (childNodes == null)
             {
                 throw new ArgumentNullException(nameof(childNodes));
             }
-            return new GraphNode(GetGraphNodeContentXml(title, content),
+
+            return new GraphNode(GetGraphNodeContentXml(content, title),
                                  childNodes.ToArray(),
                                  true,
                                  new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1));
@@ -81,21 +99,25 @@ namespace Ringtoets.Common.Forms.Factories
         /// <param name="title">The title to set for this node.</param>
         /// <param name="childNodes">The child nodes of this node.</param>
         /// <returns>The created <see cref="GraphNode"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="childNodes"/> is 
-        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static GraphNode CreateConnectingGraphNode(string title, IEnumerable<GraphNode> childNodes)
         {
+            if (title == null)
+            {
+                throw new ArgumentNullException(nameof(title));
+            }
             if (childNodes == null)
             {
                 throw new ArgumentNullException(nameof(childNodes));
             }
+
             return new GraphNode(GetGraphNodeContentXml(title),
                                  childNodes.ToArray(),
                                  false,
                                  new GraphNodeStyle(GraphNodeShape.None, Color.BlanchedAlmond, Color.Black, 1));
         }
 
-        private static string GetGraphNodeContentXml(string content)
+        private static string GetGraphNodeContentXml(string content, string title = null)
         {
             var builder = new StringBuilder();
             using (XmlWriter writer = XmlWriter.Create(builder, xmlWriterSettings))
@@ -103,28 +125,12 @@ namespace Ringtoets.Common.Forms.Factories
                 writer.WriteStartDocument();
                 writer.WriteStartElement(GraphNodeContentXmlDefinitions.RootElement);
 
-                writer.WriteString(content);
+                if (title != null)
+                {
+                    writer.WriteElementString(GraphNodeContentXmlDefinitions.BoldElement, title);
 
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-
-                writer.Flush();
-                writer.Close();
-            }
-
-            return builder.ToString();
-        }
-
-        private static string GetGraphNodeContentXml(string title, string content)
-        {
-            var builder = new StringBuilder();
-            using (XmlWriter writer = XmlWriter.Create(builder, xmlWriterSettings))
-            {
-                writer.WriteStartDocument();
-                writer.WriteStartElement(GraphNodeContentXmlDefinitions.RootElement);
-
-                writer.WriteElementString(GraphNodeContentXmlDefinitions.BoldElement, title);
-                writer.WriteString(Environment.NewLine);
+                    writer.WriteString(Environment.NewLine);
+                }
                 writer.WriteString(content);
 
                 writer.WriteEndElement();

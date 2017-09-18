@@ -25,21 +25,18 @@ using Ringtoets.Common.Data.IllustrationPoints;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an <see cref="Data.IllustrationPoints.IllustrationPointNode"/> which' 
-    /// <see cref="Data.IllustrationPoints.IllustrationPointNode.Data"/> is of type <see cref="SubMechanismIllustrationPoint"/>.
+    /// This class is a presentation object for an <see cref="Data.IllustrationPoints.IllustrationPointNode"/>.
     /// </summary>
-    public class IllustrationPointNodeSubMechanismContext
+    public class IllustrationPointNodeContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="IllustrationPointNodeFaultTreeContext"/>.
+        /// Creates a new instance of <see cref="IllustrationPointNodeContext"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The illustration point node.</param>
         /// <param name="windDirectionName">The name of the wind direction.</param>
         /// <param name="closingSituation">The closing situation of the illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointNode"/> 
-        /// is not of type <see cref="SubMechanismIllustrationPoint"/>.</exception>
-        public IllustrationPointNodeSubMechanismContext(IllustrationPointNode illustrationPointNode,
+        public IllustrationPointNodeContext(IllustrationPointNode illustrationPointNode,
                                                      string windDirectionName,
                                                      string closingSituation)
         {
@@ -54,12 +51,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             if (closingSituation == null)
             {
                 throw new ArgumentNullException(nameof(closingSituation));
-            }
-
-            var illustrationPoint = illustrationPointNode.Data as SubMechanismIllustrationPoint;
-            if (illustrationPoint == null)
-            {
-                throw new ArgumentException($"{nameof(illustrationPointNode)} type has to be {nameof(SubMechanismIllustrationPoint)}");
             }
 
             IllustrationPointNode = illustrationPointNode;

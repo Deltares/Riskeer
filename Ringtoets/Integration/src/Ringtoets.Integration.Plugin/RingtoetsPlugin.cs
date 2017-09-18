@@ -48,6 +48,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
@@ -334,17 +335,29 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = point => new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
                                                                                            point.ClosingSituations)
             };
-            yield return new PropertyInfo<IllustrationPointNodeFaultTreeContext, FaultTreeIllustrationPointProperties>
+            yield return new PropertyInfo<IllustrationPointNodeContext, IllustrationPointProperties>
             {
-                CreateInstance = context => new FaultTreeIllustrationPointProperties(context.IllustrationPointNode,
-                                                                                     context.WindDirectionName,
-                                                                                     context.ClosingSituation)
-            };
-            yield return new PropertyInfo<IllustrationPointNodeSubMechanismContext, SubMechanismIllustrationPointProperties>
-            {
-                CreateInstance = context => new SubMechanismIllustrationPointProperties(context.IllustrationPointNode,
-                                                                                        context.WindDirectionName,
-                                                                                        context.ClosingSituation)
+                CreateInstance = context =>
+                {
+                    IllustrationPointNode illustrationPointNode = context.IllustrationPointNode;
+
+                    if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
+                    {
+                        return new FaultTreeIllustrationPointProperties(illustrationPointNode,
+                                                                        context.WindDirectionName,
+                                                                        context.ClosingSituation);
+                    }
+                    if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
+                    {
+                        return new SubMechanismIllustrationPointProperties(illustrationPointNode,
+                                                                           context.WindDirectionName,
+                                                                           context.ClosingSituation);
+                    }
+
+                    return new IllustrationPointProperties(illustrationPointNode,
+                                                           context.WindDirectionName,
+                                                           context.ClosingSituation);
+                }
             };
         }
 

@@ -28,13 +28,13 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class IllustrationPointNodeFaultTreeContextTest
+    public class IllustrationPointNodeContextTest
     {
         [Test]
         public void Constructor_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new IllustrationPointNodeFaultTreeContext(null, "", "");
+            TestDelegate test = () => new IllustrationPointNodeContext(null, "", "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointNodeFaultTreeContext(node, null, "");
+            TestDelegate test = () => new IllustrationPointNodeContext(node, null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,27 +62,11 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var node = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
 
             // Call
-            TestDelegate test = () => new IllustrationPointNodeFaultTreeContext(node, "", null);
+            TestDelegate test = () => new IllustrationPointNodeContext(node, "", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("closingSituation", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_IllustrationPointNodeInvalidType_ThrowsArgumentException()
-        {
-            // Setup
-            var node = new IllustrationPointNode(new TestIllustrationPoint());
-            const string windDirectionName = "wdn";
-            const string closingSituation = "cs";
-
-            // Call
-            TestDelegate test = () => new IllustrationPointNodeFaultTreeContext(node, windDirectionName, closingSituation);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("illustrationPointNode type has to be FaultTreeIllustrationPoint", exception.Message);
         }
 
         [Test]
@@ -94,7 +78,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             const string closingSituation = "cs";
 
             // Call
-            var context = new IllustrationPointNodeFaultTreeContext(node, windDirectionName, closingSituation);
+            var context = new IllustrationPointNodeContext(node, windDirectionName, closingSituation);
 
             // Assert
             Assert.AreSame(node, context.IllustrationPointNode);

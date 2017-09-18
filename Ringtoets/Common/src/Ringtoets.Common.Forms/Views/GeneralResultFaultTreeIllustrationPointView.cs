@@ -128,18 +128,9 @@ namespace Ringtoets.Common.Forms.Views
 
             if (selection != null && topLevelFaultTreeIllustrationPoint != null)
             {
-                if (selection.Data is FaultTreeIllustrationPoint)
-                {
-                    Selection = new IllustrationPointNodeFaultTreeContext(selection,
-                                                                          topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                                          topLevelFaultTreeIllustrationPoint.ClosingSituation);
-                }
-                if (selection.Data is SubMechanismIllustrationPoint)
-                {
-                    Selection = new IllustrationPointNodeSubMechanismContext(selection,
-                                                                             topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                                             topLevelFaultTreeIllustrationPoint.ClosingSituation);
-                }
+                Selection = new IllustrationPointNodeContext(selection,
+                                                             topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                             topLevelFaultTreeIllustrationPoint.ClosingSituation);
             }
             else
             {

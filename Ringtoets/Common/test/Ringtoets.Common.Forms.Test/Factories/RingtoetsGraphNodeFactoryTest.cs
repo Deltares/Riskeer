@@ -53,6 +53,28 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateEndGraphNode_TitleNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateEndGraphNode(null, "content");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("title", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateEndGraphNode_ContentNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateEndGraphNode("title", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("content", exception.ParamName);
+        }
+
+        [Test]
         public void CreateCompositeGraphNode_ValidInput_ReturnsGraphNodeWithExpectedStyling()
         {
             // Setup
@@ -77,6 +99,38 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             Assert.AreEqual(1, node.ChildNodes.Count());
             Assert.AreSame(childNode, node.ChildNodes.First());
+        }
+
+        [Test]
+        public void CreateCompositeGraphNode_TitleNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateCompositeGraphNode(null,
+                                                                                         "content",
+                                                                                         new[]
+                                                                                         {
+                                                                                             new TestGraphNode()
+                                                                                         });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("title", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCompositeGraphNode_ContentNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateCompositeGraphNode("title",
+                                                                                         null,
+                                                                                         new[]
+                                                                                         {
+                                                                                             new TestGraphNode()
+                                                                                         });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("content", exception.ParamName);
         }
 
         [Test]
@@ -115,6 +169,21 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             Assert.AreEqual(1, node.ChildNodes.Count());
             Assert.AreSame(childNode, node.ChildNodes.First());
+        }
+
+        [Test]
+        public void CreateConnectingGraphNode_TitleNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateConnectingGraphNode(null,
+                                                                                          new[]
+                                                                                          {
+                                                                                              new TestGraphNode()
+                                                                                          });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("title", exception.ParamName);
         }
 
         [Test]
