@@ -701,5 +701,37 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
+
+        [Test]
+        public void ReadSoilProfile_SoilProfilesWithAndWithoutPreconsolidationStresses_ReturnsProfilesWithExpectedNrOfPreconsolidationStresses()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStresses.soil");
+
+            var readProfiles = new List<SoilProfile2D>();
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                while (reader.HasNext)
+                {
+                    // Call
+                    readProfiles.Add(reader.ReadSoilProfile());
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+                Assert.AreEqual(3, readProfiles.Count);
+            }
+
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                0,
+                1
+            }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
+            
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
     }
 }

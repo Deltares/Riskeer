@@ -72,10 +72,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Reads the preconsolidation stresses defined for the soil profile.
         /// </summary>
+        /// <param name="soilProfileId">The soil profile ID to read the preconsolidation stresses for.</param>
         /// <returns>A collection of preconsolidation stresses defined for the profile.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when the preconsolidation stress
         /// could not be read.</exception>
-        public IEnumerable<PreconsolidationStress> ReadPreconsolidationStresses()
+        public IEnumerable<PreconsolidationStress> ReadPreconsolidationStresses(long soilProfileId)
         {
             if (!HasNext)
             {
@@ -83,7 +84,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             var stresses = new List<PreconsolidationStress>();
-            long soilProfileId = ReadSoilProfileId();
             while (HasNext && ReadSoilProfileId() == soilProfileId)
             {
                 stresses.Add(ReadPreconsolidationStress());

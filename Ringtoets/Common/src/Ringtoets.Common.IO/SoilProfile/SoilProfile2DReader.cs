@@ -190,7 +190,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 throw;
             }
 
-            PreconsolidationStress[] preconsolidationStresses = preconsolidationStressReader.ReadPreconsolidationStresses()
+            PreconsolidationStress[] preconsolidationStresses = preconsolidationStressReader.ReadPreconsolidationStresses(criticalProperties.ProfileId)
                                                                                             .ToArray();
             try
             {

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
@@ -201,7 +202,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses().ToArray();
+                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses(1).ToArray();
 
                 // Assert
                 Assert.AreEqual(4, preconsolidationStresses.Length);
@@ -265,7 +266,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses().ToArray();
+                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses(1).ToArray();
 
                 // Assert
                 Assert.AreEqual(1, preconsolidationStresses.Length);
@@ -277,6 +278,26 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressMean);
                 Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
                 Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressShift);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadPreconsolidationStresses_UnknownSoilProfileId_ReturnsEmptyPreconsolidationStress()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStressesNullValues.soil");
+
+            using (var reader = new PreconsolidationStressReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                IEnumerable<PreconsolidationStress> preconsolidationStresses = reader.ReadPreconsolidationStresses(2);
+
+                // Assert
+                CollectionAssert.IsEmpty(preconsolidationStresses);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
