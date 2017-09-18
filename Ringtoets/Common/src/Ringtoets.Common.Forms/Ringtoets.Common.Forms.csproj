@@ -65,7 +65,6 @@
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
-    <Compile Include="GraphNodeConverter.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
     <Compile Include="IScenarioRow.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
@@ -236,9 +235,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\IllustrationPointsFaultTreeControl.resx">
-      <DependentUpon>IllustrationPointsFaultTreeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GeneralResultFaultTreeIllustrationPointView.resx">
       <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>

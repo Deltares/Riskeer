@@ -20,11 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Factories;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Test.Factories
 {
@@ -32,114 +39,130 @@ namespace Ringtoets.Common.Forms.Test.Factories
     public class RingtoetsGraphNodeFactoryTest
     {
         [Test]
-        public void CreateEndGraphNode_ValidInput_ReturnsGraphNodeWithExpectedStyling()
+        public void CreateGraphNode_IllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
-            const string title = "title";
-            const string content = "content";
 
             // Call
-            GraphNode node = RingtoetsGraphNodeFactory.CreateEndGraphNode(title, content);
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(null, Enumerable.Empty<GraphNode>());
 
             // Assert
-            string expectedContent = $"<text><bold>{title}</bold>{Environment.NewLine}{content}</text>";
-            Assert.AreEqual(expectedContent, node.Content);
-            Assert.IsTrue(node.IsSelectable);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("illustrationPoint", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateGraphNode_WithSubMechanismIllustrationPointButChildrenNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var illustrationPoint = new SubMechanismIllustrationPoint(
+                "Illustration Point",
+                new Random(31).NextRoundedDouble(),
+                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                Enumerable.Empty<IllustrationPointResult>());
+
+            // Call
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("childNodes", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateGraphNode_WithSubMechanismIllustrationPointEmptyChildren_ReturnsGraphNodeWithExpectedStyling()
+        {
+            // Setup
+            var illustrationPoint = new SubMechanismIllustrationPoint(
+                "Illustration Point",
+                new Random(31).NextRoundedDouble(),
+                Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                Enumerable.Empty<IllustrationPointResult>());
+
+            // Call
+            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
+            {
+                CreateTestGraphNode()
+            });
+
+            // Assert
+            Assert.AreEqual(CreateExpectedGraphNodeContent(illustrationPoint.Name, illustrationPoint.Beta), graphNode.Content);
+            Assert.IsTrue(graphNode.IsSelectable);
+            CollectionAssert.IsEmpty(graphNode.ChildNodes);
 
             var expectedStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.SkyBlue, Color.Black, 1);
-            AssertEqualStyle(expectedStyle, node.Style);
-
-            CollectionAssert.IsEmpty(node.ChildNodes);
+            AssertEqualStyle(expectedStyle, graphNode.Style);
         }
 
         [Test]
-        public void CreateEndGraphNode_TitleNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateEndGraphNode(null, "content");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("title", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateEndGraphNode_ContentNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateEndGraphNode("title", null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("content", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateCompositeGraphNode_ValidInput_ReturnsGraphNodeWithExpectedStyling()
+        public void CreateGraphNode_FaultTreeIllustrationPointNodeDataWithoutChildren_ReturnsExpected()
         {
             // Setup
-            const string title = "compositeTitle";
-            const string content = "compositeContent";
-
-            GraphNode childNode = new TestGraphNode();
+            var random = new Random(31);
+            var illustrationPoint = new FaultTreeIllustrationPoint(
+                "Illustration Point",
+                random.NextRoundedDouble(),
+                Enumerable.Empty<Stochast>(),
+                random.NextEnumValue<CombinationType>());
 
             // Call
-            GraphNode node = RingtoetsGraphNodeFactory.CreateCompositeGraphNode(title, content, new[]
-            {
-                childNode
-            });
+            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint,
+                                                                            Enumerable.Empty<GraphNode>());
 
             // Assert
-            string expectedContent = $"<text><bold>{title}</bold>{Environment.NewLine}{content}</text>";
-            Assert.AreEqual(expectedContent, node.Content);
-            Assert.IsTrue(node.IsSelectable);
+            Assert.AreEqual(CreateExpectedGraphNodeContent(illustrationPoint.Name, illustrationPoint.Beta), graphNode.Content);
+            Assert.IsTrue(graphNode.IsSelectable);
 
             var expectedStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
-            AssertEqualStyle(expectedStyle, node.Style);
+            AssertEqualStyle(expectedStyle, graphNode.Style);
 
-            Assert.AreEqual(1, node.ChildNodes.Count());
-            Assert.AreSame(childNode, node.ChildNodes.First());
+            Assert.AreEqual(1, graphNode.ChildNodes.Count());
+            GraphNode connectingNode = graphNode.ChildNodes.First();
+            AssertGraphConnectingNode(CreateExpectedGraphConnectingNodeContent(illustrationPoint.CombinationType), connectingNode);
+            CollectionAssert.IsEmpty(connectingNode.ChildNodes);
         }
 
         [Test]
-        public void CreateCompositeGraphNode_TitleNull_ThrowsArgumentNullException()
+        public void CreateGraphNode_FaultTreeIllustrationPointNodeDataWithChildren_ReturnsExpected()
         {
+            // Setup
+            var random = new Random(31);
+            var illustrationPoint = new FaultTreeIllustrationPoint(
+                "Illustration Point",
+                random.NextRoundedDouble(),
+                Enumerable.Empty<Stochast>(),
+                random.NextEnumValue<CombinationType>());
+
+            IEnumerable<GraphNode> childGraphNodes = new[]
+            {
+                CreateTestGraphNode()
+            };
+
             // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateCompositeGraphNode(null,
-                                                                                         "content",
-                                                                                         new[]
-                                                                                         {
-                                                                                             new TestGraphNode()
-                                                                                         });
+            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint,
+                                                                            childGraphNodes);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("title", exception.ParamName);
+            Assert.AreEqual(CreateExpectedGraphNodeContent(illustrationPoint.Name, illustrationPoint.Beta), graphNode.Content);
+            Assert.IsTrue(graphNode.IsSelectable);
+
+            var expectedStyle = new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1);
+            AssertEqualStyle(expectedStyle, graphNode.Style);
+
+            Assert.AreEqual(1, graphNode.ChildNodes.Count());
+            GraphNode connectingNode = graphNode.ChildNodes.First();
+            AssertGraphConnectingNode(CreateExpectedGraphConnectingNodeContent(illustrationPoint.CombinationType), connectingNode);
+            CollectionAssert.AreEqual(childGraphNodes, connectingNode.ChildNodes);
         }
 
         [Test]
-        public void CreateCompositeGraphNode_ContentNull_ThrowsArgumentNullException()
+        public void CreateGraphNode_WithFaultTreeIllustrationPointButChildrenNull_ThrowsArgumentNullException()
         {
-            // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateCompositeGraphNode("title",
-                                                                                         null,
-                                                                                         new[]
-                                                                                         {
-                                                                                             new TestGraphNode()
-                                                                                         });
+            // Setup
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
 
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("content", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateCompositeGraphNode_ChildNodesNull_ThrowsArgumentNullException()
-        {
             // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateCompositeGraphNode("title",
-                                                                                         "content",
-                                                                                         null);
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -147,55 +170,31 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateConnectingGraphNode_ValidInput_ReturnsGraphNodeWithExpectedStyling()
+        public void CreateGraphNode_WithNotSupportedIllustrationPoint_ThrowsNotSupportedException()
         {
             // Setup
-            const string title = "title";
-            GraphNode childNode = new TestGraphNode();
+            var illustrationPoint = new TestIllustrationPoint();
 
             // Call
-            GraphNode node = RingtoetsGraphNodeFactory.CreateConnectingGraphNode(title, new[]
+            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(illustrationPoint, new[]
             {
-                childNode
+                CreateTestGraphNode()
             });
 
             // Assert
-            string expectedContent = $"<text>{title}</text>";
-            Assert.AreEqual(expectedContent, node.Content);
-            Assert.IsFalse(node.IsSelectable);
-
-            var expectedStyle = new GraphNodeStyle(GraphNodeShape.None, Color.BlanchedAlmond, Color.Black, 1);
-            AssertEqualStyle(expectedStyle, node.Style);
-
-            Assert.AreEqual(1, node.ChildNodes.Count());
-            Assert.AreSame(childNode, node.ChildNodes.First());
+            var exception = Assert.Throws<NotSupportedException>(test);
+            Assert.AreEqual($"IllustrationPointNode of type {illustrationPoint.GetType().Name} is not supported. " +
+                            $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}",
+                            exception.Message);
         }
 
-        [Test]
-        public void CreateConnectingGraphNode_TitleNull_ThrowsArgumentNullException()
+        private static void AssertGraphConnectingNode(string expectedContent, GraphNode actualNode)
         {
-            // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateConnectingGraphNode(null,
-                                                                                          new[]
-                                                                                          {
-                                                                                              new TestGraphNode()
-                                                                                          });
+            Assert.IsFalse(actualNode.IsSelectable);
+            Assert.AreEqual(expectedContent, actualNode.Content);
 
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("title", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateConnectingGraphNode_ChildNodesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => RingtoetsGraphNodeFactory.CreateConnectingGraphNode("title",
-                                                                                          null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("childNodes", exception.ParamName);
+            var expectedConnectingStyle = new GraphNodeStyle(GraphNodeShape.None, Color.BlanchedAlmond, Color.Black, 1);
+            AssertEqualStyle(expectedConnectingStyle, actualNode.Style);
         }
 
         private static void AssertEqualStyle(GraphNodeStyle expected, GraphNodeStyle actual)
@@ -206,14 +205,33 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expected.Shape, actual.Shape);
         }
 
-        private class TestGraphNode : GraphNode
+        private static GraphNode CreateTestGraphNode()
         {
-            public TestGraphNode() : base("<text>content</text>", new GraphNode[0], false, new TestGraphNodeStyle()) {}
+            return new GraphNode("<text>content</text>", new GraphNode[0], false, CreateTestGraphNodeStyle());
         }
 
-        private class TestGraphNodeStyle : GraphNodeStyle
+        private static GraphNodeStyle CreateTestGraphNodeStyle()
         {
-            public TestGraphNodeStyle() : base(GraphNodeShape.None, Color.Empty, Color.Empty, 1) {}
+            return new GraphNodeStyle(GraphNodeShape.None, Color.Empty, Color.Empty, 1);
+        }
+
+        private static string CreateExpectedGraphNodeContent(string name, RoundedDouble beta)
+        {
+            RoundedDouble roundedBeta = beta.ToPrecision(5);
+            string probability = ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta));
+
+            return $"<text><bold>{name}</bold>{Environment.NewLine}" +
+                   $"{Environment.NewLine}" +
+                   $"Beta = {roundedBeta}{Environment.NewLine}" +
+                   $"Pf = {probability}</text>";
+        }
+
+        private static string CreateExpectedGraphConnectingNodeContent(CombinationType combinationType)
+        {
+            string name = combinationType == CombinationType.And
+                              ? "En"
+                              : "Of";
+            return $"<text>{name}</text>";
         }
     }
 }

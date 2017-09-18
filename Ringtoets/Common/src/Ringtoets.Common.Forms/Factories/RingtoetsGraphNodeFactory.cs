@@ -25,7 +25,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Core.Common.Base.Data;
+using Core.Common.Utils;
 using Core.Components.PointedTree.Data;
+using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -41,76 +46,85 @@ namespace Ringtoets.Common.Forms.Factories
         };
 
         /// <summary>
-        /// Create <see cref="GraphNode"/> with default styling for an end node.
+        /// Creates a new <see cref="GraphNode"/> based on the provided input.
         /// </summary>
-        /// <param name="title">The title to set for this node.</param>
-        /// <param name="content">The content to set for this node.</param>
-        /// <returns>The created <see cref="GraphNode"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static GraphNode CreateEndGraphNode(string title, string content)
+        /// <param name="illustrationPoint">The illustration point.</param>
+        /// <param name="childNodes">The child nodes of the illustration point.</param>
+        /// <returns>The newly created <see cref="GraphNode"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is null.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="illustrationPoint"/> 
+        /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
+        public static GraphNode CreateGraphNode(IllustrationPointBase illustrationPoint, IEnumerable<GraphNode> childNodes)
         {
-            if (title == null)
+            if (illustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(title));
+                throw new ArgumentNullException(nameof(illustrationPoint));
             }
-            if (content == null)
+            if (childNodes == null)
             {
-                throw new ArgumentNullException(nameof(content));
+                throw new ArgumentNullException(nameof(childNodes));
             }
 
+            var subMechanismIllustrationPoint = illustrationPoint as SubMechanismIllustrationPoint;
+            if (subMechanismIllustrationPoint != null)
+            {
+                return CreateEndGraphNode(illustrationPoint.Name,
+                                          CreateGraphNodeContent(illustrationPoint.Beta));
+            }
+
+            var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
+            if (faultTreeIllustrationPoint != null)
+            {
+                return CreateFaultTreeGraphNode(faultTreeIllustrationPoint,
+                                                childNodes);
+            }
+
+            throw new NotSupportedException($"IllustrationPointNode of type {illustrationPoint.GetType().Name} is not supported. " +
+                                            $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphNode"/>, based on the properties of <paramref name="illustrationPoint"/>.
+        /// </summary>
+        /// <param name="illustrationPoint">The <see cref="FaultTreeIllustrationPoint"/> to base the 
+        /// <see cref="GraphNode"/> to create on.</param>
+        /// <param name="childNodes">The child graph nodes of the <see cref="GraphNode"/> to create.</param>
+        /// <returns>The created <see cref="GraphNode"/>.</returns>
+        private static GraphNode CreateFaultTreeGraphNode(FaultTreeIllustrationPoint illustrationPoint,
+                                                          IEnumerable<GraphNode> childNodes)
+        {
+            string childRelationTitle = illustrationPoint.CombinationType == CombinationType.And
+                                            ? Resources.GraphNode_CombinationType_And
+                                            : Resources.GraphNode_CombinationType_Or;
+            GraphNode connectionGraphNode = CreateConnectingGraphNode(childRelationTitle, childNodes);
+
+            return CreateCompositeGraphNode(
+                illustrationPoint.Name,
+                CreateGraphNodeContent(illustrationPoint.Beta),
+                new[]
+                {
+                    connectionGraphNode
+                });
+        }
+
+        private static GraphNode CreateEndGraphNode(string title, string content)
+        {
             return new GraphNode(GetGraphNodeContentXml(content, title),
                                  new GraphNode[0],
                                  true,
                                  new GraphNodeStyle(GraphNodeShape.Rectangle, Color.SkyBlue, Color.Black, 1));
         }
 
-        /// <summary>
-        /// Create <see cref="GraphNode"/> with default styling for a composite node.
-        /// </summary>
-        /// <param name="title">The title to set for this node.</param>
-        /// <param name="content">The content to set for this node.</param>
-        /// <param name="childNodes">The child nodes of this node.</param>
-        /// <returns>The created <see cref="GraphNode"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static GraphNode CreateCompositeGraphNode(string title, string content, IEnumerable<GraphNode> childNodes)
+        private static GraphNode CreateCompositeGraphNode(string title, string content, IEnumerable<GraphNode> childNodes)
         {
-            if (title == null)
-            {
-                throw new ArgumentNullException(nameof(title));
-            }
-            if (content == null)
-            {
-                throw new ArgumentNullException(nameof(content));
-            }
-            if (childNodes == null)
-            {
-                throw new ArgumentNullException(nameof(childNodes));
-            }
-
             return new GraphNode(GetGraphNodeContentXml(content, title),
                                  childNodes.ToArray(),
                                  true,
                                  new GraphNodeStyle(GraphNodeShape.Rectangle, Color.LightGray, Color.Black, 1));
         }
 
-        /// <summary>
-        /// Create <see cref="GraphNode"/> with default styling for a connecting node.
-        /// </summary>
-        /// <param name="title">The title to set for this node.</param>
-        /// <param name="childNodes">The child nodes of this node.</param>
-        /// <returns>The created <see cref="GraphNode"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static GraphNode CreateConnectingGraphNode(string title, IEnumerable<GraphNode> childNodes)
+        private static GraphNode CreateConnectingGraphNode(string title, IEnumerable<GraphNode> childNodes)
         {
-            if (title == null)
-            {
-                throw new ArgumentNullException(nameof(title));
-            }
-            if (childNodes == null)
-            {
-                throw new ArgumentNullException(nameof(childNodes));
-            }
-
             return new GraphNode(GetGraphNodeContentXml(title),
                                  childNodes.ToArray(),
                                  false,
@@ -141,6 +155,13 @@ namespace Ringtoets.Common.Forms.Factories
             }
 
             return builder.ToString();
+        }
+
+        private static string CreateGraphNodeContent(RoundedDouble beta)
+        {
+            return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1,
+                                 beta,
+                                 ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta)));
         }
     }
 }

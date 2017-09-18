@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -89,6 +90,55 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsNull(control.Selection);
                 Assert.AreEqual(0, graph.VertexCount);
                 Assert.AreEqual(0, graph.EdgeCount);
+            }
+        }
+
+        [Test]
+        public void GivenControl_WhenDataSetToInvalidIllustrationPointType_ThenThrowsNotSupportedException()
+        {
+            // Given
+            using (var control = new IllustrationPointsFaultTreeControl())
+            {
+                var notSupported = new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "closing situation",
+                    new IllustrationPointNode(new TestIllustrationPoint()));
+
+                // When
+                TestDelegate test = () => control.Data = notSupported;
+
+                // Then
+                var exception = Assert.Throws<NotSupportedException>(test);
+                Assert.AreEqual($"IllustrationPointNode of type {nameof(TestIllustrationPoint)} is not supported. " +
+                                $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}", exception.Message);
+            }
+        }
+
+        [Test]
+        public void GivenControl_WhenDataSetWithInvalidIllustrationPointChildType_ThenThrowsNotSupportedException()
+        {
+            // Given
+            using (var control = new IllustrationPointsFaultTreeControl())
+            {
+                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+                rootNode.SetChildren(new[]
+                {
+                    new IllustrationPointNode(new TestIllustrationPoint()),
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                });
+
+                var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(
+                    WindDirectionTestFactory.CreateTestWindDirection(),
+                    "closing situation",
+                    rootNode);
+
+                // When
+                TestDelegate test = () => control.Data = topLevelFaultTreeIllustrationPoint;
+
+                // Then
+                var exception = Assert.Throws<NotSupportedException>(test);
+                Assert.AreEqual($"IllustrationPointNode of type {nameof(TestIllustrationPoint)} is not supported. " +
+                                $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}", exception.Message);
             }
         }
 

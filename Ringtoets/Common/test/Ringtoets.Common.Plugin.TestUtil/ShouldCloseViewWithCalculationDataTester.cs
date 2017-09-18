@@ -36,6 +36,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
     /// <summary>
     /// Class for testing <see cref="ShouldCloseMethod"/>.
     /// </summary>
+    [TestFixture]
     [Apartment(ApartmentState.STA)]
     public abstract class ShouldCloseViewWithCalculationDataTester
     {

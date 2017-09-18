@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.PointedTree.Data;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Forms.Factories;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -51,6 +52,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets or sets the data of the control.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="value.Data"/> or any of its children
+        /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         public TopLevelFaultTreeIllustrationPoint Data
         {
             get
@@ -62,7 +65,7 @@ namespace Ringtoets.Common.Forms.Views
                 drawnNodes.Clear();
 
                 data = value;
-                
+
                 pointedTreeGraphControl.Data = data != null
                                                    ? RegisterNode(data.FaultTreeNodeRoot)
                                                    : null;
@@ -77,11 +80,19 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="GraphNode"/> based on the <paramref name="node"/> and registers 
+        /// the <paramref name="node"/> and <see cref="GraphNode"/> combination.
+        /// </summary>
+        /// <param name="node">The node to base the <see cref="GraphNode"/> on.</param>
+        /// <returns>The newly created <see cref="GraphNode"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="node.Data"/> or any of its children
+        /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private GraphNode RegisterNode(IllustrationPointNode node)
         {
             List<GraphNode> childNodes = node.Children.Select(RegisterNode).ToList();
 
-            GraphNode graphNode = CreateGraphNode(node.Data, childNodes);
+            GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(node.Data, childNodes);
             drawnNodes.Add(new DrawnIllustrationPointNode
             {
                 IllustrationPointNode = node,
@@ -89,24 +100,6 @@ namespace Ringtoets.Common.Forms.Views
             });
 
             return graphNode;
-        }
-
-        private static GraphNode CreateGraphNode(IllustrationPointBase illustrationPoint, IEnumerable<GraphNode> childNodes)
-        {
-            var subMechanismIllustrationPoint = illustrationPoint as SubMechanismIllustrationPoint;
-            if (subMechanismIllustrationPoint != null)
-            {
-                return GraphNodeConverter.ConvertSubMechanismIllustrationPoint(subMechanismIllustrationPoint);
-            }
-
-            var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
-            if (faultTreeIllustrationPoint != null)
-            {
-                return GraphNodeConverter.ConvertFaultTreeIllustrationPoint(faultTreeIllustrationPoint,
-                                                                            childNodes);
-            }
-
-            return null;
         }
 
         private void InitializeEventHandlers()
