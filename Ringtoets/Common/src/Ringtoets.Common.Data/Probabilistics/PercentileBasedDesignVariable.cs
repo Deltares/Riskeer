@@ -31,26 +31,26 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// This class is a representation of a variable derived from a probabilistic distribution,
     /// based on a percentile.
     /// </summary>
-    /// <typeparam name="TDistribution">The type of the underlying distribution from which a value is 
+    /// <typeparam name="T">The type of the underlying distribution from which a value is 
     /// derived.</typeparam>
-    public abstract class PercentileBasedDesignVariable<TDistribution> : DesignVariable<TDistribution> where TDistribution : IDistribution
+    public abstract class PercentileBasedDesignVariable<T> : DesignVariable<T> where T : IDistribution
     {
         private static readonly Range<double> percentileValidityRange = new Range<double>(0, 1);
         private double percentile;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PercentileBasedDesignVariable{TDistributionType}"/> class with 
+        /// Initializes a new instance of the <see cref="PercentileBasedDesignVariable{T}"/> class with 
         /// <see cref="Percentile"/> equal to 0.5.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="DesignVariable{TDistributionType}.Distribution"/> is 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is 
         /// <c>null</c>.</exception>
-        protected PercentileBasedDesignVariable(TDistribution distribution) : base(distribution)
+        protected PercentileBasedDesignVariable(T distribution) : base(distribution)
         {
             percentile = 0.5;
         }
 
         /// <summary>
-        /// Gets or sets the percentile used to derive a deterministic value based on <see cref="DesignVariable{TDistributionType}.Distribution"/>.
+        /// Gets or sets the percentile used to derive a design value based on <see cref="DesignVariable{T}.Distribution"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> 
         /// is not in range [0,1].</exception>

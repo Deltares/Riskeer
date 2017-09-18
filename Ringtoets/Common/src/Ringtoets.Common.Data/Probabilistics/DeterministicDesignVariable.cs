@@ -19,13 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// This class defines a design variable for a distribution.
+    /// This class defines a design variable for a deterministic distribution.
     /// </summary>
+    /// <typeparam name="T">The type of the distribution.</typeparam>
     public class DeterministicDesignVariable<T> : DesignVariable<T> where T : IDistribution
     {
         private readonly double deterministicValue;
@@ -35,6 +37,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// </summary>
         /// <param name="distribution">A distribution.</param>
         /// <param name="deterministicValue">The value to be returned for the distribution.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is 
+        /// <c>null</c>.</exception>
         public DeterministicDesignVariable(T distribution, double deterministicValue = 0.0) : base(distribution)
         {
             this.deterministicValue = deterministicValue;

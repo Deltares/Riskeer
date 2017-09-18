@@ -37,16 +37,19 @@ namespace Ringtoets.Common.Data.Probabilistics
         private double percentile;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class.
+        /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class
+        /// with <see cref="Percentile"/> equal to 0.5.
         /// </summary>
         /// <param name="distribution">A log-normal distribution.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is 
+        /// <c>null</c>.</exception>
         public VariationCoefficientLogNormalDistributionDesignVariable(VariationCoefficientLogNormalDistribution distribution) : base(distribution)
         {
             percentile = 0.5;
         }
 
         /// <summary>
-        /// Gets or sets the percentile used to derive a deterministic value based on <see cref="DesignVariable{TDistributionType}.Distribution"/>.
+        /// Gets or sets the percentile used to derive a design value based on <see cref="DesignVariable{TDistributionType}.Distribution"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> 
         /// is not in range [0,1].</exception>

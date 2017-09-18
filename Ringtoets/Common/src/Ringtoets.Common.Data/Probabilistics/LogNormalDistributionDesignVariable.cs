@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Probabilistics
@@ -32,6 +33,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Initializes a new instance of the <see cref="LogNormalDistributionDesignVariable"/> class.
         /// </summary>
         /// <param name="distribution">A log-normal distribution.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is 
+        /// <c>null</c>.</exception>
         public LogNormalDistributionDesignVariable(LogNormalDistribution distribution) : base(distribution) {}
 
         public override RoundedDouble GetDesignValue()
