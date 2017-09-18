@@ -149,6 +149,27 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenViewWithGeneralResultFuncReturningNotSupportedIllustrationPoint_WhenSettingData_ThenThrowsNotSupportedException()
+        {
+            // Given
+            var data = new TestCalculation
+            {
+                Output = new object()
+            };
+
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(GetGeneralResultWithTopLevelIllustrationPointsOfNotSupportedType))
+            {
+                // When
+                TestDelegate test = () => view.Data = data;
+
+                // Then
+                var exception = Assert.Throws<NotSupportedException>(test);
+                Assert.AreEqual($"IllustrationPointNode of type {nameof(TestIllustrationPoint)} is not supported. " +
+                                $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}", exception.Message);
+            }
+        }
+
+        [Test]
         public void GivenDisposedViewWithDataSetAndGeneralResultFuncReturningData_WhenDataNotifiesObserver_ThenControlsNoLongerSynced()
         {
             // Given
@@ -176,6 +197,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsNotNull(illustrationPointsControl.Data);
                 Assert.IsNotNull(illustrationPointsFaultTreeControl.Data);
             }
+        }
+
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithTopLevelIllustrationPointsOfNotSupportedType()
+        {
+            return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                         Enumerable.Empty<Stochast>(),
+                                                                         new[]
+                                                                         {
+                                                                             new TopLevelFaultTreeIllustrationPoint(
+                                                                                 WindDirectionTestFactory.CreateTestWindDirection(),
+                                                                                 "Closing situation 2",
+                                                                                 new IllustrationPointNode(new TestIllustrationPoint()))
+                                                                         });
         }
 
         private static IllustrationPointsFaultTreeControl GetIllustrationPointsFaultTreeControl(GeneralResultFaultTreeIllustrationPointView view)
@@ -512,7 +546,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-                Assert.IsNull(illustrationPointsControl.Data);
+                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
 
                 IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
                 Assert.IsNull(illustrationPointsFaultTreeControl.Data);
@@ -522,7 +556,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingCalculationWithoutOutput_ThenControlsDataNull()
+        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingCalculationWithoutOutput_ThenControlsDataCleared()
         {
             // Given
             var mocks = new MockRepository();
@@ -537,7 +571,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-                Assert.IsNull(illustrationPointsControl.Data);
+                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
 
                 IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
                 Assert.IsNull(illustrationPointsFaultTreeControl.Data);
@@ -547,7 +581,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingCalculationWithoutGeneralResult_ThenIllustrationPointsControlDataSetNull()
+        public void GivenViewWithGeneralResultFuncReturningNull_WhenSettingCalculationWithoutGeneralResult_ThenIllustrationPointsControlDataCleared()
         {
             // Given
             var data = new TestCalculation
@@ -562,7 +596,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-                Assert.IsNull(illustrationPointsControl.Data);
+                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
 
                 IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
                 Assert.IsNull(illustrationPointsFaultTreeControl.Data);
@@ -632,7 +666,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Precondition
                 IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl(view);
-                Assert.IsNull(illustrationPointsControl.Data);
+                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
 
                 IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
                 Assert.IsNull(illustrationPointsFaultTreeControl.Data);
@@ -694,7 +728,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 data.NotifyObservers();
 
                 // Then
-                Assert.IsNull(illustrationPointsControl.Data);
+                CollectionAssert.IsEmpty(illustrationPointsControl.Data);
                 Assert.IsNull(illustrationPointsFaultTreeControl.Data);
             }
         }

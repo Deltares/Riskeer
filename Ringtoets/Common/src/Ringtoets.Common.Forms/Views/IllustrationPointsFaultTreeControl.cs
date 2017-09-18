@@ -59,11 +59,11 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                data = value;
-
                 drawnNodes.Clear();
 
-                pointedTreeGraphControl.Data = value != null
+                data = value;
+                
+                pointedTreeGraphControl.Data = data != null
                                                    ? RegisterNode(data.FaultTreeNodeRoot)
                                                    : null;
             }

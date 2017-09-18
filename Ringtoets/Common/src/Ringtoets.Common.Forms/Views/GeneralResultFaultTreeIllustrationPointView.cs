@@ -99,6 +99,12 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Updates the controls.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
+        /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
+        /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private void UpdateControls()
         {
             suspendAllEvents = true;
@@ -140,12 +146,14 @@ namespace Ringtoets.Common.Forms.Views
 
         private IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
         {
-            if (data == null)
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = getGeneralResultFunc();
+
+            if (data == null || generalResult == null)
             {
-                return null;
+                return Enumerable.Empty<IllustrationPointControlItem>();
             }
 
-            return getGeneralResultFunc()?.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
+            return generalResult.TopLevelIllustrationPoints.Select(topLevelFaultTreeIllustrationPoint =>
             {
                 IllustrationPointBase illustrationPoint = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.Data;
 
@@ -157,6 +165,13 @@ namespace Ringtoets.Common.Forms.Views
             });
         }
 
+        /// <summary>
+        /// Returns the stochasts of the <paramref name="illustrationPoint"/>.
+        /// </summary>
+        /// <param name="illustrationPoint">The illustration point to get the stochasts from.</param>
+        /// <returns>The stochasts.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="illustrationPoint"/> 
+        /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private static IEnumerable<Stochast> GetStochasts(IllustrationPointBase illustrationPoint)
         {
             var faultTreeIllustrationPoint = illustrationPoint as FaultTreeIllustrationPoint;
@@ -171,7 +186,8 @@ namespace Ringtoets.Common.Forms.Views
                 return subMechanismIllustrationPoint.Stochasts;
             }
 
-            return null;
+            throw new NotSupportedException($"IllustrationPointNode of type {illustrationPoint.GetType().Name} is not supported. " +
+                                            $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
         }
 
         private void UpdateIllustrationPointsFaultTreeControl()
@@ -191,6 +207,12 @@ namespace Ringtoets.Common.Forms.Views
             ProvideIllustrationPointSelection();
         }
 
+        /// <summary>
+        /// Sets the <see cref="Selection"/> based on the selection of the <see cref="IllustrationPointsControl"/>.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when the top level fault tree illustration 
+        /// contains an illustration point that is not of type <see cref="FaultTreeIllustrationPoint"/> 
+        /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private void ProvideIllustrationPointSelection()
         {
             var selection = illustrationPointsControl.Selection as IllustrationPointControlItem;
