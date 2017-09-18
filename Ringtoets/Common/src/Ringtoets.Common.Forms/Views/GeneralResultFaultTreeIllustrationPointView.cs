@@ -63,14 +63,7 @@ namespace Ringtoets.Common.Forms.Views
 
             this.getGeneralResultFunc = getGeneralResultFunc;
 
-            calculationObserver = new Observer(() =>
-            {
-                if (illustrationPointsControl.Data == null && data.HasOutput
-                    || illustrationPointsControl.Data != null && !data.HasOutput)
-                {
-                    UpdateControls();
-                }
-            });
+            calculationObserver = new Observer(UpdateControls);
 
             illustrationPointsControl.SelectionChanged += IllustrationPointsControlOnSelectionChanged;
             illustrationPointsFaultTreeControl.SelectionChanged += IllustrationPointsFaultTreeControlOnSelectionChanged;

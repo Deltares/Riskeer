@@ -242,6 +242,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GeneralResultFaultTreeIllustrationPointView.resx">
       <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\IllustrationPointsChartControl.resx">
       <DependentUpon>IllustrationPointsChartControl.cs</DependentUpon>

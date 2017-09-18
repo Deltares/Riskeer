@@ -315,17 +315,18 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenNotifyObserver_ThenDoesNotRaiseSelectionChanged()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFullyConfiguredView_WhenOutputChangesAndNotifyObserver_ThenSelectionChangedAndPropagated(bool withInitialOutput)
         {
             // Given
-            var data = new TestCalculation
+            var data = new TestCalculation();
+            if (withInitialOutput)
             {
-                Output = new object()
-            };
+                data.Output = new object();
+            }
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = GetGeneralResultWithTwoTopLevelIllustrationPoints();
-
-            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResult)
+            using (var view = new GeneralResultFaultTreeIllustrationPointView(() => withInitialOutput ? GetGeneralResultWithTwoTopLevelIllustrationPoints() : null)
             {
                 Data = data
             })
@@ -336,10 +337,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
+                data.Output = withInitialOutput ? null : new object();
                 data.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(0, selectionChangedCount);
+                Assert.AreEqual(1, selectionChangedCount);
+                if (withInitialOutput)
+                {
+                    Assert.IsNotNull(view.Selection);
+                }
+                else
+                {
+                    Assert.IsNull(view.Selection);
+                }
             }
         }
 
