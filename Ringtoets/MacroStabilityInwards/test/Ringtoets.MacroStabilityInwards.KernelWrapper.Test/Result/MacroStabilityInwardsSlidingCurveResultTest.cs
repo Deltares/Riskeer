@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -23,22 +23,23 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives.Output;
-using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCurveTest
+    public class MacroStabilityInwardsSlidingCurveResultTest
     {
         [Test]
         public void Constructor_LeftCircleNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
+            MacroStabilityInwardsSlidingCircleResult rightCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.CreateCircle();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(null, rightCircle, Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCurveResult(null, rightCircle, Enumerable.Empty<MacroStabilityInwardsSliceResult>(), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,10 +50,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_RightCircleNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
+            MacroStabilityInwardsSlidingCircleResult leftCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.CreateCircle();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(leftCircle, null, Enumerable.Empty<MacroStabilityInwardsSlice>(), 0, 0);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCurveResult(leftCircle, null, Enumerable.Empty<MacroStabilityInwardsSliceResult>(), 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,10 +64,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         public void Constructor_SlicesNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsSlidingCircle circle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
+            MacroStabilityInwardsSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.CreateCircle();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCurve(circle, circle, null, 0, 0);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCurveResult(circle, circle, null, 0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,19 +79,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
         {
             // Setup
             var random = new Random(21);
-            MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
-            MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.CreateCircle();
+            MacroStabilityInwardsSlidingCircleResult rightCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.CreateCircle();
+            MacroStabilityInwardsSlidingCircleResult leftCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.CreateCircle();
             var slices = new[]
             {
-                new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                               new MacroStabilityInwardsSlice.ConstructionProperties())
+                new MacroStabilityInwardsSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+                                                     new MacroStabilityInwardsSliceResult.ConstructionProperties())
             };
 
             double nonIteratedHorizontalForce = random.NextDouble();
             double iteratedHorizontalForce = random.NextDouble();
 
             // Call
-            var curve = new MacroStabilityInwardsSlidingCurve(leftCircle, rightCircle, slices, nonIteratedHorizontalForce, iteratedHorizontalForce);
+            var curve = new MacroStabilityInwardsSlidingCurveResult(leftCircle, rightCircle, slices, nonIteratedHorizontalForce, iteratedHorizontalForce);
 
             // Assert
             Assert.AreSame(leftCircle, curve.LeftCircle);

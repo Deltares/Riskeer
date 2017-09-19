@@ -22,26 +22,26 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
     /// The slice result of a macro stability calculation.
     /// </summary>
-    public class MacroStabilityInwardsSlice
+    public class MacroStabilityInwardsSliceResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSlice"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSliceResult"/>.
         /// </summary>
         /// <param name="topLeftPoint">The top left point of the slice.</param>
         /// <param name="topRightPoint">The top right point of the slice.</param>
         /// <param name="bottomLeftPoint">The bottom left point of the slice.</param>
         /// <param name="bottomRightPoint">The bottom right point of the slice.</param>
         /// <param name="properties">The object containing the values for the properties 
-        /// of the new <see cref="MacroStabilityInwardsSlice"/>.</param>
+        /// of the new <see cref="MacroStabilityInwardsSliceResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlice(Point2D topLeftPoint, Point2D topRightPoint,
-                                          Point2D bottomLeftPoint, Point2D bottomRightPoint,
-                                          ConstructionProperties properties)
+        public MacroStabilityInwardsSliceResult(Point2D topLeftPoint, Point2D topRightPoint,
+                                                Point2D bottomLeftPoint, Point2D bottomRightPoint,
+                                                ConstructionProperties properties)
         {
             if (topLeftPoint == null)
             {

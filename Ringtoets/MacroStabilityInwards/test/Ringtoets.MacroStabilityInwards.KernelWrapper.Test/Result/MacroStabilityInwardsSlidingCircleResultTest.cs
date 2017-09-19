@@ -23,18 +23,18 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCircleTest
+    public class MacroStabilityInwardsSlidingCircleResultTest
     {
         [Test]
         public void Constructor_CenterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCircle(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            TestDelegate call = () => new MacroStabilityInwardsSlidingCircleResult(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.Output
             double resistingMoment = random.NextDouble();
 
             // Call
-            var circle = new MacroStabilityInwardsSlidingCircle(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
+            var circle = new MacroStabilityInwardsSlidingCircleResult(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
 
             // Assert
             Assert.AreEqual(center, circle.Center);

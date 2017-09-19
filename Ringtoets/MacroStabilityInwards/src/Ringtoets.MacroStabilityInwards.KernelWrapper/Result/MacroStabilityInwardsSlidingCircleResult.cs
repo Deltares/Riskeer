@@ -22,15 +22,15 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
     /// The sliding circle result of a macro stability calculation.
     /// </summary>
-    public class MacroStabilityInwardsSlidingCircle
+    public class MacroStabilityInwardsSlidingCircleResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSlidingCircle"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSlidingCircleResult"/>.
         /// </summary>
         /// <param name="center">The center coordinate of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
@@ -41,9 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Output
         /// <param name="resistingMoment">The resisting moment of the circle.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="center"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlidingCircle(Point2D center, double radius, bool isActive,
-                                                  double nonIteratedForce, double iteratedForce,
-                                                  double drivingMoment, double resistingMoment)
+        public MacroStabilityInwardsSlidingCircleResult(Point2D center, double radius, bool isActive,
+                                                        double nonIteratedForce, double iteratedForce,
+                                                        double drivingMoment, double resistingMoment)
         {
             if (center == null)
             {

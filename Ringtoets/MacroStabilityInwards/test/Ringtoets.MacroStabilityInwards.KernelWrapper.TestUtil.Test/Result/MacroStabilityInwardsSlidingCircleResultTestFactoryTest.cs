@@ -20,23 +20,29 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.Primitives.Output;
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
 {
-    /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsSlidingCircle"/>
-    /// instances that can be used for testing.
-    /// </summary>
-    public static class MacroStabilityInwardsSlidingCircleTestFactory
+    [TestFixture]
+    public class MacroStabilityInwardsSlidingCircleResultTestFactoryTest
     {
-        /// <summary>
-        /// Creates a new <see cref="MacroStabilityInwardsSlidingCircle"/>.
-        /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsSlidingCircle"/>.</returns>
-        public static MacroStabilityInwardsSlidingCircle CreateCircle()
+        [Test]
+        public void Create_Always_ReturnCircleWithDefaultValues()
         {
-            return new MacroStabilityInwardsSlidingCircle(new Point2D(0, 0), 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            // Call
+            MacroStabilityInwardsSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.CreateCircle();
+
+            // Assert
+            Assert.AreEqual(new Point2D(0, 0), circle.Center);
+            Assert.AreEqual(0.1, circle.Radius);
+            Assert.IsTrue(circle.IsActive);
+            Assert.AreEqual(0.2, circle.NonIteratedForce);
+            Assert.AreEqual(0.3, circle.IteratedForce);
+            Assert.AreEqual(0.4, circle.DrivingMoment);
+            Assert.AreEqual(0.5, circle.ResistingMoment);
         }
     }
 }
