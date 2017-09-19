@@ -43,10 +43,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
-        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
+        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string sourceFilePath)
+        public void GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string version)
         {
+            string sourceFilePath = GetTestProjectFilePath(version);
             string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRingtoetsGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
             MigrateFile(sourceFilePath, targetFilePath);
 
@@ -76,11 +77,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
+        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string sourceFilePath)
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string version)
         {
             // Given
+            string sourceFilePath = GetTestProjectFilePath(version);
             string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRingtoetsGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
 
             var projectStore = new StorageSqLite();
@@ -113,11 +115,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFilePaths))]
+        [TestCaseSource(typeof(RingtoetsProjectMigrationTestHelper), nameof(RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string sourceFilePath)
+        public void GivenRingtoetsGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string version)
         {
             // Given
+            string sourceFilePath = GetTestProjectFilePath(version);
             var projectStore = new StorageSqLite();
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -163,6 +166,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator();
 
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
+        }
+
+        private static string GetTestProjectFilePath(string versionNumber)
+        {
+            return TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, $"FullTestProject{versionNumber}.rtd");
         }
     }
 }

@@ -60,15 +60,15 @@ namespace Application.Ringtoets.Storage.TestUtil
         }
 
         /// <summary>
-        /// Retrieves the file path of all Ringtoets projects with an older database version,
+        /// Retrieves the version numbers of all Ringtoets projects with an older database version,
         /// which are supported for the migration.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of all the file paths to supported
+        /// <returns>An <see cref="IEnumerable{T}"/> of all the version numbers of supported
         /// outdated Ringtoets projects.</returns>
-        public static IEnumerable<string> GetAllOutdatedSupportedProjectFilePaths()
+        public static IEnumerable<string> GetAllOutdatedSupportedProjectFileVersions()
         {
-            yield return TestHelper.GetTestDataPath(testDataPath, GetTestProjectFileName("164"));
-            yield return TestHelper.GetTestDataPath(testDataPath, GetTestProjectFileName("171"));
+            yield return "164";
+            yield return "171";
         }
 
         /// <summary>
@@ -81,11 +81,6 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             const string projectFileName = "UnsupportedVersion8.rtd";
             return TestHelper.GetTestDataPath(testDataPath, projectFileName);
-        }
-
-        private static string GetTestProjectFileName(string versionNumber)
-        {
-            return $"FullTestProject{versionNumber}.rtd";
         }
     }
 }
