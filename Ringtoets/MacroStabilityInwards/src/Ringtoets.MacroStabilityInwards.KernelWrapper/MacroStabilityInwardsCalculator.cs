@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
@@ -69,7 +70,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         {
             IUpliftVanCalculator upliftVanCalculator = CalculateUpliftVan();
 
-            return new MacroStabilityInwardsCalculatorResult(new MacroStabilityInwardsCalculatorResult.ConstructionProperties
+            return new MacroStabilityInwardsCalculatorResult(null, null, 
+                new MacroStabilityInwardsCalculatorResult.ConstructionProperties
             {
                 FactorOfStability = upliftVanCalculator.FactoryOfStability,
                 ZValue = upliftVanCalculator.ZValue,

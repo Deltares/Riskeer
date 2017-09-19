@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Result\MacroStabilityInwardsGridResultTestFactory.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCircleResultTestFactory.cs" />
+    <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTestFactory.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\TestMacroStabilityInwardsSubCalculatorFactory.cs" />

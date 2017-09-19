@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         double MaximumSliceWidth { set; }
 
         /// <summary>
-        /// Sets the slip plane uplift van.
+        /// Sets the slip plane upliftVan.
         /// </summary>
         SlipPlaneUpliftVan SlipPlaneUpliftVan { set; }
 

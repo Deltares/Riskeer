@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
@@ -32,16 +33,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculatorResult"/>. 
         /// The result will hold all the values which were given.
         /// </summary>
+        /// <param name="slidingCurve">The sliding curve result.</param>
+        /// <param name="upliftVanCalculationGrid">The upliftVan calculation grid result.</param>
         /// <param name="properties">The container of the properties for the
         /// <see cref="MacroStabilityInwardsCalculatorResult"/></param>
-        /// <exception cref="ArgumentNullException">Thrown when the 
-        /// <paramref name="properties"/> is <c>null</c>.</exception>
-        internal MacroStabilityInwardsCalculatorResult(ConstructionProperties properties)
+        /// <exception cref="ArgumentNullException">Thrown when any
+        /// parameter is <c>null</c>.</exception>
+        internal MacroStabilityInwardsCalculatorResult(MacroStabilityInwardsSlidingCurveResult slidingCurve,
+                                                       MacroStabilityInwardsUpliftVanCalculationGridResult upliftVanCalculationGrid,
+                                                       ConstructionProperties properties)
         {
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
+            SlidingCurve = slidingCurve;
+            UpliftVanCalculationGrid = upliftVanCalculationGrid;
 
             FactorOfStability = properties.FactorOfStability;
             ZValue = properties.ZValue;
@@ -50,10 +58,62 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             ForbiddenZonesAutomaticallyCalculated = properties.ForbiddenZonesAutomaticallyCalculated;
         }
 
+        /// <summary>
+        /// Container for properties for constructing a <see cref="MacroStabilityInwardsCalculatorResult"/>.
+        /// </summary>s
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                FactorOfStability = double.NaN;
+                ZValue = double.NaN;
+                ForbiddenZonesXEntryMin = double.NaN;
+                ForbiddenZonesXEntryMax = double.NaN;
+            }
+
+            /// <summary>
+            /// Gets or sets the factor of stability of the upliftVan calculation.
+            /// </summary>
+            public double FactorOfStability { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the z value.
+            /// </summary>
+            public double ZValue { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the forbidden zones x entry min.
+            /// </summary>
+            public double ForbiddenZonesXEntryMin { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the forbidden zones x entry max.
+            /// </summary>
+            public double ForbiddenZonesXEntryMax { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets whether the forbidden zones are automatically calculated.
+            /// </summary>
+            public bool ForbiddenZonesAutomaticallyCalculated { internal get; set; }
+        }
+
         #region properties
 
         /// <summary>
-        /// Gets the factor of stability of the uplift van calculation.
+        /// Gets the sliding curve result.
+        /// </summary>
+        public MacroStabilityInwardsSlidingCurveResult SlidingCurve { get; }
+
+        /// <summary>
+        /// Gets the upliftVan calculation grid result.
+        /// </summary>
+        public MacroStabilityInwardsUpliftVanCalculationGridResult UpliftVanCalculationGrid { get; }
+
+        /// <summary>
+        /// Gets the factor of stability of the upliftVan calculation.
         /// </summary>
         public double FactorOfStability { get; }
 
@@ -78,47 +138,5 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         public bool ForbiddenZonesAutomaticallyCalculated { get; }
 
         #endregion
-
-        /// <summary>
-        /// Container for properties for constructing a <see cref="MacroStabilityInwardsCalculatorResult"/>.
-        /// </summary>s
-        public class ConstructionProperties
-        {
-            /// <summary>
-            /// Creates a new instance of <see cref="ConstructionProperties"/>.
-            /// </summary>
-            public ConstructionProperties()
-            {
-                FactorOfStability = double.NaN;
-                ZValue = double.NaN;
-                ForbiddenZonesXEntryMin = double.NaN;
-                ForbiddenZonesXEntryMax = double.NaN;
-            }
-
-            /// <summary>
-            /// Gets or sets the factor of stability of the uplift van calculation.
-            /// </summary>
-            public double FactorOfStability { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the z value.
-            /// </summary>
-            public double ZValue { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the forbidden zones x entry min.
-            /// </summary>
-            public double ForbiddenZonesXEntryMin { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the forbidden zones x entry max.
-            /// </summary>
-            public double ForbiddenZonesXEntryMax { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether the forbidden zones are automatically calculated.
-            /// </summary>
-            public bool ForbiddenZonesAutomaticallyCalculated { internal get; set; }
-        }
     }
 }

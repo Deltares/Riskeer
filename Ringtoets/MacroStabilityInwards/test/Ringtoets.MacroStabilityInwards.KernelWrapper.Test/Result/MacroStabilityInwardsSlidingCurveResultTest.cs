@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result

@@ -22,6 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 {
@@ -31,8 +33,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
+            // Setup
+            MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var upliftVanCalculationGrid = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   new double[0]);
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculatorResult(null);
+            TestDelegate call = () => new MacroStabilityInwardsCalculatorResult(curve, upliftVanCalculationGrid, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -40,10 +48,34 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         }
 
         [Test]
+        public void Constructor_WithParameters_ExpectedValues()
+        {
+            // Setup
+            MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var upliftVanCalculationGrid = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   new double[0]);
+
+            // Call
+            var result = new MacroStabilityInwardsCalculatorResult(curve, upliftVanCalculationGrid, new MacroStabilityInwardsCalculatorResult.ConstructionProperties());
+            
+            // Assert
+            Assert.AreSame(curve, result.SlidingCurve);
+            Assert.AreSame(upliftVanCalculationGrid, result.UpliftVanCalculationGrid);
+        }
+
+        [Test]
         public void Constructor_EmptyConstructionProperties_ExpectedValues()
         {
+            // Setup
+            MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var upliftVanCalculationGrid = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   new double[0]);
+
             // Call
-            var result = new MacroStabilityInwardsCalculatorResult(new MacroStabilityInwardsCalculatorResult.ConstructionProperties());
+            var result = new MacroStabilityInwardsCalculatorResult(curve, upliftVanCalculationGrid,
+                                                                   new MacroStabilityInwardsCalculatorResult.ConstructionProperties());
 
             // Assert
             Assert.IsNaN(result.FactorOfStability);
@@ -73,8 +105,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 ForbiddenZonesAutomaticallyCalculated = forbiddenZonesAutomaticallyCalculated
             };
 
+            MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var upliftVanCalculationGrid = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   new double[0]);
+
             // Call
-            var result = new MacroStabilityInwardsCalculatorResult(constructionProperties);
+            var result = new MacroStabilityInwardsCalculatorResult(curve, upliftVanCalculationGrid, constructionProperties);
 
             // Assert
             Assert.AreEqual(factorOfStability, result.FactorOfStability);
