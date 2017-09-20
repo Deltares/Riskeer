@@ -582,25 +582,34 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified()
+        [SetCulture("nl-NL")]
+        [TestCase("0,1")]
+        [TestCase("1/100")]
+        [TestCase("1e-2")]
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified(string probability)
         {
-            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability);
         }
 
         [Test]
-        public void FailureProbabilityOpenStructure_Always_InputChangedAndObservablesNotified()
+        [SetCulture("nl-NL")]
+        [TestCase("0,1")]
+        [TestCase("1/100")]
+        [TestCase("1e-2")]
+        public void FailureProbabilityOpenStructure_Always_InputChangedAndObservablesNotified(string probability)
         {
-            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.FailureProbabilityOpenStructure = probability);
         }
 
         [Test]
-        public void FailureProbabilityReparation_Always_InputChangedAndObservablesNotified()
+        [SetCulture("nl-NL")]
+        [TestCase("0,1")]
+        [TestCase("1/100")]
+        [TestCase("1e-2")]
+        public void FailureProbabilityReparation_Always_InputChangedAndObservablesNotified(string probability)
         {
-            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.FailureProbabilityReparation = probability);
         }
@@ -735,6 +744,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
+        [TestCase("1/aaa")]
         public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
@@ -823,6 +833,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
+        [TestCase("1/aaa")]
         public void FailureProbabilityOpenStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
@@ -911,6 +922,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
+        [TestCase("1/aaa")]
         public void FailureProbabilityReparation_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup

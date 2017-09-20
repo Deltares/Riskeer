@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -59,6 +60,21 @@ namespace Ringtoets.Common.Forms.Helpers
             }
             return string.Format(Resources.ProbabilityPerYearFormat,
                                  returnPeriod);
+        }
+
+        /// <summary>
+        /// Parses the input string to a probability.
+        /// </summary>
+        /// <param name="returnPeriod">The return period input string.</param>
+        /// <returns>The parsed double probability value.</returns>
+        public static double Parse(string returnPeriod)
+        {
+            if (returnPeriod.StartsWith("1/"))
+            {
+                return 1 / Convert.ToDouble(returnPeriod.Substring(2));
+            }
+
+            return Convert.ToDouble(returnPeriod);
         }
     }
 }

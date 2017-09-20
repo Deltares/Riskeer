@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Globalization;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
 
@@ -76,6 +78,49 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase("1/10", 0.1)]
+        [TestCase("1/2,5", 0.4)]
+        [TestCase("0,5", 0.5)]
+        [TestCase("1", 1.0)]
+        [TestCase("1e-2", 0.01)]
+        public void Parse_WithValidInput_ReturnsCorrectProbability(string input, double expectedProbability)
+        {
+            // Call
+            double probability = ProbabilityFormattingHelper.Parse(input);
+
+            // Assert
+            Assert.AreEqual(expectedProbability, probability);
+        }
+
+        [Test]
+        [TestCase("not a double")]
+        [TestCase("")]
+        [TestCase("1/aaa")]
+        [TestCase("1/")]
+        [TestCase(".")]
+        public void Parse_WithInvalidInput_ThrowsFormatException(string input)
+        {
+            // Call
+            TestDelegate call = () => ProbabilityFormattingHelper.Parse(input);
+
+            // Assert
+            Assert.Throws<FormatException>(call);
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void Parse_WithOutOfRangeInput_ThrowsOverflowException(double input)
+        {
+            // Call
+            TestDelegate call = () => ProbabilityFormattingHelper.Parse(input.ToString(CultureInfo.CurrentCulture) + "1");
+
+            // Assert
+            Assert.Throws<OverflowException>(call);
         }
     }
 }

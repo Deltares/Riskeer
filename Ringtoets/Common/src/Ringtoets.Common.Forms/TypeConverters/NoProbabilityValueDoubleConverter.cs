@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
 
                 try
                 {
-                    return Convert.ToDouble(text);
+                    return ProbabilityFormattingHelper.Parse(text);
                 }
                 catch (FormatException exception)
                 {

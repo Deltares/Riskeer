@@ -232,7 +232,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             try
             {
-                setValueAction(structureInput, (RoundedDouble) double.Parse(value));
+                setValueAction(structureInput, (RoundedDouble) ProbabilityFormattingHelper.Parse(value));
             }
             catch (OverflowException)
             {
@@ -388,8 +388,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Structure == null ? null :
-                           new Point2D(
+                return data.WrappedData.Structure == null
+                           ? null
+                           : new Point2D(
                                new RoundedDouble(0, data.WrappedData.Structure.Location.X),
                                new RoundedDouble(0, data.WrappedData.Structure.Location.Y));
             }
@@ -548,9 +549,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties() :
-                           new UseBreakWaterProperties(data.WrappedData, PropertyChangeHandler);
+                return data.WrappedData.ForeshoreProfile == null ? new UseBreakWaterProperties() : new UseBreakWaterProperties(data.WrappedData, PropertyChangeHandler);
             }
         }
 

@@ -1259,9 +1259,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        [SetCulture("nl-NL")]
+        [TestCase("0,1")]
+        [TestCase("1/100")]
+        [TestCase("1e-2")]
+        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(string probability)
         {
-            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.FailureProbabilityRepairClosure = probability);
         }
@@ -1275,9 +1278,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
+        [SetCulture("nl-NL")]
+        [TestCase("0,1")]
+        [TestCase("1/100")]
+        [TestCase("1e-2")]
+        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(string probability)
         {
-            string probability = new Random(21).NextDouble().ToString(CultureInfo.CurrentCulture);
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.ProbabilityCollisionSecondaryStructure = probability);
         }
@@ -1469,6 +1475,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
+        [TestCase("1/aaa")]
         public void SetFailureProbabilityRepairClosure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
@@ -1557,6 +1564,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
+        [TestCase("1/aaa")]
         public void SetProbabilityCollisionSecondaryStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup

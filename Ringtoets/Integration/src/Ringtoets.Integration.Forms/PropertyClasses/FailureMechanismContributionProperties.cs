@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = double.Parse(value), normChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = GetProbabilityValue(value), normChangeHandler);
             }
         }
 
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = double.Parse(value), normChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = GetProbabilityValue(value), normChangeHandler);
             }
         }
 
@@ -155,6 +155,32 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.NormativeNorm = value, normChangeHandler);
+            }
+        }
+
+        /// <summary>
+        /// Gets a probability value based on the input string value.
+        /// </summary>
+        /// <param name="value">The probability value to convert.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> equals <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> cannot be parsed into a <c>double</c>.</exception>
+        private static double GetProbabilityValue(string value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value), RingtoetsCommonFormsResources.Probability_Value_cannot_be_null);
+            }
+            try
+            {
+                return ProbabilityFormattingHelper.Parse(value);
+            }
+            catch (OverflowException)
+            {
+                throw new ArgumentException(RingtoetsCommonFormsResources.Probability_Value_too_large);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException(RingtoetsCommonFormsResources.Probability_Could_not_parse_string_to_double_value);
             }
         }
     }
