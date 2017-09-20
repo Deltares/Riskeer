@@ -85,8 +85,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
             Assert.AreEqual(order, entity.Order);
 
-            Assert.AreEqual(0, entity.SurfaceLineEntityId);
-            Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
             IEnumerable<Point3D> points = new Point3D[0];
             string expectedXml = new Point3DXmlSerializer().ToXml(points);
@@ -142,8 +140,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             string expectedXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
-            Assert.AreEqual(0, entity.SurfaceLineEntityId);
-            Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
         }
 
@@ -279,8 +275,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchPolderSide);
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DitchPolderSide);
 
-            Assert.AreEqual(0, entity.SurfaceLineEntityId);
-            Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
         }
 

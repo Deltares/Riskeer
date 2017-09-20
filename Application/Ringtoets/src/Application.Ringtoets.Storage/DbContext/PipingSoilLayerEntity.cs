@@ -40,9 +40,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public string MaterialName { get; set; }
         public double? BelowPhreaticLevelMean { get; set; }
         public double? BelowPhreaticLevelDeviation { get; set; }
+        public double? BelowPhreaticLevelShift { get; set; }
         public double? DiameterD70Mean { get; set; }
         public double? DiameterD70CoefficientOfVariation { get; set; }
-        public double? BelowPhreaticLevelShift { get; set; }
         public double? PermeabilityMean { get; set; }
         public double? PermeabilityCoefficientOfVariation { get; set; }
         public int Order { get; set; }

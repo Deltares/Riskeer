@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
@@ -87,9 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingSoilProfileEntity entity = soilProfile.Create(registry);
 
             // Assert
-            Assert.AreNotSame(testName, entity.Name,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(testName, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(testName, entity.Name);
         }
 
         [Test]
