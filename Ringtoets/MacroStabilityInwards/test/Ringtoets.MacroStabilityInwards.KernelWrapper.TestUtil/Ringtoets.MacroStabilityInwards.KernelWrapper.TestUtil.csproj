@@ -41,6 +41,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="WTIStability, Version=17.2.1.0, Culture=neutral, processorArchitecture=x86">
@@ -54,6 +58,7 @@
     </Compile>
     <Compile Include="Result\MacroStabilityInwardsGridResultTestFactory.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCircleResultTestFactory.cs" />
+    <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultHelper.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTestFactory.cs" />
     <Compile Include="SlidingDualCircleTestFactory.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfig.cs" />
@@ -82,6 +87,7 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,6 +25,9 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
@@ -72,6 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             calculator.ForbiddenZonesXEntryMin = random.NextDouble();
             calculator.ForbiddenZonesAutomaticallyCalculated = random.NextBoolean();
             calculator.GridAutomaticallyCalculated = random.NextBoolean();
+            calculator.SlidingCurve = SlidingDualCircleTestFactory.Create();
 
             // Call
             MacroStabilityInwardsCalculatorResult actual = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Calculate();
@@ -86,6 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(calculator.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
 
             Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator.Calculated);
+            MacroStabilityInwardsSlidingCurveResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(calculator.SlidingCurve), actual.SlidingCurve);
         }
 
         [Test]

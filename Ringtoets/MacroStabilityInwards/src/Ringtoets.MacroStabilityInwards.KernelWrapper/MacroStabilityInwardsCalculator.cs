@@ -70,7 +70,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         {
             IUpliftVanCalculator upliftVanCalculator = CalculateUpliftVan();
 
-            return new MacroStabilityInwardsCalculatorResult(null, null, 
+            return new MacroStabilityInwardsCalculatorResult(
+                MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanCalculator.SlidingCurve),
+                null,
                 new MacroStabilityInwardsCalculatorResult.ConstructionProperties
             {
                 FactorOfStability = upliftVanCalculator.FactoryOfStability,
