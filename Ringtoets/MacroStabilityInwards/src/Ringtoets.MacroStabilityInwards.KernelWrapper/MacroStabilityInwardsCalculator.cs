@@ -77,7 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 ZValue = upliftVanCalculator.ZValue,
                 ForbiddenZonesXEntryMin = upliftVanCalculator.ForbiddenZonesXEntryMin,
                 ForbiddenZonesXEntryMax = upliftVanCalculator.ForbiddenZonesXEntryMax,
-                ForbiddenZonesAutomaticallyCalculated = upliftVanCalculator.ForbiddenZonesAutomaticallyCalculated
+                ForbiddenZonesAutomaticallyCalculated = upliftVanCalculator.ForbiddenZonesAutomaticallyCalculated,
+                GridAutomaticallyCalculated = upliftVanCalculator.GridAutomaticallyCalculated
             });
         }
 

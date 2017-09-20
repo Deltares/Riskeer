@@ -83,6 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.IsNaN(result.ForbiddenZonesXEntryMin);
             Assert.IsNaN(result.ForbiddenZonesXEntryMax);
             Assert.IsFalse(result.ForbiddenZonesAutomaticallyCalculated);
+            Assert.IsFalse(result.GridAutomaticallyCalculated);
         }
 
         [Test]
@@ -95,6 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             double xEntryMin = random.NextDouble();
             double xEntryMax = random.NextDouble();
             bool forbiddenZonesAutomaticallyCalculated = random.NextBoolean();
+            bool gridAutomaticallyCalculated = random.NextBoolean();
 
             var constructionProperties = new MacroStabilityInwardsCalculatorResult.ConstructionProperties
             {
@@ -102,7 +104,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 ZValue = zValue,
                 ForbiddenZonesXEntryMin = xEntryMin,
                 ForbiddenZonesXEntryMax = xEntryMax,
-                ForbiddenZonesAutomaticallyCalculated = forbiddenZonesAutomaticallyCalculated
+                ForbiddenZonesAutomaticallyCalculated = forbiddenZonesAutomaticallyCalculated,
+                GridAutomaticallyCalculated = gridAutomaticallyCalculated
             };
 
             MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
@@ -119,6 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(xEntryMin, result.ForbiddenZonesXEntryMin);
             Assert.AreEqual(xEntryMax, result.ForbiddenZonesXEntryMax);
             Assert.AreEqual(forbiddenZonesAutomaticallyCalculated, result.ForbiddenZonesAutomaticallyCalculated);
+            Assert.AreEqual(gridAutomaticallyCalculated, result.GridAutomaticallyCalculated);
         }
     }
 }

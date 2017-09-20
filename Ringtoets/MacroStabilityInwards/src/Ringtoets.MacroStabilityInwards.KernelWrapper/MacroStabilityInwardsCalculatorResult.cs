@@ -56,6 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             ForbiddenZonesXEntryMin = properties.ForbiddenZonesXEntryMin;
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
             ForbiddenZonesAutomaticallyCalculated = properties.ForbiddenZonesAutomaticallyCalculated;
+            GridAutomaticallyCalculated = properties.GridAutomaticallyCalculated;
         }
 
         /// <summary>
@@ -98,6 +99,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             /// Gets or sets whether the forbidden zones are automatically calculated.
             /// </summary>
             public bool ForbiddenZonesAutomaticallyCalculated { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets whether the grid is automatically calculated.
+            /// </summary>
+            public bool GridAutomaticallyCalculated { internal get; set; }
         }
 
         #region properties
@@ -136,6 +142,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// Gets whether the forbidden zones are automatically calculated.
         /// </summary>
         public bool ForbiddenZonesAutomaticallyCalculated { get; }
+
+        /// <summary>
+        /// Gets whether the grid is automatically calculated.
+        /// </summary>
+        public bool GridAutomaticallyCalculated { get; }
 
         #endregion
     }

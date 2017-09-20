@@ -61,18 +61,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Calculate_CompleteValidInput_ReturnsResult()
         {
             // Setup
+            var random = new Random(11);
+
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
             var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsSubCalculatorFactory();
+            UpliftVanCalculatorStub calculator = testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator;
+            calculator.FactoryOfStability = random.NextDouble();
+            calculator.ZValue = random.NextDouble();
+            calculator.ForbiddenZonesXEntryMax = random.NextDouble();
+            calculator.ForbiddenZonesXEntryMin = random.NextDouble();
+            calculator.ForbiddenZonesAutomaticallyCalculated = random.NextBoolean();
+            calculator.GridAutomaticallyCalculated = random.NextBoolean();
 
             // Call
             MacroStabilityInwardsCalculatorResult actual = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Calculate();
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.IsFalse(double.IsNaN(actual.FactorOfStability));
-            Assert.IsFalse(double.IsNaN(actual.ZValue));
-            Assert.IsFalse(double.IsNaN(actual.ForbiddenZonesXEntryMax));
-            Assert.IsFalse(double.IsNaN(actual.ForbiddenZonesXEntryMin));
+            Assert.AreEqual(calculator.FactoryOfStability, actual.FactorOfStability);
+            Assert.AreEqual(calculator.ZValue, actual.ZValue);
+            Assert.AreEqual(calculator.ForbiddenZonesXEntryMax, actual.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(calculator.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(calculator.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
+            Assert.AreEqual(calculator.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
 
             Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator.Calculated);
         }
