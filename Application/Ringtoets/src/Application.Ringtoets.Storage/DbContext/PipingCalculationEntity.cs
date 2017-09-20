@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long PipingCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? SurfaceLineEntityId { get; set; }
-        public long? StochasticSoilProfileEntityId { get; set; }
+        public long? PipingStochasticSoilProfileEntityId { get; set; }
         public long? HydraulicLocationEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }

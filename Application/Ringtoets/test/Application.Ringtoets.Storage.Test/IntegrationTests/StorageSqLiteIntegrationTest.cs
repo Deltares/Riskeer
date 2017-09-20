@@ -1416,7 +1416,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                              MacroStabilityInwardsProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
-            Assert.AreEqual(expectedModel.SectionLength, actualModel.SectionLength);
         }
 
         private static void AssertMacroStabilityInwardsStochasticSoilModels(MacroStabilityInwardsStochasticSoilModelCollection expectedModels,

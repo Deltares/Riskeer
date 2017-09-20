@@ -1054,8 +1054,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                            AssessmentSection assessmentSection)
         {
             macroStabilityInwardsFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A = 0.9;
-            macroStabilityInwardsFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = 0.09;
-
             Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
             var soilLayer1D = new MacroStabilityInwardsSoilLayer1D(5)

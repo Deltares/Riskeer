@@ -88,7 +88,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
-            Assert.IsNull(failureMechanismMetaEntity.SectionLength);
             Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }
@@ -135,7 +134,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength, failureMechanismMetaEntity.SectionLength);
             Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
         }

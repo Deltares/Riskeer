@@ -232,7 +232,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
                                                                                           lowerLimitReturnPeriod,
-                                                                                          signalingReturnPeriod, 
+                                                                                          signalingReturnPeriod,
                                                                                           expectedNormType);
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
@@ -319,7 +319,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
                                                                                           expectedLowerLimitReturnPeriod,
-                                                                                          expectedSignalingReturnPeriod, 
+                                                                                          expectedSignalingReturnPeriod,
                                                                                           expectedNormType);
 
                 using (var reader = new MigratedDatabaseReader(targetFilePath))

@@ -444,7 +444,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
             double parameterA = random.NextDouble();
-            double parameterSectionLength = random.NextDouble();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -461,8 +460,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new MacroStabilityInwardsFailureMechanismMetaEntity
                     {
-                        A = parameterA,
-                        SectionLength = parameterSectionLength
+                        A = parameterA
                     }
                 }
             };
@@ -483,7 +481,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityInwards
                                                                                                 .MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
-            Assert.AreEqual(parameterSectionLength, probabilityAssessmentInput.SectionLength);
         }
 
         [Test]

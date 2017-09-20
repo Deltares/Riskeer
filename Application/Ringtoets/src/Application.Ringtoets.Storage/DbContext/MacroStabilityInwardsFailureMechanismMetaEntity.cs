@@ -35,7 +35,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public long MacroStabilityInwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public double A { get; set; }
-        public double? SectionLength { get; set; }
         public string StochasticSoilModelCollectionSourcePath { get; set; }
         public string SurfaceLineCollectionSourcePath { get; set; }
 

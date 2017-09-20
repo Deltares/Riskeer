@@ -21,9 +21,9 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var input = new MacroStabilityInwardsProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => ((MacroStabilityInwardsFailureMechanismMetaEntity)null).ReadProbabilityAssessmentInput(input);
+            TestDelegate test = () => ((MacroStabilityInwardsFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -65,8 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var random = new Random(31);
             var entity = new MacroStabilityInwardsFailureMechanismMetaEntity
             {
-                A = random.NextDouble(),
-                SectionLength = random.NextDouble()
+                A = random.NextDouble()
             };
             var input = new MacroStabilityInwardsProbabilityAssessmentInput();
 
@@ -75,7 +74,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.AreEqual(entity.A, input.A);
-            Assert.AreEqual(entity.SectionLength, input.SectionLength);
         }
 
         [Test]
@@ -90,7 +88,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.AreEqual(entity.A, input.A);
-            Assert.IsNaN(input.SectionLength);
         }
     }
 }

@@ -53,7 +53,6 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             }
 
             input.A = entity.A;
-            input.SectionLength = entity.SectionLength.ToNullAsNaN();
         }
     }
 }

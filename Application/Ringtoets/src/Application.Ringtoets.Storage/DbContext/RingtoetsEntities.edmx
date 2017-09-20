@@ -683,7 +683,6 @@
           <Property Name="MacroStabilityInwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="A" Type="real" Nullable="false" />
-          <Property Name="SectionLength" Type="real" />
           <Property Name="StochasticSoilModelCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SurfaceLineCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
@@ -766,8 +765,8 @@
           <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="real" />
           <Property Name="PopMean" Type="real" />
           <Property Name="PopCoefficientOfVariation" Type="real" />
-          <Property Name="OuterRingXml" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="HolesXml" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="OuterRingXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="HolesXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilProfileOneDEntity">
@@ -823,7 +822,7 @@
           <Property Name="PipingCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
           <Property Name="SurfaceLineEntityId" Type="integer" />
-          <Property Name="StochasticSoilProfileEntityId" Type="integer" />
+          <Property Name="PipingStochasticSoilProfileEntityId" Type="integer" />
           <Property Name="HydraulicLocationEntityId" Type="integer" />
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
@@ -2334,7 +2333,7 @@
               <PropertyRef Name="PipingStochasticSoilProfileEntityId" />
             </Principal>
             <Dependent Role="PipingCalculationEntity">
-              <PropertyRef Name="StochasticSoilProfileEntityId" />
+              <PropertyRef Name="PipingStochasticSoilProfileEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4831,7 +4830,6 @@
           <Property Name="MacroStabilityInwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="A" Type="Double" Nullable="false" />
-          <Property Name="SectionLength" Type="Double" />
           <Property Name="StochasticSoilModelCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SurfaceLineCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" FromRole="MacroStabilityInwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
@@ -4918,8 +4916,8 @@
           <Property Name="StrengthIncreaseExponentCoefficientOfVariation" Type="Double" />
           <Property Name="PopMean" Type="Double" />
           <Property Name="PopCoefficientOfVariation" Type="Double" />
-          <Property Name="OuterRingXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="HolesXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="OuterRingXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="HolesXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayerTwoDEntity_0_0" FromRole="MacroStabilityInwardsSoilLayerTwoDEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
         </EntityType>
@@ -4986,7 +4984,7 @@
           <Property Name="PipingCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
           <Property Name="SurfaceLineEntityId" Type="Int64" />
-          <Property Name="StochasticSoilProfileEntityId" Type="Int64" />
+          <Property Name="PipingStochasticSoilProfileEntityId" Type="Int64" />
           <Property Name="HydraulicLocationEntityId" Type="Int64" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
@@ -6829,7 +6827,7 @@
               <PropertyRef Name="PipingStochasticSoilProfileEntityId" />
             </Principal>
             <Dependent Role="PipingCalculationEntity">
-              <PropertyRef Name="StochasticSoilProfileEntityId" />
+              <PropertyRef Name="PipingStochasticSoilProfileEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7698,7 +7696,6 @@
               <MappingFragment StoreEntitySet="MacroStabilityInwardsFailureMechanismMetaEntity">
                 <ScalarProperty Name="SurfaceLineCollectionSourcePath" ColumnName="SurfaceLineCollectionSourcePath" />
                 <ScalarProperty Name="StochasticSoilModelCollectionSourcePath" ColumnName="StochasticSoilModelCollectionSourcePath" />
-                <ScalarProperty Name="SectionLength" ColumnName="SectionLength" />
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsFailureMechanismMetaEntityId" ColumnName="MacroStabilityInwardsFailureMechanismMetaEntityId" />
@@ -7860,7 +7857,7 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
-                <ScalarProperty Name="StochasticSoilProfileEntityId" ColumnName="StochasticSoilProfileEntityId" />
+                <ScalarProperty Name="PipingStochasticSoilProfileEntityId" ColumnName="PipingStochasticSoilProfileEntityId" />
                 <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />

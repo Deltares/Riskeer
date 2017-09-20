@@ -37,8 +37,14 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <param name="layer">The layer to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="PipingSoilLayerEntity"/>.</returns>
-        internal static PipingSoilLayerEntity Create(this PipingSoilLayer layer, int order)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layer"/> is <c>null</c>.</exception>
+        public static PipingSoilLayerEntity Create(this PipingSoilLayer layer, int order)
         {
+            if (layer == null)
+            {
+                throw new ArgumentNullException(nameof(layer));
+            }
+
             return new PipingSoilLayerEntity
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),

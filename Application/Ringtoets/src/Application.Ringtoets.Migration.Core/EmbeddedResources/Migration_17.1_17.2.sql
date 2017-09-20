@@ -1073,7 +1073,45 @@ SELECT
 	FROM [SOURCEPROJECT].MacrostabilityInwardsSectionResultEntity;
 INSERT INTO MacrostabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacrostabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
-INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
+INSERT INTO PipingCalculationEntity (
+	[PipingCalculationEntityId],
+	[CalculationGroupEntityId],
+	[SurfaceLineEntityId],
+	[PipingStochasticSoilProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[EntryPointL],
+	[ExitPointL],
+	[PhreaticLevelExitMean],
+	[PhreaticLevelExitStandardDeviation],
+	[DampingFactorExitMean],
+	[DampingFactorExitStandardDeviation],
+	[RelevantForScenario],
+	[ScenarioContribution],
+	[AssessmentLevel],
+	[UseAssessmentLevelManualInput])
+SELECT 
+	[PipingCalculationEntityId],
+	[CalculationGroupEntityId],
+	[SurfaceLineEntityId],
+	[StochasticSoilProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[EntryPointL],
+	[ExitPointL],
+	[PhreaticLevelExitMean],
+	[PhreaticLevelExitStandardDeviation],
+	[DampingFactorExitMean],
+	[DampingFactorExitStandardDeviation],
+	[RelevantForScenario],
+	[ScenarioContribution],
+	[AssessmentLevel],
+	[UseAssessmentLevelManualInput]
+	FROM [SOURCEPROJECT].PipingCalculationEntity;
 INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
 INSERT INTO PipingFailureMechanismMetaEntity (
 	[PipingFailureMechanismMetaEntityId],

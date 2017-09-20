@@ -613,8 +613,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new MacroStabilityInwardsFailureMechanismMetaEntity
                     {
-                        A = random.NextDouble(),
-                        SectionLength = random.NextDouble()
+                        A = random.NextDouble()
                     }
                 }
             };
@@ -635,7 +634,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
-            Assert.AreEqual(metaEntity.SectionLength, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
 
             Assert.IsNull(metaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(metaEntity.SurfaceLineCollectionSourcePath);

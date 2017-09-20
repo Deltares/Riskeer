@@ -33,6 +33,17 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingSoilLayerCreateExtensionsTest
     {
         [Test]
+        public void Create_SoilLayerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((PipingSoilLayer) null).Create(0);
+
+            // Assert
+            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("layer", parameterName);
+        }
+
+        [Test]
         public void Create_WithValidProperties_ReturnsEntityWithPropertiesSet()
         {
             // Setup

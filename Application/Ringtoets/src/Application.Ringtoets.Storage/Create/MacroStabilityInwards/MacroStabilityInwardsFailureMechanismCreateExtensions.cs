@@ -60,7 +60,6 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             var metaEntity = new MacroStabilityInwardsFailureMechanismMetaEntity
             {
                 A = mechanism.MacroStabilityInwardsProbabilityAssessmentInput.A,
-                SectionLength = mechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength.ToNaNAsNull(),
                 StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
                 SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone()
             };
