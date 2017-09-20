@@ -63,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(probability, entity.Probability);
+            Assert.IsNotNull(entity.PipingSoilProfileEntity);
             Assert.AreEqual(order, entity.Order);
         }
 

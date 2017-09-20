@@ -274,8 +274,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchDikeSide);
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchPolderSide);
             CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DitchPolderSide);
-
-            Assert.IsNull(entity.FailureMechanismEntity);
         }
 
         [Test]

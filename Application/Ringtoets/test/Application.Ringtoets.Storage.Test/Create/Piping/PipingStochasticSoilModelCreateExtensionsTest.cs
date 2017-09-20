@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
@@ -110,8 +111,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 StochasticSoilProfiles =
                 {
-                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
-                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                    new PipingStochasticSoilProfile(0.6, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
+                    new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                 }
             };
             var registry = new PersistenceRegistry();
@@ -122,6 +123,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(2, entity.PipingStochasticSoilProfileEntities.Count);
+
+            PipingStochasticSoilProfileEntity stochastEntity = entity.PipingStochasticSoilProfileEntities.First();
+            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.First().Probability, stochastEntity.Probability);
+            Assert.IsNotNull(stochastEntity.PipingSoilProfileEntity);
+
             Assert.AreEqual(0, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
         }
 
