@@ -86,6 +86,20 @@ namespace Application.Ringtoets.Storage.Test.Serializers
         }
 
         [Test]
+        public void GivenEmptyArray_WhenConvertingRoundTrip_ThenEqualEmptyArray()
+        {
+            // Given
+            var serializer = new TestDataCollectionSerializer();
+
+            // When
+            string xml = serializer.ToXml(Enumerable.Empty<TestSerializableObject>());
+            TestSerializableObject[] roundtripResult = serializer.FromXml(xml);
+
+            // Then
+            Assert.AreEqual(0, roundtripResult.Length);
+        }
+
+        [Test]
         public void FromXml_InvalidXml_ThrowsSerializationException()
         {
             // Setup

@@ -122,13 +122,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.PipingStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Count, entity.PipingStochasticSoilProfileEntities.Count);
 
             PipingStochasticSoilProfileEntity stochastEntity = entity.PipingStochasticSoilProfileEntities.First();
             Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.First().Probability, stochastEntity.Probability);
             Assert.IsNotNull(stochastEntity.PipingSoilProfileEntity);
 
-            Assert.AreEqual(0, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
+            CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
         }
 
         [Test]

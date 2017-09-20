@@ -55,23 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithoutAllPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
         {
             // Setup
-            var random = new Random(31);
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = random.NextBoolean(),
-                InputComments =
-                {
-                    Body = "Some input text"
-                },
-                OutputComments =
-                {
-                    Body = "Some output text"
-                },
-                NotRelevantComments =
-                {
-                    Body = "Really not relevant"
-                }
-            };
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var registry = new PersistenceRegistry();
 
             // Call
@@ -88,8 +72,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
-            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
-            Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
         }
 
         [Test]
@@ -132,10 +116,11 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
+            CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
-            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
-            Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
         }
 
         [Test]
@@ -188,14 +173,13 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
+            Assert.AreEqual(stochasticSoilModels.Count, entity.StochasticSoilModelEntities.Count);
             for (var i = 0; i < stochasticSoilModels.Count; i++)
             {
-                AssertStochasticSoilModel(stochasticSoilModels.ElementAt(i),
+                AssertStochasticSoilModel(stochasticSoilModels[i],
                                           entity.StochasticSoilModelEntities.ElementAt(i));
             }
 
-            Assert.AreEqual(1, entity.MacroStabilityInwardsFailureMechanismMetaEntities.Count);
             string stochasticSoilModelCollectionSourcePath = entity.MacroStabilityInwardsFailureMechanismMetaEntities
                                                                    .Single()
                                                                    .StochasticSoilModelCollectionSourcePath;
@@ -207,9 +191,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityInwardsSurfaceLineCollection failureMechanismSurfaceLines = failureMechanism.SurfaceLines;
+            MacroStabilityInwardsSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
 
-            failureMechanismSurfaceLines.AddRange(new[]
+            surfaceLines.AddRange(new[]
             {
                 CreateSurfaceLine(new Random(31))
             }, "path");
@@ -221,16 +205,16 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(failureMechanismSurfaceLines.Count, entity.SurfaceLineEntities.Count);
-            for (var i = 0; i < failureMechanismSurfaceLines.Count; i++)
+            Assert.AreEqual(surfaceLines.Count, entity.SurfaceLineEntities.Count);
+            for (var i = 0; i < surfaceLines.Count; i++)
             {
-                AssertSurfaceLine(failureMechanismSurfaceLines.ElementAt(i), entity.SurfaceLineEntities.ElementAt(i));
+                AssertSurfaceLine(surfaceLines[i], entity.SurfaceLineEntities.ElementAt(i));
             }
 
             string surfaceLineCollectionSourcePath = entity.MacroStabilityInwardsFailureMechanismMetaEntities
                                                            .Single()
                                                            .SurfaceLineCollectionSourcePath;
-            TestHelper.AssertAreEqualButNotSame(failureMechanismSurfaceLines.SourcePath, surfaceLineCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(surfaceLines.SourcePath, surfaceLineCollectionSourcePath);
         }
 
         [Test]
@@ -251,14 +235,19 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            var testFailureMechanismSection = new TestFailureMechanismSection();
+            failureMechanism.AddSection(testFailureMechanismSection);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Count());
+
+            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityInwardsSectionResultEntity resultEntity = entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Single();
+            Assert.AreEqual((byte) sectionResult.AssessmentLayerOne, resultEntity.LayerOne);
+            Assert.IsNull(resultEntity.LayerThree);
         }
 
         private static void AssertSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine, SurfaceLineEntity entity)

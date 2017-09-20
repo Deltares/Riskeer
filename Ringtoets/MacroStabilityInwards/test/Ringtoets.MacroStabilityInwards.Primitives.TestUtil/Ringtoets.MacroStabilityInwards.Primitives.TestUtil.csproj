@@ -47,6 +47,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="MacroStabilityInwardsPreconsolidationStressTestFactory.cs" />
+    <Compile Include="MacroStabilityInwardsSoilProfile2DTestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMacroStabilityInwardsSoilProfile1D.cs" />
   </ItemGroup>

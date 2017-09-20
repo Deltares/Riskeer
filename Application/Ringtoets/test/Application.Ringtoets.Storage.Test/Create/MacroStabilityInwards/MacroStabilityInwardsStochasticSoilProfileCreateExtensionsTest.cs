@@ -25,7 +25,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -69,6 +68,22 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual("registry", parameterName);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Create_WithUnsupportedSoilProfile_ThrowsNotSupportedException()
+        {
+            // Setup
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.5, new UnsupportedMacroStabilityInwardsSoilProfile());
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => stochasticSoilProfile.Create(registry, 1);
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(test);
+            Assert.AreEqual($"{nameof(UnsupportedMacroStabilityInwardsSoilProfile)} is not supported. " +
+                            $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.", exception.Message);
         }
 
         [Test]
@@ -151,18 +166,24 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         [Test]
         [TestCaseSource(nameof(GetMacroStabilityInwardsSoilProfiles))]
-        public void Create_SameStochasticSoilProfileMultipleTimes_ReturnSameEntity(IMacroStabilityInwardsSoilProfile soilProfile)
+        public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned(IMacroStabilityInwardsSoilProfile soilProfile)
         {
-            // Setup
+            // Given
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.4, soilProfile);
             var registry = new PersistenceRegistry();
 
-            // Call
             MacroStabilityInwardsStochasticSoilProfileEntity entity1 = stochasticSoilProfile.Create(registry, 0);
+
+            // When
             MacroStabilityInwardsStochasticSoilProfileEntity entity2 = stochasticSoilProfile.Create(registry, 0);
 
-            // Assert
+            // Then
             Assert.AreSame(entity1, entity2);
+        }
+
+        private class UnsupportedMacroStabilityInwardsSoilProfile : IMacroStabilityInwardsSoilProfile
+        {
+            public string Name { get; }
         }
 
         private static IEnumerable<TestCaseData> GetSameExpectedMacroStabilityInwardsSoilProfiles()
@@ -181,14 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         private static IEnumerable<IMacroStabilityInwardsSoilProfile> GetMacroStabilityInwardsSoilProfiles()
         {
             yield return new TestMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
-            yield return new MacroStabilityInwardsSoilProfile2D(nameof(MacroStabilityInwardsSoilProfile2D), new[]
-            {
-                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }), Enumerable.Empty<Ring>())
-            }, new MacroStabilityInwardsPreconsolidationStress[0]);
+            yield return MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
         }
     }
 }

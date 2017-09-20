@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
@@ -116,27 +117,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             AssertHoles(soilLayer, entity);
         }
 
-        private static void AssertHoles(MacroStabilityInwardsSoilLayer2D soilLayer, MacroStabilityInwardsSoilLayerTwoDEntity entity)
-        {
-            string expectedHolesXml = new RingXmlSerializer().ToXml(soilLayer.Holes);
-            Assert.AreEqual(expectedHolesXml, entity.HolesXml);
-        }
-
-        private static void AssertOuterRing(Ring outerRing, MacroStabilityInwardsSoilLayerTwoDEntity entity)
-        {
-            string expectedOuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points);
-            Assert.AreEqual(expectedOuterRingXml, entity.OuterRingXml);
-        }
-
         [Test]
         public void Create_WithNaNProperties_ReturnsEntityWithPropertiesSetToNull()
         {
             // Setup
             var random = new Random(31);
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new[]
-            {
-                CreateRandomRing(random)
-            })
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), Enumerable.Empty<Ring>())
             {
                 Properties =
                 {
@@ -205,6 +191,18 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(materialName, entity.MaterialName);
+        }
+
+        private static void AssertHoles(MacroStabilityInwardsSoilLayer2D soilLayer, MacroStabilityInwardsSoilLayerTwoDEntity entity)
+        {
+            string expectedHolesXml = new RingXmlSerializer().ToXml(soilLayer.Holes);
+            Assert.AreEqual(expectedHolesXml, entity.HolesXml);
+        }
+
+        private static void AssertOuterRing(Ring outerRing, MacroStabilityInwardsSoilLayerTwoDEntity entity)
+        {
+            string expectedOuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points);
+            Assert.AreEqual(expectedOuterRingXml, entity.OuterRingXml);
         }
 
         private static Ring CreateRandomRing(Random random)

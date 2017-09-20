@@ -19,21 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Geometry;
+
 namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsPreconsolidationStress"/>
-    /// instances that can be used for testing.
+    /// Factory to create simple <see cref="MacroStabilityInwardsSoilProfile2D"/> instances that 
+    /// can be used for testing.
     /// </summary>
-    public static class MacroStabilityInwardsPreconsolidationStressTestFactory
+    public static class MacroStabilityInwardsSoilProfile2DTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsPreconsolidationStress"/>.</returns>
-        public static MacroStabilityInwardsPreconsolidationStress CreateMacroStabilityInwardsPreconsolidationStress()
+        /// <returns>The created <see cref="MacroStabilityInwardsSoilProfile2D"/>.</returns>
+        public static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()
         {
-            return new MacroStabilityInwardsPreconsolidationStress(13, 34, 10.09, 20.05);
+            return new MacroStabilityInwardsSoilProfile2D("MacroStabilityInwardsSoilProfile2D", new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }), new Ring[0]),
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                }), new Ring[0])
+            }, new MacroStabilityInwardsPreconsolidationStress[0]);
         }
     }
 }

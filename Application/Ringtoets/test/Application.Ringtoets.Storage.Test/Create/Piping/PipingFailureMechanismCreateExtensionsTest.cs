@@ -99,8 +99,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingFailureMechanismMetaEntity failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
-            Assert.IsNull(failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
-            Assert.IsNull(failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
         }
 
         [Test]
@@ -153,10 +153,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.StochasticSoilModelEntities.Count);
+            Assert.AreEqual(stochasticSoilModels.Count, entity.StochasticSoilModelEntities.Count);
             for (var i = 0; i < stochasticSoilModels.Count; i++)
             {
-                AssertStochasticSoilModel(stochasticSoilModels.ElementAt(i),
+                AssertStochasticSoilModel(stochasticSoilModels[i],
                                           entity.StochasticSoilModelEntities.ElementAt(i));
             }
 
@@ -190,9 +190,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            PipingSurfaceLineCollection failureMechanismSurfaceLines = failureMechanism.SurfaceLines;
+            PipingSurfaceLineCollection surfaceLines = failureMechanism.SurfaceLines;
 
-            failureMechanismSurfaceLines.AddRange(new[]
+            surfaceLines.AddRange(new[]
             {
                 CreateSurfaceLine(new Random(31))
             }, "path");
@@ -204,16 +204,16 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(failureMechanismSurfaceLines.Count, entity.SurfaceLineEntities.Count);
-            for (var i = 0; i < failureMechanismSurfaceLines.Count; i++)
+            Assert.AreEqual(surfaceLines.Count, entity.SurfaceLineEntities.Count);
+            for (var i = 0; i < surfaceLines.Count; i++)
             {
-                AssertSurfaceLine(failureMechanismSurfaceLines.ElementAt(i), entity.SurfaceLineEntities.ElementAt(i));
+                AssertSurfaceLine(surfaceLines[i], entity.SurfaceLineEntities.ElementAt(i));
             }
 
             string surfaceLineCollectionSourcePath = entity.PipingFailureMechanismMetaEntities
                                                            .Single()
                                                            .SurfaceLineCollectionSourcePath;
-            TestHelper.AssertAreEqualButNotSame(failureMechanismSurfaceLines.SourcePath, surfaceLineCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(surfaceLines.SourcePath, surfaceLineCollectionSourcePath);
         }
 
         [Test]

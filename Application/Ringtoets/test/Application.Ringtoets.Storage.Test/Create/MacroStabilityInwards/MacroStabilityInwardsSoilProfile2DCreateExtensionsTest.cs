@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_ForTheSameObjectTwice_ReturnsSameEntityInstance()
+        public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned()
         {
             // Setup
             MacroStabilityInwardsSoilProfile2D soilProfile = CreateMacroStabilityInwardsSoilProfile2D();
@@ -159,15 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 }), Enumerable.Empty<Ring>())
             };
 
-            var preconsolidationStresses = new[]
-            {
-                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble())
-            };
-
-            return new MacroStabilityInwardsSoilProfile2D(name, layers, preconsolidationStresses);
+            return new MacroStabilityInwardsSoilProfile2D(name, layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
         }
     }
 }

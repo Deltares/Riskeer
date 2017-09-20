@@ -41,6 +41,8 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsStochasticSoilProfile.SoilProfile"/> is 
+        /// not of type <see cref="MacroStabilityInwardsSoilProfile1D"/> or <see cref="MacroStabilityInwardsSoilProfile2D"/>.</exception>
         public static MacroStabilityInwardsStochasticSoilProfileEntity Create(this MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile,
                                                                               PersistenceRegistry registry,
                                                                               int order)
@@ -71,6 +73,14 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             return entity;
         }
 
+        /// <summary>
+        /// Adds the entity representation of <paramref name="soilProfile"/> to the <paramref name="entity"/>.
+        /// </summary>
+        /// <param name="soilProfile">The soil profile to store.</param>
+        /// <param name="entity">The entity to update.</param>
+        /// <param name="registry">The registry to use for persisting entities.</param>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="soilProfile"/> is 
+        /// not of type <see cref="MacroStabilityInwardsSoilProfile1D"/> or <see cref="MacroStabilityInwardsSoilProfile2D"/>.</exception>
         private static void AddEntityForProfile(IMacroStabilityInwardsSoilProfile soilProfile,
                                                 MacroStabilityInwardsStochasticSoilProfileEntity entity,
                                                 PersistenceRegistry registry)
@@ -79,13 +89,19 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             if (soilProfile1D != null)
             {
                 entity.MacroStabilityInwardsSoilProfileOneDEntity = soilProfile1D.Create(registry);
+                return;
             }
 
             var soilProfile2D = soilProfile as MacroStabilityInwardsSoilProfile2D;
             if (soilProfile2D != null)
             {
                 entity.MacroStabilityInwardsSoilProfileTwoDEntity = soilProfile2D.Create(registry);
+                return;
             }
+
+            string exceptionMessage = $"{soilProfile.GetType().Name} is not supported. " +
+                                      $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.";
+            throw new NotSupportedException(exceptionMessage);
         }
     }
 }
