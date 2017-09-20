@@ -180,7 +180,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
             catch (FormatException)
             {
-                throw new ArgumentException(RingtoetsCommonFormsResources.Probability_Could_not_parse_string_to_double_value);
+                throw new ArgumentException(RingtoetsCommonFormsResources.Probability_Could_not_parse_string_to_probability);
             }
         }
     }

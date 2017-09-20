@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
 
                 // Assert
-                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+                Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", dataGridView.Rows[0].ErrorText);
             }
         }
 

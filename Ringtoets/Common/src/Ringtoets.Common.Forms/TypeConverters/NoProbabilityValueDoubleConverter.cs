@@ -75,12 +75,12 @@ namespace Ringtoets.Common.Forms.TypeConverters
                 }
                 catch (FormatException exception)
                 {
-                    throw new NotSupportedException(CommonBaseResources.RoundedDoubleConverter_ConvertFrom_String_must_represent_number,
+                    throw new NotSupportedException(Resources.Probability_Could_not_parse_string_to_probability,
                                                     exception);
                 }
                 catch (OverflowException exception)
                 {
-                    throw new NotSupportedException(CommonBaseResources.RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double,
+                    throw new NotSupportedException(Resources.Probability_Value_too_large,
                                                     exception);
                 }
             }

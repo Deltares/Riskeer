@@ -1466,7 +1466,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
 
             // Assert
-            const string expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            const string expectedMessage = "De waarde is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -1496,7 +1496,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue;
 
             // Assert
-            const string expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -1555,7 +1555,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
 
             // Assert
-            const string expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            const string expectedMessage = "De waarde is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -1585,7 +1585,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue;
 
             // Assert
-            const string expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();

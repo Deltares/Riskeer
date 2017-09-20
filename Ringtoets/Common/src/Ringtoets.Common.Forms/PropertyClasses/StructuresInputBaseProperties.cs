@@ -240,7 +240,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             catch (FormatException)
             {
-                throw new ArgumentException(Resources.Probability_Could_not_parse_string_to_double_value);
+                throw new ArgumentException(Resources.Probability_Could_not_parse_string_to_probability);
             }
         }
 

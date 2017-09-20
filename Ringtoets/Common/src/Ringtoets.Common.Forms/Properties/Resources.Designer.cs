@@ -2160,11 +2160,11 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal..
+        ///   Looks up a localized string similar to De waarde kon niet geïnterpreteerd worden als een kans..
         /// </summary>
-        public static string Probability_Could_not_parse_string_to_double_value {
+        public static string Probability_Could_not_parse_string_to_probability {
             get {
-                return ResourceManager.GetString("Probability_Could_not_parse_string_to_double_value", resourceCulture);
+                return ResourceManager.GetString("Probability_Could_not_parse_string_to_probability", resourceCulture);
             }
         }
         
@@ -2178,7 +2178,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans is te groot of te klein..
+        ///   Looks up a localized string similar to De waarde is te groot of te klein..
         /// </summary>
         public static string Probability_Value_too_large {
             get {

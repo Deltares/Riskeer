@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual("De tekst moet een getal zijn.", message);
+            Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", message);
             mocks.VerifyAll();
         }
 
@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;
-            Assert.AreEqual("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.", message);
+            Assert.AreEqual("De waarde is te groot of te klein.", message);
             mocks.VerifyAll();
         }
 
