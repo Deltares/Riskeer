@@ -598,7 +598,7 @@ namespace Core.Common.TestUtil
             const string solutionName = "Ringtoets.sln";
             //get the current directory and scope up
             //TODO find a faster safer method 
-            var testContext = new TestContext(TestExecutionContext.CurrentContext);
+            var testContext = new TestContext(new TestExecutionContext.AdhocContext());
             string curDir = testContext.TestDirectory;
             while (Directory.Exists(curDir) && !File.Exists(curDir + @"\" + solutionName))
             {
