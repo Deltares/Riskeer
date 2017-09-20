@@ -26,16 +26,16 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Serializers
 {
     [TestFixture]
-    public class Point3DXmlSerializerTest
+    public class Point3DCollectionXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new Point3DXmlSerializer();
+            var serializer = new Point3DCollectionXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<Point3D, Point3DXmlSerializer.SerializablePoint3D>>(serializer);
+            Assert.IsInstanceOf<DataCollectionSerializer<Point3D, Point3DCollectionXmlSerializer.SerializablePoint3D>>(serializer);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
                 new Point3D(6.6, 7.7, 8.8),
                 new Point3D(9.9, 10.10, 11.11)
             };
-            var serializer = new Point3DXmlSerializer();
+            var serializer = new Point3DCollectionXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
         {
             // Given
             var original = new Point3D[0];
-            var serializer = new Point3DXmlSerializer();
+            var serializer = new Point3DCollectionXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);

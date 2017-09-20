@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="DikeProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static DikeProfileEntity Create(this DikeProfile dikeProfile, PersistenceRegistry registry, int order)
+        public static DikeProfileEntity Create(this DikeProfile dikeProfile, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -56,8 +56,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 X = dikeProfile.WorldReferencePoint.X,
                 Y = dikeProfile.WorldReferencePoint.Y,
                 X0 = dikeProfile.X0,
-                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(dikeProfile.DikeGeometry),
-                ForeshoreXml = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry),
+                DikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(dikeProfile.DikeGeometry),
+                ForeshoreXml = new Point2DCollectionXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry),
                 Orientation = dikeProfile.Orientation,
                 DikeHeight = dikeProfile.DikeHeight,
                 Id = dikeProfile.Id.DeepClone(),

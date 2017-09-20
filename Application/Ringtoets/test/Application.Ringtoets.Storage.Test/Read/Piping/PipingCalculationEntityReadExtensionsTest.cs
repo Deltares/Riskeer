@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var surfaceLineEntity = new SurfaceLineEntity
             {
                 Name = "surface line",
-                PointsXml = new Point3DXmlSerializer().ToXml(points)
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points)
             };
 
             var entity = new PipingCalculationEntity
@@ -296,7 +296,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
+                StochasticSoilModelSegmentPointXml = new Point2DCollectionXmlSerializer().ToXml(new Point2D[0]),
                 PipingStochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity

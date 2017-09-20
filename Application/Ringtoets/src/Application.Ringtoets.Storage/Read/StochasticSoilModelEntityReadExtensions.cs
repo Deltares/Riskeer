@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static IEnumerable<Point2D> ReadSegmentPoints(StochasticSoilModelEntity entity)
         {
-            return new Point2DXmlSerializer().FromXml(entity.StochasticSoilModelSegmentPointXml);
+            return new Point2DCollectionXmlSerializer().FromXml(entity.StochasticSoilModelSegmentPointXml);
         }
     }
 }

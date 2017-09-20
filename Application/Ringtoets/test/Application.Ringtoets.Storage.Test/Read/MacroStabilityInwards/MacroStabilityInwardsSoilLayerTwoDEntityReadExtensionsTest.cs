@@ -111,8 +111,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 PopMean = popMean,
                 PopCoefficientOfVariation = popCoefficientOfVariation,
 
-                OuterRingXml = new Point2DXmlSerializer().ToXml(outerRingPoints),
-                HolesXml = new RingXmlSerializer().ToXml(holes)
+                OuterRingXml = new Point2DCollectionXmlSerializer().ToXml(outerRingPoints),
+                HolesXml = new RingCollectionXmlSerializer().ToXml(holes)
             };
 
             // Call
@@ -159,8 +159,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 MaterialName = nameof(MacroStabilityInwardsSoilLayerTwoDEntity),
-                OuterRingXml = new Point2DXmlSerializer().ToXml(CreateRandomRing(new Random(31)).Points),
-                HolesXml = new RingXmlSerializer().ToXml(new Ring[0])
+                OuterRingXml = new Point2DCollectionXmlSerializer().ToXml(CreateRandomRing(new Random(31)).Points),
+                HolesXml = new RingCollectionXmlSerializer().ToXml(new Ring[0])
             };
 
             // Call

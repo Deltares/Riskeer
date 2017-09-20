@@ -37,8 +37,14 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSectionResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         public static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             var sectionResultEntity = new MacroStabilityInwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

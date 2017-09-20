@@ -42,14 +42,14 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="FailureMechanismSectionEntity.FailureMechanismSectionPointXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        internal static FailureMechanismSection Read(this FailureMechanismSectionEntity entity, ReadConversionCollector collector)
+        public static FailureMechanismSection Read(this FailureMechanismSectionEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            Point2D[] points = new Point2DXmlSerializer().FromXml(entity.FailureMechanismSectionPointXml);
+            Point2D[] points = new Point2DCollectionXmlSerializer().FromXml(entity.FailureMechanismSectionPointXml);
             var mechanismSection = new FailureMechanismSection(entity.Name, points);
 
             collector.Read(entity, mechanismSection);

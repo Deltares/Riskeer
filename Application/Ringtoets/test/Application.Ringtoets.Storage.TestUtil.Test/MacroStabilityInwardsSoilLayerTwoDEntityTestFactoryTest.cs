@@ -37,10 +37,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             MacroStabilityInwardsSoilLayerTwoDEntity entity = MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity();
 
             // Assert
-            Point2D[] outerRing = new Point2DXmlSerializer().FromXml(entity.OuterRingXml);
+            Point2D[] outerRing = new Point2DCollectionXmlSerializer().FromXml(entity.OuterRingXml);
             Assert.AreEqual(2, outerRing.Length);
 
-            Ring[] holes = new RingXmlSerializer().FromXml(entity.HolesXml);
+            Ring[] holes = new RingCollectionXmlSerializer().FromXml(entity.HolesXml);
             Assert.AreEqual(0, holes.Length);
         }
     }

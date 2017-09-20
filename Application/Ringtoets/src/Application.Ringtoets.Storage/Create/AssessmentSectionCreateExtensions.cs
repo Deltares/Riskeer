@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="order">The index at which <paramref name="section"/> resides in its parent.</param>
         /// <returns>A new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry registry, int order)
+        public static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (section.ReferenceLine != null)
             {
-                entity.ReferenceLinePointXml = new Point2DXmlSerializer().ToXml(section.ReferenceLine.Points);
+                entity.ReferenceLinePointXml = new Point2DCollectionXmlSerializer().ToXml(section.ReferenceLine.Points);
             }
         }
 
