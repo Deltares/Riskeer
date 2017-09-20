@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class MacroStabilityInwardsUpliftVanCalculationGridResultCreatorTest

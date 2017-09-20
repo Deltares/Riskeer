@@ -22,8 +22,9 @@
 using System;
 using System.Linq;
 using Deltares.WTIStability;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/> instances.

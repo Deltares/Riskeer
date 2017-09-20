@@ -24,8 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="MacroStabilityInwardsSlidingCurveResult"/> instances.

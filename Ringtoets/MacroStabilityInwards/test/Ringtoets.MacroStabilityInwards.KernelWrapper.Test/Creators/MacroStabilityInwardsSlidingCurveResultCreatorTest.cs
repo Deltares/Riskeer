@@ -24,10 +24,11 @@ using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class MacroStabilityInwardsSlidingCurveResultCreatorTest
