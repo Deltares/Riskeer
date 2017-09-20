@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 new Point2D(0, 0)
             };
-            string dummyPointXml = new Point2DCollectionXmlSerializer().ToXml(dummyPoints);
+            string dummyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = "section",
@@ -351,7 +351,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_SetsPipingFailureMechanismWithStochasticSoilModels()
         {
             // Setup
-            string emptySegmentPointsXml = new Point2DCollectionXmlSerializer().ToXml(new Point2D[0]);
+            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             const string sourcePath = "some/Path";
             var entity = new FailureMechanismEntity
             {
@@ -427,7 +427,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithSurfaceLines_SetsPipingFailureMechanismSurfaceLines()
         {
             // Setup
-            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
+            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
             const string sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {
@@ -697,7 +697,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithStochasticSoilModelsSet_MacroStabilityInwardsFailureMechanismWithStochasticSoilModelsSet()
         {
             // Setup
-            string emptySegmentPointsXml = new Point2DCollectionXmlSerializer().ToXml(new Point2D[0]);
+            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             const string sourcePath = "some/Path";
             var entity = new FailureMechanismEntity
             {
@@ -773,7 +773,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithSurfaceLines_MacroStabilityInwardsFailureMechanismWithSurfaceLinesSet()
         {
             // Setup
-            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
+            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
             const string sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {
@@ -895,8 +895,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithDikeProfilesSet_ReturnsGrassCoverErosionInwardsFailureMechanismWithDikeProfilesAdded()
         {
             // Setup
-            string emptyDikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(new RoughnessPoint[0]);
-            string emptyForeshoreBinaryXml = new Point2DCollectionXmlSerializer().ToXml(new Point2D[0]);
+            string emptyDikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]);
+            string emptyForeshoreBinaryXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             const string sourcePath = "some/path/to/my/dikeprofiles";
             var entity = new FailureMechanismEntity
             {
@@ -1106,13 +1106,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -1396,13 +1396,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -1559,13 +1559,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -1682,13 +1682,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -1913,13 +1913,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -2165,13 +2165,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },

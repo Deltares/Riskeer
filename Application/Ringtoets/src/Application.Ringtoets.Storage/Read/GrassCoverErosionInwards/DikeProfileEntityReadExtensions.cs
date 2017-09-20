@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="DikeProfileEntity.DikeGeometryXml"/> 
         /// or <see cref="DikeProfileEntity.ForeshoreXml"/> of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        public static DikeProfile Read(this DikeProfileEntity entity, ReadConversionCollector collector)
+        internal static DikeProfile Read(this DikeProfileEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             }
 
             var dikeProfile = new DikeProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
-                                              new RoughnessPointCollectionXmlSerializer().FromXml(entity.DikeGeometryXml),
-                                              new Point2DCollectionXmlSerializer().FromXml(entity.ForeshoreXml),
+                                              new RoughnessPointXmlSerializer().FromXml(entity.DikeGeometryXml),
+                                              new Point2DXmlSerializer().FromXml(entity.ForeshoreXml),
                                               CreateBreakWater(entity),
                                               CreateProperties(entity));
 

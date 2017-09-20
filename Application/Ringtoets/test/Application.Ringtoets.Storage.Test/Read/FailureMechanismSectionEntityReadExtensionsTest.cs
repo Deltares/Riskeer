@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 new Point2D(0, 0)
             };
-            string pointXml = new Point2DCollectionXmlSerializer().ToXml(points);
+            string pointXml = new Point2DXmlSerializer().ToXml(points);
             var entity = new FailureMechanismSectionEntity
             {
                 Name = name,

@@ -22,44 +22,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Serializers
 {
     /// <summary>
-    /// Converter class that converts between a collection of <see cref="RoughnessPoint"/>
-    /// and an XML representation of that data.
+    /// Converter class that converts between a collection of <see cref="Ring"/> and an
+    /// XML representation of that data.
     /// </summary>
-    internal class RoughnessPointCollectionXmlSerializer : DataCollectionSerializer<RoughnessPoint, RoughnessPointCollectionXmlSerializer.SerializableRoughnessPoint>
+    internal class RingXmlSerializer : DataCollectionSerializer<Ring, RingXmlSerializer.SerializableRing>
     {
-        protected override SerializableRoughnessPoint[] ToSerializableData(IEnumerable<RoughnessPoint> elements)
+        protected override SerializableRing[] ToSerializableData(IEnumerable<Ring> elements)
         {
-            return elements.Select(p => new SerializableRoughnessPoint(p)).ToArray();
+            return elements.Select(r => new SerializableRing(r)).ToArray();
         }
 
-        protected override RoughnessPoint[] FromSerializableData(IEnumerable<SerializableRoughnessPoint> serializedElements)
+        protected override Ring[] FromSerializableData(IEnumerable<SerializableRing> serializedElements)
         {
-            return serializedElements.Select(sp => sp.ToRoughnessPoint()).ToArray();
+            return serializedElements.Select(sr => sr.ToRing()).ToArray();
         }
 
         [Serializable]
-        internal class SerializableRoughnessPoint
+        internal class SerializableRing
         {
-            private readonly double x;
-            private readonly double y;
-            private readonly double roughness;
+            private readonly IEnumerable<Point2DXmlSerializer.SerializablePoint2D> points;
 
-            public SerializableRoughnessPoint(RoughnessPoint point)
+            public SerializableRing(Ring ring)
             {
-                x = point.Point.X;
-                y = point.Point.Y;
-                roughness = point.Roughness;
+                points = ring.Points
+                             .Select(p => new Point2DXmlSerializer.SerializablePoint2D(p))
+                             .ToArray();
             }
 
-            public RoughnessPoint ToRoughnessPoint()
+            public Ring ToRing()
             {
-                return new RoughnessPoint(new Point2D(x, y), roughness);
+                return new Ring(points.Select(p => p.ToPoint2D()));
             }
         }
     }

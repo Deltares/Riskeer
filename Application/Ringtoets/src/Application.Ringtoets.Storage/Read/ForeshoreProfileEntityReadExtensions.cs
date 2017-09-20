@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="ForeshoreProfileEntity.GeometryXml"/> 
         /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
-        public static ForeshoreProfile Read(this ForeshoreProfileEntity entity, ReadConversionCollector collector)
+        internal static ForeshoreProfile Read(this ForeshoreProfileEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Read
                 return collector.Get(entity);
             }
 
-            Point2D[] points = new Point2DCollectionXmlSerializer().FromXml(entity.GeometryXml);
+            Point2D[] points = new Point2DXmlSerializer().FromXml(entity.GeometryXml);
 
             var foreshoreProfile = new ForeshoreProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
                                                         points,

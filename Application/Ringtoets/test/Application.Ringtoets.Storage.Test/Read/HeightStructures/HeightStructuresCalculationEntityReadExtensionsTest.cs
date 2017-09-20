@@ -151,7 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             {
                 new Point2D(0, 0)
             };
-            string pointXml = new Point2DCollectionXmlSerializer().ToXml(points);
+            string pointXml = new Point2DXmlSerializer().ToXml(points);
             var foreshoreEntity = new ForeshoreProfileEntity
             {
                 Id = "id",

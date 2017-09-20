@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static AssessmentSection Read(this AssessmentSectionEntity entity, ReadConversionCollector collector)
+        internal static AssessmentSection Read(this AssessmentSectionEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             if (entity.ReferenceLinePointXml != null)
             {
-                Point2D[] points = new Point2DCollectionXmlSerializer().FromXml(entity.ReferenceLinePointXml);
+                Point2D[] points = new Point2DXmlSerializer().FromXml(entity.ReferenceLinePointXml);
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(points);

@@ -167,10 +167,10 @@
     <Compile Include="Read\BackgroundDataEntityReadExtensionsTest.cs" />
     <Compile Include="RoundedDoubleConversionExtensionsTest.cs" />
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
-    <Compile Include="Serializers\Point2DCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\Point3DCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\RingCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\RoughnessPointCollectionXmlSerializerTest.cs" />
+    <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\RingXmlSerializerTest.cs" />
+    <Compile Include="Serializers\RoughnessPointXmlSerializerTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />

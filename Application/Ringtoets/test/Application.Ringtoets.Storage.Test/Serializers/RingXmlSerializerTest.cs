@@ -28,16 +28,16 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Application.Ringtoets.Storage.Test.Serializers
 {
     [TestFixture]
-    public class RingCollectionXmlSerializerTest
+    public class RingXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new RingCollectionXmlSerializer();
+            var serializer = new RingXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<Ring, RingCollectionXmlSerializer.SerializableRing>>(serializer);
+            Assert.IsInstanceOf<DataCollectionSerializer<Ring, RingXmlSerializer.SerializableRing>>(serializer);
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
                     new Point2D(random.NextDouble(), random.NextDouble())
                 })
             };
-            var serializer = new RingCollectionXmlSerializer();
+            var serializer = new RingXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
         {
             // Given
             var original = new Ring[0];
-            var serializer = new RingCollectionXmlSerializer();
+            var serializer = new RingXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);

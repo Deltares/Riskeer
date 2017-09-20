@@ -236,7 +236,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
-            string expectedXml = new Point2DCollectionXmlSerializer().ToXml(points);
+            string expectedXml = new Point2DXmlSerializer().ToXml(points);
             Assert.AreEqual(expectedXml, entity.ReferenceLinePointXml);
         }
     }

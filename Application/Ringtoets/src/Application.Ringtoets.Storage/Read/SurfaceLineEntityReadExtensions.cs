@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static IEnumerable<Point3D> ReadGeometryPoints(SurfaceLineEntity entity)
         {
-            return new Point3DCollectionXmlSerializer().FromXml(entity.PointsXml);
+            return new Point3DXmlSerializer().FromXml(entity.PointsXml);
         }
     }
 }

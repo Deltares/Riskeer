@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        public static FailureMechanismSectionEntity Create(this FailureMechanismSection section, PersistenceRegistry registry)
+        internal static FailureMechanismSectionEntity Create(this FailureMechanismSection section, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Create
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = section.Name.DeepClone(),
-                FailureMechanismSectionPointXml = new Point2DCollectionXmlSerializer().ToXml(section.Points)
+                FailureMechanismSectionPointXml = new Point2DXmlSerializer().ToXml(section.Points)
             };
 
             registry.Register(failureMechanismSectionEntity, section);

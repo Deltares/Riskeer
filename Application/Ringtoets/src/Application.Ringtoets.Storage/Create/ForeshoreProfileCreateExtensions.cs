@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Create
     /// <summary>
     /// Extension methods for <see cref="ForeshoreProfile"/> related to creating a <see cref="ForeshoreProfileEntity"/>.
     /// </summary>
-    internal static class ForeshoreProfileCreateExtensions
+    public static class ForeshoreProfileCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ForeshoreProfileEntity"/> based on the information of the <see cref="ForeshoreProfile"/>.
@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="order">The index at which <paramref name="foreshoreProfile"/> resides within its parent.</param>
         /// <returns>A new <see cref="ForeshoreProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        public static ForeshoreProfileEntity Create(this ForeshoreProfile foreshoreProfile, PersistenceRegistry registry, int order)
+        internal static ForeshoreProfileEntity Create(this ForeshoreProfile foreshoreProfile, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 Id = foreshoreProfile.Id.DeepClone(),
                 Name = foreshoreProfile.Name.DeepClone(),
-                GeometryXml = new Point2DCollectionXmlSerializer().ToXml(foreshoreProfile.Geometry),
+                GeometryXml = new Point2DXmlSerializer().ToXml(foreshoreProfile.Geometry),
                 X = foreshoreProfile.WorldReferencePoint.X,
                 Y = foreshoreProfile.WorldReferencePoint.Y,
                 X0 = foreshoreProfile.X0,

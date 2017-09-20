@@ -35,17 +35,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
     public class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_ResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).Create();
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
         public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup

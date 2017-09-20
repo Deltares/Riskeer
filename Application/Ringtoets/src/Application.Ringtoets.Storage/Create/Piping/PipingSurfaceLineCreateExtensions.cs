@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="SurfaceLineEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static SurfaceLineEntity Create(this PipingSurfaceLine surfaceLine, PersistenceRegistry registry, int order)
+        internal static SurfaceLineEntity Create(this PipingSurfaceLine surfaceLine, PersistenceRegistry registry, int order)
         {
             if (surfaceLine == null)
             {
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Name = surfaceLine.Name.DeepClone(),
                 ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
                 ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull(),
-                PointsXml = new Point3DCollectionXmlSerializer().ToXml(surfaceLine.Points),
+                PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points),
                 Order = order
             };
             CreateCharacteristicPointEntities(surfaceLine, entity);

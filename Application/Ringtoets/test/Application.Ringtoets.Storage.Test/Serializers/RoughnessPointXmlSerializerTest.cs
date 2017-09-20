@@ -28,16 +28,16 @@ using Ringtoets.Common.Data.DikeProfiles;
 namespace Application.Ringtoets.Storage.Test.Serializers
 {
     [TestFixture]
-    public class RoughnessPointCollectionXmlSerializerTest
+    public class RoughnessPointXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new RoughnessPointCollectionXmlSerializer();
+            var serializer = new RoughnessPointXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointCollectionXmlSerializer.SerializableRoughnessPoint>>(serializer);
+            Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>>(serializer);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
                 new RoughnessPoint(new Point2D(7.7, 8.8), 0.8),
                 new RoughnessPoint(new Point2D(9.9, 10.10), 0.7)
             };
-            var converter = new RoughnessPointCollectionXmlSerializer();
+            var converter = new RoughnessPointXmlSerializer();
 
             // When
             string xml = converter.ToXml(original);
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
         {
             // Given
             var original = new RoughnessPoint[0];
-            var converter = new RoughnessPointCollectionXmlSerializer();
+            var converter = new RoughnessPointXmlSerializer();
 
             // When
             string xml = converter.ToXml(original);

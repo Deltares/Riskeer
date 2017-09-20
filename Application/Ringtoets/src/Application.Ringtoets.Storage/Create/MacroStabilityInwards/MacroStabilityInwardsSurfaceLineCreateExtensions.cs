@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 Name = surfaceLine.Name.DeepClone(),
                 ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
                 ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull(),
-                PointsXml = new Point3DCollectionXmlSerializer().ToXml(surfaceLine.Points),
+                PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points),
                 Order = order
             };
             CreateCharacteristicPointEntities(surfaceLine, entity);
