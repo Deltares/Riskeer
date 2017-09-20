@@ -72,6 +72,7 @@
     <Compile Include="Result\MacroStabilityInwardsGridResultTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSliceResultTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCircleResultTest.cs" />
+    <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultCreatorTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsUpliftVanCalculationGridResultTest.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryTest.cs" />
