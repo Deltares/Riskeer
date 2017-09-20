@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.AreEqual(popMean, properties.PopMean);
             Assert.AreEqual(popCoefficientOfVariation, properties.PopCoefficientOfVariation);
 
-            Assert.AreEqual(outerRingPoints, layer.OuterRing.Points);
+            CollectionAssert.AreEqual(outerRingPoints, layer.OuterRing.Points);
             CollectionAssert.AreEqual(holes, layer.Holes);
         }
 

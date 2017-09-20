@@ -95,19 +95,14 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var random = new Random(31);
             var registry = new PersistenceRegistry();
-            const string name = "Test";
-            var surfaceLine = new PipingSurfaceLine(name)
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
-            };
+            var surfaceLine = new PipingSurfaceLine("Test");
 
             // Call
             SurfaceLineEntity entity = surfaceLine.Create(registry, 0);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(surfaceLine.Name, entity.Name);
         }
 
         [Test]
@@ -144,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_SurfaceLineWithAllData_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
+        public void Create_SurfaceLineWithGeometryAndCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -268,23 +263,30 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             byte[] characteristicPointTypeValues = entity.PipingCharacteristicPointEntities
                                                          .Select(cpe => cpe.Type)
                                                          .ToArray();
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DikeToeAtRiver);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DikeToeAtPolder);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.BottomDitchPolderSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) PipingCharacteristicPointType.DitchPolderSide);
+
+            CollectionAssert.AreEquivalent(new[]
+            {
+                (byte) PipingCharacteristicPointType.DikeToeAtRiver,
+                (byte) PipingCharacteristicPointType.DikeToeAtPolder,
+                (byte) PipingCharacteristicPointType.DitchDikeSide,
+                (byte) PipingCharacteristicPointType.BottomDitchDikeSide,
+                (byte) PipingCharacteristicPointType.BottomDitchPolderSide,
+                (byte) PipingCharacteristicPointType.DitchPolderSide
+            }, characteristicPointTypeValues);
+
+            foreach (PipingCharacteristicPointEntity characteristicPointEntity in entity.PipingCharacteristicPointEntities)
+            {
+                Assert.AreEqual(geometry[0].X, characteristicPointEntity.X);
+                Assert.AreEqual(geometry[0].Y, characteristicPointEntity.Y);
+                Assert.AreEqual(geometry[0].Z, characteristicPointEntity.Z);
+            }
         }
 
         [Test]
         public void Create_CreatingEntityForSameSurfaceLine_ReturnSamenEntity()
         {
             // Setup
-            var random = new Random(31);
-            var surfaceLine = new PipingSurfaceLine(string.Empty)
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
-            };
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             var registry = new PersistenceRegistry();
 

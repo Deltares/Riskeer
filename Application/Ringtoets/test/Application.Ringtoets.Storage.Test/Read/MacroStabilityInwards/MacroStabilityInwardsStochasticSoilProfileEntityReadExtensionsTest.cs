@@ -124,9 +124,77 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_ForTheSameEntityTwice_ReturnsSameObjectInstance()
+        public void Read_DifferentStochasticSoilProfileEntitiesWithSame1dProfile_ReturnsStochasticSoilProfilesWithSameSoilProfile()
         {
             // Setup
+            var random = new Random(21);
+            double probability = random.NextDouble();
+            var soilProfileOneDEntity = new MacroStabilityInwardsSoilProfileOneDEntity
+            {
+                Name = "SoilProfile",
+                MacroStabilityInwardsSoilLayerOneDEntities =
+                {
+                    new MacroStabilityInwardsSoilLayerOneDEntity()
+                }
+            };
+
+            var firstEntity = new MacroStabilityInwardsStochasticSoilProfileEntity
+            {
+                Probability = probability,
+                MacroStabilityInwardsSoilProfileOneDEntity = soilProfileOneDEntity
+            };
+            var secondEntity = new MacroStabilityInwardsStochasticSoilProfileEntity
+            {
+                Probability = 1 - probability,
+                MacroStabilityInwardsSoilProfileOneDEntity = soilProfileOneDEntity
+            };
+            var collector = new ReadConversionCollector();
+
+            MacroStabilityInwardsStochasticSoilProfile firstStochasticSoilProfile = firstEntity.Read(collector);
+
+            // Call
+            MacroStabilityInwardsStochasticSoilProfile secondStochasticSoilProfile = secondEntity.Read(collector);
+
+            // Assert
+            Assert.AreNotSame(firstStochasticSoilProfile, secondStochasticSoilProfile);
+            Assert.AreSame(firstStochasticSoilProfile.SoilProfile, secondStochasticSoilProfile.SoilProfile);
+        }
+
+        [Test]
+        public void Read_DifferentStochasticSoilProfileEntitiesWithSame2dProfile_ReturnsStochasticSoilProfilesWithSameSoilProfile()
+        {
+            // Setup
+            var random = new Random(21);
+            var entity = new MacroStabilityInwardsStochasticSoilProfileEntity
+            {
+                Probability = random.NextDouble(),
+                MacroStabilityInwardsSoilProfileTwoDEntity = new MacroStabilityInwardsSoilProfileTwoDEntity
+                {
+                    Name = "SoilProfile",
+                    MacroStabilityInwardsSoilLayerTwoDEntities =
+                    {
+                        MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(stochasticSoilProfile);
+            Assert.AreEqual(entity.Probability, stochasticSoilProfile.Probability, 1e-6);
+
+            IMacroStabilityInwardsSoilProfile profile = stochasticSoilProfile.SoilProfile;
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(profile);
+            Assert.AreEqual(entity.MacroStabilityInwardsSoilProfileTwoDEntity.Name, profile.Name);
+        }
+
+        [Test]
+        public void GivenReadObject_WhenReadCalledOnSameEntity_ThenSameObjectInstanceReturned()
+        {
+            // Given
             var entity = new MacroStabilityInwardsStochasticSoilProfileEntity
             {
                 MacroStabilityInwardsSoilProfileOneDEntity = new MacroStabilityInwardsSoilProfileOneDEntity
@@ -141,11 +209,12 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             var collector = new ReadConversionCollector();
 
-            // Call
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = entity.Read(collector);
+
+            // When
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = entity.Read(collector);
 
-            // Assert
+            // Then
             Assert.AreSame(stochasticSoilProfile1, stochasticSoilProfile2);
         }
     }

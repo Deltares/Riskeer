@@ -171,15 +171,14 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_WithCollectorReadTwice_ReturnsSameSoilProfile()
+        public void GivenReadObject_WhenReadCalledOnSameEntity_ThenSameObjectInstanceReturned()
         {
-            // Setup
+            // Given
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
                 Name = "testName",
                 MacroStabilityInwardsSoilLayerTwoDEntities =
                 {
-                    MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity(),
                     MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
                 }
             };
@@ -187,10 +186,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             MacroStabilityInwardsSoilProfile2D profile = entity.Read(collector);
 
-            // Call
+            // When
             MacroStabilityInwardsSoilProfile2D secondProfile = entity.Read(collector);
 
-            // Assert
+            // Then
             Assert.AreSame(profile, secondProfile);
         }
     }

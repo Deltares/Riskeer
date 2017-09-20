@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSetAndEntityRegistered()
+        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSet()
         {
             // Setup
             var random = new Random(21);
@@ -87,7 +87,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.IsNotNull(profile);
             Assert.AreEqual(entity.Probability, profile.Probability, 1e-6);
-            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]
@@ -128,9 +127,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Create_ForTheSameEntityTwice_ReturnsSameObjectInstance()
+        public void GivenReadObject_WhenReadCalledOnSameEntity_ThenSameObjectInstanceReturned()
         {
-            // Setup
+            // Given
             var random = new Random(9);
             var entity = new PipingStochasticSoilProfileEntity
             {
@@ -147,11 +146,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var collector = new ReadConversionCollector();
 
-            // Call
             PipingStochasticSoilProfile profile1 = entity.Read(collector);
+
+            // When
             PipingStochasticSoilProfile profile2 = entity.Read(collector);
 
-            // Assert
+            // Then
             Assert.AreSame(profile1, profile2);
         }
     }

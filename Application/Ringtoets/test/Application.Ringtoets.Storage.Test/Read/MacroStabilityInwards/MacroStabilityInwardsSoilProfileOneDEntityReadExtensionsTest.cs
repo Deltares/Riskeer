@@ -109,6 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSoilProfileOneDEntity
             {
                 Name = nameof(MacroStabilityInwardsSoilProfileOneDEntity),
+                Bottom = null,
                 MacroStabilityInwardsSoilLayerOneDEntities =
                 {
                     new MacroStabilityInwardsSoilLayerOneDEntity
@@ -126,36 +127,16 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNotNull(profile);
             Assert.AreEqual(entity.Name, profile.Name);
             Assert.IsNaN(profile.Bottom);
-            Assert.AreEqual(1, profile.Layers.Count());
+            Assert.AreEqual(entity.MacroStabilityInwardsSoilLayerOneDEntities.Count, profile.Layers.Count());
 
             MacroStabilityInwardsSoilLayer1D layer = profile.Layers.ElementAt(0);
-            Assert.IsNaN(layer.Top);
             Assert.AreEqual(entity.MacroStabilityInwardsSoilLayerOneDEntities.First().MaterialName, layer.Properties.MaterialName);
         }
 
         [Test]
-        public void Read_WithCollectorWithoutLayers_ThrowsArgumentException()
+        public void GivenReadObject_WhenReadCalledOnSameEntity_ThenSameObjectInstanceReturned()
         {
-            // Setup
-            var random = new Random(31);
-            var entity = new MacroStabilityInwardsSoilProfileOneDEntity
-            {
-                Name = "Name",
-                Bottom = random.NextDouble()
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => entity.Read(collector);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
-        public void Read_WithCollectorReadTwice_ReturnsSameSoilProfile()
-        {
-            // Setup
+            // Given
             const string testName = "testName";
             var random = new Random(31);
             double bottom = random.NextDouble();
@@ -168,10 +149,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                     new MacroStabilityInwardsSoilLayerOneDEntity
                     {
                         Top = bottom + 0.5
-                    },
-                    new MacroStabilityInwardsSoilLayerOneDEntity
-                    {
-                        Top = bottom + 1.2
                     }
                 }
             };
@@ -179,10 +156,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             MacroStabilityInwardsSoilProfile1D profile = entity.Read(collector);
 
-            // Call
+            // When
             MacroStabilityInwardsSoilProfile1D secondProfile = entity.Read(collector);
 
-            // Assert
+            // Then
             Assert.AreSame(profile, secondProfile);
         }
     }

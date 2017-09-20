@@ -92,19 +92,14 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var random = new Random(31);
             var registry = new PersistenceRegistry();
-            const string name = "Test";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name)
-            {
-                ReferenceLineIntersectionWorldPoint = GetRandomPoint2D(random)
-            };
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
 
             // Call
             SurfaceLineEntity entity = surfaceLine.Create(registry, 0);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(surfaceLine.Name, entity.Name);
         }
 
         [Test]
@@ -337,32 +332,37 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             short[] characteristicPointTypeValues = entity.MacroStabilityInwardsCharacteristicPointEntities
                                                           .Select(cpe => cpe.Type)
                                                           .ToArray();
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.ShoulderTopInside);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.BottomDitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.BottomDitchPolderSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.DikeToeAtPolder);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.DitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.DitchPolderSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside,
+                (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside,
+                (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside,
+                (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder,
+                (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver,
+                (byte) MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside,
+                (byte) MacroStabilityInwardsCharacteristicPointType.ShoulderTopInside,
+                (byte) MacroStabilityInwardsCharacteristicPointType.BottomDitchDikeSide,
+                (byte) MacroStabilityInwardsCharacteristicPointType.BottomDitchPolderSide,
+                (byte) MacroStabilityInwardsCharacteristicPointType.DikeToeAtPolder,
+                (byte) MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver,
+                (byte) MacroStabilityInwardsCharacteristicPointType.DitchDikeSide,
+                (byte) MacroStabilityInwardsCharacteristicPointType.DitchPolderSide,
+                (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside
+            }, characteristicPointTypeValues);
+
+            foreach (MacroStabilityInwardsCharacteristicPointEntity characteristicPointEntity in entity.MacroStabilityInwardsCharacteristicPointEntities)
+            {
+                Assert.AreEqual(geometry[0].X, characteristicPointEntity.X);
+                Assert.AreEqual(geometry[0].Y, characteristicPointEntity.Y);
+                Assert.AreEqual(geometry[0].Z, characteristicPointEntity.Z);
+            }
         }
 
         [Test]
         public void Create_CreatingEntityForSameSurfaceLine_ReturnSameEntity()
         {
             // Setup
-            var random = new Random(31);
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty)
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
-            };
-
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             var registry = new PersistenceRegistry();
 
             // Call

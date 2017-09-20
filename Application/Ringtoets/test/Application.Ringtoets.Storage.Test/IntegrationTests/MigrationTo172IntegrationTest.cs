@@ -728,6 +728,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 2) " +
                 "FROM MacroStabilityInwardsFailureMechanismMetaEntity " +
                 "WHERE A = 0.033 " +
+                "AND StochasticSoilModelCollectionSourcePath IS NULL " +
+                "AND SurfaceLineCollectionSourcePath IS NULL " +
                 "AND FailureMechanismEntityId IN " +
                 "(SELECT FailureMechanismEntityId FROM FailureMechanismEntity WHERE FailureMechanismType = 2);";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);

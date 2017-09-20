@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var input = new PipingProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => ((PipingFailureMechanismMetaEntity)null).ReadProbabilityAssessmentInput(input);
+            TestDelegate test = () => ((PipingFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("input", exception.ParamName);
+            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var input = new GeneralPipingInput();
 
             // Call
-            TestDelegate test = () => ((PipingFailureMechanismMetaEntity)null).ReadGeneralPipingInput(input);
+            TestDelegate test = () => ((PipingFailureMechanismMetaEntity) null).ReadGeneralPipingInput(input);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("input", exception.ParamName);
+            Assert.AreEqual("generalPipingInput", exception.ParamName);
         }
 
         [Test]

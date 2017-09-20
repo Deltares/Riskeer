@@ -253,11 +253,14 @@ namespace Application.Ringtoets.Storage.Test.Create
             /// model is registered in the registry.</param>
             /// <param name="getFromRegistry">The action to perform to get the data model from
             ///  the registry.</param>
-            /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-            /// <example>public DerivedRegistryTest() : base(
+            /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+            /// <example>
+            /// <code>public DerivedRegistryTest() : base(
             /// (r, e, m) => r.Register(e, m),
             /// (r, m) => r.Contains(m),
-            /// (r, m) => r.Get(m)) {}</example>
+            /// (r, m) => r.Get(m)) {}
+            /// </code>
+            /// </example>
             protected RegistryTest(Action<PersistenceRegistry, TEntity, TDataModel> registerToRegistry,
                                    Func<PersistenceRegistry, TDataModel, bool> containsInRegistry,
                                    Func<PersistenceRegistry, TDataModel, TEntity> getFromRegistry)
@@ -335,6 +338,20 @@ namespace Application.Ringtoets.Storage.Test.Create
 
                 // Assert
                 Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void Contains_OtherDataModelAdded_ReturnsFalse()
+            {
+                // Setup
+                var registry = new PersistenceRegistry();
+                registerToRegistry(registry, new TEntity(), CreateDataModel());
+
+                // Call
+                bool result = containsInRegistry(registry, CreateDataModel());
+
+                // Assert
+                Assert.IsFalse(result);
             }
 
             [Test]

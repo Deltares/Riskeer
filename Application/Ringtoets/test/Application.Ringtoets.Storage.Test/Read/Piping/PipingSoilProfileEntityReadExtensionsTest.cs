@@ -65,13 +65,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSet()
         {
             // Setup
-            const string testName = "testName";
             var random = new Random(21);
             double bottom = random.NextDouble();
             var sourceType = random.NextEnumValue<SoilProfileType>();
             var entity = new PipingSoilProfileEntity
             {
-                Name = testName,
+                Name = "testName",
                 Bottom = bottom,
                 SourceType = (byte) sourceType,
                 PipingSoilLayerEntities =
@@ -97,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(profile);
-            Assert.AreEqual(testName, profile.Name);
+            Assert.AreEqual(entity.Name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom, 1e-6);
             Assert.AreEqual(sourceType, profile.SoilProfileSourceType);
             CollectionAssert.AreEqual(new[]
@@ -131,54 +130,31 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNotNull(profile);
             Assert.AreEqual(entity.Name, profile.Name);
             Assert.IsNaN(profile.Bottom);
-            Assert.AreEqual(1, profile.Layers.Count());
+            Assert.AreEqual(entity.PipingSoilLayerEntities.Count, profile.Layers.Count());
 
             PipingSoilLayer layer = profile.Layers.ElementAt(0);
-            Assert.IsNaN(layer.Top);
             Assert.AreEqual(entity.PipingSoilLayerEntities.First().MaterialName, layer.MaterialName);
         }
 
         [Test]
-        public void Read_WithCollectorWithoutLayers_ThrowsArgumentException()
+        public void GivenReadObject_WhenReadCalledOnSameEntity_ThenSameObjectInstanceReturned()
         {
-            // Setup
+            // Given
             var random = new Random(21);
             var entity = new PipingSoilProfileEntity
             {
-                Name = "Name",
+                Name = "testName",
                 Bottom = random.NextDouble(),
-                SourceType = (byte) random.NextEnumValue<SoilProfileType>()
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => entity.Read(collector);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
-        public void Read_WithCollectorReadTwice_ReturnsSamePipingSoilProfile()
-        {
-            // Setup
-            const string testName = "testName";
-            var random = new Random(21);
-            double bottom = random.NextDouble();
-            var entity = new PipingSoilProfileEntity
-            {
-                Name = testName,
-                Bottom = bottom,
                 SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
                 PipingSoilLayerEntities =
                 {
                     new PipingSoilLayerEntity
                     {
-                        Top = bottom + 0.5
+                        Top = random.NextDouble() + 0.5
                     },
                     new PipingSoilLayerEntity
                     {
-                        Top = bottom + 1.2
+                        Top = random.NextDouble() + 1.2
                     }
                 }
             };
@@ -186,10 +162,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             PipingSoilProfile profile = entity.Read(collector);
 
-            // Call
+            // When
             PipingSoilProfile secondProfile = entity.Read(collector);
 
-            // Assert
+            // Then
             Assert.AreSame(profile, secondProfile);
         }
     }

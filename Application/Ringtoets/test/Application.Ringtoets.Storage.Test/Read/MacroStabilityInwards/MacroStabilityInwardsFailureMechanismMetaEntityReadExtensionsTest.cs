@@ -75,19 +75,5 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Assert
             Assert.AreEqual(entity.A, input.A);
         }
-
-        [Test]
-        public void ReadMacroStabilityInwardsProbabilityAssessmentInput_NullProperty_SetMacroStabilityInwardsProbabilityAssessmentInputPropertiesAsNaN()
-        {
-            // Setup
-            var entity = new MacroStabilityInwardsFailureMechanismMetaEntity();
-            var input = new MacroStabilityInwardsProbabilityAssessmentInput();
-
-            // Call
-            entity.ReadProbabilityAssessmentInput(input);
-
-            // Assert
-            Assert.AreEqual(entity.A, input.A);
-        }
     }
 }

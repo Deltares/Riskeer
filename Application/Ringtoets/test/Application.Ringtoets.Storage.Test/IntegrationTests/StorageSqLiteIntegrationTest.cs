@@ -1205,7 +1205,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedFailureMechanism,
                                                          PipingFailureMechanism actualFailureMechanism)
         {
-            AssertProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
+            AssertPipingProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
             AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
@@ -1231,8 +1231,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      });
         }
 
-        private static void AssertProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel,
-                                                             PipingProbabilityAssessmentInput actualModel)
+        private static void AssertPipingProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel,
+                                                                   PipingProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
         }
@@ -1386,8 +1386,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertMacroStabilityInwardsFailureMechanism(MacroStabilityInwardsFailureMechanism expectedFailureMechanism,
                                                                         MacroStabilityInwardsFailureMechanism actualFailureMechanism)
         {
-            AssertProbabilityAssessmentInput(expectedFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput, actualFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
-            AssertMacroStabilityInwardsStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
+            AssertMacroStabilityInwardsProbabilityAssessmentInput(expectedFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
+                                                                  actualFailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
+            AssertMacroStabilityInwardsStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels,
+                                                            actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
             AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
@@ -1412,8 +1414,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      });
         }
 
-        private static void AssertProbabilityAssessmentInput(MacroStabilityInwardsProbabilityAssessmentInput expectedModel,
-                                                             MacroStabilityInwardsProbabilityAssessmentInput actualModel)
+        private static void AssertMacroStabilityInwardsProbabilityAssessmentInput(MacroStabilityInwardsProbabilityAssessmentInput expectedModel,
+                                                                                  MacroStabilityInwardsProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
         }

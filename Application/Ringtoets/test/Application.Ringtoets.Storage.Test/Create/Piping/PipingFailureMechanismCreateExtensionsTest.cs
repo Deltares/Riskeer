@@ -251,14 +251,14 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
             Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);
-            Assert.AreEqual(0, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
+            CollectionAssert.IsEmpty(entity.MacroStabilityInwardsCharacteristicPointEntities);
         }
 
         private static void AssertStochasticSoilModel(PipingStochasticSoilModel model, StochasticSoilModelEntity entity)
         {
             Assert.AreEqual(model.Name, entity.Name);
             Assert.AreEqual(model.StochasticSoilProfiles.Count, entity.PipingStochasticSoilProfileEntities.Count);
-            Assert.AreEqual(0, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
+            CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
         }
 
         private PipingSurfaceLine CreateSurfaceLine(Random random)

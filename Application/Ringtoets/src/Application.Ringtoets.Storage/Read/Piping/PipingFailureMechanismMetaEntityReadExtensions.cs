@@ -37,21 +37,22 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <see cref="PipingProbabilityAssessmentInput.A"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for A from.</param>
-        /// <param name="input">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
+        /// <param name="probabilityAssessmentInput">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
         /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity, PipingProbabilityAssessmentInput input)
+        public static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity, 
+            PipingProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            if (input == null)
+            if (probabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException(nameof(input));
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
             }
 
-            input.A = entity.A;
+            probabilityAssessmentInput.A = entity.A;
         }
 
         /// <summary>
@@ -60,21 +61,22 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// </summary>
         /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for
         /// WaterVolumetricWeight from.</param>
-        /// <param name="input">The <see cref="GeneralPipingInput"/> to set the 
+        /// <param name="generalPipingInput">The <see cref="GeneralPipingInput"/> to set the 
         /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity, GeneralPipingInput input)
+        public static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity, 
+            GeneralPipingInput generalPipingInput)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            if (input == null)
+            if (generalPipingInput == null)
             {
-                throw new ArgumentNullException(nameof(input));
+                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
-            input.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
+            generalPipingInput.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
         }
     }
 }
