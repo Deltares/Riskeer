@@ -570,6 +570,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             return builder
                 .AddExportItem()
                 .AddSeparator()
+                .AddDuplicateCalculationItem(calculation, nodeData)
+                .AddSeparator()
                 .AddRenameItem()
                 .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                             inquiryHelper,

@@ -25,12 +25,14 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -892,6 +894,39 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             CollectionAssert.AreEqual(expectedWaterLevels, waterLevels);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new WaveConditionsInput();
+
+            WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, WaveConditionsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new WaveConditionsInput();
+
+            WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
+
+            original.ForeshoreProfile = null;
+            original.HydraulicBoundaryLocation = null;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, WaveConditionsCloneAssert.AreClones);
         }
 
         private static void AssertForeshoreProfileInputProperties(ForeshoreProfile expectedForeshoreProfile,

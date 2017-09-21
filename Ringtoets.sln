@@ -1736,6 +1736,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Data.TestUtil", "Ringtoets\StabilityStoneCover\test\Ringtoets.StabilityStoneCover.Data.TestUtil\Ringtoets.StabilityStoneCover.Data.TestUtil.csproj", "{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -4376,6 +4381,16 @@ Global
 		{AF88C45B-6C4B-40E3-9B12-83F0FDCAB623}.Release|x86.Build.0 = Release|x86
 		{AF88C45B-6C4B-40E3-9B12-83F0FDCAB623}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{AF88C45B-6C4B-40E3-9B12-83F0FDCAB623}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.Debug|x86.ActiveCfg = Debug|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.Debug|x86.Build.0 = Debug|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.Release|x86.ActiveCfg = Release|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.Release|x86.Build.0 = Release|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4748,6 +4763,7 @@ Global
 		{C80AD710-0F84-40CE-9567-10CBE332E589} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{6F568E38-592A-4F99-A901-86B74C4F24D2} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{AF88C45B-6C4B-40E3-9B12-83F0FDCAB623} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
+		{B727E93A-74B2-467A-AE46-9A4E39ED4B5F} = {41023317-95BB-4147-8154-87B45837E752}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1

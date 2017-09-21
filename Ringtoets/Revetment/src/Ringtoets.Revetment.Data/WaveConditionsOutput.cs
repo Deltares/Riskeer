@@ -32,7 +32,7 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// The result of a wave conditions calculation.
     /// </summary>
-    public class WaveConditionsOutput : Observable, ICalculationOutput
+    public class WaveConditionsOutput : Observable, ICalculationOutput, ICloneable
     {
         private CalculationConvergence calculationConvergence;
         private double targetProbability;
@@ -81,37 +81,37 @@ namespace Ringtoets.Revetment.Data
         /// Gets the water level for which the calculation has been performed.
         /// [m+NAP]
         /// </summary>
-        public RoundedDouble WaterLevel { get; private set; }
+        public RoundedDouble WaterLevel { get; }
 
         /// <summary>
         /// Gets the calculated wave height.
         /// [m]
         /// </summary>
-        public RoundedDouble WaveHeight { get; private set; }
+        public RoundedDouble WaveHeight { get; }
 
         /// <summary>
         /// Gets the calculated wave peak period.
         /// [s]
         /// </summary>
-        public RoundedDouble WavePeakPeriod { get; private set; }
+        public RoundedDouble WavePeakPeriod { get; }
 
         /// <summary>
         /// Gets the calculated wave angle with respect to the dike normal.
         /// [deg]
         /// </summary>
-        public RoundedDouble WaveAngle { get; private set; }
+        public RoundedDouble WaveAngle { get; }
 
         /// <summary>
         /// Gets the calculated wave direction with respect to North.
         /// [deg] 
         /// </summary>
-        public RoundedDouble WaveDirection { get; private set; }
+        public RoundedDouble WaveDirection { get; }
 
         /// <summary>
         /// Gets the target beta.
         /// [-]
         /// </summary>
-        public RoundedDouble TargetReliability { get; private set; }
+        public RoundedDouble TargetReliability { get; }
 
         /// <summary>
         /// Gets the target probability.
@@ -136,7 +136,7 @@ namespace Ringtoets.Revetment.Data
         /// Gets the calculated beta.
         /// [-]
         /// </summary>
-        public RoundedDouble CalculatedReliability { get; private set; }
+        public RoundedDouble CalculatedReliability { get; }
 
         /// <summary>
         /// Gets the target probability.
@@ -177,6 +177,11 @@ namespace Ringtoets.Revetment.Data
 
                 calculationConvergence = value;
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

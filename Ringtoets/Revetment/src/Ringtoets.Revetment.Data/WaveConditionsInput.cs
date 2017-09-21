@@ -36,7 +36,7 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// Class that holds all wave conditions calculation specific input parameters.
     /// </summary>
-    public class WaveConditionsInput : Observable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+    public class WaveConditionsInput : Observable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile, ICloneable
     {
         private const double designWaterLevelSubstraction = 0.01;
         private const int orientationNumberOfDecimals = 2;
@@ -284,6 +284,15 @@ namespace Ringtoets.Revetment.Data
                            ? foreshoreProfile.Geometry
                            : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
             }
+        }
+
+        public object Clone()
+        {
+            var clone = (WaveConditionsInput) MemberwiseClone();
+
+            clone.BreakWater = (BreakWater) BreakWater.Clone();
+
+            return clone;
         }
 
         public void SynchronizeForeshoreProfileInput()

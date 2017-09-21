@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
@@ -30,7 +31,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// <summary>
     /// Container for the results of a stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsOutput : Observable, ICalculationOutput
+    public class StabilityStoneCoverWaveConditionsOutput : Observable, ICalculationOutput, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.
@@ -64,5 +65,15 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets the wave conditions output for blocks.
         /// </summary>
         public IEnumerable<WaveConditionsOutput> BlocksOutput { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (StabilityStoneCoverWaveConditionsOutput) MemberwiseClone();
+
+            clone.ColumnsOutput = ColumnsOutput.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+            clone.BlocksOutput = BlocksOutput.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+
+            return clone;
+        }
     }
 }

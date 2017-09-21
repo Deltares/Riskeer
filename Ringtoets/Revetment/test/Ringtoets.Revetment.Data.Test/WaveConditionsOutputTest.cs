@@ -22,11 +22,13 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -123,6 +125,19 @@ namespace Ringtoets.Revetment.Data.Test
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
                                                                                                                     expectedMessage).ParamName;
             Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            WaveConditionsOutput original = WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, WaveConditionsCloneAssert.AreClones);
         }
     }
 }

@@ -47,11 +47,11 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public StabilityStoneCoverWaveConditionsOutput Output { get; set; }
 
-        public WaveConditionsInput InputParameters { get; }
+        public WaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
-        public Comment Comments { get; }
+        public Comment Comments { get; private set; }
 
         public bool HasOutput
         {
@@ -68,7 +68,17 @@ namespace Ringtoets.StabilityStoneCover.Data
 
         public object Clone()
         {
-            throw new System.NotImplementedException();
+            var clone = (StabilityStoneCoverWaveConditionsCalculation) MemberwiseClone();
+
+            clone.Comments = (Comment) Comments.Clone();
+            clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (StabilityStoneCoverWaveConditionsOutput) Output.Clone();
+            }
+
+            return clone;
         }
     }
 }
