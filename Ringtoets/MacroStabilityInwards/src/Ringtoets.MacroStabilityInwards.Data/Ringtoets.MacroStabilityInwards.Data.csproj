@@ -39,6 +39,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="MacroStabilityInwardsGridOutput.cs" />
     <Compile Include="MacroStabilityInwardsGridDetermination.cs" />
     <Compile Include="MacroStabilityInwardsCalculation.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenario.cs" />
@@ -50,6 +51,10 @@
     <Compile Include="MacroStabilityInwardsOutput.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignValueFactory.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticOutput.cs" />
+    <Compile Include="MacroStabilityInwardsSlice.cs" />
+    <Compile Include="MacroStabilityInwardsSlidingCircle.cs" />
+    <Compile Include="MacroStabilityInwardsSlidingCurve.cs" />
+    <Compile Include="MacroStabilityInwardsSlipPlaneUpliftVan.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDetermination.cs" />
     <Compile Include="MacroStabilityInwardsZoningBoundariesDetermination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

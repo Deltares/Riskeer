@@ -21,19 +21,17 @@
 
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCircleResultTestFactoryTest
+    public class MacroStabilityInwardsSlidingCircleTestFactoryTest
     {
         [Test]
         public void Create_Always_ReturnCircleWithDefaultValues()
         {
             // Call
-            MacroStabilityInwardsSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            MacroStabilityInwardsSlidingCircle circle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
 
             // Assert
             Assert.AreEqual(new Point2D(0, 0), circle.Center);

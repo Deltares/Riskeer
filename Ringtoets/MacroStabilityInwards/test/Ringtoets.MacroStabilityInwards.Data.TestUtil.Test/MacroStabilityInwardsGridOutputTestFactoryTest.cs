@@ -19,30 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCircleResultTestFactoryTest
+    public class MacroStabilityInwardsGridOutputTestFactoryTest
     {
         [Test]
-        public void Create_Always_ReturnCircleWithDefaultValues()
+        public void Create_Always_ReturnGridWithDefaultValues()
         {
             // Call
-            MacroStabilityInwardsSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            MacroStabilityInwardsGridOutput grid = MacroStabilityInwardsGridOutputTestFactory.Create();
 
             // Assert
-            Assert.AreEqual(new Point2D(0, 0), circle.Center);
-            Assert.AreEqual(0.1, circle.Radius);
-            Assert.IsTrue(circle.IsActive);
-            Assert.AreEqual(0.2, circle.NonIteratedForce);
-            Assert.AreEqual(0.3, circle.IteratedForce);
-            Assert.AreEqual(0.4, circle.DrivingMoment);
-            Assert.AreEqual(0.5, circle.ResistingMoment);
+            Assert.AreEqual(0.1, grid.XLeft);
+            Assert.AreEqual(0.2, grid.XRight);
+            Assert.AreEqual(0.3, grid.ZTop);
+            Assert.AreEqual(0.4, grid.ZBottom);
+            Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
+            Assert.AreEqual(2, grid.NumberOfVerticalPoints);
         }
     }
 }

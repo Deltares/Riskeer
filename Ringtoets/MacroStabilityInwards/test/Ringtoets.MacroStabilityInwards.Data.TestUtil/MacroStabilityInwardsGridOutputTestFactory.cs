@@ -19,27 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsSlidingCurveResult"/>
+    /// Factory to create simple <see cref="MacroStabilityInwardsGridOutput"/>
     /// instances that can be used for testing.
     /// </summary>
-    public static class MacroStabilityInwardsSlidingCurveResultTestFactory
+    public class MacroStabilityInwardsGridOutputTestFactory
     {
         /// <summary>
-        /// Creates a new <see cref="MacroStabilityInwardsSlidingCurveResult"/>.
+        /// Creates a new <see cref="MacroStabilityInwardsGridOutput"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsSlidingCurveResult"/>.</returns>
-        public static MacroStabilityInwardsSlidingCurveResult Create()
+        /// <returns>The created <see cref="MacroStabilityInwardsGridOutput"/>.</returns>
+        public static MacroStabilityInwardsGridOutput Create()
         {
-            return new MacroStabilityInwardsSlidingCurveResult(
-                MacroStabilityInwardsSlidingCircleResultTestFactory.Create(),
-                MacroStabilityInwardsSlidingCircleResultTestFactory.Create(),
-                Enumerable.Empty<MacroStabilityInwardsSliceResult>(), 0, 0);
+            return new MacroStabilityInwardsGridOutput(0.1, 0.2, 0.3, 0.4, 1, 2);
         }
     }
 }

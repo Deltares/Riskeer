@@ -19,30 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
+using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
+namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCircleResultTestFactoryTest
+    public class MacroStabilityInwardsGridOutputTest
     {
         [Test]
-        public void Create_Always_ReturnCircleWithDefaultValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var random = new Random(21);
+            double xLeft = random.Next();
+            double xRight = random.Next();
+            double zTop = random.Next();
+            double zBottom = random.Next();
+            int nrOfHorizontalPoints = random.Next();
+            int nrOfVerticalPoints = random.Next();
+
             // Call
-            MacroStabilityInwardsSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            var grid = new MacroStabilityInwardsGridOutput(xLeft, xRight, zTop, zBottom, nrOfHorizontalPoints, nrOfVerticalPoints);
 
             // Assert
-            Assert.AreEqual(new Point2D(0, 0), circle.Center);
-            Assert.AreEqual(0.1, circle.Radius);
-            Assert.IsTrue(circle.IsActive);
-            Assert.AreEqual(0.2, circle.NonIteratedForce);
-            Assert.AreEqual(0.3, circle.IteratedForce);
-            Assert.AreEqual(0.4, circle.DrivingMoment);
-            Assert.AreEqual(0.5, circle.ResistingMoment);
+            Assert.AreEqual(xLeft, grid.XLeft);
+            Assert.AreEqual(xRight, grid.XRight);
+            Assert.AreEqual(zTop, grid.ZTop);
+            Assert.AreEqual(zBottom, grid.ZBottom);
+            Assert.AreEqual(nrOfHorizontalPoints, grid.NumberOfHorizontalPoints);
+            Assert.AreEqual(nrOfVerticalPoints, grid.NumberOfVerticalPoints);
         }
     }
 }

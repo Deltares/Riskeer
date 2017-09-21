@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
         /// Creates a new <see cref="MacroStabilityInwardsSlidingCircleResult"/>.
         /// </summary>
         /// <returns>The created <see cref="MacroStabilityInwardsSlidingCircleResult"/>.</returns>
-        public static MacroStabilityInwardsSlidingCircleResult CreateCircle()
+        public static MacroStabilityInwardsSlidingCircleResult Create()
         {
             return new MacroStabilityInwardsSlidingCircleResult(new Point2D(0, 0), 0.1, true, 0.2, 0.3, 0.4, 0.5);
         }
