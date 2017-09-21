@@ -26,6 +26,7 @@ using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -95,14 +96,17 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 IMacroStabilityInwardsCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsSubCalculatorFactory.Instance);
                 MacroStabilityInwardsCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
-                calculation.Output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+                calculation.Output = new MacroStabilityInwardsOutput(
+                    MacroStabilityInwardsCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurve),
+                    MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.UpliftVanCalculationGrid),
+                    new MacroStabilityInwardsOutput.ConstructionProperties
                 {
                     FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
                     ZValue = macroStabilityInwardsResult.ZValue,
                     ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax,
                     ForbiddenZonesAutomaticallyCalculated = macroStabilityInwardsResult.ForbiddenZonesAutomaticallyCalculated,
-                    GridAutomaticallyCalculated = macroStabilityInwardsResult.GridAutomaticallyCalculated,
+                    GridAutomaticallyCalculated = macroStabilityInwardsResult.GridAutomaticallyCalculated
                 });
             }
             finally

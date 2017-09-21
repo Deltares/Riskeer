@@ -27,9 +27,22 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     /// <seealso cref="MacroStabilityInwardsOutput" />
     public class TestMacroStabilityInwardsOutput : MacroStabilityInwardsOutput
     {
-        public TestMacroStabilityInwardsOutput() : base(new ConstructionProperties
+        public TestMacroStabilityInwardsOutput()
+            : this(new ConstructionProperties
+                   {
+                       FactorOfStability = 1.1
+                   }) {}
+
+        public TestMacroStabilityInwardsOutput(ConstructionProperties properties)
+            : base (new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                         MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                         new MacroStabilityInwardsSlice[0], 0, 0),
+                   new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                               MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                               new double[0]),
+                   properties)
         {
-            FactorOfStability = 1.1
-        }) {}
+            
+        }
     }
 }

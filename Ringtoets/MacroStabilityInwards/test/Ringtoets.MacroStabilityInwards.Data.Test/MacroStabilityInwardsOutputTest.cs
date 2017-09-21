@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -31,10 +32,51 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     public class MacroStabilityInwardsOutputTest
     {
         [Test]
+        public void Constructor_SlidingCurveNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        new double[0]);
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsOutput(null, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("slidingCurve", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_SlipPlaneNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsOutput(slidingCurve, null,
+                                                                      new MacroStabilityInwardsOutput.ConstructionProperties());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("slipPlane", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        new double[0]);
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutput(null);
+            TestDelegate call = () => new MacroStabilityInwardsOutput(slidingCurve, slipPlane, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -42,10 +84,39 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        public void Constructor_WithParameters_ExpectedValues()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        new double[0]);
+
+            // Call
+            var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
+            
+            // Assert
+            Assert.AreSame(slidingCurve, output.SlidingCurve);
+            Assert.AreSame(slipPlane, output.SlipPlane);
+        }
+
+        [Test]
         public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
         {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        new double[0]);
+
             // Call
-            var output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
+            var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
 
             // Assert
             Assert.IsNaN(output.FactorOfStability);
@@ -60,6 +131,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        MacroStabilityInwardsGridOutputTestFactory.Create(),
+                                                                        new double[0]);
+
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
             double zValue = random.NextDouble();
@@ -79,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            var output = new MacroStabilityInwardsOutput(properties);
+            var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, properties);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);

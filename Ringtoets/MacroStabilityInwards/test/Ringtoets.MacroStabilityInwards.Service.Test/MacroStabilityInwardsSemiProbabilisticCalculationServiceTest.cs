@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {
@@ -74,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                              double expectedResult)
         {
             // Setup
-            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
+            var calculatorResult = new TestMacroStabilityInwardsOutput();
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -100,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                              double contribution)
         {
             // Setup
-            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
+            var calculatorResult = new TestMacroStabilityInwardsOutput();
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -131,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             [Values(12, 24)] double contribution)
         {
             // Setup
-            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
+            var calculatorResult = new TestMacroStabilityInwardsOutput();
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput
             {
                 SectionLength = assessmentSectionLength
@@ -158,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var random = new Random(21);
-            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+            var calculatorResult = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = factorOfStability
             });
@@ -187,7 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var random = new Random(21);
-            var calculatorResult = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+            var calculatorResult = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = factorOfStability
             });

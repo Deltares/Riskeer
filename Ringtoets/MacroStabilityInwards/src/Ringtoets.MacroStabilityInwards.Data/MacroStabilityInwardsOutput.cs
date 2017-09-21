@@ -33,16 +33,31 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
+        /// <param name="slidingCurve">The sliding curve result.</param>
+        /// <param name="slipPlane">The slip plane uplift Van result.</param>
         /// <param name="properties">The container of the properties for the
         /// <see cref="MacroStabilityInwardsOutput"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="properties"/>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsOutput(ConstructionProperties properties)
+        public MacroStabilityInwardsOutput(MacroStabilityInwardsSlidingCurve slidingCurve,
+                                           MacroStabilityInwardsSlipPlaneUpliftVan slipPlane,
+                                           ConstructionProperties properties)
         {
+            if (slidingCurve == null)
+            {
+                throw new ArgumentNullException(nameof(slidingCurve));
+            }
+            if (slipPlane == null)
+            {
+                throw new ArgumentNullException(nameof(slipPlane));
+            }
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
+            SlidingCurve = slidingCurve;
+            SlipPlane = slipPlane;
 
             FactorOfStability = properties.FactorOfStability;
             ZValue = properties.ZValue;
@@ -53,6 +68,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         #region properties
+
+        /// <summary>
+        /// Gets the sliding curve.
+        /// </summary>
+        public MacroStabilityInwardsSlidingCurve SlidingCurve { get; }
+
+        /// <summary>
+        /// Gets the slip plane.
+        /// </summary>
+        public MacroStabilityInwardsSlipPlaneUpliftVan SlipPlane { get; }
 
         /// <summary>
         /// Gets the factor of stability of the upliftVan calculation.
