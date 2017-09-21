@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class PreconsolidationStressReadValuesTest
     {
         [Test]
-        public void PreconsolidationStressProperties_ReaderNull_ThrowsArgumentNullException()
+        public void PreconsolidationStressReadValues_ReaderNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new PreconsolidationStressReadValues(null, string.Empty);
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void PreconsolidationStressProperties_ProfileNameNull_ThrowsArgumentNullException()
+        public void PreconsolidationStressReadValues_ProfileNameNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void PreconsolidationStressProperties_WithReaderAndProfileName_SetProperties()
+        public void PreconsolidationStressReadValues_WithReaderAndProfileName_SetProperties()
         {
             // Setup
             var random = new Random(42);
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
         [Test]
         [TestCaseSource(nameof(PreconsolidationStressProperties))]
-        public void LayerProperties_ReaderThrowsInvalidCastException_ThrowsSoilProfileReadException(string columnName)
+        public void PreconsolidationStressReadValues_ReaderThrowsInvalidCastException_ThrowsSoilProfileReadException(string columnName)
         {
             // Setup
             const string path = "path";

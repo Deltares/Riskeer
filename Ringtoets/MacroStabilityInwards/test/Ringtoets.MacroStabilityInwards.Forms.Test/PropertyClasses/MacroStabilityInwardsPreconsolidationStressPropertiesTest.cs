@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -63,14 +64,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsPreconsolidationStress>>(properties);
             Assert.AreSame(stress, properties.Data);
 
-            Assert.AreEqual(new RoundedDouble(2, stress.XCoordinate), properties.XCoordinate);
-            Assert.AreEqual(new RoundedDouble(2, stress.ZCoordinate), properties.ZCoordinate);
+            Assert.AreEqual(2, properties.XCoordinate.NumberOfDecimalPlaces);
+            Assert.AreEqual(stress.XCoordinate, properties.XCoordinate, properties.XCoordinate.GetAccuracy());
+            Assert.AreEqual(2, properties.ZCoordinate.NumberOfDecimalPlaces);
+            Assert.AreEqual(stress.ZCoordinate, properties.ZCoordinate, properties.ZCoordinate.GetAccuracy());
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.PreconsolidationStress);
-            Assert.AreEqual(new RoundedDouble(2, stress.PreconsolidationStressMean),
-                            properties.PreconsolidationStress.Mean);
-            Assert.AreEqual(new RoundedDouble(2, stress.PreconsolidationStressCoefficientOfVariation),
-                            properties.PreconsolidationStress.CoefficientOfVariation);
+            Assert.AreEqual(2, properties.PreconsolidationStress.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(stress.PreconsolidationStressMean, properties.PreconsolidationStress.Mean,
+                            properties.PreconsolidationStress.Mean.GetAccuracy());
+            Assert.AreEqual(2, properties.PreconsolidationStress.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(stress.PreconsolidationStressCoefficientOfVariation, properties.PreconsolidationStress.CoefficientOfVariation,
+                            properties.PreconsolidationStress.CoefficientOfVariation.GetAccuracy());
         }
 
         [Test]

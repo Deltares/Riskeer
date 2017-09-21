@@ -396,8 +396,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "SELECT " +
                 "sp2d.SP2D_Name AS ProfileName, " +
                 "SP2D_ID AS SoilProfileId, " +
-                "X AS PreconsolidationStressXCoordinate, " +
-                "Z AS PreconsolidationStressZCoordinate, " +
+                "ps.X AS PreconsolidationStressXCoordinate, " +
+                "ps.Z AS PreconsolidationStressZCoordinate, " +
                 "s.ST_Dist_Type AS PreconsolidationStressDistributionType, " +
                 "s.ST_Mean AS PreconsolidationStressMean, " +
                 "s.ST_Variation AS PreconsolidationStressCoefficientOfVariation, " +

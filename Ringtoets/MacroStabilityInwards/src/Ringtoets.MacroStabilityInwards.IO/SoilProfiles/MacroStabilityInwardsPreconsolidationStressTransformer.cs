@@ -23,7 +23,7 @@ using System;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.MacroStabilityInwards.IO.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -54,8 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(preconsolidationStress.PreconsolidationStressDistributionType,
-                                                                      preconsolidationStress.PreconsolidationStressShift,
-                                                                      RingtoetsCommonDataResources.PreconsolidationStress_Name);
+                                                             preconsolidationStress.PreconsolidationStressShift,
+                                                             Resources.PreconsolidationStress_DisplayName);
 
             try
             {

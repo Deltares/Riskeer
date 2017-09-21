@@ -47,7 +47,6 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;

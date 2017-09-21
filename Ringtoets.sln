@@ -1717,12 +1717,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.GraphSharp.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Primitives.TestUtil", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj", "{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test.csproj", "{C80AD710-0F84-40CE-9567-10CBE332E589}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Primitives.TestUtil\Ringtoets.Piping.Primitives.TestUtil.csproj", "{6F568E38-592A-4F99-A901-86B74C4F24D2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Primitives.TestUtil.Test\Ringtoets.Piping.Primitives.TestUtil.Test.csproj", "{AF88C45B-6C4B-40E3-9B12-83F0FDCAB623}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

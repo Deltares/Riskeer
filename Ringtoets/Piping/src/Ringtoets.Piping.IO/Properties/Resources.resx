@@ -126,13 +126,13 @@
   <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
     <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
   </data>
-  <data name="SoilLayer_BelowPhreaticLevelDistribution_Description" xml:space="preserve">
+  <data name="SoilLayer_BelowPhreaticLevelDistribution_DisplayName" xml:space="preserve">
     <value>Verzadigd gewicht</value>
   </data>
-  <data name="SoilLayer_DiameterD70Distribution_Description" xml:space="preserve">
+  <data name="SoilLayer_DiameterD70Distribution_DisplayName" xml:space="preserve">
     <value>Korrelgrootte</value>
   </data>
-  <data name="SoilLayer_PermeabilityDistribution_Description" xml:space="preserve">
+  <data name="SoilLayer_PermeabilityDistribution_DisplayName" xml:space="preserve">
     <value>Doorlatendheid</value>
   </data>
   <data name="PipingCalculationConfigurationImporter_ReadSurfaceLine_SurfaceLine_0_does_not_exist" xml:space="preserve">

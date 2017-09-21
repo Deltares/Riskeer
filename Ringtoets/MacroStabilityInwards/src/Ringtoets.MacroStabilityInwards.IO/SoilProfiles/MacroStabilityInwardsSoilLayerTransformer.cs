@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             catch (NotSupportedException)
             {
                 throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_Name));
+                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_DisplayName));
             }
         }
 
@@ -249,32 +249,32 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             DistributionHelper.ValidateIsLogNormal(
                 soilLayer.BelowPhreaticLevelDistributionType,
-                Resources.SoilLayerProperties_BelowPhreaticLevelDistribution_Description);
+                Resources.SoilLayerProperties_BelowPhreaticLevelDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.CohesionDistributionType,
                 soilLayer.CohesionShift,
-                Resources.SoilLayerProperties_CohesionDistribution_Description);
+                Resources.SoilLayerProperties_CohesionDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.FrictionAngleDistributionType,
                 soilLayer.FrictionAngleShift,
-                Resources.SoilLayerProperties_FrictionAngleDistribution_Description);
+                Resources.SoilLayerProperties_FrictionAngleDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.ShearStrengthRatioDistributionType,
                 soilLayer.ShearStrengthRatioShift,
-                Resources.SoilLayerProperties_ShearStrengthRatioDistribution_Description);
+                Resources.SoilLayerProperties_ShearStrengthRatioDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.StrengthIncreaseExponentDistributionType,
                 soilLayer.StrengthIncreaseExponentShift,
-                Resources.SoilLayerProperties_StrengthIncreaseExponentDistribution_Description);
+                Resources.SoilLayerProperties_StrengthIncreaseExponentDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.PopDistributionType,
                 soilLayer.PopShift,
-                Resources.SoilLayerProperties_PopDistribution_Description);
+                Resources.SoilLayerProperties_PopDistribution_DisplayName);
         }
     }
 }

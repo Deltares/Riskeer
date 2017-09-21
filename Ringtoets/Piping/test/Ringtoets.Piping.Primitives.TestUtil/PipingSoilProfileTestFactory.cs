@@ -31,9 +31,9 @@ namespace Ringtoets.Piping.Primitives.TestUtil
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="Ringtoets.Piping.Primitives.SoilProfileType.SoilProfile1D"/>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         /// <param name="name">The name to set for the <see cref="PipingSoilProfile"/>.</param>
@@ -48,9 +48,9 @@ namespace Ringtoets.Piping.Primitives.TestUtil
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to "name";</item>
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="Ringtoets.Piping.Primitives.SoilProfileType.SoilProfile1D"/>.</item>
+        /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <see cref="SoilProfileType.SoilProfile1D"/>.</item>
         /// </list>
         /// </summary>
         /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Primitives.TestUtil
         /// <list type="bullet">
         /// <item><see cref="PipingSoilProfile.Name"/> set to <paramref name="name"/>;</item>
         /// <item><see cref="PipingSoilProfile.Bottom"/> set to <c>0.0</c>;</item>
-        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
+        /// <item><see cref="PipingSoilProfile.Layers"/> set to a collection with a single <see cref="PipingSoilLayer"/>
         /// with <see cref="PipingSoilLayer.Top"/> set to <c>0.0</c>;</item>
         /// <item><see cref="PipingSoilProfile.SoilProfileSourceType"/> set to <paramref name="soilProfileType"/>.</item>
         /// </list>

@@ -153,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stabilityFactorProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Stabiliteitsfactor [-]",
-                                                                            "Het quotiënt van de weerstandbiedende- en aadrijvende krachten langs een glijvlak.",
+                                                                            "Het quotiënt van de weerstandbiedende- en aandrijvende krachten langs een glijvlak.",
                                                                             true);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[1];

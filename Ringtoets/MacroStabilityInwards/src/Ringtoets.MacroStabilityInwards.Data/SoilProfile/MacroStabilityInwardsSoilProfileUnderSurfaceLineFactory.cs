@@ -131,8 +131,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return props;
         }
 
-        private static MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine ToPreconsolidationStressUnderSurfaceLine
-            (MacroStabilityInwardsPreconsolidationStress preconsolidationStress)
+        private static MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine ToPreconsolidationStressUnderSurfaceLine(
+            MacroStabilityInwardsPreconsolidationStress preconsolidationStress)
         {
             var macroStabilityInwardsPreconsolidationStressUnderSurfaceLine = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
                 new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties

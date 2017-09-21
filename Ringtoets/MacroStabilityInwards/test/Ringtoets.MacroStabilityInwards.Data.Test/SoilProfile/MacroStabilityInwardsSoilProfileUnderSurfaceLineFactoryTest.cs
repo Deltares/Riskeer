@@ -407,7 +407,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void SoilProfile1DCreate_Always_ReturnsEmptyPreconsolidationStresses()
+        public void SoilProfile1DCreate_ValidSoilProfile1D_ReturnsEmptyPreconsolidationStresses()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);

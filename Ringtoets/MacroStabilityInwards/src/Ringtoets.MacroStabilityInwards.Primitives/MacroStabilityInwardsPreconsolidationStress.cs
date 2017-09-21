@@ -70,13 +70,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         /// <summary>
         /// Gets the value representing the mean of the distribution for the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public double PreconsolidationStressMean { get; }
 
         /// <summary>
         /// Gets the value representing the coefficient of variation of the distribution for the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public double PreconsolidationStressCoefficientOfVariation { get; }
 

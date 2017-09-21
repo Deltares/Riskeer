@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> to obtain
         /// the preconsolidation stress properties from.</param>
         /// <param name="profileName">The profile name used for generating exception messages
-        /// if reading property vailes fails.</param>
+        /// if reading property values fails.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the parameters
         /// are <c>null</c>.</exception>
         /// <exception cref="SoilProfileReadException">Thrown when the values in the database
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Gets the value representing the mean of the distribution for the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public double? PreconsolidationStressMean { get; }
 

@@ -1687,9 +1687,9 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is aquifer.
         /// </summary>
-        public static string SoilLayerProperties_IsAquifer_Name {
+        public static string SoilLayerProperties_IsAquifer_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_IsAquifer_Name", resourceCulture);
+                return ResourceManager.GetString("SoilLayerProperties_IsAquifer_DisplayName", resourceCulture);
             }
         }
         

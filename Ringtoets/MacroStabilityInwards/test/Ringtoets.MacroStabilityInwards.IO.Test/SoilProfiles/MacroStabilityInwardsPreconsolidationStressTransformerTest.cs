@@ -126,6 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             yield return new TestCaseData(new PreconsolidationStress
             {
+                XCoordinate = double.NaN,
                 ZCoordinate = zCoordinate,
                 PreconsolidationStressMean = preconsolidationStressMean,
                 PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
@@ -133,6 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
+                ZCoordinate = double.NaN,
                 PreconsolidationStressMean = preconsolidationStressMean,
                 PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
             }, "Z-coördinaat").SetName("Invalid ZCoordinate");
@@ -140,13 +142,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = zCoordinate,
+                PreconsolidationStressMean = double.NaN,
                 PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
             }, "gemiddelde").SetName("Invalid Mean");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = zCoordinate,
-                PreconsolidationStressMean = preconsolidationStressMean
+                PreconsolidationStressMean = preconsolidationStressMean,
+                PreconsolidationStressCoefficientOfVariation = double.NaN
             }, "variatiecoëfficient").SetName("Invalid Coefficient of Variation");
         }
     }

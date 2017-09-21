@@ -36,7 +36,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.Forms.Test.Views

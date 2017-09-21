@@ -126,15 +126,15 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         {
             DistributionHelper.ValidateIsLogNormal(
                 soilLayer.BelowPhreaticLevelDistributionType,
-                Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
+                Resources.SoilLayer_BelowPhreaticLevelDistribution_DisplayName);
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.DiameterD70DistributionType,
                 soilLayer.DiameterD70Shift,
-                Resources.SoilLayer_DiameterD70Distribution_Description);
+                Resources.SoilLayer_DiameterD70Distribution_DisplayName);
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.PermeabilityDistributionType,
                 soilLayer.PermeabilityShift,
-                Resources.SoilLayer_PermeabilityDistribution_Description);
+                Resources.SoilLayer_PermeabilityDistribution_DisplayName);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             catch (NotSupportedException)
             {
                 throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_Name));
+                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_DisplayName));
             }
         }
     }

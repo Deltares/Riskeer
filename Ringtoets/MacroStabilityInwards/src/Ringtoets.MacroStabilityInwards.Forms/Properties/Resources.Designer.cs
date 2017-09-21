@@ -537,7 +537,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het quotiënt van de weerstandbiedende- en aadrijvende krachten langs een glijvlak..
+        ///   Looks up a localized string similar to Het quotiënt van de weerstandbiedende- en aandrijvende krachten langs een glijvlak..
         /// </summary>
         public static string MacroStabilityInwardsOutputContext_FactorOfStability_Description {
             get {

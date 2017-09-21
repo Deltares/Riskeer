@@ -201,27 +201,27 @@ namespace Ringtoets.Piping.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verzadigd gewicht.
         /// </summary>
-        public static string SoilLayer_BelowPhreaticLevelDistribution_Description {
+        public static string SoilLayer_BelowPhreaticLevelDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayer_BelowPhreaticLevelDistribution_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayer_BelowPhreaticLevelDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Korrelgrootte.
         /// </summary>
-        public static string SoilLayer_DiameterD70Distribution_Description {
+        public static string SoilLayer_DiameterD70Distribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayer_DiameterD70Distribution_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayer_DiameterD70Distribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Doorlatendheid.
         /// </summary>
-        public static string SoilLayer_PermeabilityDistribution_Description {
+        public static string SoilLayer_PermeabilityDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayer_PermeabilityDistribution_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayer_PermeabilityDistribution_DisplayName", resourceCulture);
             }
         }
         
