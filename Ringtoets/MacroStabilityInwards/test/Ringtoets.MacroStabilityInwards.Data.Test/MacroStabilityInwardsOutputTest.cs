@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 
@@ -48,6 +49,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsNaN(output.FactorOfStability);
+            Assert.IsNaN(output.ZValue);
+            Assert.IsNaN(output.ForbiddenZonesXEntryMin);
+            Assert.IsNaN(output.ForbiddenZonesXEntryMax);
+            Assert.IsFalse(output.ForbiddenZonesAutomaticallyCalculated);
+            Assert.IsFalse(output.GridAutomaticallyCalculated);
         }
 
         [Test]
@@ -56,10 +62,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
+            double zValue = random.NextDouble();
+            double xEntryMin = random.NextDouble();
+            double xEntryMax = random.NextDouble();
+            bool forbiddenZonesAutomaticallyCalculated = random.NextBoolean();
+            bool gridAutomaticallyCalculated = random.NextBoolean();
 
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties
             {
-                FactorOfStability = factorOfStability
+                FactorOfStability = factorOfStability,
+                ZValue = zValue,
+                ForbiddenZonesXEntryMin = xEntryMin,
+                ForbiddenZonesXEntryMax = xEntryMax,
+                ForbiddenZonesAutomaticallyCalculated = forbiddenZonesAutomaticallyCalculated,
+                GridAutomaticallyCalculated = gridAutomaticallyCalculated
             };
 
             // Call
@@ -70,6 +86,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsInstanceOf<ICalculationOutput>(output);
 
             Assert.AreEqual(factorOfStability, output.FactorOfStability);
+            Assert.AreEqual(zValue, output.ZValue);
+            Assert.AreEqual(xEntryMin, output.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(xEntryMax, output.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(forbiddenZonesAutomaticallyCalculated, output.ForbiddenZonesAutomaticallyCalculated);
+            Assert.AreEqual(gridAutomaticallyCalculated, output.GridAutomaticallyCalculated);
         }
     }
 }

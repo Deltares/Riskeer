@@ -97,7 +97,12 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
                 calculation.Output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
                 {
-                    FactorOfStability = macroStabilityInwardsResult.FactorOfStability
+                    FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
+                    ZValue = macroStabilityInwardsResult.ZValue,
+                    ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
+                    ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax,
+                    ForbiddenZonesAutomaticallyCalculated = macroStabilityInwardsResult.ForbiddenZonesAutomaticallyCalculated,
+                    GridAutomaticallyCalculated = macroStabilityInwardsResult.GridAutomaticallyCalculated,
                 });
             }
             finally
