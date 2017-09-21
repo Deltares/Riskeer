@@ -41,8 +41,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
         [Test]
         public void CreateGraphNode_IllustrationPointNull_ThrowsArgumentNullException()
         {
-            // Setup
-
             // Call
             TestDelegate test = () => RingtoetsGraphNodeFactory.CreateGraphNode(null, Enumerable.Empty<GraphNode>());
 

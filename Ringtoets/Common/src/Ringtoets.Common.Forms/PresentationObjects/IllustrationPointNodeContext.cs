@@ -37,8 +37,8 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="closingSituation">The closing situation of the illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
         public IllustrationPointNodeContext(IllustrationPointNode illustrationPointNode,
-                                                     string windDirectionName,
-                                                     string closingSituation)
+                                            string windDirectionName,
+                                            string closingSituation)
         {
             if (illustrationPointNode == null)
             {

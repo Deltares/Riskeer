@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.Views
         /// is not of type <see cref="FaultTreeIllustrationPoint"/> or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private GraphNode RegisterNode(IllustrationPointNode node)
         {
-            List<GraphNode> childNodes = node.Children.Select(RegisterNode).ToList();
+            GraphNode[] childNodes = node.Children.Select(RegisterNode).ToArray();
 
             GraphNode graphNode = RingtoetsGraphNodeFactory.CreateGraphNode(node.Data, childNodes);
             drawnNodes.Add(new DrawnIllustrationPointNode
