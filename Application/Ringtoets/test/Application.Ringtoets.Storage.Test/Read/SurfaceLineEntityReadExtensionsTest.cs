@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithoutGeometryPointEntities_ReturnSurfaceLine()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithoutGeometryPointXml_ReturnSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithGeometryPointEntitiesButNoCharacteristicPoints_ReturnSurfaceLineWithGeometry()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithGeometryPointXmlButNoCharacteristicPoints_ReturnSurfaceLineWithGeometry()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithGeometryPointEntitiesAndCharacteristicPoints_ReturnFullSurfaceLine()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithGeometryPointXmlAndCharacteristicPoints_ReturnFullSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -206,7 +206,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingSurfaceLine_FullSurfaceLineEntity_ReturnFullSurfaceLine()
+        public void ReadAsPipingSurfaceLine_SurfaceLineEntityWithPointsAndAllCharacteristicPointsSetToSamePoint_ReturnsExpectedSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -260,27 +260,22 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var random = new Random(31);
-
             var point3D = new Point3D(double.NaN, double.NaN, double.NaN);
-            var points = new[]
-            {
-                point3D,
-                CreatePoint3D(random)
-            };
-
             var entity = new SurfaceLineEntity
             {
                 Name = "name",
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DXmlSerializer().ToXml(new[]
+                {
+                    point3D
+                }),
                 PipingCharacteristicPointEntities =
                 {
-                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchDikeSide),
-                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchPolderSide),
-                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DikeToeAtPolder),
-                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DikeToeAtRiver),
-                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DitchDikeSide),
-                    CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.DitchPolderSide)
+                    CreatePipingCharacteristicPointEntity(point3D, PipingCharacteristicPointType.BottomDitchDikeSide),
+                    CreatePipingCharacteristicPointEntity(point3D, PipingCharacteristicPointType.BottomDitchPolderSide),
+                    CreatePipingCharacteristicPointEntity(point3D, PipingCharacteristicPointType.DikeToeAtPolder),
+                    CreatePipingCharacteristicPointEntity(point3D, PipingCharacteristicPointType.DikeToeAtRiver),
+                    CreatePipingCharacteristicPointEntity(point3D, PipingCharacteristicPointType.DitchDikeSide),
+                    CreatePipingCharacteristicPointEntity(point3D, PipingCharacteristicPointType.DitchPolderSide)
                 }
             };
 
@@ -292,10 +287,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.IsNaN(surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
-            Point3D[] geometry = surfaceLine.Points.ToArray();
-            Assert.AreEqual(2, geometry.Length);
-            Point3D geometryPoint = geometry[0];
-
+            Point3D geometryPoint = surfaceLine.Points.Single();
             Assert.AreSame(geometryPoint, surfaceLine.BottomDitchDikeSide);
             Assert.AreSame(geometryPoint, surfaceLine.BottomDitchPolderSide);
             Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtPolder);
@@ -370,7 +362,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithoutGeometryPointEntities_ReturnSurfaceLine()
+        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithoutGeometryPointXml_ReturnSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -411,7 +403,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithGeometryPointEntitiesButNoCharacteristicPoints_ReturnSurfaceLineWithGeometry()
+        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithGeometryPointXmlButNoCharacteristicPoints_ReturnSurfaceLineWithGeometry()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -459,7 +451,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithGeometryPointEntitiesAndCharacteristicPoints_ReturnFullSurfaceLine()
+        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithGeometryPointXmlAndCharacteristicPoints_ReturnFullSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -519,7 +511,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsSurfaceLine_FullSurfaceLineEntity_ReturnFullSurfaceLine()
+        public void ReadAsMacroStabilityInwardsSurfaceLine_SurfaceLineEntityWithPointsAndAllCharacteristicPointsSetToSamePoint_ReturnsExpectedSurfaceLine()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -589,35 +581,30 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var collector = new ReadConversionCollector();
-            var random = new Random(31);
-
             var point3D = new Point3D(double.NaN, double.NaN, double.NaN);
-            var points = new[]
-            {
-                point3D,
-                CreatePoint3D(random)
-            };
-
             var entity = new SurfaceLineEntity
             {
                 Name = "name",
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DXmlSerializer().ToXml(new[]
+                {
+                    point3D
+                }),
                 MacroStabilityInwardsCharacteristicPointEntities =
                 {
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.ShoulderTopInside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeToeAtPolder),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DitchDikeSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.BottomDitchDikeSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.BottomDitchPolderSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DitchPolderSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside)
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.ShoulderTopInside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeToeAtPolder),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DitchDikeSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.BottomDitchDikeSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.BottomDitchPolderSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DitchPolderSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside)
                 }
             };
 
@@ -629,10 +616,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.IsNaN(surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
-            Point3D[] geometry = surfaceLine.Points.ToArray();
-            Assert.AreEqual(2, geometry.Length);
-            Point3D geometryPoint = geometry[0];
-
+            Point3D geometryPoint = surfaceLine.Points.Single();
             Assert.AreSame(geometryPoint, surfaceLine.SurfaceLevelOutside);
             Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtRiver);
             Assert.AreSame(geometryPoint, surfaceLine.TrafficLoadOutside);

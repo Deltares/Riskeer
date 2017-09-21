@@ -28,7 +28,8 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Application.Ringtoets.Storage.TestUtil
 {
     /// <summary>
-    /// Factory for creating a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> used for testing.
+    /// Factory for creating a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> that can 
+    /// be used for testing.
     /// </summary>
     public static class MacroStabilityInwardsSoilLayerTwoDEntityTestFactory
     {

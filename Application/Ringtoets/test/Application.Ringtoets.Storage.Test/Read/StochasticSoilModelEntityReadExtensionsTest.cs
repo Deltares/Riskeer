@@ -82,13 +82,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingStochasticSoilModel_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSet()
+        public void ReadAsPipingStochasticSoilModel_WithMinimumEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup
-            const string testName = "testName";
             var entity = new StochasticSoilModelEntity
             {
-                Name = testName,
+                Name = "testName",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var collector = new ReadConversionCollector();
@@ -98,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(model);
-            Assert.AreEqual(testName, model.Name);
+            Assert.AreEqual(entity.Name, model.Name);
             CollectionAssert.IsEmpty(model.Geometry);
             CollectionAssert.IsEmpty(model.StochasticSoilProfiles);
         }
@@ -145,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(entity.PipingStochasticSoilProfileEntities.Count, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEqual(new[]
             {
                 "B",
@@ -154,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingStochasticSoilModel_WithStochasticSoilModelSegmentPointEntity_ReturnsNewStochasticSoilModelWithGeometryPoints()
+        public void ReadAsPipingStochasticSoilModel_WithStochasticSoilModelSegmentPointXml_ReturnsNewStochasticSoilModelWithGeometryPoints()
         {
             // Setup
             var segmentPoints = new[]
@@ -244,13 +243,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSet()
+        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithMinimumEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup
-            const string testName = "testName";
             var entity = new StochasticSoilModelEntity
             {
-                Name = testName,
+                Name = "testName",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var collector = new ReadConversionCollector();
@@ -260,7 +258,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(model);
-            Assert.AreEqual(testName, model.Name);
+            Assert.AreEqual(entity.Name, model.Name);
+            CollectionAssert.IsEmpty(model.Geometry);
+            CollectionAssert.IsEmpty(model.StochasticSoilProfiles);
         }
 
         [Test]
@@ -305,7 +305,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             MacroStabilityInwardsStochasticSoilModel model = entity.ReadAsMacroStabilityInwardsStochasticSoilModel(collector);
 
             // Assert
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count,
+                            model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEqual(new[]
             {
                 "B",
@@ -314,7 +315,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithStochasticSoilModelSegmentPointEntity_ReturnsNewStochasticSoilModelWithGeometryPoints()
+        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithStochasticSoilModelSegmentPointXml_ReturnsNewStochasticSoilModelWithGeometryPoints()
         {
             // Setup
             var segmentPoints = new[]

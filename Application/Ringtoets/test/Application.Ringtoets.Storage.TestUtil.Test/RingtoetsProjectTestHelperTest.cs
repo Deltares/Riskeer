@@ -157,8 +157,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
             Assert.AreEqual(0.3, stochasticSoilProfile1.Probability);
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(stochasticSoilProfile1.SoilProfile);
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
             Assert.AreEqual(0.7, stochasticSoilProfile2.Probability);
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(stochasticSoilProfile2.SoilProfile);
 
             Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count);
