@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
@@ -34,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     /// This class represents a combination of macro stability inwards sub calculations, which together can be used
     /// to assess based on macro stability inwards.
     /// </summary>
-    public class MacroStabilityInwardsCalculator
+    public class MacroStabilityInwardsCalculator : IMacroStabilityInwardsCalculator
     {
         private readonly MacroStabilityInwardsCalculatorInput input;
         private readonly IMacroStabilityInwardsSubCalculatorFactory factory;
@@ -61,33 +60,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             this.factory = factory;
         }
 
-        /// <summary>
-        /// Performs the actual sub calculations and returns a <see cref="MacroStabilityInwardsCalculatorResult"/>, which
-        /// contains the results of all sub calculations.
-        /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculatorResult"/> containing the results of the sub calculations.</returns>
         public MacroStabilityInwardsCalculatorResult Calculate()
         {
             IUpliftVanCalculator upliftVanCalculator = CalculateUpliftVan();
 
             return new MacroStabilityInwardsCalculatorResult(
-                MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanCalculator.SlidingCurve),
+                MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanCalculator.SlidingCurveResult),
                 null,
                 new MacroStabilityInwardsCalculatorResult.ConstructionProperties
-            {
-                FactorOfStability = upliftVanCalculator.FactoryOfStability,
-                ZValue = upliftVanCalculator.ZValue,
-                ForbiddenZonesXEntryMin = upliftVanCalculator.ForbiddenZonesXEntryMin,
-                ForbiddenZonesXEntryMax = upliftVanCalculator.ForbiddenZonesXEntryMax,
-                ForbiddenZonesAutomaticallyCalculated = upliftVanCalculator.ForbiddenZonesAutomaticallyCalculated,
-                GridAutomaticallyCalculated = upliftVanCalculator.GridAutomaticallyCalculated
-            });
+                {
+                    FactorOfStability = upliftVanCalculator.FactoryOfStability,
+                    ZValue = upliftVanCalculator.ZValue,
+                    ForbiddenZonesXEntryMin = upliftVanCalculator.ForbiddenZonesXEntryMin,
+                    ForbiddenZonesXEntryMax = upliftVanCalculator.ForbiddenZonesXEntryMax,
+                    ForbiddenZonesAutomaticallyCalculated = upliftVanCalculator.ForbiddenZonesAutomaticallyCalculated,
+                    GridAutomaticallyCalculated = upliftVanCalculator.GridAutomaticallyCalculated
+                });
         }
 
-        /// <summary>
-        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="MacroStabilityInwardsCalculatorInput"/>
-        /// which was provided to this <see cref="MacroStabilityInwardsCalculator"/> and are determined by the kernel.
-        /// </summary>
         public List<string> Validate()
         {
             return new List<string>();

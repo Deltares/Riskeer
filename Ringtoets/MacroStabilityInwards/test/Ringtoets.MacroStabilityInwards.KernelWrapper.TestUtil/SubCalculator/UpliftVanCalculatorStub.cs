@@ -71,9 +71,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public bool GridAutomaticallyCalculated { get; set; }
 
-        public SlidingDualCircle SlidingCurve { get; set; }
+        public SlidingDualCircle SlidingCurveResult { get; set; }
 
-        public SlipPlaneUpliftVan SlipPlane { get; set; }
+        public SlipPlaneUpliftVan SlipPlaneResult { get; set; }
 
         public void Calculate()
         {

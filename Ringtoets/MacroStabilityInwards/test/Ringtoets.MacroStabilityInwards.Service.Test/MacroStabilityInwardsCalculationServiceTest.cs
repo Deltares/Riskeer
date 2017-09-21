@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {
@@ -245,39 +246,46 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             testCalculation.Name = name;
 
-            Action call = () =>
+            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
             {
-                // Precondition
-                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
+                Action call = () =>
+                {
+                    // Precondition
+                    Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
 
-                // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
-            };
+                    // Call
+                    MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                };
 
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[2]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
-            });
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+            }
         }
 
         [Test]
         public void Calculate_ValidCalculationNoOutput_ShouldSetOutput()
         {
-            // Precondition
-            Assert.IsNull(testCalculation.Output);
-            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            {
+                // Precondition
+                Assert.IsNull(testCalculation.Output);
+                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
 
-            // Call
-            MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
 
-            // Assert
-            MacroStabilityInwardsOutput macroStabilityInwardsOutput = testCalculation.Output;
-            Assert.IsNotNull(macroStabilityInwardsOutput);
+                // Assert
+                MacroStabilityInwardsOutput macroStabilityInwardsOutput = testCalculation.Output;
+                Assert.IsNotNull(macroStabilityInwardsOutput);
+            }
         }
 
         [Test]
@@ -288,14 +296,17 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             testCalculation.Output = output;
 
-            // Precondition
-            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
+            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            {
+                // Precondition
+                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
 
-            // Call
-            MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
 
-            // Assert
-            Assert.AreNotSame(output, testCalculation.Output);
+                // Assert
+                Assert.AreNotSame(output, testCalculation.Output);
+            }
         }
     }
 }

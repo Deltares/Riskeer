@@ -19,13 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 
-[assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.KernelWrapper")]
-[assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.KernelWrapper")]
-[assembly: Guid("b5f16494-0810-4343-9e2e-7fc996c5f8d4")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.Test")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil")]
-[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Integration.Test")]
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper
+{
+    /// <summary>
+    /// Interface for a factory which creates the calculators from the macro stability inwards kernel.
+    /// </summary>
+    public interface IMacroStabilityInwardsCalculatorFactory
+    {
+        /// <summary>
+        /// Creates the calculator.
+        /// </summary>
+        /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> containing all the values required
+        /// for performing a macro stability inwards calculation.</param>
+        /// <param name="factory">The factory responsible for creating the sub calculators.</param>
+        /// <returns>The calculator.</returns>
+        IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory);
+    }
+}

@@ -29,6 +29,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {
@@ -118,26 +119,30 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.SemiProbabilisticOutput = null;
 
             double norm = new Random(21).NextDouble();
-            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), norm, double.NaN);
-            activity.Run();
 
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(5, msgs.Length);
-                Assert.AreEqual($"Uitvoeren van berekening '{validMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
-            });
-            Assert.AreEqual(ActivityState.Executed, activity.State);
-            Assert.IsNotNull(validMacroStabilityInwardsCalculation.Output);
-            Assert.IsNotNull(validMacroStabilityInwardsCalculation.SemiProbabilisticOutput);
+                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), norm, double.NaN);
+                activity.Run();
+
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    Assert.AreEqual($"Uitvoeren van berekening '{validMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                });
+                Assert.AreEqual(ActivityState.Executed, activity.State);
+                Assert.IsNotNull(validMacroStabilityInwardsCalculation.Output);
+                Assert.IsNotNull(validMacroStabilityInwardsCalculation.SemiProbabilisticOutput);
+            }
         }
 
         [Test]

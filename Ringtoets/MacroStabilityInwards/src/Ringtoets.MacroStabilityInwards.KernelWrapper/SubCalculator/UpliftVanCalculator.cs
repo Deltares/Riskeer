@@ -178,9 +178,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 
         public bool GridAutomaticallyCalculated { get; private set; }
 
-        public SlidingDualCircle SlidingCurve { get; private set; }
+        public SlidingDualCircle SlidingCurveResult { get; private set; }
 
-        public SlipPlaneUpliftVan SlipPlane { get; private set; }
+        public SlipPlaneUpliftVan SlipPlaneResult { get; private set; }
 
         public void Calculate()
         {
@@ -209,8 +209,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             ForbiddenZonesAutomaticallyCalculated = convertedResult.AreForbiddenZonesAuto;
             GridAutomaticallyCalculated = convertedResult.IsGridAuto;
 
-            SlidingCurve = (SlidingDualCircle) convertedResult.Curve;
-            SlipPlane = convertedResult.SlipPlaneUpliftVan;
+            SlidingCurveResult = (SlidingDualCircle) convertedResult.Curve;
+            SlipPlaneResult = convertedResult.SlipPlaneUpliftVan;
         }
     }
 }

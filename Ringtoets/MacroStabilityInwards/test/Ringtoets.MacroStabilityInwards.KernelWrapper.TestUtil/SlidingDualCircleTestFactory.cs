@@ -30,6 +30,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     /// </summary>
     public static class SlidingDualCircleTestFactory
     {
+        /// <summary>
+        /// Creates a  simple <see cref="SlidingDualCircle"/>.
+        /// </summary>
+        /// <returns>A simple <see cref="SlidingDualCircle"/> with default values.</returns>
         public static SlidingDualCircle Create()
         {
             return new SlidingDualCircle

@@ -51,6 +51,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="MacroStabilityInwardsCalculatorFactoryConfigTest.cs" />
+    <Compile Include="MacroStabilityInwardsCalculatorStubTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsGridResultTestFactoryTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCircleResultTestFactoryTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTestFactoryTest.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\TestMacroStabilityInwardsSubCalculatorFactoryTest.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculatorStubTest.cs" />
+    <Compile Include="TestMacroStabilityInwardsCalculatorFactoryTest.cs" />
     <Compile Include="WTIStabilityGeometryCurveComparerTest.cs" />
     <Compile Include="WTIStabilityGeometryLoopComparerTest.cs" />
     <Compile Include="WTIStabilityPoint2DComparerTest.cs" />

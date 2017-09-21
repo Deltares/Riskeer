@@ -122,14 +122,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         bool GridAutomaticallyCalculated { get; }
 
         /// <summary>
-        /// Gets the sliding curve.
+        /// Gets the sliding curve result.
         /// </summary>
-        SlidingDualCircle SlidingCurve { get; }
+        SlidingDualCircle SlidingCurveResult { get; }
 
         /// <summary>
-        /// Gets the slip plane.
+        /// Gets the slip plane result.
         /// </summary>
-        SlipPlaneUpliftVan SlipPlane { get; }
+        SlipPlaneUpliftVan SlipPlaneResult { get; }
 
         /// <summary>
         /// Performs the upliftVan calculation.

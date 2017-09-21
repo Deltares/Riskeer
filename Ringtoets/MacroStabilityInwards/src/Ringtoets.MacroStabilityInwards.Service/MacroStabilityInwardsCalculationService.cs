@@ -63,7 +63,9 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 return false;
             }
 
-            List<string> validationResults = new MacroStabilityInwardsCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsSubCalculatorFactory.Instance).Validate();
+            MacroStabilityInwardsCalculatorInput macroStabilityInwardsCalculatorInput = CreateInputFromData(calculation.InputParameters);
+            IMacroStabilityInwardsCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateCalculator(macroStabilityInwardsCalculatorInput, MacroStabilityInwardsSubCalculatorFactory.Instance);
+            List<string> validationResults = calculator.Validate();
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
             CalculationServiceHelper.LogValidationEnd();
@@ -90,7 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             try
             {
-                MacroStabilityInwardsCalculatorResult macroStabilityInwardsResult = new MacroStabilityInwardsCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsSubCalculatorFactory.Instance).Calculate();
+                IMacroStabilityInwardsCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsSubCalculatorFactory.Instance);
+                MacroStabilityInwardsCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
                 calculation.Output = new MacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
                 {

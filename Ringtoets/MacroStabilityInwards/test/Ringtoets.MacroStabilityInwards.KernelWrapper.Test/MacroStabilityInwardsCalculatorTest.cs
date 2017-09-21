@@ -25,7 +25,9 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
@@ -40,12 +42,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         [Test]
         public void Constructor_WithoutInput_ArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<IMacroStabilityInwardsSubCalculatorFactory>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculator(null, null);
+            TestDelegate call = () => new MacroStabilityInwardsCalculator(null, factory);
 
             // Assert
             const string expectedMessage = "MacroStabilityInwardsCalculatorInput required for creating a MacroStabilityInwardsCalculator.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -58,6 +66,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             // Assert
             const string expectedMessage = "IMacroStabilityInwardsSubCalculatorFactory required for creating a MacroStabilityInwardsCalculator.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<IMacroStabilityInwardsSubCalculatorFactory>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
+
+            // Call
+            var calculator = new MacroStabilityInwardsCalculator(input, factory);
+
+            // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsCalculator>(calculator);
         }
 
         [Test]
@@ -75,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             calculator.ForbiddenZonesXEntryMin = random.NextDouble();
             calculator.ForbiddenZonesAutomaticallyCalculated = random.NextBoolean();
             calculator.GridAutomaticallyCalculated = random.NextBoolean();
-            calculator.SlidingCurve = SlidingDualCircleTestFactory.Create();
+            calculator.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
 
             // Call
             MacroStabilityInwardsCalculatorResult actual = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Calculate();
@@ -88,9 +113,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(calculator.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
             Assert.AreEqual(calculator.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
             Assert.AreEqual(calculator.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
+            MacroStabilityInwardsSlidingCurveResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(calculator.SlidingCurveResult), actual.SlidingCurve);
 
             Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator.Calculated);
-            MacroStabilityInwardsSlidingCurveResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(calculator.SlidingCurve), actual.SlidingCurve);
         }
 
         [Test]
