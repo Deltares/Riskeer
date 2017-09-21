@@ -107,7 +107,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Setup
             StabilityStoneCoverWaveConditionsCalculation original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditionsCalculation();
 
-            StabilityStoneCoverTestDataGenerator.SetRandomOutputToStoneCoverWaveConditoinsCalculation(original);
+            original.Output = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditoinsOutput();
 
             // Call
             object clone = original.Clone();

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
@@ -30,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Container for the results of a grass cover erosion outwards wave conditions calculation.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsOutput : Observable, ICalculationOutput
+    public class GrassCoverErosionOutwardsWaveConditionsOutput : Observable, ICalculationOutput, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.
@@ -51,5 +52,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets the output items.
         /// </summary>
         public IEnumerable<WaveConditionsOutput> Items { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (GrassCoverErosionOutwardsWaveConditionsOutput) MemberwiseClone();
+
+            clone.Items = Items.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+
+            return clone;
+        }
     }
 }

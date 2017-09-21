@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -48,11 +47,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public GrassCoverErosionOutwardsWaveConditionsOutput Output { get; set; }
 
-        public WaveConditionsInput InputParameters { get; }
+        public WaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
-        public Comment Comments { get; }
+        public Comment Comments { get; private set; }
 
         public bool HasOutput
         {
@@ -69,7 +68,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            var clone = (GrassCoverErosionOutwardsWaveConditionsCalculation) MemberwiseClone();
+
+            clone.Comments = (Comment) Comments.Clone();
+            clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (GrassCoverErosionOutwardsWaveConditionsOutput) Output.Clone();
+            }
+
+            return clone;
         }
     }
 }

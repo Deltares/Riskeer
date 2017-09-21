@@ -71,6 +71,10 @@
       <Name>Core.Common.Base</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj">
+      <Project>{0B0D2DFF-7E7E-4BB0-A007-61800C85809A}</Project>
+      <Name>Core.Common.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
@@ -90,6 +94,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.Data.TestUtil\Ringtoets.WaveImpactAsphaltCover.Data.TestUtil.csproj">
+      <Project>{0FBC0EA1-89AA-4E34-A8A7-C04A3B866CE7}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

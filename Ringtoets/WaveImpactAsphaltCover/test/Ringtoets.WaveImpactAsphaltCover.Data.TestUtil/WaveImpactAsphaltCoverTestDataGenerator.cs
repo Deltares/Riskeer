@@ -21,20 +21,20 @@
 
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Ringtoets.StabilityStoneCover.Data.TestUtil
+namespace Ringtoets.WaveImpactAsphaltCover.Data.TestUtil
 {
     /// <summary>
     /// Class responsible for generating test data configurations.
     /// </summary>
-    public static class StabilityStoneCoverTestDataGenerator
+    public static class WaveImpactAsphaltCoverTestDataGenerator
     {
         /// <summary>
-        /// Creates a random instance of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
+        /// Creates a random instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
         /// </summary>
-        /// <returns>A random instance of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.</returns>
-        public static StabilityStoneCoverWaveConditionsCalculation GetRandomStabilityStoneCoverWaveConditionsCalculation()
+        /// <returns>A random instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.</returns>
+        public static WaveImpactAsphaltCoverWaveConditionsCalculation GetRandomWaveImpactAsphaltCoverWaveConditionsCalculation()
         {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Comments =
                 {
@@ -49,19 +49,15 @@ namespace Ringtoets.StabilityStoneCover.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a random instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.
+        /// Creates a random instance of <see cref="WaveImpactAsphaltCoverWaveConditionsOutput"/>.
         /// </summary>
-        /// <returns>A random instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.</returns>
-        public static StabilityStoneCoverWaveConditionsOutput GetRandomStabilityStoneCoverWaveConditoinsOutput()
+        /// <returns>A random instance of <see cref="WaveImpactAsphaltCoverWaveConditionsOutput"/>.</returns>
+        public static WaveImpactAsphaltCoverWaveConditionsOutput GetRandomWaveImpactAsphaltCoverWaveConditionsOutput()
         {
-            return new StabilityStoneCoverWaveConditionsOutput(new[]
-                                                               {
-                                                                   WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
-                                                               },
-                                                               new[]
-                                                               {
-                                                                   WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
-                                                               });
+            return new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
+            {
+                WaveConditionsTestDataGenerator.GetRandomWaveConditionsOutput()
+            });
         }
     }
 }

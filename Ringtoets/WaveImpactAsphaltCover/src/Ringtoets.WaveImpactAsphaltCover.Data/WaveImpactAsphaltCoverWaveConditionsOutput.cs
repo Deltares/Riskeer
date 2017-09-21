@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
@@ -30,7 +31,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Container for the results of a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsOutput : Observable, ICalculationOutput
+    public class WaveImpactAsphaltCoverWaveConditionsOutput : Observable, ICalculationOutput, ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsOutput"/>.
@@ -51,5 +52,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// Gets the output items.
         /// </summary>
         public IEnumerable<WaveConditionsOutput> Items { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (WaveImpactAsphaltCoverWaveConditionsOutput) MemberwiseClone();
+
+            clone.Items = Items.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+
+            return clone;
+        }
     }
 }

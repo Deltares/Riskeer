@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.WaveImpactAsphaltCover.Data.TestUtil;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 {
@@ -53,6 +55,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 
             // Assert
             Assert.AreSame(outputItems, output.Items);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            WaveImpactAsphaltCoverWaveConditionsOutput original = WaveImpactAsphaltCoverTestDataGenerator.GetRandomWaveImpactAsphaltCoverWaveConditionsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, WaveImpactAsphaltCoverCloneAssert.AreClones);
         }
     }
 }

@@ -21,9 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
+using Ringtoets.StabilityStoneCover.Data.TestUtil;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
 {
@@ -72,6 +74,19 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Assert
             Assert.AreSame(columnsOutput, output.ColumnsOutput);
             Assert.AreSame(blocksOutput, output.BlocksOutput);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            StabilityStoneCoverWaveConditionsOutput original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditoinsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, StabilityStoneCoverCloneAssert.AreClones);
         }
     }
 }

@@ -21,9 +21,11 @@
 
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data.TestUtil;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 {
@@ -97,6 +99,34 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 
             // Assert
             Assert.IsTrue(hasOutput);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            WaveImpactAsphaltCoverWaveConditionsCalculation original = WaveImpactAsphaltCoverTestDataGenerator.GetRandomWaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            original.Output = WaveImpactAsphaltCoverTestDataGenerator.GetRandomWaveImpactAsphaltCoverWaveConditionsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, WaveImpactAsphaltCoverCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, WaveImpactAsphaltCoverCloneAssert.AreClones);
         }
     }
 }
