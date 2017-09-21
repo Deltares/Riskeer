@@ -43,6 +43,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                                                        MacroStabilityInwardsUpliftVanCalculationGridResult upliftVanCalculationGrid,
                                                        ConstructionProperties properties)
         {
+            if (slidingCurve == null)
+            {
+                throw new ArgumentNullException(nameof(slidingCurve));
+            }
+            if (upliftVanCalculationGrid == null)
+            {
+                throw new ArgumentNullException(nameof(upliftVanCalculationGrid));
+            }
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));

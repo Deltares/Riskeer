@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
     /// <summary>
     /// Helper that can be used in tests.
     /// </summary>
-    public static class MacroStabilityInwardsSlidingCurveResultHelper
+    public static class MacroStabilityInwardsCalculatorResultHelper
     {
         /// <summary>
         /// Assert whether the <paramref name="actual"/> is equal to the <paramref name="expected"/>.
@@ -45,7 +45,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
             AssertCircle(expected.RightCircle, actual.RightCircle);
 
             AssertSlices(expected.Slices.ToArray(), actual.Slices.ToArray());
+        }
 
+        public static void AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResult expected, MacroStabilityInwardsUpliftVanCalculationGridResult actual)
+        {
+            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
+            AssertGrid(expected.LeftGrid, actual.LeftGrid);
+            AssertGrid(expected.RightGrid, actual.RightGrid);
+        }
+
+        private static void AssertGrid(MacroStabilityInwardsGridResult expected, MacroStabilityInwardsGridResult actual)
+        {
+            Assert.AreEqual(expected.XLeft, actual.XLeft);
+            Assert.AreEqual(expected.XRight, actual.XRight);
+            Assert.AreEqual(expected.ZTop, actual.ZTop);
+            Assert.AreEqual(expected.ZBottom, actual.ZBottom);
+            Assert.AreEqual(expected.NumberOfHorizontalPoints, actual.NumberOfHorizontalPoints);
+            Assert.AreEqual(expected.NumberOfVerticalPoints, actual.NumberOfVerticalPoints);
         }
 
         private static void AssertCircle(MacroStabilityInwardsSlidingCircleResult expected, MacroStabilityInwardsSlidingCircleResult actual)

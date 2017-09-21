@@ -31,6 +31,36 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
     public class MacroStabilityInwardsCalculatorResultTest
     {
         [Test]
+        public void Constructor_SlidingCurveNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var upliftVanCalculationGrid = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   MacroStabilityInwardsGridResultTestFactory.Create(),
+                                                                                                   new double[0]);
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsCalculatorResult(null, upliftVanCalculationGrid, new MacroStabilityInwardsCalculatorResult.ConstructionProperties());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("slidingCurve", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_UpliftVanCalculationGridNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsCalculatorResult(curve, null, new MacroStabilityInwardsCalculatorResult.ConstructionProperties()); ;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("upliftVanCalculationGrid", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Setup
