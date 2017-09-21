@@ -99,6 +99,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(model);
             Assert.AreEqual(testName, model.Name);
+            CollectionAssert.IsEmpty(model.Geometry);
+            CollectionAssert.IsEmpty(model.StochasticSoilProfiles);
         }
 
         [Test]

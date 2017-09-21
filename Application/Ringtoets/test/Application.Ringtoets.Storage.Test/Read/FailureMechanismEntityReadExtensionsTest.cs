@@ -307,10 +307,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            PipingFailureMechanismMetaEntity[] pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
-            PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = pipingFailureMechanismMetaEntities[0];
+            PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.Single();
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
@@ -320,7 +320,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_SetsFailureMechanismSourcePath()
+        public void ReadAsPipingFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_SetsFailureMechanismStochasticSoilModelsSourcePath()
         {
             // Setup
             const string sourcePath = "some/Path";
@@ -386,7 +386,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(entity.StochasticSoilModelEntities.Count, failureMechanism.StochasticSoilModels.Count);
             Assert.AreEqual(sourcePath, failureMechanism.StochasticSoilModels.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
@@ -396,7 +396,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithoutSurfaceLinesWithSourcePath_SetsFailureMechanismSourcePath()
+        public void ReadAsPipingFailureMechanism_WithoutSurfaceLinesWithSourcePath_SetsFailureMechanismSurfaceLinesSourcePath()
         {
             // Setup
             const string sourcePath = "some/path";
@@ -462,7 +462,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+            Assert.AreEqual(entity.SurfaceLineEntities.Count, failureMechanism.SurfaceLines.Count);
             Assert.AreEqual(sourcePath, failureMechanism.SurfaceLines.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
@@ -500,7 +500,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(failureMechanismSectionEntity.PipingSectionResultEntities.Count,
+                            failureMechanism.Sections.Count());
         }
 
         [Test]
@@ -539,7 +540,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+            Assert.AreEqual(entity.CalculationGroupEntity.CalculationGroupEntity1.Count,
+                            failureMechanism.CalculationsGroup.Children.Count);
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
@@ -560,8 +562,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism,
-                                                                                                                  collector);
+            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsMacroStabilityInwardsFailureMechanism(
+                failureMechanism,
+                collector);
 
             // Assert 
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -575,7 +578,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(null, new ReadConversionCollector());
+            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(
+                null, new ReadConversionCollector());
 
             // Assert 
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -589,7 +593,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(new MacroStabilityInwardsFailureMechanism(), null);
+            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(
+                new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert 
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -630,9 +635,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
+            MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
 
             Assert.IsNull(metaEntity.StochasticSoilModelCollectionSourcePath);
@@ -666,7 +672,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_FailureMechanismWithSourcePathSet()
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutStochasticSoilModelsWithSourcePath_FailureMechanismWithStochasticSoilModelsSourcePathSet()
         {
             // Setup
             const string sourcePath = "some/Path";
@@ -732,7 +738,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
+            Assert.AreEqual(entity.StochasticSoilModelEntities.Count, failureMechanism.StochasticSoilModels.Count);
             Assert.AreEqual(sourcePath, failureMechanism.StochasticSoilModels.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
@@ -742,7 +748,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutSurfaceLinesWithSourcePath_FailureMechanismWithSourcePathSet()
+        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutSurfaceLinesWithSourcePath_FailureMechanismWithSurfaceLinesSourcePathSet()
         {
             // Setup
             const string sourcePath = "some/path";
@@ -808,7 +814,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+            Assert.AreEqual(entity.SurfaceLineEntities.Count, failureMechanism.SurfaceLines.Count);
             Assert.AreEqual(sourcePath, failureMechanism.SurfaceLines.SourcePath);
             CollectionAssert.AreEqual(new[]
             {
@@ -845,7 +851,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Count,
+                            failureMechanism.Sections.Count());
         }
 
         #endregion

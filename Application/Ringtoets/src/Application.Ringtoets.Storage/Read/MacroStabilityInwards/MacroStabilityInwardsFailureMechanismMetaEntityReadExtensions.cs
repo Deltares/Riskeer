@@ -37,22 +37,22 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// </summary>
         /// <param name="entity">The <see cref="MacroStabilityInwardsFailureMechanismMetaEntity"/> 
         /// to obtain properties from.</param>
-        /// <param name="input">The <see cref="MacroStabilityInwardsProbabilityAssessmentInput"/> 
+        /// <param name="probabilityAssessmentInput">The <see cref="MacroStabilityInwardsProbabilityAssessmentInput"/> 
         /// to set the properties of <see cref="MacroStabilityInwardsProbabilityAssessmentInput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static void ReadProbabilityAssessmentInput(this MacroStabilityInwardsFailureMechanismMetaEntity entity,
-                                                          MacroStabilityInwardsProbabilityAssessmentInput input)
+                                                          MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            if (input == null)
+            if (probabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException(nameof(input));
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
             }
 
-            input.A = entity.A;
+            probabilityAssessmentInput.A = entity.A;
         }
     }
 }

@@ -79,6 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             SurfaceLineEntity entity = surfaceLine.Create(registry, order);
 
             // Assert
+            Assert.IsNotNull(entity);
             Assert.AreEqual(surfaceLine.Name, entity.Name);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
@@ -135,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_SurfaceLineWithAllData_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
+        public void Create_SurfaceLineWithGeometryAndCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntitiesAndCharactersisticPointReferences()
         {
             // Setup
             var random = new Random(31);

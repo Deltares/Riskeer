@@ -95,6 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
+            CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
 
             PipingFailureMechanismMetaEntity failureMechanismMetaEntity = entity.PipingFailureMechanismMetaEntities.ToArray()[0];
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
@@ -160,7 +161,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                                           entity.StochasticSoilModelEntities.ElementAt(i));
             }
 
-            Assert.AreEqual(1, entity.PipingFailureMechanismMetaEntities.Count);
             string stochasticSoilModelCollectionSourcePath = entity.PipingFailureMechanismMetaEntities
                                                                    .Single()
                                                                    .StochasticSoilModelCollectionSourcePath;

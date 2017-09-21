@@ -1324,8 +1324,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertPipingStochasticSoilModels(PipingStochasticSoilModelCollection expectedModels,
                                                              PipingStochasticSoilModelCollection actualModels)
         {
-            Assert.Less(0, actualModels.Count);
-
             Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
             AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
             {
@@ -1423,8 +1421,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertMacroStabilityInwardsStochasticSoilModels(MacroStabilityInwardsStochasticSoilModelCollection expectedModels,
                                                                             MacroStabilityInwardsStochasticSoilModelCollection actualModels)
         {
-            Assert.Less(0, actualModels.Count);
-
             Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
             AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
             {

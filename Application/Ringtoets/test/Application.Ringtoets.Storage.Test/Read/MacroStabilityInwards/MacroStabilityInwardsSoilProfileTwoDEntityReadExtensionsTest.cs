@@ -131,46 +131,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_WithNullValues_ReturnsSoilProfileWithNaNValues()
-        {
-            // Setup
-            var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
-            {
-                Name = nameof(MacroStabilityInwardsSoilProfileTwoDEntity),
-                MacroStabilityInwardsSoilLayerTwoDEntities =
-                {
-                    MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            MacroStabilityInwardsSoilProfile2D profile = entity.Read(collector);
-
-            // Assert
-            Assert.IsNotNull(profile);
-            Assert.AreEqual(entity.Name, profile.Name);
-            Assert.AreEqual(1, profile.Layers.Count());
-        }
-
-        [Test]
-        public void Read_WithCollectorWithoutLayers_ThrowsArgumentException()
-        {
-            // Setup
-            var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
-            {
-                Name = "Name"
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            TestDelegate test = () => entity.Read(collector);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
         public void GivenReadObject_WhenReadCalledOnSameEntity_ThenSameObjectInstanceReturned()
         {
             // Given

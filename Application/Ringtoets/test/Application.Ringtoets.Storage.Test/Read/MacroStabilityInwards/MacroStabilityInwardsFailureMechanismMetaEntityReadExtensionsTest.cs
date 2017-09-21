@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("input", exception.ParamName);
+            Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
         }
 
         [Test]
