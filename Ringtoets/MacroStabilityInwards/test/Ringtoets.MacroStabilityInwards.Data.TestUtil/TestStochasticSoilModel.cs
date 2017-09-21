@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
@@ -35,10 +36,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="name">The name of the stochastic soil model.</param>
         public TestStochasticSoilModel(string name) : base(name)
         {
+            MacroStabilityInwardsSoilProfile1D soilProfileA =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D("A");
+            MacroStabilityInwardsSoilProfile1D soilProfileB =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D("B");
+
             StochasticSoilProfiles.AddRange(new[]
             {
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D("A")),
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D("B"))
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfileA),
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfileB)
             });
         }
 

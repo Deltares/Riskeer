@@ -56,7 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidStochasticSoilProfile_ExpectedValues()
         {
             // Setup
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, new TestMacroStabilityInwardsSoilProfile1D());
+            MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile);
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);

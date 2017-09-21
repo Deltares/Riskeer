@@ -299,14 +299,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
         {
             // Setup 
-            var addedProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D());
+            MacroStabilityInwardsSoilProfile1D soilProfileOne =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+            var addedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfileOne);
             MacroStabilityInwardsStochasticSoilModel otherModel = CreateEmptyModel();
-            otherModel.StochasticSoilProfiles.Add(addedProfile);
+            otherModel.StochasticSoilProfiles.Add(addedStochasticSoilProfile);
 
-            var existingProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D());
+            MacroStabilityInwardsSoilProfile1D soilProfileTwo =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+            var existingStochastSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfileTwo);
             MacroStabilityInwardsStochasticSoilModel model = CreateEmptyModel();
-            model.StochasticSoilProfiles.Add(existingProfile);
-            model.StochasticSoilProfiles.Add(existingProfile);
+            model.StochasticSoilProfiles.Add(existingStochastSoilProfile);
+            model.StochasticSoilProfiles.Add(existingStochastSoilProfile);
 
             // Call 
             TestDelegate call = () => model.Update(otherModel);
@@ -315,13 +319,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.Throws<InvalidOperationException>(call);
 
             Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count);
-            Assert.AreEqual(addedProfile, otherModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(addedStochasticSoilProfile, otherModel.StochasticSoilProfiles[0]);
 
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEqual(new[]
             {
-                existingProfile,
-                existingProfile
+                existingStochastSoilProfile,
+                existingStochastSoilProfile
             }, model.StochasticSoilProfiles);
         }
 

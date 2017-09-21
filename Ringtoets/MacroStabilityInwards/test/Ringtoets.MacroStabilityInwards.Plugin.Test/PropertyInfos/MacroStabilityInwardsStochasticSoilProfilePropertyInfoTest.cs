@@ -23,8 +23,10 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
@@ -57,10 +59,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
+        public void CreateInstance_WithStochasticSoilprofile_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, new TestMacroStabilityInwardsSoilProfile1D());
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            mocks.ReplayAll();
+
+            var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
@@ -68,6 +74,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilProfileProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
+
+            mocks.VerifyAll();
         }
     }
 }

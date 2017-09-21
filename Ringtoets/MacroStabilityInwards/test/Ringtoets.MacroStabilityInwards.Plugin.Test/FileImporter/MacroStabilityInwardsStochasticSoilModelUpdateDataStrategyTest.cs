@@ -569,8 +569,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var model = new MacroStabilityInwardsStochasticSoilModel(modelName);
             foreach (string profileName in profileNames)
             {
-                model.StochasticSoilProfiles.Add(
-                    new MacroStabilityInwardsStochasticSoilProfile(1.0 / profileNames.Length, new TestMacroStabilityInwardsSoilProfile1D(profileName)));
+                MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(profileName);
+                model.StochasticSoilProfiles.Add(new MacroStabilityInwardsStochasticSoilProfile(1.0 / profileNames.Length, soilProfile));
             }
             return model;
         }

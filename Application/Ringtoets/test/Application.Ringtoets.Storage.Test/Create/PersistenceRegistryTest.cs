@@ -190,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             protected override MacroStabilityInwardsSoilProfile1D CreateDataModel()
             {
-                return new TestMacroStabilityInwardsSoilProfile1D();
+                return MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             }
         }
 

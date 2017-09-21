@@ -493,7 +493,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Call
             TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
                 null,
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D()));
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -624,7 +624,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Call
             TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(
                 null,
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestMacroStabilityInwardsSoilProfile1D()));
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

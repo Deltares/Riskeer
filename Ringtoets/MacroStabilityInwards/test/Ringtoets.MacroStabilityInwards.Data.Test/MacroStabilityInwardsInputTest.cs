@@ -370,7 +370,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var inputParameters = new MacroStabilityInwardsInput();
 
             // When
-            inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new TestMacroStabilityInwardsSoilProfile1D());
+            MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+            inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
 
             // Then
             Assert.IsNull(inputParameters.SoilProfileUnderSurfaceLine);
@@ -390,7 +391,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 new Point3D(1, 1, 1)
             });
             inputParameters.SurfaceLine = surfaceLine;
-            inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new TestMacroStabilityInwardsSoilProfile1D());
+            MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+            inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
 
             // Then
             Assert.IsNotNull(inputParameters.SoilProfileUnderSurfaceLine);

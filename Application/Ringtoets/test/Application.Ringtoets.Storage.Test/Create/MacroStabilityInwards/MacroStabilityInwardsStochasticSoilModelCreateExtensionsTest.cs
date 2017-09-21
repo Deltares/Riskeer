@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             {
                 StochasticSoilProfiles =
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(0.1, new TestMacroStabilityInwardsSoilProfile1D()),
+                    new MacroStabilityInwardsStochasticSoilProfile(0.1, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()),
                     new MacroStabilityInwardsStochasticSoilProfile(0.9, MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D())
                 }
             };

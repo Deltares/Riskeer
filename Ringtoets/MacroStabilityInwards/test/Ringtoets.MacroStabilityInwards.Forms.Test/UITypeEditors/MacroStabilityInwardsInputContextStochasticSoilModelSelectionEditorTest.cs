@@ -103,7 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, new TestMacroStabilityInwardsSoilProfile1D());
+            MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile);
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Model")
             {
                 Geometry =

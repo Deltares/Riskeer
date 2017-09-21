@@ -572,7 +572,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C")
@@ -584,7 +584,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 }
             };
@@ -640,7 +640,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C")
@@ -652,7 +652,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("E")
@@ -664,7 +664,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 }
             };
@@ -728,7 +728,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 },
                 StochasticSoilProfiles =
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
+                    new MacroStabilityInwardsStochasticSoilProfile(0.2, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                 }
             };
 
@@ -870,7 +870,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.2, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C")
@@ -882,7 +882,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     },
                     StochasticSoilProfiles =
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new TestMacroStabilityInwardsSoilProfile1D())
+                        new MacroStabilityInwardsStochasticSoilProfile(0.3, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 }
             };

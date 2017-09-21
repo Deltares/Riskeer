@@ -90,7 +90,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
+            MacroStabilityInwardsSoilProfile1D soilProfile =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
 
             int order = random.Next();
@@ -113,7 +114,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
+            MacroStabilityInwardsSoilProfile2D soilProfile =
+                MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
 
             int order = random.Next();
@@ -137,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random(31);
 
-            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
+            MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             var firstStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
             var secondStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
             var registry = new PersistenceRegistry();
@@ -199,7 +201,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         private static IEnumerable<IMacroStabilityInwardsSoilProfile> GetMacroStabilityInwardsSoilProfiles()
         {
-            yield return new TestMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
+            yield return MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
             yield return MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
         }
     }

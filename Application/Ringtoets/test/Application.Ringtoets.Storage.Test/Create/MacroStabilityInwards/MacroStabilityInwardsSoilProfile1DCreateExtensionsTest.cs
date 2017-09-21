@@ -38,7 +38,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D();
+            MacroStabilityInwardsSoilProfile1D soilProfile =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
 
             // Call
             TestDelegate test = () => soilProfile.Create(null);
@@ -114,7 +115,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             const string name = "some name";
-            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D(name);
+            MacroStabilityInwardsSoilProfile1D soilProfile =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(name);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -128,7 +130,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityReturned()
         {
             // Given
-            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D();
+            MacroStabilityInwardsSoilProfile1D soilProfile =
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             var registry = new PersistenceRegistry();
 
             MacroStabilityInwardsSoilProfileOneDEntity firstEntity = soilProfile.Create(registry);
