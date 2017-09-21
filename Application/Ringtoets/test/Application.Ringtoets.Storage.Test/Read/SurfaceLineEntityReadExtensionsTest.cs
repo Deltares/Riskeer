@@ -63,14 +63,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase(null)]
-        public void ReadAsPipingSurfaceLine_PointsXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void ReadAsPipingSurfaceLine_PointsXmlEmpty_ThrowsArgumentException()
         {
             var entity = new SurfaceLineEntity
             {
                 Name = "surface line",
-                PointsXml = xml
+                PointsXml = string.Empty
             };
 
             // Call
@@ -355,14 +353,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase(null)]
-        public void ReadAsMacroStabilityInwardsSurfaceLine_PointsXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void ReadAsMacroStabilityInwardsSurfaceLine_PointsXmlEmpty_ThrowsArgumentException()
         {
             var entity = new SurfaceLineEntity
             {
                 Name = "surface line",
-                PointsXml = xml
+                PointsXml = string.Empty
             };
 
             // Call

@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="PipingStochasticSoilModel"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="StochasticSoilModelEntity.StochasticSoilModelSegmentPointXml"/> 
-        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
+        /// of <paramref name="entity"/> is empty.</exception>
         public static PipingStochasticSoilModel ReadAsPipingStochasticSoilModel(this StochasticSoilModelEntity entity,
                                                                                 ReadConversionCollector collector)
         {
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Read
 
             var model = new PipingStochasticSoilModel(entity.Name);
             entity.ReadStochasticSoilProfiles(model, collector);
-            model.Geometry.AddRange(ReadSegmentPoints(entity));
+            model.Geometry.AddRange(ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml));
 
             collector.Read(entity, model);
 
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="StochasticSoilModelEntity.StochasticSoilModelSegmentPointXml"/> 
-        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
+        /// of <paramref name="entity"/> is empty.</exception>
         public static MacroStabilityInwardsStochasticSoilModel ReadAsMacroStabilityInwardsStochasticSoilModel(this StochasticSoilModelEntity entity,
                                                                                                               ReadConversionCollector collector)
         {
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Read
             var model = new MacroStabilityInwardsStochasticSoilModel(entity.Name);
 
             entity.ReadStochasticSoilProfiles(model, collector);
-            model.Geometry.AddRange(ReadSegmentPoints(entity));
+            model.Geometry.AddRange(ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml));
 
             collector.Read(entity, model);
 
@@ -133,9 +133,15 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static IEnumerable<Point2D> ReadSegmentPoints(StochasticSoilModelEntity entity)
+        /// <summary>
+        /// Reads the segment points.
+        /// </summary>
+        /// <param name="xml">The xml containing a collection of <see cref="Point2D"/>.</param>
+        /// <returns>The read segment points.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="xml"/> is empty.</exception>
+        private static IEnumerable<Point2D> ReadSegmentPoints(string xml)
         {
-            return new Point2DXmlSerializer().FromXml(entity.StochasticSoilModelSegmentPointXml);
+            return new Point2DXmlSerializer().FromXml(xml);
         }
     }
 }

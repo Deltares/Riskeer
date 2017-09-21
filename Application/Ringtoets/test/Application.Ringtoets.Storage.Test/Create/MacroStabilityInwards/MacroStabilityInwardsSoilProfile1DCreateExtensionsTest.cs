@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(soilProfile.Bottom, entity.Bottom);
-            Assert.AreEqual(2, entity.MacroStabilityInwardsSoilLayerOneDEntities.Count);
+            Assert.AreEqual(soilProfile.Layers.Count(), entity.MacroStabilityInwardsSoilLayerOneDEntities.Count);
 
             MacroStabilityInwardsSoilLayerOneDEntity firstLayerEntity = entity.MacroStabilityInwardsSoilLayerOneDEntities.ElementAt(0);
             Assert.AreEqual(soilProfile.Layers.ElementAt(0).Top, firstLayerEntity.Top);

@@ -64,15 +64,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase(null)]
-        public void ReadAsPipingStochasticSoilModel_StochasticSoilModelSegmentPointXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void ReadAsPipingStochasticSoilModel_StochasticSoilModelSegmentPointXmlEmpty_ThrowsArgumentException()
         {
             // Setup
             var entity = new StochasticSoilModelEntity
             {
                 Name = "Name",
-                StochasticSoilModelSegmentPointXml = xml
+                StochasticSoilModelSegmentPointXml = string.Empty
             };
 
             // Call
@@ -226,15 +224,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase(null)]
-        public void ReadAsMacroStabilityInwardsStochasticSoilModel_StochasticSoilModelSegmentPointXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void ReadAsMacroStabilityInwardsStochasticSoilModel_StochasticSoilModelSegmentPointXmlEmpty_ThrowsArgumentException()
         {
             // Setup
             var entity = new StochasticSoilModelEntity
             {
                 Name = "Name",
-                StochasticSoilModelSegmentPointXml = xml
+                StochasticSoilModelSegmentPointXml = string.Empty
             };
 
             // Call
@@ -279,7 +275,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         MacroStabilityInwardsSoilProfileOneDEntity = new MacroStabilityInwardsSoilProfileOneDEntity
                         {
-                            MacroStabilityInwardsSoilLayerOneDEntities = 
+                            MacroStabilityInwardsSoilLayerOneDEntities =
                             {
                                 new MacroStabilityInwardsSoilLayerOneDEntity()
                             },

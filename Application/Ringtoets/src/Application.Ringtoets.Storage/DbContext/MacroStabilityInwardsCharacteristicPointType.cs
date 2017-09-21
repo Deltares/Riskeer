@@ -36,68 +36,68 @@ namespace Application.Ringtoets.Storage.DbContext
         SurfaceLevelOutside = 1,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtRiver"/>.
         /// </summary>
-        SurfaceLevelInside = 2,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/>.
-        /// </summary>
-        TrafficLoadOutside = 3,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/>.
-        /// </summary>
-        TrafficLoadInside = 4,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/>.
-        /// </summary>
-        ShoulderBaseInside = 5,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.ShoulderTopInside"/>.
-        /// </summary>
-        ShoulderTopInside = 6,
+        DikeTopAtRiver = 2,
 
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtRiver"/>.
         /// </summary>
-        DikeToeAtRiver = 7,
+        DikeToeAtRiver = 3,
 
         /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/>.
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/>.
         /// </summary>
-        DikeToeAtPolder = 8,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/>.
-        /// </summary>
-        BottomDitchDikeSide = 9,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/>.
-        /// </summary>
-        BottomDitchPolderSide = 10,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DitchDikeSide"/>.
-        /// </summary>
-        DitchDikeSide = 11,
-
-        /// <summary>
-        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtRiver"/>.
-        /// </summary>
-        DikeTopAtRiver = 12,
+        TrafficLoadOutside = 4,
 
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DikeTopAtPolder"/>.
         /// </summary>
-        DikeTopAtPolder = 13,
+        DikeTopAtPolder = 5,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/>.
+        /// </summary>
+        TrafficLoadInside = 6,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.ShoulderBaseInside"/>.
+        /// </summary>
+        ShoulderBaseInside = 7,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.ShoulderTopInside"/>.
+        /// </summary>
+        ShoulderTopInside = 8,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DikeToeAtPolder"/>.
+        /// </summary>
+        DikeToeAtPolder = 9,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DitchDikeSide"/>.
+        /// </summary>
+        DitchDikeSide = 10,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchDikeSide"/>.
+        /// </summary>
+        BottomDitchDikeSide = 11,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.BottomDitchPolderSide"/>.
+        /// </summary>
+        BottomDitchPolderSide = 12,
 
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.DitchPolderSide"/>.
         /// </summary>
-        DitchPolderSide = 14
+        DitchPolderSide = 13,
+
+        /// <summary>
+        /// Corresponds <see cref="Point3D"/> to <see cref="MacroStabilityInwardsSurfaceLine.SurfaceLevelInside"/>.
+        /// </summary>
+        SurfaceLevelInside = 14
     }
 }

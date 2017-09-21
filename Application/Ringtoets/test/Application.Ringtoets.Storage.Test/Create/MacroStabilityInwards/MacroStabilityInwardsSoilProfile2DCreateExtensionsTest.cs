@@ -68,23 +68,11 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithValidProperties_ReturnsEntityWithPropertiesSet()
         {
             // Setup
-            const string name = "some name";
-            var random = new Random(31);
-            var layers = new Collection<MacroStabilityInwardsSoilLayer2D>
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("some name", new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(random.NextDouble(), random.NextDouble()),
-                    new Point2D(random.NextDouble(), random.NextDouble())
-                }), Enumerable.Empty<Ring>()),
-                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(random.NextDouble(), random.NextDouble()),
-                    new Point2D(random.NextDouble(), random.NextDouble())
-                }), Enumerable.Empty<Ring>())
-            };
-
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D(name, layers, new[]
+                MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D(),
+                MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
+            }, new[]
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
             });
@@ -95,8 +83,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.MacroStabilityInwardsSoilLayerTwoDEntities.Count);
-            Assert.AreEqual(1, entity.MacroStabilityInwardsPreconsolidationStressEntities.Count);
+            Assert.AreEqual(soilProfile.Layers.Count(), entity.MacroStabilityInwardsSoilLayerTwoDEntities.Count);
+            Assert.AreEqual(soilProfile.PreconsolidationStresses.Count(), entity.MacroStabilityInwardsPreconsolidationStressEntities.Count);
 
             AssertPreconsolidationStress(soilProfile.PreconsolidationStresses.First(),
                                          entity.MacroStabilityInwardsPreconsolidationStressEntities.First());
@@ -106,15 +94,14 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string name = "some name";
-            MacroStabilityInwardsSoilProfile2D soilProfile = CreateMacroStabilityInwardsSoilProfile2D(name);
+            MacroStabilityInwardsSoilProfile2D soilProfile = CreateMacroStabilityInwardsSoilProfile2D("some name");
             var registry = new PersistenceRegistry();
 
             // Call
             MacroStabilityInwardsSoilProfileTwoDEntity entity = soilProfile.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(soilProfile.Name, entity.Name);
         }
 
         [Test]

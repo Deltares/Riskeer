@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                                                                          .Select(sl => sl.Read())
                                                                          .ToArray();
             IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = entity.MacroStabilityInwardsPreconsolidationStressEntities
-                                                                                                      .Select(e => e.Read())
+                                                                                                      .Select(stressEntity => stressEntity.Read())
                                                                                                       .ToArray();
             var soilProfile = new MacroStabilityInwardsSoilProfile2D(entity.Name,
                                                                      layers,

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
@@ -87,11 +86,11 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        [TestCaseSource(nameof(GetMacroStabilityInwardsSoilProfiles))]
-        public void Create_WithValidProperties_ReturnsStochasticSoilProfileEntityWithPropertiesSet(IMacroStabilityInwardsSoilProfile soilProfile)
+        public void Create_WithMacroStabilityInwardsSoilProfile1D_ReturnsStochasticSoilProfileEntityWithPropertiesSet()
         {
             // Setup
             var random = new Random(31);
+            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
 
             int order = random.Next();
@@ -104,64 +103,76 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(stochasticSoilProfile.Probability, entity.Probability);
-
-            var soilProfile1D = soilProfile as MacroStabilityInwardsSoilProfile1D;
-            if (soilProfile1D == null)
-            {
-                Assert.IsNull(entity.MacroStabilityInwardsSoilProfileOneDEntity);
-            }
-            else
-            {
-                Assert.AreEqual(soilProfile1D.Name, entity.MacroStabilityInwardsSoilProfileOneDEntity.Name);
-            }
-
-            var soilProfile2D = soilProfile as MacroStabilityInwardsSoilProfile2D;
-            if (soilProfile2D == null)
-            {
-                Assert.IsNull(entity.MacroStabilityInwardsSoilProfileTwoDEntity);
-            }
-            else
-            {
-                Assert.AreEqual(soilProfile2D.Name, entity.MacroStabilityInwardsSoilProfileTwoDEntity.Name);
-            }
-
+            Assert.AreEqual(soilProfile.Name, entity.MacroStabilityInwardsSoilProfileOneDEntity.Name);
+            Assert.IsNull(entity.MacroStabilityInwardsSoilProfileTwoDEntity);
             Assert.AreEqual(order, entity.Order);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetSameExpectedMacroStabilityInwardsSoilProfiles))]
-        public void Create_DifferentStochasticSoilProfilesWithSameSoilProfile_ReturnsEntityWithSameSoilProfileEntitySet(
-            IMacroStabilityInwardsSoilProfile soilProfileOne,
-            IMacroStabilityInwardsSoilProfile soilProfileTwo,
-            bool expectedToBeSame)
+        public void Create_WithMacroStabilityInwardsSoilProfile2D_ReturnsStochasticSoilProfileEntityWithPropertiesSet()
         {
             // Setup
             var random = new Random(31);
-            var firstStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfileOne);
-            var secondStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfileTwo);
+            MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
+
+            int order = random.Next();
+
             var registry = new PersistenceRegistry();
 
             // Call
+            MacroStabilityInwardsStochasticSoilProfileEntity entity = stochasticSoilProfile.Create(registry, order);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(stochasticSoilProfile.Probability, entity.Probability);
+            Assert.IsNull(entity.MacroStabilityInwardsSoilProfileOneDEntity);
+            Assert.AreEqual(soilProfile.Name, entity.MacroStabilityInwardsSoilProfileTwoDEntity.Name);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void Create_DifferentStochasticSoilProfilesWithSameMacroStabilityInwardsSoilProfile1D_ReturnsEntityWithSameSoilProfileEntitySet()
+        {
+            // Setup
+            var random = new Random(31);
+
+            var soilProfile = new TestMacroStabilityInwardsSoilProfile1D(nameof(MacroStabilityInwardsSoilProfile1D));
+            var firstStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
+            var secondStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
+            var registry = new PersistenceRegistry();
+
             MacroStabilityInwardsStochasticSoilProfileEntity firstEntity = firstStochasticSoilProfile.Create(registry, 0);
+
+            // Call
             MacroStabilityInwardsStochasticSoilProfileEntity secondEntity = secondStochasticSoilProfile.Create(registry, 0);
 
             // Assert
-            if (!expectedToBeSame)
-            {
-                if (firstEntity.MacroStabilityInwardsSoilProfileOneDEntity != null)
-                {
-                    Assert.AreNotSame(firstEntity.MacroStabilityInwardsSoilProfileOneDEntity, secondEntity.MacroStabilityInwardsSoilProfileOneDEntity);
-                }
-                if (firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity != null)
-                {
-                    Assert.AreNotSame(firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity, secondEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
-                }
-            }
-            else
-            {
-                Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfileOneDEntity, secondEntity.MacroStabilityInwardsSoilProfileOneDEntity);
-                Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity, secondEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
-            }
+            Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfileOneDEntity, secondEntity.MacroStabilityInwardsSoilProfileOneDEntity);
+            Assert.IsNull(firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
+            Assert.IsNull(secondEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
+        }
+
+        [Test]
+        public void Create_DifferentStochasticSoilProfilesWithSameMacroStabilityInwardsSoilProfile2D_ReturnsEntityWithSameSoilProfileEntitySet()
+        {
+            // Setup
+            var random = new Random(31);
+
+            MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
+            var firstStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
+            var secondStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), soilProfile);
+            var registry = new PersistenceRegistry();
+
+            MacroStabilityInwardsStochasticSoilProfileEntity firstEntity = firstStochasticSoilProfile.Create(registry, 0);
+
+            // Call
+            MacroStabilityInwardsStochasticSoilProfileEntity secondEntity = secondStochasticSoilProfile.Create(registry, 0);
+
+            // Assert
+            Assert.IsNull(firstEntity.MacroStabilityInwardsSoilProfileOneDEntity);
+            Assert.IsNull(secondEntity.MacroStabilityInwardsSoilProfileOneDEntity);
+            Assert.AreSame(firstEntity.MacroStabilityInwardsSoilProfileTwoDEntity, secondEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
         }
 
         [Test]
@@ -184,19 +195,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         private class UnsupportedMacroStabilityInwardsSoilProfile : IMacroStabilityInwardsSoilProfile
         {
             public string Name { get; }
-        }
-
-        private static IEnumerable<TestCaseData> GetSameExpectedMacroStabilityInwardsSoilProfiles()
-        {
-            IMacroStabilityInwardsSoilProfile[] soilProfiles = GetMacroStabilityInwardsSoilProfiles().ToArray();
-            int count = soilProfiles.Length;
-            for (var i = 0; i < count; i++)
-            {
-                for (var j = 0; j < count; j++)
-                {
-                    yield return new TestCaseData(soilProfiles[i], soilProfiles[j], i == j);
-                }
-            }
         }
 
         private static IEnumerable<IMacroStabilityInwardsSoilProfile> GetMacroStabilityInwardsSoilProfiles()

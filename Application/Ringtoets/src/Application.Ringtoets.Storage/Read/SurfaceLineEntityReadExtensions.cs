@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="PipingSurfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
-        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
+        /// of <paramref name="entity"/> is empty.</exception>
         public static PipingSurfaceLine ReadAsPipingSurfaceLine(this SurfaceLineEntity entity,
                                                                 ReadConversionCollector collector)
         {
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Read
                 ReferenceLineIntersectionWorldPoint = GetReferenceLineIntersectionWorldPoint(entity)
             };
 
-            surfaceLine.SetGeometry(ReadGeometryPoints(entity));
+            surfaceLine.SetGeometry(ReadGeometryPoints(entity.PointsXml));
             entity.ReadCharacteristicPoints(surfaceLine);
 
             collector.Read(entity, surfaceLine);
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="MacroStabilityInwardsSurfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
-        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
+        /// of <paramref name="entity"/> is empty.</exception>
         public static MacroStabilityInwardsSurfaceLine ReadAsMacroStabilityInwardsSurfaceLine(
             this SurfaceLineEntity entity,
             ReadConversionCollector collector)
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Read
                 ReferenceLineIntersectionWorldPoint = GetReferenceLineIntersectionWorldPoint(entity)
             };
 
-            surfaceLine.SetGeometry(ReadGeometryPoints(entity));
+            surfaceLine.SetGeometry(ReadGeometryPoints(entity.PointsXml));
             entity.ReadCharacteristicPoints(surfaceLine);
 
             collector.Read(entity, surfaceLine);
@@ -238,9 +238,15 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static IEnumerable<Point3D> ReadGeometryPoints(SurfaceLineEntity entity)
+        /// <summary>
+        /// Reads the geometry points.
+        /// </summary>
+        /// <param name="xml">The xml containing a collection of <see cref="Point3D"/>.</param>
+        /// <returns>The read geometry points.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="xml"/> is empty.</exception>
+        private static IEnumerable<Point3D> ReadGeometryPoints(string xml)
         {
-            return new Point3DXmlSerializer().FromXml(entity.PointsXml);
+            return new Point3DXmlSerializer().FromXml(xml);
         }
     }
 }

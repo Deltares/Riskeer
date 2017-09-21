@@ -34,6 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress();
 
             // Assert
+            Assert.IsNotNull(stress);
+            Assert.AreEqual(typeof(MacroStabilityInwardsPreconsolidationStress), stress.GetType());
             Assert.AreEqual(13, stress.XCoordinate);
             Assert.AreEqual(34, stress.ZCoordinate);
             Assert.AreEqual(10.09, stress.PreconsolidationStressMean);
