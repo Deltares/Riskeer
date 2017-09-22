@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCase(-1, 0, "Gemiddelde moet groter zijn dan 0.")]
-        [TestCase(1, -1, "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk aan 1.")]
+        [TestCase(1, -1, "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")]
         public void Constructor_ArgumentsOutOfRange_ThrowArgumentOutOfRangeException(double stressMean,
                                                                                      double stressCoefficientOfVariation,
                                                                                      string expectedMessage)

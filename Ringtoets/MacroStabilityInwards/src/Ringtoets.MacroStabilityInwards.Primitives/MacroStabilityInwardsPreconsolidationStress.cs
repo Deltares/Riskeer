@@ -109,11 +109,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Validates if the <paramref name="value"/> is a valid value.
+        /// Validates that the <paramref name="value"/> is a valid value.
         /// </summary>
         /// <param name="value">The value to validate.</param>
         /// <param name="parameterName">The name of the parameter to validate.</param>
-        /// <exception cref="ArgumentException">Thrown if the parameter value is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown if the parameter value is <see cref="double.NaN"/>.</exception>
         private static void ValidateParameter(double value, string parameterName)
         {
             if (double.IsNaN(value))
