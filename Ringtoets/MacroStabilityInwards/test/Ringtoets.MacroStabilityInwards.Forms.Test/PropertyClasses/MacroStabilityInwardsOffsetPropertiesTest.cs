@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class MacroStabilityInwardsOffsetPropertiesTest
     {
-        private const int expectedUseDefaultOffsetPropertyIndex = 0;
+        private const int expectedUseDefaultOffsetsPropertyIndex = 0;
         private const int expectedPhreaticLineOffsetBelowDikeTopAtRiverPropertyIndex = 1;
         private const int expectedPhreaticLineOffsetBelowDikeTopAtPolderPropertyIndex = 2;
         private const int expectedPhreaticLineOffsetBelowShoulderBaseInsidePropertyIndex = 3;
@@ -118,9 +118,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             const string offsetCategory = "Offsets PL 1";
 
-            PropertyDescriptor useDefaultOffsetProperty = dynamicProperties[expectedUseDefaultOffsetPropertyIndex];
+            PropertyDescriptor useDefaultOffsetsProperty = dynamicProperties[expectedUseDefaultOffsetsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                useDefaultOffsetProperty,
+                useDefaultOffsetsProperty,
                 offsetCategory,
                 "Gebruik default waarden voor offsets van PL 1",
                 "Gebruik standaard waterstandsverschillen voor het bepalen van de freatische lijn?");
@@ -219,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void UseDefaultOffset_SetValidValue_SetsValueAndUpdatesObservers()
+        public void UseDefaultOffsets_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();

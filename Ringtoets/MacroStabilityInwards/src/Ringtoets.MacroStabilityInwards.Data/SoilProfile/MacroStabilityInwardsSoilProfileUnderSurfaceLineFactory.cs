@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// Creates a new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile containing layers under the <paramref name="surfaceLine"/>.</param>
-        /// <param name="surfaceLine">The surface line for which determines the top of the <paramref name="soilProfile"/>.</param>
+        /// <param name="surfaceLine">The surface line which determines the top of the <paramref name="soilProfile"/>.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> containing geometries from the 
         /// <paramref name="soilProfile"/> under the <paramref name="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                     RingToPoints(layer.OuterRing),
                     layer.Holes.Select(RingToPoints),
-                    ToUnderSurfaceLineProperties(layer.Properties)));
+                    ToUnderSurfaceLineProperties(layer.Properties))).ToArray();
 
             IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStressesUnderSurfaceLine =
                 soilProfile.PreconsolidationStresses.Select(ToPreconsolidationStressUnderSurfaceLine).ToArray();
@@ -208,12 +208,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 OuterLoop = outerLoop;
                 Properties = properties;
-                InnerLoops = Enumerable.Empty<Point2D[]>();
             }
 
             public Point2D[] OuterLoop { get; }
+
             public MacroStabilityInwardsSoilLayerProperties Properties { get; }
-            public IEnumerable<Point2D[]> InnerLoops { get; }
         }
     }
 }

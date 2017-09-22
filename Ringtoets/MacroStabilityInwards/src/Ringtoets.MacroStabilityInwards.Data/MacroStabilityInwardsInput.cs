@@ -222,7 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         #endregion
 
-        #region settings
+        #region Settings
 
         /// <summary>
         /// Gets or sets the minimum depth of the slip plane.
@@ -278,12 +278,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public bool MoveGrid { get; set; }
 
         /// <summary>
-        /// Gets the grid determination type.
+        /// Gets or sets the grid determination type.
         /// </summary>
         public MacroStabilityInwardsGridDetermination GridDetermination { get; set; }
 
         /// <summary>
-        /// Gets the tangent line determination type.
+        /// Gets or sets the tangent line determination type.
         /// </summary>
         public MacroStabilityInwardsTangentLineDetermination TangentLineDetermination { get; set; }
 
@@ -440,7 +440,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets whether the default offset should be used.
+        /// Gets or sets whether the default offsets should be used.
         /// </summary>
         public bool UseDefaultOffsets { get; set; }
 
@@ -626,12 +626,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets create zones.
+        /// Gets or sets whether zones should be created.
         /// </summary>
         public bool CreateZones { get; set; }
 
         /// <summary>
-        /// Gets the automatic forbidden zones.
+        /// Gets the zoning boundaries determination type.
         /// </summary>
         public MacroStabilityInwardsZoningBoundariesDetermination AutomaticForbiddenZones
         {
