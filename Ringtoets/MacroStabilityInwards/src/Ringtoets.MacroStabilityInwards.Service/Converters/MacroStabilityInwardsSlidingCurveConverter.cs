@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
     /// Converter to convert <see cref="MacroStabilityInwardsSlidingCurveResult"/>
     /// into <see cref="MacroStabilityInwardsSlidingCurve"/>.
     /// </summary>
-    internal static class MacroStabilityInwardsCurveConverter
+    internal static class MacroStabilityInwardsSlidingCurveConverter
     {
         /// <summary>
         /// Converts <see cref="MacroStabilityInwardsSlidingCurveResult"/>

@@ -31,13 +31,13 @@ using Ringtoets.MacroStabilityInwards.Service.Converters;
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
 {
     [TestFixture]
-    public class MacroStabilityInwardsCurveConverterTest
+    public class MacroStabilityInwardsSlidingCurveConverterTest
     {
         [Test]
         public void Convert_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsCurveConverter.Convert(null);
+            TestDelegate call = () => MacroStabilityInwardsSlidingCurveConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             MacroStabilityInwardsSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
 
             // Call
-            MacroStabilityInwardsSlidingCurve output = MacroStabilityInwardsCurveConverter.Convert(result);
+            MacroStabilityInwardsSlidingCurve output = MacroStabilityInwardsSlidingCurveConverter.Convert(result);
 
             // Assert
             Assert.AreEqual(result.IteratedHorizontalForce, output.IteratedHorizontalForce);

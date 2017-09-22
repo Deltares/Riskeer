@@ -56,7 +56,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converters\MacroStabilityInwardsCurveConverterTest.cs" />
+    <Compile Include="Converters\MacroStabilityInwardsSlidingCurveConverterTest.cs" />
     <Compile Include="Converters\MacroStabilityInwardsSlipPlaneUpliftVanConverterTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivityTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationServiceTest.cs" />

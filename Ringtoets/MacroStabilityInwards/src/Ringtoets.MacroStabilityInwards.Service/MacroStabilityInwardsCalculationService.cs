@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 MacroStabilityInwardsCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
                 calculation.Output = new MacroStabilityInwardsOutput(
-                    MacroStabilityInwardsCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurve),
+                    MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurve),
                     MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.UpliftVanCalculationGrid),
                     new MacroStabilityInwardsOutput.ConstructionProperties
                 {
