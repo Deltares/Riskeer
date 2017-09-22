@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -36,7 +34,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.AbovePhreaticLevel, 0.5);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.AbovePhreaticLevel)
+            {
+                Percentile = 0.5
+            };
         }
 
         /// <summary>
@@ -44,7 +45,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.BelowPhreaticLevel, 0.5);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.BelowPhreaticLevel)
+            {
+                Percentile = 0.5
+            };
         }
 
         /// <summary>
@@ -52,7 +56,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetCohesion(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.Cohesion, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.Cohesion)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -60,7 +67,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetFrictionAngle(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.FrictionAngle, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.FrictionAngle)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -68,7 +78,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetShearStrengthRatio(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.ShearStrengthRatio, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.ShearStrengthRatio)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -76,7 +89,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.StrengthIncreaseExponent, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.StrengthIncreaseExponent)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -84,7 +100,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetPop(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(properties.Pop, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.Pop)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -92,7 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public static VariationCoefficientLogNormalDistributionDesignVariable GetPreconsolidationStress(MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine preconsolidationStressUnderSurfaceLine)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(preconsolidationStressUnderSurfaceLine.PreconsolidationStress, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(preconsolidationStressUnderSurfaceLine.PreconsolidationStress)
+            {
+                Percentile = 0.05
+            };
         }
     }
 }

@@ -28,27 +28,6 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public static class PipingSemiProbabilisticDesignValueFactory
     {
-        private static DesignVariable<NormalDistribution> CreateDesignVariable(NormalDistribution distribution, double percentile)
-        {
-            return new NormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
-
-        private static DesignVariable<LogNormalDistribution> CreateDesignVariable(LogNormalDistribution distribution, double percentile)
-        {
-            return new LogNormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
-
-        private static DesignVariable<LogNormalDistribution> CreateDeterministicDesignVariable(LogNormalDistribution distribution, double deterministicValue)
-        {
-            return new DeterministicDesignVariable<LogNormalDistribution>(distribution, deterministicValue);
-        }
-
         #region General parameters
 
         /// <summary>
@@ -58,9 +37,13 @@ namespace Ringtoets.Piping.Data
         {
             if (double.IsNaN(parameters.ThicknessCoverageLayer.Mean))
             {
-                return CreateDeterministicDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0);
+                return new DeterministicDesignVariable<LogNormalDistribution>(parameters.SaturatedVolumicWeightOfCoverageLayer);
             }
-            return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
+
+            return new LogNormalDistributionDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -70,9 +53,13 @@ namespace Ringtoets.Piping.Data
         {
             if (double.IsNaN(parameters.ThicknessCoverageLayer.Mean))
             {
-                return CreateDeterministicDesignVariable(parameters.ThicknessCoverageLayer, 0);
+                return new DeterministicDesignVariable<LogNormalDistribution>(parameters.ThicknessCoverageLayer);
             }
-            return CreateDesignVariable(parameters.ThicknessCoverageLayer, 0.05);
+
+            return new LogNormalDistributionDesignVariable(parameters.ThicknessCoverageLayer)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -82,9 +69,13 @@ namespace Ringtoets.Piping.Data
         {
             if (double.IsNaN(parameters.ThicknessCoverageLayer.Mean))
             {
-                return CreateDeterministicDesignVariable(parameters.EffectiveThicknessCoverageLayer, 0);
+                return new DeterministicDesignVariable<LogNormalDistribution>(parameters.EffectiveThicknessCoverageLayer);
             }
-            return CreateDesignVariable(parameters.EffectiveThicknessCoverageLayer, 0.05);
+
+            return new LogNormalDistributionDesignVariable(parameters.EffectiveThicknessCoverageLayer)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -92,7 +83,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInput parameters)
         {
-            return CreateDesignVariable(parameters.PhreaticLevelExit, 0.05);
+            return new NormalDistributionDesignVariable(parameters.PhreaticLevelExit)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -100,7 +94,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetDampingFactorExit(PipingInput parameters)
         {
-            return CreateDesignVariable(parameters.DampingFactorExit, 0.95);
+            return new LogNormalDistributionDesignVariable(parameters.DampingFactorExit)
+            {
+                Percentile = 0.95
+            };
         }
 
         #endregion
@@ -112,7 +109,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetSeepageLength(PipingInput parameters)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(parameters.SeepageLength, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(parameters.SeepageLength)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -120,7 +120,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDiameter70(PipingInput parameters)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(parameters.Diameter70, 0.05);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(parameters.Diameter70)
+            {
+                Percentile = 0.05
+            };
         }
 
         /// <summary>
@@ -128,7 +131,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
-            return SemiProbabilisticDesignValueFactory.CreateDesignVariable(parameters.DarcyPermeability, 0.95);
+            return new VariationCoefficientLogNormalDistributionDesignVariable(parameters.DarcyPermeability)
+            {
+                Percentile = 0.95
+            };
         }
 
         /// <summary>
@@ -136,7 +142,10 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetThicknessAquiferLayer(PipingInput parameters)
         {
-            return CreateDesignVariable(parameters.ThicknessAquiferLayer, 0.95);
+            return new LogNormalDistributionDesignVariable(parameters.ThicknessAquiferLayer)
+            {
+                Percentile = 0.95
+            };
         }
 
         #endregion
