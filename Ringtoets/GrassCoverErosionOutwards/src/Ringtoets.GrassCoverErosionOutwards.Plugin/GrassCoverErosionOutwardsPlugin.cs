@@ -872,6 +872,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return builder
                 .AddExportItem()
                 .AddSeparator()
+                .AddDuplicateCalculationItem(calculation, nodeData)
+                .AddSeparator()
                 .AddRenameItem()
                 .AddUpdateForeshoreProfileOfCalculationItem(calculation,
                                                             inquiryHelper,

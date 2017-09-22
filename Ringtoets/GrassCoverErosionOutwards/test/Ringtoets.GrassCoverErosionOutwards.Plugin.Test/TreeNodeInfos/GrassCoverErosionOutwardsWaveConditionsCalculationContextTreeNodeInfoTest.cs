@@ -55,28 +55,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuUpdateForeshoreProfileIndex = 3;
-        private const int validateMenuItemIndex = 5;
-        private const int calculateMenuItemIndex = 6;
-        private const int clearOutputMenuItemIndex = 8;
+        private const int contextMenuDuplicateIndex = 2;
+        private const int contextMenuUpdateForeshoreProfileIndex = 5;
+        private const int validateMenuItemIndex = 7;
+        private const int calculateMenuItemIndex = 8;
+        private const int clearOutputMenuItemIndex = 10;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
 
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -463,6 +451,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -533,7 +523,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(17, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndex,
+                                                                  "D&upliceren",
+                                                                  "Dupliceer dit element.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndex,
                                                                   "&Bijwerken voorlandprofiel...",
@@ -588,12 +583,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -644,12 +639,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -705,12 +700,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -766,12 +761,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1091,12 +1086,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1158,12 +1153,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1214,12 +1209,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1275,12 +1270,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1336,12 +1331,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1397,12 +1392,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
                 calculation.Attach(observer);
@@ -1462,12 +1457,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1515,12 +1510,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1571,12 +1566,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             updateHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
+                                                         importHandler,
+                                                         exportHandler,
+                                                         updateHandler,
+                                                         viewCommands,
+                                                         context,
+                                                         treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
@@ -1602,6 +1597,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Check expectancies in TearDown()
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new GrassCoverErosionOutwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
