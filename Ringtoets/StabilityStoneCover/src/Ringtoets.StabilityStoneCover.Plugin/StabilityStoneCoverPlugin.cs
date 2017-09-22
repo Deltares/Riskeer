@@ -371,7 +371,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, nodeData)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(CreateGenerateWaveConditionsCalculationsItem(nodeData))
                        .AddSeparator();

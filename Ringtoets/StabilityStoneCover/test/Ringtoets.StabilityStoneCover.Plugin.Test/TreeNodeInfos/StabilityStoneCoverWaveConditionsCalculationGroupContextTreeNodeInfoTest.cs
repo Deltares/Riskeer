@@ -68,12 +68,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         private const int contextMenuExpandAllIndexRootGroup = 17;
         private const int contextMenuPropertiesIndexRootGroup = 19;
 
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 3;
-        private const int contextMenuAddCalculationIndexNestedGroup = 4;
-        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 7;
-        private const int contextMenuValidateAllIndexNestedGroup = 9;
-        private const int contextMenuCalculateAllIndexNestedGroup = 10;
-        private const int contextMenuClearOutputIndexNestedGroup = 12;
+        private const int contextMenuDuplicateIndexNestedGroup = 3;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
+        private const int contextMenuAddCalculationIndexNestedGroup = 6;
+        private const int contextMenuUpdateForeshoreProfileIndexNestedGroup = 9;
+        private const int contextMenuValidateAllIndexNestedGroup = 11;
+        private const int contextMenuCalculateAllIndexNestedGroup = 12;
+        private const int contextMenuClearOutputIndexNestedGroup = 14;
 
         private IGui gui;
         private MockRepository mocks;
@@ -345,6 +346,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
@@ -404,8 +407,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(19, menu.Items.Count);
+                    Assert.AreEqual(21, menu.Items.Count);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
+                                                                  "D&upliceren",
+                                                                  "Dupliceer dit element.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
