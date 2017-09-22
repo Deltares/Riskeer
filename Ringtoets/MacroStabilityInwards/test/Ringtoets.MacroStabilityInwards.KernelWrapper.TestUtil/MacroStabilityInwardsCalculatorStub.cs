@@ -30,6 +30,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     /// </summary>
     public class MacroStabilityInwardsCalculatorStub : IMacroStabilityInwardsCalculator
     {
+        public MacroStabilityInwardsCalculatorInput Input { get; set; }
+
         public MacroStabilityInwardsCalculatorResult Calculate()
         {
             return new MacroStabilityInwardsCalculatorResult(

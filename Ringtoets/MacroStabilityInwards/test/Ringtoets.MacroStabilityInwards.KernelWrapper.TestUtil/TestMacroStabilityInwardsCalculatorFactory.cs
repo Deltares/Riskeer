@@ -23,11 +23,25 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 {
+    /// <summary>
+    /// Test calculator factory which can be used in tests.
+    /// </summary>
     public class TestMacroStabilityInwardsCalculatorFactory : IMacroStabilityInwardsCalculatorFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsCalculatorFactory"/>.
+        /// </summary>
+        public TestMacroStabilityInwardsCalculatorFactory()
+        {
+            Calculator = new MacroStabilityInwardsCalculatorStub();
+        }
+        
+        public MacroStabilityInwardsCalculatorStub Calculator { get; }
+
         public IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory)
         {
-            return new MacroStabilityInwardsCalculatorStub();
+            Calculator.Input = input;
+            return Calculator;
         }
     }
 }

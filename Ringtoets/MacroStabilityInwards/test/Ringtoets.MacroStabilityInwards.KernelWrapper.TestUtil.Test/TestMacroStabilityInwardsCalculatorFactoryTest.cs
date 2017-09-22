@@ -35,20 +35,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsCalculatorFactory>(factory);
+            Assert.IsNotNull(factory.Calculator);
+            Assert.IsNull(factory.Calculator.Input);
         }
 
         [Test]
-        public void CreateCalculator_Always_ReturnStub()
+        public void CreateCalculator_Always_ReturnStubWithInputSet()
         {
             // Setup
             var factory = new TestMacroStabilityInwardsCalculatorFactory();
+            var input = new MacroStabilityInwardsCalculatorInput(new MacroStabilityInwardsCalculatorInput.ConstructionProperties());
 
             // Call
-            IMacroStabilityInwardsCalculator calculator = factory.CreateCalculator(new MacroStabilityInwardsCalculatorInput(new MacroStabilityInwardsCalculatorInput.ConstructionProperties()),
-                                                      new TestMacroStabilityInwardsSubCalculatorFactory());
+            var calculator = (MacroStabilityInwardsCalculatorStub) factory.CreateCalculator(input, new TestMacroStabilityInwardsSubCalculatorFactory());
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsCalculatorStub>(calculator);
+            Assert.AreSame(input, calculator.Input);
         }
     }
 }

@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
@@ -35,14 +36,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
     [TestFixture]
     public class MacroStabilityInwardsCalculationServiceTest
     {
-        private double testSurfaceLineTopLevel;
         private MacroStabilityInwardsCalculationScenario testCalculation;
 
         [SetUp]
         public void Setup()
         {
             testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
         [Test]
@@ -307,6 +306,61 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 // Assert
                 Assert.AreNotSame(output, testCalculation.Output);
             }
+        }
+
+        [Test]
+        public void Calculate_CompleteInput_SetsInputOnCalculator()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+
+                // Assert
+                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance);
+            }
+        }
+
+        private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
+        {
+            MacroStabilityInwardsCalculatorInput actualInput = factory.Calculator.Input;
+            Assert.AreSame(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
+            Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
+            Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
+            Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
+            Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
+            Assert.AreEqual(originalInput.WaterLevelPolder, actualInput.WaterLevelPolder);
+            Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.XCoordinateDrainageConstruction);
+            Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtRiver, actualInput.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtPolder, actualInput.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowShoulderBaseInside, actualInput.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeToeAtPolder, actualInput.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(originalInput.LeakageLengthInwardsPhreaticLine3, actualInput.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(originalInput.LeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Outwards, actualInput.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Inwards, actualInput.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(originalInput.PenetrationLength, actualInput.PenetrationLength);
+            Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.DrainageConstructionPresent);
+            Assert.AreEqual(originalInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreEqual(originalInput.UseDefaultOffsets, actualInput.UseDefaultOffsets);
+            Assert.AreEqual(originalInput.MoveGrid, actualInput.MoveGrid);
+            Assert.AreEqual(originalInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
+            Assert.AreEqual(originalInput.GridDetermination == MacroStabilityInwardsGridDetermination.Automatic, actualInput.GridAutomaticDetermined);
+            Assert.AreEqual(originalInput.LeftGrid, actualInput.LeftGrid);
+            Assert.AreEqual(originalInput.RightGrid, actualInput.RightGrid);
+            Assert.AreEqual(originalInput.TangentLineDetermination == MacroStabilityInwardsTangentLineDetermination.LayerSeparated, actualInput.TangentLineAutomaticAtBoundaries);
+            Assert.AreEqual(originalInput.TangentLineZTop, actualInput.TangentLineZTop);
+            Assert.AreEqual(originalInput.TangentLineZBottom, actualInput.TangentLineZBottom);
+            Assert.AreEqual(originalInput.CreateZones, actualInput.CreateZones);
+            Assert.AreEqual(originalInput.AutomaticForbiddenZones == MacroStabilityInwardsZoningBoundariesDetermination.Automatic, actualInput.AutomaticForbiddenZones);
+            Assert.AreEqual(originalInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
+            Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
         }
     }
 }
