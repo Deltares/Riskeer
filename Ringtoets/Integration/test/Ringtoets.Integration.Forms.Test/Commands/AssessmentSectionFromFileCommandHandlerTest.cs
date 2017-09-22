@@ -453,6 +453,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void AddAssessmentSectionFromFile_ShapeWithInvalidNorm_LogsAndProjectOwnerNotUpdated()
         {
             // Setup
@@ -483,7 +484,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action call = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = "Het traject kan niet aangemaakt worden met normwaarde 1.12500011250001E-07.";
+            const string expectedMessage = "Het traject kan niet aangemaakt worden met normwaarde 1,12500011250001E-07.";
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
             {
                 Tuple<string, Level, Exception> tuple = tuples.Single();
