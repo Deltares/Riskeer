@@ -28,6 +28,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
     public class MacroStabilityInwardsCalculatorStubTest
     {
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var calculator = new MacroStabilityInwardsCalculatorStub();
+
+            // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsCalculator>(calculator);
+            Assert.IsNull(calculator.Input);
+            Assert.IsNull(calculator.Output);
+        }
+
+        [Test]
         public void Validate_Always_ReturnEmptyList()
         {
             // Setup
@@ -50,10 +62,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             MacroStabilityInwardsCalculatorResult result = calculator.Calculate();
 
             // Assert
-            Assert.IsNaN(result.FactorOfStability);
-            Assert.IsNaN(result.ZValue);
-            Assert.IsNaN(result.ForbiddenZonesXEntryMax);
-            Assert.IsNaN(result.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(0.1, result.FactorOfStability);
+            Assert.AreEqual(0.2, result.ZValue);
+            Assert.AreEqual(0.3, result.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(0.4, result.ForbiddenZonesXEntryMax);
             Assert.IsNotNull(result.SlidingCurve);
             Assert.IsNotNull(result.UpliftVanCalculationGrid);
         }

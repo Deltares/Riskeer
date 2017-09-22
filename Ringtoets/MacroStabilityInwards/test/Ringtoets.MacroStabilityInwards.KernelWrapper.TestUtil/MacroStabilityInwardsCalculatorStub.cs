@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 {
@@ -32,14 +30,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     {
         public MacroStabilityInwardsCalculatorInput Input { get; set; }
 
+        public MacroStabilityInwardsCalculatorResult Output { get; private set; }
+
         public MacroStabilityInwardsCalculatorResult Calculate()
         {
-            return new MacroStabilityInwardsCalculatorResult(
-                MacroStabilityInwardsSlidingCurveResultTestFactory.Create(),
-                new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
-                                                                        MacroStabilityInwardsGridResultTestFactory.Create(),
-                                                                        new double[0]),
-                new MacroStabilityInwardsCalculatorResult.ConstructionProperties());
+            return Output ?? (Output = MacroStabilityInwardsCalculatorResultTestFactory.Create());
         }
 
         public List<string> Validate()

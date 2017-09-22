@@ -35,9 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         {
             Calculator = new MacroStabilityInwardsCalculatorStub();
         }
-        
-        public MacroStabilityInwardsCalculatorStub Calculator { get; }
 
+        public MacroStabilityInwardsCalculatorStub Calculator { get; }
+        
         public IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory)
         {
             Calculator.Input = input;
