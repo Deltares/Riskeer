@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
@@ -46,20 +48,23 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                 throw new ArgumentNullException(nameof(result));
             }
 
-            MacroStabilityInwardsGridOutput leftGrid = ConvertGrid(result.LeftGrid);
-            MacroStabilityInwardsGridOutput rightGrid = ConvertGrid(result.RightGrid);
+            MacroStabilityInwardsGrid leftGrid = ConvertGrid(result.LeftGrid);
+            MacroStabilityInwardsGrid rightGrid = ConvertGrid(result.RightGrid);
 
             return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines);
         }
 
-        private static MacroStabilityInwardsGridOutput ConvertGrid(MacroStabilityInwardsGridResult grid)
+        private static MacroStabilityInwardsGrid ConvertGrid(MacroStabilityInwardsGridResult grid)
         {
-            return new MacroStabilityInwardsGridOutput(grid.XLeft,
-                                                       grid.XRight,
-                                                       grid.ZTop,
-                                                       grid.ZBottom,
-                                                       grid.NumberOfHorizontalPoints,
-                                                       grid.NumberOfVerticalPoints);
+            return new MacroStabilityInwardsGrid
+            {
+                XLeft = (RoundedDouble) grid.XLeft,
+                XRight = (RoundedDouble) grid.XRight,
+                ZTop = (RoundedDouble) grid.ZTop,
+                ZBottom = (RoundedDouble) grid.ZBottom,
+                NumberOfHorizontalPoints = grid.NumberOfHorizontalPoints,
+                NumberOfVerticalPoints = grid.NumberOfVerticalPoints
+            };
         }
     }
 }

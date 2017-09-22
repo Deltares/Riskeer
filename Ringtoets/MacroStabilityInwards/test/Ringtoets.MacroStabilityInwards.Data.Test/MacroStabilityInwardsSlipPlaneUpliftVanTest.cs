@@ -22,7 +22,8 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -33,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_LeftGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsGridOutput grid = MacroStabilityInwardsGridOutputTestFactory.Create();
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(null, grid, Enumerable.Empty<double>());
@@ -47,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_RightGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsGridOutput grid = MacroStabilityInwardsGridOutputTestFactory.Create();
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(grid, null, Enumerable.Empty<double>());
@@ -61,8 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_TangentLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsGridOutput leftGrid = MacroStabilityInwardsGridOutputTestFactory.Create();
-            MacroStabilityInwardsGridOutput rightGrid = MacroStabilityInwardsGridOutputTestFactory.Create();
+            MacroStabilityInwardsGrid leftGrid = MacroStabilityInwardsGridTestFactory.Create();
+            MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, null);
@@ -76,8 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            MacroStabilityInwardsGridOutput leftGrid = MacroStabilityInwardsGridOutputTestFactory.Create();
-            MacroStabilityInwardsGridOutput rightGrid = MacroStabilityInwardsGridOutputTestFactory.Create();
+            MacroStabilityInwardsGrid leftGrid = MacroStabilityInwardsGridTestFactory.Create();
+            MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
             var tangentLines = new[]
             {
                 0,

@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
@@ -66,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             AssertGrid(rightGrid, output.RightGrid);
         }
 
-        private static void AssertGrid(MacroStabilityInwardsGridResult expectedGrid, MacroStabilityInwardsGridOutput actualGrid)
+        private static void AssertGrid(MacroStabilityInwardsGridResult expectedGrid, MacroStabilityInwardsGrid actualGrid)
         {
             Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
             Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);

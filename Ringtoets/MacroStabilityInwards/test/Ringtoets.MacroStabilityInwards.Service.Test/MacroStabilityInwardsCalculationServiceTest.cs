@@ -31,9 +31,8 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {
@@ -331,7 +330,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
             {
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
                 // Precondition
                 Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
@@ -466,7 +465,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             AssertGrid(expected.RightGrid, actual.RightGrid);
         }
 
-        private static void AssertGrid(MacroStabilityInwardsGridResult expectedGrid, MacroStabilityInwardsGridOutput actualGrid)
+        private static void AssertGrid(MacroStabilityInwardsGridResult expectedGrid, MacroStabilityInwardsGrid actualGrid)
         {
             Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
             Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);

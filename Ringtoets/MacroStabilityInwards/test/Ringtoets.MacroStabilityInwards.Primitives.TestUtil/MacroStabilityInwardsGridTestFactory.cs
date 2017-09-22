@@ -19,26 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
+using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
 {
-    [TestFixture]
-    public class MacroStabilityInwardsGridOutputTestFactoryTest
+    /// <summary>
+    /// Factory to create simple <see cref="MacroStabilityInwardsGrid"/>
+    /// instances that can be used for testing.
+    /// </summary>
+    public static class MacroStabilityInwardsGridTestFactory
     {
-        [Test]
-        public void Create_Always_ReturnGridWithDefaultValues()
+        /// <summary>
+        /// Creates a new <see cref="MacroStabilityInwardsGrid"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MacroStabilityInwardsGrid"/>.</returns>
+        public static MacroStabilityInwardsGrid Create()
         {
-            // Call
-            MacroStabilityInwardsGridOutput grid = MacroStabilityInwardsGridOutputTestFactory.Create();
-
-            // Assert
-            Assert.AreEqual(0.1, grid.XLeft);
-            Assert.AreEqual(0.2, grid.XRight);
-            Assert.AreEqual(0.3, grid.ZTop);
-            Assert.AreEqual(0.4, grid.ZBottom);
-            Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
-            Assert.AreEqual(2, grid.NumberOfVerticalPoints);
+            return new MacroStabilityInwardsGrid
+            {
+                XLeft = (RoundedDouble) 0.1,
+                XRight = (RoundedDouble) 0.2,
+                ZTop = (RoundedDouble) 0.3,
+                ZBottom = (RoundedDouble) 0.4,
+                NumberOfHorizontalPoints = 1,
+                NumberOfVerticalPoints = 2
+            };
         }
     }
 }

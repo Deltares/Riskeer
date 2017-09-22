@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
+
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
@@ -37,8 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             : base (new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                          MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                          new MacroStabilityInwardsSlice[0], 0, 0),
-                   new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutputTestFactory.Create(),
-                                                               MacroStabilityInwardsGridOutputTestFactory.Create(),
+                   new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
+                                                               MacroStabilityInwardsGridTestFactory.Create(),
                                                                new double[0]),
                    properties)
         {

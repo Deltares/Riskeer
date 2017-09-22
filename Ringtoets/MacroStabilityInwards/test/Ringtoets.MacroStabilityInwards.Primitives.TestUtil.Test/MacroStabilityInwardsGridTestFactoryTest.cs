@@ -19,36 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsGridOutputTest
+    public class MacroStabilityInwardsGridTestFactoryTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Create_Always_ReturnGridWithDefaultValues()
         {
-            // Setup
-            var random = new Random(21);
-            double xLeft = random.Next();
-            double xRight = random.Next();
-            double zTop = random.Next();
-            double zBottom = random.Next();
-            int nrOfHorizontalPoints = random.Next();
-            int nrOfVerticalPoints = random.Next();
-
             // Call
-            var grid = new MacroStabilityInwardsGridOutput(xLeft, xRight, zTop, zBottom, nrOfHorizontalPoints, nrOfVerticalPoints);
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Assert
-            Assert.AreEqual(xLeft, grid.XLeft);
-            Assert.AreEqual(xRight, grid.XRight);
-            Assert.AreEqual(zTop, grid.ZTop);
-            Assert.AreEqual(zBottom, grid.ZBottom);
-            Assert.AreEqual(nrOfHorizontalPoints, grid.NumberOfHorizontalPoints);
-            Assert.AreEqual(nrOfVerticalPoints, grid.NumberOfVerticalPoints);
+            Assert.AreEqual(0.1, grid.XLeft);
+            Assert.AreEqual(0.2, grid.XRight);
+            Assert.AreEqual(0.3, grid.ZTop);
+            Assert.AreEqual(0.4, grid.ZBottom);
+            Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
+            Assert.AreEqual(2, grid.NumberOfVerticalPoints);
         }
     }
 }

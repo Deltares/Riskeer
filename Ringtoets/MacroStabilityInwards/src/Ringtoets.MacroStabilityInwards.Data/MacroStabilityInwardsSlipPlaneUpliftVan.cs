@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -36,8 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="rightGrid">The right grid of the result.</param>
         /// <param name="tangentLines">The tangent lines of the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridOutput leftGrid,
-                                                       MacroStabilityInwardsGridOutput rightGrid,
+        public MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGrid leftGrid,
+                                                       MacroStabilityInwardsGrid rightGrid,
                                                        IEnumerable<double> tangentLines)
         {
             if (leftGrid == null)
@@ -61,12 +62,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the left grid result.
         /// </summary>
-        public MacroStabilityInwardsGridOutput LeftGrid { get; }
+        public MacroStabilityInwardsGrid LeftGrid { get; }
 
         /// <summary>
         /// Gets the right grid result.
         /// </summary>
-        public MacroStabilityInwardsGridOutput RightGrid { get; }
+        public MacroStabilityInwardsGrid RightGrid { get; }
 
         /// <summary>
         /// Gets the tangent lines result.
