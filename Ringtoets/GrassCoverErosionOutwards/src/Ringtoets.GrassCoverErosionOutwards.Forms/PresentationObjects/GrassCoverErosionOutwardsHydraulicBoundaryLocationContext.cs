@@ -32,40 +32,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// specific <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
-        : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+        : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedList">The <see cref="ObservableList{T}"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
         /// belongs to.</param>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> 
-        /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryLocations">The <see cref="ObservableList{T}"/> 
+        /// containing all the hydraulic boundary locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(ObservableList<HydraulicBoundaryLocation> wrappedList,
-                                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            : base(wrappedList)
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                            HydraulicBoundaryLocation wrappedData)
+            : base(wrappedData)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
-            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            HydraulicBoundaryLocations = hydraulicBoundaryLocations;
         }
 
         /// <summary>
-        /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="ObservableList{T}"/> containing all hydraulic boundary locations.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
+        public ObservableList<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
 
-        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>> other)
+        public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryLocation> other)
         {
-            return base.Equals(other) && ReferenceEquals(((GrassCoverErosionOutwardsHydraulicBoundaryLocationContext) other).HydraulicBoundaryLocation, HydraulicBoundaryLocation);
+            return base.Equals(other) && ReferenceEquals(((GrassCoverErosionOutwardsHydraulicBoundaryLocationContext) other).HydraulicBoundaryLocations, HydraulicBoundaryLocations);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ HydraulicBoundaryLocation.GetHashCode();
+            return base.GetHashCode() ^ WrappedData.GetHashCode();
         }
     }
 }

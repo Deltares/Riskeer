@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+            Assert.AreEqual("wrappedData", paramName);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
+            Assert.AreEqual("hydraulicBoundaryDatabase", paramName);
         }
 
         [Test]
@@ -69,9 +69,9 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
-            Assert.AreSame(hydraulicBoundaryDatabase, context.WrappedData);
-            Assert.AreSame(hydraulicBoundaryLocation, context.HydraulicBoundaryLocation);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(context);
+            Assert.AreSame(hydraulicBoundaryDatabase, context.HydraulicBoundaryDatabase);
+            Assert.AreSame(hydraulicBoundaryLocation, context.WrappedData);
         }
 
         [Test]

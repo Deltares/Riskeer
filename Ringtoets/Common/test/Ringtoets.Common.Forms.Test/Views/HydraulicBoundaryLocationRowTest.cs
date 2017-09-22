@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -80,8 +82,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             [Values(true, false)] bool setIllustrationPoints)
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var calculation = new HydraulicBoundaryLocationCalculation();
             var row = new HydraulicBoundaryLocationRow(new TestHydraulicBoundaryLocation(), calculation);
+            row.CalculatableObject.Attach(observer);
 
             // Call
             row.IncludeIllustrationPoints = setIllustrationPoints;
@@ -89,6 +97,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(setIllustrationPoints, row.IncludeIllustrationPoints);
             Assert.AreEqual(setIllustrationPoints, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

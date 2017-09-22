@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
@@ -47,11 +46,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 IdIndex = 1,
                 NameIndex = 2,
                 LocationIndex = 3,
-                GoverningWindDirectionIndex = 10,
-                StochastsIndex = 11,
-                DurationsIndex = 12,
-                IllustrationPointsIndex = 13
-            }) { }
+                GoverningWindDirectionIndex = 11,
+                StochastsIndex = 12,
+                DurationsIndex = 13,
+                IllustrationPointsIndex = 14
+            }) {}
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
@@ -62,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.WaveHeight;
+                return data.WrappedData.WaveHeight;
             }
         }
 
@@ -75,7 +74,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
                 return output?.TargetProbability ?? double.NaN;
             }
         }
@@ -89,7 +88,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
                 return output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
@@ -103,7 +102,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
                 return output?.CalculatedProbability ?? double.NaN;
             }
         }
@@ -117,7 +116,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                HydraulicBoundaryLocationOutput output = data.HydraulicBoundaryLocation.WaveHeightCalculation.Output;
+                HydraulicBoundaryLocationOutput output = data.WrappedData.WaveHeightCalculation.Output;
                 return output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
@@ -130,16 +129,33 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.WaveHeightCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.WrappedData.WaveHeightCalculationConvergence).DisplayName;
+            }
+        }
+
+        [PropertyOrder(10)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.HydraulicBoundaryDatabase.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.HydraulicBoundaryLocation.WaveHeightCalculation.HasOutput
-                && data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.HasGeneralResult)
+            if (data.WrappedData.WaveHeightCalculation.HasOutput
+                && data.WrappedData.WaveHeightCalculation.Output.HasGeneralResult)
             {
-                return data.HydraulicBoundaryLocation.WaveHeightCalculation.Output.GeneralResult;
+                return data.WrappedData.WaveHeightCalculation.Output.GeneralResult;
             }
             return null;
         }

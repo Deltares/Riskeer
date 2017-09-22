@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.Id;
+                return data.WrappedData.Id;
             }
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.Name;
+                return data.WrappedData.Name;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.HydraulicBoundaryLocation.Location;
+                return data.WrappedData.Location;
             }
         }
 

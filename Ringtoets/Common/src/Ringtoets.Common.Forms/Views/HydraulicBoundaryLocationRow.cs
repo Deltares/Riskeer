@@ -64,6 +64,7 @@ namespace Ringtoets.Common.Forms.Views
             set
             {
                 calculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                CalculatableObject.NotifyObservers();
             }
         }
 

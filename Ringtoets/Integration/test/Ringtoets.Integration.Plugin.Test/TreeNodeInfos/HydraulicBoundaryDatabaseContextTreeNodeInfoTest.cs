@@ -46,7 +46,6 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
@@ -60,11 +59,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private readonly string testDataPathNoHlcd = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoHLCD");
         private readonly string testDataPathNoSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseNoSettings");
         private readonly string testDataPathInvalidSettings = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabaseSettingsInvalid");
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -609,6 +603,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             }
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

@@ -42,7 +42,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+            Assert.AreEqual("wrappedData", paramName);
+        }
+
+        [Test]
+        public void Constructor_NullHydraulicBoundaryDatabase_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
+
+            // Call
+            TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(null, hydraulicBoundaryLocation);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocations", paramName);
         }
 
         [Test]
@@ -59,9 +73,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var presentationObject = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
-            Assert.AreSame(locations, presentationObject.WrappedData);
-            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.HydraulicBoundaryLocation);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(presentationObject);
+            Assert.AreSame(locations, presentationObject.HydraulicBoundaryLocations);
+            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
         }
 
         [Test]

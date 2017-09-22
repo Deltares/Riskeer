@@ -28,39 +28,39 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
+    public abstract class HydraulicBoundaryLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> which the <see cref="HydraulicBoundaryLocationContext"/> 
-        /// belongs to.</param>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/> 
+        /// <param name="wrappedData">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/> 
+        /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryDatabase"/> 
         /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData,
-                                                   HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(wrappedData)
+        protected HydraulicBoundaryLocationContext(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                   HydraulicBoundaryLocation wrappedData) : base(wrappedData)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
-            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
         }
 
         /// <summary>
-        /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="Common.Data.Hydraulics.HydraulicBoundaryDatabase"/>.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
 
-        public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryDatabase> other)
+        public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryLocation> other)
         {
-            return base.Equals(other) && ReferenceEquals(((HydraulicBoundaryLocationContext) other).HydraulicBoundaryLocation, HydraulicBoundaryLocation);
+            return base.Equals(other) && ReferenceEquals(((HydraulicBoundaryLocationContext) other).HydraulicBoundaryDatabase, HydraulicBoundaryDatabase);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ HydraulicBoundaryLocation.GetHashCode();
+            return base.GetHashCode() ^ WrappedData.GetHashCode();
         }
     }
 }

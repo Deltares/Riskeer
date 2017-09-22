@@ -44,7 +44,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(presentationObject);
-            Assert.AreSame(locations, presentationObject.WrappedData);
+            Assert.AreSame(locations, presentationObject.HydraulicBoundaryLocations);
+            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
         }
     }
 }
