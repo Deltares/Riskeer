@@ -22,8 +22,9 @@
 using System;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -63,6 +64,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                                                                        preconsolidationStress.ZCoordinate,
                                                                        preconsolidationStress.PreconsolidationStressMean,
                                                                        preconsolidationStress.PreconsolidationStressCoefficientOfVariation);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                string errorMessage = string.Format(RingtoetsCommonIOResources.Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                    Resources.PreconsolidationStress_DisplayName);
+                throw new ImportedDataTransformException(errorMessage, e);
             }
             catch (ArgumentException e)
             {

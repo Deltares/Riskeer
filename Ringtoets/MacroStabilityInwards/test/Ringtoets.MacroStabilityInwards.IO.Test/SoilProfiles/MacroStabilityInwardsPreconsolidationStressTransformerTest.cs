@@ -77,8 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidPreconsolidationStress))]
-        public void Transform_InvalidPreconsolidationStressValues_ThrowsImportedDataTransformException(
+        [TestCaseSource(nameof(GetPreconsolidationStressCombinationWithNaNValues))]
+        public void Transform_PreconsolidationStressValuesNaN_ThrowsImportedDataTransformException(
             PreconsolidationStress preconsolidationStress,
             string parameterName)
         {
@@ -90,6 +90,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetPreconsolidationStressInvalidDistributionValues))]
+        public void Transform_InvalidPreconsolidationStressDistributionValues_ThrowsImportedDataTransformException(PreconsolidationStress preconsolidationStress)
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.AreEqual("Parameter 'Grensspanning' is niet lognormaal verdeeld.", exception.Message);
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
         }
 
         [Test]
@@ -122,7 +135,28 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             }).SetName("Invalid Shift");
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidPreconsolidationStress()
+        private static IEnumerable<TestCaseData> GetPreconsolidationStressInvalidDistributionValues()
+        {
+            var random = new Random(21);
+            double preconsolidationStressMean = random.NextDouble();
+
+            yield return new TestCaseData(new PreconsolidationStress
+            {
+                XCoordinate = random.NextDouble(),
+                ZCoordinate = random.NextDouble(),
+                PreconsolidationStressMean = -1,
+                PreconsolidationStressCoefficientOfVariation = random.NextDouble()
+            }).SetName("Invalid Mean");
+            yield return new TestCaseData(new PreconsolidationStress
+            {
+                XCoordinate = random.NextDouble(),
+                ZCoordinate = random.NextDouble(),
+                PreconsolidationStressMean = preconsolidationStressMean,
+                PreconsolidationStressCoefficientOfVariation = -1
+            }).SetName("Invalid Coefficient of Variation");
+        }
+
+        private static IEnumerable<TestCaseData> GetPreconsolidationStressCombinationWithNaNValues()
         {
             var random = new Random(21);
             double xCoordinate = random.NextDouble();

@@ -54,7 +54,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                                           || Math.Abs(shift) > tolerance))
             {
                 throw new ImportedDataTransformException(string.Format(
-                                                             Resources.SoilLayer_Stochastic_parameter_0_has_no_lognormal_distribution,
+                                                             Resources.Stochastic_parameter_0_has_no_lognormal_distribution,
                                                              parameterName));
             }
         }
