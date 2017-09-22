@@ -1459,7 +1459,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1));
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    null,

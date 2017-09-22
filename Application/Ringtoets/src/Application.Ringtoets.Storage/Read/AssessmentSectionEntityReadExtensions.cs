@@ -51,7 +51,9 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition)
+            var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition,
+                                                          entity.LowerLimitNorm,
+                                                          entity.SignalingNorm)
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -61,8 +63,6 @@ namespace Application.Ringtoets.Storage.Read
                 },
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = entity.LowerLimitNorm,
-                    SignalingNorm = entity.SignalingNorm,
                     NormativeNorm = (NormType) entity.NormativeNormType
                 }
             };

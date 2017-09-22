@@ -37,6 +37,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -414,10 +415,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     failureMechanism
                 });
                 assessmentSection.Stub(a => a.FailureMechanismContribution)
-                                 .Return(new FailureMechanismContribution(new[]
+                                 .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
                                  {
                                      failureMechanism
-                                 }, 1));
+                                 }));
                 var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();

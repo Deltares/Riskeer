@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
@@ -68,6 +69,11 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(assessmentSection);
             Assert.AreEqual(expectedAssessmentSectionName, assessmentSection.Name);
             Assert.AreEqual("12-2", assessmentSection.Id);
+
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
+            Assert.AreEqual(1.0 / 1000000, contribution.SignalingNorm);
+            Assert.AreEqual(NormType.Signaling, contribution.NormativeNorm);
 
             AssertHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryDatabase);
 

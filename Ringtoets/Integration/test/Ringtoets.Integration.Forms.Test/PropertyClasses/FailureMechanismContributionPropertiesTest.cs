@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.PropertyBag;
@@ -33,7 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -78,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -102,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -126,7 +125,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -151,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
             mockRepository.ReplayAll();
 
-            FailureMechanismContribution failureMechanismContribution = CreateFailureMechanismContribution();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
             var properties = new FailureMechanismContributionProperties(
@@ -208,7 +207,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.1);
+            FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
             var properties = new FailureMechanismContributionProperties(
@@ -492,11 +491,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
-        }
-
-        private static FailureMechanismContribution CreateFailureMechanismContribution()
-        {
-            return new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), new Random(21).Next(0, 100));
         }
     }
 }

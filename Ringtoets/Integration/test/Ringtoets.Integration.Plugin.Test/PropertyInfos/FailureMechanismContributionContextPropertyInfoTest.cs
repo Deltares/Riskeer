@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -70,8 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             {                
                 plugin.Gui = gui;
 
-                IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-                var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 1.1);
+                FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
                 var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
 
                 PropertyInfo info = GetInfo(plugin);

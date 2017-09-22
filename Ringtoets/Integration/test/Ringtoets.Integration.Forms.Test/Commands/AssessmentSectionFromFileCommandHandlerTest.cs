@@ -29,12 +29,14 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Commands;
 
@@ -450,6 +452,51 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void AddAssessmentSectionFromFile_ShapeWithInvalidNorm_LogsAndProjectOwnerNotUpdated()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwner = mockRepository.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            mockRepository.ReplayAll();
+
+            var assessmentSectionFromFileCommandHandler =
+                new AssessmentSectionFromFileCommandHandler(parentDialog, projectOwner, viewController);
+            string pathValidFolder = Path.Combine(testDataPath, "InvalidNorm");
+            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+
+                DataGridView dataGridView = ControlTestHelper.GetDataGridView(selectionDialog, "dataGridView");
+                dataGridView.Rows[0].Selected = true;
+
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            Action call = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
+
+            // Assert
+            const string expectedMessage = "Het traject kan niet aangemaakt worden met normwaarde 1.12500011250001E-07.";
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+            {
+                Tuple<string, Level, Exception> tuple = tuples.Single();
+                Assert.AreEqual(expectedMessage, tuple.Item1);
+                Assert.AreEqual(Level.Error, tuple.Item2);
+                Assert.IsInstanceOf<ArgumentOutOfRangeException>(tuple.Item3);
+            });
+            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
+            Assert.IsNull(assessmentSection);
+
+            mockRepository.VerifyAll();
+        }
+
         private static void SetShapeFileDirectory(AssessmentSectionFromFileCommandHandler commandHandler, string nonExistingFolder)
         {
             const string privateShapeFileDirectoryName = "shapeFileDirectory";
@@ -469,14 +516,14 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static AssessmentSection TestAssessmentSection1_2(bool useSignalingValue)
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike,
+                                                          1.0 / 1000,
+                                                          1.0 / 3000)
             {
                 Id = "1-2",
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 1.0 / 1000,
-                    SignalingNorm = 1.0 / 3000,
                     NormativeNorm = useSignalingValue ? NormType.Signaling : NormType.LowerLimit
                 }
             };
@@ -502,14 +549,14 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 new Point2D(155521.4761, 464360.7401)
             });
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune,
+                                                          1.0 / 100,
+                                                          1.0 / 300)
             {
                 Id = "2-1",
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 1.0 / 100,
-                    SignalingNorm = 1.0 / 300,
                     NormativeNorm = NormType.Signaling
                 },
                 ReferenceLine = referenceLine,
@@ -541,14 +588,14 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static AssessmentSection TestAssessmentSection3_3()
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike,
+                                                          1.0 / 100,
+                                                          1.0 / 300)
             {
                 Id = "3-3",
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 1.0 / 100,
-                    SignalingNorm = 1.0 / 300,
                     NormativeNorm = NormType.Signaling
                 },
                 ReferenceLine = new ReferenceLine()

@@ -21,9 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -53,27 +50,11 @@ namespace Ringtoets.DuneErosion.Data.Test
                 Contribution = contribution
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-                                                                               {
-                                                                                   failureMechanism
-                                                                               }, 1)
-                                                                               {
-                                                                                   LowerLimitNorm = norm
-                                                                               });
-            mocks.ReplayAll();
-
             // Call
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(norm);
 
             // Assert
             Assert.AreEqual(expectedNorm, mechanismSpecificNorm);
-            mocks.VerifyAll();
         }
     }
 }

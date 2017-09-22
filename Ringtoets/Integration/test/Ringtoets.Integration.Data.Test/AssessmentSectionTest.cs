@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -152,6 +153,72 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
+        [TestCaseSource(nameof(GetInvalidNormValues),
+            new object[]
+            {
+                "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
+            })]
+        [SetCulture("nl-NL")]
+        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        {
+            // Setup
+            var random = new Random(21);
+            var composition = random.NextEnumValue<AssessmentSectionComposition>();
+
+            // Call
+            TestDelegate test = () => new AssessmentSection(composition,
+                                                            newNorm,
+                                                            0.000001);
+
+            // Assert
+            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetInvalidNormValues),
+            new object[]
+            {
+                "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
+            })]
+        [SetCulture("nl-NL")]
+        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        {
+            // Setup
+            var random = new Random(21);
+            var composition = random.NextEnumValue<AssessmentSectionComposition>();
+
+            // Call
+            TestDelegate test = () => new AssessmentSection(composition,
+                                                            0.1,
+                                                            newNorm);
+
+            // Assert
+            const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_SignalingNormLargerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var random = new Random(21);
+            var composition = random.NextEnumValue<AssessmentSectionComposition>();
+
+            // Call
+            TestDelegate test = () => new AssessmentSection(composition,
+                                                            0.01,
+                                                            0.1);
+
+            // Assert
+            const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void Name_SetingNewValue_GetNewValue()
         {
             // Setup
@@ -257,9 +324,9 @@ namespace Ringtoets.Integration.Data.Test
                                                                                                       bool[] relevancies)
         {
             // Setup
-            AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike ?
-                                                                  AssessmentSectionComposition.Dune :
-                                                                  AssessmentSectionComposition.Dike;
+            AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike
+                                                                  ? AssessmentSectionComposition.Dune
+                                                                  : AssessmentSectionComposition.Dike;
             var assessmentSection = new AssessmentSection(initialComposition);
 
             // Precondition
@@ -498,6 +565,20 @@ namespace Ringtoets.Integration.Data.Test
                 false,
                 true
             });
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)
+        {
+            yield return new TestCaseData(double.MaxValue)
+                .SetName($"{name} maxValue");
+            yield return new TestCaseData(double.MinValue)
+                .SetName($"{name} minValue");
+            yield return new TestCaseData(double.NaN)
+                .SetName($"{name} NaN");
+            yield return new TestCaseData(0.1 + 1e-6)
+                .SetName($"{name} maximum boundary");
+            yield return new TestCaseData(0.000001 - 1e-6)
+                .SetName($"{name} minimum boundary");
         }
     }
 }

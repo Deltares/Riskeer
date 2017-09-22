@@ -28,8 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -121,10 +120,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0);
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+            var context = new FailureMechanismContributionContext(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(),
+                                                                  assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())

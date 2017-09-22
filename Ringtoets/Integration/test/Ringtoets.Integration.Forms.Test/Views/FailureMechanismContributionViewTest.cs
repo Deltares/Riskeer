@@ -35,6 +35,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
@@ -169,6 +170,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
             int otherContribution = random.Next(0, 100);
+            const double norm = 1.0 / 30000;
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -187,7 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, otherContribution);
+            }, otherContribution, norm, norm);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -233,20 +235,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             var initialContribution = new FailureMechanismContribution(new[]
-            {
-                someMechanism
-            }, random.Next(0, 100))
-            {
-                LowerLimitNorm = 1.0 / initialReturnPeriod
-            };
+                                                                       {
+                                                                           someMechanism
+                                                                       }, random.Next(0, 100),
+                                                                       1.0 / initialReturnPeriod,
+                                                                       1.0 / initialReturnPeriod);
 
             var newContribution = new FailureMechanismContribution(new[]
-            {
-                someMechanism
-            }, random.Next(0, 100))
-            {
-                LowerLimitNorm = 1.0 / newReturnPeriod
-            };
+                                                                   {
+                                                                       someMechanism
+                                                                   }, random.Next(0, 100),
+                                                                   1.0 / newReturnPeriod,
+                                                                   1.0 / newReturnPeriod);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -289,12 +289,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             var contribution = new FailureMechanismContribution(new[]
-            {
-                someMechanism
-            }, random.Next(0, 100))
-            {
-                LowerLimitNorm = 1.0 / initialReturnPeriod
-            };
+                                                                {
+                                                                    someMechanism
+                                                                }, random.Next(0, 100),
+                                                                1.0 / initialReturnPeriod,
+                                                                1.0 / 300);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -340,11 +339,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var contribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
-            }, random.Next(0, 100))
-            {
-                LowerLimitNorm = 1.0 / lowerLimitNorm,
-                SignalingNorm = 1.0 / signalingNorm
-            };
+            }, random.Next(0, 100), 1.0 / lowerLimitNorm, 1.0 / signalingNorm);
 
             using (var distributionView = new FailureMechanismContributionView(viewCommands)
             {
@@ -378,6 +373,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            const double norm = 1.0 / 30000;
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
@@ -394,7 +390,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanism
-                }, 100);
+                }, 100, norm, norm);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -415,6 +411,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            const double norm = 1.0 / 30000;
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
@@ -430,7 +427,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var contributionData = new FailureMechanismContribution(new[]
                 {
                     failureMechanism
-                }, 100);
+                }, 100, norm, norm);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -467,9 +464,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
-                {
-                    failureMechanism
-                }, 100.0 - contribution);
+                                                                        {
+                                                                            failureMechanism
+                                                                        }, 100.0 - contribution,
+                                                                        norm,
+                                                                        norm);
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;
@@ -576,12 +575,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var failureMechanisms = new[]
+                FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
                 {
                     failureMechanism
-                };
-
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
+                });
 
                 // When
                 view.Data = contribution;
@@ -618,12 +615,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var failureMechanisms = new[]
+                FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
                 {
                     failureMechanism
-                };
-
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
+                });
 
                 // When
                 view.Data = contribution;
@@ -668,13 +663,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                             .IgnoreArguments()
                             .WhenCalled(invocation => failureMechanismObservers.Remove((IObserver) invocation.Arguments[0]));
 
-            var failureMechanisms = new[]
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
-            };
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
+            });
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             mocks.ReplayAll();
 
@@ -682,7 +675,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
+                FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
+                {
+                    failureMechanism
+                });
 
                 view.Data = contribution;
                 view.AssessmentSection = assessmentSection;
@@ -744,11 +740,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             viewCommands.Expect(c => c.RemoveAllViewsForItem(failureMechanism));
             mocks.ReplayAll();
 
-            var failureMechanisms = new[]
+            FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
             {
                 failureMechanism
-            };
-            var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
+            });
 
             using (var view = new FailureMechanismContributionView(viewCommands))
             {
@@ -780,8 +775,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
-                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0);
+                FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
                 // Precondition:
                 FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();

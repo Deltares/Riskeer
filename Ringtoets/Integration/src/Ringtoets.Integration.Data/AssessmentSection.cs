@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
@@ -48,6 +49,7 @@ namespace Ringtoets.Integration.Data
     /// </summary>
     public sealed class AssessmentSection : Observable, IAssessmentSection
     {
+        private const double defaultNorm = 1.0 / 30000;
         private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
         private ReferenceLine referenceLine;
 
@@ -56,7 +58,18 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         /// <param name="composition">The composition of the assessment section, e.g. what
         /// type of elements can be found within the assessment section.</param>
-        public AssessmentSection(AssessmentSectionComposition composition)
+        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
+        public AssessmentSection(AssessmentSectionComposition composition,
+                                 double lowerLimitNorm = defaultNorm,
+                                 double signalingNorm = defaultNorm)
         {
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
@@ -88,7 +101,8 @@ namespace Ringtoets.Integration.Data
 
             const int otherContribution = 30;
             FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
-                                                                            otherContribution);
+                                                                            otherContribution,
+                                                                            lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
         }
 

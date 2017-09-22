@@ -60,6 +60,7 @@ namespace Ringtoets.Integration.Forms.Commands
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="viewController">The document view controller.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent, IProjectOwner projectOwner, IDocumentViewController viewController)
         {
             if (dialogParent == null)
@@ -108,8 +109,13 @@ namespace Ringtoets.Integration.Forms.Commands
                 }
 
                 ReferenceLineMeta selectedItem = dialog.SelectedReferenceLineMeta;
-                return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedLowerLimitNorm,
-                                                                             dialog.SelectedSignalingNorm, dialog.SelectedNormativeNorm);
+
+                return selectedItem == null
+                           ? null
+                           : TryCreateAssessmentSection(selectedItem,
+                                                        dialog.SelectedLowerLimitNorm,
+                                                        dialog.SelectedSignalingNorm,
+                                                        dialog.SelectedNormativeNorm);
             }
         }
 
@@ -147,40 +153,107 @@ namespace Ringtoets.Integration.Forms.Commands
 
         #region Create AssessmentSection
 
-        private static AssessmentSection CreateDikeAssessmentSection()
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
+        /// set to <see cref="AssessmentSectionComposition.Dike"/>.
+        /// </summary>
+        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
+        private static AssessmentSection CreateDikeAssessmentSection(double lowerLimitNorm, double signalingNorm)
         {
-            return new AssessmentSection(AssessmentSectionComposition.Dike);
+            return new AssessmentSection(AssessmentSectionComposition.Dike, lowerLimitNorm, signalingNorm);
         }
 
-        private static AssessmentSection CreateDikeAssessmentSection(int n)
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
+        /// set to <see cref="AssessmentSectionComposition.Dike"/>.
+        /// </summary>
+        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="n">The 'length effect' parameter.</param>
+        /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
+        private static AssessmentSection CreateDikeAssessmentSection(double lowerLimitNorm, double signalingNorm, int n)
         {
-            AssessmentSection assessmentSection = CreateDikeAssessmentSection();
+            AssessmentSection assessmentSection = CreateDikeAssessmentSection(lowerLimitNorm, signalingNorm);
             SetFailureMechanismsValueN(assessmentSection, n);
             return assessmentSection;
         }
 
-        private static AssessmentSection CreateDuneAssessmentSection(int n)
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSection"/> with <see cref="AssessmentSectionComposition"/> 
+        /// set to <see cref="AssessmentSectionComposition.Dune"/>.
+        /// </summary>
+        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="n">The 'length effect' parameter.</param>
+        /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
+        private static AssessmentSection CreateDuneAssessmentSection(double lowerLimitNorm, double signalingNorm, int n)
         {
-            var duneAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune);
+            var duneAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune,
+                                                              lowerLimitNorm,
+                                                              signalingNorm);
             SetFailureMechanismsValueN(duneAssessmentSection, n);
             return duneAssessmentSection;
         }
 
-        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, double lowerLimitNorm,
-            double signalingNorm, NormType normativeNorm)
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSection"/>.
+        /// </summary>
+        /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="normativeNorm">The norm type of the assessment section.</param>
+        /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
+        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem,
+                                                          double lowerLimitNorm,
+                                                          double signalingNorm,
+                                                          NormType normativeNorm)
         {
             AssessmentSection assessmentSection;
             AssessmentSectionSettings settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
             if (settingOfSelectedAssessmentSection == null)
             {
                 log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection);
-                assessmentSection = CreateDikeAssessmentSection();
+                assessmentSection = CreateDikeAssessmentSection(lowerLimitNorm, signalingNorm);
             }
             else
             {
-                assessmentSection = settingOfSelectedAssessmentSection.IsDune ?
-                                        CreateDuneAssessmentSection(settingOfSelectedAssessmentSection.N) :
-                                        CreateDikeAssessmentSection(settingOfSelectedAssessmentSection.N);
+                assessmentSection = settingOfSelectedAssessmentSection.IsDune
+                                        ? CreateDuneAssessmentSection(lowerLimitNorm,
+                                                                      signalingNorm,
+                                                                      settingOfSelectedAssessmentSection.N)
+                                        : CreateDikeAssessmentSection(lowerLimitNorm,
+                                                                      signalingNorm,
+                                                                      settingOfSelectedAssessmentSection.N);
             }
 
             assessmentSection.Name = string.Format(IntegrationResources.AssessmentSection_Id_0, selectedItem.AssessmentSectionId);
@@ -195,23 +268,29 @@ namespace Ringtoets.Integration.Forms.Commands
                 assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
             }
 
-            TrySetNormValue(() => assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm);
-            TrySetNormValue(() => assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm);
             assessmentSection.FailureMechanismContribution.NormativeNorm = normativeNorm;
 
             return assessmentSection;
         }
 
-        private static void TrySetNormValue(Action setValue)
+        private AssessmentSection TryCreateAssessmentSection(ReferenceLineMeta selectedItem,
+                                                             double lowerLimitNorm,
+                                                             double signalingNorm,
+                                                             NormType normativeNorm)
         {
             try
             {
-                setValue();
+                return CreateAssessmentSection(selectedItem,
+                                               lowerLimitNorm,
+                                               signalingNorm,
+                                               normativeNorm);
             }
             catch (ArgumentOutOfRangeException exception)
             {
-                log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, exception.ActualValue), exception);
+                log.Error(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_create_assessmentSection_with_Norm_0, exception.ActualValue),
+                          exception);
             }
+            return null;
         }
 
         #endregion

@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -76,7 +77,13 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Name = "assessmentSection",
                 HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
                 ReferenceLine = GetReferenceLine(),
-                Id = "12-2"
+                Id = "12-2",
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = 1.0 / 10,
+                    SignalingNorm = 1.0 / 1000000,
+                    NormativeNorm = NormType.Signaling
+                }
             };
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;

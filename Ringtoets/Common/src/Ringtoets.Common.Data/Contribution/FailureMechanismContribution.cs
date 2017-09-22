@@ -35,7 +35,6 @@ namespace Ringtoets.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContribution : Observable
     {
-        private const double defaultNorm = 1.0 / 30000;
         private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
         private readonly ICollection<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
@@ -52,6 +51,8 @@ namespace Ringtoets.Common.Data.Contribution
         /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> 
         /// on which to base the <see cref="FailureMechanismContribution"/>.</param>
         /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm which has been defined on the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which has been defined on the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
@@ -60,10 +61,22 @@ namespace Ringtoets.Common.Data.Contribution
         /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
         /// </list>
         /// </exception>
-        public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution)
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
+        public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms,
+                                            double otherContribution,
+                                            double lowerLimitNorm,
+                                            double signalingNorm)
         {
-            signalingNorm = defaultNorm;
-            lowerLimitNorm = defaultNorm;
+            ValidateNorms(signalingNorm, lowerLimitNorm);
+
+            this.lowerLimitNorm = lowerLimitNorm;
+            this.signalingNorm = signalingNorm;
             NormativeNorm = NormType.LowerLimit;
 
             UpdateContributions(failureMechanisms, otherContribution);
@@ -85,12 +98,7 @@ namespace Ringtoets.Common.Data.Contribution
             }
             set
             {
-                ValidateNorm(value);
-
-                if (value > lowerLimitNorm)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
-                }
+                ValidateNorms(value, lowerLimitNorm);
 
                 signalingNorm = value;
                 SetDistribution();
@@ -117,7 +125,9 @@ namespace Ringtoets.Common.Data.Contribution
 
                 if (value < signalingNorm)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), Resources.FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm);
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                                                          value,
+                                                          Resources.FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm);
                 }
 
                 lowerLimitNorm = value;
@@ -211,7 +221,33 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 string message = string.Format(Resources.Norm_should_be_in_Range_0_,
                                                normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                throw new ArgumentOutOfRangeException(nameof(value), message);
+                throw new ArgumentOutOfRangeException(nameof(value), value, message);
+            }
+        }
+
+        /// <summary>
+        /// Validates the norm values.
+        /// </summary>
+        /// <param name="signalingNormValue">The signaling norm to validate.</param>
+        /// <param name="lowerLimitNormValue">The lower limit norm to validate against.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNormValue"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNormValue"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNormValue"/> is larger than <paramref name="lowerLimitNormValue"/>.</item>
+        /// </list>
+        /// </exception>
+        private static void ValidateNorms(double signalingNormValue,
+                                          double lowerLimitNormValue)
+        {
+            ValidateNorm(signalingNormValue);
+            ValidateNorm(lowerLimitNormValue);
+
+            if (signalingNormValue > lowerLimitNormValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(signalingNormValue),
+                                                      signalingNormValue,
+                                                      Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
             }
         }
 

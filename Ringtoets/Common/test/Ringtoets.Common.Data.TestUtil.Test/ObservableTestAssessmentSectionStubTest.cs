@@ -53,6 +53,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
 
             Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
             FailureMechanismContributionItem[] contributionItems = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
             Assert.AreEqual(1, contributionItems.Length);
             Assert.AreEqual(0, contributionItems[0].Contribution);

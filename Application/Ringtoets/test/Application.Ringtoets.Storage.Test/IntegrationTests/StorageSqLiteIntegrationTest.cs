@@ -39,6 +39,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -274,6 +275,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedAssessmentSection.Id, actualAssessmentSection.Id);
                 Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
                 AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
+
+                FailureMechanismContribution expectedContribution = expectedAssessmentSection.FailureMechanismContribution;
+                FailureMechanismContribution actualContribution = actualAssessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(expectedContribution.LowerLimitNorm, actualContribution.LowerLimitNorm);
+                Assert.AreEqual(expectedContribution.SignalingNorm, actualContribution.SignalingNorm);
+                Assert.AreEqual(expectedContribution.NormativeNorm, actualContribution.NormativeNorm);
 
                 BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
