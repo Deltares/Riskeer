@@ -703,6 +703,55 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadSoilProfile_SoilProfilesWithUnparsableSoilLayers_ThrowsSoilProfileReadExceptionAndCanContinueReading()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dProfilesWithSoilLayersUnparsableValues.soil");
+
+            var readProfiles = new List<SoilProfile2D>();
+            var exceptionThrown = false;
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                while (reader.HasNext)
+                {
+                    // Call
+                    try
+                    {
+                        readProfiles.Add(reader.ReadSoilProfile());
+                    }
+                    catch (SoilProfileReadException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+                Assert.AreEqual(2, readProfiles.Count);
+            }
+
+            Assert.IsTrue(exceptionThrown);
+            CollectionAssert.AreEqual(new[]
+            {
+                "Profile_1",
+                "Profile_2"
+            }, readProfiles.Select(profile => profile.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                3,
+                3
+            }, readProfiles.Select(profile => profile.Layers.Count()));
+            CollectionAssert.AreEqual(new[]
+            {
+                0,
+                0
+            }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadSoilProfile_SoilProfilesWithAndWithoutPreconsolidationStresses_ReturnsProfilesWithExpectedNrOfPreconsolidationStresses()
         {
             // Setup
@@ -730,7 +779,57 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 0,
                 1
             }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
-            
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadSoilProfile_SoilProfilesWithUnparsablePreconsolidationStresses_ThrowsSoilProfileReadExceptionAndCanContinueReading()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStressesUnparsableValues.soil");
+
+            var readProfiles = new List<SoilProfile2D>();
+            var exceptionThrown = false;
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                while (reader.HasNext)
+                {
+                    // Call
+                    try
+                    {
+                        readProfiles.Add(reader.ReadSoilProfile());
+                    }
+                    catch (SoilProfileReadException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+                Assert.AreEqual(2, readProfiles.Count);
+            }
+
+            Assert.IsTrue(exceptionThrown);
+            CollectionAssert.AreEqual(new[]
+            {
+                "Profile_1",
+                "Profile_2"
+            }, readProfiles.Select(profile => profile.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                3,
+                3
+            }, readProfiles.Select(profile => profile.Layers.Count()));
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                1
+            }, readProfiles.Select(profile => profile.PreconsolidationStresses.Count()));
+
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
     }

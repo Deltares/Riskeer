@@ -28,6 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
@@ -202,7 +203,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses(1).ToArray();
+                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses().ToArray();
 
                 // Assert
                 Assert.AreEqual(4, preconsolidationStresses.Length);
@@ -266,7 +267,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses(1).ToArray();
+                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses().ToArray();
 
                 // Assert
                 Assert.AreEqual(1, preconsolidationStresses.Length);
@@ -284,21 +285,66 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadPreconsolidationStresses_UnknownSoilProfileId_ReturnsEmptyPreconsolidationStress()
+        public void ReadPreconsolidationStresses_CannotParseValues_ThrowsSoilProfileReadExceptionAndCanContinueReading()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStressesNullValues.soil");
+            string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStressesAndUnparsableValues.soil");
 
+            var exceptionThrown = false;
+            var readStresses = new List<PreconsolidationStress>();
             using (var reader = new PreconsolidationStressReader(dbFile))
             {
                 reader.Initialize();
 
-                // Call
-                IEnumerable<PreconsolidationStress> preconsolidationStresses = reader.ReadPreconsolidationStresses(2);
+                while (reader.HasNext)
+                {
+                    try
+                    {
+                        // Call
+                        readStresses.AddRange(reader.ReadPreconsolidationStresses());
+                    }
+                    catch (SoilProfileReadException)
+                    {
+                        exceptionThrown = true;
+                    }
+                }
 
                 // Assert
-                CollectionAssert.IsEmpty(preconsolidationStresses);
+                Assert.IsFalse(reader.HasNext);
             }
+
+            Assert.IsTrue(exceptionThrown);
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3
+            },readStresses.Select(stress => stress.XCoordinate));
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3
+            },readStresses.Select(stress => stress.ZCoordinate));
+
+            CollectionAssert.AreEqual(new[]
+           {
+                3,
+                3
+            }, readStresses.Select(stress => stress.PreconsolidationStressDistributionType));
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3
+            },readStresses.Select(stress => stress.PreconsolidationStressMean));
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                1
+            },readStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
+            CollectionAssert.AreEqual(new[]
+            {
+                0,
+                0
+            },readStresses.Select(stress => stress.PreconsolidationStressShift));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

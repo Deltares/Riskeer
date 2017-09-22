@@ -172,8 +172,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         {
             var criticalProperties = new CriticalProfileProperties(this);
             var soilLayers = new List<SoilLayer2D>();
+            var stresses = new List<PreconsolidationStress>();
+            long soilProfileId = criticalProperties.ProfileId;
 
             RequiredProfileProperties properties;
+            
             try
             {
                 properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
@@ -183,32 +186,50 @@ namespace Ringtoets.Common.IO.SoilProfile
                     soilLayers.Add(ReadSoilLayerFrom(this, criticalProperties.ProfileName));
                     MoveNext();
                 }
+
+                stresses.AddRange(GetPreconsolidationStresses(soilProfileId));
             }
             catch (SoilProfileReadException)
             {
-                MoveToNextProfile(criticalProperties.ProfileId);
+                MoveToNextProfile(soilProfileId);
                 throw;
             }
 
-            PreconsolidationStress[] preconsolidationStresses = preconsolidationStressReader.ReadPreconsolidationStresses(criticalProperties.ProfileId)
-                                                                                            .ToArray();
             try
             {
-                return new SoilProfile2D(criticalProperties.ProfileId,
+                return new SoilProfile2D(soilProfileId,
                                          criticalProperties.ProfileName,
-                                         soilLayers, preconsolidationStresses)
+                                         soilLayers,
+                                         stresses)
                 {
                     IntersectionX = properties.IntersectionX
                 };
             }
             catch (ArgumentException exception)
             {
-                MoveToNextProfile(criticalProperties.ProfileId);
+                MoveToNextProfile(soilProfileId);
                 throw new SoilProfileReadException(
                     Resources.SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data,
                     criticalProperties.ProfileName,
                     exception);
             }
+        }
+
+        /// <summary>
+        /// Gets the preconsolidation stresses belonging to the <paramref name="currentSoilProfileId"/>.
+        /// </summary>
+        /// <param name="currentSoilProfileId">The current soil profile id.</param>
+        /// <returns>A collection of the read <see cref="PreconsolidationStress"/> .</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when the preconsolidation
+        /// stresses could not be read.</exception>
+        private PreconsolidationStress[] GetPreconsolidationStresses(long currentSoilProfileId)
+        {
+            if (!preconsolidationStressReader.HasNext || preconsolidationStressReader.ReadSoilProfileId() != currentSoilProfileId)
+            {
+                return new PreconsolidationStress[0];
+            }
+
+            return preconsolidationStressReader.ReadPreconsolidationStresses().ToArray();
         }
 
         /// <summary>

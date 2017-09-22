@@ -898,4 +898,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="Transform_Invalid_value_ParameterName_0" xml:space="preserve">
     <value>Ongeldige waarde voor parameter '{0}'.</value>
   </data>
+  <data name="PreconsolidationStressReader_Failed_to_read_database" xml:space="preserve">
+    <value>Kon geen grensspanningen verkrijgen uit de database.</value>
+  </data>
 </root>

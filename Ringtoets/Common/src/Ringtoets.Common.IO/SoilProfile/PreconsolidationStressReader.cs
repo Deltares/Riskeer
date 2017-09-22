@@ -28,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Common.IO.SoilProfile
@@ -72,11 +73,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Reads the preconsolidation stresses defined for the soil profile.
         /// </summary>
-        /// <param name="soilProfileId">The soil profile ID to read the preconsolidation stresses for.</param>
         /// <returns>A collection of preconsolidation stresses defined for the profile.</returns>
         /// <exception cref="SoilProfileReadException">Thrown when the preconsolidation stress
         /// could not be read.</exception>
-        public IEnumerable<PreconsolidationStress> ReadPreconsolidationStresses(long soilProfileId)
+        public IEnumerable<PreconsolidationStress> ReadPreconsolidationStresses()
         {
             if (!HasNext)
             {
@@ -84,10 +84,19 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             var stresses = new List<PreconsolidationStress>();
-            while (HasNext && ReadSoilProfileId() == soilProfileId)
+            long currentSoilProfileId = ReadSoilProfileId();
+            try
             {
-                stresses.Add(ReadPreconsolidationStress());
-                MoveNext();
+                while (HasNext && currentSoilProfileId == ReadSoilProfileId())
+                {
+                    stresses.Add(ReadPreconsolidationStress());
+                    MoveNext();
+                }
+            }
+            catch (SoilProfileReadException)
+            {
+                MoveToNextSoilProfile();
+                throw;
             }
 
             return stresses;
@@ -139,9 +148,23 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads the preconsolidation stress 
+        /// Moves the reader to the next soil profile.
         /// </summary>
-        /// <returns></returns>
+        private void MoveToNextSoilProfile()
+        {
+            long currentSoilProfileId = ReadSoilProfileId();
+            while (HasNext && currentSoilProfileId == ReadSoilProfileId())
+            {
+                MoveNext();
+            }
+        }
+
+        /// <summary>
+        /// Reads the preconsolidation stress. 
+        /// </summary>
+        /// <returns>A <see cref="PreconsolidationStress"/> based on the read values.</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when the values in the database
+        /// cannot be casted to the expected column types.</exception>
         private PreconsolidationStress ReadPreconsolidationStress()
         {
             string profileName = Convert.ToString(dataReader[SoilProfileTableDefinitions.ProfileName]);
@@ -183,9 +206,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Creates a new <see cref="SQLiteDataReader"/>.
+        /// Creates a new <see cref="IDataReader"/>.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">Thrown when the query to fetch stochastic
+        /// <exception cref="CriticalFileReadException">Thrown when the query to fetch
         /// preconsolidation stresses from the database failed.</exception>
         private void CreateReader()
         {
@@ -198,7 +221,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build("Kon geen grensspanningen verkrijgen uit de database.");
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PreconsolidationStressReader_Failed_to_read_database);
                 throw new CriticalFileReadException(message, exception);
             }
         }

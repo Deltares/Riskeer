@@ -1219,6 +1219,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon geen grensspanningen verkrijgen uit de database..
+        /// </summary>
+        public static string PreconsolidationStressReader_Failed_to_read_database {
+            get {
+                return ResourceManager.GetString("PreconsolidationStressReader_Failed_to_read_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie parameter &apos;ID&apos; mag uitsluitend uit letters en cijfers bestaan..
         /// </summary>
         public static string ProfileLocation_ProfileLocation_Id_is_invalid {

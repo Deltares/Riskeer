@@ -39,10 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
         /// <returns></returns>
         public static MacroStabilityInwardsSoilProfile1D CreateMacroStabilityInwardsSoilProfile1D()
         {
-            return new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(0.0)
-            });
+            return CreateMacroStabilityInwardsSoilProfile1D(string.Empty);
         }
 
         /// <summary>
