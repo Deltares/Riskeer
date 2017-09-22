@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -70,12 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(stress.ZCoordinate, properties.ZCoordinate, properties.ZCoordinate.GetAccuracy());
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.PreconsolidationStress);
-            Assert.AreEqual(2, properties.PreconsolidationStress.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(stress.PreconsolidationStressMean, properties.PreconsolidationStress.Mean,
-                            properties.PreconsolidationStress.Mean.GetAccuracy());
-            Assert.AreEqual(2, properties.PreconsolidationStress.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(stress.PreconsolidationStressCoefficientOfVariation, properties.PreconsolidationStress.CoefficientOfVariation,
-                            properties.PreconsolidationStress.CoefficientOfVariation.GetAccuracy());
+            Assert.AreSame(stress.PreconsolidationStress, properties.PreconsolidationStress.Data);
         }
 
         [Test]

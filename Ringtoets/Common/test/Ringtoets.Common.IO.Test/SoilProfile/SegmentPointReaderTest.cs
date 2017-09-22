@@ -61,10 +61,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () =>
-            {
-                using (new SegmentPointReader(fileName)) {}
-            };
+            TestDelegate test = () => new SegmentPointReader(fileName);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);

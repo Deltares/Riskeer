@@ -62,10 +62,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () =>
-            {
-                using (new PreconsolidationStressReader(fileName)) {}
-            };
+            TestDelegate test = () => new PreconsolidationStressReader(fileName);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);
@@ -132,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void HasNext_DatabaseWithStochasticSoilModels_ReturnsTrue()
+        public void HasNext_DatabaseWithPreconsolidationStresses_ReturnsTrue()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStresses.soil");
@@ -152,7 +149,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModelId_EmptyDatabase_ThrowsInvalidOperationException()
+        public void ReadSoilProfileId_EmptyDatabase_ThrowsInvalidOperationException()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
@@ -318,15 +315,15 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             {
                 2,
                 3
-            },readStresses.Select(stress => stress.XCoordinate));
+            }, readStresses.Select(stress => stress.XCoordinate));
             CollectionAssert.AreEqual(new[]
             {
                 2,
                 3
-            },readStresses.Select(stress => stress.ZCoordinate));
+            }, readStresses.Select(stress => stress.ZCoordinate));
 
             CollectionAssert.AreEqual(new[]
-           {
+            {
                 3,
                 3
             }, readStresses.Select(stress => stress.PreconsolidationStressDistributionType));
@@ -334,17 +331,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             {
                 2,
                 3
-            },readStresses.Select(stress => stress.PreconsolidationStressMean));
+            }, readStresses.Select(stress => stress.PreconsolidationStressMean));
             CollectionAssert.AreEqual(new[]
             {
                 1,
                 1
-            },readStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
+            }, readStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
             CollectionAssert.AreEqual(new[]
             {
                 0,
                 0
-            },readStresses.Select(stress => stress.PreconsolidationStressShift));
+            }, readStresses.Select(stress => stress.PreconsolidationStressShift));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

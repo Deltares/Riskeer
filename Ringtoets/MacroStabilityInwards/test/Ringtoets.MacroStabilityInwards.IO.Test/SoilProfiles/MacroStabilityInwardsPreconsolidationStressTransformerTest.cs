@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
@@ -65,9 +67,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(preconsolidationStress.XCoordinate, transformedStress.XCoordinate);
             Assert.AreEqual(preconsolidationStress.ZCoordinate, transformedStress.ZCoordinate);
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean, transformedStress.PreconsolidationStressMean);
+
+            VariationCoefficientLogNormalDistribution transformedPreconsolidationStressDistribution = transformedStress.PreconsolidationStress;
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean, transformedPreconsolidationStressDistribution.Mean,
+                            transformedPreconsolidationStressDistribution.GetAccuracy());
             Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
-                            transformedStress.PreconsolidationStressCoefficientOfVariation);
+                            transformedPreconsolidationStressDistribution.CoefficientOfVariation,
+                            transformedPreconsolidationStressDistribution.GetAccuracy());
         }
 
         [Test]

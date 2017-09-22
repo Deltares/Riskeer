@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
 {
@@ -29,17 +32,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
         [Test]
         public void CreateMacroStabilityInwardsPreconsolidationStress_ReturnsExpectedValues()
         {
-           // Call
-            MacroStabilityInwardsPreconsolidationStress stress = 
+            // Call
+            MacroStabilityInwardsPreconsolidationStress stress =
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress();
 
             // Assert
             Assert.IsNotNull(stress);
+
             Assert.AreEqual(typeof(MacroStabilityInwardsPreconsolidationStress), stress.GetType());
             Assert.AreEqual(13, stress.XCoordinate);
             Assert.AreEqual(34, stress.ZCoordinate);
-            Assert.AreEqual(10.09, stress.PreconsolidationStressMean);
-            Assert.AreEqual(20.05, stress.PreconsolidationStressCoefficientOfVariation);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 10.09,
+                CoefficientOfVariation = (RoundedDouble) 20.05
+            }, stress.PreconsolidationStress);
         }
     }
 }

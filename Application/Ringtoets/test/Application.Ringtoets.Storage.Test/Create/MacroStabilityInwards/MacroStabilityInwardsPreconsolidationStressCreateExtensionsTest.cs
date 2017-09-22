@@ -23,6 +23,8 @@ using System;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
@@ -59,8 +61,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(stress.XCoordinate, entity.CoordinateX);
             Assert.AreEqual(stress.ZCoordinate, entity.CoordinateZ);
-            Assert.AreEqual(stress.PreconsolidationStressMean, entity.PreconsolidationStressMean);
-            Assert.AreEqual(stress.PreconsolidationStressCoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation);
+
+            VariationCoefficientLogNormalDistribution preconsolidationStressDistribution = stress.PreconsolidationStress;
+            Assert.AreEqual(preconsolidationStressDistribution.Mean, entity.PreconsolidationStressMean,
+                            preconsolidationStressDistribution.GetAccuracy());
+            Assert.AreEqual(preconsolidationStressDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
+                            preconsolidationStressDistribution.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
     }

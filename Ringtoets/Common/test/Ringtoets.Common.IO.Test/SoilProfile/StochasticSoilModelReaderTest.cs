@@ -66,10 +66,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_InvalidPath_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () =>
-            {
-                using (new StochasticSoilModelReader(fileName)) {}
-            };
+            TestDelegate test = () => new StochasticSoilModelReader(fileName);
 
             // Assert
             Assert.Throws<CriticalFileReadException>(test);

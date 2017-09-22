@@ -51,8 +51,8 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             {
                 CoordinateX = preconsolidationStress.XCoordinate,
                 CoordinateZ = preconsolidationStress.ZCoordinate,
-                PreconsolidationStressMean = preconsolidationStress.PreconsolidationStressMean,
-                PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
+                PreconsolidationStressMean = preconsolidationStress.PreconsolidationStress.Mean,
+                PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStress.CoefficientOfVariation,
                 Order = order
             };
         }

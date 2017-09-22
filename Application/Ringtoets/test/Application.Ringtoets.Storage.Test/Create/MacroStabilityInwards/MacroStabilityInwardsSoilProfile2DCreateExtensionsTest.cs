@@ -28,6 +28,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
@@ -125,8 +127,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             Assert.AreEqual(preconsolidationStress.XCoordinate, entity.CoordinateX);
             Assert.AreEqual(preconsolidationStress.ZCoordinate, entity.CoordinateZ);
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean, entity.PreconsolidationStressMean);
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation);
+
+            VariationCoefficientLogNormalDistribution preconsolidationDistribution = preconsolidationStress.PreconsolidationStress;
+            Assert.AreEqual(preconsolidationDistribution.Mean, entity.PreconsolidationStressMean,
+                            preconsolidationDistribution.GetAccuracy());
+            Assert.AreEqual(preconsolidationDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,
+                            preconsolidationDistribution.GetAccuracy());
         }
 
         private static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()

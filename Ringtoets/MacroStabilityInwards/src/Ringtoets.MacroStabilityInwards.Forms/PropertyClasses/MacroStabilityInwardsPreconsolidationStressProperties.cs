@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -84,12 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                var variationCoefficientLogNormalDistribution = new VariationCoefficientLogNormalDistribution(2)
-                {
-                    Mean = (RoundedDouble) data.PreconsolidationStressMean,
-                    CoefficientOfVariation = (RoundedDouble) data.PreconsolidationStressCoefficientOfVariation
-                };
-                return new VariationCoefficientLogNormalDistributionProperties(variationCoefficientLogNormalDistribution);
+                return new VariationCoefficientLogNormalDistributionProperties(data.PreconsolidationStress);
             }
         }
 

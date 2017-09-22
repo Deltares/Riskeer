@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
@@ -39,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// for the preconsolidation stress.</param>
         /// <param name="preconsolidationStressCoefficientOfVariation">The coefficient of 
         /// variation of the stochastic distribution for the preconsolidation stress.</param>
-        /// <exception cref="ArgumentException">Thrown when any of the parameters has an invalid value.</exception>
+        /// <exception cref="ArgumentException">Thrown when any of the parameters are <see cref="double.NaN"/>.</exception>
         public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
                                                            double zCoordinate,
                                                            double preconsolidationStressMean,
@@ -52,8 +54,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
             XCoordinate = xCoordinate;
             ZCoordinate = zCoordinate;
-            PreconsolidationStressMean = preconsolidationStressMean;
-            PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation;
+
+            PreconsolidationStress = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) preconsolidationStressMean,
+                CoefficientOfVariation = (RoundedDouble) preconsolidationStressCoefficientOfVariation
+            };
         }
 
         /// <summary>
@@ -69,31 +75,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public double ZCoordinate { get; }
 
         /// <summary>
-        /// Gets the value representing the mean of the distribution for the preconsolidation stress.
+        /// Gets the distribution for the preconsolidation stress.
         /// [kN/m²]
         /// </summary>
-        public double PreconsolidationStressMean { get; }
-
-        /// <summary>
-        /// Gets the value representing the coefficient of variation of the distribution for the preconsolidation stress.
-        /// [kN/m²]
-        /// </summary>
-        public double PreconsolidationStressCoefficientOfVariation { get; }
-
-        /// <summary>
-        /// Validates if the <paramref name="value"/> is a valid value.
-        /// </summary>
-        /// <param name="value">The value to validate.</param>
-        /// <param name="parameterName">The name of the parameter to validate.</param>
-        /// <exception cref="ArgumentException">Thrown if the parameter value is invalid.</exception>
-        private static void ValidateParameter(double value, string parameterName)
-        {
-            if (double.IsNaN(value))
-            {
-                string message = string.Format(Resources.MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value, parameterName);
-                throw new ArgumentException(message);
-            }
-        }
+        public VariationCoefficientLogNormalDistribution PreconsolidationStress { get; }
 
         public override bool Equals(object obj)
         {
@@ -112,24 +97,37 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             return Equals((MacroStabilityInwardsPreconsolidationStress) obj);
         }
 
-        private bool Equals(MacroStabilityInwardsPreconsolidationStress other)
-        {
-            return XCoordinate.Equals(other.XCoordinate)
-                   && ZCoordinate.Equals(other.ZCoordinate)
-                   && PreconsolidationStressMean.Equals(other.PreconsolidationStressMean)
-                   && PreconsolidationStressCoefficientOfVariation.Equals(other.PreconsolidationStressCoefficientOfVariation);
-        }
-
         public override int GetHashCode()
         {
             unchecked
             {
                 int hashCode = XCoordinate.GetHashCode();
                 hashCode = (hashCode * 397) ^ ZCoordinate.GetHashCode();
-                hashCode = (hashCode * 397) ^ PreconsolidationStressMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ PreconsolidationStressCoefficientOfVariation.GetHashCode();
+                hashCode = (hashCode * 397) ^ PreconsolidationStress.GetHashCode();
                 return hashCode;
             }
+        }
+
+        /// <summary>
+        /// Validates if the <paramref name="value"/> is a valid value.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="parameterName">The name of the parameter to validate.</param>
+        /// <exception cref="ArgumentException">Thrown if the parameter value is invalid.</exception>
+        private static void ValidateParameter(double value, string parameterName)
+        {
+            if (double.IsNaN(value))
+            {
+                string message = string.Format(Resources.MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value, parameterName);
+                throw new ArgumentException(message);
+            }
+        }
+
+        private bool Equals(MacroStabilityInwardsPreconsolidationStress other)
+        {
+            return XCoordinate.Equals(other.XCoordinate)
+                   && ZCoordinate.Equals(other.ZCoordinate)
+                   && PreconsolidationStress.Equals(other.PreconsolidationStress);
         }
     }
 }

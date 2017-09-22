@@ -21,8 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
@@ -139,10 +142,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                             transformedPreconsolidationStress.XCoordinate);
             Assert.AreEqual(preconsolidationStress.ZCoordinate,
                             transformedPreconsolidationStress.ZCoordinate);
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean,
-                            transformedPreconsolidationStress.PreconsolidationStressMean);
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
-                            transformedPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) preconsolidationStress.PreconsolidationStressMean,
+                CoefficientOfVariation = (RoundedDouble) preconsolidationStress.PreconsolidationStressCoefficientOfVariation
+            }, transformedPreconsolidationStress.PreconsolidationStress);
         }
     }
 }

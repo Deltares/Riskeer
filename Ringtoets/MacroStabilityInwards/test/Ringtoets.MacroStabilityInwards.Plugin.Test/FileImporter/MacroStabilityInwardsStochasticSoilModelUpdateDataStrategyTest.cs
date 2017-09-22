@@ -586,8 +586,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                       soilProfile.PreconsolidationStresses.Select(stress => new MacroStabilityInwardsPreconsolidationStress(
                                                                                                                       stress.XCoordinate + 1,
                                                                                                                       stress.ZCoordinate,
-                                                                                                                      stress.PreconsolidationStressMean,
-                                                                                                                      stress.PreconsolidationStressCoefficientOfVariation))));
+                                                                                                                      stress.PreconsolidationStress.Mean,
+                                                                                                                      stress.PreconsolidationStress.CoefficientOfVariation))));
         }
 
         private static MacroStabilityInwardsStochasticSoilProfile CloneAndSlightlyModify1DProfile(MacroStabilityInwardsStochasticSoilProfile profile)

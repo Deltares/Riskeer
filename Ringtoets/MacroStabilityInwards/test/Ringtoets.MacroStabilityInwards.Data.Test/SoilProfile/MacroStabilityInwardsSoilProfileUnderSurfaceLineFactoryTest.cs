@@ -579,15 +579,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(preconsolidationStress.XCoordinate, preconsolidationStressUnderSurfaceLine.XCoordinate);
             Assert.AreEqual(preconsolidationStress.ZCoordinate, preconsolidationStressUnderSurfaceLine.ZCoordinate);
 
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean,
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStress.Mean,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.Mean,
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.Mean.GetAccuracy());
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.PreconsolidationStress.CoefficientOfVariation,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation,
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation.GetAccuracy());
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
 
             Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine).GetDesignValue(),
-                           preconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable);
+                            preconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable);
         }
 
         private static void AssertDistributionsAndDesignVariables(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties,

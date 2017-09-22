@@ -21,8 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -49,12 +52,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreEqual(xCoordinate, stress.XCoordinate);
             Assert.AreEqual(zCoordinate, stress.ZCoordinate);
 
-            Assert.AreEqual(stressMean, stress.PreconsolidationStressMean);
-            Assert.AreEqual(stressCoefficientOfVariation, stress.PreconsolidationStressCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) stressMean,
+                CoefficientOfVariation = (RoundedDouble) stressCoefficientOfVariation
+            }, stress.PreconsolidationStress);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidConstructorArguments))]
+        [TestCaseSource(nameof(GetConstructorArgumentsNaN))]
         public void Constructor_ArgumentsNaN_ThrowsArgumentException(double xCoordinate,
                                                                      double zCoordinate,
                                                                      double stressMean,
@@ -70,6 +76,25 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(-1, 0, "Gemiddelde moet groter zijn dan 0.")]
+        [TestCase(1, -1, "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk aan 1.")]
+        public void Constructor_ArgumentsOutOfRange_ThrowArgumentOutOfRangeException(double stressMean,
+                                                                                     double stressCoefficientOfVariation,
+                                                                                     string expectedMessage)
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
+                                                                                      random.NextDouble(),
+                                                                                      stressMean,
+                                                                                      stressCoefficientOfVariation);
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -263,30 +288,30 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(baseStress,
                                           new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate + random.NextDouble(),
                                                                                           baseStress.ZCoordinate,
-                                                                                          baseStress.PreconsolidationStressMean,
-                                                                                          baseStress.PreconsolidationStressCoefficientOfVariation))
+                                                                                          stressMean,
+                                                                                          stressCoefficientOfVariation))
                 .SetName("Different X Coordinate");
             yield return new TestCaseData(baseStress,
                                           new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate,
                                                                                           baseStress.ZCoordinate + random.NextDouble(),
-                                                                                          baseStress.PreconsolidationStressMean,
-                                                                                          baseStress.PreconsolidationStressCoefficientOfVariation))
+                                                                                          stressMean,
+                                                                                          stressCoefficientOfVariation))
                 .SetName("Different Z Coordinate");
             yield return new TestCaseData(baseStress,
                                           new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate,
                                                                                           baseStress.ZCoordinate,
-                                                                                          baseStress.PreconsolidationStressMean + random.NextDouble(),
-                                                                                          baseStress.PreconsolidationStressCoefficientOfVariation))
+                                                                                          stressMean + random.NextDouble(),
+                                                                                          stressCoefficientOfVariation))
                 .SetName("Different Mean");
             yield return new TestCaseData(baseStress,
                                           new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate,
                                                                                           baseStress.ZCoordinate,
-                                                                                          baseStress.PreconsolidationStressMean,
-                                                                                          baseStress.PreconsolidationStressCoefficientOfVariation + random.NextDouble()))
+                                                                                          stressMean,
+                                                                                          stressCoefficientOfVariation + random.NextDouble()))
                 .SetName("Different Coefficient of Variation");
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidConstructorArguments()
+        private static IEnumerable<TestCaseData> GetConstructorArgumentsNaN()
         {
             var random = new Random(21);
 
