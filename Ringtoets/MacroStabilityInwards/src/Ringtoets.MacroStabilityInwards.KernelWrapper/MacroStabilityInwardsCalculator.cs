@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         public MacroStabilityInwardsCalculatorResult Calculate()
         {
-            IUpliftVanCalculator upliftVanCalculator = CalculateUpliftVan();
+            IUpliftVanKernel upliftVanCalculator = CalculateUpliftVan();
 
             return new MacroStabilityInwardsCalculatorResult(
                 MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanCalculator.SlidingCurveResult),
@@ -83,9 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             return new List<string>();
         }
 
-        private IUpliftVanCalculator CalculateUpliftVan()
+        private IUpliftVanKernel CalculateUpliftVan()
         {
-            IUpliftVanCalculator upliftVanCalculator = CreateUpliftVanCalculator();
+            IUpliftVanKernel upliftVanCalculator = CreateUpliftVanCalculator();
 
             try
             {
@@ -99,9 +99,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             return upliftVanCalculator;
         }
 
-        private IUpliftVanCalculator CreateUpliftVanCalculator()
+        private IUpliftVanKernel CreateUpliftVanCalculator()
         {
-            IUpliftVanCalculator calculator = factory.CreateUpliftVanCalculator();
+            IUpliftVanKernel calculator = factory.CreateUpliftVanCalculator();
             calculator.MoveGrid = input.MoveGrid;
             calculator.MaximumSliceWidth = input.MaximumSliceWidth;
 

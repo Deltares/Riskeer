@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
     /// <summary>
     /// Class for performing an Uplift Van calculation based on <see cref="WTIStabilityCalculation"/>.
     /// </summary>
-    public class UpliftVanCalculator : IUpliftVanCalculator
+    public class UpliftVanCalculator : IUpliftVanKernel
     {
         private readonly WTIStabilityCalculation wrappedCalculator;
         private readonly StabilityModel calculatorInput;

@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
 
-        public IUpliftVanCalculator CreateUpliftVanCalculator()
+        public IUpliftVanKernel CreateUpliftVanCalculator()
         {
             return LastCreatedUpliftVanCalculator;
         }

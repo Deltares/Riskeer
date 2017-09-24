@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
     /// <summary>
     /// Stub for the real Uplift Van sub calculator of macro stability inwards.
     /// </summary>
-    public class UpliftVanCalculatorStub : IUpliftVanCalculator
+    public class UpliftVanCalculatorStub : IUpliftVanKernel
     {
         /// <summary>
         /// Gets a value indicating whether <see cref="Calculate"/> was called or not.

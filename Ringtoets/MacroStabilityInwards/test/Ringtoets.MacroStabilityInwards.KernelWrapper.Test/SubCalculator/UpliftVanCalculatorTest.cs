@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
             var calculator = new UpliftVanCalculator();
 
             // Assert
-            Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
+            Assert.IsInstanceOf<IUpliftVanKernel>(calculator);
         }
     }
 }

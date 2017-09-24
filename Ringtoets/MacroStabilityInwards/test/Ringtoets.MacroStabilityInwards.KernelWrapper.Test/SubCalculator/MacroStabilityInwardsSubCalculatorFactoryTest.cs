@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
             IMacroStabilityInwardsSubCalculatorFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Call
-            IUpliftVanCalculator subCalculator = factory.CreateUpliftVanCalculator();
+            IUpliftVanKernel subCalculator = factory.CreateUpliftVanCalculator();
 
             // Assert
             Assert.IsNotNull(subCalculator);

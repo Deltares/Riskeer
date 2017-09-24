@@ -25,9 +25,16 @@ using Deltares.WTIStability.Data.Geo;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Interface with operations for performing an Uplift Van sub calculation.
+    /// Interface representing Uplift Van kernel input, methods and output.
     /// </summary>
-    public interface IUpliftVanCalculator
+    /// <remarks>
+    /// This interface is introduced for being able to test the conversion of:
+    /// <list type="bullet">
+    /// <item><see cref="MacroStabilityInwardsCalculator"/> input into kernel input;</item>
+    /// <item>kernel output into <see cref="MacroStabilityInwardsCalculator"/> output.</item>
+    /// </list>
+    /// </remarks>
+    public interface IUpliftVanKernel
     {
         /// <summary>
         /// Sets the soil model.

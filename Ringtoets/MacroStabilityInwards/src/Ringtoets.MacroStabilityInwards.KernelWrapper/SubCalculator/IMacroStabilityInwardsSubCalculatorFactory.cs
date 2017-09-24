@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// <summary>
         /// Creates the Uplift Van calculator.
         /// </summary>
-        /// <returns>A new <see cref="IUpliftVanCalculator"/>.</returns>
-        IUpliftVanCalculator CreateUpliftVanCalculator();
+        /// <returns>A new <see cref="IUpliftVanKernel"/>.</returns>
+        IUpliftVanKernel CreateUpliftVanCalculator();
     }
 }
