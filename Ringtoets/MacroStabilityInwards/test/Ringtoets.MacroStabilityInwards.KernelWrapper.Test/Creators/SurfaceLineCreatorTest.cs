@@ -210,10 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             Assert.AreEqual(name, actual.Name);
 
             double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X).ToArray();
-            expectedCoordinatesX = expectedCoordinatesX.Concat(expectedCoordinatesX).ToArray();
-
             double[] expectedCoordinatesZ = surfaceLine.Points.Select(p => p.Z).ToArray();
-            expectedCoordinatesZ = expectedCoordinatesZ.Concat(expectedCoordinatesZ).ToArray();
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X));
             CollectionAssert.AreEqual(expectedCoordinatesZ, actual.Geometry.Points.Select(p => p.Z));

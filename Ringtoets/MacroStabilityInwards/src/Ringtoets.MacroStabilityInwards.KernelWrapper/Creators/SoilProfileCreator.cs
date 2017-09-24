@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
@@ -34,8 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
     /// </summary>
     internal static class SoilProfileCreator
     {
-        private static GeometryData geometryData;
-
         /// <summary>
         /// Creates a <see cref="SoilProfile2D"/> with the given <paramref name="layersWithSoils"/>
         /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
@@ -56,8 +55,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(layersWithSoils));
             }
 
-            geometryData = new GeometryData();
-
             var profile = new SoilProfile2D();
             profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
 
@@ -72,11 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                 });
             }
 
-            geometryData.Left = geometryData.Points.Min(gp => gp.X);
-            geometryData.Right = geometryData.Points.Max(gp => gp.X);
-            geometryData.Bottom = geometryData.Points.Min(gp => gp.Z);
-
-            profile.Geometry = geometryData;
+            profile.Geometry = CreateGeometryData(profile);
 
             return profile;
         }
@@ -93,68 +86,36 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 
         private static GeometrySurface CreateGeometrySurface(MacroStabilityInwardsSoilLayerUnderSurfaceLine layer)
         {
-            var outerLoop = new GeometryLoop();
-            GeometryCurve[] curves = ToCurveList(layer.OuterRing);
-
-            geometryData.Curves.AddRange(curves);
-            outerLoop.CurveList.AddRange(curves);
-
-            geometryData.Loops.Add(outerLoop);
-
-            var innerloops = new List<GeometryLoop>();
-            foreach (Point2D[] layerHole in layer.Holes)
-            {
-                GeometryCurve[] holeCurves = ToCurveList(layerHole);
-                geometryData.Curves.AddRange(holeCurves);
-                innerloops.Add(CurvesToLoop(holeCurves));
-            }
-
-            geometryData.Loops.AddRange(innerloops);
-
             var surface = new GeometrySurface
             {
-                OuterLoop = outerLoop
+                OuterLoop = CreateGeometryLoop(layer.OuterRing)
             };
-            surface.InnerLoops.AddRange(innerloops);
 
-            geometryData.Surfaces.Add(surface);
+            surface.InnerLoops.AddRange(layer.Holes.Select(CreateGeometryLoop).ToArray());
 
             return surface;
         }
 
-        private static GeometryLoop CurvesToLoop(GeometryCurve[] curves)
+        private static GeometryLoop CreateGeometryLoop(Point2D[] points)
         {
             var loop = new GeometryLoop();
-            loop.CurveList.AddRange(curves);
+
+            loop.CurveList.AddRange(CreateGeometryCurves(points));
+
             return loop;
         }
 
-        private static GeometryCurve[] ToCurveList(Point2D[] points)
+        private static GeometryCurve[] CreateGeometryCurves(Point2D[] points)
         {
-            var geometryPoints = (List<WTIStabilityPoint2D>) geometryData.Points;
-
             var curves = new List<GeometryCurve>();
-
             var firstPoint = new WTIStabilityPoint2D(points[0].X, points[0].Y);
             WTIStabilityPoint2D lastPoint = null;
 
             for (var i = 0; i < points.Length - 1; i++)
             {
-                WTIStabilityPoint2D headPoint;
-
-                if (i == 0)
-                {
-                    headPoint = firstPoint;
-                    geometryPoints.Add(headPoint);
-                }
-                else
-                {
-                    headPoint = lastPoint;
-                }
+                WTIStabilityPoint2D headPoint = i == 0 ? firstPoint : lastPoint;
 
                 var endPoint = new WTIStabilityPoint2D(points[i + 1].X, points[i + 1].Y);
-
-                geometryPoints.Add(endPoint);
 
                 curves.Add(new GeometryCurve
                 {
@@ -175,6 +136,31 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             }
 
             return curves.ToArray();
+        }
+
+        private static GeometryData CreateGeometryData(SoilProfile2D profile)
+        {
+            var geometryData = new GeometryData();
+
+            geometryData.Surfaces.AddRange(profile.Surfaces
+                                                  .Select(s => s.GeometrySurface));
+            geometryData.Loops.AddRange(geometryData.Surfaces
+                                                    .SelectMany(gs => new[]
+                                                    {
+                                                        gs.OuterLoop
+                                                    }.Concat(gs.InnerLoops)));
+            geometryData.Curves.AddRange(geometryData.Loops
+                                                     .SelectMany(l => l.CurveList));
+            geometryData.Points.AddRange(geometryData.Curves
+                                                     .SelectMany(c => new[]
+                                                     {
+                                                         c.HeadPoint,
+                                                         c.EndPoint
+                                                     }).Distinct());
+
+            geometryData.Rebox();
+
+            return geometryData;
         }
     }
 }

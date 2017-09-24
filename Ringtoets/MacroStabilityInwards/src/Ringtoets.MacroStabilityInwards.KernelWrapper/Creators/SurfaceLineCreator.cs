@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
@@ -50,118 +48,114 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
 
-            var WTISurfaceLine = new SurfaceLine2
+            var wtiSurfaceLine = new SurfaceLine2
             {
                 Name = surfaceLine.Name
             };
 
             if (surfaceLine.Points.Any())
             {
-                var geometry = new GeometryPointString();
-                ((List<GeometryPoint>) geometry.Points).AddRange(surfaceLine.LocalGeometry.Select(CreateGeometryPoint));
-                WTISurfaceLine.Geometry = geometry;
+                GeometryPoint[] geometryPoints = surfaceLine.LocalGeometry.Select(projectedPoint => new GeometryPoint(projectedPoint.X, projectedPoint.Y)).ToArray();
 
-                foreach (CharacteristicPoint characteristicPoint in CreateCharacteristicPoints(surfaceLine).ToArray())
+                var geometry = new GeometryPointString();
+                ((List<GeometryPoint>) geometry.Points).AddRange(geometryPoints);
+                wtiSurfaceLine.Geometry = geometry;
+
+                foreach (CharacteristicPoint characteristicPoint in CreateCharacteristicPoints(surfaceLine, geometryPoints).ToArray())
                 {
-                    WTISurfaceLine.CharacteristicPoints.Add(characteristicPoint);
+                    wtiSurfaceLine.CharacteristicPoints.Add(characteristicPoint);
                 }
             }
 
-            return WTISurfaceLine;
+            return wtiSurfaceLine;
         }
 
-        private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoints(MacroStabilityInwardsSurfaceLine surfaceLine)
+        private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoints(MacroStabilityInwardsSurfaceLine surfaceLine, GeometryPoint[] geometryPoints)
         {
-            Point2D[] projectedPoints = surfaceLine.LocalGeometry.ToArray();
             var characteristicPoints = new List<CharacteristicPoint>();
 
             for (var i = 0; i < surfaceLine.Points.Length; i++)
             {
-                IEnumerable<CharacteristicPoint> newPoints = CreateCharacteristicPoint(surfaceLine, projectedPoints, i);
-                characteristicPoints.AddRange(newPoints);
+                characteristicPoints.AddRange(CreateCharacteristicPoint(surfaceLine, geometryPoints, i));
             }
+
             return characteristicPoints;
         }
 
-        private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point2D[] projectedPoints, int index)
+        private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, GeometryPoint[] geometryPoints, int index)
         {
             Point3D surfaceLinePoint = surfaceLine.Points[index];
-            Point2D projectedPoint = projectedPoints[index];
+            GeometryPoint geometryPoint = geometryPoints[index];
 
             IList<CharacteristicPoint> characteristicPoints = new List<CharacteristicPoint>();
 
             if (ReferenceEquals(surfaceLine.DitchPolderSide, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DitchPolderSide));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DitchPolderSide));
             }
             if (ReferenceEquals(surfaceLine.BottomDitchPolderSide, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.BottomDitchPolderSide));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.BottomDitchPolderSide));
             }
             if (ReferenceEquals(surfaceLine.BottomDitchDikeSide, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.BottomDitchDikeSide));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.BottomDitchDikeSide));
             }
             if (ReferenceEquals(surfaceLine.DitchDikeSide, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DitchDikeSide));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DitchDikeSide));
             }
             if (ReferenceEquals(surfaceLine.DikeToeAtPolder, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DikeToeAtPolder));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeToeAtPolder));
             }
             if (ReferenceEquals(surfaceLine.DikeToeAtRiver, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DikeToeAtRiver));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeToeAtRiver));
             }
             if (ReferenceEquals(surfaceLine.DikeTopAtPolder, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DikeTopAtPolder));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeTopAtPolder));
             }
             if (ReferenceEquals(surfaceLine.TrafficLoadInside, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.TrafficLoadInside));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.TrafficLoadInside));
             }
             if (ReferenceEquals(surfaceLine.TrafficLoadOutside, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.TrafficLoadOutside));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.TrafficLoadOutside));
             }
             if (ReferenceEquals(surfaceLine.ShoulderBaseInside, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.ShoulderBaseInside));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.ShoulderBaseInside));
             }
             if (ReferenceEquals(surfaceLine.ShoulderTopInside, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.ShoulderTopInside));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.ShoulderTopInside));
             }
             if (ReferenceEquals(surfaceLine.SurfaceLevelInside, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.SurfaceLevelInside));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.SurfaceLevelInside));
             }
             if (ReferenceEquals(surfaceLine.SurfaceLevelOutside, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.SurfaceLevelOutside));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.SurfaceLevelOutside));
             }
             if (ReferenceEquals(surfaceLine.DikeTopAtRiver, surfaceLinePoint))
             {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(projectedPoint, CharacteristicPointType.DikeTopAtRiver));
+                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeTopAtRiver));
             }
 
             return characteristicPoints;
         }
 
-        private static CharacteristicPoint CreateCharacteristicPointOfType(Point2D projectedPoint, CharacteristicPointType pointType)
+        private static CharacteristicPoint CreateCharacteristicPointOfType(GeometryPoint geometryPoints, CharacteristicPointType pointType)
         {
             return new CharacteristicPoint
             {
                 CharacteristicPointType = pointType,
-                GeometryPoint = CreateGeometryPoint(projectedPoint)
+                GeometryPoint = geometryPoints
             };
-        }
-
-        private static GeometryPoint CreateGeometryPoint(Point2D projectedPoint)
-        {
-            return new GeometryPoint(projectedPoint.X, projectedPoint.Y);
         }
     }
 }
