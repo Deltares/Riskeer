@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, inputParameters.PenetrationLength.NumberOfDecimalPlaces);
 
             Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Automatic, inputParameters.GridDeterminationType);
-            Assert.AreEqual(MacroStabilityInwardsTangentLineDetermination.LayerSeparated, inputParameters.TangentLineDetermination);
+            Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, inputParameters.TangentLineDeterminationType);
 
             Assert.IsNaN(inputParameters.TangentLineZTop);
             Assert.AreEqual(2, inputParameters.TangentLineZTop.NumberOfDecimalPlaces);

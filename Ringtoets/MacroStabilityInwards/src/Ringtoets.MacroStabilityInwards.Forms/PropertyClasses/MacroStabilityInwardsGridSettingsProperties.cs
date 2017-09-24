@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     {
         private const int moveGridPropertyIndex = 1;
         private const int gridDeterminationTypePropertyIndex = 2;
-        private const int tangentLineDeterminationPropertyIndex = 3;
+        private const int tangentLineDeterminationTypePropertyIndex = 3;
         private const int tangentLineZTopPropertyIndex = 4;
         private const int tangentLineZBottomPropertyIndex = 5;
         private const int leftGridPropertyIndex = 6;
@@ -102,21 +102,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(tangentLineDeterminationPropertyIndex)]
+        [PropertyOrder(tangentLineDeterminationTypePropertyIndex)]
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineDetermination_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.TangentLineDetermination_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineDeterminationType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TangentLineDeterminationType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public MacroStabilityInwardsTangentLineDetermination TangentLineDetermination
+        public MacroStabilityInwardsTangentLineDeterminationType TangentLineDeterminationType
         {
             get
             {
-                return data.TangentLineDetermination;
+                return data.TangentLineDeterminationType;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.TangentLineDetermination = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.TangentLineDeterminationType = value, propertyChangeHandler);
             }
         }
 

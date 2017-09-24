@@ -66,7 +66,7 @@
     <Compile Include="MacroStabilityInwardsSlidingCircleTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCurveTest.cs" />
     <Compile Include="MacroStabilityInwardsSlipPlaneUpliftVanTest.cs" />
-    <Compile Include="MacroStabilityInwardsTangentLineDeterminationTest.cs" />
+    <Compile Include="MacroStabilityInwardsTangentLineDeterminationTypeTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismTest.cs" />

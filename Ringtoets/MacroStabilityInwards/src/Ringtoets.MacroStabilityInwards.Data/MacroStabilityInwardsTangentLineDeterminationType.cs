@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// The tangent line determination types.
     /// </summary>
-    public enum MacroStabilityInwardsTangentLineDetermination
+    public enum MacroStabilityInwardsTangentLineDeterminationType
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Specified_DisplayName))]
         Specified = 1,

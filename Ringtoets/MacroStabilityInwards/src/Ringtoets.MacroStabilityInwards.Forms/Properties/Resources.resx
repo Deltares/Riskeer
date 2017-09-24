@@ -448,10 +448,10 @@
   <data name="RightGrid_DisplayName" xml:space="preserve">
     <value>Rechter grid</value>
   </data>
-  <data name="TangentLineDetermination_Description" xml:space="preserve">
+  <data name="TangentLineDeterminationType_Description" xml:space="preserve">
     <value>Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?</value>
   </data>
-  <data name="TangentLineDetermination_DisplayName" xml:space="preserve">
+  <data name="TangentLineDeterminationType_DisplayName" xml:space="preserve">
     <value>Bepaling tangentlijnen</value>
   </data>
   <data name="TangentLineZBottom_Description" xml:space="preserve">

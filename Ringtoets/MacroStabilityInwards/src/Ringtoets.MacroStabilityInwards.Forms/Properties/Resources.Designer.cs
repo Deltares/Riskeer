@@ -1175,18 +1175,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?.
         /// </summary>
-        public static string TangentLineDetermination_Description {
+        public static string TangentLineDeterminationType_Description {
             get {
-                return ResourceManager.GetString("TangentLineDetermination_Description", resourceCulture);
+                return ResourceManager.GetString("TangentLineDeterminationType_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Bepaling tangentlijnen.
         /// </summary>
-        public static string TangentLineDetermination_DisplayName {
+        public static string TangentLineDeterminationType_DisplayName {
             get {
-                return ResourceManager.GetString("TangentLineDetermination_DisplayName", resourceCulture);
+                return ResourceManager.GetString("TangentLineDeterminationType_DisplayName", resourceCulture);
             }
         }
         

@@ -209,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     GridAutomaticDetermined = inputParameters.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic,
                     LeftGrid = inputParameters.LeftGrid,
                     RightGrid = inputParameters.RightGrid,
-                    TangentLineAutomaticAtBoundaries = inputParameters.TangentLineDetermination == MacroStabilityInwardsTangentLineDetermination.LayerSeparated,
+                    TangentLineAutomaticAtBoundaries = inputParameters.TangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated,
                     TangentLineZTop = inputParameters.TangentLineZTop,
                     TangentLineZBottom = inputParameters.TangentLineZBottom,
                     CreateZones = inputParameters.CreateZones,

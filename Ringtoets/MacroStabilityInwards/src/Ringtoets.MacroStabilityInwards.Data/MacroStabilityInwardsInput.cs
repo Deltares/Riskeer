@@ -105,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             penetrationLength = new RoundedDouble(2, double.NaN);
 
             GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
-            TangentLineDetermination = MacroStabilityInwardsTangentLineDetermination.LayerSeparated;
+            TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated;
 
             tangentLineZTop = new RoundedDouble(2, double.NaN);
             tangentLineZBottom = new RoundedDouble(2, double.NaN);
@@ -285,7 +285,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets the tangent line determination type.
         /// </summary>
-        public MacroStabilityInwardsTangentLineDetermination TangentLineDetermination { get; set; }
+        public MacroStabilityInwardsTangentLineDeterminationType TangentLineDeterminationType { get; set; }
 
         /// <summary>
         /// Gets or sets the tangent line z top.

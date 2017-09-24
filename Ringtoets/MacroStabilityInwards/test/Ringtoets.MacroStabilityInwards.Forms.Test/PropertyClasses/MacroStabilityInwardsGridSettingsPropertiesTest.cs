@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     {
         private const int expectedMoveGridPropertyIndex = 0;
         private const int expectedGridDeterminationTypePropertyIndex = 1;
-        private const int expectedTangentLineDeterminationPropertyIndex = 2;
+        private const int expectedTangentLineDeterminationTypePropertyIndex = 2;
         private const int expectedTangentLineZTopPropertyIndex = 3;
         private const int expectedTangentLineZBottomPropertyIndex = 4;
         private const int expectedLeftGridPropertyIndex = 5;
@@ -138,10 +138,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Bepaling grid",
                 "Rekengrid automatisch bepalen of handmatig invoeren?");
 
-            PropertyDescriptor tangentLineDeterminationProperty = dynamicProperties[expectedTangentLineDeterminationPropertyIndex];
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, EnumTypeConverter>(nameof(properties.TangentLineDetermination));
+            PropertyDescriptor tangentLineDeterminationTypeProperty = dynamicProperties[expectedTangentLineDeterminationTypePropertyIndex];
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, EnumTypeConverter>(nameof(properties.TangentLineDeterminationType));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                tangentLineDeterminationProperty,
+                tangentLineDeterminationTypeProperty,
                 calculationGridsCategory,
                 "Bepaling tangentlijnen",
                 "Bepaling raaklijnen op basis van grondlaagscheidingen of handmatig?",
@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(input.MoveGrid, properties.MoveGrid);
             Assert.AreEqual(input.GridDeterminationType, properties.GridDeterminationType);
-            Assert.AreEqual(input.TangentLineDetermination, properties.TangentLineDetermination);
+            Assert.AreEqual(input.TangentLineDeterminationType, properties.TangentLineDeterminationType);
             Assert.AreEqual(input.TangentLineZTop, properties.TangentLineZTop);
             Assert.AreEqual(input.TangentLineZBottom, properties.TangentLineZBottom);
 
@@ -231,21 +231,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var random = new Random();
             bool moveGrid = random.NextBoolean();
             var gridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>();
-            var tangentLineDetermination = random.NextEnumValue<MacroStabilityInwardsTangentLineDetermination>();
+            var tangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>();
             double tangentLineZTop = random.Next();
             double tangentLineZBottom = random.Next();
 
             // When
             properties.MoveGrid = moveGrid;
             properties.GridDeterminationType = gridDeterminationType;
-            properties.TangentLineDetermination = tangentLineDetermination;
+            properties.TangentLineDeterminationType = tangentLineDeterminationType;
             properties.TangentLineZTop = (RoundedDouble) tangentLineZTop;
             properties.TangentLineZBottom = (RoundedDouble) tangentLineZBottom;
 
             // Then
             Assert.AreEqual(moveGrid, input.MoveGrid);
             Assert.AreEqual(gridDeterminationType, input.GridDeterminationType);
-            Assert.AreEqual(tangentLineDetermination, input.TangentLineDetermination);
+            Assert.AreEqual(tangentLineDeterminationType, input.TangentLineDeterminationType);
             Assert.AreEqual(tangentLineZTop, input.TangentLineZTop, input.TangentLineZTop.GetAccuracy());
             Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom, input.TangentLineZBottom.GetAccuracy());
         }
@@ -271,13 +271,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void TangentLineDetermination_SetValidValue_SetsValueAndUpdatesObservers()
+        public void TangentLineDeterminationType_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineDetermination = MacroStabilityInwardsTangentLineDetermination.Specified, calculation);
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified, calculation);
         }
 
         [Test]
