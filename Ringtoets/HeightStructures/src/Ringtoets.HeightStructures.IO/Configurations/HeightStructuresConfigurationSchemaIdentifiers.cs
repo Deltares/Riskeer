@@ -26,7 +26,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
     /// </summary>
     internal static class HeightStructuresConfigurationSchemaIdentifiers
     {
-        #region stochasts
+        #region Stochasts
 
         /// <summary>
         /// The identifier for the level crest structure stochast name.

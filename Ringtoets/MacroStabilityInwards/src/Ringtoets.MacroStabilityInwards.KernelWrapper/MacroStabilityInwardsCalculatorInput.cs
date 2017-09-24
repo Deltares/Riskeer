@@ -81,6 +81,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             SlipPlaneMinimumLength = properties.SlipPlaneMinimumLength;
         }
 
+        /// <summary>
+        /// Container for properties for constructing a <see cref="MacroStabilityInwardsCalculatorInput"/>.
+        /// </summary>
         public class ConstructionProperties
         {
             /// <summary>
@@ -114,21 +117,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 SlipPlaneMinimumLength = double.NaN;
             }
 
-            #region properties
+            #region Properties
 
             /// <summary>
-            /// Gets the outside high water level.
+            /// Gets or sets the outside high water level.
             /// [m]
             /// </summary>
             public double AssessmentLevel { internal get; set; }
 
             /// <summary>
-            /// Gets the surface line.
+            /// Gets or sets the surface line.
             /// </summary>
             public MacroStabilityInwardsSurfaceLine SurfaceLine { internal get; set; }
 
             /// <summary>
-            /// Gets the profile which contains a definition of soil layers with properties.
+            /// Gets or sets the profile which contains a definition of soil layers with properties.
             /// </summary>
             public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { internal get; set; }
 
@@ -179,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public double MinimumLevelPhreaticLineAtDikeTopPolder { internal get; set; }
 
             /// <summary>
-            /// Gets or sets whether the default offset should be used.
+            /// Gets or sets whether the default offsets should be used.
             /// </summary>
             public bool UseDefaultOffsets { internal get; set; }
 
@@ -322,7 +325,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             #endregion
         }
 
-        #region properties
+        #region Properties
 
         /// <summary>
         /// Gets the outside high water level.
@@ -387,7 +390,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         public double MinimumLevelPhreaticLineAtDikeTopPolder { get; }
 
         /// <summary>
-        /// Gets whether the default offset should be used.
+        /// Gets whether the default offsets should be used.
         /// </summary>
         public bool UseDefaultOffsets { get; }
 

@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
     public interface IMacroStabilityInwardsSubCalculatorFactory
     {
         /// <summary>
-        /// Creates the upliftVan calculator.
+        /// Creates the Uplift Van calculator.
         /// </summary>
         /// <returns>A new <see cref="IUpliftVanCalculator"/>.</returns>
         IUpliftVanCalculator CreateUpliftVanCalculator();

@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
         private class TestDataGridViewCell : DataGridViewCell {}
 
-        #region Testcases
+        #region Test cases
 
         private static IEnumerable AssessmentLayerOneStateIsSufficient()
         {

@@ -365,7 +365,7 @@ namespace Ringtoets.Common.IO.Structures
 
         #endregion
 
-        #region
+        #region Inflow model types
 
         /// <summary>
         /// Defines the value for the 'Inflow Model Type' parameter of a structure corresponding

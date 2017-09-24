@@ -26,7 +26,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
     /// </summary>
     internal static class ClosingStructuresConfigurationSchemaIdentifiers
     {
-        #region parameters
+        #region Parameters
 
         /// <summary>
         /// The identifier for the identical apertures element.
@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         #endregion
 
-        #region stochasts
+        #region Stochasts
 
         /// <summary>
         /// The identifier for the level crest structure not closing stochast name.
@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         #endregion
 
-        #region inflow model type
+        #region Inflow model types
 
         /// <summary>
         /// The identifier for the flooded culvert inflow model type.

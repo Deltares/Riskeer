@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.KernelWrapper
             public double SellmeijerReducedFall { internal get; set; }
         }
 
-        #region properties
+        #region Properties
 
         /// <summary>
         /// Gets the z-value of the Uplift sub calculation.

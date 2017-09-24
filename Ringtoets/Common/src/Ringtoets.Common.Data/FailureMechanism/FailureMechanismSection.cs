@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This class represents a sub-section of a <see cref="ReferenceLine"/> in which similar
+    /// This class represents a sub section of a <see cref="ReferenceLine"/> in which similar
     /// characteristics can be found to allow for 1 calculation to determine a result that
     /// applies to the whole section.
     /// </summary>
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the name of the section.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the 2D points describing the geometry of the section.

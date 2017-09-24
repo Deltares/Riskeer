@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// </summary>
         public string MaterialName { get; }
 
-        #region distributions
+        #region Distributions
 
         /// <summary>
         /// Gets the distribution for the volumic weight of the layer above the phreatic level.

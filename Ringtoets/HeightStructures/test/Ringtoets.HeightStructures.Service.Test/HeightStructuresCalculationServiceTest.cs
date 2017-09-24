@@ -797,7 +797,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             mockRepository.VerifyAll();
         }
 
-        #region Testcases
+        #region Test cases
 
         private static IEnumerable<TestCaseData> NormalDistributionsWithInvalidMean
         {

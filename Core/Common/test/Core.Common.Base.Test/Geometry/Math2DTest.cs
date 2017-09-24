@@ -1218,7 +1218,7 @@ namespace Core.Common.Base.Test.Geometry
             return relativeLengths.Select(l => lineLength * l).ToArray();
         }
 
-        #region testcases
+        #region Test cases
 
         /// <summary>
         /// Test cases for intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,

@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> containing all the values required
         /// for performing a macro stability inwards calculation.</param>
         /// <param name="factory">The factory responsible for creating the sub calculators.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory)
         {
             if (input == null)
@@ -112,7 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 input.SoilProfile.LayersUnderSurfaceLine
                      .Zip(soils, (layer, soil) => new
                      {
-                         layer, soil
+                         layer,
+                         soil
                      })
                      .ToDictionary(x => x.layer, x => x.soil);
 

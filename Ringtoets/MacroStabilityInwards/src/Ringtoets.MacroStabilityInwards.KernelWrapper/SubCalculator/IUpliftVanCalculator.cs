@@ -25,7 +25,7 @@ using Deltares.WTIStability.Data.Geo;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Interface with operations for performing an upliftVan sub calculation.
+    /// Interface with operations for performing an Uplift Van sub calculation.
     /// </summary>
     public interface IUpliftVanCalculator
     {
@@ -56,11 +56,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 
         /// <summary>
         /// Sets the maximum slice width.
+        /// [m]
         /// </summary>
         double MaximumSliceWidth { set; }
 
         /// <summary>
-        /// Sets the slip plane upliftVan.
+        /// Sets the slip plane Uplift Van.
         /// </summary>
         SlipPlaneUpliftVan SlipPlaneUpliftVan { set; }
 
@@ -132,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         SlipPlaneUpliftVan SlipPlaneResult { get; }
 
         /// <summary>
-        /// Performs the upliftVan calculation.
+        /// Performs the Uplift Van calculation.
         /// </summary>
         void Calculate();
     }

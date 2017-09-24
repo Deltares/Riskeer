@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             GridAutomaticallyCalculated = properties.GridAutomaticallyCalculated;
         }
 
-        #region properties
+        #region Properties
 
         /// <summary>
         /// Gets the sliding curve.
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsSlipPlaneUpliftVan SlipPlane { get; }
 
         /// <summary>
-        /// Gets the factor of stability of the upliftVan calculation.
+        /// Gets the factor of stability of the Uplift Van calculation.
         /// </summary>
         public double FactorOfStability { get; }
 
@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             /// <summary>
-            /// Gets or sets the factor of stability of the upliftVan calculation.
+            /// Gets or sets the factor of stability of the Uplift Van calculation.
             /// </summary>
             public double FactorOfStability { internal get; set; }
 

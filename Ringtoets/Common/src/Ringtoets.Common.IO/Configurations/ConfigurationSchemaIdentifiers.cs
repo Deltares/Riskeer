@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO.Configurations
         /// </summary>
         public const string Orientation = "orientatie";
 
-        #region stochasts
+        #region Stochasts
 
         /// <summary>
         /// The identifier for stochasts elements.
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.IO.Configurations
 
         #endregion
 
-        #region wave reduction
+        #region Wave reduction
 
         /// <summary>
         /// The tag of elements containing parameters that define wave reduction.
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.IO.Configurations
 
         #endregion
 
-        #region structure calculation
+        #region Structure calculation
 
         /// <summary>
         /// The tag of elements containing the failure probability of a structure with erosion.

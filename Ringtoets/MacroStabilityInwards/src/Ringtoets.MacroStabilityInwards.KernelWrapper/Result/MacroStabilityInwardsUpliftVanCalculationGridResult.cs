@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
-    /// The upliftVan calculation grid result of a macro stability calculation.
+    /// The Uplift Van calculation grid result of a macro stability calculation.
     /// </summary>
     public class MacroStabilityInwardsUpliftVanCalculationGridResult
     {

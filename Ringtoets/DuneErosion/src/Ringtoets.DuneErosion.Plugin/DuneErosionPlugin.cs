@@ -158,7 +158,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region TreeNodeInfo
 
-        #region failureMechanismContext TreeNodeInfo
+        #region FailureMechanismContext TreeNodeInfo
 
         private static object[] FailureMechanismEnabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
         {

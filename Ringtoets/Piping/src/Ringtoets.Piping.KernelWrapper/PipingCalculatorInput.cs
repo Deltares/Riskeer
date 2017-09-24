@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.KernelWrapper
             SoilProfile = properties.SoilProfile;
         }
 
-        #region properties
+        #region Properties
 
         /// <summary>
         /// Gets the volumetric weight of water.
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.KernelWrapper
                 SoilProfile = null;
             }
 
-            #region properties
+            #region Properties
 
             /// <summary>
             /// Gets the volumetric weight of water.

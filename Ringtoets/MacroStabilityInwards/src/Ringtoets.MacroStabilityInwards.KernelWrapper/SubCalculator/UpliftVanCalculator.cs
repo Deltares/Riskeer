@@ -30,7 +30,7 @@ using Deltares.WTIStability.Levenberg;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Class which wraps a <see cref="WTIStabilityCalculation"/>.
+    /// Class for performing an Uplift Van calculation based on <see cref="WTIStabilityCalculation"/>.
     /// </summary>
     public class UpliftVanCalculator : IUpliftVanCalculator
     {

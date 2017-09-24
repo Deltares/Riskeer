@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Plugin
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PluginBase));
 
-        #region failureMechanismAssociations
+        #region Failure mechanism associations
 
         private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
         {

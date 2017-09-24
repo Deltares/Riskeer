@@ -40,15 +40,15 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticOutput"/>.
         /// </summary>
-        /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub-mechanism.</param>
-        /// <param name="upliftReliability">The reliability of uplift the sub-mechanism.</param>
-        /// <param name="upliftProbability">The probability of failure due to the uplift sub-mechanism.</param>
-        /// <param name="heaveFactorOfSafety">The factor of safety for the heave sub-mechanism.</param>
-        /// <param name="heaveReliability">The reliability of the heave sub-mechanism.</param>
-        /// <param name="heaveProbability">The probability of failure due to the heave sub-mechanism.</param>
-        /// <param name="sellmeijerFactorOfSafety">The factor of safety for the Sellmeijer sub-mechanism.</param>
-        /// <param name="sellmeijerReliability">The reliability of the Sellmeijer sub-mechanism.</param>
-        /// <param name="sellmeijerProbability">The probability of failure due to the Sellmeijer sub-mechanism.</param>
+        /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub mechanism.</param>
+        /// <param name="upliftReliability">The reliability of uplift the sub mechanism.</param>
+        /// <param name="upliftProbability">The probability of failure due to the uplift sub mechanism.</param>
+        /// <param name="heaveFactorOfSafety">The factor of safety for the heave sub mechanism.</param>
+        /// <param name="heaveReliability">The reliability of the heave sub mechanism.</param>
+        /// <param name="heaveProbability">The probability of failure due to the heave sub mechanism.</param>
+        /// <param name="sellmeijerFactorOfSafety">The factor of safety for the Sellmeijer sub mechanism.</param>
+        /// <param name="sellmeijerReliability">The reliability of the Sellmeijer sub mechanism.</param>
+        /// <param name="sellmeijerProbability">The probability of failure due to the Sellmeijer sub mechanism.</param>
         /// <param name="requiredProbability">The required (maximum allowed) probability of failure due to piping.</param>
         /// <param name="requiredReliability">The required (maximum allowed) reliability of the piping failure mechanism</param>
         /// <param name="pipingProbability">The calculated probability of failing due to piping.</param>
@@ -136,19 +136,19 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety for the uplift sub-mechanism,
+        /// Gets the factor of safety for the uplift sub mechanism,
         /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble UpliftFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability for the uplift sub-mechanism,
+        /// Gets the reliability for the uplift sub mechanism,
         /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble UpliftReliability { get; }
 
         /// <summary>
-        /// Gets the probability of failing due to the uplift failure sub-mechanism,
+        /// Gets the probability of failing due to the uplift failure sub mechanism,
         /// which value in range [0,1].
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
@@ -167,19 +167,19 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety for the heave sub-mechanism,
+        /// Gets the factor of safety for the heave sub mechanism,
         /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble HeaveFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability for the heave sub-mechanism,
+        /// Gets the reliability for the heave sub mechanism,
         /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble HeaveReliability { get; }
 
         /// <summary>
-        /// Gets the probability of failing due to the heave failure sub-mechanism,
+        /// Gets the probability of failing due to the heave failure sub mechanism,
         /// which value in range [0,1].
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
@@ -198,19 +198,19 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety for the Sellmeijer sub-mechanism,
+        /// Gets the factor of safety for the Sellmeijer sub mechanism,
         /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble SellmeijerFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability for the Sellmeijer sub-mechanism,
+        /// Gets the reliability for the Sellmeijer sub mechanism,
         /// which is a value greater than 0.
         /// </summary>
         public RoundedDouble SellmeijerReliability { get; }
 
         /// <summary>
-        /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism,
+        /// Gets the probability of failing due to the Sellmeijer failure sub mechanism,
         /// which value in range [0,1].
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls

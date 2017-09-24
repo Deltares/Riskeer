@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// The upliftVan calculation grid result of a macro stability calculation.
+    /// The Uplift Van calculation grid result of a macro stability calculation.
     /// </summary>
     public class MacroStabilityInwardsSlipPlaneUpliftVan
     {

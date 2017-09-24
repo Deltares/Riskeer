@@ -522,7 +522,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             return new LineParseException(message, innerException);
         }
 
-        #region csv column names
+        #region Csv column names
 
         private const string locationIdKey = "locationid";
         private const string surfaceLineKey = "profielnaam";

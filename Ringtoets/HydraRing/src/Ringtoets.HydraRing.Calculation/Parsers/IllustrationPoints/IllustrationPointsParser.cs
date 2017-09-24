@@ -224,7 +224,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
         }
 
         /// <summary>
-        /// Parses sub-mechanism beta values from the <paramref name="reader"/>.
+        /// Parses sub mechanism beta values from the <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">The database reader.</param>
         /// <exception cref="HydraRingFileParserException">Thrown when:

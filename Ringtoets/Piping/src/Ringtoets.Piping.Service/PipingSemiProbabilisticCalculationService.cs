@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Calculates the reliability of piping based on the factors of safety from the sub-mechanisms.
+        /// Calculates the reliability of piping based on the factors of safety from the sub mechanisms.
         /// </summary>
         private void CalculatePipingReliability()
         {
@@ -185,9 +185,9 @@ namespace Ringtoets.Piping.Service
         /// <summary>
         /// Calculates the probability of occurrence of the piping failure mechanism.
         /// </summary>
-        /// <param name="probabilityOfHeave">The calculated probability of the heave sub-mechanism.</param>
-        /// <param name="probabilityOfUplift">The calculated probability of the uplift sub-mechanism.</param>
-        /// <param name="probabilityOfSellmeijer">The calculated probability of the Sellmeijer sub-mechanism.</param>
+        /// <param name="probabilityOfHeave">The calculated probability of the heave sub mechanism.</param>
+        /// <param name="probabilityOfUplift">The calculated probability of the uplift sub mechanism.</param>
+        /// <param name="probabilityOfSellmeijer">The calculated probability of the Sellmeijer sub mechanism.</param>
         /// <returns>A value representing the probability of occurrence of piping.</returns>
         private static double PipingProbability(double probabilityOfHeave, double probabilityOfUplift, double probabilityOfSellmeijer)
         {
@@ -218,7 +218,7 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        #region sub-calculation constants
+        #region Sub calculation constants
 
         private struct SubCalculationFactors
         {

@@ -281,7 +281,7 @@ namespace Core.Common.Gui
                 Plugins = null;
             }
 
-            #region prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
+            #region Prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
 
             Assembly systemAssembly = typeof(Component).Assembly;
             Type reflectTypeDescriptionProviderType =
