@@ -76,7 +76,7 @@
     <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTest.cs" />
     <Compile Include="Creators\MacroStabilityInwardsUpliftVanCalculationGridResultCreatorTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsUpliftVanCalculationGridResultTest.cs" />
-    <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryTest.cs" />
+    <Compile Include="SubCalculator\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculatorTest.cs" />
   </ItemGroup>

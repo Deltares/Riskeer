@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalcula
             using (new MacroStabilityInwardsSubCalculatorFactoryConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestMacroStabilityInwardsSubCalculatorFactory>(MacroStabilityInwardsSubCalculatorFactory.Instance);
+                Assert.IsInstanceOf<TestMacroStabilityInwardsSubCalculatorFactory>(MacroStabilityInwardsKernelWrapperFactory.Instance);
             }
         }
 
@@ -55,13 +55,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalcula
         public void Dispose_Always_ResetsFactoryToPreviousValue()
         {
             // Setup
-            IMacroStabilityInwardsKernelFactory expectedFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory expectedFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
             using (new MacroStabilityInwardsSubCalculatorFactoryConfig()) {}
 
             // Assert
-            Assert.AreSame(expectedFactory, MacroStabilityInwardsSubCalculatorFactory.Instance);
+            Assert.AreSame(expectedFactory, MacroStabilityInwardsKernelWrapperFactory.Instance);
         }
     }
 }

@@ -26,27 +26,27 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
 {
     [TestFixture]
-    public class MacroStabilityInwardsSubCalculatorFactoryTest
+    public class MacroStabilityInwardsKernelWrapperFactoryTest
     {
         [Test]
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Assert
-            Assert.IsNotNull(factory);
+            Assert.IsInstanceOf<MacroStabilityInwardsKernelWrapperFactory>(factory);
         }
 
         [Test]
-        public void Instance_WhenSetToNull_ReturnsANewInstance()
+        public void Instance_WhenSetToNull_ReturnsNewInstance()
         {
             // Setup
-            IMacroStabilityInwardsKernelFactory firstFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
-            MacroStabilityInwardsSubCalculatorFactory.Instance = null;
+            IMacroStabilityInwardsKernelFactory firstFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
+            MacroStabilityInwardsKernelWrapperFactory.Instance = null;
 
             // Call
-            IMacroStabilityInwardsKernelFactory secondFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory secondFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -57,20 +57,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         {
             // Setup
             var firstFactory = new TestMacroStabilityInwardsSubCalculatorFactory();
-            MacroStabilityInwardsSubCalculatorFactory.Instance = firstFactory;
+            MacroStabilityInwardsKernelWrapperFactory.Instance = firstFactory;
 
             // Call
-            IMacroStabilityInwardsKernelFactory secondFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory secondFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
         }
 
         [Test]
-        public void CreateUpliftVanCalculator_Always_ReturnNewUpliftVanCalculator()
+        public void CreateUpliftVanCalculator_Always_ReturnsUpliftVanCalculator()
         {
             // Setup
-            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
             IUpliftVanKernel subCalculator = factory.CreateUpliftVanKernel();

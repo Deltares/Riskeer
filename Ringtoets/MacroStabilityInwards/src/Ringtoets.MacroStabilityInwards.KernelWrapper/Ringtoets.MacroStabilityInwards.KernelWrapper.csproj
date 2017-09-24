@@ -65,7 +65,7 @@
     <Compile Include="Creators\MacroStabilityInwardsUpliftVanCalculationGridResultCreator.cs" />
     <Compile Include="SubCalculator\IMacroStabilityInwardsKernelFactory.cs" />
     <Compile Include="SubCalculator\IUpliftVanKernel.cs" />
-    <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactory.cs" />
+    <Compile Include="SubCalculator\MacroStabilityInwardsKernelWrapperFactory.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculator.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

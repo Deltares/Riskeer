@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Factory responsible for creating kernels required for performing a macro stability inwards calculation.
+    /// Factory responsible for creating kernels that can be used for performing a macro stability inwards calculation.
     /// </summary>
     public interface IMacroStabilityInwardsKernelFactory
     {

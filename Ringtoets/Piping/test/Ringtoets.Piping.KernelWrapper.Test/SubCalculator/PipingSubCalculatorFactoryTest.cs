@@ -35,11 +35,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Assert
-            Assert.IsNotNull(factory);
+            Assert.IsInstanceOf<PipingSubCalculatorFactory>(factory);
         }
 
         [Test]
-        public void Instance_WhenSetToNull_ReturnsANewInstance()
+        public void Instance_WhenSetToNull_ReturnsNewInstance()
         {
             // Setup
             IPipingSubCalculatorFactory firstFactory = PipingSubCalculatorFactory.Instance;
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreateHeaveCalculator_Always_NewHeaveCalculator()
+        public void CreateHeaveCalculator_Always_ReturnsHeaveCalculator()
         {
             // Setup
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreateUpliftCalculator_Always_NewUpliftCalculator()
+        public void CreateUpliftCalculator_Always_ReturnsUpliftCalculator()
         {
             // Setup
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreateSellmeijerCalculator_Always_NewSellmeijerCalculator()
+        public void CreateSellmeijerCalculator_Always_ReturnsSellmeijerCalculator()
         {
             // Setup
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreateEffectiveThicknessCalculator_Always_NewSellmeijerCalculator()
+        public void CreateEffectiveThicknessCalculator_Always_ReturnsEffectiveThicknessCalculator()
         {
             // Setup
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreatPiezometricHeadAtExitCalculator_Always_NewPizometricHeadAtExitCalculator()
+        public void CreatePiezometricHeadAtExitCalculator_Always_ReturnsPiezometricHeadAtExitCalculator()
         {
             // Setup
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;

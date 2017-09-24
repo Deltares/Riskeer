@@ -26,9 +26,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestMacroStabilityInwardsSubCalculatorFactory"/> 
-    /// for <see cref="MacroStabilityInwardsSubCalculatorFactory.Instance"/> while testing. 
+    /// for <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/> while testing. 
     /// Disposing an instance of this class will revert the 
-    /// <see cref="MacroStabilityInwardsSubCalculatorFactory.Instance"/>.
+    /// <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
@@ -47,21 +47,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSubCalculatorFactoryConfig"/>.
         /// Sets a <see cref="TestMacroStabilityInwardsSubCalculatorFactory"/> to 
-        /// <see cref="MacroStabilityInwardsSubCalculatorFactory.Instance"/>
+        /// <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>
         /// </summary>
         public MacroStabilityInwardsSubCalculatorFactoryConfig()
         {
-            previousFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
-            MacroStabilityInwardsSubCalculatorFactory.Instance = new TestMacroStabilityInwardsSubCalculatorFactory();
+            previousFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
+            MacroStabilityInwardsKernelWrapperFactory.Instance = new TestMacroStabilityInwardsSubCalculatorFactory();
         }
 
         /// <summary>
-        /// Reverts the <see cref="MacroStabilityInwardsSubCalculatorFactory.Instance"/> to the value
+        /// Reverts the <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="MacroStabilityInwardsSubCalculatorFactoryConfig"/>.
         /// </summary>
         public void Dispose()
         {
-            MacroStabilityInwardsSubCalculatorFactory.Instance = previousFactory;
+            MacroStabilityInwardsKernelWrapperFactory.Instance = previousFactory;
         }
     }
 }
