@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         /// <summary>
         /// Sets the automatic forbidden zones property.
         /// </summary>
-        bool AutomaticForbidenZones { set; }
+        bool AutomaticForbiddenZones { set; }
 
         /// <summary>
         /// Sets the minimum depth of the slip plane.

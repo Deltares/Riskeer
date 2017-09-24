@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             calculator.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input);
             calculator.GridAutomaticDetermined = input.GridAutomaticDetermined;
             calculator.CreateZones = input.CreateZones;
-            calculator.AutomaticForbidenZones = input.AutomaticForbiddenZones;
+            calculator.AutomaticForbiddenZones = input.AutomaticForbiddenZones;
             calculator.SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth;
             calculator.SlipPlaneMinimumLength = input.SlipPlaneMinimumLength;
             return calculator;

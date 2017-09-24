@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             }
         }
 
-        public bool AutomaticForbidenZones
+        public bool AutomaticForbiddenZones
         {
             set
             {

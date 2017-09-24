@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public bool CreateZones { get; set; }
 
-        public bool AutomaticForbidenZones { get; set; }
+        public bool AutomaticForbiddenZones { get; set; }
 
         public double SlipPlaneMinimumDepth { get; set; }
 
