@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            IMacroStabilityInwardsSubCalculatorFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Assert
             Assert.IsNotNull(factory);
@@ -42,11 +42,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         public void Instance_WhenSetToNull_ReturnsANewInstance()
         {
             // Setup
-            IMacroStabilityInwardsSubCalculatorFactory firstFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory firstFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
             MacroStabilityInwardsSubCalculatorFactory.Instance = null;
 
             // Call
-            IMacroStabilityInwardsSubCalculatorFactory secondFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory secondFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
             MacroStabilityInwardsSubCalculatorFactory.Instance = firstFactory;
 
             // Call
-            IMacroStabilityInwardsSubCalculatorFactory secondFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory secondFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
@@ -70,10 +70,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         public void CreateUpliftVanCalculator_Always_ReturnNewUpliftVanCalculator()
         {
             // Setup
-            IMacroStabilityInwardsSubCalculatorFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Call
-            IUpliftVanKernel subCalculator = factory.CreateUpliftVanCalculator();
+            IUpliftVanKernel subCalculator = factory.CreateUpliftVanKernel();
 
             // Assert
             Assert.IsNotNull(subCalculator);

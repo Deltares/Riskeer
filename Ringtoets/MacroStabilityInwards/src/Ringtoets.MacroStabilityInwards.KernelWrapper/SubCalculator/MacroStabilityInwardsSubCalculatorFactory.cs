@@ -24,16 +24,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
     /// <summary>
     /// Factory which creates the sub calculators from the macro stability inwards kernel.
     /// </summary>
-    public class MacroStabilityInwardsSubCalculatorFactory : IMacroStabilityInwardsSubCalculatorFactory
+    public class MacroStabilityInwardsSubCalculatorFactory : IMacroStabilityInwardsKernelFactory
     {
-        private static IMacroStabilityInwardsSubCalculatorFactory instance;
+        private static IMacroStabilityInwardsKernelFactory instance;
 
         private MacroStabilityInwardsSubCalculatorFactory() {}
 
         /// <summary>
-        /// Gets or sets an instance of <see cref="IMacroStabilityInwardsSubCalculatorFactory"/>.
+        /// Gets or sets an instance of <see cref="IMacroStabilityInwardsKernelFactory"/>.
         /// </summary>
-        public static IMacroStabilityInwardsSubCalculatorFactory Instance
+        public static IMacroStabilityInwardsKernelFactory Instance
         {
             get
             {
@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
             }
         }
 
-        public IUpliftVanKernel CreateUpliftVanCalculator()
+        public IUpliftVanKernel CreateUpliftVanKernel()
         {
             return new UpliftVanCalculator();
         }

@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
     /// This class allows for retrieving the created sub calculators, so that
     /// tests can be performed upon them.
     /// </summary>
-    public class TestMacroStabilityInwardsSubCalculatorFactory : IMacroStabilityInwardsSubCalculatorFactory
+    public class TestMacroStabilityInwardsSubCalculatorFactory : IMacroStabilityInwardsKernelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestMacroStabilityInwardsSubCalculatorFactory"/>.
@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
 
-        public IUpliftVanKernel CreateUpliftVanCalculator()
+        public IUpliftVanKernel CreateUpliftVanKernel()
         {
             return LastCreatedUpliftVanCalculator;
         }

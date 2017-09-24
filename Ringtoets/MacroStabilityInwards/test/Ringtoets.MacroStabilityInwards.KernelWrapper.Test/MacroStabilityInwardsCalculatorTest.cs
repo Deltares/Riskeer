@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsSubCalculatorFactory>();
+            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
             // Call
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var factory = mocks.Stub<IMacroStabilityInwardsSubCalculatorFactory>();
+            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());

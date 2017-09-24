@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
     /// </example>
     public class MacroStabilityInwardsSubCalculatorFactoryConfig : IDisposable
     {
-        private readonly IMacroStabilityInwardsSubCalculatorFactory previousFactory;
+        private readonly IMacroStabilityInwardsKernelFactory previousFactory;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSubCalculatorFactoryConfig"/>.

@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     public class MacroStabilityInwardsCalculator : IMacroStabilityInwardsCalculator
     {
         private readonly MacroStabilityInwardsCalculatorInput input;
-        private readonly IMacroStabilityInwardsSubCalculatorFactory factory;
+        private readonly IMacroStabilityInwardsKernelFactory factory;
 
         /// <summary>
         /// Constructs a new <see cref="MacroStabilityInwardsCalculator"/>. The <paramref name="input"/> is used to
@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// for performing a macro stability inwards calculation.</param>
         /// <param name="factory">The factory responsible for creating the sub calculators.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory)
+        public MacroStabilityInwardsCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             if (input == null)
             {
@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         private IUpliftVanKernel CreateUpliftVanCalculator()
         {
-            IUpliftVanKernel calculator = factory.CreateUpliftVanCalculator();
+            IUpliftVanKernel calculator = factory.CreateUpliftVanKernel();
             calculator.MoveGrid = input.MoveGrid;
             calculator.MaximumSliceWidth = input.MaximumSliceWidth;
 

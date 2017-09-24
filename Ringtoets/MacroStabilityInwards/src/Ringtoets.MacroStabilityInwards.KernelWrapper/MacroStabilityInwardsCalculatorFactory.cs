@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             }
         }
 
-        public IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory)
+        public IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             return new MacroStabilityInwardsCalculator(input, factory);
         }

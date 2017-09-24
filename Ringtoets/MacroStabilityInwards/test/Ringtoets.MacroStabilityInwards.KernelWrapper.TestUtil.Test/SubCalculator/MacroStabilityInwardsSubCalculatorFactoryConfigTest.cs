@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalcula
         public void Dispose_Always_ResetsFactoryToPreviousValue()
         {
             // Setup
-            IMacroStabilityInwardsSubCalculatorFactory expectedFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
+            IMacroStabilityInwardsKernelFactory expectedFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Call
             using (new MacroStabilityInwardsSubCalculatorFactoryConfig()) {}

@@ -22,14 +22,14 @@
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Factory responsible for creating the sub calculators required for a macro stability inwards calculation.
+    /// Factory responsible for creating kernels required for performing a macro stability inwards calculation.
     /// </summary>
-    public interface IMacroStabilityInwardsSubCalculatorFactory
+    public interface IMacroStabilityInwardsKernelFactory
     {
         /// <summary>
-        /// Creates the Uplift Van calculator.
+        /// Creates an Uplift Van kernel.
         /// </summary>
         /// <returns>A new <see cref="IUpliftVanKernel"/>.</returns>
-        IUpliftVanKernel CreateUpliftVanCalculator();
+        IUpliftVanKernel CreateUpliftVanKernel();
     }
 }

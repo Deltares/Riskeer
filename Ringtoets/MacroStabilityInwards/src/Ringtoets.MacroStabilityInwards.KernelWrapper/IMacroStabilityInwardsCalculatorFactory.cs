@@ -35,6 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// for performing a macro stability inwards calculation.</param>
         /// <param name="factory">The factory responsible for creating the sub calculators.</param>
         /// <returns>The calculator.</returns>
-        IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory);
+        IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
     }
 }

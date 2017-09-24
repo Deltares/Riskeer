@@ -63,7 +63,7 @@
     <Compile Include="Creators\MacroStabilityInwardsSlidingCurveResultCreator.cs" />
     <Compile Include="Result\MacroStabilityInwardsUpliftVanCalculationGridResult.cs" />
     <Compile Include="Creators\MacroStabilityInwardsUpliftVanCalculationGridResultCreator.cs" />
-    <Compile Include="SubCalculator\IMacroStabilityInwardsSubCalculatorFactory.cs" />
+    <Compile Include="SubCalculator\IMacroStabilityInwardsKernelFactory.cs" />
     <Compile Include="SubCalculator\IUpliftVanKernel.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculator.cs" />
