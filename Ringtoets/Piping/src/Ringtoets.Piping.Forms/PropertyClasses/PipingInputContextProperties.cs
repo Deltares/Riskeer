@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                         PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData),
+                                                                         PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(data.WrappedData),
                                                                          propertyChangeHandler);
             }
         }
@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionDesignVariableProperties(DistributionPropertiesReadOnly.None,
-                                                                      PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData),
+                                                                      PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
                                                                       propertyChangeHandler);
             }
         }
@@ -376,7 +376,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetSeepageLength(data.WrappedData));
             }
         }
 
@@ -390,7 +390,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(data.WrappedData));
             }
         }
 
@@ -404,7 +404,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
             }
         }
 
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetThicknessAquiferLayer(data.WrappedData));
             }
         }
 
@@ -432,7 +432,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetDarcyPermeability(data.WrappedData));
             }
         }
 
@@ -446,7 +446,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetDiameter70(data.WrappedData));
             }
         }
 
@@ -460,7 +460,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return new ShiftedLogNormalDistributionDesignVariableProperties(
-                    PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
+                    PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
             }
         }
 

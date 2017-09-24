@@ -48,7 +48,7 @@
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResult.cs" />
     <Compile Include="MacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsOutput.cs" />
-    <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignValueFactory.cs" />
+    <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticOutput.cs" />
     <Compile Include="MacroStabilityInwardsSlice.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircle.cs" />

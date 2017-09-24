@@ -62,8 +62,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                RoundedDouble dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue();
-                RoundedDouble phreaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue();
+                RoundedDouble dampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
+                RoundedDouble phreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
                 return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(input.AssessmentLevel,
                                                                                                             dampingFactorExit,
@@ -246,7 +246,7 @@ namespace Ringtoets.Piping.Data
                 var weightedMean = new RoundedDouble(GetNumberOfDecimals(effectiveThicknessCoverageLayerDistribution),
                                                      InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                                                          input.WaterVolumetricWeight,
-                                                         PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                                                         PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                                          input.ExitPointL,
                                                          input.SurfaceLine,
                                                          input.StochasticSoilProfile.SoilProfile));

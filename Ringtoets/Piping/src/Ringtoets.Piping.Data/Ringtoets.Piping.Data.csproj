@@ -49,7 +49,7 @@
     <Compile Include="PipingFailureMechanismSectionResult.cs" />
     <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />
-    <Compile Include="PipingSemiProbabilisticDesignValueFactory.cs" />
+    <Compile Include="PipingSemiProbabilisticDesignVariableFactory.cs" />
     <Compile Include="PipingSemiProbabilisticOutput.cs" />
     <Compile Include="PipingSoilProfileExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

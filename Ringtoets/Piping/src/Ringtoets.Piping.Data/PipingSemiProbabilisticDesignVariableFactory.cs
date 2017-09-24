@@ -26,7 +26,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Factory for creating design variables based on probabilistic distributions for piping.
     /// </summary>
-    public static class PipingSemiProbabilisticDesignValueFactory
+    public static class PipingSemiProbabilisticDesignVariableFactory
     {
         #region General parameters
 

@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsSemiProbabilisticDesignValueFactoryTest
+    public class MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest
     {
         private Random random;
         private double mean;
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable abovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> abovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.AbovePhreaticLevel, abovePhreaticLevel.Distribution);
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetBelowPhreaticLevel(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.BelowPhreaticLevel, belowPhreaticLevel.Distribution);
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable cohesion = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetCohesion(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.Cohesion, cohesion.Distribution);
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable frictionAngle = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetFrictionAngle(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> frictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.FrictionAngle, frictionAngle.Distribution);
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable shearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetShearStrengthRatio(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> shearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.ShearStrengthRatio, shearStrengthRatio.Distribution);
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable strengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetStrengthIncreaseExponent(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> strengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.StrengthIncreaseExponent, strengthIncreaseExponent.Distribution);
@@ -168,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable pop = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPop(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(properties);
 
             // Assert
             DistributionAssert.AreEqual(properties.Pop, pop.Distribution);
@@ -187,8 +187,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 });
 
             // Call
-            VariationCoefficientLogNormalDistributionDesignVariable preconsoldationStress =
-                MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> preconsoldationStress =
+                MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine);
 
             // Assert
             DistributionAssert.AreEqual(preconsolidationStressUnderSurfaceLine.PreconsolidationStress, preconsoldationStress.Distribution);

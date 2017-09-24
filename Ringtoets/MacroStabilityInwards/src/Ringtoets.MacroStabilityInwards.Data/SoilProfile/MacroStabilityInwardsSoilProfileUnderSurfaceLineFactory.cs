@@ -144,21 +144,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 });
 
             macroStabilityInwardsPreconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable =
-                MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(macroStabilityInwardsPreconsolidationStressUnderSurfaceLine)
-                                                                        .GetDesignValue();
+                MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(macroStabilityInwardsPreconsolidationStressUnderSurfaceLine)
+                                                                           .GetDesignValue();
 
             return macroStabilityInwardsPreconsolidationStressUnderSurfaceLine;
         }
 
         private static void SetDesignVariablesOfProperties(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine props)
         {
-            props.AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(props).GetDesignValue();
-            props.BelowPhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetBelowPhreaticLevel(props).GetDesignValue();
-            props.CohesionDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetCohesion(props).GetDesignValue();
-            props.FrictionAngleDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetFrictionAngle(props).GetDesignValue();
-            props.StrengthIncreaseExponentDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetStrengthIncreaseExponent(props).GetDesignValue();
-            props.ShearStrengthRatioDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetShearStrengthRatio(props).GetDesignValue();
-            props.PopDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPop(props).GetDesignValue();
+            props.AbovePhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(props).GetDesignValue();
+            props.BelowPhreaticLevelDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(props).GetDesignValue();
+            props.CohesionDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(props).GetDesignValue();
+            props.FrictionAngleDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(props).GetDesignValue();
+            props.StrengthIncreaseExponentDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(props).GetDesignValue();
+            props.ShearStrengthRatioDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(props).GetDesignValue();
+            props.PopDesignVariable = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(props).GetDesignValue();
         }
 
         private static Point2D[] RingToPoints(Ring ring)

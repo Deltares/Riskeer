@@ -586,7 +586,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
 
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine).GetDesignValue(),
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable);
         }
 
@@ -603,49 +603,49 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                             properties.AbovePhreaticLevel.Mean.GetAccuracy());
             Assert.AreEqual(abovePhreaticLevelCoefficientOfVariation, properties.AbovePhreaticLevel.CoefficientOfVariation,
                             properties.AbovePhreaticLevel.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetAbovePhreaticLevel(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(properties).GetDesignValue(),
                             properties.AbovePhreaticLevelDesignVariable);
 
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevel.Mean,
                             properties.BelowPhreaticLevel.Mean.GetAccuracy());
             Assert.AreEqual(belowPhreaticLevelCoefficientOfVariation, properties.BelowPhreaticLevel.CoefficientOfVariation,
                             properties.BelowPhreaticLevel.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetBelowPhreaticLevel(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(properties).GetDesignValue(),
                             properties.BelowPhreaticLevelDesignVariable);
 
             Assert.AreEqual(cohesionMean, properties.Cohesion.Mean,
                             properties.Cohesion.Mean.GetAccuracy());
             Assert.AreEqual(cohesionCoefficientOfVariation, properties.Cohesion.CoefficientOfVariation,
                             properties.Cohesion.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetCohesion(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(properties).GetDesignValue(),
                             properties.CohesionDesignVariable);
 
             Assert.AreEqual(frictionAngleMean, properties.FrictionAngle.Mean,
                             properties.FrictionAngle.Mean.GetAccuracy());
             Assert.AreEqual(frictionAngleCoefficientOfVariation, properties.FrictionAngle.CoefficientOfVariation,
                             properties.FrictionAngle.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetFrictionAngle(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(properties).GetDesignValue(),
                             properties.FrictionAngleDesignVariable);
 
             Assert.AreEqual(shearStrengthRatioMean, properties.ShearStrengthRatio.Mean,
                             properties.ShearStrengthRatio.Mean.GetAccuracy());
             Assert.AreEqual(shearStrengthRatioCoefficientOfVariation, properties.ShearStrengthRatio.CoefficientOfVariation,
                             properties.ShearStrengthRatio.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetShearStrengthRatio(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(properties).GetDesignValue(),
                             properties.ShearStrengthRatioDesignVariable);
 
             Assert.AreEqual(strengthIncreaseExponentMean, properties.StrengthIncreaseExponent.Mean,
                             properties.StrengthIncreaseExponent.Mean.GetAccuracy());
             Assert.AreEqual(strengthIncreaseExponentCoefficientOfVariation, properties.StrengthIncreaseExponent.CoefficientOfVariation,
                             properties.StrengthIncreaseExponent.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetStrengthIncreaseExponent(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(properties).GetDesignValue(),
                             properties.StrengthIncreaseExponentDesignVariable);
 
             Assert.AreEqual(popMean, properties.Pop.Mean,
                             properties.Pop.Mean.GetAccuracy());
             Assert.AreEqual(popCoefficientOfVariation, properties.Pop.CoefficientOfVariation,
                             properties.Pop.CoefficientOfVariation.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignValueFactory.GetPop(properties).GetDesignValue(),
+            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(properties).GetDesignValue(),
                             properties.PopDesignVariable);
         }
 
