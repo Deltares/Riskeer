@@ -30,20 +30,20 @@ using Deltares.WTIStability.Levenberg;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 {
     /// <summary>
-    /// Class for performing an Uplift Van calculation based on <see cref="WTIStabilityCalculation"/>.
+    /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing an Uplift Van calculation.
     /// </summary>
-    public class UpliftVanCalculator : IUpliftVanKernel
+    public class UpliftVanKernelWrapper : IUpliftVanKernel
     {
-        private readonly WTIStabilityCalculation wrappedCalculator;
-        private readonly StabilityModel calculatorInput;
+        private readonly WTIStabilityCalculation wtiStabilityCalculation;
+        private readonly StabilityModel stabilityModel;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanCalculator"/>.
+        /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
         /// </summary>
-        public UpliftVanCalculator()
+        public UpliftVanKernelWrapper()
         {
-            wrappedCalculator = new WTIStabilityCalculation();
-            calculatorInput = new StabilityModel
+            wtiStabilityCalculation = new WTIStabilityCalculation();
+            stabilityModel = new StabilityModel
             {
                 ModelOption = ModelOptions.UpliftVan,
                 SearchAlgorithm = SearchAlgorithm.Grid,
@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SoilModel = value;
+                stabilityModel.SoilModel = value;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SoilProfile = value;
+                stabilityModel.SoilProfile = value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.Location = value;
+                stabilityModel.Location = value;
             }
         }
 
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SurfaceLine2 = value;
+                stabilityModel.SurfaceLine2 = value;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.MoveGrid = value;
+                stabilityModel.MoveGrid = value;
             }
         }
 
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.MaximumSliceWidth = value;
+                stabilityModel.MaximumSliceWidth = value;
             }
         }
 
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SlipPlaneUpliftVan = value;
+                stabilityModel.SlipPlaneUpliftVan = value;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SlipCircle = new SlipCircle
+                stabilityModel.SlipCircle = new SlipCircle
                 {
                     Auto = value
                 };
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SlipPlaneConstraints.CreateZones = value;
+                stabilityModel.SlipPlaneConstraints.CreateZones = value;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SlipPlaneConstraints.AutomaticForbiddenZones = value;
+                stabilityModel.SlipPlaneConstraints.AutomaticForbiddenZones = value;
             }
         }
 
@@ -154,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SlipPlaneConstraints.SlipPlaneMinDepth = value;
+                stabilityModel.SlipPlaneConstraints.SlipPlaneMinDepth = value;
             }
         }
 
@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         {
             set
             {
-                calculatorInput.SlipPlaneConstraints.SlipPlaneMinLength = value;
+                stabilityModel.SlipPlaneConstraints.SlipPlaneMinLength = value;
             }
         }
 
@@ -184,10 +184,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
 
         public void Calculate()
         {
-            wrappedCalculator.InitializeForDeterministic(WTISerializer.Serialize(calculatorInput));
+            wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
 
-            string messages = wrappedCalculator.Validate();
-            string result = wrappedCalculator.Run();
+            string messages = wtiStabilityCalculation.Validate();
+            string result = wtiStabilityCalculation.Run();
 
             ReadResult(result);
         }

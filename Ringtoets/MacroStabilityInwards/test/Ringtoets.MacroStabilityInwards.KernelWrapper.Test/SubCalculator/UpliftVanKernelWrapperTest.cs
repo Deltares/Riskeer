@@ -25,16 +25,16 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
 {
     [TestFixture]
-    public class UpliftVanCalculatorTest
+    public class UpliftVanKernelWrapperTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new UpliftVanCalculator();
+            var kernel = new UpliftVanKernelWrapper();
 
             // Assert
-            Assert.IsInstanceOf<IUpliftVanKernel>(calculator);
+            Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
         }
     }
 }
