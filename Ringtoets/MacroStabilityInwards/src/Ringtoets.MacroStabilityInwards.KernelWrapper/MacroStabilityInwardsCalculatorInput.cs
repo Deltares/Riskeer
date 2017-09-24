@@ -303,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public bool CreateZones { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the automatic forbidden zones.
+            /// Gets or sets whether forbidden zones are automatically determined or not.
             /// </summary>
             public bool AutomaticForbiddenZones { internal get; set; }
 
@@ -511,7 +511,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         public bool CreateZones { get; }
 
         /// <summary>
-        /// Gets the automatic forbidden zones.
+        /// Gets whether forbidden zones are automatically determined or not.
         /// </summary>
         public bool AutomaticForbiddenZones { get; }
 

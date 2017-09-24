@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     public class MacroStabilityInwardsSlipPlaneSettingsPropertiesTest
     {
         private const int expectedCreateZonesPropertyIndex = 0;
-        private const int expectedAutomaticForbiddenZonesPropertyIndex = 1;
+        private const int expectedZoningBoundariesDeterminationTypePropertyIndex = 1;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -116,10 +116,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Bepaling",
                 "Gebruik zoneringsgrenzen bij het bepalen van het intredepunt van het glijvlak?");
 
-            PropertyDescriptor automaticForbiddenZonesProperty = dynamicProperties[expectedAutomaticForbiddenZonesPropertyIndex];
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSlipPlaneSettingsProperties, EnumTypeConverter>(nameof(properties.AutomaticForbiddenZones));
+            PropertyDescriptor zoningBoundariesDeterminationTypeProperty = dynamicProperties[expectedZoningBoundariesDeterminationTypePropertyIndex];
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSlipPlaneSettingsProperties, EnumTypeConverter>(nameof(properties.ZoningBoundariesDeterminationType));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                automaticForbiddenZonesProperty,
+                zoningBoundariesDeterminationTypeProperty,
                 category,
                 "Methode",
                 "Zoneringsgrenzen automatisch bepalen of handmatig invoeren?",
@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(input.CreateZones, properties.CreateZones);
-            Assert.AreEqual(input.AutomaticForbiddenZones, properties.AutomaticForbiddenZones);
+            Assert.AreEqual(input.ZoningBoundariesDeterminationType, properties.ZoningBoundariesDeterminationType);
             mocks.VerifyAll();
         }
 

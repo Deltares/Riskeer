@@ -514,10 +514,10 @@
   <data name="SlipPlaneSettings_DisplayName" xml:space="preserve">
     <value>Zonering glijvlak</value>
   </data>
-  <data name="AutomaticForbiddenZones_Description" xml:space="preserve">
+  <data name="ZoningBoundariesDeterminationType_Description" xml:space="preserve">
     <value>Zoneringsgrenzen automatisch bepalen of handmatig invoeren?</value>
   </data>
-  <data name="AutomaticForbiddenZones_DisplayName" xml:space="preserve">
+  <data name="ZoningBoundariesDeterminationType_DisplayName" xml:space="preserve">
     <value>Methode</value>
   </data>
   <data name="CreateZones_Description" xml:space="preserve">

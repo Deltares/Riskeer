@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         bool CreateZones { set; }
 
         /// <summary>
-        /// Sets the automatic forbidden zones property.
+        /// Sets whether forbidden zones are automatically determined or not.
         /// </summary>
         bool AutomaticForbiddenZones { set; }
 

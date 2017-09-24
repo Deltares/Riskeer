@@ -100,24 +100,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoneringsgrenzen automatisch bepalen of handmatig invoeren?.
-        /// </summary>
-        public static string AutomaticForbiddenZones_Description {
-            get {
-                return ResourceManager.GetString("AutomaticForbiddenZones_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Methode.
-        /// </summary>
-        public static string AutomaticForbiddenZones_DisplayName {
-            get {
-                return ResourceManager.GetString("AutomaticForbiddenZones_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Grid.
         /// </summary>
         public static string Categories_Grid {
@@ -1385,6 +1367,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string ZCoordinateDrainageConstruction_DisplayName {
             get {
                 return ResourceManager.GetString("ZCoordinateDrainageConstruction_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoneringsgrenzen automatisch bepalen of handmatig invoeren?.
+        /// </summary>
+        public static string ZoningBoundariesDeterminationType_Description {
+            get {
+                return ResourceManager.GetString("ZoningBoundariesDeterminationType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Methode.
+        /// </summary>
+        public static string ZoningBoundariesDeterminationType_DisplayName {
+            get {
+                return ResourceManager.GetString("ZoningBoundariesDeterminationType_DisplayName", resourceCulture);
             }
         }
         

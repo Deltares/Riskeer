@@ -213,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     TangentLineZTop = inputParameters.TangentLineZTop,
                     TangentLineZBottom = inputParameters.TangentLineZBottom,
                     CreateZones = inputParameters.CreateZones,
-                    AutomaticForbiddenZones = inputParameters.AutomaticForbiddenZones == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
+                    AutomaticForbiddenZones = inputParameters.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic,
                     SlipPlaneMinimumDepth = inputParameters.SlipPlaneMinimumDepth,
                     SlipPlaneMinimumLength = inputParameters.SlipPlaneMinimumLength
                 });

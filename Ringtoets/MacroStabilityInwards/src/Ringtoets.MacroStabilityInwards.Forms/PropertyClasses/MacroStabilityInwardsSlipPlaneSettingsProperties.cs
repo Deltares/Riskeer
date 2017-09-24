@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsSlipPlaneSettingsProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
         private const int createZonesPropertyIndex = 1;
-        private const int automaticForbiddenZonesPropertyIndex = 2;
+        private const int zoningBoundariesDeterminationTypePropertyIndex = 2;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -80,16 +80,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(automaticForbiddenZonesPropertyIndex)]
+        [PropertyOrder(zoningBoundariesDeterminationTypePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.SlipPlaneSettings_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AutomaticForbiddenZones_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AutomaticForbiddenZones_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ZoningBoundariesDeterminationType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ZoningBoundariesDeterminationType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public MacroStabilityInwardsZoningBoundariesDeterminationType AutomaticForbiddenZones
+        public MacroStabilityInwardsZoningBoundariesDeterminationType ZoningBoundariesDeterminationType
         {
             get
             {
-                return data.AutomaticForbiddenZones;
+                return data.ZoningBoundariesDeterminationType;
             }
         }
 
