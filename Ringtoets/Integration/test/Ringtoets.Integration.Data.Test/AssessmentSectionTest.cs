@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Data.Test
 
             const string pipingName = "Dijken en dammen - Piping";
             const string grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
-            const string macrostabilityInwardName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
+            const string macroStabilityInwardsName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
             const string stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
             const string waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekleding";
             const string grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Data.Test
 
             const string pipingCode = "STPH";
             const string grassErosionInsideCode = "GEKB";
-            const string macrostabilityInwardCode = "STBI";
+            const string macroStabilityInwardsCode = "STBI";
             const string stoneRevetmentCode = "ZST";
             const string waveImpactAsphaltCode = "AGK";
             const string grassCoverErosionOutwardsCode = "GEBU";
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Data.Test
             {
                 pipingName,
                 grassErosionInsideName,
-                macrostabilityInwardName,
+                macroStabilityInwardsName,
                 stoneRevetmentName,
                 waveImpactAsphaltName,
                 grassCoverErosionOutwardsName,
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Data.Test
             {
                 pipingCode,
                 grassErosionInsideCode,
-                macrostabilityInwardCode,
+                macroStabilityInwardsCode,
                 stoneRevetmentCode,
                 waveImpactAsphaltCode,
                 grassCoverErosionOutwardsCode,

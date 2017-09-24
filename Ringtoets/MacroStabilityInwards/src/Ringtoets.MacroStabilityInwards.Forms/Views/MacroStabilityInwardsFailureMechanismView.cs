@@ -40,7 +40,7 @@ using MacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a macrostability inwards failure mechanism.
+    /// This class is a view showing map data for a macro stability inwards failure mechanism.
     /// </summary>
     public partial class MacroStabilityInwardsFailureMechanismView : UserControl, IMapView
     {

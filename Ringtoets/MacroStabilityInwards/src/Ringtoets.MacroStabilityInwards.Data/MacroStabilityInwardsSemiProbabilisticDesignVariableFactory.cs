@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Factory for creating design variables based on probabilistic distributions for macrostability.
+    /// Factory for creating design variables based on probabilistic distributions for macro stability.
     /// </summary>
     public static class MacroStabilityInwardsSemiProbabilisticDesignVariableFactory
     {

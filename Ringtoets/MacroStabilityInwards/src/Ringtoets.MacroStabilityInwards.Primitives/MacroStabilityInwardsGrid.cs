@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// A grid used in the macrostability calculation.
+    /// A grid used in the macro stability calculation.
     /// </summary>
     public class MacroStabilityInwardsGrid
     {
@@ -88,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
             set
             {
-                zTop = value.ToPrecision(ZTop.NumberOfDecimalPlaces);
+                zTop = value.ToPrecision(zTop.NumberOfDecimalPlaces);
             }
         }
 

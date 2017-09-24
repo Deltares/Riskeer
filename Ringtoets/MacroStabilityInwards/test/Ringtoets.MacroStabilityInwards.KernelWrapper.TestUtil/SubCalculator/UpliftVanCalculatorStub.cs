@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
-    /// Stub for the real Uplift Van sub calculator of macrostability inwards.
+    /// Stub for the real Uplift Van sub calculator of macro stability inwards.
     /// </summary>
     public class UpliftVanCalculatorStub : IUpliftVanCalculator
     {

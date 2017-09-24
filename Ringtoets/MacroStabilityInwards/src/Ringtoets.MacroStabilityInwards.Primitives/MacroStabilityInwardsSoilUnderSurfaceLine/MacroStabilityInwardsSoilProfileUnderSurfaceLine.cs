@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     /// <summary>
-    /// A soil profile for which its soil layers have been adapted using a surface line.
+    /// A soil profile for which its properties have been adapted using a surface line.
     /// </summary>
     public class MacroStabilityInwardsSoilProfileUnderSurfaceLine
     {
@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// </summary>
         /// <param name="layersUnderSurfaceLine">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses defined for the profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine,
                                                                 IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStresses)
         {
