@@ -35,12 +35,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
             IMacroStabilityInwardsSubCalculatorFactory factory = MacroStabilityInwardsSubCalculatorFactory.Instance;
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsSubCalculatorFactory>(factory);
+            Assert.IsNotNull(factory);
         }
 
         [Test]
         public void Instance_WhenSetToNull_ReturnsANewInstance()
         {
+            // Setup
             IMacroStabilityInwardsSubCalculatorFactory firstFactory = MacroStabilityInwardsSubCalculatorFactory.Instance;
             MacroStabilityInwardsSubCalculatorFactory.Instance = null;
 

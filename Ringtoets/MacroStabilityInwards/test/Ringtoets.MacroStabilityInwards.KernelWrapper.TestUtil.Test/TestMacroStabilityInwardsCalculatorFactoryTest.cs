@@ -35,8 +35,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsCalculatorFactory>(factory);
-            Assert.IsNotNull(factory.Calculator);
-            Assert.IsNull(factory.Calculator.Input);
+            Assert.IsNotNull(factory.LastCreatedCalculator);
+            Assert.IsNull(factory.LastCreatedCalculator.Input);
         }
 
         [Test]

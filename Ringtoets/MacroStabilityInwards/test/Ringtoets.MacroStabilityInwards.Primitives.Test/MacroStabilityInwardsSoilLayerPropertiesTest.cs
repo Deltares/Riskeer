@@ -258,7 +258,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 StrengthIncreaseExponentMean = random.NextDouble(),
                 StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble(),
                 PopMean = random.NextDouble(),
-                PopCoefficientOfVariation = random.NextDouble(),
+                PopCoefficientOfVariation = random.NextDouble()
             };
         }
     }

@@ -34,6 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     public class WTIStabilityGeometryLoopComparer : IComparer<GeometryLoop>, IComparer
     {
         private readonly WTIStabilityGeometryCurveComparer curveComparer = new WTIStabilityGeometryCurveComparer();
+
         public int Compare(object x, object y)
         {
             return Compare(x as GeometryLoop, y as GeometryLoop);

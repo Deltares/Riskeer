@@ -29,6 +29,9 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// </summary>
     public class TestPipingSubCalculatorFactory : IPipingSubCalculatorFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestPipingSubCalculatorFactory"/>.
+        /// </summary>
         public TestPipingSubCalculatorFactory()
         {
             LastCreatedUpliftCalculator = new UpliftCalculatorStub();
@@ -39,11 +42,34 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             LastCreatedPipingProfilePropertyCalculator = new PipingProfilePropertyCalculatorStub();
         }
 
+        /// <summary>
+        /// Gets the last created <see cref="EffectiveThicknessCalculatorStub"/>.
+        /// </summary>
         public EffectiveThicknessCalculatorStub LastCreatedEffectiveThicknessCalculator { get; }
+
+        /// <summary>
+        /// Gets the last created <see cref="UpliftCalculatorStub"/>.
+        /// </summary>
         public UpliftCalculatorStub LastCreatedUpliftCalculator { get; }
+
+        /// <summary>
+        /// Gets the last created <see cref="SellmeijerCalculatorStub"/>.
+        /// </summary>
         public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; }
+
+        /// <summary>
+        /// Gets the last created <see cref="HeaveCalculatorStub"/>.
+        /// </summary>
         public HeaveCalculatorStub LastCreatedHeaveCalculator { get; }
+
+        /// <summary>
+        /// Gets the last created <see cref="PiezoHeadCalculatorStub"/>.
+        /// </summary>
         public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; }
+
+        /// <summary>
+        /// Gets the last created <see cref="PipingProfilePropertyCalculatorStub"/>.
+        /// </summary>
         public PipingProfilePropertyCalculatorStub LastCreatedPipingProfilePropertyCalculator { get; }
 
         public IUpliftCalculator CreateUpliftCalculator()

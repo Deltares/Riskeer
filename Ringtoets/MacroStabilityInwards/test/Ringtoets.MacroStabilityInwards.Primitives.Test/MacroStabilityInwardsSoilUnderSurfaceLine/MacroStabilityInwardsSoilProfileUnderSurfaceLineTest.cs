@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
     public class MacroStabilityInwardsSoilProfileUnderSurfaceLineTest
     {
         [Test]
-        public void Constructor_WithoutLayersUnderSurfaceLine_ThrowsArgumentNullException()
+        public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(null,
@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         }
 
         [Test]
-        public void Constructor_WithLayersUnderSurfaceLine_NewInstanceWithPropertiesSet()
+        public void Constructor_WithValidParameters_NewInstanceWithPropertiesSet()
         {
             // Call
             IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers = Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>();
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layers, preconsolidationStresses);
 
             // Assert
-            Assert.AreSame(layers, profile.LayersUnderSurfaceLine);
+            Assert.AreSame(layers, profile.Layers);
             Assert.AreSame(preconsolidationStresses, profile.PreconsolidationStresses);
         }
     }

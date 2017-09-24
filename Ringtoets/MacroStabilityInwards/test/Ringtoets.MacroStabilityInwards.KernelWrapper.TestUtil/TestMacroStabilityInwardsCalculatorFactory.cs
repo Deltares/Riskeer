@@ -33,15 +33,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// </summary>
         public TestMacroStabilityInwardsCalculatorFactory()
         {
-            Calculator = new MacroStabilityInwardsCalculatorStub();
+            LastCreatedCalculator = new MacroStabilityInwardsCalculatorStub();
         }
 
-        public MacroStabilityInwardsCalculatorStub Calculator { get; }
-        
+        /// <summary>
+        /// Gets the last created <see cref="MacroStabilityInwardsCalculatorStub"/>.
+        /// </summary>
+        public MacroStabilityInwardsCalculatorStub LastCreatedCalculator { get; }
+
         public IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsSubCalculatorFactory factory)
         {
-            Calculator.Input = input;
-            return Calculator;
+            LastCreatedCalculator.Input = input;
+            return LastCreatedCalculator;
         }
     }
 }

@@ -48,9 +48,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var leftGridXLeft =   new RoundedDouble(2, random.NextDouble());
-            var leftGridXRight =  new RoundedDouble(2, random.NextDouble());
-            var leftGridZTop =    new RoundedDouble(2, random.NextDouble());
+            var leftGridXLeft = new RoundedDouble(2, random.NextDouble());
+            var leftGridXRight = new RoundedDouble(2, random.NextDouble());
+            var leftGridZTop = new RoundedDouble(2, random.NextDouble());
             var leftGridZBottom = new RoundedDouble(2, random.NextDouble());
             int leftGridXNumber = random.Next();
             int leftGridZNumber = random.Next();

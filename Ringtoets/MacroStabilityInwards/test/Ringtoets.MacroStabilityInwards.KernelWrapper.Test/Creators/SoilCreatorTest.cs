@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
-                        MaterialName = "Sand",
+                        MaterialName = "Sand"
                     })),
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
                 {
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                 }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
                     new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
                     {
-                        UsePop = true,
+                        UsePop = false,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
                         MaterialName = "Grass"
                     }))
@@ -93,21 +93,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(3, soils.Length);
 
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.UsePop), soils.Select(s => s.UsePop));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.MaterialName), soils.Select(s => s.Name));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.UsePop), soils.Select(s => s.UsePop));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.MaterialName), soils.Select(s => s.Name));
             CollectionAssert.AreEqual(new[]
             {
                 ShearStrengthModel.CPhi,
                 ShearStrengthModel.CPhiOrCuCalculated,
                 ShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.AbovePhreaticLevelDesignVariable.Value), soils.Select(s => s.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.BelowPhreaticLevelDesignVariable.Value), soils.Select(s => s.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.CohesionDesignVariable.Value), soils.Select(s => s.Cohesion));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.FrictionAngleDesignVariable.Value), soils.Select(s => s.FrictionAngle));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.ShearStrengthRatioDesignVariable.Value), soils.Select(s => s.RatioCuPc));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.StrengthIncreaseExponentDesignVariable.Value), soils.Select(s => s.StrengthIncreaseExponent));
-            CollectionAssert.AreEqual(profile.LayersUnderSurfaceLine.Select(l => l.Properties.PopDesignVariable.Value), soils.Select(s => s.PoP));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.AbovePhreaticLevelDesignVariable.Value), soils.Select(s => s.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.BelowPhreaticLevelDesignVariable.Value), soils.Select(s => s.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.CohesionDesignVariable.Value), soils.Select(s => s.Cohesion));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.FrictionAngleDesignVariable.Value), soils.Select(s => s.FrictionAngle));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.ShearStrengthRatioDesignVariable.Value), soils.Select(s => s.RatioCuPc));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.StrengthIncreaseExponentDesignVariable.Value), soils.Select(s => s.StrengthIncreaseExponent));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.PopDesignVariable.Value), soils.Select(s => s.PoP));
 
             foreach (Soil soil in soils)
             {

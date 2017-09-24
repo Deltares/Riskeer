@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            return profile.LayersUnderSurfaceLine.Select(l =>
+            return profile.Layers.Select(l =>
             {
                 MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties = l.Properties;
 

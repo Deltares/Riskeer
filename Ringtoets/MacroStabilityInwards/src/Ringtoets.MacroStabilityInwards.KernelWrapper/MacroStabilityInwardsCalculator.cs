@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             calculator.SoilModel = SoilModelCreator.Create(soils);
 
             Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils =
-                input.SoilProfile.LayersUnderSurfaceLine
+                input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {
                          layer,

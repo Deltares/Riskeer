@@ -35,12 +35,13 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Assert
-            Assert.IsInstanceOf<IPipingSubCalculatorFactory>(factory);
+            Assert.IsNotNull(factory);
         }
 
         [Test]
         public void Instance_WhenSetToNull_ReturnsANewInstance()
         {
+            // Setup
             IPipingSubCalculatorFactory firstFactory = PipingSubCalculatorFactory.Instance;
             PipingSubCalculatorFactory.Instance = null;
 

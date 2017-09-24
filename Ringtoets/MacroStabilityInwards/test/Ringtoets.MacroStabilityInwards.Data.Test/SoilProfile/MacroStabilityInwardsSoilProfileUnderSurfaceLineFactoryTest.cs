@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsSoilProfileUnderSurfaceLineFactoryTest
     {
         [Test]
-        public void Create_SoilProfile1DNull_ThrowArgumentNullException()
+        public void Create_SoilProfileNull_ThrowArgumentNullException()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -54,9 +54,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Create_SurfaceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
-            mocks.ReplayAll();
+            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
+            {
+                soilLayer
+            });
 
             // Call
             TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, null);
@@ -64,7 +66,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("surfaceLine", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -106,14 +107,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(1, areas.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(2, 3.2),
                 new Point2D(2, 2),
                 new Point2D(0, 2),
                 new Point2D(0, 3.2)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
+            }, areas.Layers.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -136,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            CollectionAssert.IsEmpty(areas.LayersUnderSurfaceLine);
+            CollectionAssert.IsEmpty(areas.Layers);
         }
 
         [Test]
@@ -162,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(1, areas.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0.5, top),
@@ -172,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(2, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
+            }, areas.Layers.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -200,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(1, areas.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0.5, top),
@@ -210,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(2, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
+            }, areas.Layers.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -236,7 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(1, areas.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 2.0),
@@ -245,7 +246,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(2, top),
                 new Point2D(2, bottom),
                 new Point2D(0, bottom)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
+            }, areas.Layers.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -271,7 +272,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.AreEqual(1, areas.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(1, areas.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0.5, top),
@@ -280,7 +281,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(2, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
+            }, areas.Layers.ElementAt(0).OuterRing);
         }
 
         [Test]
@@ -306,21 +307,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine areas = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.AreEqual(2, areas.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(2, areas.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(1, top),
                 new Point2D(3, bottom),
                 new Point2D(0, bottom),
                 new Point2D(0, top)
-            }, areas.LayersUnderSurfaceLine.ElementAt(0).OuterRing);
+            }, areas.Layers.ElementAt(0).OuterRing);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(5, bottom),
                 new Point2D(7, top),
                 new Point2D(8, top),
                 new Point2D(8, bottom)
-            }, areas.LayersUnderSurfaceLine.ElementAt(1).OuterRing);
+            }, areas.Layers.ElementAt(1).OuterRing);
         }
 
         [Test]
@@ -390,7 +391,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 profile, surfaceLine);
 
             // Assert
-            MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine layerUnderSurfaceLineProperties = profileUnderSurfaceLine.LayersUnderSurfaceLine.First().Properties;
+            MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine layerUnderSurfaceLineProperties = profileUnderSurfaceLine.Layers.First().Properties;
             Assert.AreEqual(usePop, layerUnderSurfaceLineProperties.UsePop);
             Assert.AreEqual(isAquifer, layerUnderSurfaceLineProperties.IsAquifer);
             Assert.AreEqual(shearStrengthModel, layerUnderSurfaceLineProperties.ShearStrengthModel);
@@ -461,17 +462,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfileUnderSurfaceLine profileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
 
             // Assert
-            Assert.AreEqual(2, profileUnderSurfaceLine.LayersUnderSurfaceLine.Count());
+            Assert.AreEqual(2, profileUnderSurfaceLine.Layers.Count());
             CollectionAssert.AreEqual(new[]
             {
                 outerRingA.Points,
                 outerRingB.Points
-            }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.OuterRing));
+            }, profileUnderSurfaceLine.Layers.Select(layer => layer.OuterRing));
             CollectionAssert.AreEqual(new[]
             {
                 holesA.Select(h => h.Points),
                 holesB.Select(h => h.Points)
-            }, profileUnderSurfaceLine.LayersUnderSurfaceLine.Select(layer => layer.Holes));
+            }, profileUnderSurfaceLine.Layers.Select(layer => layer.Holes));
         }
 
         [Test]
@@ -531,7 +532,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
 
             // Assert
-            MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine layerUnderSurfaceLineProperties = profileUnderSurfaceLine.LayersUnderSurfaceLine.First().Properties;
+            MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine layerUnderSurfaceLineProperties = profileUnderSurfaceLine.Layers.First().Properties;
             Assert.AreEqual(usePop, layerUnderSurfaceLineProperties.UsePop);
             Assert.AreEqual(isAquifer, layerUnderSurfaceLineProperties.IsAquifer);
             Assert.AreEqual(shearStrengthModel, layerUnderSurfaceLineProperties.ShearStrengthModel);

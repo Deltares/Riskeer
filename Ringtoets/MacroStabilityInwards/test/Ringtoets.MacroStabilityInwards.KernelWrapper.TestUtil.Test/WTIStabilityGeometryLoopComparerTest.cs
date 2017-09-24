@@ -101,7 +101,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         public void Compare_DifferentCoordinates_ReturnOne()
         {
             // Setup
-
             var loop1 = new GeometryLoop
             {
                 CurveList =

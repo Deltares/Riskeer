@@ -135,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                     LeakageLengthOutwardsPhreaticLine3 = leakageLengthOutwardsPhreaticLine3,
                     LeakageLengthInwardsPhreaticLine3 = leakageLengthInwardsPhreaticLine3,
                     LeakageLengthOutwardsPhreaticLine4 = leakageLengthOutwardsPhreaticLine4,
-                    LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
+                    LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4
                 });
 
             // Call

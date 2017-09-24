@@ -32,28 +32,28 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
-        /// <param name="layersUnderSurfaceLine">The layers in the profile.</param>
+        /// <param name="layers">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses defined for the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine,
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers,
                                                                 IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStresses)
         {
-            if (layersUnderSurfaceLine == null)
+            if (layers == null)
             {
-                throw new ArgumentNullException(nameof(layersUnderSurfaceLine));
+                throw new ArgumentNullException(nameof(layers));
             }
             if (preconsolidationStresses == null)
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
-            LayersUnderSurfaceLine = layersUnderSurfaceLine;
+            Layers = layers;
             PreconsolidationStresses = preconsolidationStresses;
         }
 
         /// <summary>
         /// Gets the layers in the profile.
         /// </summary>
-        public IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> LayersUnderSurfaceLine { get; }
+        public IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> Layers { get; }
 
         /// <summary>
         /// Gets the preconsolidation stresses in the profile.
