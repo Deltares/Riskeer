@@ -65,12 +65,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
         SlipPlaneUpliftVan SlipPlaneUpliftVan { set; }
 
         /// <summary>
-        /// sets whether the grid is automatic determined or not.
+        /// Sets whether the grid is automatically determined or not.
         /// </summary>
         bool GridAutomaticDetermined { set; }
 
         /// <summary>
-        /// Sets the create zones property.
+        /// Sets whether zones should be created.
         /// </summary>
         bool CreateZones { set; }
 

@@ -298,7 +298,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             public double TangentLineZBottom { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the create zones.
+            /// Gets or sets whether zones should be created.
             /// </summary>
             public bool CreateZones { internal get; set; }
 
@@ -506,7 +506,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         public double TangentLineZBottom { get; }
 
         /// <summary>
-        /// Gets the create zones.
+        /// Gets whether zones should be created.
         /// </summary>
         public bool CreateZones { get; }
 
