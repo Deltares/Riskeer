@@ -262,7 +262,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 slipPlaneSettingsProperty,
                 settingsCategory,
                 "Zonering glijvlak",
-                "Eigenschappen van de zonering glijvlak.",
+                "Eigenschappen van de zonering van het glijvlak.",
                 true);
 
             PropertyDescriptor gridSettingsProperty = dynamicProperties[expectedGridSettingsPropertyIndex];

@@ -304,42 +304,42 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             double color = random.NextDouble();
 
             double abovePhreaticLevelMean = random.NextDouble();
-            double abovePhreaticLevelDeviation = random.NextDouble();
+            double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
             double abovePhreaticLevelShift = random.NextDouble();
             double belowPhreaticLevelMean = random.NextDouble();
             double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
             double belowPhreaticLevelShift = random.NextDouble();
             double cohesionMean = random.NextDouble();
-            double cohesionDeviation = random.NextDouble();
+            double cohesionCoefficientOfVariation = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
-            double frictionAngleDeviation = random.NextDouble();
+            double frictionAngleCoefficientOfVariation = random.NextDouble();
             double shearStrengthRatioMean = random.NextDouble();
-            double shearStrengthRatioDeviation = random.NextDouble();
+            double shearStrengthRatioCoefficientOfVariation = random.NextDouble();
             double strengthIncreaseExponentMean = random.NextDouble();
-            double strengthIncreaseExponentDeviation = random.NextDouble();
+            double strengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
             double popMean = random.NextDouble();
-            double popDeviation = random.NextDouble();
+            double popCoefficientOfVariation = random.NextDouble();
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
             layer.IsAquifer = isAquifer;
             layer.MaterialName = materialName;
             layer.Color = color;
             layer.AbovePhreaticLevelMean = abovePhreaticLevelMean;
-            layer.AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelDeviation;
+            layer.AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelCoefficientOfVariation;
             layer.AbovePhreaticLevelShift = abovePhreaticLevelShift;
             layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
             layer.BelowPhreaticLevelCoefficientOfVariation = belowPhreaticLevelCoefficientOfVariation;
             layer.BelowPhreaticLevelShift = belowPhreaticLevelShift;
             layer.CohesionMean = cohesionMean;
-            layer.CohesionCoefficientOfVariation = cohesionDeviation;
+            layer.CohesionCoefficientOfVariation = cohesionCoefficientOfVariation;
             layer.FrictionAngleMean = frictionAngleMean;
-            layer.FrictionAngleCoefficientOfVariation = frictionAngleDeviation;
+            layer.FrictionAngleCoefficientOfVariation = frictionAngleCoefficientOfVariation;
             layer.ShearStrengthRatioMean = shearStrengthRatioMean;
-            layer.ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioDeviation;
+            layer.ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioCoefficientOfVariation;
             layer.StrengthIncreaseExponentMean = strengthIncreaseExponentMean;
-            layer.StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentDeviation;
+            layer.StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentCoefficientOfVariation;
             layer.PopMean = popMean;
-            layer.PopCoefficientOfVariation = popDeviation;
+            layer.PopCoefficientOfVariation = popCoefficientOfVariation;
 
             // Call
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
@@ -354,21 +354,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(expectedColor, properties.Color);
 
             Assert.AreEqual(abovePhreaticLevelMean, properties.AbovePhreaticLevelMean);
-            Assert.AreEqual(abovePhreaticLevelDeviation, properties.AbovePhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(abovePhreaticLevelCoefficientOfVariation, properties.AbovePhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(abovePhreaticLevelShift, properties.AbovePhreaticLevelShift);
             Assert.AreEqual(belowPhreaticLevelMean, properties.BelowPhreaticLevelMean);
             Assert.AreEqual(belowPhreaticLevelCoefficientOfVariation, properties.BelowPhreaticLevelCoefficientOfVariation);
             Assert.AreEqual(belowPhreaticLevelShift, properties.BelowPhreaticLevelShift);
             Assert.AreEqual(cohesionMean, properties.CohesionMean);
-            Assert.AreEqual(cohesionDeviation, properties.CohesionCoefficientOfVariation);
+            Assert.AreEqual(cohesionCoefficientOfVariation, properties.CohesionCoefficientOfVariation);
             Assert.AreEqual(frictionAngleMean, properties.FrictionAngleMean);
-            Assert.AreEqual(frictionAngleDeviation, properties.FrictionAngleCoefficientOfVariation);
+            Assert.AreEqual(frictionAngleCoefficientOfVariation, properties.FrictionAngleCoefficientOfVariation);
             Assert.AreEqual(shearStrengthRatioMean, properties.ShearStrengthRatioMean);
-            Assert.AreEqual(shearStrengthRatioDeviation, properties.ShearStrengthRatioCoefficientOfVariation);
+            Assert.AreEqual(shearStrengthRatioCoefficientOfVariation, properties.ShearStrengthRatioCoefficientOfVariation);
             Assert.AreEqual(strengthIncreaseExponentMean, properties.StrengthIncreaseExponentMean);
-            Assert.AreEqual(strengthIncreaseExponentDeviation, properties.StrengthIncreaseExponentCoefficientOfVariation);
+            Assert.AreEqual(strengthIncreaseExponentCoefficientOfVariation, properties.StrengthIncreaseExponentCoefficientOfVariation);
             Assert.AreEqual(popMean, properties.PopMean);
-            Assert.AreEqual(popDeviation, properties.PopCoefficientOfVariation);
+            Assert.AreEqual(popCoefficientOfVariation, properties.PopCoefficientOfVariation);
 
             AssertRings(layer, soilLayer2D);
         }
@@ -592,7 +592,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var pointB = new Point2D(1.0, 0.0);
             var segmentOne = new Segment2D(pointA, pointB);
             var segmentTwo = new Segment2D(pointB, pointA);
-            
+
             var validGeometry = new[]
             {
                 segmentOne,

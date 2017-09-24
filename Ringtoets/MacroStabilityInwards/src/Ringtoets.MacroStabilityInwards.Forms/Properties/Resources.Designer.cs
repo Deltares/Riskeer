@@ -1071,7 +1071,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de zonering glijvlak..
+        ///   Looks up a localized string similar to Eigenschappen van de zonering van het glijvlak..
         /// </summary>
         public static string SlipPlaneSettings_Description {
             get {

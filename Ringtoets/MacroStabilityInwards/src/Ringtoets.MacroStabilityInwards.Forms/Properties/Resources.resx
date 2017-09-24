@@ -509,7 +509,7 @@
     <value>Buitenring</value>
   </data>
   <data name="SlipPlaneSettings_Description" xml:space="preserve">
-    <value>Eigenschappen van de zonering glijvlak.</value>
+    <value>Eigenschappen van de zonering van het glijvlak.</value>
   </data>
   <data name="SlipPlaneSettings_DisplayName" xml:space="preserve">
     <value>Zonering glijvlak</value>
