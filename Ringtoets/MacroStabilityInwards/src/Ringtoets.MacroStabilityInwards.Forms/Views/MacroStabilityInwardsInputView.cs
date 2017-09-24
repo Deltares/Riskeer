@@ -197,12 +197,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeTopAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
             surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
 
-            MacroStabilityInwardsGridDetermination gridDetermination = macroStabilityInwardsInput.GridDetermination;
+            MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
             MacroStabilityInwardsGrid rightGrid = macroStabilityInwardsInput.RightGrid;
 
-            leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDetermination);
-            rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDetermination);
+            leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDeterminationType);
+            rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
         }
     }
 }

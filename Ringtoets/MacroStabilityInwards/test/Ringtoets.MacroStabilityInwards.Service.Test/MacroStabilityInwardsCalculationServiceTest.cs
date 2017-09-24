@@ -372,7 +372,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.UseDefaultOffsets, actualInput.UseDefaultOffsets);
             Assert.AreEqual(originalInput.MoveGrid, actualInput.MoveGrid);
             Assert.AreEqual(originalInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
-            Assert.AreEqual(originalInput.GridDetermination == MacroStabilityInwardsGridDetermination.Automatic, actualInput.GridAutomaticDetermined);
+            Assert.AreEqual(originalInput.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic, actualInput.GridAutomaticDetermined);
             Assert.AreEqual(originalInput.LeftGrid, actualInput.LeftGrid);
             Assert.AreEqual(originalInput.RightGrid, actualInput.RightGrid);
             Assert.AreEqual(originalInput.TangentLineDetermination == MacroStabilityInwardsTangentLineDetermination.LayerSeparated, actualInput.TangentLineAutomaticAtBoundaries);

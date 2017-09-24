@@ -406,10 +406,10 @@
   <data name="Categories_Grid" xml:space="preserve">
     <value>Grid</value>
   </data>
-  <data name="GridDetermination_Description" xml:space="preserve">
+  <data name="GridDeterminationType_Description" xml:space="preserve">
     <value>Rekengrid automatisch bepalen of handmatig invoeren?</value>
   </data>
-  <data name="GridDetermination_DisplayName" xml:space="preserve">
+  <data name="GridDeterminationType_DisplayName" xml:space="preserve">
     <value>Bepaling grid</value>
   </data>
   <data name="GridSettings_Description" xml:space="preserve">

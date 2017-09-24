@@ -500,7 +500,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 MacroStabilityInwardsInput input = calculation.InputParameters;
-                input.GridDetermination = MacroStabilityInwardsGridDetermination.Manual;
+                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
                 SetGridValues(input.LeftGrid);
                 SetGridValues(input.RightGrid);
 
@@ -519,12 +519,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithGridPoints_WhenGridDeterminationSetToAutomatic_ThenNoGridPoints()
+        public void GivenViewWithGridPoints_WhenGridDeterminationTypeSetToAutomatic_ThenNoGridPoints()
         {
             // Given
             var calculation = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsInput input = calculation.InputParameters;
-            input.GridDetermination = MacroStabilityInwardsGridDetermination.Manual;
+            input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
             SetGridValues(input.LeftGrid);
             SetGridValues(input.RightGrid);
 
@@ -543,7 +543,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 AssertGridPoints(input.RightGrid, rightGridData.Points);
 
                 // When
-                input.GridDetermination = MacroStabilityInwardsGridDetermination.Automatic;
+                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
                 input.NotifyObservers();
 
                 // Then

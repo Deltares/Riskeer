@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.PenetrationLength);
             Assert.AreEqual(2, inputParameters.PenetrationLength.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(MacroStabilityInwardsGridDetermination.Automatic, inputParameters.GridDetermination);
+            Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Automatic, inputParameters.GridDeterminationType);
             Assert.AreEqual(MacroStabilityInwardsTangentLineDetermination.LayerSeparated, inputParameters.TangentLineDetermination);
 
             Assert.IsNaN(inputParameters.TangentLineZTop);

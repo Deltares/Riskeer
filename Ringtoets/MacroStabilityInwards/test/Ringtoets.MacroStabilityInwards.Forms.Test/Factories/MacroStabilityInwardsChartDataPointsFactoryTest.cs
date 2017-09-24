@@ -894,14 +894,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateGridPoints_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
         }
 
         [Test]
-        public void CreateGridPoints_MacroStabilityInwardsGridDeterminationAutomatic_ReturnsEmptyPoints()
+        public void CreateGridPoints_MacroStabilityInwardsGridDeterminationTypeAutomatic_ReturnsEmptyPoints()
         {
             // Setup   
             var random = new Random(21);
@@ -916,7 +916,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
 
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Automatic);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Automatic);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -927,7 +927,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             CollectionAssert.IsEmpty(gridPoints);
@@ -939,7 +939,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsGrid grid)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(new[]
@@ -954,7 +954,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -966,7 +966,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             (MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -978,7 +978,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -990,7 +990,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDetermination.Manual);
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);

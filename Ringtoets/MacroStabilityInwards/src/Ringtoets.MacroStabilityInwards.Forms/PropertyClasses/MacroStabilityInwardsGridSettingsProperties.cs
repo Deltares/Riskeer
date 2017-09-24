@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsGridSettingsProperties : ObjectProperties<MacroStabilityInwardsInput>
     {
         private const int moveGridPropertyIndex = 1;
-        private const int gridDeterminationPropertyIndex = 2;
+        private const int gridDeterminationTypePropertyIndex = 2;
         private const int tangentLineDeterminationPropertyIndex = 3;
         private const int tangentLineZTopPropertyIndex = 4;
         private const int tangentLineZBottomPropertyIndex = 5;
@@ -85,20 +85,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(gridDeterminationPropertyIndex)]
+        [PropertyOrder(gridDeterminationTypePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GridDetermination_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GridDetermination_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GridDeterminationType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GridDeterminationType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public MacroStabilityInwardsGridDetermination GridDetermination
+        public MacroStabilityInwardsGridDeterminationType GridDeterminationType
         {
             get
             {
-                return data.GridDetermination;
+                return data.GridDeterminationType;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.GridDetermination = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.GridDeterminationType = value, propertyChangeHandler);
             }
         }
 
@@ -193,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         private bool AreGridSettingsReadOnly()
         {
-            return data.GridDetermination == MacroStabilityInwardsGridDetermination.Automatic;
+            return data.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic;
         }
     }
 }

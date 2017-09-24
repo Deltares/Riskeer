@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             piezometricHeadPhreaticLine2Inwards = new RoundedDouble(2, double.NaN);
             penetrationLength = new RoundedDouble(2, double.NaN);
 
-            GridDetermination = MacroStabilityInwardsGridDetermination.Automatic;
+            GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
             TangentLineDetermination = MacroStabilityInwardsTangentLineDetermination.LayerSeparated;
 
             tangentLineZTop = new RoundedDouble(2, double.NaN);
@@ -280,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets the grid determination type.
         /// </summary>
-        public MacroStabilityInwardsGridDetermination GridDetermination { get; set; }
+        public MacroStabilityInwardsGridDeterminationType GridDeterminationType { get; set; }
 
         /// <summary>
         /// Gets or sets the tangent line determination type.

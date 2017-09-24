@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// The grid determination types.
     /// </summary>
-    public enum MacroStabilityInwardsGridDetermination
+    public enum MacroStabilityInwardsGridDeterminationType
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Automatic_DisplayName))]
         Automatic = 1,

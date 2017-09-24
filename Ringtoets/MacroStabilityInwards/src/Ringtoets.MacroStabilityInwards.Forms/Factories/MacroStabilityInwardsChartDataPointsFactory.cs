@@ -306,12 +306,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
         /// </summary>
         /// <param name="grid">The grid to create the grid points for.</param>
-        /// <param name="gridDetermination"></param>
+        /// <param name="gridDeterminationType">The grid determination type.</param>
         /// <returns></returns>
-        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDetermination gridDetermination)
+        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
         {
             if (grid == null
-                || gridDetermination == MacroStabilityInwardsGridDetermination.Automatic
+                || gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic
                 || !AreGridSettingsValid(grid))
             {
                 return new Point2D[0];

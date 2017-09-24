@@ -26,35 +26,35 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsGridDeterminationTest : EnumTestFixture<MacroStabilityInwardsGridDetermination>
+    public class MacroStabilityInwardsGridDeterminationTypeTest : EnumTestFixture<MacroStabilityInwardsGridDeterminationType>
     {
-        protected override IDictionary<MacroStabilityInwardsGridDetermination, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<MacroStabilityInwardsGridDeterminationType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsGridDetermination, string>
+                return new Dictionary<MacroStabilityInwardsGridDeterminationType, string>
                 {
                     {
-                        MacroStabilityInwardsGridDetermination.Automatic, "Automatisch"
+                        MacroStabilityInwardsGridDeterminationType.Automatic, "Automatisch"
                     },
                     {
-                        MacroStabilityInwardsGridDetermination.Manual, "Handmatig"
+                        MacroStabilityInwardsGridDeterminationType.Manual, "Handmatig"
                     }
                 };
             }
         }
 
-        protected override IDictionary<MacroStabilityInwardsGridDetermination, byte> ExpectedValueForEnumValues
+        protected override IDictionary<MacroStabilityInwardsGridDeterminationType, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsGridDetermination, byte>
+                return new Dictionary<MacroStabilityInwardsGridDeterminationType, byte>
                 {
                     {
-                        MacroStabilityInwardsGridDetermination.Automatic, 1
+                        MacroStabilityInwardsGridDeterminationType.Automatic, 1
                     },
                     {
-                        MacroStabilityInwardsGridDetermination.Manual, 2
+                        MacroStabilityInwardsGridDeterminationType.Manual, 2
                     }
                 };
             }

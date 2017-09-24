@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     UseDefaultOffsets = inputParameters.UseDefaultOffsets,
                     MoveGrid = inputParameters.MoveGrid,
                     MaximumSliceWidth = inputParameters.MaximumSliceWidth,
-                    GridAutomaticDetermined = inputParameters.GridDetermination == MacroStabilityInwardsGridDetermination.Automatic,
+                    GridAutomaticDetermined = inputParameters.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic,
                     LeftGrid = inputParameters.LeftGrid,
                     RightGrid = inputParameters.RightGrid,
                     TangentLineAutomaticAtBoundaries = inputParameters.TangentLineDetermination == MacroStabilityInwardsTangentLineDetermination.LayerSeparated,

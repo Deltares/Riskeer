@@ -255,18 +255,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Rekengrid automatisch bepalen of handmatig invoeren?.
         /// </summary>
-        public static string GridDetermination_Description {
+        public static string GridDeterminationType_Description {
             get {
-                return ResourceManager.GetString("GridDetermination_Description", resourceCulture);
+                return ResourceManager.GetString("GridDeterminationType_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Bepaling grid.
         /// </summary>
-        public static string GridDetermination_DisplayName {
+        public static string GridDeterminationType_DisplayName {
             get {
-                return ResourceManager.GetString("GridDetermination_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GridDeterminationType_DisplayName", resourceCulture);
             }
         }
         
