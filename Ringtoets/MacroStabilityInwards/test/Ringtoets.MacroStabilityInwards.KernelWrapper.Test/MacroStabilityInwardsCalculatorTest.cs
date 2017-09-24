@@ -92,8 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var random = new Random(11);
 
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
-            var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsKernelFactory();
-            UpliftVanCalculatorStub calculator = testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanKernel;
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+            UpliftVanKernelStub calculator = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
             calculator.FactoryOfStability = random.NextDouble();
             calculator.ZValue = random.NextDouble();
             calculator.ForbiddenZonesXEntryMax = random.NextDouble();
@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             calculator.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
 
             // Call
-            MacroStabilityInwardsCalculatorResult actual = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Calculate();
+            MacroStabilityInwardsCalculatorResult actual = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
             Assert.IsNotNull(actual);
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             MacroStabilityInwardsCalculatorResultHelper.AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(calculator.SlipPlaneResult),
                                                                             actual.UpliftVanCalculationGrid);
 
-            Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanKernel.Calculated);
+            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
         }
 
         [Test]

@@ -33,13 +33,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public TestMacroStabilityInwardsKernelFactory()
         {
-            LastCreatedUpliftVanKernel = new UpliftVanCalculatorStub();
+            LastCreatedUpliftVanKernel = new UpliftVanKernelStub();
         }
 
         /// <summary>
         /// The last created Uplift Van kernel.
         /// </summary>
-        public UpliftVanCalculatorStub LastCreatedUpliftVanKernel { get; }
+        public UpliftVanKernelStub LastCreatedUpliftVanKernel { get; }
 
         public IUpliftVanKernel CreateUpliftVanKernel()
         {

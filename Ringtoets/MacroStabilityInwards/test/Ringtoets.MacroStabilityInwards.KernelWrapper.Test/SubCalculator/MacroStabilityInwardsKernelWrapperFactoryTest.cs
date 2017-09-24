@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreateUpliftVanKernel_Always_ReturnsUpliftVanCalculator()
+        public void CreateUpliftVanKernel_Always_ReturnsUpliftVanKernel()
         {
             // Setup
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;

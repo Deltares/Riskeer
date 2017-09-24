@@ -61,7 +61,7 @@
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\TestMacroStabilityInwardsKernelFactoryTest.cs" />
-    <Compile Include="SubCalculator\UpliftVanCalculatorStubTest.cs" />
+    <Compile Include="SubCalculator\UpliftVanKernelStubTest.cs" />
     <Compile Include="TestMacroStabilityInwardsCalculatorFactoryTest.cs" />
     <Compile Include="WTIStabilityGeometryCurveComparerTest.cs" />
     <Compile Include="WTIStabilityGeometryLoopComparerTest.cs" />
