@@ -62,19 +62,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         public MacroStabilityInwardsCalculatorResult Calculate()
         {
-            IUpliftVanKernel upliftVanCalculator = CalculateUpliftVan();
+            IUpliftVanKernel upliftVanKernel = CalculateUpliftVan();
 
             return new MacroStabilityInwardsCalculatorResult(
-                MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanCalculator.SlidingCurveResult),
-                MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanCalculator.SlipPlaneResult),
+                MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
+                MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                 new MacroStabilityInwardsCalculatorResult.ConstructionProperties
                 {
-                    FactorOfStability = upliftVanCalculator.FactoryOfStability,
-                    ZValue = upliftVanCalculator.ZValue,
-                    ForbiddenZonesXEntryMin = upliftVanCalculator.ForbiddenZonesXEntryMin,
-                    ForbiddenZonesXEntryMax = upliftVanCalculator.ForbiddenZonesXEntryMax,
-                    ForbiddenZonesAutomaticallyCalculated = upliftVanCalculator.ForbiddenZonesAutomaticallyCalculated,
-                    GridAutomaticallyCalculated = upliftVanCalculator.GridAutomaticallyCalculated
+                    FactorOfStability = upliftVanKernel.FactoryOfStability,
+                    ZValue = upliftVanKernel.ZValue,
+                    ForbiddenZonesXEntryMin = upliftVanKernel.ForbiddenZonesXEntryMin,
+                    ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax,
+                    ForbiddenZonesAutomaticallyCalculated = upliftVanKernel.ForbiddenZonesAutomaticallyCalculated,
+                    GridAutomaticallyCalculated = upliftVanKernel.GridAutomaticallyCalculated
                 });
         }
 
@@ -85,23 +85,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         private IUpliftVanKernel CalculateUpliftVan()
         {
-            IUpliftVanKernel upliftVanCalculator = CreateUpliftVanCalculator();
+            IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
 
             try
             {
-                upliftVanCalculator.Calculate();
+                upliftVanKernel.Calculate();
             }
             catch (Exception e)
             {
                 // Temporary do nothing
             }
 
-            return upliftVanCalculator;
+            return upliftVanKernel;
         }
 
-        private IUpliftVanKernel CreateUpliftVanCalculator()
+        private IUpliftVanKernel CreateUpliftVanKernel()
         {
             IUpliftVanKernel calculator = factory.CreateUpliftVanKernel();
+
             calculator.MoveGrid = input.MoveGrid;
             calculator.MaximumSliceWidth = input.MaximumSliceWidth;
 
@@ -126,6 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             calculator.AutomaticForbiddenZones = input.AutomaticForbiddenZones;
             calculator.SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth;
             calculator.SlipPlaneMinimumLength = input.SlipPlaneMinimumLength;
+
             return calculator;
         }
     }

@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             var input = new MacroStabilityInwardsCalculatorInput(new MacroStabilityInwardsCalculatorInput.ConstructionProperties());
 
             // Call
-            var calculator = (MacroStabilityInwardsCalculatorStub) factory.CreateCalculator(input, new TestMacroStabilityInwardsSubCalculatorFactory());
+            var calculator = (MacroStabilityInwardsCalculatorStub) factory.CreateCalculator(input, new TestMacroStabilityInwardsKernelFactory());
 
             // Assert
             Assert.AreSame(input, calculator.Input);

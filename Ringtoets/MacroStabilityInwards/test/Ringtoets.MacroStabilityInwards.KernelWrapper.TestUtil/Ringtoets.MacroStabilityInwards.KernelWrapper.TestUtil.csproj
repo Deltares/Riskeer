@@ -66,7 +66,7 @@
     <Compile Include="SlipPlaneUpliftVanTestFactory.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubCalculator\TestMacroStabilityInwardsSubCalculatorFactory.cs" />
+    <Compile Include="SubCalculator\TestMacroStabilityInwardsKernelFactory.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculatorStub.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorStub.cs" />
     <Compile Include="TestMacroStabilityInwardsCalculatorFactory.cs" />

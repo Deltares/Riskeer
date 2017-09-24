@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         public void Instance_WhenSetToInstance_ReturnsThatInstance()
         {
             // Setup
-            var firstFactory = new TestMacroStabilityInwardsSubCalculatorFactory();
+            var firstFactory = new TestMacroStabilityInwardsKernelFactory();
             MacroStabilityInwardsKernelWrapperFactory.Instance = firstFactory;
 
             // Call
@@ -67,16 +67,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
         }
 
         [Test]
-        public void CreateUpliftVanCalculator_Always_ReturnsUpliftVanCalculator()
+        public void CreateUpliftVanKernel_Always_ReturnsUpliftVanCalculator()
         {
             // Setup
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IUpliftVanKernel subCalculator = factory.CreateUpliftVanKernel();
+            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
 
             // Assert
-            Assert.IsNotNull(subCalculator);
+            Assert.IsNotNull(upliftVanKernel);
         }
     }
 }

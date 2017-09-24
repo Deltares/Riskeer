@@ -25,7 +25,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="TestMacroStabilityInwardsSubCalculatorFactory"/> 
+    /// This class can be used to set a temporary <see cref="TestMacroStabilityInwardsKernelFactory"/> 
     /// for <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/> while testing. 
     /// Disposing an instance of this class will revert the 
     /// <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>.
@@ -46,13 +46,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSubCalculatorFactoryConfig"/>.
-        /// Sets a <see cref="TestMacroStabilityInwardsSubCalculatorFactory"/> to 
+        /// Sets a <see cref="TestMacroStabilityInwardsKernelFactory"/> to 
         /// <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>
         /// </summary>
         public MacroStabilityInwardsSubCalculatorFactoryConfig()
         {
             previousFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
-            MacroStabilityInwardsKernelWrapperFactory.Instance = new TestMacroStabilityInwardsSubCalculatorFactory();
+            MacroStabilityInwardsKernelWrapperFactory.Instance = new TestMacroStabilityInwardsKernelFactory();
         }
 
         /// <summary>

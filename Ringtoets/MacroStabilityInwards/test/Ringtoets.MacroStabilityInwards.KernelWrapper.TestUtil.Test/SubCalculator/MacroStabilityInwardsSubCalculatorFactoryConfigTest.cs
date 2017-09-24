@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalcula
             using (new MacroStabilityInwardsSubCalculatorFactoryConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestMacroStabilityInwardsSubCalculatorFactory>(MacroStabilityInwardsKernelWrapperFactory.Instance);
+                Assert.IsInstanceOf<TestMacroStabilityInwardsKernelFactory>(MacroStabilityInwardsKernelWrapperFactory.Instance);
             }
         }
 

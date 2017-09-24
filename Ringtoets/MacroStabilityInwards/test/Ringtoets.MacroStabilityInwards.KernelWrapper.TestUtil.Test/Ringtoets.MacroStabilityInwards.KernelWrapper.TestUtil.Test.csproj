@@ -60,7 +60,7 @@
     <Compile Include="SlidingDualCircleTestFactoryTest.cs" />
     <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubCalculator\TestMacroStabilityInwardsSubCalculatorFactoryTest.cs" />
+    <Compile Include="SubCalculator\TestMacroStabilityInwardsKernelFactoryTest.cs" />
     <Compile Include="SubCalculator\UpliftVanCalculatorStubTest.cs" />
     <Compile Include="TestMacroStabilityInwardsCalculatorFactoryTest.cs" />
     <Compile Include="WTIStabilityGeometryCurveComparerTest.cs" />

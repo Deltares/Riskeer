@@ -19,29 +19,37 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalculator
 {
-    /// <summary>
-    /// This class allows for retrieving the created sub calculators, so that
-    /// tests can be performed upon them.
-    /// </summary>
-    public class TestMacroStabilityInwardsSubCalculatorFactory : IMacroStabilityInwardsKernelFactory
+    [TestFixture]
+    public class TestMacroStabilityInwardsKernelFactoryTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsSubCalculatorFactory"/>.
-        /// </summary>
-        public TestMacroStabilityInwardsSubCalculatorFactory()
+        [Test]
+        public void Constructor_ExpectedProperties()
         {
-            LastCreatedUpliftVanCalculator = new UpliftVanCalculatorStub();
+            // Call
+            var factory = new TestMacroStabilityInwardsKernelFactory();
+
+            // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsKernelFactory>(factory);
+            Assert.IsNotNull(factory.LastCreatedUpliftVanKernel);
         }
 
-        public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
-
-        public IUpliftVanKernel CreateUpliftVanKernel()
+        [Test]
+        public void CreateUpliftVanKernel_Always_ReturnLastCreatedUpliftVanKernel()
         {
-            return LastCreatedUpliftVanCalculator;
+            // Setup
+            var factory = new TestMacroStabilityInwardsKernelFactory();
+
+            // Call
+            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedUpliftVanKernel, upliftVanKernel);
         }
     }
 }

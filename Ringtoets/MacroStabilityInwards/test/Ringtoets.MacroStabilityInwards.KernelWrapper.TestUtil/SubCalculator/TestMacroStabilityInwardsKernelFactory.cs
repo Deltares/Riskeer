@@ -19,37 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {
-    [TestFixture]
-    public class TestMacroStabilityInwardsSubCalculatorFactoryTest
+    /// <summary>
+    /// Factory that creates macro stability inwards kernels that can be used for testing purposes.
+    /// </summary>
+    public class TestMacroStabilityInwardsKernelFactory : IMacroStabilityInwardsKernelFactory
     {
-        [Test]
-        public void Constructor_ExpectedProperties()
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsKernelFactory"/>.
+        /// </summary>
+        public TestMacroStabilityInwardsKernelFactory()
         {
-            // Call
-            var factory = new TestMacroStabilityInwardsSubCalculatorFactory();
-
-            // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsKernelFactory>(factory);
-            Assert.IsNotNull(factory.LastCreatedUpliftVanCalculator);
+            LastCreatedUpliftVanKernel = new UpliftVanCalculatorStub();
         }
 
-        [Test]
-        public void CreateUpliftVanCalculator_Always_ReturnLastCreatedUpliftVanCalculator()
+        /// <summary>
+        /// The last created Uplift Van kernel.
+        /// </summary>
+        public UpliftVanCalculatorStub LastCreatedUpliftVanKernel { get; }
+
+        public IUpliftVanKernel CreateUpliftVanKernel()
         {
-            // Setup
-            var factory = new TestMacroStabilityInwardsSubCalculatorFactory();
-
-            // Call
-            IUpliftVanKernel subCalculator = factory.CreateUpliftVanKernel();
-
-            // Assert
-            Assert.AreSame(factory.LastCreatedUpliftVanCalculator, subCalculator);
+            return LastCreatedUpliftVanKernel;
         }
     }
 }

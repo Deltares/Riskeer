@@ -92,8 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var random = new Random(11);
 
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
-            var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsSubCalculatorFactory();
-            UpliftVanCalculatorStub calculator = testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator;
+            var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsKernelFactory();
+            UpliftVanCalculatorStub calculator = testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanKernel;
             calculator.FactoryOfStability = random.NextDouble();
             calculator.ZValue = random.NextDouble();
             calculator.ForbiddenZonesXEntryMax = random.NextDouble();
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             MacroStabilityInwardsCalculatorResultHelper.AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(calculator.SlipPlaneResult),
                                                                             actual.UpliftVanCalculationGrid);
 
-            Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanCalculator.Calculated);
+            Assert.IsTrue(testMacroStabilityInwardsSubCalculatorFactory.LastCreatedUpliftVanKernel.Calculated);
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             // Setup
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
-            var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsSubCalculatorFactory();
+            var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
             List<string> validationResult = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Validate();
