@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestMacroStabilityInwardsKernelFactory"/> 

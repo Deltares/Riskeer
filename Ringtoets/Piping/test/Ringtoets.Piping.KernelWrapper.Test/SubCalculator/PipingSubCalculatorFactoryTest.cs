@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             IHeaveCalculator calculator = factory.CreateHeaveCalculator();
 
             // Assert
-            Assert.IsInstanceOf<IHeaveCalculator>(calculator);
+            Assert.IsInstanceOf<HeaveCalculator>(calculator);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             IUpliftCalculator calculator = factory.CreateUpliftCalculator();
 
             // Assert
-            Assert.IsInstanceOf<IUpliftCalculator>(calculator);
+            Assert.IsInstanceOf<UpliftCalculator>(calculator);
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             ISellmeijerCalculator calculator = factory.CreateSellmeijerCalculator();
 
             // Assert
-            Assert.IsInstanceOf<ISellmeijerCalculator>(calculator);
+            Assert.IsInstanceOf<SellmeijerCalculator>(calculator);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             IEffectiveThicknessCalculator calculator = factory.CreateEffectiveThicknessCalculator();
 
             // Assert
-            Assert.IsInstanceOf<IEffectiveThicknessCalculator>(calculator);
+            Assert.IsInstanceOf<EffectiveThicknessCalculator>(calculator);
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             IPiezoHeadCalculator calculator = factory.CreatePiezometricHeadAtExitCalculator();
 
             // Assert
-            Assert.IsInstanceOf<IPiezoHeadCalculator>(calculator);
+            Assert.IsInstanceOf<PiezoHeadCalculator>(calculator);
         }
     }
 }

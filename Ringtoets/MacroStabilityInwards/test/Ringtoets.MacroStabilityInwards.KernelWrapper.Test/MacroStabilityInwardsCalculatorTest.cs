@@ -29,8 +29,8 @@ using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 

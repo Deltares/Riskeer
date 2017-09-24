@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {

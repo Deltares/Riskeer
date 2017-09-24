@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
 {
     /// <summary>
-    /// Factory that creates kernels that wrap the macro stability inwards kernel.
+    /// Factory that creates kernels that wrap the WTI macro stability inwards kernel.
     /// </summary>
     public class MacroStabilityInwardsKernelWrapperFactory : IMacroStabilityInwardsKernelFactory
     {

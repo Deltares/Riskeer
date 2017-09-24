@@ -19,31 +19,37 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
 {
-    /// <summary>
-    /// Factory that creates macro stability inwards kernels that can be used for testing purposes.
-    /// </summary>
-    public class TestMacroStabilityInwardsKernelFactory : IMacroStabilityInwardsKernelFactory
+    [TestFixture]
+    public class TestMacroStabilityInwardsKernelFactoryTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsKernelFactory"/>.
-        /// </summary>
-        public TestMacroStabilityInwardsKernelFactory()
+        [Test]
+        public void Constructor_ExpectedProperties()
         {
-            LastCreatedUpliftVanKernel = new UpliftVanKernelStub();
+            // Call
+            var factory = new TestMacroStabilityInwardsKernelFactory();
+
+            // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsKernelFactory>(factory);
+            Assert.IsNotNull(factory.LastCreatedUpliftVanKernel);
         }
 
-        /// <summary>
-        /// The last created Uplift Van kernel.
-        /// </summary>
-        public UpliftVanKernelStub LastCreatedUpliftVanKernel { get; }
-
-        public IUpliftVanKernel CreateUpliftVanKernel()
+        [Test]
+        public void CreateUpliftVanKernel_Always_ReturnLastCreatedUpliftVanKernel()
         {
-            return LastCreatedUpliftVanKernel;
+            // Setup
+            var factory = new TestMacroStabilityInwardsKernelFactory();
+
+            // Call
+            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedUpliftVanKernel, upliftVanKernel);
         }
     }
 }

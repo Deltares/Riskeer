@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernel
 {
@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernel
         }
 
         [Test]
-        public void CreateUpliftVanKernel_Always_ReturnsUpliftVanKernel()
+        public void CreateUpliftVanKernel_Always_ReturnsUpliftVanKernelWrapper()
         {
             // Setup
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernel
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
 
             // Assert
-            Assert.IsNotNull(upliftVanKernel);
+            Assert.IsInstanceOf<UpliftVanKernelWrapper>(upliftVanKernel);
         }
     }
 }

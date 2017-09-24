@@ -101,13 +101,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
-            IUpliftVanKernel calculator = factory.CreateUpliftVanKernel();
+            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
 
-            calculator.MoveGrid = input.MoveGrid;
-            calculator.MaximumSliceWidth = input.MaximumSliceWidth;
+            upliftVanKernel.MoveGrid = input.MoveGrid;
+            upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
 
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            calculator.SoilModel = SoilModelCreator.Create(soils);
+            upliftVanKernel.SoilModel = SoilModelCreator.Create(soils);
 
             Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils =
                 input.SoilProfile.Layers
@@ -118,17 +118,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                      })
                      .ToDictionary(x => x.layer, x => x.soil);
 
-            calculator.SoilProfile = SoilProfileCreator.Create(input.SoilProfile, layersWithSoils);
-            calculator.Location = StabilityLocationCreator.Create(input);
-            calculator.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
-            calculator.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input);
-            calculator.GridAutomaticDetermined = input.GridAutomaticDetermined;
-            calculator.CreateZones = input.CreateZones;
-            calculator.AutomaticForbiddenZones = input.AutomaticForbiddenZones;
-            calculator.SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth;
-            calculator.SlipPlaneMinimumLength = input.SlipPlaneMinimumLength;
+            upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile, layersWithSoils);
+            upliftVanKernel.Location = StabilityLocationCreator.Create(input);
+            upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+            upliftVanKernel.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input);
+            upliftVanKernel.GridAutomaticDetermined = input.GridAutomaticDetermined;
+            upliftVanKernel.CreateZones = input.CreateZones;
+            upliftVanKernel.AutomaticForbiddenZones = input.AutomaticForbiddenZones;
+            upliftVanKernel.SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth;
+            upliftVanKernel.SlipPlaneMinimumLength = input.SlipPlaneMinimumLength;
 
-            return calculator;
+            return upliftVanKernel;
         }
     }
 }

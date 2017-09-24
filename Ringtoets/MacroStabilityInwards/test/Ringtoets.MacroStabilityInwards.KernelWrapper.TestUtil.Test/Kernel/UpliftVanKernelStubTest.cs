@@ -20,36 +20,37 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
 {
     [TestFixture]
-    public class TestMacroStabilityInwardsKernelFactoryTest
+    public class UpliftVanKernelStubTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        public void Constructor_ExpectedValues()
         {
             // Call
-            var factory = new TestMacroStabilityInwardsKernelFactory();
+            var kernel = new UpliftVanKernelStub();
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsKernelFactory>(factory);
-            Assert.IsNotNull(factory.LastCreatedUpliftVanKernel);
+            Assert.IsFalse(kernel.Calculated);
         }
 
         [Test]
-        public void CreateUpliftVanKernel_Always_ReturnLastCreatedUpliftVanKernel()
+        public void Calculate_Always_SetCalculatedTrue()
         {
             // Setup
-            var factory = new TestMacroStabilityInwardsKernelFactory();
+            var kernel = new UpliftVanKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
 
             // Call
-            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
+            kernel.Calculate();
 
             // Assert
-            Assert.AreSame(factory.LastCreatedUpliftVanKernel, upliftVanKernel);
+            Assert.IsTrue(kernel.Calculated);
         }
     }
 }

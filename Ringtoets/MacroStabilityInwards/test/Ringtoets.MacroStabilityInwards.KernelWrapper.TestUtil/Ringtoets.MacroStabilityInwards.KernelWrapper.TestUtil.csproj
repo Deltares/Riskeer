@@ -64,10 +64,10 @@
     <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTestFactory.cs" />
     <Compile Include="SlidingDualCircleTestFactory.cs" />
     <Compile Include="SlipPlaneUpliftVanTestFactory.cs" />
-    <Compile Include="SubCalculator\MacroStabilityInwardsSubCalculatorFactoryConfig.cs" />
+    <Compile Include="Kernel\MacroStabilityInwardsSubCalculatorFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubCalculator\TestMacroStabilityInwardsKernelFactory.cs" />
-    <Compile Include="SubCalculator\UpliftVanKernelStub.cs" />
+    <Compile Include="Kernel\TestMacroStabilityInwardsKernelFactory.cs" />
+    <Compile Include="Kernel\UpliftVanKernelStub.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorStub.cs" />
     <Compile Include="TestMacroStabilityInwardsCalculatorFactory.cs" />
     <Compile Include="WTIStabilityGeometryCurveComparer.cs" />

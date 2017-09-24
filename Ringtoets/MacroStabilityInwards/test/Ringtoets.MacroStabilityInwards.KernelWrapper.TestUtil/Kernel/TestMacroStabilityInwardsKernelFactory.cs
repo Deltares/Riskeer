@@ -19,38 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 {
-    [TestFixture]
-    public class UpliftVanKernelStubTest
+    /// <summary>
+    /// Factory that creates macro stability inwards kernels that can be used for testing purposes.
+    /// </summary>
+    public class TestMacroStabilityInwardsKernelFactory : IMacroStabilityInwardsKernelFactory
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsKernelFactory"/>.
+        /// </summary>
+        public TestMacroStabilityInwardsKernelFactory()
         {
-            // Call
-            var kernel = new UpliftVanKernelStub();
-
-            // Assert
-            Assert.IsFalse(kernel.Calculated);
+            LastCreatedUpliftVanKernel = new UpliftVanKernelStub();
         }
 
-        [Test]
-        public void Calculate_Always_SetCalculatedTrue()
+        /// <summary>
+        /// The last created Uplift Van kernel.
+        /// </summary>
+        public UpliftVanKernelStub LastCreatedUpliftVanKernel { get; }
+
+        public IUpliftVanKernel CreateUpliftVanKernel()
         {
-            // Setup
-            var kernel = new UpliftVanKernelStub();
-
-            // Precondition
-            Assert.IsFalse(kernel.Calculated);
-
-            // Call
-            kernel.Calculate();
-
-            // Assert
-            Assert.IsTrue(kernel.Calculated);
+            return LastCreatedUpliftVanKernel;
         }
     }
 }

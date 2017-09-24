@@ -23,7 +23,7 @@ using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 {
     /// <summary>
     /// Class that represents an Uplift Van kernel stub.
