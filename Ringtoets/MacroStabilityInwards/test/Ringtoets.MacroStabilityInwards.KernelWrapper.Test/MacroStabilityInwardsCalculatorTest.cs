@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;

@@ -19,35 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
 {
     /// <summary>
-    /// Factory that creates kernels that wrap the macro stability inwards kernel.
+    /// Factory responsible for creating kernels that can be used for performing a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsKernelWrapperFactory : IMacroStabilityInwardsKernelFactory
+    public interface IMacroStabilityInwardsKernelFactory
     {
-        private static IMacroStabilityInwardsKernelFactory instance;
-
-        private MacroStabilityInwardsKernelWrapperFactory() {}
-
         /// <summary>
-        /// Gets or sets an instance of <see cref="IMacroStabilityInwardsKernelFactory"/>.
+        /// Creates an Uplift Van kernel.
         /// </summary>
-        public static IMacroStabilityInwardsKernelFactory Instance
-        {
-            get
-            {
-                return instance ?? (instance = new MacroStabilityInwardsKernelWrapperFactory());
-            }
-            set
-            {
-                instance = value;
-            }
-        }
-
-        public IUpliftVanKernel CreateUpliftVanKernel()
-        {
-            return new UpliftVanKernelWrapper();
-        }
+        /// <returns>A new <see cref="IUpliftVanKernel"/>.</returns>
+        IUpliftVanKernel CreateUpliftVanKernel();
     }
 }

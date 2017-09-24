@@ -25,7 +25,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;

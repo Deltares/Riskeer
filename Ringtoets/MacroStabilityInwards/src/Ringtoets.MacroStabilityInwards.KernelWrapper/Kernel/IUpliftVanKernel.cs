@@ -22,7 +22,7 @@
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
 {
     /// <summary>
     /// Interface representing Uplift Van kernel input, methods and output.

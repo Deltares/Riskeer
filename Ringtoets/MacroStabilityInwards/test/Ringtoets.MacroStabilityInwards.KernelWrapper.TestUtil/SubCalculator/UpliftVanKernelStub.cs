@@ -21,7 +21,7 @@
 
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {

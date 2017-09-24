@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator
 {

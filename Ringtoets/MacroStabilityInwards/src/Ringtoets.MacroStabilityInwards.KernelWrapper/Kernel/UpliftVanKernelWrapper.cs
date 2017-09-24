@@ -27,7 +27,7 @@ using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.IO;
 using Deltares.WTIStability.Levenberg;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
 {
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing an Uplift Van calculation.

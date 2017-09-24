@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.SubCalculator
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernel
 {
     [TestFixture]
     public class UpliftVanKernelWrapperTest

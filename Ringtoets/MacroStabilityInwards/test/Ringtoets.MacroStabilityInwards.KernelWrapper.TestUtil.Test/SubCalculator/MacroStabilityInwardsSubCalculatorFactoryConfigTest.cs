@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.SubCalculator;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.SubCalculator;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.SubCalculator
