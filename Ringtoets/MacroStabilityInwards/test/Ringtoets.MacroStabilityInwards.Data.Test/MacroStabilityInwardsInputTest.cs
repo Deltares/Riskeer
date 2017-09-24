@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNotNull(inputParameters.RightGrid);
 
             Assert.IsTrue(inputParameters.CreateZones);
-            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDetermination.Automatic, inputParameters.AutomaticForbiddenZones);
+            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, inputParameters.AutomaticForbiddenZones);
         }
 
         [Test]

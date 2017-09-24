@@ -55,7 +55,7 @@
     <Compile Include="MacroStabilityInwardsSlidingCurve.cs" />
     <Compile Include="MacroStabilityInwardsSlipPlaneUpliftVan.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDeterminationType.cs" />
-    <Compile Include="MacroStabilityInwardsZoningBoundariesDetermination.cs" />
+    <Compile Include="MacroStabilityInwardsZoningBoundariesDeterminationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -633,11 +633,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the zoning boundaries determination type.
         /// </summary>
-        public MacroStabilityInwardsZoningBoundariesDetermination AutomaticForbiddenZones
+        public MacroStabilityInwardsZoningBoundariesDeterminationType AutomaticForbiddenZones
         {
             get
             {
-                return MacroStabilityInwardsZoningBoundariesDetermination.Automatic;
+                return MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
             }
         }
 

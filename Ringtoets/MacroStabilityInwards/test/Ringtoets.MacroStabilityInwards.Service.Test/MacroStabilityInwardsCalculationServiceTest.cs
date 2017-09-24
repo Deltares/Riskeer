@@ -379,7 +379,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.TangentLineZTop, actualInput.TangentLineZTop);
             Assert.AreEqual(originalInput.TangentLineZBottom, actualInput.TangentLineZBottom);
             Assert.AreEqual(originalInput.CreateZones, actualInput.CreateZones);
-            Assert.AreEqual(originalInput.AutomaticForbiddenZones == MacroStabilityInwardsZoningBoundariesDetermination.Automatic, actualInput.AutomaticForbiddenZones);
+            Assert.AreEqual(originalInput.AutomaticForbiddenZones == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, actualInput.AutomaticForbiddenZones);
             Assert.AreEqual(originalInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
             Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
         }

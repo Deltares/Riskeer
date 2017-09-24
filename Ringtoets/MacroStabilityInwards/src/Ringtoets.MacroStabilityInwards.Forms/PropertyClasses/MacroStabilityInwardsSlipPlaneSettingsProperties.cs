@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AutomaticForbiddenZones_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AutomaticForbiddenZones_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public MacroStabilityInwardsZoningBoundariesDetermination AutomaticForbiddenZones
+        public MacroStabilityInwardsZoningBoundariesDeterminationType AutomaticForbiddenZones
         {
             get
             {

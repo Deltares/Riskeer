@@ -26,35 +26,35 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsZoningBoundariesDeterminationTest : EnumTestFixture<MacroStabilityInwardsZoningBoundariesDetermination>
+    public class MacroStabilityInwardsZoningBoundariesDeterminationTypeTest : EnumTestFixture<MacroStabilityInwardsZoningBoundariesDeterminationType>
     {
-        protected override IDictionary<MacroStabilityInwardsZoningBoundariesDetermination, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<MacroStabilityInwardsZoningBoundariesDeterminationType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsZoningBoundariesDetermination, string>
+                return new Dictionary<MacroStabilityInwardsZoningBoundariesDeterminationType, string>
                 {
                     {
-                        MacroStabilityInwardsZoningBoundariesDetermination.Automatic, "Automatisch"
+                        MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, "Automatisch"
                     },
                     {
-                        MacroStabilityInwardsZoningBoundariesDetermination.Manual, "Handmatig"
+                        MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, "Handmatig"
                     }
                 };
             }
         }
 
-        protected override IDictionary<MacroStabilityInwardsZoningBoundariesDetermination, byte> ExpectedValueForEnumValues
+        protected override IDictionary<MacroStabilityInwardsZoningBoundariesDeterminationType, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsZoningBoundariesDetermination, byte>
+                return new Dictionary<MacroStabilityInwardsZoningBoundariesDeterminationType, byte>
                 {
                     {
-                        MacroStabilityInwardsZoningBoundariesDetermination.Automatic, 1
+                        MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, 1
                     },
                     {
-                        MacroStabilityInwardsZoningBoundariesDetermination.Manual, 2
+                        MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, 2
                     }
                 };
             }

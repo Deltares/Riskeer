@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// The zoning boundaries determination types.
     /// </summary>
-    public enum MacroStabilityInwardsZoningBoundariesDetermination
+    public enum MacroStabilityInwardsZoningBoundariesDeterminationType
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Automatic_DisplayName))]
         Automatic = 1,
