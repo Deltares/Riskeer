@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
 {
     [TestFixture]
-    public class MacroStabilityInwardsGridResultTest
+    public class UpliftVanGridResultTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
             int nrOfVerticalPoints = random.Next();
 
             // Call
-            var gridResult = new MacroStabilityInwardsGridResult(xLeft, xRight, zTop, zBottom, nrOfHorizontalPoints, nrOfVerticalPoints);
+            var gridResult = new UpliftVanGridResult(xLeft, xRight, zTop, zBottom, nrOfHorizontalPoints, nrOfVerticalPoints);
 
             // Assert
             Assert.AreEqual(xLeft, gridResult.XLeft);

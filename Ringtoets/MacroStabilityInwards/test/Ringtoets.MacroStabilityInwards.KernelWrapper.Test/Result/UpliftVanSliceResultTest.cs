@@ -27,14 +27,14 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
 {
     [TestFixture]
-    public class MacroStabilityInwardsSliceResultTest
+    public class UpliftVanSliceResultTest
     {
         [Test]
         public void Constructor_TopLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSliceResult(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                                                           new MacroStabilityInwardsSliceResult.ConstructionProperties());
+            TestDelegate call = () => new UpliftVanSliceResult(null, new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+                                                               new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,8 +45,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_TopRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSliceResult(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
-                                                                           new MacroStabilityInwardsSliceResult.ConstructionProperties());
+            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), null, new Point2D(0, 0), new Point2D(0, 0),
+                                                               new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,8 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_BottomLeftPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSliceResult(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
-                                                                           new MacroStabilityInwardsSliceResult.ConstructionProperties());
+            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), null, new Point2D(0, 0),
+                                                               new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,8 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_BottomRightPointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
-                                                                           new MacroStabilityInwardsSliceResult.ConstructionProperties());
+            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null,
+                                                               new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
+            TestDelegate call = () => new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,8 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
             var bottomRightPoint = new Point2D(3, 3);
 
             // Call
-            var slice = new MacroStabilityInwardsSliceResult(topLeftPoint, topRightPoint, bottomLeftPoint, bottomRightPoint,
-                                                             new MacroStabilityInwardsSliceResult.ConstructionProperties());
+            var slice = new UpliftVanSliceResult(topLeftPoint, topRightPoint, bottomLeftPoint, bottomRightPoint,
+                                                 new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             Assert.AreEqual(topLeftPoint, slice.TopLeftPoint);
@@ -112,8 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_ConstructionPropertiesEmpty_ExpectedValues()
         {
             // Call
-            var slice = new MacroStabilityInwardsSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                                             new MacroStabilityInwardsSliceResult.ConstructionProperties());
+            var slice = new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
+                                                 new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
             Assert.IsNaN(slice.Cohesion);
@@ -184,7 +184,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
             double totalStress = random.NextDouble();
             double weight = random.NextDouble();
 
-            var properties = new MacroStabilityInwardsSliceResult.ConstructionProperties
+            var properties = new UpliftVanSliceResult.ConstructionProperties
             {
                 Cohesion = cohesion,
                 FrictionAngle = frictionAngle,
@@ -219,9 +219,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
             };
 
             // Call
-            var slice = new MacroStabilityInwardsSliceResult(new Point2D(0, 0), new Point2D(0, 0),
-                                                             new Point2D(0, 0), new Point2D(0, 0),
-                                                             properties);
+            var slice = new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0),
+                                                 new Point2D(0, 0), new Point2D(0, 0),
+                                                 properties);
 
             // Assert
             Assert.AreEqual(cohesion, slice.Cohesion);

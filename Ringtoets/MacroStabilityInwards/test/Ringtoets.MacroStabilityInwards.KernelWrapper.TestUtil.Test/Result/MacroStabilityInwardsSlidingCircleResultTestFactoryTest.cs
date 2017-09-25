@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
         public void Create_Always_ReturnCircleWithDefaultValues()
         {
             // Call
-            MacroStabilityInwardsSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            UpliftVanSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
 
             // Assert
             Assert.AreEqual(new Point2D(0, 0), circle.Center);

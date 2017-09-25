@@ -24,18 +24,18 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsGridResult"/>
+    /// Factory to create simple <see cref="UpliftVanGridResult"/>
     /// instances that can be used for testing.
     /// </summary>
     public static class MacroStabilityInwardsGridResultTestFactory
     {
         /// <summary>
-        /// Creates a new <see cref="MacroStabilityInwardsGridResult"/>.
+        /// Creates a new <see cref="UpliftVanGridResult"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsGridResult"/>.</returns>
-        public static MacroStabilityInwardsGridResult Create()
+        /// <returns>The created <see cref="UpliftVanGridResult"/>.</returns>
+        public static UpliftVanGridResult Create()
         {
-            return new MacroStabilityInwardsGridResult(0.1, 0.2, 0.3, 0.4, 1, 2);
+            return new UpliftVanGridResult(0.1, 0.2, 0.3, 0.4, 1, 2);
         }
     }
 }

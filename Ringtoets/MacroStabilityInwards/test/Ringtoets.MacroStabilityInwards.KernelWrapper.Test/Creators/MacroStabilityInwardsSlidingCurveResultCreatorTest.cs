@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            MacroStabilityInwardsSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultCreator.Create(slidingCurve);
+            UpliftVanSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
             AssertActiveCircle(leftCircleIsActive ? result.LeftCircle : result.RightCircle,
@@ -201,12 +201,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            MacroStabilityInwardsSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultCreator.Create(slidingCurve);
+            UpliftVanSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
             Assert.AreEqual(1, result.Slices.Count());
 
-            MacroStabilityInwardsSliceResult slice = result.Slices.First();
+            UpliftVanSliceResult slice = result.Slices.First();
             Assert.AreEqual(new Point2D(topLeftX, topLeftZ), slice.TopLeftPoint);
             Assert.AreEqual(new Point2D(topRightX, topRightZ), slice.TopRightPoint);
             Assert.AreEqual(new Point2D(bottomLeftX, bottomLeftZ), slice.BottomLeftPoint);
@@ -244,21 +244,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             Assert.AreEqual(weight, slice.Weight);
         }
 
-        private static void AssertActiveCircle(MacroStabilityInwardsSlidingCircleResult circle, double x, double z, double iteratedForce,
+        private static void AssertActiveCircle(UpliftVanSlidingCircleResult circle, double x, double z, double iteratedForce,
                                                double nonIteratedForce, double radius, double drivingMoment, double resistingMoment)
         {
             Assert.IsTrue(circle.IsActive);
             AssertCircle(circle, x, z, iteratedForce, nonIteratedForce, radius, drivingMoment, resistingMoment);
         }
 
-        private static void AssertPassiveCircle(MacroStabilityInwardsSlidingCircleResult circle, double x, double z, double iteratedForce,
+        private static void AssertPassiveCircle(UpliftVanSlidingCircleResult circle, double x, double z, double iteratedForce,
                                                 double nonIteratedForce, double radius, double drivingMoment, double resistingMoment)
         {
             Assert.IsFalse(circle.IsActive);
             AssertCircle(circle, x, z, iteratedForce, nonIteratedForce, radius, drivingMoment, resistingMoment);
         }
 
-        private static void AssertCircle(MacroStabilityInwardsSlidingCircleResult circle, double x, double z, double iteratedForce,
+        private static void AssertCircle(UpliftVanSlidingCircleResult circle, double x, double z, double iteratedForce,
                                          double nonIteratedForce, double radius, double drivingMoment, double resistingMoment)
         {
             Assert.AreEqual(x, circle.Center.X);

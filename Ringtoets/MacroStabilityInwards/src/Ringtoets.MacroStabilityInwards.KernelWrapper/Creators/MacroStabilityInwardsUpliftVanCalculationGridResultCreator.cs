@@ -27,36 +27,36 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/> instances.
+    /// Creates <see cref="UpliftVanCalculationGridResult"/> instances.
     /// </summary>
     public static class MacroStabilityInwardsUpliftVanCalculationGridResultCreator
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/> based on the information
+        /// Creates a <see cref="UpliftVanCalculationGridResult"/> based on the information
         /// given in the <paramref name="slipPlaneUpliftVan"/>.
         /// </summary>
         /// <param name="slipPlaneUpliftVan">The output to create the result for.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/> with information
+        /// <returns>A new <see cref="UpliftVanCalculationGridResult"/> with information
         /// taken from the <paramref name="slipPlaneUpliftVan"/></returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slipPlaneUpliftVan"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsUpliftVanCalculationGridResult Create(SlipPlaneUpliftVan slipPlaneUpliftVan)
+        public static UpliftVanCalculationGridResult Create(SlipPlaneUpliftVan slipPlaneUpliftVan)
         {
             if (slipPlaneUpliftVan == null)
             {
                 throw new ArgumentNullException(nameof(slipPlaneUpliftVan));
             }
 
-            MacroStabilityInwardsGridResult leftGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid);
-            MacroStabilityInwardsGridResult rightGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneRightGrid);
+            UpliftVanGridResult leftGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid);
+            UpliftVanGridResult rightGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneRightGrid);
 
-            return new MacroStabilityInwardsUpliftVanCalculationGridResult(leftGrid, rightGrid, slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights
+            return new UpliftVanCalculationGridResult(leftGrid, rightGrid, slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights
                                                                                                                   .Select(tl => tl.Height));
         }
 
-        private static MacroStabilityInwardsGridResult CreateGrid(SlipCircleGrid grid)
+        private static UpliftVanGridResult CreateGrid(SlipCircleGrid grid)
         {
-            return new MacroStabilityInwardsGridResult(grid.GridXLeft, grid.GridXRight, grid.GridZTop, grid.GridZBottom, grid.GridXNumber, grid.GridZNumber);
+            return new UpliftVanGridResult(grid.GridXLeft, grid.GridXRight, grid.GridZTop, grid.GridZBottom, grid.GridXNumber, grid.GridZNumber);
         }
     }
 }

@@ -25,12 +25,12 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
-    /// The sliding curve result of a macro stability calculation.
+    /// The sliding curve result of an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsSlidingCurveResult
+    public class UpliftVanSlidingCurveResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSlidingCurveResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanSlidingCurveResult"/>.
         /// </summary>
         /// <param name="leftCircle">The left circle of the curve.</param>
         /// <param name="rightCircle">The right circle of the curve.</param>
@@ -41,8 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
         /// of the curve.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlidingCurveResult(MacroStabilityInwardsSlidingCircleResult leftCircle, MacroStabilityInwardsSlidingCircleResult rightCircle,
-                                                       IEnumerable<MacroStabilityInwardsSliceResult> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
+        public UpliftVanSlidingCurveResult(UpliftVanSlidingCircleResult leftCircle, UpliftVanSlidingCircleResult rightCircle,
+                                           IEnumerable<UpliftVanSliceResult> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
         {
             if (leftCircle == null)
             {
@@ -67,17 +67,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
         /// <summary>
         /// Gets the left circle.
         /// </summary>
-        public MacroStabilityInwardsSlidingCircleResult LeftCircle { get; }
+        public UpliftVanSlidingCircleResult LeftCircle { get; }
 
         /// <summary>
         /// Gets the right circle.
         /// </summary>
-        public MacroStabilityInwardsSlidingCircleResult RightCircle { get; }
+        public UpliftVanSlidingCircleResult RightCircle { get; }
 
         /// <summary>
         /// Gets the slices.
         /// </summary>
-        public IEnumerable<MacroStabilityInwardsSliceResult> Slices { get; }
+        public IEnumerable<UpliftVanSliceResult> Slices { get; }
 
         /// <summary>
         /// Gets the non iterated horizontal force.

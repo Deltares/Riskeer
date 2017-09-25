@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            MacroStabilityInwardsUpliftVanCalculationGridResult result = MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(slipPlaneUpliftVan);
+            UpliftVanCalculationGridResult result = MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(slipPlaneUpliftVan);
 
             // Assert
             AssertGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid, result.LeftGrid);
@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             CollectionAssert.AreEqual(slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights.Select(sl => sl.Height), result.TangentLines);
         }
 
-        private static void AssertGrid(SlipCircleGrid originalGrid, MacroStabilityInwardsGridResult actualGrid)
+        private static void AssertGrid(SlipCircleGrid originalGrid, UpliftVanGridResult actualGrid)
         {
             Assert.AreEqual(originalGrid.GridXLeft, actualGrid.XLeft);
             Assert.AreEqual(originalGrid.GridXRight, actualGrid.XRight);

@@ -25,20 +25,20 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
-    /// The Uplift Van calculation grid result of a macro stability calculation.
+    /// The calculation grid result of an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsUpliftVanCalculationGridResult
+    public class UpliftVanCalculationGridResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanCalculationGridResult"/>.
         /// </summary>
         /// <param name="leftGrid">The left grid of the result.</param>
         /// <param name="rightGrid">The right grid of the result.</param>
         /// <param name="tangentLines">The tangent lines of the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResult leftGrid,
-                                                                   MacroStabilityInwardsGridResult rightGrid,
-                                                                   IEnumerable<double> tangentLines)
+        public UpliftVanCalculationGridResult(UpliftVanGridResult leftGrid,
+                                              UpliftVanGridResult rightGrid,
+                                              IEnumerable<double> tangentLines)
         {
             if (leftGrid == null)
             {
@@ -61,12 +61,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
         /// <summary>
         /// Gets the left grid result.
         /// </summary>
-        public MacroStabilityInwardsGridResult LeftGrid { get; }
+        public UpliftVanGridResult LeftGrid { get; }
 
         /// <summary>
         /// Gets the right grid result.
         /// </summary>
-        public MacroStabilityInwardsGridResult RightGrid { get; }
+        public UpliftVanGridResult RightGrid { get; }
 
         /// <summary>
         /// Gets the tangent lines result.

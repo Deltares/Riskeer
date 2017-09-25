@@ -29,57 +29,57 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="MacroStabilityInwardsSlidingCurveResult"/> instances.
+    /// Creates <see cref="UpliftVanSlidingCurveResult"/> instances.
     /// </summary>
     public static class MacroStabilityInwardsSlidingCurveResultCreator
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityInwardsSlidingCurveResult"/> based on the information
+        /// Creates a <see cref="UpliftVanSlidingCurveResult"/> based on the information
         /// given in the <paramref name="slidingCurve"/>.
         /// </summary>
         /// <param name="slidingCurve">The output to create the result for.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsSlidingCurveResult"/> with information
+        /// <returns>A new <see cref="UpliftVanSlidingCurveResult"/> with information
         /// taken from the <paramref name="slidingCurve"/></returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slidingCurve"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSlidingCurveResult Create(SlidingDualCircle slidingCurve)
+        public static UpliftVanSlidingCurveResult Create(SlidingDualCircle slidingCurve)
         {
             if (slidingCurve == null)
             {
                 throw new ArgumentNullException(nameof(slidingCurve));
             }
 
-            MacroStabilityInwardsSlidingCircleResult leftCircle = slidingCurve.LeftCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
-            MacroStabilityInwardsSlidingCircleResult rightCircle = slidingCurve.LeftCircleIsActive ? CreatePassiveCircle(slidingCurve) : CreateActiveCircle(slidingCurve);
+            UpliftVanSlidingCircleResult leftCircle = slidingCurve.LeftCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
+            UpliftVanSlidingCircleResult rightCircle = slidingCurve.LeftCircleIsActive ? CreatePassiveCircle(slidingCurve) : CreateActiveCircle(slidingCurve);
 
-            return new MacroStabilityInwardsSlidingCurveResult(leftCircle, rightCircle, CreateSlices(slidingCurve.Slices),
+            return new UpliftVanSlidingCurveResult(leftCircle, rightCircle, CreateSlices(slidingCurve.Slices),
                                                                slidingCurve.HorizontalForce0, slidingCurve.HorizontalForce);
         }
 
-        private static MacroStabilityInwardsSlidingCircleResult CreateActiveCircle(SlidingDualCircle slidingCurve)
+        private static UpliftVanSlidingCircleResult CreateActiveCircle(SlidingDualCircle slidingCurve)
         {
-            return new MacroStabilityInwardsSlidingCircleResult(new Point2D(slidingCurve.ActiveCircle.X, slidingCurve.ActiveCircle.Z),
+            return new UpliftVanSlidingCircleResult(new Point2D(slidingCurve.ActiveCircle.X, slidingCurve.ActiveCircle.Z),
                                                                 slidingCurve.ActiveRadius, true, slidingCurve.ActiveForce0, slidingCurve.ActiveForce,
                                                                 slidingCurve.DrivingMomentActive, slidingCurve.ResistingMomentActive);
         }
 
-        private static MacroStabilityInwardsSlidingCircleResult CreatePassiveCircle(SlidingDualCircle slidingCurve)
+        private static UpliftVanSlidingCircleResult CreatePassiveCircle(SlidingDualCircle slidingCurve)
         {
-            return new MacroStabilityInwardsSlidingCircleResult(new Point2D(slidingCurve.PassiveCircle.X, slidingCurve.PassiveCircle.Z),
+            return new UpliftVanSlidingCircleResult(new Point2D(slidingCurve.PassiveCircle.X, slidingCurve.PassiveCircle.Z),
                                                                 slidingCurve.PassiveRadius, false, slidingCurve.PassiveForce0, slidingCurve.PassiveForce,
                                                                 slidingCurve.DrivingMomentPassive, slidingCurve.ResistingMomentPassive);
         }
 
-        private static IEnumerable<MacroStabilityInwardsSliceResult> CreateSlices(IEnumerable<Slice> slidingCurveSlices)
+        private static IEnumerable<UpliftVanSliceResult> CreateSlices(IEnumerable<Slice> slidingCurveSlices)
         {
             return slidingCurveSlices.Select(
                 slice =>
-                    new MacroStabilityInwardsSliceResult(
+                    new UpliftVanSliceResult(
                         new Point2D(slice.TopLeftX, slice.TopLeftZ),
                         new Point2D(slice.TopRightX, slice.TopRightZ),
                         new Point2D(slice.BottomLeftX, slice.BottomLeftZ),
                         new Point2D(slice.BottomRightX, slice.BottomRightZ),
-                        new MacroStabilityInwardsSliceResult.ConstructionProperties
+                        new UpliftVanSliceResult.ConstructionProperties
                         {
                             Cohesion = slice.Cohesion,
                             FrictionAngle = slice.Phi,

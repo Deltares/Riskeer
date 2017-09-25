@@ -25,12 +25,12 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
-    /// The sliding circle result of a macro stability calculation.
+    /// The sliding circle result of an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsSlidingCircleResult
+    public class UpliftVanSlidingCircleResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSlidingCircleResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanSlidingCircleResult"/>.
         /// </summary>
         /// <param name="center">The center coordinate of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
@@ -41,9 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
         /// <param name="resistingMoment">The resisting moment of the circle.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="center"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSlidingCircleResult(Point2D center, double radius, bool isActive,
-                                                        double nonIteratedForce, double iteratedForce,
-                                                        double drivingMoment, double resistingMoment)
+        public UpliftVanSlidingCircleResult(Point2D center, double radius, bool isActive,
+                                            double nonIteratedForce, double iteratedForce,
+                                            double drivingMoment, double resistingMoment)
         {
             if (center == null)
             {

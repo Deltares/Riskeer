@@ -28,20 +28,20 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
-    /// Converter to convert <see cref="MacroStabilityInwardsSlidingCurveResult"/>
+    /// Converter to convert <see cref="UpliftVanSlidingCurveResult"/>
     /// into <see cref="MacroStabilityInwardsSlidingCurve"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSlidingCurveConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsSlidingCurveResult"/>
+        /// Converts <see cref="UpliftVanSlidingCurveResult"/>
         /// into <see cref="MacroStabilityInwardsSlidingCurve"/>.
         /// </summary>
         /// <param name="result">The result to convert.</param>
         /// <returns>The converted <see cref="MacroStabilityInwardsSlidingCurve"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSlidingCurve Convert(MacroStabilityInwardsSlidingCurveResult result)
+        public static MacroStabilityInwardsSlidingCurve Convert(UpliftVanSlidingCurveResult result)
         {
             if (result == null)
             {
@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             return new MacroStabilityInwardsSlidingCurve(leftCircle, rightCircle, slices, result.NonIteratedHorizontalForce, result.IteratedHorizontalForce);
         }
 
-        private static MacroStabilityInwardsSlidingCircle ConvertCircle(MacroStabilityInwardsSlidingCircleResult circle)
+        private static MacroStabilityInwardsSlidingCircle ConvertCircle(UpliftVanSlidingCircleResult circle)
         {
             return new MacroStabilityInwardsSlidingCircle(circle.Center,
                                                           circle.Radius,
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                                                           circle.ResistingMoment);
         }
 
-        private static IEnumerable<MacroStabilityInwardsSlice> ConvertSlices(IEnumerable<MacroStabilityInwardsSliceResult> slices)
+        private static IEnumerable<MacroStabilityInwardsSlice> ConvertSlices(IEnumerable<UpliftVanSliceResult> slices)
         {
             return slices.Select(s => new MacroStabilityInwardsSlice(
                                      s.TopLeftPoint,

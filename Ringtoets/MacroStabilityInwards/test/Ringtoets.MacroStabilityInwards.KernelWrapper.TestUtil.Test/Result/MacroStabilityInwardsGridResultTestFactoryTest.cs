@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
         public void Create_Always_ReturnGridWithDefaultValues()
         {
             // Call
-            MacroStabilityInwardsGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
 
             // Assert
             Assert.AreEqual(0.1, grid.XLeft);

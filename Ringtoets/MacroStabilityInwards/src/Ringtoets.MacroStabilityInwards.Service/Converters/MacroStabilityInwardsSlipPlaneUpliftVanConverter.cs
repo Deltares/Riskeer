@@ -28,20 +28,20 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
-    /// Converter to convert <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/>
+    /// Converter to convert <see cref="UpliftVanCalculationGridResult"/>
     /// into <see cref="MacroStabilityInwardsSlipPlaneUpliftVanConverter"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSlipPlaneUpliftVanConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsUpliftVanCalculationGridResult"/>
+        /// Converts <see cref="UpliftVanCalculationGridResult"/>
         /// into <see cref="MacroStabilityInwardsSlipPlaneUpliftVan"/>.
         /// </summary>
         /// <param name="result">The result to convert.</param>
         /// <returns>The converted <see cref="MacroStabilityInwardsSlipPlaneUpliftVan"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsSlipPlaneUpliftVan Convert(MacroStabilityInwardsUpliftVanCalculationGridResult result)
+        public static MacroStabilityInwardsSlipPlaneUpliftVan Convert(UpliftVanCalculationGridResult result)
         {
             if (result == null)
             {
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines);
         }
 
-        private static MacroStabilityInwardsGrid ConvertGrid(MacroStabilityInwardsGridResult grid)
+        private static MacroStabilityInwardsGrid ConvertGrid(UpliftVanGridResult grid)
         {
             return new MacroStabilityInwardsGrid
             {

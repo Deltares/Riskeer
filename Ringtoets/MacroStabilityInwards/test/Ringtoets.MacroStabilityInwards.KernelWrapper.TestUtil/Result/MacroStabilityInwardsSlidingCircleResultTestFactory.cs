@@ -25,18 +25,18 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsSlidingCircleResult"/>
+    /// Factory to create simple <see cref="UpliftVanSlidingCircleResult"/>
     /// instances that can be used for testing.
     /// </summary>
     public static class MacroStabilityInwardsSlidingCircleResultTestFactory
     {
         /// <summary>
-        /// Creates a new <see cref="MacroStabilityInwardsSlidingCircleResult"/>.
+        /// Creates a new <see cref="UpliftVanSlidingCircleResult"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsSlidingCircleResult"/>.</returns>
-        public static MacroStabilityInwardsSlidingCircleResult Create()
+        /// <returns>The created <see cref="UpliftVanSlidingCircleResult"/>.</returns>
+        public static UpliftVanSlidingCircleResult Create()
         {
-            return new MacroStabilityInwardsSlidingCircleResult(new Point2D(0, 0), 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            return new UpliftVanSlidingCircleResult(new Point2D(0, 0), 0.1, true, 0.2, 0.3, 0.4, 0.5);
         }
     }
 }

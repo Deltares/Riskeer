@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             AssertUpliftVanCalculationGrid(result.CalculationGridResult);
         }
 
-        private static void AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResult slidingCurve)
+        private static void AssertSlidingCurve(UpliftVanSlidingCurveResult slidingCurve)
         {
             AssertCircle(slidingCurve.LeftCircle);
             AssertCircle(slidingCurve.RightCircle);
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             CollectionAssert.IsEmpty(slidingCurve.Slices);
         }
 
-        private static void AssertCircle(MacroStabilityInwardsSlidingCircleResult circle)
+        private static void AssertCircle(UpliftVanSlidingCircleResult circle)
         {
             Assert.AreEqual(new Point2D(0, 0), circle.Center);
             Assert.AreEqual(0.1, circle.Radius);
@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             Assert.AreEqual(0.5, circle.ResistingMoment);
         }
 
-        private static void AssertUpliftVanCalculationGrid(MacroStabilityInwardsUpliftVanCalculationGridResult upliftVanCalculationGrid)
+        private static void AssertUpliftVanCalculationGrid(UpliftVanCalculationGridResult upliftVanCalculationGrid)
         {
             AssertGrid(upliftVanCalculationGrid.LeftGrid);
             AssertGrid(upliftVanCalculationGrid.RightGrid);
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             }, upliftVanCalculationGrid.TangentLines);
         }
 
-        private static void AssertGrid(MacroStabilityInwardsGridResult grid)
+        private static void AssertGrid(UpliftVanGridResult grid)
         {
             Assert.AreEqual(0.1, grid.XLeft);
             Assert.AreEqual(0.2, grid.XRight);

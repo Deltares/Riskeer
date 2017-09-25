@@ -22,12 +22,12 @@
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
-    /// The grid result of a macro stability calculation.
+    /// The grid result of an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsGridResult
+    public class UpliftVanGridResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsGridResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanGridResult"/>.
         /// </summary>
         /// <param name="xLeft">The left boundary of the grid.</param>
         /// <param name="xRight">The right boundary of the grid.</param>
@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
         /// <param name="zBottom">The bottom boundary of the grid.</param>
         /// <param name="numberOfHorizontalPoints">The number of horizontal points.</param>
         /// <param name="numberOfVerticalPoints">The number of vertical points.</param>
-        public MacroStabilityInwardsGridResult(double xLeft, double xRight, double zTop, double zBottom, int numberOfHorizontalPoints, int numberOfVerticalPoints)
+        public UpliftVanGridResult(double xLeft, double xRight, double zTop, double zBottom, int numberOfHorizontalPoints, int numberOfVerticalPoints)
         {
             XLeft = xLeft;
             XRight = xRight;

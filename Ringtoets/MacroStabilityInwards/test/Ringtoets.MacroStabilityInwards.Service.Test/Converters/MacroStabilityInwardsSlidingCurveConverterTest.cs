@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         public void Convert_WithResult_ReturnConvertedSlidingCurve()
         {
             // Setup
-            MacroStabilityInwardsSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            UpliftVanSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
 
             // Call
             MacroStabilityInwardsSlidingCurve output = MacroStabilityInwardsSlidingCurveConverter.Convert(result);
@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             AssertSlices(result.Slices, output.Slices);
         }
 
-        private static void AssertCircle(MacroStabilityInwardsSlidingCircleResult circleResult, MacroStabilityInwardsSlidingCircle circleOutput)
+        private static void AssertCircle(UpliftVanSlidingCircleResult circleResult, MacroStabilityInwardsSlidingCircle circleOutput)
         {
             Assert.AreEqual(circleResult.Center, circleOutput.Center);
             Assert.AreEqual(circleResult.IsActive, circleOutput.IsActive);
@@ -72,9 +72,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.AreEqual(circleResult.NonIteratedForce, circleOutput.NonIteratedForce);
         }
 
-        private static void AssertSlices(IEnumerable<MacroStabilityInwardsSliceResult> resultSlices, IEnumerable<MacroStabilityInwardsSlice> outputSlices)
+        private static void AssertSlices(IEnumerable<UpliftVanSliceResult> resultSlices, IEnumerable<MacroStabilityInwardsSlice> outputSlices)
         {
-            MacroStabilityInwardsSliceResult[] expectedSlices = resultSlices.ToArray();
+            UpliftVanSliceResult[] expectedSlices = resultSlices.ToArray();
             MacroStabilityInwardsSlice[] actualSlices = outputSlices.ToArray();
 
             Assert.AreEqual(expectedSlices.Length, actualSlices.Length);

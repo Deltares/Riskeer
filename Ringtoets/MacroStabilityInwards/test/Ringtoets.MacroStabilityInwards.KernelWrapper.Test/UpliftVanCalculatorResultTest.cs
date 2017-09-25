@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_SlidingCurveResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculationGridResult = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+            var calculationGridResult = new UpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 new double[0]);
 
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_CalculationGridResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            UpliftVanSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, null, new UpliftVanCalculatorResult.ConstructionProperties());
@@ -65,8 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+            UpliftVanSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var calculationGridResult = new UpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 new double[0]);
 
@@ -82,8 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            MacroStabilityInwardsSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+            UpliftVanSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var calculationGridResult = new UpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 new double[0]);
 
@@ -99,8 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_EmptyConstructionProperties_ExpectedValues()
         {
             // Setup
-            MacroStabilityInwardsSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+            UpliftVanSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var calculationGridResult = new UpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 new double[0]);
 
@@ -138,8 +138,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 GridAutomaticallyCalculated = gridAutomaticallyCalculated
             };
 
-            MacroStabilityInwardsSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new MacroStabilityInwardsUpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
+            UpliftVanSlidingCurveResult slidingCurveResult = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            var calculationGridResult = new UpliftVanCalculationGridResult(MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 MacroStabilityInwardsGridResultTestFactory.Create(),
                                                                                                 new double[0]);
 

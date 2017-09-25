@@ -396,7 +396,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             AssertSlipPlane(expectedOutput.CalculationGridResult, actualOutput.SlipPlane);
         }
 
-        private static void AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResult expected, MacroStabilityInwardsSlidingCurve actual)
+        private static void AssertSlidingCurve(UpliftVanSlidingCurveResult expected, MacroStabilityInwardsSlidingCurve actual)
         {
             Assert.AreEqual(expected.IteratedHorizontalForce, actual.IteratedHorizontalForce);
             Assert.AreEqual(expected.NonIteratedHorizontalForce, actual.NonIteratedHorizontalForce);
@@ -405,7 +405,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             AssertSlices(expected.Slices, actual.Slices);
         }
 
-        private static void AssertCircle(MacroStabilityInwardsSlidingCircleResult circleResult, MacroStabilityInwardsSlidingCircle circleOutput)
+        private static void AssertCircle(UpliftVanSlidingCircleResult circleResult, MacroStabilityInwardsSlidingCircle circleOutput)
         {
             Assert.AreEqual(circleResult.Center, circleOutput.Center);
             Assert.AreEqual(circleResult.IsActive, circleOutput.IsActive);
@@ -416,9 +416,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(circleResult.NonIteratedForce, circleOutput.NonIteratedForce);
         }
 
-        private static void AssertSlices(IEnumerable<MacroStabilityInwardsSliceResult> resultSlices, IEnumerable<MacroStabilityInwardsSlice> outputSlices)
+        private static void AssertSlices(IEnumerable<UpliftVanSliceResult> resultSlices, IEnumerable<MacroStabilityInwardsSlice> outputSlices)
         {
-            MacroStabilityInwardsSliceResult[] expectedSlices = resultSlices.ToArray();
+            UpliftVanSliceResult[] expectedSlices = resultSlices.ToArray();
             MacroStabilityInwardsSlice[] actualSlices = outputSlices.ToArray();
 
             Assert.AreEqual(expectedSlices.Length, actualSlices.Length);
@@ -458,14 +458,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             }
         }
 
-        private static void AssertSlipPlane(MacroStabilityInwardsUpliftVanCalculationGridResult expected, MacroStabilityInwardsSlipPlaneUpliftVan actual)
+        private static void AssertSlipPlane(UpliftVanCalculationGridResult expected, MacroStabilityInwardsSlipPlaneUpliftVan actual)
         {
             CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
             AssertGrid(expected.LeftGrid, actual.LeftGrid);
             AssertGrid(expected.RightGrid, actual.RightGrid);
         }
 
-        private static void AssertGrid(MacroStabilityInwardsGridResult expectedGrid, MacroStabilityInwardsGrid actualGrid)
+        private static void AssertGrid(UpliftVanGridResult expectedGrid, MacroStabilityInwardsGrid actualGrid)
         {
             Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
             Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);

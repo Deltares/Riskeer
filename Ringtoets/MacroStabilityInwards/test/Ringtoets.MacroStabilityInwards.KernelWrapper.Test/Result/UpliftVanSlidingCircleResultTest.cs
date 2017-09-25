@@ -28,13 +28,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCircleResultTest
+    public class UpliftVanSlidingCircleResultTest
     {
         [Test]
         public void Constructor_CenterNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlidingCircleResult(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            TestDelegate call = () => new UpliftVanSlidingCircleResult(null, 0.1, true, 0.2, 0.3, 0.4, 0.5);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
             double resistingMoment = random.NextDouble();
 
             // Call
-            var circle = new MacroStabilityInwardsSlidingCircleResult(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
+            var circle = new UpliftVanSlidingCircleResult(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
 
             // Assert
             Assert.AreEqual(center, circle.Center);

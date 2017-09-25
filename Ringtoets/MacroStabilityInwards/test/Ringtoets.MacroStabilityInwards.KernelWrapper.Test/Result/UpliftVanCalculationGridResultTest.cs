@@ -28,16 +28,16 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
 {
     [TestFixture]
-    public class MacroStabilityInwardsUpliftVanCalculationGridResultTest
+    public class UpliftVanCalculationGridResultTest
     {
         [Test]
         public void Constructor_LeftGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
             
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsUpliftVanCalculationGridResult(null, grid, Enumerable.Empty<double>());
+            TestDelegate call = () => new UpliftVanCalculationGridResult(null, grid, Enumerable.Empty<double>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,10 +48,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_RightGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsUpliftVanCalculationGridResult(grid, null, Enumerable.Empty<double>());
+            TestDelegate call = () => new UpliftVanCalculationGridResult(grid, null, Enumerable.Empty<double>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,11 +62,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_TangentLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
-            MacroStabilityInwardsGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsUpliftVanCalculationGridResult(leftGrid, rightGrid, null);
+            TestDelegate call = () => new UpliftVanCalculationGridResult(leftGrid, rightGrid, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -77,8 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_ExpectedValues()
         {
             // Setup
-            MacroStabilityInwardsGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
-            MacroStabilityInwardsGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
             var tangentLines = new[]
             {
                 0,
@@ -88,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
             };
 
             // Call
-            var result = new MacroStabilityInwardsUpliftVanCalculationGridResult(leftGrid, rightGrid, tangentLines);
+            var result = new UpliftVanCalculationGridResult(leftGrid, rightGrid, tangentLines);
 
             // Assert
             Assert.AreSame(leftGrid, result.LeftGrid);

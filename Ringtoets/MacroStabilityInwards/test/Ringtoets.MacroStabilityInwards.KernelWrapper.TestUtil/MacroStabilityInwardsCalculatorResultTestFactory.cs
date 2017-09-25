@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         {
             return new UpliftVanCalculatorResult(
                 MacroStabilityInwardsSlidingCurveResultTestFactory.Create(),
-                new MacroStabilityInwardsUpliftVanCalculationGridResult(
+                new UpliftVanCalculationGridResult(
                     MacroStabilityInwardsGridResultTestFactory.Create(),
                     MacroStabilityInwardsGridResultTestFactory.Create(),
                     new[]

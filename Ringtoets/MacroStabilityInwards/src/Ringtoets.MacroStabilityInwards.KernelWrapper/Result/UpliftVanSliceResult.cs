@@ -25,23 +25,23 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
 {
     /// <summary>
-    /// The slice result of a macro stability calculation.
+    /// The slice result of an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsSliceResult
+    public class UpliftVanSliceResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSliceResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanSliceResult"/>.
         /// </summary>
         /// <param name="topLeftPoint">The top left point of the slice.</param>
         /// <param name="topRightPoint">The top right point of the slice.</param>
         /// <param name="bottomLeftPoint">The bottom left point of the slice.</param>
         /// <param name="bottomRightPoint">The bottom right point of the slice.</param>
         /// <param name="properties">The object containing the values for the properties 
-        /// of the new <see cref="MacroStabilityInwardsSliceResult"/>.</param>
+        /// of the new <see cref="UpliftVanSliceResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSliceResult(Point2D topLeftPoint, Point2D topRightPoint,
-                                                Point2D bottomLeftPoint, Point2D bottomRightPoint,
-                                                ConstructionProperties properties)
+        public UpliftVanSliceResult(Point2D topLeftPoint, Point2D topRightPoint,
+                                    Point2D bottomLeftPoint, Point2D bottomRightPoint,
+                                    ConstructionProperties properties)
         {
             if (topLeftPoint == null)
             {
@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Result
         public double ExternalLoad { get; }
 
         /// <summary>
-        /// Gets the hydraostatic pore pressure.
+        /// Gets the hydrostatic pore pressure.
         /// [kN/m²]
         /// </summary>
         public double HydrostaticPorePressure { get; }

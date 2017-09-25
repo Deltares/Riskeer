@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
         public void Create_Always_ReturnSlidingCurveResult()
         {
             // Call
-            MacroStabilityInwardsSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            UpliftVanSlidingCurveResult curve = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
 
             // Assert
             AssertCircle(curve.LeftCircle);
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
             CollectionAssert.IsEmpty(curve.Slices);
         }
 
-        private static void AssertCircle(MacroStabilityInwardsSlidingCircleResult circle)
+        private static void AssertCircle(UpliftVanSlidingCircleResult circle)
         {
             Assert.AreEqual(new Point2D(0, 0), circle.Center);
             Assert.AreEqual(0.1, circle.Radius);
