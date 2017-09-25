@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                 LogNormalDistributionDesignVariableCalculator.CreateWithCoefficientOfVariation(
                                                                  Distribution.Mean,
                                                                  Distribution.CoefficientOfVariation,
-                                                                 0)
+                                                                 Distribution.Shift)
                                                              .GetDesignValue(Percentile));
         }
     }

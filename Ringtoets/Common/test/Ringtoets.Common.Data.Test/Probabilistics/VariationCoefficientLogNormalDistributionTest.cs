@@ -53,6 +53,11 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 otherCoefficientOfVariation.CoefficientOfVariation = (RoundedDouble) 0.987;
                 yield return new TestCaseData(distribution, otherCoefficientOfVariation, false)
                     .SetName(nameof(otherCoefficientOfVariation));
+
+                VariationCoefficientLogNormalDistribution otherShift = CreateFullyDefinedDistribution();
+                otherShift.Shift = (RoundedDouble) 0.987;
+                yield return new TestCaseData(distribution, otherShift, false)
+                    .SetName(nameof(otherShift));
             }
         }
 
@@ -71,6 +76,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreEqual(1.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimals, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.CoefficientOfVariation.Value);
+            Assert.AreEqual(numberOfDecimals, distribution.Shift.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, distribution.Shift.Value);
         }
 
         [Test]
@@ -89,6 +96,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreEqual(1.0, distribution.Mean.Value);
             Assert.AreEqual(numberOfDecimals, distribution.CoefficientOfVariation.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, distribution.CoefficientOfVariation.Value);
+            Assert.AreEqual(numberOfDecimals, distribution.Shift.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, distribution.Shift.Value);
         }
 
         [Test]
@@ -164,6 +173,45 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             const string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1, 5.6)]
+        [TestCase(3, 5.647)]
+        [TestCase(4, 5.6473)]
+        [TestCase(15, 5.647300000000000)]
+        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        {
+            // Setup
+            var distribution = new VariationCoefficientLogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = new RoundedDouble(2, 10.0)
+            };
+
+            // Call
+            distribution.Shift = new RoundedDouble(4, 5.6473);
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedStandardDeviation, distribution.Shift.Value);
+        }
+
+        [Test]
+        public void Shift_SetIllegalValue_ThrowArgumentOutOfRangeException()
+        {
+            // Setup
+            var distribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 10.0),
+                CoefficientOfVariation = new RoundedDouble(2, 1.0)
+            };
+
+            // Call
+            TestDelegate call = () => distribution.Shift = new RoundedDouble(2, 100.0);
+
+            // Assert
+            const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -254,7 +302,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             return new VariationCoefficientLogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
+                CoefficientOfVariation = (RoundedDouble) 0.1,
+                Shift = (RoundedDouble) 0.2
             };
         }
     }

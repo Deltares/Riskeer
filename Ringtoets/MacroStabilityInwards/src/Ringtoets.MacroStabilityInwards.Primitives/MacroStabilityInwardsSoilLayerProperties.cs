@@ -21,6 +21,9 @@
 
 using System;
 using System.Drawing;
+using System.Runtime.ExceptionServices;
+using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
@@ -31,11 +34,57 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     {
         private string materialName = string.Empty;
 
+        private readonly VariationCoefficientLogNormalDistribution abovePhreaticLevel;
+        private readonly VariationCoefficientLogNormalDistribution belowPhreaticLevel;
+        private readonly VariationCoefficientLogNormalDistribution cohesion;
+        private readonly VariationCoefficientLogNormalDistribution frictionAngle;
+        private readonly VariationCoefficientLogNormalDistribution strengthIncreaseExponent;
+        private readonly VariationCoefficientLogNormalDistribution shearStrengthRatio;
+        private readonly VariationCoefficientLogNormalDistribution pop;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerProperties"/>.
         /// </summary>
         public MacroStabilityInwardsSoilLayerProperties()
         {
+            abovePhreaticLevel = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            };
+            belowPhreaticLevel = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            };
+            cohesion = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+            frictionAngle = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+            strengthIncreaseExponent = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+            shearStrengthRatio = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+            pop = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            };
+
             ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi;
         }
 
@@ -80,100 +129,125 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public MacroStabilityInwardsShearStrengthModel ShearStrengthModel { get; set; }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets or sets the distribution for the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelMean { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution AbovePhreaticLevel
+        {
+            get
+            {
+                return abovePhreaticLevel;
+            }
+            set
+            {
+                abovePhreaticLevel.Mean = value.Mean;
+                abovePhreaticLevel.CoefficientOfVariation = value.CoefficientOfVariation;
+                abovePhreaticLevel.Shift = value.Shift;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets or sets the distribution for the volumic weight of the layer below the phreatic level.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelCoefficientOfVariation { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution BelowPhreaticLevel
+        {
+            get
+            {
+                return belowPhreaticLevel;
+            }
+            set
+            {
+                belowPhreaticLevel.Mean = value.Mean;
+                belowPhreaticLevel.CoefficientOfVariation = value.CoefficientOfVariation;
+                belowPhreaticLevel.Shift = value.Shift;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the shift of the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets or sets the distribution for the cohesion.
         /// [kN/m³]
         /// </summary>
-        public double AbovePhreaticLevelShift { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution Cohesion
+        {
+            get
+            {
+                return cohesion;
+            }
+            set
+            {
+                cohesion.Mean = value.Mean;
+                cohesion.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the volumic weight of the layer below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double BelowPhreaticLevelMean { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the volumic weight of the layer below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double BelowPhreaticLevelCoefficientOfVariation { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the shift of the distribution for the volumic weight of the layer below the phreatic level.
-        /// [kN/m³]
-        /// </summary>
-        public double BelowPhreaticLevelShift { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the cohesion.
-        /// [kN/m³]
-        /// </summary>
-        public double CohesionMean { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the cohesion.
-        /// [kN/m³]
-        /// </summary>
-        public double CohesionCoefficientOfVariation { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the friction angle
+        /// Gets or sets the friction angle.
         /// [°]
         /// </summary>
-        public double FrictionAngleMean { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution FrictionAngle
+        {
+            get
+            {
+                return frictionAngle;
+            }
+            set
+            {
+                frictionAngle.Mean = value.Mean;
+                frictionAngle.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the friction angle.
-        /// [°]
-        /// </summary>
-        public double FrictionAngleCoefficientOfVariation { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the ratio of shear strength S
+        /// Gets or sets the strength increase component.
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioMean { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution StrengthIncreaseExponent
+        {
+            get
+            {
+                return strengthIncreaseExponent;
+            }
+            set
+            {
+                strengthIncreaseExponent.Mean = value.Mean;
+                strengthIncreaseExponent.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the ratio of shear strength S.
+        /// Gets or sets the shear strength ratio.
         /// [-]
         /// </summary>
-        public double ShearStrengthRatioCoefficientOfVariation { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution ShearStrengthRatio
+        {
+            get
+            {
+                return shearStrengthRatio;
+            }
+            set
+            {
+                shearStrengthRatio.Mean = value.Mean;
+                shearStrengthRatio.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the mean of the distribution for the strength increase exponent (m)
-        /// [-]
-        /// </summary>
-        public double StrengthIncreaseExponentMean { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the strength increase exponent (m).
-        /// [-]
-        /// </summary>
-        public double StrengthIncreaseExponentCoefficientOfVariation { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the mean of the distribution for the POP
+        /// Gets or sets the Pop.
         /// [kN/m²]
         /// </summary>
-        public double PopMean { get; set; } = double.NaN;
-
-        /// <summary>
-        /// Gets or sets the coefficient of variation of the distribution for the POP.
-        /// [kN/m²]
-        /// </summary>
-        public double PopCoefficientOfVariation { get; set; } = double.NaN;
+        public VariationCoefficientLogNormalDistribution Pop
+        {
+            get
+            {
+                return pop;
+            }
+            set
+            {
+                pop.Mean = value.Mean;
+                pop.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
 
         public override bool Equals(object obj)
         {
@@ -192,22 +266,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 hashCode = (hashCode * 397) ^ Color.GetHashCode();
                 hashCode = (hashCode * 397) ^ UsePop.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShearStrengthModel.GetHashCode();
-                hashCode = (hashCode * 397) ^ AbovePhreaticLevelMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ AbovePhreaticLevelCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ AbovePhreaticLevelShift.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ BelowPhreaticLevelShift.GetHashCode();
-                hashCode = (hashCode * 397) ^ CohesionMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ CohesionCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ FrictionAngleMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ FrictionAngleCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShearStrengthRatioMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShearStrengthRatioCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ StrengthIncreaseExponentCoefficientOfVariation.GetHashCode();
-                hashCode = (hashCode * 397) ^ PopMean.GetHashCode();
-                hashCode = (hashCode * 397) ^ PopCoefficientOfVariation.GetHashCode();
+                hashCode = (hashCode * 397) ^ AbovePhreaticLevel.GetHashCode();
+                hashCode = (hashCode * 397) ^ BelowPhreaticLevel.GetHashCode();
+                hashCode = (hashCode * 397) ^ Cohesion.GetHashCode();
+                hashCode = (hashCode * 397) ^ FrictionAngle.GetHashCode();
+                hashCode = (hashCode * 397) ^ ShearStrengthRatio.GetHashCode();
+                hashCode = (hashCode * 397) ^ StrengthIncreaseExponent.GetHashCode();
+                hashCode = (hashCode * 397) ^ Pop.GetHashCode();
                 return hashCode;
             }
         }
@@ -219,22 +284,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                    && Color.ToArgb().Equals(other.Color.ToArgb())
                    && UsePop == other.UsePop
                    && ShearStrengthModel == other.ShearStrengthModel
-                   && AbovePhreaticLevelMean.Equals(other.AbovePhreaticLevelMean)
-                   && AbovePhreaticLevelCoefficientOfVariation.Equals(other.AbovePhreaticLevelCoefficientOfVariation)
-                   && AbovePhreaticLevelShift.Equals(other.AbovePhreaticLevelShift)
-                   && BelowPhreaticLevelMean.Equals(other.BelowPhreaticLevelMean)
-                   && BelowPhreaticLevelCoefficientOfVariation.Equals(other.BelowPhreaticLevelCoefficientOfVariation)
-                   && BelowPhreaticLevelShift.Equals(other.BelowPhreaticLevelShift)
-                   && CohesionMean.Equals(other.CohesionMean)
-                   && CohesionCoefficientOfVariation.Equals(other.CohesionCoefficientOfVariation)
-                   && FrictionAngleMean.Equals(other.FrictionAngleMean)
-                   && FrictionAngleCoefficientOfVariation.Equals(other.FrictionAngleCoefficientOfVariation)
-                   && ShearStrengthRatioMean.Equals(other.ShearStrengthRatioMean)
-                   && ShearStrengthRatioCoefficientOfVariation.Equals(other.ShearStrengthRatioCoefficientOfVariation)
-                   && StrengthIncreaseExponentMean.Equals(other.StrengthIncreaseExponentMean)
-                   && StrengthIncreaseExponentCoefficientOfVariation.Equals(other.StrengthIncreaseExponentCoefficientOfVariation)
-                   && PopMean.Equals(other.PopMean)
-                   && PopCoefficientOfVariation.Equals(other.PopCoefficientOfVariation);
+                   && AbovePhreaticLevel.Equals(other.AbovePhreaticLevel)
+                   && BelowPhreaticLevel.Equals(other.BelowPhreaticLevel)
+                   && Cohesion.Equals(other.Cohesion)
+                   && FrictionAngle.Equals(other.FrictionAngle)
+                   && ShearStrengthRatio.Equals(other.ShearStrengthRatio)
+                   && StrengthIncreaseExponent.Equals(other.StrengthIncreaseExponent)
+                   && Pop.Equals(other.Pop);
         }
     }
 }

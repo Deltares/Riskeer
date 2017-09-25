@@ -34,6 +34,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     {
         private RoundedDouble mean;
         private RoundedDouble coefficientOfVariation;
+        private RoundedDouble shift;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationCoefficientLogNormalDistribution"/> class,
@@ -44,7 +45,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationCoefficientLogNormalDistribution"/> class,
-        /// initialized as a log normal distribution (mean=1 and coefficient of variation, CV=1).
+        /// initialized as a log normal distribution (mean=1, CV=1, theta=0).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -54,6 +55,28 @@ namespace Ringtoets.Common.Data.Probabilistics
         {
             mean = new RoundedDouble(numberOfDecimalPlaces, 1.0);
             coefficientOfVariation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
+            shift = new RoundedDouble(numberOfDecimalPlaces);
+        }
+
+        /// <summary>
+        /// Gets or sets the shift of the normal distribution which is the log of the log-normal distribution.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the shift is larger than the mean.</exception>
+        public RoundedDouble Shift
+        {
+            get
+            {
+                return shift;
+            }
+            set
+            {
+                RoundedDouble newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
+                if (newShift > Mean)
+                {
+                    throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
+                }
+                shift = newShift;
+            }
         }
 
         /// <summary>
@@ -123,6 +146,7 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 int hashCode = Mean.GetHashCode();
                 hashCode = (hashCode * 397) ^ CoefficientOfVariation.GetHashCode();
+                hashCode = (hashCode * 397) ^ Shift.GetHashCode();
                 return hashCode;
             }
         }
@@ -135,7 +159,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         private bool Equals(VariationCoefficientLogNormalDistribution other)
         {
             return Mean.Equals(other.Mean)
-                   && CoefficientOfVariation.Equals(other.CoefficientOfVariation);
+                   && CoefficientOfVariation.Equals(other.CoefficientOfVariation)
+                   && Shift.Equals(other.Shift);
         }
     }
 }

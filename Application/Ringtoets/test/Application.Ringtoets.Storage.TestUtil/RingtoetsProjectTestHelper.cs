@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
@@ -1072,22 +1073,43 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Color = Color.SeaShell,
                     UsePop = true,
                     ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
-                    AbovePhreaticLevelMean = 0.01,
-                    AbovePhreaticLevelCoefficientOfVariation = 0.02,
-                    AbovePhreaticLevelShift = 0.03,
-                    BelowPhreaticLevelMean = 0.04,
-                    BelowPhreaticLevelCoefficientOfVariation = 0.05,
-                    BelowPhreaticLevelShift = 0.06,
-                    CohesionMean = 0.07,
-                    CohesionCoefficientOfVariation = 0.08,
-                    FrictionAngleMean = 0.09,
-                    FrictionAngleCoefficientOfVariation = 0.1,
-                    ShearStrengthRatioMean = 0.11,
-                    ShearStrengthRatioCoefficientOfVariation = 0.12,
-                    StrengthIncreaseExponentMean = 0.13,
-                    StrengthIncreaseExponentCoefficientOfVariation = 0.14,
-                    PopMean = 0.15,
-                    PopCoefficientOfVariation = 0.16
+                    AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.03,
+                        CoefficientOfVariation = (RoundedDouble) 0.02,
+                        Shift = (RoundedDouble) 0.01
+                    },
+                    BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.06,
+                        CoefficientOfVariation = (RoundedDouble) 0.05,
+                        Shift = (RoundedDouble) 0.04
+                    },
+                    Cohesion = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.07,
+                        CoefficientOfVariation = (RoundedDouble) 0.08
+                    },
+                    FrictionAngle = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.09,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.11,
+                        CoefficientOfVariation = (RoundedDouble) 0.12
+                    },
+                    StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.13,
+                        CoefficientOfVariation = (RoundedDouble) 0.14
+                    },
+                    Pop = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.15,
+                        CoefficientOfVariation = (RoundedDouble) 0.16
+                    }
                 }
             };
 
@@ -1118,22 +1140,43 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Color = Color.Gainsboro,
                     UsePop = false,
                     ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
-                    AbovePhreaticLevelMean = 10.901,
-                    AbovePhreaticLevelCoefficientOfVariation = 0.902,
-                    AbovePhreaticLevelShift = 0.903,
-                    BelowPhreaticLevelMean = 0.904,
-                    BelowPhreaticLevelCoefficientOfVariation = 0.905,
-                    BelowPhreaticLevelShift = 0.906,
-                    CohesionMean = 0.907,
-                    CohesionCoefficientOfVariation = 0.908,
-                    FrictionAngleMean = 0.909,
-                    FrictionAngleCoefficientOfVariation = 0.91,
-                    ShearStrengthRatioMean = 0.911,
-                    ShearStrengthRatioCoefficientOfVariation = 0.912,
-                    StrengthIncreaseExponentMean = 0.913,
-                    StrengthIncreaseExponentCoefficientOfVariation = 0.914,
-                    PopMean = 0.915,
-                    PopCoefficientOfVariation = 0.916
+                    AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 10.901,
+                        CoefficientOfVariation = (RoundedDouble) 0.902,
+                        Shift = (RoundedDouble) 0.903
+                    },
+                    BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.906,
+                        CoefficientOfVariation = (RoundedDouble) 0.905,
+                        Shift = (RoundedDouble) 0.904
+                    },
+                    Cohesion = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.907,
+                        CoefficientOfVariation = (RoundedDouble) 0.908
+                    },
+                    FrictionAngle = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.909,
+                        CoefficientOfVariation = (RoundedDouble) 0.91
+                    },
+                    ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.911,
+                        CoefficientOfVariation = (RoundedDouble) 0.912
+                    },
+                    StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.913,
+                        CoefficientOfVariation = (RoundedDouble) 0.914
+                    },
+                    Pop = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) 0.915,
+                        CoefficientOfVariation = (RoundedDouble) 0.916
+                    }
                 }
             };
 

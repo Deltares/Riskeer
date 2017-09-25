@@ -227,7 +227,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var original = new LogNormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
-                StandardDeviation = random.NextRoundedDouble()
+                StandardDeviation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
             };
 
             // Call

@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
@@ -60,22 +61,43 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                     Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
                     UsePop = Convert.ToBoolean(entity.UsePop),
                     ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) entity.ShearStrengthModel,
-                    AbovePhreaticLevelMean = entity.AbovePhreaticLevelMean.ToNullAsNaN(),
-                    AbovePhreaticLevelCoefficientOfVariation = entity.AbovePhreaticLevelCoefficientOfVariation.ToNullAsNaN(),
-                    AbovePhreaticLevelShift = entity.AbovePhreaticLevelShift.ToNullAsNaN(),
-                    BelowPhreaticLevelMean = entity.BelowPhreaticLevelMean.ToNullAsNaN(),
-                    BelowPhreaticLevelCoefficientOfVariation = entity.BelowPhreaticLevelCoefficientOfVariation.ToNullAsNaN(),
-                    BelowPhreaticLevelShift = entity.BelowPhreaticLevelShift.ToNullAsNaN(),
-                    CohesionMean = entity.CohesionMean.ToNullAsNaN(),
-                    CohesionCoefficientOfVariation = entity.CohesionCoefficientOfVariation.ToNullAsNaN(),
-                    FrictionAngleMean = entity.FrictionAngleMean.ToNullAsNaN(),
-                    FrictionAngleCoefficientOfVariation = entity.FrictionAngleCoefficientOfVariation.ToNullAsNaN(),
-                    ShearStrengthRatioMean = entity.ShearStrengthRatioMean.ToNullAsNaN(),
-                    ShearStrengthRatioCoefficientOfVariation = entity.ShearStrengthRatioCoefficientOfVariation.ToNullAsNaN(),
-                    StrengthIncreaseExponentMean = entity.StrengthIncreaseExponentMean.ToNullAsNaN(),
-                    StrengthIncreaseExponentCoefficientOfVariation = entity.StrengthIncreaseExponentCoefficientOfVariation.ToNullAsNaN(),
-                    PopMean = entity.PopMean.ToNullAsNaN(),
-                    PopCoefficientOfVariation = entity.PopCoefficientOfVariation.ToNullAsNaN()
+                    AbovePhreaticLevel =
+                    {
+                        Mean = (RoundedDouble) entity.AbovePhreaticLevelMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.AbovePhreaticLevelCoefficientOfVariation.ToNullAsNaN(),
+                        Shift = (RoundedDouble) entity.AbovePhreaticLevelShift.ToNullAsNaN()
+                    },
+                    BelowPhreaticLevel =
+                    {
+                        Mean = (RoundedDouble) entity.BelowPhreaticLevelMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.BelowPhreaticLevelCoefficientOfVariation.ToNullAsNaN(),
+                        Shift = (RoundedDouble) entity.BelowPhreaticLevelShift.ToNullAsNaN()
+                    },
+                    Cohesion =
+                    {
+                        Mean = (RoundedDouble) entity.CohesionMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.CohesionCoefficientOfVariation.ToNullAsNaN()
+                    },
+                    FrictionAngle =
+                    {
+                        Mean = (RoundedDouble) entity.FrictionAngleMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.FrictionAngleCoefficientOfVariation.ToNullAsNaN()
+                    },
+                    ShearStrengthRatio =
+                    {
+                        Mean = (RoundedDouble) entity.ShearStrengthRatioMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.ShearStrengthRatioCoefficientOfVariation.ToNullAsNaN()
+                    },
+                    StrengthIncreaseExponent =
+                    {
+                        Mean = (RoundedDouble) entity.StrengthIncreaseExponentMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.StrengthIncreaseExponentCoefficientOfVariation.ToNullAsNaN()
+                    },
+                    Pop =
+                    {
+                        Mean = (RoundedDouble) entity.PopMean.ToNullAsNaN(),
+                        CoefficientOfVariation = (RoundedDouble) entity.PopCoefficientOfVariation.ToNullAsNaN()
+                    }
                 }
             };
         }

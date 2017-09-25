@@ -23,8 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -45,28 +48,49 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.IsFalse(properties.UsePop);
             Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.CPhi, properties.ShearStrengthModel);
 
-            Assert.IsNaN(properties.AbovePhreaticLevelMean);
-            Assert.IsNaN(properties.AbovePhreaticLevelCoefficientOfVariation);
-            Assert.IsNaN(properties.AbovePhreaticLevelShift);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            }, properties.AbovePhreaticLevel);
 
-            Assert.IsNaN(properties.BelowPhreaticLevelMean);
-            Assert.IsNaN(properties.BelowPhreaticLevelCoefficientOfVariation);
-            Assert.IsNaN(properties.BelowPhreaticLevelShift);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            }, properties.BelowPhreaticLevel);
 
-            Assert.IsNaN(properties.CohesionMean);
-            Assert.IsNaN(properties.CohesionCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+            }, properties.Cohesion);
 
-            Assert.IsNaN(properties.FrictionAngleMean);
-            Assert.IsNaN(properties.FrictionAngleCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+            }, properties.FrictionAngle);
 
-            Assert.IsNaN(properties.ShearStrengthRatioMean);
-            Assert.IsNaN(properties.ShearStrengthRatioCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+            }, properties.ShearStrengthRatio);
 
-            Assert.IsNaN(properties.StrengthIncreaseExponentMean);
-            Assert.IsNaN(properties.StrengthIncreaseExponentCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+            }, properties.StrengthIncreaseExponent);
 
-            Assert.IsNaN(properties.PopMean);
-            Assert.IsNaN(properties.PopCoefficientOfVariation);
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+            }, properties.Pop);
         }
 
         [Test]
@@ -179,22 +203,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.IsAquifer = !lp.IsAquifer));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.UsePop = !lp.UsePop));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Color = lp.Color.ToArgb().Equals(Color.Aqua.ToArgb()) ? Color.Bisque : Color.Aqua));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelMean = 1.0 - lp.AbovePhreaticLevelMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelCoefficientOfVariation = 1.0 - lp.AbovePhreaticLevelCoefficientOfVariation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevelShift = 1.0 - lp.AbovePhreaticLevelShift));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelMean = 1.0 - lp.BelowPhreaticLevelMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelCoefficientOfVariation = 1.0 - lp.BelowPhreaticLevelCoefficientOfVariation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevelShift = 1.0 - lp.BelowPhreaticLevelShift));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionMean = 1.0 - lp.CohesionMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.CohesionCoefficientOfVariation = 1.0 - lp.CohesionCoefficientOfVariation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleMean = 1.0 - lp.FrictionAngleMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngleCoefficientOfVariation = 1.0 - lp.FrictionAngleCoefficientOfVariation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioMean = 1.0 - lp.ShearStrengthRatioMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatioCoefficientOfVariation = 1.0 - lp.ShearStrengthRatioCoefficientOfVariation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentMean = 1.0 - lp.StrengthIncreaseExponentMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponentCoefficientOfVariation = 1.0 - lp.StrengthIncreaseExponentCoefficientOfVariation));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopMean = 1.0 - lp.PopMean));
-            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.PopCoefficientOfVariation = 1.0 - lp.PopCoefficientOfVariation));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevel.Mean = (RoundedDouble) (11.0 - lp.AbovePhreaticLevel.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevel.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.AbovePhreaticLevel.CoefficientOfVariation)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.AbovePhreaticLevel.Shift = (RoundedDouble) (1.0 - lp.AbovePhreaticLevel.Shift)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevel.Mean = (RoundedDouble) (12.0 - lp.BelowPhreaticLevel.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevel.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.BelowPhreaticLevel.CoefficientOfVariation)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.BelowPhreaticLevel.Shift = (RoundedDouble) (1.0 - lp.BelowPhreaticLevel.Shift)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Cohesion.Mean = (RoundedDouble) (11.0 - lp.Cohesion.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Cohesion.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Cohesion.CoefficientOfVariation)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngle.Mean = (RoundedDouble) (11.0 - lp.FrictionAngle.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.FrictionAngle.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.FrictionAngle.CoefficientOfVariation)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatio.Mean = (RoundedDouble) (11.0 - lp.ShearStrengthRatio.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.ShearStrengthRatio.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.ShearStrengthRatio.CoefficientOfVariation)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponent.Mean = (RoundedDouble) (11.0 - lp.StrengthIncreaseExponent.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.StrengthIncreaseExponent.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.StrengthIncreaseExponent.CoefficientOfVariation)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Pop.Mean = (RoundedDouble) (11.0 - lp.Pop.Mean)));
+            yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerProperties>(lp => lp.Pop.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Pop.CoefficientOfVariation)));
         }
 
         private static TestCaseData[] PropertiesCombinations()
@@ -243,22 +267,43 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 IsAquifer = random.NextBoolean(),
                 UsePop = random.NextBoolean(),
                 ShearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>(),
-                AbovePhreaticLevelMean = random.NextDouble(),
-                AbovePhreaticLevelCoefficientOfVariation = random.NextDouble(),
-                AbovePhreaticLevelShift = random.NextDouble(),
-                BelowPhreaticLevelMean = random.NextDouble(),
-                BelowPhreaticLevelCoefficientOfVariation = random.NextDouble(),
-                BelowPhreaticLevelShift = random.NextDouble(),
-                CohesionMean = random.NextDouble(),
-                CohesionCoefficientOfVariation = random.NextDouble(),
-                FrictionAngleMean = random.NextDouble(),
-                FrictionAngleCoefficientOfVariation = random.NextDouble(),
-                ShearStrengthRatioMean = random.NextDouble(),
-                ShearStrengthRatioCoefficientOfVariation = random.NextDouble(),
-                StrengthIncreaseExponentMean = random.NextDouble(),
-                StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble(),
-                PopMean = random.NextDouble(),
-                PopCoefficientOfVariation = random.NextDouble()
+                AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 10,
+                    CoefficientOfVariation = (RoundedDouble) 0.2,
+                    Shift = (RoundedDouble) 1
+                },
+                BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 11,
+                    CoefficientOfVariation = (RoundedDouble) 0.6,
+                    Shift = (RoundedDouble) 3
+                },
+                Cohesion = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 10,
+                    CoefficientOfVariation = (RoundedDouble) 0.2
+                },
+                FrictionAngle = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 10,
+                    CoefficientOfVariation = (RoundedDouble) 0.2
+                },
+                ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 10,
+                    CoefficientOfVariation = (RoundedDouble) 0.2
+                },
+                StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 10,
+                    CoefficientOfVariation = (RoundedDouble) 0.2
+                },
+                Pop = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 10,
+                    CoefficientOfVariation = (RoundedDouble) 0.2
+                }
             };
         }
     }

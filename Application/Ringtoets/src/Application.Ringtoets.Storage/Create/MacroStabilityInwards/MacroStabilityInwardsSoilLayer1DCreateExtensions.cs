@@ -59,28 +59,28 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 UsePop = Convert.ToByte(properties.UsePop),
                 ShearStrengthModel = Convert.ToByte(properties.ShearStrengthModel),
 
-                AbovePhreaticLevelMean = properties.AbovePhreaticLevelMean.ToNaNAsNull(),
-                AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevelCoefficientOfVariation.ToNaNAsNull(),
-                AbovePhreaticLevelShift = properties.AbovePhreaticLevelShift.ToNaNAsNull(),
+                AbovePhreaticLevelMean = properties.AbovePhreaticLevel.Mean.ToNaNAsNull(),
+                AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevel.CoefficientOfVariation.ToNaNAsNull(),
+                AbovePhreaticLevelShift = properties.AbovePhreaticLevel.Shift.ToNaNAsNull(),
 
-                BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean.ToNaNAsNull(),
-                BelowPhreaticLevelCoefficientOfVariation = properties.BelowPhreaticLevelCoefficientOfVariation.ToNaNAsNull(),
-                BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift.ToNaNAsNull(),
+                BelowPhreaticLevelMean = properties.BelowPhreaticLevel.Mean.ToNaNAsNull(),
+                BelowPhreaticLevelCoefficientOfVariation = properties.BelowPhreaticLevel.CoefficientOfVariation.ToNaNAsNull(),
+                BelowPhreaticLevelShift = properties.BelowPhreaticLevel.Shift.ToNaNAsNull(),
 
-                CohesionMean = properties.CohesionMean.ToNaNAsNull(),
-                CohesionCoefficientOfVariation = properties.CohesionCoefficientOfVariation.ToNaNAsNull(),
+                CohesionMean = properties.Cohesion.Mean.ToNaNAsNull(),
+                CohesionCoefficientOfVariation = properties.Cohesion.CoefficientOfVariation.ToNaNAsNull(),
 
-                FrictionAngleMean = properties.FrictionAngleMean.ToNaNAsNull(),
-                FrictionAngleCoefficientOfVariation = properties.FrictionAngleCoefficientOfVariation.ToNaNAsNull(),
+                FrictionAngleMean = properties.FrictionAngle.Mean.ToNaNAsNull(),
+                FrictionAngleCoefficientOfVariation = properties.FrictionAngle.CoefficientOfVariation.ToNaNAsNull(),
 
-                ShearStrengthRatioMean = properties.ShearStrengthRatioMean.ToNaNAsNull(),
-                ShearStrengthRatioCoefficientOfVariation = properties.ShearStrengthRatioCoefficientOfVariation.ToNaNAsNull(),
+                ShearStrengthRatioMean = properties.ShearStrengthRatio.Mean.ToNaNAsNull(),
+                ShearStrengthRatioCoefficientOfVariation = properties.ShearStrengthRatio.CoefficientOfVariation.ToNaNAsNull(),
 
-                StrengthIncreaseExponentMean = properties.StrengthIncreaseExponentMean.ToNaNAsNull(),
-                StrengthIncreaseExponentCoefficientOfVariation = properties.StrengthIncreaseExponentCoefficientOfVariation.ToNaNAsNull(),
+                StrengthIncreaseExponentMean = properties.StrengthIncreaseExponent.Mean.ToNaNAsNull(),
+                StrengthIncreaseExponentCoefficientOfVariation = properties.StrengthIncreaseExponent.CoefficientOfVariation.ToNaNAsNull(),
 
-                PopMean = properties.PopMean.ToNaNAsNull(),
-                PopCoefficientOfVariation = properties.PopCoefficientOfVariation.ToNaNAsNull(),
+                PopMean = properties.Pop.Mean.ToNaNAsNull(),
+                PopCoefficientOfVariation = properties.Pop.CoefficientOfVariation.ToNaNAsNull(),
 
                 Order = order
             };

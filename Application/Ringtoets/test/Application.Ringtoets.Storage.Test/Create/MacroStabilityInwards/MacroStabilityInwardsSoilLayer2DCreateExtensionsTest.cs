@@ -25,6 +25,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -63,22 +64,43 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                     UsePop = random.NextBoolean(),
                     ShearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>(),
-                    AbovePhreaticLevelMean = random.NextDouble(),
-                    AbovePhreaticLevelCoefficientOfVariation = random.NextDouble(),
-                    AbovePhreaticLevelShift = random.NextDouble(),
-                    BelowPhreaticLevelMean = random.NextDouble(),
-                    BelowPhreaticLevelCoefficientOfVariation = random.NextDouble(),
-                    BelowPhreaticLevelShift = random.NextDouble(),
-                    CohesionMean = random.NextDouble(),
-                    CohesionCoefficientOfVariation = random.NextDouble(),
-                    FrictionAngleMean = random.NextDouble(),
-                    FrictionAngleCoefficientOfVariation = random.NextDouble(),
-                    ShearStrengthRatioMean = random.NextDouble(),
-                    ShearStrengthRatioCoefficientOfVariation = random.NextDouble(),
-                    StrengthIncreaseExponentMean = random.NextDouble(),
-                    StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble(),
-                    PopMean = random.NextDouble(),
-                    PopCoefficientOfVariation = random.NextDouble()
+                    AbovePhreaticLevel =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        Shift = random.NextRoundedDouble(),
+                    },
+                    BelowPhreaticLevel =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        Shift = random.NextRoundedDouble(),
+                    },
+                    Cohesion =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                    },
+                    FrictionAngle =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                    },
+                    ShearStrengthRatio = 
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                    },
+                    StrengthIncreaseExponent = 
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                    },
+                    Pop =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble(),
+                    }
                 }
             };
             int order = random.Next();
@@ -95,22 +117,22 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(properties.Color.ToArgb(), Convert.ToInt32(entity.Color));
             Assert.AreEqual(Convert.ToByte(properties.UsePop), entity.UsePop);
             Assert.AreEqual(Convert.ToByte(properties.ShearStrengthModel), entity.ShearStrengthModel);
-            Assert.AreEqual(properties.AbovePhreaticLevelMean, entity.AbovePhreaticLevelMean);
-            Assert.AreEqual(properties.AbovePhreaticLevelCoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation);
-            Assert.AreEqual(properties.AbovePhreaticLevelShift, entity.AbovePhreaticLevelShift);
-            Assert.AreEqual(properties.BelowPhreaticLevelMean, entity.BelowPhreaticLevelMean);
-            Assert.AreEqual(properties.BelowPhreaticLevelCoefficientOfVariation, entity.BelowPhreaticLevelCoefficientOfVariation);
-            Assert.AreEqual(properties.BelowPhreaticLevelShift, entity.BelowPhreaticLevelShift);
-            Assert.AreEqual(properties.CohesionMean, entity.CohesionMean);
-            Assert.AreEqual(properties.CohesionCoefficientOfVariation, entity.CohesionCoefficientOfVariation);
-            Assert.AreEqual(properties.FrictionAngleMean, entity.FrictionAngleMean);
-            Assert.AreEqual(properties.FrictionAngleCoefficientOfVariation, entity.FrictionAngleCoefficientOfVariation);
-            Assert.AreEqual(properties.ShearStrengthRatioMean, entity.ShearStrengthRatioMean);
-            Assert.AreEqual(properties.ShearStrengthRatioCoefficientOfVariation, entity.ShearStrengthRatioCoefficientOfVariation);
-            Assert.AreEqual(properties.StrengthIncreaseExponentMean, entity.StrengthIncreaseExponentMean);
-            Assert.AreEqual(properties.StrengthIncreaseExponentCoefficientOfVariation, entity.StrengthIncreaseExponentCoefficientOfVariation);
-            Assert.AreEqual(properties.PopMean, entity.PopMean);
-            Assert.AreEqual(properties.PopCoefficientOfVariation, entity.PopCoefficientOfVariation);
+            Assert.AreEqual(properties.AbovePhreaticLevel.Mean, entity.AbovePhreaticLevelMean);
+            Assert.AreEqual(properties.AbovePhreaticLevel.CoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(properties.AbovePhreaticLevel.Shift, entity.AbovePhreaticLevelShift);
+            Assert.AreEqual(properties.BelowPhreaticLevel.Mean, entity.BelowPhreaticLevelMean);
+            Assert.AreEqual(properties.BelowPhreaticLevel.CoefficientOfVariation, entity.BelowPhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(properties.BelowPhreaticLevel.Shift, entity.BelowPhreaticLevelShift);
+            Assert.AreEqual(properties.Cohesion.Mean, entity.CohesionMean);
+            Assert.AreEqual(properties.Cohesion.CoefficientOfVariation, entity.CohesionCoefficientOfVariation);
+            Assert.AreEqual(properties.FrictionAngle.Mean, entity.FrictionAngleMean);
+            Assert.AreEqual(properties.FrictionAngle.CoefficientOfVariation, entity.FrictionAngleCoefficientOfVariation);
+            Assert.AreEqual(properties.ShearStrengthRatio.Mean, entity.ShearStrengthRatioMean);
+            Assert.AreEqual(properties.ShearStrengthRatio.CoefficientOfVariation, entity.ShearStrengthRatioCoefficientOfVariation);
+            Assert.AreEqual(properties.StrengthIncreaseExponent.Mean, entity.StrengthIncreaseExponentMean);
+            Assert.AreEqual(properties.StrengthIncreaseExponent.CoefficientOfVariation, entity.StrengthIncreaseExponentCoefficientOfVariation);
+            Assert.AreEqual(properties.Pop.Mean, entity.PopMean);
+            Assert.AreEqual(properties.Pop.CoefficientOfVariation, entity.PopCoefficientOfVariation);
             Assert.AreEqual(order, entity.Order);
 
             AssertOuterRing(soilLayer.OuterRing, entity);
@@ -126,22 +148,43 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             {
                 Properties =
                 {
-                    AbovePhreaticLevelMean = double.NaN,
-                    AbovePhreaticLevelCoefficientOfVariation = double.NaN,
-                    AbovePhreaticLevelShift = double.NaN,
-                    BelowPhreaticLevelMean = double.NaN,
-                    BelowPhreaticLevelCoefficientOfVariation = double.NaN,
-                    BelowPhreaticLevelShift = double.NaN,
-                    CohesionMean = double.NaN,
-                    CohesionCoefficientOfVariation = double.NaN,
-                    FrictionAngleMean = double.NaN,
-                    FrictionAngleCoefficientOfVariation = double.NaN,
-                    ShearStrengthRatioMean = double.NaN,
-                    ShearStrengthRatioCoefficientOfVariation = double.NaN,
-                    StrengthIncreaseExponentMean = double.NaN,
-                    StrengthIncreaseExponentCoefficientOfVariation = double.NaN,
-                    PopMean = double.NaN,
-                    PopCoefficientOfVariation = double.NaN
+                    AbovePhreaticLevel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN,
+                        Shift = RoundedDouble.NaN
+                    },
+                    BelowPhreaticLevel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN,
+                        Shift = RoundedDouble.NaN
+                    },
+                    Cohesion = 
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    FrictionAngle = 
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    ShearStrengthRatio = 
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    StrengthIncreaseExponent = 
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    Pop = 
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    }
                 }
             };
 

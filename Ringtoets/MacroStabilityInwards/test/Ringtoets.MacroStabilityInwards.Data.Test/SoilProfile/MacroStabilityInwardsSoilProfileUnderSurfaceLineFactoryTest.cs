@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -340,10 +342,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             bool usePop = random.NextBoolean();
             bool isAquifer = random.NextBoolean();
             var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
-            double abovePhreaticLevelMean = random.NextDouble();
-            double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
-            double belowPhreaticLevelMean = random.NextDouble();
-            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
+            const double abovePhreaticLevelMean = 10;
+            const double abovePhreaticLevelCoefficientOfVariation = 0.2;
+            const double abovePhreaticLevelShift = 0.1;
+            const double belowPhreaticLevelMean = 9;
+            const double belowPhreaticLevelCoefficientOfVariation = 0.4;
+            const double belowPhreaticLevelShift = 0.2;
             double cohesionMean = random.NextDouble();
             double cohesionCoefficientOfVariation = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
@@ -364,20 +368,43 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     IsAquifer = isAquifer,
                     ShearStrengthModel = shearStrengthModel,
                     MaterialName = material,
-                    AbovePhreaticLevelMean = abovePhreaticLevelMean,
-                    AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelCoefficientOfVariation,
-                    BelowPhreaticLevelMean = belowPhreaticLevelMean,
-                    BelowPhreaticLevelCoefficientOfVariation = belowPhreaticLevelCoefficientOfVariation,
-                    CohesionMean = cohesionMean,
-                    CohesionCoefficientOfVariation = cohesionCoefficientOfVariation,
-                    FrictionAngleMean = frictionAngleMean,
-                    FrictionAngleCoefficientOfVariation = frictionAngleCoefficientOfVariation,
-                    ShearStrengthRatioMean = shearStrengthRatioMean,
-                    ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioCoefficientOfVariation,
-                    StrengthIncreaseExponentMean = strengthIncreaseExponentMean,
-                    StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentCoefficientOfVariation,
-                    PopMean = popMean,
-                    PopCoefficientOfVariation = popCoefficientOfVariation
+                    AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) abovePhreaticLevelMean,
+                        CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
+                        Shift = (RoundedDouble) abovePhreaticLevelShift
+                    },
+                    BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) belowPhreaticLevelMean,
+                        CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
+                        Shift = (RoundedDouble) belowPhreaticLevelShift
+                    },
+                    Cohesion = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) cohesionMean,
+                        CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
+                    },
+                    FrictionAngle = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) frictionAngleMean,
+                        CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
+                    },
+                    ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) shearStrengthRatioMean,
+                        CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
+                    },
+                    StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) strengthIncreaseExponentMean,
+                        CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
+                    },
+                    Pop = new VariationCoefficientLogNormalDistribution
+                    {
+                        Mean = (RoundedDouble) popMean,
+                        CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
+                    }
                 }
             };
 
@@ -486,10 +513,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             bool isAquifer = random.NextBoolean();
             var shearStrengthModel = random.NextEnumValue<MacroStabilityInwardsShearStrengthModel>();
 
-            double abovePhreaticLevelMean = random.NextDouble();
-            double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
-            double belowPhreaticLevelMean = random.NextDouble();
-            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
+            const double abovePhreaticLevelMean = 10;
+            const double abovePhreaticLevelCoefficientOfVariation = 0.5;
+            const double abovePhreaticLevelShift = 1;
+            const double belowPhreaticLevelMean = 9;
+            const double belowPhreaticLevelCoefficientOfVariation = 0.4;
+            const double belowPhreaticLevelShift = 0.2;
             double cohesionMean = random.NextDouble();
             double cohesionCoefficientOfVariation = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
@@ -507,20 +536,43 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             layer.Properties.ShearStrengthModel = shearStrengthModel;
             layer.Properties.MaterialName = material;
 
-            layer.Properties.AbovePhreaticLevelMean = abovePhreaticLevelMean;
-            layer.Properties.AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelCoefficientOfVariation;
-            layer.Properties.BelowPhreaticLevelMean = belowPhreaticLevelMean;
-            layer.Properties.BelowPhreaticLevelCoefficientOfVariation = belowPhreaticLevelCoefficientOfVariation;
-            layer.Properties.CohesionMean = cohesionMean;
-            layer.Properties.CohesionCoefficientOfVariation = cohesionCoefficientOfVariation;
-            layer.Properties.FrictionAngleMean = frictionAngleMean;
-            layer.Properties.FrictionAngleCoefficientOfVariation = frictionAngleCoefficientOfVariation;
-            layer.Properties.ShearStrengthRatioMean = shearStrengthRatioMean;
-            layer.Properties.ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioCoefficientOfVariation;
-            layer.Properties.StrengthIncreaseExponentMean = strengthIncreaseExponentMean;
-            layer.Properties.StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentCoefficientOfVariation;
-            layer.Properties.PopMean = popMean;
-            layer.Properties.PopCoefficientOfVariation = popCoefficientOfVariation;
+            layer.Properties.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) abovePhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
+                Shift = (RoundedDouble) abovePhreaticLevelShift
+            };
+            layer.Properties.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) belowPhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
+                Shift = (RoundedDouble) belowPhreaticLevelShift
+            };
+            layer.Properties.Cohesion = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) cohesionMean,
+                CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
+            };
+            layer.Properties.FrictionAngle = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) frictionAngleMean,
+                CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
+            };
+            layer.Properties.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) shearStrengthRatioMean,
+                CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
+            };
+            layer.Properties.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) strengthIncreaseExponentMean,
+                CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
+            };
+            layer.Properties.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) popMean,
+                CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
+            };
 
             var profile = new MacroStabilityInwardsSoilProfile2D("name", new[]
             {

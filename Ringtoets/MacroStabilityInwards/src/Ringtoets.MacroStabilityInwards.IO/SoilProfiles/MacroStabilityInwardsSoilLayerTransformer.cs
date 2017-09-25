@@ -22,7 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
@@ -112,22 +114,43 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             properties.MaterialName = soilLayer.MaterialName;
             properties.IsAquifer = TransformIsAquifer(soilLayer.IsAquifer);
             properties.Color = SoilLayerColorConverter.Convert(soilLayer.Color);
-            properties.AbovePhreaticLevelMean = soilLayer.AbovePhreaticLevelMean;
-            properties.AbovePhreaticLevelCoefficientOfVariation = soilLayer.AbovePhreaticLevelCoefficientOfVariation;
-            properties.AbovePhreaticLevelShift = soilLayer.AbovePhreaticLevelShift;
-            properties.BelowPhreaticLevelMean = soilLayer.BelowPhreaticLevelMean;
-            properties.BelowPhreaticLevelCoefficientOfVariation = soilLayer.BelowPhreaticLevelCoefficientOfVariation;
-            properties.BelowPhreaticLevelShift = soilLayer.BelowPhreaticLevelShift;
-            properties.CohesionMean = soilLayer.CohesionMean;
-            properties.CohesionCoefficientOfVariation = soilLayer.CohesionCoefficientOfVariation;
-            properties.FrictionAngleMean = soilLayer.FrictionAngleMean;
-            properties.FrictionAngleCoefficientOfVariation = soilLayer.FrictionAngleCoefficientOfVariation;
-            properties.ShearStrengthRatioMean = soilLayer.ShearStrengthRatioMean;
-            properties.ShearStrengthRatioCoefficientOfVariation = soilLayer.ShearStrengthRatioCoefficientOfVariation;
-            properties.StrengthIncreaseExponentMean = soilLayer.StrengthIncreaseExponentMean;
-            properties.StrengthIncreaseExponentCoefficientOfVariation = soilLayer.StrengthIncreaseExponentCoefficientOfVariation;
-            properties.PopMean = soilLayer.PopMean;
-            properties.PopCoefficientOfVariation = soilLayer.PopCoefficientOfVariation;
+            properties.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.AbovePhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.AbovePhreaticLevelCoefficientOfVariation,
+                Shift = (RoundedDouble) soilLayer.AbovePhreaticLevelShift
+            };
+            properties.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.BelowPhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.BelowPhreaticLevelCoefficientOfVariation,
+                Shift = (RoundedDouble) soilLayer.BelowPhreaticLevelShift
+            };
+            properties.Cohesion = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.CohesionMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.CohesionCoefficientOfVariation
+            };
+            properties.FrictionAngle = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.FrictionAngleMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.FrictionAngleCoefficientOfVariation
+            };
+            properties.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.ShearStrengthRatioMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.ShearStrengthRatioCoefficientOfVariation
+            };
+            properties.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.StrengthIncreaseExponentMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.StrengthIncreaseExponentCoefficientOfVariation
+            };
+            properties.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) soilLayer.PopMean,
+                CoefficientOfVariation = (RoundedDouble) soilLayer.PopCoefficientOfVariation
+            };
         }
 
         /// <summary>

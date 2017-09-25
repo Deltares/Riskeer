@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// Gets the strength increase component.
         /// [-]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StrengthIncreaseExponent { get; set; }
+        public VariationCoefficientLogNormalDistribution StrengthIncreaseExponent { get; }
 
         /// <summary>
         /// Gets the shear strength ratio.
