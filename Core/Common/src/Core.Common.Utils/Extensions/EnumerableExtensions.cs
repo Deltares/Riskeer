@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Common.Utils.Extensions
 {
@@ -53,6 +54,28 @@ namespace Core.Common.Utils.Extensions
             {
                 action(item);
             }
+        }
+
+        /// <summary>
+        /// Checks whether the elements from <paramref name="source"/> are not unique using the <paramref name="keySelector"/>.
+        /// </summary>
+        /// <typeparam name="T">The element type of the sequence.</typeparam>
+        /// <typeparam name="TKey">The type for the key.</typeparam>
+        /// <param name="source">A sequence that contains elements to be acted upon.</param>
+        /// <param name="keySelector">The key selector to validate uniqueness.</param>
+        /// <returns>The elements that are not unique.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public static bool AnyNonDistinct<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (keySelector == null)
+            {
+                throw new ArgumentNullException(nameof(keySelector));
+            }
+            return source.GroupBy(keySelector).Any(g => g.Count() > 1);
         }
     }
 }

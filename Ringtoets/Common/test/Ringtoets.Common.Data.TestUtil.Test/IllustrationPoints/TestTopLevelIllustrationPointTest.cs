@@ -42,6 +42,20 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
             AssertWindDirection(expectedWindDirection, topLevelIllustrationPoint.WindDirection);
         }
 
+        [Test]
+        public void Constructor_WithClosingSituation_ReturnsExpectedProperties()
+        {
+            // Call
+            var topLevelIllustrationPoint = new TestTopLevelIllustrationPoint("test situation");
+
+            // Assert
+            Assert.IsInstanceOf<TopLevelIllustrationPointBase>(topLevelIllustrationPoint);
+            Assert.AreEqual("test situation", topLevelIllustrationPoint.ClosingSituation);
+
+            WindDirection expectedWindDirection = WindDirectionTestFactory.CreateTestWindDirection();
+            AssertWindDirection(expectedWindDirection, topLevelIllustrationPoint.WindDirection);
+        }
+
         private static void AssertWindDirection(WindDirection expected, WindDirection actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);

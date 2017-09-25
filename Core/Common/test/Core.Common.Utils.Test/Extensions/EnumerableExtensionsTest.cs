@@ -37,7 +37,7 @@ namespace Core.Common.Utils.Test.Extensions
             IEnumerable<object> enumerable = null;
 
             // Call
-            TestDelegate call = () => enumerable.ForEachElementDo(e => { });
+            TestDelegate call = () => enumerable.ForEachElementDo(e => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -77,6 +77,70 @@ namespace Core.Common.Utils.Test.Extensions
 
             // Assert
             CollectionAssert.AreEqual(items, results, "elements should be equal");
+        }
+
+        [Test]
+        public void AnyNonDistinct_IteratorNull_ThrowArgumentNullException()
+        {
+            // Setup
+            IEnumerable<object> enumerable = null;
+
+            // Call
+            TestDelegate call = () => enumerable.AnyNonDistinct<object, object>(e => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("source", exception.ParamName);
+        }
+
+        [Test]
+        public void AnyNonDistinct_ActionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            IEnumerable<object> enumerable = Enumerable.Empty<object>();
+
+            // Call
+            TestDelegate call = () => enumerable.AnyNonDistinct<object, object>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("keySelector", exception.ParamName);
+        }
+
+        [Test]
+        public void AnyNonDistinct_WithDistinctItems_ReturnsFalse()
+        {
+            // Setup
+            var items = new List<int>
+            {
+                1,
+                2,
+                3
+            };
+
+            // Call
+            bool hasNonDistinct = items.AnyNonDistinct(t => t);
+
+            // Assert
+            Assert.IsFalse(hasNonDistinct);
+        }
+
+        [Test]
+        public void AnyNonDistinct_WithNonDistinctItems_ReturnsTrue()
+        {
+            // Setup
+            var items = new List<int>
+            {
+                1,
+                2,
+                2
+            };
+
+            // Call
+            bool hasNonDistinct = items.AnyNonDistinct(t => t);
+
+            // Assert
+            Assert.IsTrue(hasNonDistinct);
         }
     }
 }

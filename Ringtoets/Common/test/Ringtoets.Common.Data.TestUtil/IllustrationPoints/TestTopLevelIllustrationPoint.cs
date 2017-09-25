@@ -31,6 +31,13 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestTopLevelIllustrationPoint"/>.
+        /// <param name="closingSituation">The name of the closing situation for this illustration point</param>
+        /// </summary>
+        public TestTopLevelIllustrationPoint(string closingSituation)
+            : base(WindDirectionTestFactory.CreateTestWindDirection(), closingSituation) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestTopLevelIllustrationPoint"/>.
         /// </summary>
         public TestTopLevelIllustrationPoint()
             : base(WindDirectionTestFactory.CreateTestWindDirection(), "Closing situation") {}

@@ -387,4 +387,10 @@
   <data name="CharacteristicPoint_DikeTopAtRiver" xml:space="preserve">
     <value>Kruin buitentalud</value>
   </data>
+  <data name="GeneralResult_Imported_non_unique_stochasts" xml:space="preserve">
+    <value>Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+  </data>
+  <data name="GeneralResult_Imported_non_unique_closing_situations_or_wind_direction" xml:space="preserve">
+    <value>Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+  </data>
 </root>

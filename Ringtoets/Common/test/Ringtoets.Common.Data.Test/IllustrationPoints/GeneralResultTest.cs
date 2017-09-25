@@ -103,6 +103,58 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
+        public void Constructor_StochastNotUnique_ThrowArgumentException()
+        {
+            // Setup
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
+            var stochasts = new[]
+            {
+                new Stochast("unique", 0, 0),
+                new Stochast("non-unique", 0, 0),
+                new Stochast("non-unique", 0, 0),
+                new Stochast("nonunique", 0, 0),
+                new Stochast("nonunique", 0, 0)
+            };
+            IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints =
+                Enumerable.Empty<TopLevelIllustrationPointBase>();
+
+            // Call
+            TestDelegate test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
+                                                                                       stochasts,
+                                                                                       topLevelIllustrationPoints);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
+        public void Constructor_IllustrationPointsNotUnique_ThrowArgumentException()
+        {
+            // Setup
+            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
+            IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
+            IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints = new[]
+            {
+                new TopLevelIllustrationPoint(new WindDirection("N", 0.5), "not unique"),
+                new TopLevelIllustrationPoint(new WindDirection("N", 0.5), "not unique")
+            };
+
+            // Call
+            TestDelegate test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
+                                                                                       stochasts,
+                                                                                       topLevelIllustrationPoints);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
@@ -119,8 +171,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                             },
                                                                             new[]
                                                                             {
-                                                                                new TestTopLevelIllustrationPoint(),
-                                                                                new TestTopLevelIllustrationPoint()
+                                                                                new TestTopLevelIllustrationPoint("situation 1"),
+                                                                                new TestTopLevelIllustrationPoint("situation 2")
                                                                             });
 
             // Call
@@ -128,6 +180,12 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+        }
+
+        private class TopLevelIllustrationPoint : TopLevelIllustrationPointBase
+        {
+            public TopLevelIllustrationPoint(WindDirection windDirection, string closingSituation)
+                : base(windDirection, closingSituation) {}
         }
     }
 }

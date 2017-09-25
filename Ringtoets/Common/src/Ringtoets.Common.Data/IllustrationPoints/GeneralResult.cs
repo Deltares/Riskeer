@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -59,6 +61,9 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(topLevelIllustrationPoints));
             }
 
+            ValidateStochasts(stochasts);
+            ValidateTopLevelIllustrationPoints(topLevelIllustrationPoints);
+
             GoverningWindDirection = governingWindDirection;
             Stochasts = stochasts;
             TopLevelIllustrationPoints = topLevelIllustrationPoints;
@@ -88,6 +93,25 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             clone.TopLevelIllustrationPoints = TopLevelIllustrationPoints.Select(s => (T) s.Clone()).ToArray();
 
             return clone;
+        }
+
+        private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)
+        {
+            bool hasNonDistinctIllustrationPointsPerWindDirection =
+                topLevelIllustrationPoints.AnyNonDistinct(t => $"{t.ClosingSituation} {t.WindDirection.Angle}");
+            if (hasNonDistinctIllustrationPointsPerWindDirection)
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_closing_situations_or_wind_direction));
+            }
+        }
+
+        private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
+        {
+            bool hasNonDistinctStochasts = stochasts.AnyNonDistinct(s => s.Name);
+            if (hasNonDistinctStochasts)
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
+            }
         }
     }
 }

@@ -555,6 +555,24 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string GeneralResult_Imported_non_unique_closing_situations_or_wind_direction {
+            get {
+                return ResourceManager.GetString("GeneralResult_Imported_non_unique_closing_situations_or_wind_direction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string GeneralResult_Imported_non_unique_stochasts {
+            get {
+                return ResourceManager.GetString("GeneralResult_Imported_non_unique_stochasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
         /// </summary>
         public static string HydraulicBoundaryConditions_DisplayName {
