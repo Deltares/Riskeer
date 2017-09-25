@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc;
 
         private ICalculation data;
-        private bool suspendAllEvents;
+        private bool suspendllustrationPointsControlEvents;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -107,34 +107,27 @@ namespace Ringtoets.Common.Forms.Views
         /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private void UpdateControls()
         {
-            suspendAllEvents = true;
+            suspendllustrationPointsControlEvents = true;
             UpdateIllustrationPointsControl();
-            UpdateIllustrationPointsFaultTreeControl();
-            suspendAllEvents = false;
+            suspendllustrationPointsControlEvents = false;
 
+            UpdateIllustrationPointsFaultTreeControl();
             ProvideIllustrationPointSelection();
         }
 
         private void IllustrationPointsFaultTreeControlOnSelectionChanged(object sender, EventArgs eventArgs)
         {
-            if (suspendAllEvents)
+            var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
+            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
+
+            if (selection == null || topLevelFaultTreeIllustrationPoint == null)
             {
                 return;
             }
 
-            var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
-            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
-
-            if (selection != null && topLevelFaultTreeIllustrationPoint != null)
-            {
-                Selection = new IllustrationPointNodeContext(selection,
-                                                             topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                             topLevelFaultTreeIllustrationPoint.ClosingSituation);
-            }
-            else
-            {
-                Selection = null;
-            }
+            Selection = new IllustrationPointNodeContext(selection,
+                                                         topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                         topLevelFaultTreeIllustrationPoint.ClosingSituation);
 
             OnSelectionChanged();
         }
@@ -197,7 +190,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs e)
         {
-            if (suspendAllEvents)
+            if (suspendllustrationPointsControlEvents)
             {
                 return;
             }
