@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("layersUnderSurfaceLine", exception.ParamName);
+            Assert.AreEqual("layers", exception.ParamName);
         }
 
         [Test]
