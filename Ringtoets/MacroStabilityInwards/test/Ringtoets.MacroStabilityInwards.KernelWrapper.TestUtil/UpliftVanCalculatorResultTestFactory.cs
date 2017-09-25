@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     /// Factory to create simple <see cref="UpliftVanCalculatorResult"/>
     /// instances that can be used for testing.
     /// </summary>
-    public static class MacroStabilityInwardsCalculatorResultTestFactory
+    public static class UpliftVanCalculatorResultTestFactory
     {
         /// <summary>
         /// Creates a new <see cref="UpliftVanCalculatorResult"/>.

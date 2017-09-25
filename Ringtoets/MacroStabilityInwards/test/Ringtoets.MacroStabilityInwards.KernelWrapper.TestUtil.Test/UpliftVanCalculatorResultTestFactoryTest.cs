@@ -26,13 +26,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculatorResultTestFactoryTest
+    public class UpliftVanCalculatorResultTestFactoryTest
     {
         [Test]
         public void Create_Always_ReturnResultWithDefaultValues()
         {
             // Call
-            UpliftVanCalculatorResult result = MacroStabilityInwardsCalculatorResultTestFactory.Create();
+            UpliftVanCalculatorResult result = UpliftVanCalculatorResultTestFactory.Create();
 
             // Assert
             Assert.AreEqual(0.1, result.FactorOfStability);

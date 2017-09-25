@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 
         public UpliftVanCalculatorResult Calculate()
         {
-            return Output ?? (Output = MacroStabilityInwardsCalculatorResultTestFactory.Create());
+            return Output ?? (Output = UpliftVanCalculatorResultTestFactory.Create());
         }
 
         public List<string> Validate()

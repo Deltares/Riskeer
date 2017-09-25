@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
 {
     [TestFixture]
-    public class MacroStabilityInwardsSubCalculatorFactoryConfigTest
+    public class MacroStabilityInwardsKernelFactoryConfigTest
     {
         [Test]
         public void Constructor_NewInstanceCanBeDisposed()
@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
         }
 
         [Test]
-        public void Constructor_SetsTestFactoryForMacroStabilityInwardsCalculatorService()
+        public void Constructor_SetsTestFactoryForMacroStabilityInwardsKernelWrapperFactory()
         {
             // Call
             using (new MacroStabilityInwardsKernelFactoryConfig())

@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     public static class SlipPlaneUpliftVanTestFactory
     {
         /// <summary>
-        /// Creates a  simple <see cref="SlipPlaneUpliftVan"/>.
+        /// Creates a simple <see cref="SlipPlaneUpliftVan"/>.
         /// </summary>
         /// <returns>A simple <see cref="SlipPlaneUpliftVan"/> with default values.</returns>
         public static SlipPlaneUpliftVan Create()
