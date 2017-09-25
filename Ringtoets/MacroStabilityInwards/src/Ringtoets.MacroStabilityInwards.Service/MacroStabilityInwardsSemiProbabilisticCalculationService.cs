@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 namespace Ringtoets.MacroStabilityInwards.Service
 {
     /// <summary>
-    /// This class is responsible for calculating a factor of safety for macro stability inwards based on the sub calculations.
+    /// This class is responsible for calculating a factor of safety for macro stability inwards.
     /// </summary>
     public class MacroStabilityInwardsSemiProbabilisticCalculationService
     {

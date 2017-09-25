@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     /// This class represents a combination of macro stability inwards sub calculations, which together can be used
     /// to assess based on macro stability inwards.
     /// </summary>
-    public class MacroStabilityInwardsCalculator : IMacroStabilityInwardsCalculator
+    public class MacroStabilityInwardsCalculator : IUpliftVanCalculator
     {
         private readonly MacroStabilityInwardsCalculatorInput input;
         private readonly IMacroStabilityInwardsKernelFactory factory;

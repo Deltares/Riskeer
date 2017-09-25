@@ -24,22 +24,27 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
     /// <summary>
-    /// Interface that represents a combination of macro stability inwards sub calculations, which together can be used
-    /// to assess based on macro stability inwards.
+    /// Interface representing an Uplift Van calculator.
     /// </summary>
-    public interface IMacroStabilityInwardsCalculator
+    /// <remarks>
+    /// This interface is introduced for being able to test the conversion of:
+    /// <list type="bullet">
+    /// <item>Ringtoets macro stability inwards input into calculator input;</item>
+    /// <item>calculator output into Ringtoets macro stability inwards output.</item>
+    /// </list>
+    /// </remarks>
+    public interface IUpliftVanCalculator
     {
         /// <summary>
-        /// Performs the actual sub calculations and returns a <see cref="MacroStabilityInwardsCalculatorResult"/>, which
-        /// contains the results of all sub calculations.
+        /// Performs the calculation.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculatorResult"/> containing the results of the sub calculations.</returns>
+        /// <returns>A <see cref="MacroStabilityInwardsCalculatorResult"/>.</returns>
         MacroStabilityInwardsCalculatorResult Calculate();
 
         /// <summary>
-        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="MacroStabilityInwardsCalculatorInput"/>
-        /// which was provided to this <see cref="MacroStabilityInwardsCalculator"/> and are determined by the kernel.
+        /// Performs the validation.
         /// </summary>
+        /// <returns>A list of validation messages.</returns>
         List<string> Validate();
     }
 }

@@ -26,7 +26,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     /// <summary>
     /// Stub for the real macro stability inwards calculator.
     /// </summary>
-    public class MacroStabilityInwardsCalculatorStub : IMacroStabilityInwardsCalculator
+    public class MacroStabilityInwardsCalculatorStub : IUpliftVanCalculator
     {
         public MacroStabilityInwardsCalculatorInput Input { get; set; }
 

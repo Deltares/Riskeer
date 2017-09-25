@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var calculator = new MacroStabilityInwardsCalculator(input, factory);
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsCalculator>(calculator);
+            Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
         }
 
         [Test]

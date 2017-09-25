@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         /// <summary>
         /// Sets the current <see cref="IMacroStabilityInwardsCalculatorFactory"/>, which is used to create 
-        /// <see cref="IMacroStabilityInwardsCalculator"/> instances.
+        /// <see cref="IUpliftVanCalculator"/> instances.
         /// </summary>
         public static IMacroStabilityInwardsCalculatorFactory Instance
         {
@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             }
         }
 
-        public IMacroStabilityInwardsCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public IUpliftVanCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             return new MacroStabilityInwardsCalculator(input, factory);
         }

@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             var calculator = new MacroStabilityInwardsCalculatorStub();
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsCalculator>(calculator);
+            Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
             Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.Output);
         }
