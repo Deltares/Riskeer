@@ -337,27 +337,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<IllustrationPointNodeContext, IllustrationPointProperties>
             {
-                CreateInstance = context =>
-                {
-                    IllustrationPointNode illustrationPointNode = context.IllustrationPointNode;
-
-                    if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
-                    {
-                        return new FaultTreeIllustrationPointProperties(illustrationPointNode,
-                                                                        context.WindDirectionName,
-                                                                        context.ClosingSituation);
-                    }
-                    if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
-                    {
-                        return new SubMechanismIllustrationPointProperties(illustrationPointNode,
-                                                                           context.WindDirectionName,
-                                                                           context.ClosingSituation);
-                    }
-
-                    return new IllustrationPointProperties(illustrationPointNode,
-                                                           context.WindDirectionName,
-                                                           context.ClosingSituation);
-                }
+                CreateInstance = CreateIllustrationPointProperties
             };
         }
 
@@ -877,6 +857,32 @@ namespace Ringtoets.Integration.Plugin
                 return createFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
+
+        #region PropertyInfos
+
+        private static IllustrationPointProperties CreateIllustrationPointProperties(IllustrationPointNodeContext context)
+        {
+            IllustrationPointNode illustrationPointNode = context.IllustrationPointNode;
+
+            if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
+            {
+                return new FaultTreeIllustrationPointProperties(illustrationPointNode,
+                                                                context.WindDirectionName,
+                                                                context.ClosingSituation);
+            }
+            if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
+            {
+                return new SubMechanismIllustrationPointProperties(illustrationPointNode,
+                                                                   context.WindDirectionName,
+                                                                   context.ClosingSituation);
+            }
+
+            return new IllustrationPointProperties(illustrationPointNode,
+                                                   context.WindDirectionName,
+                                                   context.ClosingSituation);
+        }
+
+        #endregion
 
         #region ViewInfos
 
