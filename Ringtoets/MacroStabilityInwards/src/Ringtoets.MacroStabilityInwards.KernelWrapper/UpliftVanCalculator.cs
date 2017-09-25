@@ -48,11 +48,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         {
             if (input == null)
             {
-                throw new ArgumentNullException(nameof(input), @"UpliftVanCalculatorInput required for creating a MacroStabilityInwardsCalculator.");
+                throw new ArgumentNullException(nameof(input), @"UpliftVanCalculatorInput required for creating a UpliftVanCalculator.");
             }
             if (factory == null)
             {
-                throw new ArgumentNullException(nameof(factory), @"IMacroStabilityInwardsKernelFactory required for creating a MacroStabilityInwardsCalculator.");
+                throw new ArgumentNullException(nameof(factory), @"IMacroStabilityInwardsKernelFactory required for creating a UpliftVanCalculator.");
             }
             this.input = input;
             this.factory = factory;

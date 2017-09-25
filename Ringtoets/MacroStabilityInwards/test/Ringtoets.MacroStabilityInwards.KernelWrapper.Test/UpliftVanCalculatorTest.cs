@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             TestDelegate call = () => new UpliftVanCalculator(null, factory);
 
             // Assert
-            const string expectedMessage = "UpliftVanCalculatorInput required for creating a MacroStabilityInwardsCalculator.";
+            const string expectedMessage = "UpliftVanCalculatorInput required for creating a UpliftVanCalculator.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             mocks.VerifyAll();
         }
@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             TestDelegate call = () => new UpliftVanCalculator(input, null);
 
             // Assert
-            const string expectedMessage = "IMacroStabilityInwardsKernelFactory required for creating a MacroStabilityInwardsCalculator.";
+            const string expectedMessage = "IMacroStabilityInwardsKernelFactory required for creating a UpliftVanCalculator.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
