@@ -52,10 +52,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                                                            double preconsolidationStressMean,
                                                            double preconsolidationStressCoefficientOfVariation)
         {
-            ValidateParameter(xCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
-            ValidateParameter(zCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
-            ValidateParameter(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
-            ValidateParameter(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
+            ValidateParameterNaN(xCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
+            ValidateParameterNaN(zCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
+            ValidateParameterNaN(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
+            ValidateParameterNaN(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
 
             XCoordinate = new RoundedDouble(2, xCoordinate);
             ZCoordinate = new RoundedDouble(2, zCoordinate);
@@ -114,12 +114,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Validates that the <paramref name="value"/> is a valid value.
+        /// Validates that the <paramref name="value"/> is not a <see cref="double.NaN"/>.
         /// </summary>
         /// <param name="value">The value to validate.</param>
         /// <param name="parameterName">The name of the parameter to validate.</param>
         /// <exception cref="ArgumentException">Thrown if the parameter value is <see cref="double.NaN"/>.</exception>
-        private static void ValidateParameter(double value, string parameterName)
+        private static void ValidateParameterNaN(double value, string parameterName)
         {
             if (double.IsNaN(value))
             {

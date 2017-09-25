@@ -132,22 +132,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void GetHashCode_EqualProfiles_AreEqual()
-        {
-            // Setup
-            MacroStabilityInwardsSoilProfile2D profileA = CreateRandomProfile(21);
-            MacroStabilityInwardsSoilProfile2D profileB = CreateRandomProfile(21);
-
-            // Precondition
-            Assert.AreEqual(profileA, profileB);
-            Assert.AreEqual(profileB, profileA);
-
-            // Call & Assert
-            Assert.AreEqual(profileA.GetHashCode(), profileB.GetHashCode());
-            Assert.AreEqual(profileB.GetHashCode(), profileA.GetHashCode());
-        }
-
-        [Test]
         public void Equals_Null_ReturnsFalse()
         {
             // Setup

@@ -109,13 +109,13 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Gets the value representing the coefficient of variation of the distribution for the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public double? PreconsolidationStressCoefficientOfVariation { get; }
 
         /// <summary>
         /// Gets the value representing the shift of the distribution for the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public double? PreconsolidationStressShift { get; }
     }
