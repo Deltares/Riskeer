@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         public void Create_Always_ReturnResultWithDefaultValues()
         {
             // Call
-            MacroStabilityInwardsCalculatorResult result = MacroStabilityInwardsCalculatorResultTestFactory.Create();
+            UpliftVanCalculatorResult result = MacroStabilityInwardsCalculatorResultTestFactory.Create();
 
             // Assert
             Assert.AreEqual(0.1, result.FactorOfStability);
@@ -42,8 +42,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             Assert.IsTrue(result.GridAutomaticallyCalculated);
             Assert.IsTrue(result.ForbiddenZonesAutomaticallyCalculated);
 
-            AssertSlidingCurve(result.SlidingCurve);
-            AssertUpliftVanCalculationGrid(result.UpliftVanCalculationGrid);
+            AssertSlidingCurve(result.SlidingCurveResult);
+            AssertUpliftVanCalculationGrid(result.CalculationGridResult);
         }
 
         private static void AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResult slidingCurve)

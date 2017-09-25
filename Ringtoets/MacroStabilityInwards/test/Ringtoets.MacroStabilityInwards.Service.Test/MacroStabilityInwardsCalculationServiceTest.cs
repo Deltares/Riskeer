@@ -384,7 +384,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
         }
 
-        private static void AssertOutput(MacroStabilityInwardsCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)
+        private static void AssertOutput(UpliftVanCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)
         {
             Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
             Assert.AreEqual(expectedOutput.ZValue, actualOutput.ZValue);
@@ -392,8 +392,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
             Assert.AreEqual(expectedOutput.GridAutomaticallyCalculated, actualOutput.GridAutomaticallyCalculated);
             Assert.AreEqual(expectedOutput.ForbiddenZonesAutomaticallyCalculated, actualOutput.ForbiddenZonesAutomaticallyCalculated);
-            AssertSlidingCurve(expectedOutput.SlidingCurve, actualOutput.SlidingCurve);
-            AssertSlipPlane(expectedOutput.UpliftVanCalculationGrid, actualOutput.SlipPlane);
+            AssertSlidingCurve(expectedOutput.SlidingCurveResult, actualOutput.SlidingCurve);
+            AssertSlipPlane(expectedOutput.CalculationGridResult, actualOutput.SlipPlane);
         }
 
         private static void AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResult expected, MacroStabilityInwardsSlidingCurve actual)

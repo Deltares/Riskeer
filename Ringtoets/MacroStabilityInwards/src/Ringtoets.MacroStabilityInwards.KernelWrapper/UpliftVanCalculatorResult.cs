@@ -25,39 +25,36 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
     /// <summary>
-    /// This class contains all the results of a complete macro stability inwards calculation.
+    /// This class contains the results of an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsCalculatorResult
+    public class UpliftVanCalculatorResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculatorResult"/>. 
-        /// The result will hold all the values which were given.
+        /// Creates a new instance of <see cref="UpliftVanCalculatorResult"/>.
         /// </summary>
-        /// <param name="slidingCurve">The sliding curve result.</param>
-        /// <param name="upliftVanCalculationGrid">The Uplift Van calculation grid result.</param>
-        /// <param name="properties">The container of the properties for the
-        /// <see cref="MacroStabilityInwardsCalculatorResult"/></param>
-        /// <exception cref="ArgumentNullException">Thrown when any
-        /// parameter is <c>null</c>.</exception>
-        internal MacroStabilityInwardsCalculatorResult(MacroStabilityInwardsSlidingCurveResult slidingCurve,
-                                                       MacroStabilityInwardsUpliftVanCalculationGridResult upliftVanCalculationGrid,
-                                                       ConstructionProperties properties)
+        /// <param name="slidingCurveResult">The sliding curve result.</param>
+        /// <param name="calculationGridResult">The calculation grid result.</param>
+        /// <param name="properties">The container of the properties for the <see cref="UpliftVanCalculatorResult"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal UpliftVanCalculatorResult(MacroStabilityInwardsSlidingCurveResult slidingCurveResult,
+                                           MacroStabilityInwardsUpliftVanCalculationGridResult calculationGridResult,
+                                           ConstructionProperties properties)
         {
-            if (slidingCurve == null)
+            if (slidingCurveResult == null)
             {
-                throw new ArgumentNullException(nameof(slidingCurve));
+                throw new ArgumentNullException(nameof(slidingCurveResult));
             }
-            if (upliftVanCalculationGrid == null)
+            if (calculationGridResult == null)
             {
-                throw new ArgumentNullException(nameof(upliftVanCalculationGrid));
+                throw new ArgumentNullException(nameof(calculationGridResult));
             }
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
 
-            SlidingCurve = slidingCurve;
-            UpliftVanCalculationGrid = upliftVanCalculationGrid;
+            SlidingCurveResult = slidingCurveResult;
+            CalculationGridResult = calculationGridResult;
 
             FactorOfStability = properties.FactorOfStability;
             ZValue = properties.ZValue;
@@ -68,8 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         }
 
         /// <summary>
-        /// Container for properties for constructing a <see cref="MacroStabilityInwardsCalculatorResult"/>.
-        /// </summary>s
+        /// Container for properties for constructing a <see cref="UpliftVanCalculatorResult"/>.
+        /// </summary>
         public class ConstructionProperties
         {
             /// <summary>
@@ -84,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             }
 
             /// <summary>
-            /// Gets or sets the factor of stability of the Uplift Van calculation.
+            /// Gets or sets the factor of stability.
             /// </summary>
             public double FactorOfStability { internal get; set; }
 
@@ -119,15 +116,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// <summary>
         /// Gets the sliding curve result.
         /// </summary>
-        public MacroStabilityInwardsSlidingCurveResult SlidingCurve { get; }
+        public MacroStabilityInwardsSlidingCurveResult SlidingCurveResult { get; }
 
         /// <summary>
-        /// Gets the Uplift Van calculation grid result.
+        /// Gets the calculation grid result.
         /// </summary>
-        public MacroStabilityInwardsUpliftVanCalculationGridResult UpliftVanCalculationGrid { get; }
+        public MacroStabilityInwardsUpliftVanCalculationGridResult CalculationGridResult { get; }
 
         /// <summary>
-        /// Gets the factor of stability of the Uplift Van calculation.
+        /// Gets the factor of stability.
         /// </summary>
         public double FactorOfStability { get; }
 

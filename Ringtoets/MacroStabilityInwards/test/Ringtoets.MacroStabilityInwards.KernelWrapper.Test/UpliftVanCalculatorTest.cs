@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
 
             // Call
-            MacroStabilityInwardsCalculatorResult actual = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+            UpliftVanCalculatorResult actual = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
             Assert.IsNotNull(actual);
@@ -115,9 +115,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
             Assert.AreEqual(upliftVanKernel.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
             MacroStabilityInwardsCalculatorResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
-                                                                             actual.SlidingCurve);
+                                                                             actual.SlidingCurveResult);
             MacroStabilityInwardsCalculatorResultHelper.AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
-                                                                            actual.UpliftVanCalculationGrid);
+                                                                            actual.CalculationGridResult);
 
             Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
         }

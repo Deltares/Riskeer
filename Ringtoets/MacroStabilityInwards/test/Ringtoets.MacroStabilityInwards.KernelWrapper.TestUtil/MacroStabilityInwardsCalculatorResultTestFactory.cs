@@ -25,18 +25,18 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsCalculatorResult"/>
+    /// Factory to create simple <see cref="UpliftVanCalculatorResult"/>
     /// instances that can be used for testing.
     /// </summary>
     public static class MacroStabilityInwardsCalculatorResultTestFactory
     {
         /// <summary>
-        /// Creates a new <see cref="MacroStabilityInwardsCalculatorResult"/>.
+        /// Creates a new <see cref="UpliftVanCalculatorResult"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsCalculatorResult"/>.</returns>
-        public static MacroStabilityInwardsCalculatorResult Create()
+        /// <returns>The created <see cref="UpliftVanCalculatorResult"/>.</returns>
+        public static UpliftVanCalculatorResult Create()
         {
-            return new MacroStabilityInwardsCalculatorResult(
+            return new UpliftVanCalculatorResult(
                 MacroStabilityInwardsSlidingCurveResultTestFactory.Create(),
                 new MacroStabilityInwardsUpliftVanCalculationGridResult(
                     MacroStabilityInwardsGridResultTestFactory.Create(),
@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
                         2,
                         1.5
                     }),
-                new MacroStabilityInwardsCalculatorResult.ConstructionProperties
+                new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = 0.1,
                     ZValue = 0.2,

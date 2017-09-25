@@ -58,14 +58,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             this.factory = factory;
         }
 
-        public MacroStabilityInwardsCalculatorResult Calculate()
+        public UpliftVanCalculatorResult Calculate()
         {
             IUpliftVanKernel upliftVanKernel = CalculateUpliftVan();
 
-            return new MacroStabilityInwardsCalculatorResult(
+            return new UpliftVanCalculatorResult(
                 MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                 MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
-                new MacroStabilityInwardsCalculatorResult.ConstructionProperties
+                new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = upliftVanKernel.FactoryOfStability,
                     ZValue = upliftVanKernel.ZValue,

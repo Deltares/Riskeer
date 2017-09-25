@@ -30,9 +30,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     {
         public MacroStabilityInwardsCalculatorInput Input { get; set; }
 
-        public MacroStabilityInwardsCalculatorResult Output { get; private set; }
+        public UpliftVanCalculatorResult Output { get; private set; }
 
-        public MacroStabilityInwardsCalculatorResult Calculate()
+        public UpliftVanCalculatorResult Calculate()
         {
             return Output ?? (Output = MacroStabilityInwardsCalculatorResultTestFactory.Create());
         }

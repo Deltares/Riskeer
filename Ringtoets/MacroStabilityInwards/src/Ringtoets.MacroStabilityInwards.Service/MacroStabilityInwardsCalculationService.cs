@@ -94,11 +94,11 @@ namespace Ringtoets.MacroStabilityInwards.Service
             try
             {
                 IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsKernelWrapperFactory.Instance);
-                MacroStabilityInwardsCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
+                UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
                 calculation.Output = new MacroStabilityInwardsOutput(
-                    MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurve),
-                    MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.UpliftVanCalculationGrid),
+                    MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
+                    MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
                     new MacroStabilityInwardsOutput.ConstructionProperties
                 {
                     FactorOfStability = macroStabilityInwardsResult.FactorOfStability,

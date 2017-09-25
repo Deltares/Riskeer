@@ -38,8 +38,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         /// <summary>
         /// Performs the calculation.
         /// </summary>
-        /// <returns>A <see cref="MacroStabilityInwardsCalculatorResult"/>.</returns>
-        MacroStabilityInwardsCalculatorResult Calculate();
+        /// <returns>A <see cref="UpliftVanCalculatorResult"/>.</returns>
+        UpliftVanCalculatorResult Calculate();
 
         /// <summary>
         /// Performs the validation.

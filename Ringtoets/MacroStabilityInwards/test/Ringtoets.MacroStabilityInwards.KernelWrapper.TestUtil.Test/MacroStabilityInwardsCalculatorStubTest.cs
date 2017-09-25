@@ -59,15 +59,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             var calculator = new MacroStabilityInwardsCalculatorStub();
             
             // Call
-            MacroStabilityInwardsCalculatorResult result = calculator.Calculate();
+            UpliftVanCalculatorResult result = calculator.Calculate();
 
             // Assert
             Assert.AreEqual(0.1, result.FactorOfStability);
             Assert.AreEqual(0.2, result.ZValue);
             Assert.AreEqual(0.3, result.ForbiddenZonesXEntryMin);
             Assert.AreEqual(0.4, result.ForbiddenZonesXEntryMax);
-            Assert.IsNotNull(result.SlidingCurve);
-            Assert.IsNotNull(result.UpliftVanCalculationGrid);
+            Assert.IsNotNull(result.SlidingCurveResult);
+            Assert.IsNotNull(result.CalculationGridResult);
         }
     }
 }

@@ -52,7 +52,7 @@
     <Compile Include="UpliftVanCalculator.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInput.cs" />
-    <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />
+    <Compile Include="UpliftVanCalculatorResult.cs" />
     <Compile Include="Creators\SoilCreator.cs" />
     <Compile Include="Creators\SoilModelCreator.cs" />
     <Compile Include="Result\MacroStabilityInwardsGridResult.cs" />
