@@ -44,7 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         {
             return x.CurveList.Where((curve, index) =>
                                          curveComparer.Compare(curve, y.CurveList[index]) == 1).Any()
-                       ? 1 : 0;
+                       ? 1
+                       : 0;
         }
     }
 }

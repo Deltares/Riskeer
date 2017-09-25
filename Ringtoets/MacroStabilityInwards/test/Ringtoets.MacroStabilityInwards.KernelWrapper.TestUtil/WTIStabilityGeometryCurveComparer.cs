@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
     public class WTIStabilityGeometryCurveComparer : IComparer<GeometryCurve>, IComparer
     {
         private readonly WTIStabilityPoint2DComparer pointComparer = new WTIStabilityPoint2DComparer();
-        
+
         public int Compare(object x, object y)
         {
             return Compare(x as GeometryCurve, y as GeometryCurve);
@@ -43,7 +43,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         {
             return pointComparer.Compare(x.HeadPoint, y.HeadPoint) == 0
                    && pointComparer.Compare(x.EndPoint, y.EndPoint) == 0
-                       ? 0 : 1;
+                       ? 0
+                       : 1;
         }
     }
 }

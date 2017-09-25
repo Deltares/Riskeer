@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         {
             // Setup
             var calculator = new UpliftVanCalculatorStub();
-            
+
             // Call
             UpliftVanCalculatorResult result = calculator.Calculate();
 

@@ -276,7 +276,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             /// Gets or sets the left grid.
             /// </summary>
             public MacroStabilityInwardsGrid LeftGrid { internal get; set; }
-            
+
             /// <summary>
             /// Gets or sets the right grid.
             /// </summary>

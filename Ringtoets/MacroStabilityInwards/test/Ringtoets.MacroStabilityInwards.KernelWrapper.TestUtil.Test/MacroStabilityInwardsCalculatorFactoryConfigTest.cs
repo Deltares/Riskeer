@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             IMacroStabilityInwardsCalculatorFactory expectedFactory = MacroStabilityInwardsCalculatorFactory.Instance;
 
             // Call
-            using (new MacroStabilityInwardsCalculatorFactoryConfig()) { }
+            using (new MacroStabilityInwardsCalculatorFactoryConfig()) {}
 
             // Assert
             Assert.AreSame(expectedFactory, MacroStabilityInwardsCalculatorFactory.Instance);
