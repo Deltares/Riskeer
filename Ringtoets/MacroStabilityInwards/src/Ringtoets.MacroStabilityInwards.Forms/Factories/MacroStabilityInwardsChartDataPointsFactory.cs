@@ -307,7 +307,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// </summary>
         /// <param name="grid">The grid to create the grid points for.</param>
         /// <param name="gridDeterminationType">The grid determination type.</param>
-        /// <returns></returns>
+        /// <returns>An array of interpolated points in 2D space based on the provided 
+        /// <paramref name="grid"/> or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="grid"/> is <c>null</c>;</item>
+        /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
+        /// <item>the grid settings are invalid:
+        /// <list type="bullet">
+        /// <item>the grid boundaries are <see cref="double.NaN"/>;</item>
+        /// <item>the number of horizontal or vertical points are not greater than zero.</item>
+        /// </list>
+        /// </item>
+        /// </list>
+        /// </returns>
         public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
         {
             if (grid == null
