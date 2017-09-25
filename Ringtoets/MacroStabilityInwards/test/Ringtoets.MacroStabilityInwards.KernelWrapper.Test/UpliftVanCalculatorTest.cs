@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
             UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
-            upliftVanKernel.FactoryOfStability = random.NextDouble();
+            upliftVanKernel.FactorOfStability = random.NextDouble();
             upliftVanKernel.ZValue = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(upliftVanKernel.FactoryOfStability, actual.FactorOfStability);
+            Assert.AreEqual(upliftVanKernel.FactorOfStability, actual.FactorOfStability);
             Assert.AreEqual(upliftVanKernel.ZValue, actual.ZValue);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, actual.ForbiddenZonesXEntryMax);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);

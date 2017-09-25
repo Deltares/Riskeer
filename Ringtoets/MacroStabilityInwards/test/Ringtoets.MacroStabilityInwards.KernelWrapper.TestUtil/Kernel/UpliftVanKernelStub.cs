@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 
         public double SlipPlaneMinimumLength { get; set; }
 
-        public double FactoryOfStability { get; set; }
+        public double FactorOfStability { get; set; }
 
         public double ZValue { get; set; }
 

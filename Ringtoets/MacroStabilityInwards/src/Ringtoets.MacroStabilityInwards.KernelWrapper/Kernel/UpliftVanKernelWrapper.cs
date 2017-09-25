@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
             }
         }
 
-        public double FactoryOfStability { get; private set; }
+        public double FactorOfStability { get; private set; }
 
         public double ZValue { get; private set; }
 
@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
                 throw new Exception();
             }
 
-            FactoryOfStability = convertedResult.FactorOfSafety;
+            FactorOfStability = convertedResult.FactorOfSafety;
             ZValue = convertedResult.ZValue;
 
             ForbiddenZonesXEntryMin = convertedResult.XMinEntry;

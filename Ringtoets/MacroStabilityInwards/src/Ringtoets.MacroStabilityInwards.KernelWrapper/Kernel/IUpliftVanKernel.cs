@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
         /// <summary>
         /// Gets the factor of stability.
         /// </summary>
-        double FactoryOfStability { get; }
+        double FactorOfStability { get; }
 
         /// <summary>
         /// Gets the z value.

@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
                 MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
-                    FactorOfStability = upliftVanKernel.FactoryOfStability,
+                    FactorOfStability = upliftVanKernel.FactorOfStability,
                     ZValue = upliftVanKernel.ZValue,
                     ForbiddenZonesXEntryMin = upliftVanKernel.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax,
