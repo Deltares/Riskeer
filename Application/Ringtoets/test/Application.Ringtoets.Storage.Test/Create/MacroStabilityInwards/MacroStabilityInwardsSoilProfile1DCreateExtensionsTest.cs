@@ -69,7 +69,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random(31);
             const string name = "some name";
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D(name, -random.NextDouble(), new[]
+            double bottom = -random.NextDouble();
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D(name, bottom, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble()),
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
