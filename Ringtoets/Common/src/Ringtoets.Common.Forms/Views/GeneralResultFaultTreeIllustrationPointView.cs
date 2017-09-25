@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc;
 
         private ICalculation data;
-        private bool suspendllustrationPointsControlEvents;
+        private bool suspendIllustrationPointsControlEvents;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -107,9 +107,9 @@ namespace Ringtoets.Common.Forms.Views
         /// or <see cref="SubMechanismIllustrationPoint"/>.</exception>
         private void UpdateControls()
         {
-            suspendllustrationPointsControlEvents = true;
+            suspendIllustrationPointsControlEvents = true;
             UpdateIllustrationPointsControl();
-            suspendllustrationPointsControlEvents = false;
+            suspendIllustrationPointsControlEvents = false;
 
             UpdateIllustrationPointsFaultTreeControl();
             ProvideIllustrationPointSelection();
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void IllustrationPointsControlOnSelectionChanged(object sender, EventArgs e)
         {
-            if (suspendllustrationPointsControlEvents)
+            if (suspendIllustrationPointsControlEvents)
             {
                 return;
             }
