@@ -29,13 +29,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class MacroStabilityInwardsUpliftVanCalculationGridResultCreatorTest
+    public class UpliftVanCalculationGridResultCreatorTest
     {
         [Test]
         public void Create_SlipPlaneUpliftVanNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(null);
+            TestDelegate call = () => UpliftVanCalculationGridResultCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            UpliftVanCalculationGridResult result = MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(slipPlaneUpliftVan);
+            UpliftVanCalculationGridResult result = UpliftVanCalculationGridResultCreator.Create(slipPlaneUpliftVan);
 
             // Assert
             AssertGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid, result.LeftGrid);

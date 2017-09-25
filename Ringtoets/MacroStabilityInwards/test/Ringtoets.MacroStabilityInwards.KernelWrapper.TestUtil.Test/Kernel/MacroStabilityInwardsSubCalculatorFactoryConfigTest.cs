@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
         public void Constructor_NewInstanceCanBeDisposed()
         {
             // Call
-            var factory = new MacroStabilityInwardsSubCalculatorFactoryConfig();
+            var factory = new MacroStabilityInwardsKernelFactoryConfig();
 
             // Assert
             Assert.IsInstanceOf<IDisposable>(factory);
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
         public void Constructor_SetsTestFactoryForMacroStabilityInwardsCalculatorService()
         {
             // Call
-            using (new MacroStabilityInwardsSubCalculatorFactoryConfig())
+            using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 // Assert
                 Assert.IsInstanceOf<TestMacroStabilityInwardsKernelFactory>(MacroStabilityInwardsKernelWrapperFactory.Instance);
@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernel
             IMacroStabilityInwardsKernelFactory expectedFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            using (new MacroStabilityInwardsSubCalculatorFactoryConfig()) {}
+            using (new MacroStabilityInwardsKernelFactoryConfig()) {}
 
             // Assert
             Assert.AreSame(expectedFactory, MacroStabilityInwardsKernelWrapperFactory.Instance);

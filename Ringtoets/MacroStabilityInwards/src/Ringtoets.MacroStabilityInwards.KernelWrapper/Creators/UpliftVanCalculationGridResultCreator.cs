@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
     /// <summary>
     /// Creates <see cref="UpliftVanCalculationGridResult"/> instances.
     /// </summary>
-    public static class MacroStabilityInwardsUpliftVanCalculationGridResultCreator
+    public static class UpliftVanCalculationGridResultCreator
     {
         /// <summary>
         /// Creates a <see cref="UpliftVanCalculationGridResult"/> based on the information
@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
         /// </summary>
         /// <param name="slipPlaneUpliftVan">The output to create the result for.</param>
         /// <returns>A new <see cref="UpliftVanCalculationGridResult"/> with information
-        /// taken from the <paramref name="slipPlaneUpliftVan"/></returns>
+        /// taken from the <paramref name="slipPlaneUpliftVan"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slipPlaneUpliftVan"/>
         /// is <c>null</c>.</exception>
         public static UpliftVanCalculationGridResult Create(SlipPlaneUpliftVan slipPlaneUpliftVan)
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             UpliftVanGridResult rightGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneRightGrid);
 
             return new UpliftVanCalculationGridResult(leftGrid, rightGrid, slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights
-                                                                                                                  .Select(tl => tl.Height));
+                                                                                             .Select(tl => tl.Height));
         }
 
         private static UpliftVanGridResult CreateGrid(SlipCircleGrid grid)

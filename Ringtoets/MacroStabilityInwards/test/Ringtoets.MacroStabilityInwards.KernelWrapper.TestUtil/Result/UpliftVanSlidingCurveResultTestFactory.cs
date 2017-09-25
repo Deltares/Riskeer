@@ -19,24 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
+using System.Linq;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {
     /// <summary>
-    /// Factory to create simple <see cref="UpliftVanSlidingCircleResult"/>
+    /// Factory to create simple <see cref="UpliftVanSlidingCurveResult"/>
     /// instances that can be used for testing.
     /// </summary>
-    public static class MacroStabilityInwardsSlidingCircleResultTestFactory
+    public static class UpliftVanSlidingCurveResultTestFactory
     {
         /// <summary>
-        /// Creates a new <see cref="UpliftVanSlidingCircleResult"/>.
+        /// Creates a new <see cref="UpliftVanSlidingCurveResult"/>.
         /// </summary>
-        /// <returns>The created <see cref="UpliftVanSlidingCircleResult"/>.</returns>
-        public static UpliftVanSlidingCircleResult Create()
+        /// <returns>The created <see cref="UpliftVanSlidingCurveResult"/>.</returns>
+        public static UpliftVanSlidingCurveResult Create()
         {
-            return new UpliftVanSlidingCircleResult(new Point2D(0, 0), 0.1, true, 0.2, 0.3, 0.4, 0.5);
+            return new UpliftVanSlidingCurveResult(
+                UpliftVanSlidingCircleResultTestFactory.Create(),
+                UpliftVanSlidingCircleResultTestFactory.Create(),
+                Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
         }
     }
 }

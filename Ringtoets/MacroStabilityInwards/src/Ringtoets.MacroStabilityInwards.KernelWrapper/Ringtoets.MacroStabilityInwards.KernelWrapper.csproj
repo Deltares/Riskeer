@@ -60,9 +60,9 @@
     <Compile Include="Result\UpliftVanSlidingCircleResult.cs" />
     <Compile Include="Result\UpliftVanSlidingCurveResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Creators\MacroStabilityInwardsSlidingCurveResultCreator.cs" />
+    <Compile Include="Creators\UpliftVanSlidingCurveResultCreator.cs" />
     <Compile Include="Result\UpliftVanCalculationGridResult.cs" />
-    <Compile Include="Creators\MacroStabilityInwardsUpliftVanCalculationGridResultCreator.cs" />
+    <Compile Include="Creators\UpliftVanCalculationGridResultCreator.cs" />
     <Compile Include="Kernel\IMacroStabilityInwardsKernelFactory.cs" />
     <Compile Include="Kernel\IUpliftVanKernel.cs" />
     <Compile Include="Kernel\MacroStabilityInwardsKernelWrapperFactory.cs" />

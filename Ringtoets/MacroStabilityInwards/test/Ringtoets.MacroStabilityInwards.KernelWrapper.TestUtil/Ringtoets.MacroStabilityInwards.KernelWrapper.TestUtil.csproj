@@ -58,13 +58,13 @@
     </Compile>
     <Compile Include="MacroStabilityInwardsCalculatorFactoryConfig.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResultTestFactory.cs" />
-    <Compile Include="Result\MacroStabilityInwardsGridResultTestFactory.cs" />
-    <Compile Include="Result\MacroStabilityInwardsSlidingCircleResultTestFactory.cs" />
-    <Compile Include="Result\MacroStabilityInwardsCalculatorResultHelper.cs" />
-    <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTestFactory.cs" />
+    <Compile Include="Result\UpliftVanGridResultTestFactory.cs" />
+    <Compile Include="Result\UpliftVanSlidingCircleResultTestFactory.cs" />
+    <Compile Include="Result\UpliftVanCalculatorResultHelper.cs" />
+    <Compile Include="Result\UpliftVanSlidingCurveResultTestFactory.cs" />
     <Compile Include="SlidingDualCircleTestFactory.cs" />
     <Compile Include="SlipPlaneUpliftVanTestFactory.cs" />
-    <Compile Include="Kernel\MacroStabilityInwardsSubCalculatorFactoryConfig.cs" />
+    <Compile Include="Kernel\MacroStabilityInwardsKernelFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Kernel\TestMacroStabilityInwardsKernelFactory.cs" />
     <Compile Include="Kernel\UpliftVanKernelStub.cs" />

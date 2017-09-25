@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
     /// <summary>
     /// Helper that can be used in tests.
     /// </summary>
-    public static class MacroStabilityInwardsCalculatorResultHelper
+    public static class UpliftVanCalculatorResultHelper
     {
         /// <summary>
         /// Assert whether the <paramref name="actual"/> is equal to the <paramref name="expected"/>.

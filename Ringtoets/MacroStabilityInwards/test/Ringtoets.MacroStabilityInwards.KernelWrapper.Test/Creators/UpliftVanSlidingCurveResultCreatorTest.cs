@@ -31,13 +31,13 @@ using Point2D = Core.Common.Base.Geometry.Point2D;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class MacroStabilityInwardsSlidingCurveResultCreatorTest
+    public class UpliftVanSlidingCurveResultCreatorTest
     {
         [Test]
         public void Create_SlidingCurveNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSlidingCurveResultCreator.Create(null);
+            TestDelegate call = () => UpliftVanSlidingCurveResultCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            UpliftVanSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultCreator.Create(slidingCurve);
+            UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
             AssertActiveCircle(leftCircleIsActive ? result.LeftCircle : result.RightCircle,
@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             };
 
             // Call
-            UpliftVanSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultCreator.Create(slidingCurve);
+            UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
             Assert.AreEqual(1, result.Slices.Count());

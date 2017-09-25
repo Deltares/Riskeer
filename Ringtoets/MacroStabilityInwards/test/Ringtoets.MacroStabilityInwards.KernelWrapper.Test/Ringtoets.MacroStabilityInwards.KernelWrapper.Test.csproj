@@ -72,9 +72,9 @@
     <Compile Include="Result\UpliftVanGridResultTest.cs" />
     <Compile Include="Result\UpliftVanSliceResultTest.cs" />
     <Compile Include="Result\UpliftVanSlidingCircleResultTest.cs" />
-    <Compile Include="Creators\MacroStabilityInwardsSlidingCurveResultCreatorTest.cs" />
+    <Compile Include="Creators\UpliftVanSlidingCurveResultCreatorTest.cs" />
     <Compile Include="Result\UpliftVanSlidingCurveResultTest.cs" />
-    <Compile Include="Creators\MacroStabilityInwardsUpliftVanCalculationGridResultCreatorTest.cs" />
+    <Compile Include="Creators\UpliftVanCalculationGridResultCreatorTest.cs" />
     <Compile Include="Result\UpliftVanCalculationGridResultTest.cs" />
     <Compile Include="Kernel\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

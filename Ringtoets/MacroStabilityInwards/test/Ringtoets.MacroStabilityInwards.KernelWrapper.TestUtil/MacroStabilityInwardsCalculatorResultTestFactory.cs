@@ -37,10 +37,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         public static UpliftVanCalculatorResult Create()
         {
             return new UpliftVanCalculatorResult(
-                MacroStabilityInwardsSlidingCurveResultTestFactory.Create(),
+                UpliftVanSlidingCurveResultTestFactory.Create(),
                 new UpliftVanCalculationGridResult(
-                    MacroStabilityInwardsGridResultTestFactory.Create(),
-                    MacroStabilityInwardsGridResultTestFactory.Create(),
+                    UpliftVanGridResultTestFactory.Create(),
+                    UpliftVanGridResultTestFactory.Create(),
                     new[]
                     {
                         3,

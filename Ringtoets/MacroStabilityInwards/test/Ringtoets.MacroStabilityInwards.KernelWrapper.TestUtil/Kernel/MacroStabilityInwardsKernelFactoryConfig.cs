@@ -33,23 +33,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// using(new MacroStabilityInwardsCalculationServiceConfig()) {
-    ///     var testFactory = (TestMacroStabilityInwardsSubCalculatorFactory) MacroStabilityInwardsCalculationService.SubCalculatorFactory;
+    /// using(new MacroStabilityInwardsKernelFactoryConfig())
+    /// {
+    ///     var testFactory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
     /// 
     ///     // Perform tests with testFactory
     /// }
     /// </code>
     /// </example>
-    public class MacroStabilityInwardsSubCalculatorFactoryConfig : IDisposable
+    public class MacroStabilityInwardsKernelFactoryConfig : IDisposable
     {
         private readonly IMacroStabilityInwardsKernelFactory previousFactory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSubCalculatorFactoryConfig"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsKernelFactoryConfig"/>.
         /// Sets a <see cref="TestMacroStabilityInwardsKernelFactory"/> to 
         /// <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>
         /// </summary>
-        public MacroStabilityInwardsSubCalculatorFactoryConfig()
+        public MacroStabilityInwardsKernelFactoryConfig()
         {
             previousFactory = MacroStabilityInwardsKernelWrapperFactory.Instance;
             MacroStabilityInwardsKernelWrapperFactory.Instance = new TestMacroStabilityInwardsKernelFactory();
@@ -57,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 
         /// <summary>
         /// Reverts the <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/> to the value
-        /// it had at time of construction of the <see cref="MacroStabilityInwardsSubCalculatorFactoryConfig"/>.
+        /// it had at time of construction of the <see cref="MacroStabilityInwardsKernelFactoryConfig"/>.
         /// </summary>
         public void Dispose()
         {

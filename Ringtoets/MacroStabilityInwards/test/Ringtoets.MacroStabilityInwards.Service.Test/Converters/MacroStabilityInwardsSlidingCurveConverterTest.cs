@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         public void Convert_WithResult_ReturnConvertedSlidingCurve()
         {
             // Setup
-            UpliftVanSlidingCurveResult result = MacroStabilityInwardsSlidingCurveResultTestFactory.Create();
+            UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
             MacroStabilityInwardsSlidingCurve output = MacroStabilityInwardsSlidingCurveConverter.Convert(result);

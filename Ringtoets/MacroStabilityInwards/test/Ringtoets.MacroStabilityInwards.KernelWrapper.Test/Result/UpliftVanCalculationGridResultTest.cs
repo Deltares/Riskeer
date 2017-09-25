@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_LeftGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult grid = UpliftVanGridResultTestFactory.Create();
             
             // Call
             TestDelegate call = () => new UpliftVanCalculationGridResult(null, grid, Enumerable.Empty<double>());
@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_RightGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult grid = UpliftVanGridResultTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculationGridResult(grid, null, Enumerable.Empty<double>());
@@ -62,8 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_TangentLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
-            UpliftVanGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGridResult rightGrid = UpliftVanGridResultTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculationGridResult(leftGrid, rightGrid, null);
@@ -77,8 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_ExpectedValues()
         {
             // Setup
-            UpliftVanGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
-            UpliftVanGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGridResult rightGrid = UpliftVanGridResultTestFactory.Create();
             var tangentLines = new[]
             {
                 0,

@@ -47,8 +47,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         public void Convert_WithResult_ReturnConvertedSlipPlaneUpliftVan()
         {
             // Setup
-            UpliftVanGridResult leftGrid = MacroStabilityInwardsGridResultTestFactory.Create();
-            UpliftVanGridResult rightGrid = MacroStabilityInwardsGridResultTestFactory.Create();
+            UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGridResult rightGrid = UpliftVanGridResultTestFactory.Create();
             var tangentLines = new[]
             {
                 3,

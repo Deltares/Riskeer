@@ -19,28 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Result
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {
-    [TestFixture]
-    public class MacroStabilityInwardsGridResultTestFactoryTest
+    /// <summary>
+    /// Factory to create simple <see cref="UpliftVanGridResult"/>
+    /// instances that can be used for testing.
+    /// </summary>
+    public static class UpliftVanGridResultTestFactory
     {
-        [Test]
-        public void Create_Always_ReturnGridWithDefaultValues()
+        /// <summary>
+        /// Creates a new <see cref="UpliftVanGridResult"/>.
+        /// </summary>
+        /// <returns>The created <see cref="UpliftVanGridResult"/>.</returns>
+        public static UpliftVanGridResult Create()
         {
-            // Call
-            UpliftVanGridResult grid = MacroStabilityInwardsGridResultTestFactory.Create();
-
-            // Assert
-            Assert.AreEqual(0.1, grid.XLeft);
-            Assert.AreEqual(0.2, grid.XRight);
-            Assert.AreEqual(0.3, grid.ZTop);
-            Assert.AreEqual(0.4, grid.ZBottom);
-            Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
-            Assert.AreEqual(2, grid.NumberOfVerticalPoints);
+            return new UpliftVanGridResult(0.1, 0.2, 0.3, 0.4, 1, 2);
         }
     }
 }

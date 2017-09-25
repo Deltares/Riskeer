@@ -114,9 +114,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
             Assert.AreEqual(upliftVanKernel.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
-            MacroStabilityInwardsCalculatorResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
+            UpliftVanCalculatorResultHelper.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                                                                              actual.SlidingCurveResult);
-            MacroStabilityInwardsCalculatorResultHelper.AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
+            UpliftVanCalculatorResultHelper.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                                                                             actual.CalculationGridResult);
 
             Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);

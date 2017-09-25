@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_LeftCircleNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanSlidingCircleResult rightCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            UpliftVanSlidingCircleResult rightCircle = UpliftVanSlidingCircleResultTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanSlidingCurveResult(null, rightCircle, Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_RightCircleNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanSlidingCircleResult leftCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            UpliftVanSlidingCircleResult leftCircle = UpliftVanSlidingCircleResultTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanSlidingCurveResult(leftCircle, null, Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         public void Constructor_SlicesNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanSlidingCircleResult circle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            UpliftVanSlidingCircleResult circle = UpliftVanSlidingCircleResultTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanSlidingCurveResult(circle, circle, null, 0, 0);
@@ -78,8 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Result
         {
             // Setup
             var random = new Random(21);
-            UpliftVanSlidingCircleResult rightCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
-            UpliftVanSlidingCircleResult leftCircle = MacroStabilityInwardsSlidingCircleResultTestFactory.Create();
+            UpliftVanSlidingCircleResult rightCircle = UpliftVanSlidingCircleResultTestFactory.Create();
+            UpliftVanSlidingCircleResult leftCircle = UpliftVanSlidingCircleResultTestFactory.Create();
             var slices = new[]
             {
                 new UpliftVanSliceResult(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
