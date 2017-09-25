@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocation
             };
 
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationProperties
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             var random = new Random(21);
             var topLevelIllustrationPoint =
@@ -180,7 +180,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
@@ -290,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var hydraulicBoundaryLocationProperties = new TestGrassCoverErosionOutwardsLocationProperties(
@@ -335,7 +335,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var hydraulicBoundaryLocationProperties = new TestGrassCoverErosionOutwardsLocationProperties
@@ -368,9 +368,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private class TestGrassCoverErosionOutwardsLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         {
             public TestGrassCoverErosionOutwardsLocationContext(
-                ObservableList<HydraulicBoundaryLocation> wrappedData,
-                HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(wrappedData, hydraulicBoundaryLocation) {}
+                HydraulicBoundaryLocation wrappedData,
+                ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                : base(wrappedData, hydraulicBoundaryLocations) {}
         }
     }
 }

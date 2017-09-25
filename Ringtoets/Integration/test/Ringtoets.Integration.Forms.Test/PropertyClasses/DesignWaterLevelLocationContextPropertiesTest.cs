@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new DesignWaterLevelLocationContextProperties
             {
-                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Assert
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new DesignWaterLevelLocationContextProperties
             {
-                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Assert
@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new DesignWaterLevelLocationContextProperties
             {
-                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Assert
@@ -315,7 +315,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var properties = new DesignWaterLevelLocationContextProperties
             {
-                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Precondition

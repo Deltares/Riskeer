@@ -72,10 +72,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
-                Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(new ObservableList<HydraulicBoundaryLocation>
+                Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(hydraulicBoundaryLocation, new ObservableList<HydraulicBoundaryLocation>
                 {
                     hydraulicBoundaryLocation
-                }, hydraulicBoundaryLocation)
+                })
             };
 
             // Assert
@@ -156,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
@@ -198,10 +198,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
-                Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(new ObservableList<HydraulicBoundaryLocation>
+                Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(hydraulicBoundaryLocation, new ObservableList<HydraulicBoundaryLocation>
                 {
                     hydraulicBoundaryLocation
-                }, hydraulicBoundaryLocation)
+                })
             };
 
             // Assert
@@ -304,7 +304,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
-                Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation)
+                Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(hydraulicBoundaryLocation, locations)
             };
 
             // Precondition

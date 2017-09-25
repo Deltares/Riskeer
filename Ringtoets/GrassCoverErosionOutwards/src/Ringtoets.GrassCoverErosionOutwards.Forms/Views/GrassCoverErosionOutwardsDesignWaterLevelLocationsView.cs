@@ -110,8 +110,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null
-                       ? new GrassCoverErosionOutwardsDesignWaterLevelLocationContext((ObservableList<HydraulicBoundaryLocation>) Data,
-                                                                                      ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
+                       ? new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject,
+                                                                                      (ObservableList<HydraulicBoundaryLocation>) Data)
                        : null;
         }
 

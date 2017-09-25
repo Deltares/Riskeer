@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            TestDelegate test = () => new WaveHeightLocationContext(hydraulicBoundaryDatabase, null);
+            TestDelegate test = () => new WaveHeightLocationContext(null, hydraulicBoundaryDatabase);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
 
             // Call
-            TestDelegate test = () => new WaveHeightLocationContext(null, hydraulicBoundaryLocation);
+            TestDelegate test = () => new WaveHeightLocationContext(hydraulicBoundaryLocation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            var presentationObject = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var presentationObject = new WaveHeightLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(presentationObject);

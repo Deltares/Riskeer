@@ -435,8 +435,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 IAssessmentSection assessmentSection = view.AssessmentSection;
 
-                return new WaveHeightLocationContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                     ((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+                return new WaveHeightLocationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject,
+                                                     assessmentSection.HydraulicBoundaryDatabase);
             }
 
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)

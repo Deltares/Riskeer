@@ -42,8 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="hydraulicBoundaryLocations">The <see cref="ObservableList{T}"/> 
         /// containing all the hydraulic boundary locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                            HydraulicBoundaryLocation wrappedData)
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData, ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
             : base(wrappedData)
         {
             if (hydraulicBoundaryLocations == null)

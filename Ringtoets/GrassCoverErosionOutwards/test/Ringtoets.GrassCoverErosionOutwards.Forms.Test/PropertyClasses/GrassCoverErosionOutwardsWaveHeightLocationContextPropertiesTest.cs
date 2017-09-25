@@ -72,10 +72,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
             {
-                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(new ObservableList<HydraulicBoundaryLocation>
+                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, new ObservableList<HydraulicBoundaryLocation>
                 {
                     hydraulicBoundaryLocation
-                }, hydraulicBoundaryLocation)
+                })
             };
 
             // Assert
@@ -155,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
@@ -197,10 +197,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
             {
-                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(new ObservableList<HydraulicBoundaryLocation>
+                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, new ObservableList<HydraulicBoundaryLocation>
                 {
                     hydraulicBoundaryLocation
-                }, hydraulicBoundaryLocation)
+                })
             };
 
             // Assert
@@ -302,17 +302,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
             {
-                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation)
+                Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations)
             };
 
             // Precondition
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
             // Call
             properties.ShouldIllustrationPointsBeCalculated = true;
 
             // Assert
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             mocks.VerifyAll();
         }
     }

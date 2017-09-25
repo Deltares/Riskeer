@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(locations, null);
+            TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(null, locations);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
 
             // Call
-            TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(null, hydraulicBoundaryLocation);
+            TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             };
 
             // Call
-            var presentationObject = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
+            var presentationObject = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, locations);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(presentationObject);
@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
-            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
             // Call
             bool isEqual = context.Equals(null);
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
-            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
             // Call
             bool isEqual = context.Equals(context);
@@ -117,8 +117,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationList1 = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocationList2 = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList1, hydraulicBoundaryLocation);
-            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList2, hydraulicBoundaryLocation);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList1);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList2);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -136,8 +136,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "First name", 2.0, 3.0);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Second name", 4.0, 5.0);
-            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation1);
-            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation2);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation1, hydraulicBoundaryLocationList);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation2, hydraulicBoundaryLocationList);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -154,8 +154,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
-            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -172,8 +172,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
-            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationList, hydraulicBoundaryLocation);
+            var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
+            var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
             // Precondition
             Assert.AreEqual(context1, context2);
@@ -188,9 +188,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
         private class TestGrassCoverErosionOutwardsLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         {
-            public TestGrassCoverErosionOutwardsLocationContext(ObservableList<HydraulicBoundaryLocation> observable,
-                                                                HydraulicBoundaryLocation location)
-                : base(observable, location) {}
+            public TestGrassCoverErosionOutwardsLocationContext(HydraulicBoundaryLocation location,
+                                                                ObservableList<HydraulicBoundaryLocation> observable
+            )
+                : base(location, observable) {}
         }
     }
 }

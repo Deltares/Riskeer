@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, null);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(null, hydraulicBoundaryDatabase);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(null, hydraulicBoundaryLocation);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
             // Call
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(context);
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             bool isEqual = context.Equals(null);
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
 
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             bool isEqual = context.Equals(context);
@@ -113,8 +113,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase1 = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase1, hydraulicBoundaryLocation);
-            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase2, hydraulicBoundaryLocation);
+            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase1);
+            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase2);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -132,8 +132,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "First name", 2.0, 3.0);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Second name", 4.0, 5.0);
-            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation1);
-            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation2);
+            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation1, hydraulicBoundaryDatabase);
+            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation2, hydraulicBoundaryDatabase);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -150,8 +150,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
-            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
+            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -168,8 +168,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
-            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context1 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
+            var context2 = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Precondition
             Assert.AreEqual(context1, context2);
@@ -184,8 +184,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
         {
-            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(wrappedData, hydraulicBoundaryLocation) {}
+            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                : base(wrappedData, hydraulicBoundaryDatabase) {}
         }
     }
 }

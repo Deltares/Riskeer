@@ -26,20 +26,21 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class HydraulicBoundaryLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/> 
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
         /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="Common.Data.Hydraulics.HydraulicBoundaryDatabase"/> 
         /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationContext(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                   HydraulicBoundaryLocation wrappedData) : base(wrappedData)
+        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
+                                                   HydraulicBoundaryDatabase hydraulicBoundaryDatabase
+        ) : base(wrappedData)
         {
             if (hydraulicBoundaryDatabase == null)
             {

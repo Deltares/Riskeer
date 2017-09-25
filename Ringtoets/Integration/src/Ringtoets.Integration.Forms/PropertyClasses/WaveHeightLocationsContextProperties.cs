@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.Locations.Select(loc => new WaveHeightLocationContextProperties
                 {
-                    Data = new WaveHeightLocationContext(data, loc)
+                    Data = new WaveHeightLocationContext(loc, data)
                 }).ToArray();
             }
         }

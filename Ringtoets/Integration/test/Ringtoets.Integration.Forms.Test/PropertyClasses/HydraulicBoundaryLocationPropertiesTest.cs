@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             TestDelegate test = () => new TestHydraulicBoundaryLocationProperties
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             var random = new Random(21);
             var topLevelIllustrationPoint =
@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
@@ -255,7 +255,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(new HydraulicBoundaryLocationProperties.ConstructionProperties
@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase);
 
             // Call
             var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
@@ -326,8 +326,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
         {
-            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(wrappedData, hydraulicBoundaryLocation) {}
+            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                : base(wrappedData, hydraulicBoundaryDatabase) {}
         }
     }
 }

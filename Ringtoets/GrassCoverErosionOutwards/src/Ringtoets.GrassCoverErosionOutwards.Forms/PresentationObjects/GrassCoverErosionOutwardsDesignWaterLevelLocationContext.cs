@@ -34,13 +34,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedList">The <see cref="ObservableList{T}"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
-        /// belongs to.</param>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> 
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
         /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryLocations">The <see cref="ObservableList{T}"/> which 
+        /// the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(ObservableList<HydraulicBoundaryLocation> wrappedList,
-                                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            : base(wrappedList, hydraulicBoundaryLocation) {}
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData,
+                                                                        ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+            : base(wrappedData, hydraulicBoundaryLocations) {}
     }
 }

@@ -1391,6 +1391,7 @@ namespace Ringtoets.Integration.Plugin
                     if (successfulCalculation)
                     {
                         nodeData.NotifyObservers();
+                        assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
                     }
                 });
 
@@ -1425,6 +1426,7 @@ namespace Ringtoets.Integration.Plugin
                     if (successfulCalculation)
                     {
                         nodeData.NotifyObservers();
+                        assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
                     }
                 });
 

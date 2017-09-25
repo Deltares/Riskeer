@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new WaveHeightLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Assert
@@ -170,7 +170,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new WaveHeightLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Assert
@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new WaveHeightLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Assert
@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+                Data = new WaveHeightLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
 
             // Precondition

@@ -32,8 +32,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -531,8 +529,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
             {
-                return new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>) view.Data,
-                                                                              ((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+                return new GrassCoverErosionOutwardsWaveHeightLocationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject,
+                                                                              (ObservableList<HydraulicBoundaryLocation>) view.Data);
             }
 
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)

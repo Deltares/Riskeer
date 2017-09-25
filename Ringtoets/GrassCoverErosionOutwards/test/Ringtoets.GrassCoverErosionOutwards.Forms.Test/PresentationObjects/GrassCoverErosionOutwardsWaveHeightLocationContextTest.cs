@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             };
 
             // Call
-            var presentationObject = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation);
+            var presentationObject = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(presentationObject);

@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -272,6 +273,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
+
+            var assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+            assessmentSection.Attach(assessmentSectionObserver);
+
+            var databaseObserver = mockRepository.StrictMock<IObserver>();
+            databaseObserver.Expect(o => o.UpdateObserver());
+            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
+
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
