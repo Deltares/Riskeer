@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
         }
 
         [Test]
-        public void Constructor_SetsTestFactoryForPipingCalculatorService()
+        public void Constructor_SetsTestFactoryForPipingSubCalculatorFactory()
         {
             // Call
             using (new PipingSubCalculatorFactoryConfig())

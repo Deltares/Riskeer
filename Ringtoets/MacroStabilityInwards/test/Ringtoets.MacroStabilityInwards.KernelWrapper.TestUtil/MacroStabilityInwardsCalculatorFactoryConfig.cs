@@ -24,25 +24,21 @@ using System;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="IMacroStabilityInwardsCalculatorFactory"/>
-    /// for <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/> while testing.
-    /// Disposing an instance of this class will revert the
+    /// This class can be used to set a temporary <see cref="TestMacroStabilityInwardsCalculatorFactory"/> 
+    /// for <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/> while testing. 
+    /// Disposing an instance of this class will revert the 
     /// <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// var mockRepository = new MockRepository();
-    /// var calculatorFactory = mockRepository.Stub&lt;IMacroStabilityInwardsCalculatorFactory&gt;();
-    /// mockRepository.ReplayAll();
-    /// 
-    /// using(new MacroStabilityInwardsCalculatorFactoryConfig(calculatorFactory))
+    /// using(new MacroStabilityInwardsCalculatorFactoryConfig())
     /// {
-    ///     // Perform test with mocked factory
+    ///     var testFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+    /// 
+    ///     // Perform tests with testFactory
     /// }
     /// </code>
-    /// 
-    /// mockRepository.VerifyAll();
     /// </example>
     public class MacroStabilityInwardsCalculatorFactoryConfig : IDisposable
     {
@@ -50,21 +46,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculatorFactoryConfig"/>.
-        /// Sets the <paramref name="newFactory"/> to <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/>.
+        /// Sets a <see cref="TestMacroStabilityInwardsCalculatorFactory"/> to 
+        /// <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/>
         /// </summary>
-        /// <param name="newFactory">The factory that will be used while testing.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newFactory"/> 
-        /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculatorFactoryConfig(IMacroStabilityInwardsCalculatorFactory newFactory)
+        public MacroStabilityInwardsCalculatorFactoryConfig()
         {
-            if (newFactory == null)
-            {
-                throw new ArgumentNullException(nameof(newFactory));
-            }
             previousFactory = MacroStabilityInwardsCalculatorFactory.Instance;
-            MacroStabilityInwardsCalculatorFactory.Instance = newFactory;
+            MacroStabilityInwardsCalculatorFactory.Instance = new TestMacroStabilityInwardsCalculatorFactory();
         }
 
+        /// <summary>
+        /// Reverts the <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/> to the value
+        /// it had at time of construction of the <see cref="MacroStabilityInwardsCalculatorFactoryConfig"/>.
+        /// </summary>
         public void Dispose()
         {
             MacroStabilityInwardsCalculatorFactory.Instance = previousFactory;

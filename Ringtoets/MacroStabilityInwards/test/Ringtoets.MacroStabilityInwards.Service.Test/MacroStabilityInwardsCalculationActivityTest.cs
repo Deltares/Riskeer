@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             double norm = new Random(21).NextDouble();
 
-            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), norm, double.NaN);
                 activity.Run();

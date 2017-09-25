@@ -33,8 +33,9 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// using(new PipingCalculationServiceConfig()) {
-    ///     var testFactory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
+    /// using(new PipingSubCalculatorFactoryConfig())
+    /// {
+    ///     var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
     /// 
     ///     // Perform tests with testFactory
     /// }

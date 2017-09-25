@@ -248,7 +248,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             testCalculation.Name = name;
 
-            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 Action call = () =>
                 {
@@ -275,7 +275,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_ValidCalculationNoOutput_ShouldSetOutput()
         {
             // Setup
-            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Precondition
                 Assert.IsNull(testCalculation.Output);
@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             testCalculation.Output = output;
 
-            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Precondition
                 Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
@@ -314,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_CompleteInput_SetsInputOnCalculator()
         {
             // Setup
-            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation);
@@ -328,7 +328,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
-            using (new MacroStabilityInwardsCalculatorFactoryConfig(new TestMacroStabilityInwardsCalculatorFactory()))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 

@@ -28,31 +28,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
     public class MacroStabilityInwardsCalculatorFactoryConfigTest
     {
         [Test]
-        public void Constructor_FactoryNull_ThrowsArgumentNullException()
+        public void Constructor_NewInstanceCanBeDisposed()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculatorFactoryConfig(null);
+            var factory = new MacroStabilityInwardsCalculatorFactoryConfig();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("newFactory", exception.ParamName);
+            Assert.IsInstanceOf<IDisposable>(factory);
+            Assert.DoesNotThrow(() => factory.Dispose());
         }
 
         [Test]
-        public void Constructor_WithFactory_InstanceTemporarilyChanged()
+        public void Constructor_SetsTestFactoryForMacroStabilityInwardsCalculatorFactory()
         {
-            // Setup
-            IMacroStabilityInwardsCalculatorFactory originalInstance = MacroStabilityInwardsCalculatorFactory.Instance;
-            var factory = new TestMacroStabilityInwardsCalculatorFactory();
-
             // Call
-            using (var config = new MacroStabilityInwardsCalculatorFactoryConfig(factory))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<IDisposable>(config);
-                Assert.AreSame(factory, MacroStabilityInwardsCalculatorFactory.Instance);
+                Assert.IsInstanceOf<TestMacroStabilityInwardsCalculatorFactory>(MacroStabilityInwardsCalculatorFactory.Instance);
             }
-            Assert.AreSame(originalInstance, MacroStabilityInwardsCalculatorFactory.Instance);
+        }
+
+        [Test]
+        public void Dispose_Always_ResetsFactoryToPreviousValue()
+        {
+            // Setup
+            IMacroStabilityInwardsCalculatorFactory expectedFactory = MacroStabilityInwardsCalculatorFactory.Instance;
+
+            // Call
+            using (new MacroStabilityInwardsCalculatorFactoryConfig()) { }
+
+            // Assert
+            Assert.AreSame(expectedFactory, MacroStabilityInwardsCalculatorFactory.Instance);
         }
     }
 }
