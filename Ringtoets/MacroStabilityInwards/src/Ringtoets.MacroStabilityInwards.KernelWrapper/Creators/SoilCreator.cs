@@ -29,13 +29,13 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="Soil"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
+    /// Creates <see cref="Soil"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
     /// </summary>
     internal static class SoilCreator
     {
         /// <summary>
         /// Creates a <see cref="Soil"/> based on information contained in the profile <paramref name="profile"/>,
-        /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
+        /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
         /// <param name="profile">The <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> from
         /// which to take the information.</param>

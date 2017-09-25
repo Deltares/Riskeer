@@ -37,7 +37,7 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculatorTest
+    public class UpliftVanCalculatorTest
     {
         [Test]
         public void Constructor_WithoutInput_ArgumentNullException()
@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculator(null, factory);
+            TestDelegate call = () => new UpliftVanCalculator(null, factory);
 
             // Assert
             const string expectedMessage = "MacroStabilityInwardsCalculatorInput required for creating a MacroStabilityInwardsCalculator.";
@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         {
             // Call
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
-            TestDelegate call = () => new MacroStabilityInwardsCalculator(input, null);
+            TestDelegate call = () => new UpliftVanCalculator(input, null);
 
             // Assert
             const string expectedMessage = "IMacroStabilityInwardsSubCalculatorFactory required for creating a MacroStabilityInwardsCalculator.";
@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
 
             // Call
-            var calculator = new MacroStabilityInwardsCalculator(input, factory);
+            var calculator = new UpliftVanCalculator(input, factory);
 
             // Assert
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
@@ -93,30 +93,30 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 
             var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
-            UpliftVanKernelStub calculator = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
-            calculator.FactoryOfStability = random.NextDouble();
-            calculator.ZValue = random.NextDouble();
-            calculator.ForbiddenZonesXEntryMax = random.NextDouble();
-            calculator.ForbiddenZonesXEntryMin = random.NextDouble();
-            calculator.ForbiddenZonesAutomaticallyCalculated = random.NextBoolean();
-            calculator.GridAutomaticallyCalculated = random.NextBoolean();
-            calculator.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
-            calculator.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            upliftVanKernel.FactoryOfStability = random.NextDouble();
+            upliftVanKernel.ZValue = random.NextDouble();
+            upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
+            upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
+            upliftVanKernel.ForbiddenZonesAutomaticallyCalculated = random.NextBoolean();
+            upliftVanKernel.GridAutomaticallyCalculated = random.NextBoolean();
+            upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
+            upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
 
             // Call
-            MacroStabilityInwardsCalculatorResult actual = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+            MacroStabilityInwardsCalculatorResult actual = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
             Assert.IsNotNull(actual);
-            Assert.AreEqual(calculator.FactoryOfStability, actual.FactorOfStability);
-            Assert.AreEqual(calculator.ZValue, actual.ZValue);
-            Assert.AreEqual(calculator.ForbiddenZonesXEntryMax, actual.ForbiddenZonesXEntryMax);
-            Assert.AreEqual(calculator.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
-            Assert.AreEqual(calculator.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
-            Assert.AreEqual(calculator.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
-            MacroStabilityInwardsCalculatorResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(calculator.SlidingCurveResult),
+            Assert.AreEqual(upliftVanKernel.FactoryOfStability, actual.FactorOfStability);
+            Assert.AreEqual(upliftVanKernel.ZValue, actual.ZValue);
+            Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, actual.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(upliftVanKernel.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
+            Assert.AreEqual(upliftVanKernel.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
+            MacroStabilityInwardsCalculatorResultHelper.AssertSlidingCurve(MacroStabilityInwardsSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                                                                              actual.SlidingCurve);
-            MacroStabilityInwardsCalculatorResultHelper.AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(calculator.SlipPlaneResult),
+            MacroStabilityInwardsCalculatorResultHelper.AssertSlipPlaneGrid(MacroStabilityInwardsUpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                                                                             actual.UpliftVanCalculationGrid);
 
             Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            List<string> validationResult = new MacroStabilityInwardsCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Validate();
+            List<string> validationResult = new UpliftVanCalculator(input, testMacroStabilityInwardsSubCalculatorFactory).Validate();
 
             // Assert
             CollectionAssert.IsEmpty(validationResult);

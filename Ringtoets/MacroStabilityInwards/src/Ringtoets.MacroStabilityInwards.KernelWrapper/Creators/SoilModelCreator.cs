@@ -26,13 +26,13 @@ using Deltares.WTIStability.Data.Standard;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="SoilModel"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
+    /// Creates <see cref="SoilModel"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
     /// </summary>
     internal static class SoilModelCreator
     {
         /// <summary>
         /// Creates a <see cref="SoilModel"/> with the given <paramref name="soils"/>
-        /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
+        /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
         /// <param name="soils">The array of <see cref="Soil"/> to use in the <see cref="SoilModel"/>.</param>
         /// <returns>A new <see cref="SoilModel"/> with the <paramref name="soils"/>.</returns>

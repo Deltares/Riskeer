@@ -29,13 +29,13 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="SurfaceLine2"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
+    /// Creates <see cref="SurfaceLine2"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
     /// </summary>
     internal static class SurfaceLineCreator
     {
         /// <summary>
         /// Creates a <see cref="SurfaceLine2"/> based on information of <paramref name="surfaceLine"/>,
-        /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
+        /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> from
         /// which to take the information.</param>

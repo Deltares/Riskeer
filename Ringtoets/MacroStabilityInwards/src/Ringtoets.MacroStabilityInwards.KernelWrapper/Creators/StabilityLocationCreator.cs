@@ -28,13 +28,13 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="StabilityLocation"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
+    /// Creates <see cref="StabilityLocation"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
     /// </summary>
     internal static class StabilityLocationCreator
     {
         /// <summary>
         /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/>,
-        /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
+        /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
         /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> to get the information from.</param>
         /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>

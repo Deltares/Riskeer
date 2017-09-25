@@ -30,8 +30,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item><see cref="MacroStabilityInwardsCalculator"/> input into kernel input;</item>
-    /// <item>kernel output into <see cref="MacroStabilityInwardsCalculator"/> output.</item>
+    /// <item><see cref="UpliftVanCalculator"/> input into kernel input;</item>
+    /// <item>kernel output into <see cref="UpliftVanCalculator"/> output.</item>
     /// </list>
     /// </remarks>
     public interface IUpliftVanKernel

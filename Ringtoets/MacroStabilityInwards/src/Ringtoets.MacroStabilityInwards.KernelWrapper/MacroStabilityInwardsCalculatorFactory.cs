@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 
         public IUpliftVanCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            return new MacroStabilityInwardsCalculator(input, factory);
+            return new UpliftVanCalculator(input, factory);
         }
     }
 }

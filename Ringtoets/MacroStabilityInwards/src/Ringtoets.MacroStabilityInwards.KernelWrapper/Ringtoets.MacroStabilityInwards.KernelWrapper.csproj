@@ -49,7 +49,7 @@
     <Compile Include="Creators\SurfaceLineCreator.cs" />
     <Compile Include="IUpliftVanCalculator.cs" />
     <Compile Include="IMacroStabilityInwardsCalculatorFactory.cs" />
-    <Compile Include="MacroStabilityInwardsCalculator.cs" />
+    <Compile Include="UpliftVanCalculator.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorInput.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResult.cs" />

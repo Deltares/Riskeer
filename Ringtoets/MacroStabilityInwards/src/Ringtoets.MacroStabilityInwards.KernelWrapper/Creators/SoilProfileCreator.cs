@@ -31,13 +31,13 @@ using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="SoilProfile"/> instances which are required by the <see cref="MacroStabilityInwardsCalculator"/>.
+    /// Creates <see cref="SoilProfile"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
     /// </summary>
     internal static class SoilProfileCreator
     {
         /// <summary>
         /// Creates a <see cref="SoilProfile2D"/> with the given <paramref name="layersWithSoils"/>
-        /// which can be used in the <see cref="MacroStabilityInwardsCalculator"/>.
+        /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to create the <see cref="SoilProfile2D"/> for.</param>
         /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>

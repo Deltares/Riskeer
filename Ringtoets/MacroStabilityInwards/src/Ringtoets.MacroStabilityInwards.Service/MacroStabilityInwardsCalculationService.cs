@@ -34,7 +34,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Service
 {
     /// <summary>
-    /// This class is responsible for invoking operations on the <see cref="MacroStabilityInwardsCalculator"/>. Error and status information is 
+    /// This class is responsible for invoking operations on the <see cref="UpliftVanCalculator"/>. Error and status information is 
     /// logged during the execution of the operation.
     /// </summary>
     public static class MacroStabilityInwardsCalculationService

@@ -30,23 +30,21 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
     /// <summary>
-    /// This class represents a combination of macro stability inwards sub calculations, which together can be used
-    /// to assess based on macro stability inwards.
+    /// Class representing an Uplift Van calculator.
     /// </summary>
-    public class MacroStabilityInwardsCalculator : IUpliftVanCalculator
+    public class UpliftVanCalculator : IUpliftVanCalculator
     {
         private readonly MacroStabilityInwardsCalculatorInput input;
         private readonly IMacroStabilityInwardsKernelFactory factory;
 
         /// <summary>
-        /// Constructs a new <see cref="MacroStabilityInwardsCalculator"/>. The <paramref name="input"/> is used to
-        /// obtain the parameters used in the different sub calculations.
+        /// Creates a new instance of <see cref="UpliftVanCalculator"/>.
         /// </summary>
         /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> containing all the values required
-        /// for performing a macro stability inwards calculation.</param>
-        /// <param name="factory">The factory responsible for creating the sub calculators.</param>
+        /// for performing the Uplift Van calculation.</param>
+        /// <param name="factory">The factory responsible for creating the Uplift Van kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public UpliftVanCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             if (input == null)
             {
