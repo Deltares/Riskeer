@@ -484,7 +484,9 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action call = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = "Het traject kan niet aangemaakt worden met normwaarde 1,12500011250001E-07.";
+            const string expectedMessage = "Het traject kan niet aangemaakt worden met een ondergrens van 1/9.999.999 en een signaleringswaarde van 1/8.888.888. " +
+                                           "De waarde van de ondergrens en signaleringswaarde moet in het bereik [0,000001, 0,1] liggen en " +
+                                           "de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.";
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
             {
                 Tuple<string, Level, Exception> tuple = tuples.Single();

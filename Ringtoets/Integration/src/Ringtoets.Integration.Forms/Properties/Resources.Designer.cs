@@ -186,12 +186,12 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het traject kan niet aangemaakt worden met normwaarde {0}..
+        ///   Looks up a localized string similar to Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde..
         /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_create_assessmentSection_with_Norm_0 {
+        public static string AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_ {
             get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_create_" +
-                        "assessmentSection_with_Norm_0", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_L" +
+                        "owerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_", resourceCulture);
             }
         }
         
