@@ -30,13 +30,13 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculatorInputTest
+    public class UpliftVanCalculatorInputTest
     {
         [Test]
         public void Constructor_WithoutConstructionProperies_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculatorInput(null);
+            TestDelegate test = () => new UpliftVanCalculatorInput(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
                 }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
                     new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()))
             }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
-            
+
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
             double xCoordinateDrainageConstruction = random.Next();
@@ -95,8 +95,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             double slipPlaneMinLength = random.Next();
 
             // Call
-            var input = new MacroStabilityInwardsCalculatorInput(
-                new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     AssessmentLevel = hRiverValue,
                     SurfaceLine = surfaceLine,
@@ -180,11 +180,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         }
 
         [Test]
-        public void Constructor_EmptyConstrutionProperties_ExpectedValues()
+        public void Constructor_EmptyConstructionProperties_ExpectedValues()
         {
             // Call
-            var input = new MacroStabilityInwardsCalculatorInput(
-                new MacroStabilityInwardsCalculatorInput.ConstructionProperties());
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties());
 
             // Assert
             Assert.IsNull(input.SurfaceLine);

@@ -34,10 +34,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
         /// Creates a <see cref="SlipPlaneUpliftVan"/> based on the given <paramref name="input"/>,
         /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
-        /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> to get the information from.</param>
+        /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
         /// <returns>A new <see cref="SlipPlaneUpliftVan"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>        
-        public static SlipPlaneUpliftVan Create(MacroStabilityInwardsCalculatorInput input)
+        public static SlipPlaneUpliftVan Create(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
             };
         }
 
-        private static SlipCircleTangentLine CreateTangentline(MacroStabilityInwardsCalculatorInput input)
+        private static SlipCircleTangentLine CreateTangentline(UpliftVanCalculatorInput input)
         {
             return new SlipCircleTangentLine
             {

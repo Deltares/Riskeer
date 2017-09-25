@@ -33,18 +33,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
         /// </summary>
         public TestMacroStabilityInwardsCalculatorFactory()
         {
-            LastCreatedCalculator = new MacroStabilityInwardsCalculatorStub();
+            LastCreatedUpliftVanCalculator = new UpliftVanCalculatorStub();
         }
 
         /// <summary>
-        /// Gets the last created <see cref="MacroStabilityInwardsCalculatorStub"/>.
+        /// Gets the last created <see cref="UpliftVanCalculatorStub"/>.
         /// </summary>
-        public MacroStabilityInwardsCalculatorStub LastCreatedCalculator { get; }
+        public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
 
-        public IUpliftVanCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            LastCreatedCalculator.Input = input;
-            return LastCreatedCalculator;
+            LastCreatedUpliftVanCalculator.Input = input;
+            return LastCreatedUpliftVanCalculator;
         }
     }
 }

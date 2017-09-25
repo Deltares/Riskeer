@@ -64,7 +64,7 @@
     <Compile Include="Creators\SoilProfileCreatorTest.cs" />
     <Compile Include="Creators\StabilityLocationCreatorTest.cs" />
     <Compile Include="Creators\SurfaceLineCreatorTest.cs" />
-    <Compile Include="MacroStabilityInwardsCalculatorInputTest.cs" />
+    <Compile Include="UpliftVanCalculatorInputTest.cs" />
     <Compile Include="UpliftVanCalculatorResultTest.cs" />
     <Compile Include="UpliftVanCalculatorTest.cs" />
     <Compile Include="Creators\SoilCreatorTest.cs" />

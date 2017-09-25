@@ -34,17 +34,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
     /// </summary>
     public class UpliftVanCalculator : IUpliftVanCalculator
     {
-        private readonly MacroStabilityInwardsCalculatorInput input;
+        private readonly UpliftVanCalculatorInput input;
         private readonly IMacroStabilityInwardsKernelFactory factory;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanCalculator"/>.
         /// </summary>
-        /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> containing all the values required
+        /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> containing all the values required
         /// for performing the Uplift Van calculation.</param>
         /// <param name="factory">The factory responsible for creating the Uplift Van kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
-        public UpliftVanCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public UpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             if (input == null)
             {

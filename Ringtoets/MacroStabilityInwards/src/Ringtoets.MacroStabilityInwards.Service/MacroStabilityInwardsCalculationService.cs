@@ -64,8 +64,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 return false;
             }
 
-            MacroStabilityInwardsCalculatorInput macroStabilityInwardsCalculatorInput = CreateInputFromData(calculation.InputParameters);
-            IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateCalculator(macroStabilityInwardsCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
+            UpliftVanCalculatorInput macroStabilityInwardsCalculatorInput = CreateInputFromData(calculation.InputParameters);
+            IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(macroStabilityInwardsCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
             List<string> validationResults = calculator.Validate();
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             try
             {
-                IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsKernelWrapperFactory.Instance);
+                IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsKernelWrapperFactory.Instance);
                 UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
                 calculation.Output = new MacroStabilityInwardsOutput(
@@ -175,10 +175,10 @@ namespace Ringtoets.MacroStabilityInwards.Service
             return validationResults;
         }
 
-        private static MacroStabilityInwardsCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters)
+        private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters)
         {
-            return new MacroStabilityInwardsCalculatorInput(
-                new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            return new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     AssessmentLevel = inputParameters.AssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,

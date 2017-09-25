@@ -35,19 +35,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsCalculatorFactory>(factory);
-            Assert.IsNotNull(factory.LastCreatedCalculator);
-            Assert.IsNull(factory.LastCreatedCalculator.Input);
+            Assert.IsNotNull(factory.LastCreatedUpliftVanCalculator);
+            Assert.IsNull(factory.LastCreatedUpliftVanCalculator.Input);
         }
 
         [Test]
-        public void CreateCalculator_Always_ReturnStubWithInputSet()
+        public void CreateUpliftVanCalculatorr_Always_ReturnStubWithInputSet()
         {
             // Setup
             var factory = new TestMacroStabilityInwardsCalculatorFactory();
-            var input = new MacroStabilityInwardsCalculatorInput(new MacroStabilityInwardsCalculatorInput.ConstructionProperties());
+            var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties());
 
             // Call
-            var calculator = (MacroStabilityInwardsCalculatorStub) factory.CreateCalculator(input, new TestMacroStabilityInwardsKernelFactory());
+            var calculator = (UpliftVanCalculatorStub) factory.CreateUpliftVanCalculator(input, new TestMacroStabilityInwardsKernelFactory());
 
             // Assert
             Assert.AreSame(input, calculator.Input);

@@ -339,13 +339,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation);
 
                 // Assert
-                AssertOutput(calculatorFactory.LastCreatedCalculator.Output, testCalculation.Output);
+                AssertOutput(calculatorFactory.LastCreatedUpliftVanCalculator.Output, testCalculation.Output);
             }
         }
 
         private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
         {
-            MacroStabilityInwardsCalculatorInput actualInput = factory.LastCreatedCalculator.Input;
+            UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
             Assert.AreSame(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);

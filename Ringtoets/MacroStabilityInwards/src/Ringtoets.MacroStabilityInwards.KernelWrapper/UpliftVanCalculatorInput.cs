@@ -26,18 +26,17 @@ using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderS
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
     /// <summary>
-    /// This class contains all the parameters that are required to perform a macro stability inwards assessment.
+    /// This class contains all the parameters that are required to perform an Uplift Van calculation.
     /// </summary>
-    public class MacroStabilityInwardsCalculatorInput
+    public class UpliftVanCalculatorInput
     {
         /// <summary>
-        /// Constructs a new <see cref="MacroStabilityInwardsCalculatorInput"/>, which contains values for the parameters used
-        /// in the macro stability inwards sub calculations.
+        /// Creates a new instance of <see cref="UpliftVanCalculatorInput"/>.
         /// </summary>
         /// <param name="properties">The object containing the values for the properties 
-        /// of the new <see cref="MacroStabilityInwardsCalculatorInput"/>.</param>
+        /// of the new <see cref="UpliftVanCalculatorInput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculatorInput(ConstructionProperties properties)
+        public UpliftVanCalculatorInput(ConstructionProperties properties)
         {
             if (properties == null)
             {
@@ -82,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
         }
 
         /// <summary>
-        /// Container for properties for constructing a <see cref="MacroStabilityInwardsCalculatorInput"/>.
+        /// Container for properties for constructing a <see cref="UpliftVanCalculatorInput"/>.
         /// </summary>
         public class ConstructionProperties
         {

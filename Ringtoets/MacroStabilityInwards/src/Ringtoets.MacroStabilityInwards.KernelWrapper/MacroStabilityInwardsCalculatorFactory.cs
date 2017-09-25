@@ -24,15 +24,14 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper
 {
     /// <summary>
-    /// Factory which creates the calculators from the macro stability inwards kernel.
+    /// Factory which creates calculators for performing macro stability inwards calculations.
     /// </summary>
     public class MacroStabilityInwardsCalculatorFactory : IMacroStabilityInwardsCalculatorFactory
     {
         private static IMacroStabilityInwardsCalculatorFactory instance;
 
         /// <summary>
-        /// Sets the current <see cref="IMacroStabilityInwardsCalculatorFactory"/>, which is used to create 
-        /// <see cref="IUpliftVanCalculator"/> instances.
+        /// Sets the current <see cref="IMacroStabilityInwardsCalculatorFactory"/>.
         /// </summary>
         public static IMacroStabilityInwardsCalculatorFactory Instance
         {
@@ -46,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper
             }
         }
 
-        public IUpliftVanCalculator CreateCalculator(MacroStabilityInwardsCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             return new UpliftVanCalculator(input, factory);
         }

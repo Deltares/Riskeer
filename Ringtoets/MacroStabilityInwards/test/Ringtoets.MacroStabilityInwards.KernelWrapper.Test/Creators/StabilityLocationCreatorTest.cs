@@ -48,8 +48,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
         public void Create_InvalidDikeSoilScenario_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var input = new MacroStabilityInwardsCalculatorInput(
-                new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99
                 });
@@ -71,8 +71,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
                                                                                              DikeSoilScenario dikeSoilScenario)
         {
             // Setup
-            var input = new MacroStabilityInwardsCalculatorInput(
-                new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     DikeSoilScenario = macroStabilityInwardsDikeSoilScenario
                 });
@@ -111,8 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             double leakageLengthOutwardsPhreaticLine4 = random.Next();
             double leakageLengthInwardsPhreaticLine4 = random.Next();
 
-            var input = new MacroStabilityInwardsCalculatorInput(
-                new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
                     AssessmentLevel = assessmentLevel,

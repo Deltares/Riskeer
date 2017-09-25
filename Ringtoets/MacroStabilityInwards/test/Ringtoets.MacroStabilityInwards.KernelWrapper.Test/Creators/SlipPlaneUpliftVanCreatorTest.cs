@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators
             double tangentLineZBottom = random.NextDouble();
             bool tangentLineAutomaticAtBoundaries = random.NextBoolean();
 
-            var input = new MacroStabilityInwardsCalculatorInput(new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
             {
                 LeftGrid = new MacroStabilityInwardsGrid
                 {

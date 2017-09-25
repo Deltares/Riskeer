@@ -25,13 +25,13 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculatorStubTest
+    public class UpliftVanCalculatorStubTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new MacroStabilityInwardsCalculatorStub();
+            var calculator = new UpliftVanCalculatorStub();
 
             // Assert
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         public void Validate_Always_ReturnEmptyList()
         {
             // Setup
-            var calculator = new MacroStabilityInwardsCalculatorStub();
+            var calculator = new UpliftVanCalculatorStub();
 
             // Call
             List<string> messages = calculator.Validate();
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
         public void Calculate_Always_ReturnResult()
         {
             // Setup
-            var calculator = new MacroStabilityInwardsCalculatorStub();
+            var calculator = new UpliftVanCalculatorStub();
             
             // Call
             UpliftVanCalculatorResult result = calculator.Calculate();

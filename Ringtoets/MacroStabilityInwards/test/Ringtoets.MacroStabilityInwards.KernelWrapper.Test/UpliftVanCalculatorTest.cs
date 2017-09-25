@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Constructor_FactoryNull_ArgumentNullException()
         {
             // Call
-            var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
             TestDelegate call = () => new UpliftVanCalculator(input, null);
 
             // Assert
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
 
             // Call
             var calculator = new UpliftVanCalculator(input, factory);
@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             // Setup
             var random = new Random(11);
 
-            var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
             UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
             upliftVanKernel.FactorOfStability = random.NextDouble();
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
         public void Validate_Always_ReturnEmptyList()
         {
             // Setup
-            var input = new MacroStabilityInwardsCalculatorInput(CreateSimpleConstructionProperties());
+            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
             var testMacroStabilityInwardsSubCalculatorFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
@@ -136,12 +136,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test
             CollectionAssert.IsEmpty(validationResult);
         }
 
-        private static MacroStabilityInwardsCalculatorInput.ConstructionProperties CreateSimpleConstructionProperties()
+        private static UpliftVanCalculatorInput.ConstructionProperties CreateSimpleConstructionProperties()
         {
             var random = new Random(21);
 
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
-            return new MacroStabilityInwardsCalculatorInput.ConstructionProperties
+            return new UpliftVanCalculatorInput.ConstructionProperties
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,

@@ -53,7 +53,7 @@
     </Compile>
     <Compile Include="MacroStabilityInwardsCalculatorFactoryConfigTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculatorResultTestFactoryTest.cs" />
-    <Compile Include="MacroStabilityInwardsCalculatorStubTest.cs" />
+    <Compile Include="UpliftVanCalculatorStubTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsGridResultTestFactoryTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCircleResultTestFactoryTest.cs" />
     <Compile Include="Result\MacroStabilityInwardsSlidingCurveResultTestFactoryTest.cs" />

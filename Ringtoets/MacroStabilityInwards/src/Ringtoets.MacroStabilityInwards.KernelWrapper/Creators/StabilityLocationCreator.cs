@@ -36,14 +36,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators
         /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/>,
         /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
-        /// <param name="input">The <see cref="MacroStabilityInwardsCalculatorInput"/> to get the information from.</param>
+        /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
         /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="MacroStabilityInwardsCalculatorInput.DikeSoilScenario"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsCalculatorInput.DikeSoilScenario"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>
         /// is a valid value but unsupported.</exception>
-        public static StabilityLocation Create(MacroStabilityInwardsCalculatorInput input)
+        public static StabilityLocation Create(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
