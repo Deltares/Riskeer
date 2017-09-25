@@ -42,6 +42,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <param name="preconsolidationStressCoefficientOfVariation">The coefficient of 
         /// variation of the stochastic distribution for the preconsolidation stress.</param>
         /// <exception cref="ArgumentException">Thrown when any of the parameters are <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="preconsolidationStressMean"/> is less than or equal to 0.</item>
+        /// <item><paramref name="preconsolidationStressCoefficientOfVariation"/> is less than 0.</item>
+        /// </list></exception>
         public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
                                                            double zCoordinate,
                                                            double preconsolidationStressMean,
@@ -52,8 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             ValidateParameter(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
             ValidateParameter(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
 
-            XCoordinate = xCoordinate;
-            ZCoordinate = zCoordinate;
+            XCoordinate = new RoundedDouble(2, xCoordinate);
+            ZCoordinate = new RoundedDouble(2, zCoordinate);
 
             PreconsolidationStress = new VariationCoefficientLogNormalDistribution(2)
             {
@@ -66,13 +71,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the value representing the X coordinate of the preconsolidation stress location.
         /// [m]
         /// </summary>
-        public double XCoordinate { get; }
+        public RoundedDouble XCoordinate { get; }
 
         /// <summary>
         /// Gets the value representing the Z coordinate of the preconsolidation stress location.
         /// [m]
         /// </summary>
-        public double ZCoordinate { get; }
+        public RoundedDouble ZCoordinate { get; }
 
         /// <summary>
         /// Gets the distribution for the preconsolidation stress.

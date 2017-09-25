@@ -139,9 +139,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                                          MacroStabilityInwardsPreconsolidationStress transformedPreconsolidationStress)
         {
             Assert.AreEqual(preconsolidationStress.XCoordinate,
-                            transformedPreconsolidationStress.XCoordinate);
+                            transformedPreconsolidationStress.XCoordinate,
+                            transformedPreconsolidationStress.XCoordinate.GetAccuracy());
             Assert.AreEqual(preconsolidationStress.ZCoordinate,
-                            transformedPreconsolidationStress.ZCoordinate);
+                            transformedPreconsolidationStress.ZCoordinate,
+                            transformedPreconsolidationStress.ZCoordinate.GetAccuracy());
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {

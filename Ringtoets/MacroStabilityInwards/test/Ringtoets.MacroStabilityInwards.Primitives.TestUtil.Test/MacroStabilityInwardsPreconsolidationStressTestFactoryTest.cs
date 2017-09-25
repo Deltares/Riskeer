@@ -40,8 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
             Assert.IsNotNull(stress);
 
             Assert.AreEqual(typeof(MacroStabilityInwardsPreconsolidationStress), stress.GetType());
-            Assert.AreEqual(13, stress.XCoordinate);
-            Assert.AreEqual(34, stress.ZCoordinate);
+            Assert.AreEqual(13, stress.XCoordinate, stress.XCoordinate.GetAccuracy());
+            Assert.AreEqual(34, stress.ZCoordinate, stress.ZCoordinate.GetAccuracy());
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {

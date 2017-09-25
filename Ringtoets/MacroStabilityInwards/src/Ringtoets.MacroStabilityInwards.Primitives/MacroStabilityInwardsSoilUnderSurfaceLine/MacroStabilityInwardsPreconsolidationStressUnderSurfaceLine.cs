@@ -36,6 +36,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// <param name="properties">The object containing the value for the properties of 
         /// the new <see cref="MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
+        /// <list type="bullet">
+        /// <item><see cref="ConstructionProperties.PreconsolidationStressMean"/> is less than or equal to 0.</item>
+        /// <item><see cref="ConstructionProperties.PreconsolidationStressCoefficientOfVariation"/> is less than 0.</item>
+        /// </list>
+        /// </exception>
         public MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(ConstructionProperties properties)
         {
             if (properties == null)
@@ -52,13 +58,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
             };
         }
 
-
         /// <summary>
         /// Gets the value representing the X coordinate of the preconsolidation stress location.
         /// [m]
         /// </summary>
         public double XCoordinate { get; }
-
 
         /// <summary>
         /// Gets the value representing the Z coordinate of the preconsolidation stress location.
@@ -66,16 +70,15 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
         /// </summary>
         public double ZCoordinate { get; }
 
-
         /// <summary>
         /// Gets the preconsolidation stress distribution.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public VariationCoefficientLogNormalDistribution PreconsolidationStress { get; }
 
         /// <summary>
         /// Gets or sets the preconsolidation stress distribution design variable.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public RoundedDouble PreconsolidationStressDesignVariable { get; set; } = RoundedDouble.NaN;
 
@@ -99,13 +102,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
 
             /// <summary>
             /// Gets or sets the mean of the preconsolidation stress distribution.
-            /// [kN/m³]
+            /// [kN/m²]
             /// </summary>
             public double PreconsolidationStressMean { get; set; } = double.NaN;
 
             /// <summary>
             /// Gets or sets the coefficient of variation of the preconsolidation stress distribution.
-            /// [kN/m³]
+            /// [kN/m²]
             /// </summary>
             public double PreconsolidationStressCoefficientOfVariation { get; set; } = double.NaN;
         }

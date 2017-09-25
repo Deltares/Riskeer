@@ -49,8 +49,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                          stressMean,
                                                                          stressCoefficientOfVariation);
             // Assert
-            Assert.AreEqual(xCoordinate, stress.XCoordinate);
-            Assert.AreEqual(zCoordinate, stress.ZCoordinate);
+            Assert.AreEqual(2, stress.XCoordinate.NumberOfDecimalPlaces);
+            Assert.AreEqual(xCoordinate, stress.XCoordinate,
+                            stress.XCoordinate.GetAccuracy());
+            Assert.AreEqual(2, stress.ZCoordinate.NumberOfDecimalPlaces);
+            Assert.AreEqual(zCoordinate, stress.ZCoordinate,
+                            stress.ZCoordinate.GetAccuracy());
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
@@ -240,6 +244,41 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.IsFalse(isStressAEqualToB);
             Assert.IsFalse(isStressBEqualToA);
+        }
+
+        [Test]
+        public void Equals_TransitiveProperty_ReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+
+            double xCoordinate = random.NextDouble();
+            double zCoordinate = random.NextDouble();
+            double stressMean = random.NextDouble();
+            double stressCoefficientOfVariation = random.NextDouble();
+
+            var stressA = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
+                                                                          zCoordinate,
+                                                                          stressMean,
+                                                                          stressCoefficientOfVariation);
+            var stressB = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
+                                                                          zCoordinate,
+                                                                          stressMean,
+                                                                          stressCoefficientOfVariation);
+            var stressC = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
+                                                                          zCoordinate,
+                                                                          stressMean,
+                                                                          stressCoefficientOfVariation);
+
+            // Call
+            bool aEqualsB = stressA.Equals(stressB);
+            bool bEqualsC = stressB.Equals(stressC);
+            bool aEqualsC = stressA.Equals(stressC);
+
+            // Assert
+            Assert.IsTrue(aEqualsB);
+            Assert.IsTrue(bEqualsC);
+            Assert.IsTrue(aEqualsC);
         }
 
         [Test]

@@ -63,9 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsPreconsolidationStress>>(properties);
             Assert.AreSame(stress, properties.Data);
 
-            Assert.AreEqual(2, properties.XCoordinate.NumberOfDecimalPlaces);
             Assert.AreEqual(stress.XCoordinate, properties.XCoordinate, properties.XCoordinate.GetAccuracy());
-            Assert.AreEqual(2, properties.ZCoordinate.NumberOfDecimalPlaces);
             Assert.AreEqual(stress.ZCoordinate, properties.ZCoordinate, properties.ZCoordinate.GetAccuracy());
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.PreconsolidationStress);

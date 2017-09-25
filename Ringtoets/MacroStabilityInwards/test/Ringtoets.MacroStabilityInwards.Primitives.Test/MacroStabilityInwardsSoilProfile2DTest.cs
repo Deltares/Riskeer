@@ -208,6 +208,39 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.IsTrue(profileBEqualA);
         }
 
+        [Test]
+        public void Equals_ToDerivedClass_ReturnsFalse()
+        {
+            // Setup
+            MacroStabilityInwardsSoilProfile2D profile = CreateRandomProfile(21);
+            var derivedProfile = new DerivedSoilProfile(profile.Name, profile.Layers, profile.PreconsolidationStresses);
+
+            // Call
+            bool profileEqualsDerivedProfile = profile.Equals(derivedProfile);
+
+            // Assert
+            Assert.IsFalse(profileEqualsDerivedProfile);
+        }
+
+        [Test]
+        public void Equals_TransitiveProperty_ReturnsTrue()
+        {
+            // Setup
+            MacroStabilityInwardsSoilProfile2D profileA = CreateRandomProfile(21);
+            MacroStabilityInwardsSoilProfile2D profileB = CreateRandomProfile(21);
+            MacroStabilityInwardsSoilProfile2D profileC = CreateRandomProfile(21);
+
+            // Call
+            bool aEqualsB = profileA.Equals(profileB);
+            bool bEqualsC = profileB.Equals(profileC);
+            bool aEqualsC = profileA.Equals(profileC);
+
+            // Assert
+            Assert.IsTrue(aEqualsB);
+            Assert.IsTrue(bEqualsC);
+            Assert.IsTrue(aEqualsC);
+        }
+
         private static IEnumerable<TestCaseData> ProfileCombinationsResultFalse()
         {
             const int seed = 78;
@@ -240,7 +273,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var differentLayers = new[]
             {
                 CreateRandomLayer(seed),
-                CreateRandomLayer(seed + 1)
+                CopyAndModifySoilLayer(CreateRandomLayer(seed))
             };
             yield return new TestCaseData(baseProfile,
                                           new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
@@ -257,7 +290,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var differentStresses = new[]
             {
                 CreateRandomPreconsolidationStress(seed),
-                CreateRandomPreconsolidationStress(seed + 1)
+                CopyAndModifyPreconsolidationsStress(CreateRandomPreconsolidationStress(seed))
             };
             yield return new TestCaseData(baseProfile,
                                           new MacroStabilityInwardsSoilProfile2D(baseProfile.Name,
@@ -303,6 +336,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
         }
 
+        private static MacroStabilityInwardsSoilLayer2D CopyAndModifySoilLayer(MacroStabilityInwardsSoilLayer2D soilLayer)
+        {
+            return new MacroStabilityInwardsSoilLayer2D(soilLayer.OuterRing, new[]
+            {
+                soilLayer.Holes[0]
+            })
+            {
+                Properties =
+                {
+                    Color = soilLayer.Properties.Color
+                }
+            };
+        }
+
         private static Ring CreateRandomRing(int seed)
         {
             var random = new Random(seed);
@@ -327,9 +374,27 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                    random.NextDouble());
         }
 
+        private static MacroStabilityInwardsPreconsolidationStress CopyAndModifyPreconsolidationsStress(
+            MacroStabilityInwardsPreconsolidationStress stress)
+        {
+            var random = new Random(29);
+            return new MacroStabilityInwardsPreconsolidationStress(stress.XCoordinate + random.NextDouble(),
+                                                                   stress.ZCoordinate + random.NextDouble(),
+                                                                   stress.PreconsolidationStress.Mean + random.NextDouble(),
+                                                                   stress.PreconsolidationStress.CoefficientOfVariation + random.NextDouble());
+        }
+
         private static string GetRandomName(Random random)
         {
             return new string('x', random.Next(0, 40));
+        }
+
+        private class DerivedSoilProfile : MacroStabilityInwardsSoilProfile2D
+        {
+            public DerivedSoilProfile(string name,
+                                      IEnumerable<MacroStabilityInwardsSoilLayer2D> layers,
+                                      IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+                : base(name, layers, preconsolidationStresses) {}
         }
     }
 }

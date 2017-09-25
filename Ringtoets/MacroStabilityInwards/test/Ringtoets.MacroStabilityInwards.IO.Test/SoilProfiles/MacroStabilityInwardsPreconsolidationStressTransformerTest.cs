@@ -65,8 +65,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
-            Assert.AreEqual(preconsolidationStress.XCoordinate, transformedStress.XCoordinate);
-            Assert.AreEqual(preconsolidationStress.ZCoordinate, transformedStress.ZCoordinate);
+            Assert.AreEqual(preconsolidationStress.XCoordinate, transformedStress.XCoordinate,
+                            transformedStress.XCoordinate.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.ZCoordinate, transformedStress.ZCoordinate,
+                            transformedStress.ZCoordinate.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution transformedPreconsolidationStressDistribution = transformedStress.PreconsolidationStress;
             Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean, transformedPreconsolidationStressDistribution.Mean,
@@ -170,28 +172,28 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 ZCoordinate = zCoordinate,
                 PreconsolidationStressMean = preconsolidationStressMean,
                 PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
-            }, "X-coördinaat").SetName("Invalid XCoordinate");
+            }, "X-coördinaat").SetName("XCoordinate NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = double.NaN,
                 PreconsolidationStressMean = preconsolidationStressMean,
                 PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
-            }, "Z-coördinaat").SetName("Invalid ZCoordinate");
+            }, "Z-coördinaat").SetName("ZCoordinate NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = zCoordinate,
                 PreconsolidationStressMean = double.NaN,
                 PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
-            }, "gemiddelde").SetName("Invalid Mean");
+            }, "gemiddelde").SetName("Mean NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = zCoordinate,
                 PreconsolidationStressMean = preconsolidationStressMean,
                 PreconsolidationStressCoefficientOfVariation = double.NaN
-            }, "variatiecoëfficient").SetName("Invalid Coefficient of Variation");
+            }, "variatiecoëfficient").SetName("Coefficient of Variation NaN");
         }
     }
 }
