@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -104,14 +103,12 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
                     MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
                     new MacroStabilityInwardsOutput.ConstructionProperties
-                {
-                    FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
-                    ZValue = macroStabilityInwardsResult.ZValue,
-                    ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
-                    ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax,
-                    ForbiddenZonesAutomaticallyCalculated = macroStabilityInwardsResult.ForbiddenZonesAutomaticallyCalculated,
-                    GridAutomaticallyCalculated = macroStabilityInwardsResult.GridAutomaticallyCalculated
-                });
+                    {
+                        FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
+                        ZValue = macroStabilityInwardsResult.ZValue,
+                        ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
+                        ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
+                    });
             }
             finally
             {

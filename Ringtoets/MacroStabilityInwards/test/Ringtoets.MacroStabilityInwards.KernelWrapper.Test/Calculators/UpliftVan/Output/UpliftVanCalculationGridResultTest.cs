@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Assert
             Assert.AreSame(leftGrid, result.LeftGrid);
             Assert.AreSame(rightGrid, result.RightGrid);
-            CollectionAssert.AreEqual(tangentLines, result.TangentLines);
+            Assert.AreSame(tangentLines, result.TangentLines);
         }
     }
 }

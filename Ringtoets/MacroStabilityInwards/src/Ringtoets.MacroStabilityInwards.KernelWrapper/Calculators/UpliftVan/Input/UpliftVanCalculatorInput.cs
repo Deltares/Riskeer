@@ -42,6 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
@@ -120,7 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
 
             /// <summary>
             /// Gets or sets the outside high water level.
-            /// [m]
+            /// [m+NAP]
             /// </summary>
             public double AssessmentLevel { internal get; set; }
 
@@ -210,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public double PhreaticLineOffsetBelowDikeToeAtPolder { internal get; set; }
 
             /// <summary>
-            /// Gets or sets whether phreatic line 3 and 4 should be adjusted for uplift.
+            /// Gets or sets whether phreatic line 3 and 4 should be adjusted for Uplift.
             /// </summary>
             public bool AdjustPhreaticLine3And4ForUplift { internal get; set; }
 
@@ -328,7 +329,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
 
         /// <summary>
         /// Gets the outside high water level.
-        /// [m]
+        /// [m+NAP]
         /// </summary>
         public double AssessmentLevel { get; }
 
@@ -418,7 +419,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public double PhreaticLineOffsetBelowDikeToeAtPolder { get; }
 
         /// <summary>
-        /// Gets whether phreatic line 3 and 4 should be adjusted for uplift.
+        /// Gets whether phreatic line 3 and 4 should be adjusted for Uplift.
         /// </summary>
         public bool AdjustPhreaticLine3And4ForUplift { get; }
 

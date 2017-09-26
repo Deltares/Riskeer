@@ -509,7 +509,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for uplift.
+        /// Gets or sets whether phreatic line 3 and 4 should be adjusted for Uplift.
         /// </summary>
         public bool AdjustPhreaticLine3And4ForUplift { get; set; }
 

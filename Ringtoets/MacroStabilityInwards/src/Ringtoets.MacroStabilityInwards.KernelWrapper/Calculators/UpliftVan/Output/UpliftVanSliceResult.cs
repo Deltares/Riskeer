@@ -135,11 +135,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
         /// <summary>
         /// Gets the critical pressure.
+        /// [kN/m²]
         /// </summary>
         public double CriticalPressure { get; }
 
         /// <summary>
-        /// Gets the OCR.
+        /// Gets the over consolidation ratio.
         /// [-]
         /// </summary>
         public double OverConsolidationRatio { get; }
@@ -295,6 +296,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// </summary>
         public double Weight { get; }
 
+        /// <summary>
+        /// Container for properties for constructing a <see cref="UpliftVanSliceResult"/>.
+        /// </summary>
         public class ConstructionProperties
         {
             /// <summary>
@@ -348,11 +352,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
             /// <summary>
             /// Gets or sets the critical pressure.
+            /// [kN/m²]
             /// </summary>
             public double CriticalPressure { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the OCR.
+            /// Gets or sets the over consolidation ratio.
             /// [-]
             /// </summary>
             public double OverConsolidationRatio { internal get; set; }
@@ -387,7 +392,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             public double ExternalLoad { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the hydraostatic pore pressure.
+            /// Gets or sets the hydrostatic pore pressure.
             /// [kN/m²]
             /// </summary>
             public double HydrostaticPorePressure { internal get; set; }

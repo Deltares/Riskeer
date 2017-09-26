@@ -67,10 +67,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 
         public double ForbiddenZonesXEntryMax { get; set; }
 
-        public bool ForbiddenZonesAutomaticallyCalculated { get; set; }
-
-        public bool GridAutomaticallyCalculated { get; set; }
-
         public SlidingDualCircle SlidingCurveResult { get; set; }
 
         public SlipPlaneUpliftVan SlipPlaneResult { get; set; }

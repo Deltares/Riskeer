@@ -52,11 +52,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         {
             if (input == null)
             {
-                throw new ArgumentNullException(nameof(input), @"UpliftVanCalculatorInput required for creating a UpliftVanCalculator.");
+                throw new ArgumentNullException(nameof(input));
             }
             if (factory == null)
             {
-                throw new ArgumentNullException(nameof(factory), @"IMacroStabilityInwardsKernelFactory required for creating a UpliftVanCalculator.");
+                throw new ArgumentNullException(nameof(factory));
             }
             this.input = input;
             this.factory = factory;
@@ -74,9 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
                     FactorOfStability = upliftVanKernel.FactorOfStability,
                     ZValue = upliftVanKernel.ZValue,
                     ForbiddenZonesXEntryMin = upliftVanKernel.ForbiddenZonesXEntryMin,
-                    ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax,
-                    ForbiddenZonesAutomaticallyCalculated = upliftVanKernel.ForbiddenZonesAutomaticallyCalculated,
-                    GridAutomaticallyCalculated = upliftVanKernel.GridAutomaticallyCalculated
+                    ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax
                 });
         }
 
@@ -103,14 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
-            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
-
-            upliftVanKernel.MoveGrid = input.MoveGrid;
-            upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
-
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            upliftVanKernel.SoilModel = SoilModelCreator.Create(soils);
-
             Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils =
                 input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
@@ -120,6 +111,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
                      })
                      .ToDictionary(x => x.layer, x => x.soil);
 
+            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
+
+            upliftVanKernel.MoveGrid = input.MoveGrid;
+            upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
+            upliftVanKernel.SoilModel = SoilModelCreator.Create(soils);
             upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile, layersWithSoils);
             upliftVanKernel.Location = StabilityLocationCreator.Create(input);
             upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);

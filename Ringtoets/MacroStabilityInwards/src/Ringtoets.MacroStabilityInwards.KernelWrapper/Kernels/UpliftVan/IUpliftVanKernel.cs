@@ -121,16 +121,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         double ForbiddenZonesXEntryMax { get; }
 
         /// <summary>
-        /// Gets whether the forbidden zones are automatically calculated.
-        /// </summary>
-        bool ForbiddenZonesAutomaticallyCalculated { get; }
-
-        /// <summary>
-        /// Gets whether the grid is automatically calculated.
-        /// </summary>
-        bool GridAutomaticallyCalculated { get; }
-
-        /// <summary>
         /// Gets the sliding curve result.
         /// </summary>
         SlidingDualCircle SlidingCurveResult { get; }

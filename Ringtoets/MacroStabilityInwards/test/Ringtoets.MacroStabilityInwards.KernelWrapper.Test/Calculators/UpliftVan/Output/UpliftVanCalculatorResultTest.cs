@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
@@ -54,7 +53,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Call
             TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, null, new UpliftVanCalculatorResult.ConstructionProperties());
-            ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -112,8 +110,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(result.ZValue);
             Assert.IsNaN(result.ForbiddenZonesXEntryMin);
             Assert.IsNaN(result.ForbiddenZonesXEntryMax);
-            Assert.IsFalse(result.ForbiddenZonesAutomaticallyCalculated);
-            Assert.IsFalse(result.GridAutomaticallyCalculated);
         }
 
         [Test]
@@ -125,17 +121,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double zValue = random.NextDouble();
             double xEntryMin = random.NextDouble();
             double xEntryMax = random.NextDouble();
-            bool forbiddenZonesAutomaticallyCalculated = random.NextBoolean();
-            bool gridAutomaticallyCalculated = random.NextBoolean();
 
             var constructionProperties = new UpliftVanCalculatorResult.ConstructionProperties
             {
                 FactorOfStability = factorOfStability,
                 ZValue = zValue,
                 ForbiddenZonesXEntryMin = xEntryMin,
-                ForbiddenZonesXEntryMax = xEntryMax,
-                ForbiddenZonesAutomaticallyCalculated = forbiddenZonesAutomaticallyCalculated,
-                GridAutomaticallyCalculated = gridAutomaticallyCalculated
+                ForbiddenZonesXEntryMax = xEntryMax
             };
 
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
@@ -151,8 +143,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(zValue, result.ZValue);
             Assert.AreEqual(xEntryMin, result.ForbiddenZonesXEntryMin);
             Assert.AreEqual(xEntryMax, result.ForbiddenZonesXEntryMax);
-            Assert.AreEqual(forbiddenZonesAutomaticallyCalculated, result.ForbiddenZonesAutomaticallyCalculated);
-            Assert.AreEqual(gridAutomaticallyCalculated, result.GridAutomaticallyCalculated);
         }
     }
 }

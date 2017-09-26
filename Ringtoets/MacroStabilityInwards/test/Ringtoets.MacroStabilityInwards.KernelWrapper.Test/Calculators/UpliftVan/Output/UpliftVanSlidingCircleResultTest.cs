@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var random = new Random(11);
@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var circle = new UpliftVanSlidingCircleResult(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
 
             // Assert
-            Assert.AreEqual(center, circle.Center);
+            Assert.AreSame(center, circle.Center);
             Assert.AreEqual(radius, circle.Radius);
             Assert.AreEqual(isActive, circle.IsActive);
             Assert.AreEqual(nonIteratedForce, circle.NonIteratedForce);

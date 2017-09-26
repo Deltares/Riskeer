@@ -174,10 +174,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public double ForbiddenZonesXEntryMax { get; private set; }
 
-        public bool ForbiddenZonesAutomaticallyCalculated { get; private set; }
-
-        public bool GridAutomaticallyCalculated { get; private set; }
-
         public SlidingDualCircle SlidingCurveResult { get; private set; }
 
         public SlipPlaneUpliftVan SlipPlaneResult { get; private set; }
@@ -203,11 +199,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
             FactorOfStability = convertedResult.FactorOfSafety;
             ZValue = convertedResult.ZValue;
-
             ForbiddenZonesXEntryMin = convertedResult.XMinEntry;
             ForbiddenZonesXEntryMax = convertedResult.XMaxEntry;
-            ForbiddenZonesAutomaticallyCalculated = convertedResult.AreForbiddenZonesAuto;
-            GridAutomaticallyCalculated = convertedResult.IsGridAuto;
 
             SlidingCurveResult = (SlidingDualCircle) convertedResult.Curve;
             SlipPlaneResult = convertedResult.SlipPlaneUpliftVan;

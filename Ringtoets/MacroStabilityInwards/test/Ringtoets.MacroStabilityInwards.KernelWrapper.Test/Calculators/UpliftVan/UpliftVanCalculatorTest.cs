@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
     public class UpliftVanCalculatorTest
     {
         [Test]
-        public void Constructor_WithoutInput_ArgumentNullException()
+        public void Constructor_InputNull_ArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -54,8 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate call = () => new UpliftVanCalculator(null, factory);
 
             // Assert
-            const string expectedMessage = "UpliftVanCalculatorInput required for creating a UpliftVanCalculator.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -67,12 +67,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate call = () => new UpliftVanCalculator(input, null);
 
             // Assert
-            const string expectedMessage = "IMacroStabilityInwardsKernelFactory required for creating a UpliftVanCalculator.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("factory", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -101,8 +101,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             upliftVanKernel.ZValue = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
-            upliftVanKernel.ForbiddenZonesAutomaticallyCalculated = random.NextBoolean();
-            upliftVanKernel.GridAutomaticallyCalculated = random.NextBoolean();
             upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
             upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
 
@@ -115,8 +113,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(upliftVanKernel.ZValue, actual.ZValue);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, actual.ForbiddenZonesXEntryMax);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
-            Assert.AreEqual(upliftVanKernel.ForbiddenZonesAutomaticallyCalculated, actual.ForbiddenZonesAutomaticallyCalculated);
-            Assert.AreEqual(upliftVanKernel.GridAutomaticallyCalculated, actual.GridAutomaticallyCalculated);
             UpliftVanCalculatorResultHelper.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                                                                actual.SlidingCurveResult);
             UpliftVanCalculatorResultHelper.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),

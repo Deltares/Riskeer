@@ -39,8 +39,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
             Assert.AreEqual(0.2, result.ZValue);
             Assert.AreEqual(0.3, result.ForbiddenZonesXEntryMin);
             Assert.AreEqual(0.4, result.ForbiddenZonesXEntryMax);
-            Assert.IsTrue(result.GridAutomaticallyCalculated);
-            Assert.IsTrue(result.ForbiddenZonesAutomaticallyCalculated);
 
             AssertSlidingCurve(result.SlidingCurveResult);
             AssertUpliftVanCalculationGrid(result.CalculationGridResult);

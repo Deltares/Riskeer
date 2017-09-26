@@ -102,10 +102,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                                                  new UpliftVanSliceResult.ConstructionProperties());
 
             // Assert
-            Assert.AreEqual(topLeftPoint, slice.TopLeftPoint);
-            Assert.AreEqual(topRightPoint, slice.TopRightPoint);
-            Assert.AreEqual(bottomLeftPoint, slice.BottomLeftPoint);
-            Assert.AreEqual(bottomRightPoint, slice.BottomRightPoint);
+            Assert.AreSame(topLeftPoint, slice.TopLeftPoint);
+            Assert.AreSame(topRightPoint, slice.TopRightPoint);
+            Assert.AreSame(bottomLeftPoint, slice.BottomLeftPoint);
+            Assert.AreSame(bottomRightPoint, slice.BottomRightPoint);
         }
 
         [Test]

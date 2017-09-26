@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="slidingCurve">The sliding curve result.</param>
-        /// <param name="slipPlane">The slip plane uplift Van result.</param>
+        /// <param name="slipPlane">The slip plane Uplift Van result.</param>
         /// <param name="properties">The container of the properties for the
         /// <see cref="MacroStabilityInwardsOutput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
@@ -63,8 +63,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             ZValue = properties.ZValue;
             ForbiddenZonesXEntryMin = properties.ForbiddenZonesXEntryMin;
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
-            ForbiddenZonesAutomaticallyCalculated = properties.ForbiddenZonesAutomaticallyCalculated;
-            GridAutomaticallyCalculated = properties.GridAutomaticallyCalculated;
         }
 
         #region Properties
@@ -98,16 +96,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets the forbidden zones x entry max.
         /// </summary>
         public double ForbiddenZonesXEntryMax { get; }
-
-        /// <summary>
-        /// Gets whether the forbidden zones are automatically calculated.
-        /// </summary>
-        public bool ForbiddenZonesAutomaticallyCalculated { get; }
-
-        /// <summary>
-        /// Gets whether the grid is automatically calculated.
-        /// </summary>
-        public bool GridAutomaticallyCalculated { get; }
 
         #endregion
 
@@ -146,16 +134,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             /// Gets or sets the forbidden zones x entry max.
             /// </summary>
             public double ForbiddenZonesXEntryMax { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether the forbidden zones are automatically calculated.
-            /// </summary>
-            public bool ForbiddenZonesAutomaticallyCalculated { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether the grid is automatically calculated.
-            /// </summary>
-            public bool GridAutomaticallyCalculated { internal get; set; }
         }
     }
 }

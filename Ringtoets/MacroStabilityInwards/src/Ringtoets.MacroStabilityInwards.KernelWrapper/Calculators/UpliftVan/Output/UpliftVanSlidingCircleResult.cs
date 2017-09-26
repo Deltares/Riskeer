@@ -49,6 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             {
                 throw new ArgumentNullException(nameof(center));
             }
+
             Center = center;
             Radius = radius;
             IsActive = isActive;

@@ -52,9 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
                     FactorOfStability = 0.1,
                     ZValue = 0.2,
                     ForbiddenZonesXEntryMin = 0.3,
-                    ForbiddenZonesXEntryMax = 0.4,
-                    GridAutomaticallyCalculated = true,
-                    ForbiddenZonesAutomaticallyCalculated = true
+                    ForbiddenZonesXEntryMax = 0.4
                 });
         }
     }

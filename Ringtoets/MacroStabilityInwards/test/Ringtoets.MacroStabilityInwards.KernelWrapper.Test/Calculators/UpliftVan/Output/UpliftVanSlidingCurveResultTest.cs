@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreSame(rightCircle, curve.RightCircle);
             Assert.AreEqual(nonIteratedHorizontalForce, curve.NonIteratedHorizontalForce);
             Assert.AreEqual(iteratedHorizontalForce, curve.IteratedHorizontalForce);
-            CollectionAssert.AreEqual(slices, curve.Slices);
+            Assert.AreSame(slices, curve.Slices);
         }
     }
 }

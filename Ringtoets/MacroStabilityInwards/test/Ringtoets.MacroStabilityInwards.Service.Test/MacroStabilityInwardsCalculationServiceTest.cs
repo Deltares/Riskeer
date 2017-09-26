@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.KernelWrapper;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -392,8 +391,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(expectedOutput.ZValue, actualOutput.ZValue);
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMin, actualOutput.ForbiddenZonesXEntryMin);
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
-            Assert.AreEqual(expectedOutput.GridAutomaticallyCalculated, actualOutput.GridAutomaticallyCalculated);
-            Assert.AreEqual(expectedOutput.ForbiddenZonesAutomaticallyCalculated, actualOutput.ForbiddenZonesAutomaticallyCalculated);
             AssertSlidingCurve(expectedOutput.SlidingCurveResult, actualOutput.SlidingCurve);
             AssertSlipPlane(expectedOutput.CalculationGridResult, actualOutput.SlipPlane);
         }

@@ -37,19 +37,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double xRight = random.Next();
             double zTop = random.Next();
             double zBottom = random.Next();
-            int nrOfHorizontalPoints = random.Next();
-            int nrOfVerticalPoints = random.Next();
+            int numberOfHorizontalPoints = random.Next();
+            int numberOfVerticalPoints = random.Next();
 
             // Call
-            var gridResult = new UpliftVanGridResult(xLeft, xRight, zTop, zBottom, nrOfHorizontalPoints, nrOfVerticalPoints);
+            var gridResult = new UpliftVanGridResult(xLeft, xRight, zTop, zBottom, numberOfHorizontalPoints, numberOfVerticalPoints);
 
             // Assert
             Assert.AreEqual(xLeft, gridResult.XLeft);
             Assert.AreEqual(xRight, gridResult.XRight);
             Assert.AreEqual(zTop, gridResult.ZTop);
             Assert.AreEqual(zBottom, gridResult.ZBottom);
-            Assert.AreEqual(nrOfHorizontalPoints, gridResult.NumberOfHorizontalPoints);
-            Assert.AreEqual(nrOfVerticalPoints, gridResult.NumberOfVerticalPoints);
+            Assert.AreEqual(numberOfHorizontalPoints, gridResult.NumberOfHorizontalPoints);
+            Assert.AreEqual(numberOfVerticalPoints, gridResult.NumberOfVerticalPoints);
         }
     }
 }
