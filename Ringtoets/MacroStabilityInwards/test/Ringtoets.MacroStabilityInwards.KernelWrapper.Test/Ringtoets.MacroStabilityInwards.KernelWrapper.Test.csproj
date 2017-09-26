@@ -60,6 +60,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayerTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilProfileTest.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />
     <Compile Include="Creators\Input\StabilityLocationCreatorTest.cs" />
