@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_FactoryNull_ArgumentNullException()
         {
             // Call
-            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
             TestDelegate call = () => new UpliftVanCalculator(input, null);
 
             // Assert
@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
-            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
 
             // Call
             var calculator = new UpliftVanCalculator(input, factory);
@@ -89,34 +89,53 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Calculate_CompleteValidInput_ReturnsResult()
+        public void Calculate_CalculatorWithCompleteInput_InputCorrectlySetToKernel()
         {
             // Setup
-            var random = new Random(11);
-
-            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
             UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
-            upliftVanKernel.FactorOfStability = random.NextDouble();
-            upliftVanKernel.ZValue = random.NextDouble();
-            upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
-            upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
-            upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
-            upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
+            SetValidKernelOutput(upliftVanKernel);
 
             // Call
-            UpliftVanCalculatorResult actual = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+            new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(upliftVanKernel.FactorOfStability, actual.FactorOfStability);
-            Assert.AreEqual(upliftVanKernel.ZValue, actual.ZValue);
-            Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, actual.ForbiddenZonesXEntryMax);
-            Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, actual.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
+            Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
+            Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
+            Assert.AreEqual(input.CreateZones, upliftVanKernel.CreateZones);
+            Assert.AreEqual(input.AutomaticForbiddenZones, upliftVanKernel.AutomaticForbiddenZones);
+            Assert.AreEqual(input.SlipPlaneMinimumDepth, upliftVanKernel.SlipPlaneMinimumDepth);
+            Assert.AreEqual(input.SlipPlaneMinimumLength, upliftVanKernel.SlipPlaneMinimumLength);
+
+            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
+        }
+
+        [Test]
+        public void Calculate_KernelWithCompleteOutput_OutputCorrectlySetToCalculator()
+        {
+            // Setup
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            SetCompleteKernelOutput(upliftVanKernel);
+
+            // Call
+            UpliftVanCalculatorResult result = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(upliftVanKernel.FactorOfStability, result.FactorOfStability);
+            Assert.AreEqual(upliftVanKernel.ZValue, result.ZValue);
+            Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, result.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, result.ForbiddenZonesXEntryMin);
             UpliftVanCalculatorResultHelper.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
-                                                               actual.SlidingCurveResult);
+                                                               result.SlidingCurveResult);
             UpliftVanCalculatorResultHelper.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
-                                                                actual.CalculationGridResult);
+                                                                result.CalculationGridResult);
 
             Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
         }
@@ -125,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Validate_Always_ReturnEmptyList()
         {
             // Setup
-            var input = new UpliftVanCalculatorInput(CreateSimpleConstructionProperties());
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
@@ -135,19 +154,66 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             CollectionAssert.IsEmpty(validationResult);
         }
 
-        private static UpliftVanCalculatorInput.ConstructionProperties CreateSimpleConstructionProperties()
+        private static UpliftVanCalculatorInput CreateValidCalculatorInput()
         {
             var random = new Random(21);
 
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
-            return new UpliftVanCalculatorInput.ConstructionProperties
+            return new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 LeftGrid = new MacroStabilityInwardsGrid(),
                 RightGrid = new MacroStabilityInwardsGrid()
-            };
+            });
+        }
+
+        private static UpliftVanCalculatorInput CreateCompleteCalculatorInput()
+        {
+            var random = new Random(21);
+
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
+
+            return new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                AssessmentLevel = random.NextDouble(),
+                SurfaceLine = surfaceLine,
+                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                WaterLevelRiverAverage = random.Next(),
+                WaterLevelPolder = random.Next(),
+                XCoordinateDrainageConstruction = random.Next(),
+                ZCoordinateDrainageConstruction = random.Next(),
+                MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
+                MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
+                PhreaticLineOffsetBelowDikeTopAtRiver = random.Next(),
+                PhreaticLineOffsetBelowDikeTopAtPolder = random.Next(),
+                PhreaticLineOffsetBelowShoulderBaseInside = random.Next(),
+                PhreaticLineOffsetBelowDikeToeAtPolder = random.Next(),
+                LeakageLengthOutwardsPhreaticLine3 = random.Next(),
+                LeakageLengthInwardsPhreaticLine3 = random.Next(),
+                LeakageLengthOutwardsPhreaticLine4 = random.Next(),
+                LeakageLengthInwardsPhreaticLine4 = random.Next(),
+                PiezometricHeadPhreaticLine2Outwards = random.Next(),
+                PiezometricHeadPhreaticLine2Inwards = random.Next(),
+                PenetrationLength = random.Next(),
+                UseDefaultOffsets = random.NextBoolean(),
+                AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
+                DrainageConstructionPresent = random.NextBoolean(),
+                DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
+                MoveGrid = random.NextBoolean(),
+                MaximumSliceWidth = random.Next(),
+                GridAutomaticDetermined = random.NextBoolean(),
+                LeftGrid = new MacroStabilityInwardsGrid(),
+                RightGrid = new MacroStabilityInwardsGrid(),
+                TangentLineAutomaticAtBoundaries = random.NextBoolean(),
+                TangentLineZTop = random.Next(),
+                TangentLineZBottom = random.Next(),
+                CreateZones = random.NextBoolean(),
+                AutomaticForbiddenZones = random.NextBoolean(),
+                SlipPlaneMinimumDepth = random.Next(),
+                SlipPlaneMinimumLength = random.Next()
+            });
         }
 
         private static MacroStabilityInwardsSoilProfileUnderSurfaceLine CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
@@ -190,6 +256,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 new Point3D(2, 0, -1)
             });
             return surfaceLine;
+        }
+
+        private static void SetValidKernelOutput(UpliftVanKernelStub upliftVanKernel)
+        {
+            upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
+            upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
+        }
+
+        private static void SetCompleteKernelOutput(UpliftVanKernelStub upliftVanKernel)
+        {
+            var random = new Random(11);
+
+            upliftVanKernel.FactorOfStability = random.NextDouble();
+            upliftVanKernel.ZValue = random.NextDouble();
+            upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
+            upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
+            upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
+            upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
         }
     }
 }
