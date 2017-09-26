@@ -43,6 +43,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanPreconsolidationStress.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanShearStrengthModel.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayer.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilProfile.cs" />

@@ -33,6 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanSoilLayer"/>.
         /// </summary>
+        /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
+        /// <param name="holes">The holes of the geometry of the soil layer.</param>
         /// <param name="properties">The object containing the values for
         /// the properties of the new <see cref="UpliftVanSoilLayer"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
