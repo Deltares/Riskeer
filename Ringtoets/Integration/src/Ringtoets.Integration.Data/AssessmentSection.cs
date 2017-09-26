@@ -102,7 +102,8 @@ namespace Ringtoets.Integration.Data
             const int otherContribution = 30;
             FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
                                                                             otherContribution,
-                                                                            lowerLimitNorm, signalingNorm);
+                                                                            lowerLimitNorm,
+                                                                            signalingNorm);
             ChangeComposition(composition);
         }
 

@@ -52,13 +52,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNotNull(assessmentSection.BackgroundData);
             Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
 
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.Norm);
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            FailureMechanismContributionItem[] contributionItems = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
+
+            FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
             Assert.AreEqual(1, contributionItems.Length);
-            Assert.AreEqual(0, contributionItems[0].Contribution);
-            Assert.IsInstanceOf<OtherFailureMechanism>(contributionItems[0].FailureMechanism);
+
+            FailureMechanismContributionItem failureMechanismContributionItem = contributionItems[0];
+            Assert.AreEqual(0, failureMechanismContributionItem.Contribution);
+            Assert.IsInstanceOf<OtherFailureMechanism>(failureMechanismContributionItem.FailureMechanism);
         }
 
         [Test]

@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class FailureMechanismContributionTestFactory
     {
         /// <summary>
-        /// Creates a new <see cref="FailureMechanismContribution"/>.
+        /// Creates a new instance of <see cref="FailureMechanismContribution"/> without failure mechanisms.
         /// </summary>
         /// <returns>The created <see cref="FailureMechanismContribution"/>.</returns>
         public static FailureMechanismContribution CreateFailureMechanismContribution()
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a new <see cref="FailureMechanismContribution"/>.
+        /// Creates a new instance of <see cref="FailureMechanismContribution"/>.
         /// </summary>
         /// <param name="failureMechanisms">The failure mechanisms on which to base the <see cref="FailureMechanismContribution"/>.</param>
         /// <returns>The created <see cref="FailureMechanismContribution"/>.</returns>

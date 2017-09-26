@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void FailureMechanismsCreateFailureMechanismContribution_FailureMechanismsNull_ReturnsExpectedFailureMechanismContribution()
+        public void CreateFailureMechanismContribution_FailureMechanismsNull_ReturnsExpectedFailureMechanismContribution()
         {
             // Call
             TestDelegate test = () => FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(null);
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void FailureMechanismsCreateFailureMechanismContribution_WithFailureMechanism_ReturnsExpectedFailureMechanismContribution()
+        public void CreateFailureMechanismContribution_WithFailureMechanism_ReturnsExpectedFailureMechanismContribution()
         {
             // Call
             var mockRepository = new MockRepository();

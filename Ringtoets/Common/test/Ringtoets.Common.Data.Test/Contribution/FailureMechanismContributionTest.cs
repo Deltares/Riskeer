@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
             })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var random = new Random(21);
@@ -98,14 +98,14 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Call
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
                                                                        contribution,
-                                                                       newNorm,
+                                                                       invalidNorm,
                                                                        0.000001);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(newNorm, exception.ActualValue);
+            Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
             })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var random = new Random(21);
@@ -125,13 +125,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
                                                                        contribution,
                                                                        0.1,
-                                                                       newNorm);
+                                                                       invalidNorm);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(newNorm, exception.ActualValue);
+            Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
 
         [Test]
@@ -164,13 +164,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
         [TestCase(double.NaN)]
         public void Constructor_OtherContributionLessOrEqualTo0OrGreaterThan100_ThrowsArgumentOutOfRangeException(double contribution)
         {
-            // Setup
-            const double norm = 1.0 / 30000;
-
             // Call
             TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
-                                                                       contribution
-                                                                       , norm, norm);
+                                                                       contribution,
+                                                                       1.0 / 30000,
+                                                                       1.0 / 30000);
 
             // Assert
             const string expectedMessage = "De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0,0, 100,0] liggen.";
@@ -264,12 +262,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void UpdateContribution_FailureMechanismsIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            const double norm = 1.0 / 30000;
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
             var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms,
                                                                                 12.34,
-                                                                                norm,
-                                                                                norm);
+                                                                                1.0 / 30000,
+                                                                                1.0 / 30000);
 
             // Call
             TestDelegate call = () => failureMechanismContribution.UpdateContributions(null, 0);
@@ -437,7 +434,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanismContribution = new FailureMechanismContribution(new[]
                                                                                 {
                                                                                     failureMechanism
-                                                                                }, otherContribution, norm,
+                                                                                },
+                                                                                otherContribution,
+                                                                                norm,
                                                                                 norm);
 
             // Call
@@ -492,7 +491,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanismContribution = new FailureMechanismContribution(new[]
                                                                                 {
                                                                                     failureMechanism
-                                                                                }, otherContribution,
+                                                                                },
+                                                                                otherContribution,
                                                                                 norm,
                                                                                 norm)
             {
@@ -522,7 +522,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanismContribution = new FailureMechanismContribution(new[]
                                                                                 {
                                                                                     failureMechanism
-                                                                                }, otherContribution,
+                                                                                },
+                                                                                otherContribution,
                                                                                 norm,
                                                                                 norm);
 
@@ -548,7 +549,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanismContribution = new FailureMechanismContribution(new[]
                                                                                 {
                                                                                     failureMechanism
-                                                                                }, otherContribution,
+                                                                                },
+                                                                                otherContribution,
                                                                                 0.1, 0.001);
 
             // Precondition
@@ -571,7 +573,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 "Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem"
             })]
         [SetCulture("nl-NL")]
-        public void LowerLimitNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void LowerLimitNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var random = new Random(21);
@@ -583,13 +585,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
                                                                                 norm);
 
             // Call
-            TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = newNorm;
+            TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = invalidNorm;
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(newNorm, exception.ActualValue);
+            Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
 
         [Test]
@@ -599,7 +601,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 "SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException"
             })]
         [SetCulture("nl-NL")]
-        public void SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var random = new Random(21);
@@ -611,13 +613,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
                                                                                 norm);
 
             // Call
-            TestDelegate test = () => failureMechanismContribution.SignalingNorm = newNorm;
+            TestDelegate test = () => failureMechanismContribution.SignalingNorm = invalidNorm;
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(newNorm, exception.ActualValue);
+            Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
 
         [Test]

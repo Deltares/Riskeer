@@ -51,8 +51,8 @@ namespace Ringtoets.Common.Data.Contribution
         /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> 
         /// on which to base the <see cref="FailureMechanismContribution"/>.</param>
         /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm which has been defined on the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which has been defined on the assessment section.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm.</param>
+        /// <param name="signalingNorm">The signaling norm.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">

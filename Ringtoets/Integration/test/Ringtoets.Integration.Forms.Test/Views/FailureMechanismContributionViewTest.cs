@@ -373,7 +373,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            const double norm = 1.0 / 30000;
 
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
@@ -387,10 +386,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new FailureMechanismContributionView(viewCommands))
             {
                 // When
-                var contributionData = new FailureMechanismContribution(new[]
+                FailureMechanismContribution contributionData = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
                 {
                     failureMechanism
-                }, 100, norm, norm);
+                });
 
                 view.Data = contributionData;
                 view.AssessmentSection = assessmentSection;

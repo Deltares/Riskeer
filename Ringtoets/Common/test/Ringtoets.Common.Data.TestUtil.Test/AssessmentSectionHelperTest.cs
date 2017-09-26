@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
@@ -57,7 +58,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 failureMechanism
             }, assessmentSection.GetFailureMechanisms());
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.Norm);
             Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
             Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
             mocks.VerifyAll();
@@ -90,9 +90,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 failureMechanism
             }, assessmentSection.GetFailureMechanisms());
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.Norm);
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
+
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
+            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             mocks.VerifyAll();
         }
 
@@ -114,9 +116,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 failureMechanism
             }, assessmentSection.GetFailureMechanisms());
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.Norm);
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
+
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
+            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             mocks.VerifyAll();
         }
 
@@ -134,9 +138,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual("21", assessmentSection.Id);
             Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms());
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.Norm);
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
+
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
+            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             mocks.VerifyAll();
         }
     }

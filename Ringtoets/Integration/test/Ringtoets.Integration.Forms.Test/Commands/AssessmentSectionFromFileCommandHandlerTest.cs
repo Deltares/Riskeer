@@ -494,8 +494,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 Assert.AreEqual(Level.Error, tuple.Item2);
                 Assert.IsInstanceOf<ArgumentOutOfRangeException>(tuple.Item3);
             });
-            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
-            Assert.IsNull(assessmentSection);
+            CollectionAssert.IsEmpty(project.AssessmentSections);
 
             mockRepository.VerifyAll();
         }

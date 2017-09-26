@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Data.Test
                 "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
             })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var random = new Random(21);
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Data.Test
 
             // Call
             TestDelegate test = () => new AssessmentSection(composition,
-                                                            newNorm,
+                                                            invalidNorm,
                                                             0.000001);
 
             // Assert
@@ -183,7 +183,7 @@ namespace Ringtoets.Integration.Data.Test
                 "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
             })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double newNorm)
+        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             var random = new Random(21);
@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.Data.Test
             // Call
             TestDelegate test = () => new AssessmentSection(composition,
                                                             0.1,
-                                                            newNorm);
+                                                            invalidNorm);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -569,6 +569,10 @@ namespace Ringtoets.Integration.Data.Test
 
         private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)
         {
+            yield return new TestCaseData(double.PositiveInfinity)
+                .SetName($"{name} positive infinity");
+            yield return new TestCaseData(double.NegativeInfinity)
+                .SetName($"{name} negative infinity");
             yield return new TestCaseData(double.MaxValue)
                 .SetName($"{name} maxValue");
             yield return new TestCaseData(double.MinValue)
