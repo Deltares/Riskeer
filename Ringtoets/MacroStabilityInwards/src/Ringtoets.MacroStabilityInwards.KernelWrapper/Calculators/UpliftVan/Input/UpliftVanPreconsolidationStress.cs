@@ -33,17 +33,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Creates a new instance of <see cref="UpliftVanPreconsolidationStress"/>.
         /// </summary>
         /// <param name="coordinate">The coordinate of the stress.</param>
-        /// <param name="stressValue">The value of the stress.</param>
+        /// <param name="stress">The value of the stress.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="coordinate"/>
         /// is <c>null</c>.</exception>
-        public UpliftVanPreconsolidationStress(Point2D coordinate, double stressValue)
+        public UpliftVanPreconsolidationStress(Point2D coordinate, double stress)
         {
             if (coordinate == null)
             {
                 throw new ArgumentNullException(nameof(coordinate));
             }
             Coordinate = coordinate;
-            StressValue = stressValue;
+            Stress = stress;
         }
 
         /// <summary>
@@ -54,6 +54,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the value of the stress.
         /// </summary>
-        public double StressValue { get; }
+        public double Stress { get; }
     }
 }

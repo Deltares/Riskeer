@@ -33,21 +33,32 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Creates a new instance of <see cref="UpliftVanSoilProfile"/>
         /// </summary>
         /// <param name="layers">The layers in the profile.</param>
+        /// <param name="preconsolidationStresses">The preconsolidation stresses in the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public UpliftVanSoilProfile(IEnumerable<UpliftVanSoilLayer> layers)
+        public UpliftVanSoilProfile(IEnumerable<UpliftVanSoilLayer> layers, IEnumerable<UpliftVanPreconsolidationStress> preconsolidationStresses)
         {
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
             }
+            if (preconsolidationStresses == null)
+            {
+                throw new ArgumentNullException(nameof(preconsolidationStresses));
+            }
 
             Layers = layers;
+            PreconsolidationStresses = preconsolidationStresses;
         }
 
         /// <summary>
         /// Gets the layers in the profile.
         /// </summary>
         public IEnumerable<UpliftVanSoilLayer> Layers { get; }
+
+        /// <summary>
+        /// Gets the preconsolidation stresses in the profile.
+        /// </summary>
+        public IEnumerable<UpliftVanPreconsolidationStress> PreconsolidationStresses { get; }
     }
 }

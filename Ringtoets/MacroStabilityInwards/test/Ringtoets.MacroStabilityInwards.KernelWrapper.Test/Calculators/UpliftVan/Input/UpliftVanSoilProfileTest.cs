@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
@@ -32,11 +33,43 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSoilProfile(null);
+            TestDelegate call = () => new UpliftVanSoilProfile(null, new UpliftVanPreconsolidationStress[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("layers", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new UpliftVanSoilProfile(new UpliftVanSoilLayer[0], null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var layers = new[]
+            {
+                new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties())
+            };
+            var preconsolidationStresses = new[]
+            {
+                new UpliftVanPreconsolidationStress(new Point2D(0, 0), 0)
+            };
+
+            // Call
+            var profile = new UpliftVanSoilProfile(layers, preconsolidationStresses);
+
+            // Assert
+            CollectionAssert.AreEqual(layers, profile.Layers);
+            CollectionAssert.AreEqual(preconsolidationStresses, profile.PreconsolidationStresses);
         }
     }
 }

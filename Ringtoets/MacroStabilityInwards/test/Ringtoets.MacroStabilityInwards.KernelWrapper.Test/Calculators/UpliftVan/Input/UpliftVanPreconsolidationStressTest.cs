@@ -46,14 +46,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Setup
             var random = new Random(11);
             var coordinate = new Point2D(random.Next(), random.NextDouble());
-            double stressValue = random.NextDouble();
+            double stress = random.NextDouble();
 
             // Call
-            var stress = new UpliftVanPreconsolidationStress(coordinate, stressValue);
+            var preconsolidationStress = new UpliftVanPreconsolidationStress(coordinate, stress);
 
             // Assert
-            Assert.AreSame(coordinate, stress.Coordinate);
-            Assert.AreEqual(stressValue, stress.StressValue);
+            Assert.AreSame(coordinate, preconsolidationStress.Coordinate);
+            Assert.AreEqual(preconsolidationStress, preconsolidationStress.Stress);
         }
     }
 }
