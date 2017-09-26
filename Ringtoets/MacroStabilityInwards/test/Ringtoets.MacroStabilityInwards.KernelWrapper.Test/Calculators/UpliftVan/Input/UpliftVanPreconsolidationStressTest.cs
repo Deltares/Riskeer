@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Assert
             Assert.AreSame(coordinate, preconsolidationStress.Coordinate);
-            Assert.AreEqual(preconsolidationStress, preconsolidationStress.Stress);
+            Assert.AreEqual(stress, preconsolidationStress.Stress);
         }
     }
 }
