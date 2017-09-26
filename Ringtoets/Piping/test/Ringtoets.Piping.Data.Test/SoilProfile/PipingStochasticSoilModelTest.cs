@@ -304,13 +304,14 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
         {
             // Setup 
-            var addedProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            const string profileName = "Name of the profile";
+            var addedProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName));
             PipingStochasticSoilModel otherModel = CreateEmptyModel();
             otherModel.StochasticSoilProfiles.Add(addedProfile);
 
-            PipingSoilProfile existingProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
-            var existingStochasticSoilProfileOne = new PipingStochasticSoilProfile(0.2, existingProfile);
-            var existingStochasticSoilProfileTwo = new PipingStochasticSoilProfile(0.3, existingProfile);
+            PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName);
+            var existingStochasticSoilProfileOne = new PipingStochasticSoilProfile( 0.2, soilProfile);
+            var existingStochasticSoilProfileTwo = new PipingStochasticSoilProfile(0.3, soilProfile);
             PipingStochasticSoilModel model = CreateEmptyModel();
             model.StochasticSoilProfiles.Add(existingStochasticSoilProfileOne);
             model.StochasticSoilProfiles.Add(existingStochasticSoilProfileTwo);

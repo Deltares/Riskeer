@@ -190,7 +190,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_EmptyFile_ReturnsEmptyPreconsolidationStressCollection()
+        public void ReadPreconsolidationStresses_EmptyFile_ReturnsEmptyPreconsolidationStressCollection()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
@@ -305,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStressesAndUnparsableValues.soil");
 
-            SoilProfileReadException expectedException = null;
+            SoilProfileReadException actualException = null;
             var readStresses = new List<PreconsolidationStress>();
             using (var reader = new PreconsolidationStressReader(dbFile))
             {
@@ -320,7 +320,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     }
                     catch (SoilProfileReadException e)
                     {
-                        expectedException = e;
+                        actualException = e;
                     }
                 }
 
@@ -328,8 +328,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsFalse(reader.HasNext);
             }
 
-            Assert.IsNotNull(expectedException);
-            Assert.AreEqual("Profile_1", expectedException.ProfileName);
+            Assert.IsNotNull(actualException);
+            Assert.AreEqual("Profile_1", actualException.ProfileName);
 
             CollectionAssert.AreEqual(new[]
             {

@@ -299,16 +299,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Update_ModelsWithAddedProfilesWithSameNames_ThrowsInvalidOperationException()
         {
             // Setup 
+            const string profileName = "Name of Profile";
+
             MacroStabilityInwardsSoilProfile1D soilProfileOne =
-                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
+                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(profileName);
             var addedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfileOne);
             MacroStabilityInwardsStochasticSoilModel otherModel = CreateEmptyModel();
             otherModel.StochasticSoilProfiles.Add(addedStochasticSoilProfile);
 
-            MacroStabilityInwardsSoilProfile1D existingSoilProfile =
-                MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
-            var existingStochasticSoilProfileOne = new MacroStabilityInwardsStochasticSoilProfile(0.2, existingSoilProfile);
-            var existingStochasticSoilProfileTwo = new MacroStabilityInwardsStochasticSoilProfile(0.3, existingSoilProfile);
+            MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(profileName);
+            var existingStochasticSoilProfileOne = new MacroStabilityInwardsStochasticSoilProfile(0.2,soilProfile);
+            var existingStochasticSoilProfileTwo = new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile);
 
             MacroStabilityInwardsStochasticSoilModel model = CreateEmptyModel();
             model.StochasticSoilProfiles.Add(existingStochasticSoilProfileOne);

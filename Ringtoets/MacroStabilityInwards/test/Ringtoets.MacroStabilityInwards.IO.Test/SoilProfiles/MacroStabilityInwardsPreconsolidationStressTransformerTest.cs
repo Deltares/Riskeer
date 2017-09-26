@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var random = new Random(21);
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
-            double preconsolidationStressMean = 0.005;
+            const double preconsolidationStressMean = 0.005;
             double preconsolidationStressCoefficientOfVariation = random.NextDouble();
 
             yield return new TestCaseData(new PreconsolidationStress

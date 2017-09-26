@@ -707,7 +707,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithSoilLayersUnparsableValues.soil");
 
             var readProfiles = new List<SoilProfile2D>();
-            SoilProfileReadException expectedException = null;
+            SoilProfileReadException actualException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
@@ -721,7 +721,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     }
                     catch (SoilProfileReadException e)
                     {
-                        expectedException = e;
+                        actualException = e;
                     }
                 }
 
@@ -730,8 +730,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(2, readProfiles.Count);
             }
 
-            Assert.IsNotNull(expectedException);
-            Assert.AreEqual("InvalidProfile", expectedException.ProfileName);
+            Assert.IsNotNull(actualException);
+            Assert.AreEqual("InvalidProfile", actualException.ProfileName);
 
             CollectionAssert.AreEqual(new[]
             {
