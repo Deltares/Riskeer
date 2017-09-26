@@ -30,16 +30,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile1D"/> which has:
         /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to an empty name.</item>
+        /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Name"/> set to "Profile".</item>
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Bottom"/> set to <c>0.0</c>.</item>
         /// <item><see cref="MacroStabilityInwardsSoilProfile1D.Layers"/> set to a collection with a single <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// with <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> set to <c>0.0</c>.</item>
         /// </list>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A configured <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
         public static MacroStabilityInwardsSoilProfile1D CreateMacroStabilityInwardsSoilProfile1D()
         {
-            return CreateMacroStabilityInwardsSoilProfile1D(string.Empty);
+            return CreateMacroStabilityInwardsSoilProfile1D("Profile");
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
         /// </list>
         /// </summary>
         /// <param name="name">The name for the profile.</param>
-        /// <returns></returns>
+        /// <returns>A configured <see cref="MacroStabilityInwardsSoilProfile1D"/>.</returns>
         public static MacroStabilityInwardsSoilProfile1D CreateMacroStabilityInwardsSoilProfile1D(string name)
         {
             return new MacroStabilityInwardsSoilProfile1D(name, 0.0, new[]

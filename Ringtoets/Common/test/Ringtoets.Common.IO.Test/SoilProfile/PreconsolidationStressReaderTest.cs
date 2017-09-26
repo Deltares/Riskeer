@@ -190,6 +190,24 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadSoilProfile_EmptyFile_ReturnsEmptyPreconsolidationStressCollection()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "emptySchema.soil");
+
+            using (var reader = new PreconsolidationStressReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call 
+                PreconsolidationStress[] preconsolidationStresses = reader.ReadPreconsolidationStresses().ToArray();
+
+                // Assert
+                CollectionAssert.IsEmpty(preconsolidationStresses);
+            }
+        }
+
+        [Test]
         public void ReadPreconsolidationStresses_FirstSoilProfileInCompleteDatabase_ReturnsExpectedPreconsolidationStresses()
         {
             // Setup
@@ -282,12 +300,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadPreconsolidationStresses_CannotParseValues_ThrowsSoilProfileReadExceptionAndCanContinueReading()
+        public void GivenDatabaseWithThreeProfilesWithPreconsolidationStresses_WhenReadingPreconsolidationStressesFails_ThenThrowsSoilProfileReadExceptionAndCanContinueReading()
         {
-            // Setup
+            // Given
             string dbFile = Path.Combine(testDataPath, "2dprofileWithPreconsolidationStressesAndUnparsableValues.soil");
 
-            var exceptionThrown = false;
+            SoilProfileReadException expectedException = null;
             var readStresses = new List<PreconsolidationStress>();
             using (var reader = new PreconsolidationStressReader(dbFile))
             {
@@ -297,20 +315,22 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 {
                     try
                     {
-                        // Call
+                        // When
                         readStresses.AddRange(reader.ReadPreconsolidationStresses());
                     }
-                    catch (SoilProfileReadException)
+                    catch (SoilProfileReadException e)
                     {
-                        exceptionThrown = true;
+                        expectedException = e;
                     }
                 }
 
-                // Assert
+                // Then
                 Assert.IsFalse(reader.HasNext);
             }
 
-            Assert.IsTrue(exceptionThrown);
+            Assert.IsNotNull(expectedException);
+            Assert.AreEqual("Profile_1", expectedException.ProfileName);
+
             CollectionAssert.AreEqual(new[]
             {
                 2,

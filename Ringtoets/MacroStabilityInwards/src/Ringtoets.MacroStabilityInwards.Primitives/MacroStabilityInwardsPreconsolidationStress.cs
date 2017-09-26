@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// </summary>
         /// <param name="value">The value to validate.</param>
         /// <param name="parameterName">The name of the parameter to validate.</param>
-        /// <exception cref="ArgumentException">Thrown if the parameter value is <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the parameter value is <see cref="double.NaN"/>.</exception>
         private static void ValidateParameterNaN(double value, string parameterName)
         {
             if (double.IsNaN(value))

@@ -641,7 +641,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Given
             string dbFile = Path.Combine(testDataPath, "2dprofileWithInvalidLayerProperty.soil");
 
-            SoilProfileReadException exception = null;
+            SoilProfileReadException expectedException = null;
             var readSoilProfiles = new List<SoilProfile2D>();
             using (var reader = new SoilProfile2DReader(dbFile))
             {
@@ -654,15 +654,16 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 }
                 catch (SoilProfileReadException e)
                 {
-                    exception = e;
+                    expectedException = e;
                 }
 
                 // Then
                 readSoilProfiles.Add(reader.ReadSoilProfile());
             }
 
-            Assert.IsInstanceOf<SoilProfileReadException>(exception);
-            Assert.AreEqual("Profile", exception.ProfileName);
+            Assert.IsNotNull(expectedException);
+            Assert.AreEqual("Profile", expectedException.ProfileName);
+
             Assert.AreEqual(1, readSoilProfiles.Count);
             Assert.AreEqual("Profile2", readSoilProfiles[0].Name);
 
@@ -700,36 +701,38 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_SoilProfilesWithUnparsableSoilLayers_ThrowsSoilProfileReadExceptionAndCanContinueReading()
+        public void GivenDatabaseWithSoilProfileAndSoilLayers_WhenReadingSoilLayerFails_ThenThrowsSoilProfileReadExceptionAndCanContinueReading()
         {
-            // Setup
+            // Given
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithSoilLayersUnparsableValues.soil");
 
             var readProfiles = new List<SoilProfile2D>();
-            var exceptionThrown = false;
+            SoilProfileReadException expectedException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
 
                 while (reader.HasNext)
                 {
-                    // Call
+                    // When
                     try
                     {
                         readProfiles.Add(reader.ReadSoilProfile());
                     }
-                    catch (SoilProfileReadException)
+                    catch (SoilProfileReadException e)
                     {
-                        exceptionThrown = true;
+                        expectedException = e;
                     }
                 }
 
-                // Assert
+                // Then
                 Assert.IsFalse(reader.HasNext);
                 Assert.AreEqual(2, readProfiles.Count);
             }
 
-            Assert.IsTrue(exceptionThrown);
+            Assert.IsNotNull(expectedException);
+            Assert.AreEqual("InvalidProfile", expectedException.ProfileName);
+
             CollectionAssert.AreEqual(new[]
             {
                 "Profile_1",
@@ -781,36 +784,38 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_SoilProfilesWithUnparsablePreconsolidationStresses_ThrowsSoilProfileReadExceptionAndCanContinueReading()
+        public void GivenDatabaseWithSoilProfilesAndPreconsolidationStresses_WhenReadingPreconsolidationStressesFails_ThenThrowsSoilProfileReadExceptionAndCanContinueReading()
         {
-            // Setup
+            // Given
             string dbFile = Path.Combine(testDataPath, "2dProfilesWithAndWithoutPreconsolidationStressesUnparsableValues.soil");
 
             var readProfiles = new List<SoilProfile2D>();
-            var exceptionThrown = false;
+            SoilProfileReadException expectedException = null;
             using (var reader = new SoilProfile2DReader(dbFile))
             {
                 reader.Initialize();
 
                 while (reader.HasNext)
                 {
-                    // Call
+                    // When
                     try
                     {
                         readProfiles.Add(reader.ReadSoilProfile());
                     }
-                    catch (SoilProfileReadException)
+                    catch (SoilProfileReadException e)
                     {
-                        exceptionThrown = true;
+                        expectedException = e;
                     }
                 }
 
-                // Assert
+                // Then
                 Assert.IsFalse(reader.HasNext);
                 Assert.AreEqual(2, readProfiles.Count);
             }
 
-            Assert.IsTrue(exceptionThrown);
+            Assert.IsNotNull(expectedException);
+            Assert.AreEqual("InvalidPreconsolidationStress1", expectedException.ProfileName);
+
             CollectionAssert.AreEqual(new[]
             {
                 "Profile_1",

@@ -427,7 +427,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
             CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
 
-            Assert.IsInstanceOf<StochasticSoilModelException>(expectedException);
+            Assert.IsNotNull(expectedException);
             Assert.AreEqual("Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '36006_Piping'.",
                             expectedException.Message);
 

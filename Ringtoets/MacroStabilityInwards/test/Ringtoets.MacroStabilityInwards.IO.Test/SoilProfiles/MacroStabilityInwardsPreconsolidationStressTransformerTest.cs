@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             yield return new TestCaseData(new PreconsolidationStress
             {
-                PreconsolidationStressDistributionType = random.Next(),
+                PreconsolidationStressDistributionType = random.Next(3, int.MaxValue),
                 PreconsolidationStressShift = 0
             }).SetName("Invalid DistributionType");
 
@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         private static IEnumerable<TestCaseData> GetPreconsolidationStressInvalidDistributionValues()
         {
             var random = new Random(21);
-            double preconsolidationStressMean = random.NextDouble();
+            double preconsolidationStressMean = 0.005;
 
             yield return new TestCaseData(new PreconsolidationStress
             {
@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var random = new Random(21);
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
-            double preconsolidationStressMean = random.NextDouble();
+            double preconsolidationStressMean = 0.005;
             double preconsolidationStressCoefficientOfVariation = random.NextDouble();
 
             yield return new TestCaseData(new PreconsolidationStress

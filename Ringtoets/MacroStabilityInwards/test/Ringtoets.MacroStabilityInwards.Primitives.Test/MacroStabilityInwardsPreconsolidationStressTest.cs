@@ -356,7 +356,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
+            const double stressMean = 0.005;
             double stressCoefficientOfVariation = random.NextDouble();
 
             yield return new TestCaseData(double.NaN, zCoordinate, stressMean, stressCoefficientOfVariation, "X-coördinaat").SetName("Invalid XCoordinate");

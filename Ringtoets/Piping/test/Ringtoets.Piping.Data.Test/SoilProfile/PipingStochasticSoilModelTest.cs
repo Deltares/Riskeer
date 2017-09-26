@@ -308,10 +308,12 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             PipingStochasticSoilModel otherModel = CreateEmptyModel();
             otherModel.StochasticSoilProfiles.Add(addedProfile);
 
-            var existingProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
+            PipingSoilProfile existingProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            var existingStochasticSoilProfileOne = new PipingStochasticSoilProfile(0.2, existingProfile);
+            var existingStochasticSoilProfileTwo = new PipingStochasticSoilProfile(0.3, existingProfile);
             PipingStochasticSoilModel model = CreateEmptyModel();
-            model.StochasticSoilProfiles.Add(existingProfile);
-            model.StochasticSoilProfiles.Add(existingProfile);
+            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileOne);
+            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileTwo);
 
             // Call 
             TestDelegate call = () => model.Update(otherModel);
@@ -325,8 +327,8 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEqual(new[]
             {
-                existingProfile,
-                existingProfile
+                existingStochasticSoilProfileOne,
+                existingStochasticSoilProfileTwo
             }, model.StochasticSoilProfiles);
         }
 

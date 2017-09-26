@@ -305,12 +305,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsStochasticSoilModel otherModel = CreateEmptyModel();
             otherModel.StochasticSoilProfiles.Add(addedStochasticSoilProfile);
 
-            MacroStabilityInwardsSoilProfile1D soilProfileTwo =
+            MacroStabilityInwardsSoilProfile1D existingSoilProfile =
                 MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
-            var existingStochastSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfileTwo);
+            var existingStochasticSoilProfileOne = new MacroStabilityInwardsStochasticSoilProfile(0.2, existingSoilProfile);
+            var existingStochasticSoilProfileTwo = new MacroStabilityInwardsStochasticSoilProfile(0.3, existingSoilProfile);
+
             MacroStabilityInwardsStochasticSoilModel model = CreateEmptyModel();
-            model.StochasticSoilProfiles.Add(existingStochastSoilProfile);
-            model.StochasticSoilProfiles.Add(existingStochastSoilProfile);
+            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileOne);
+            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileTwo);
 
             // Call 
             TestDelegate call = () => model.Update(otherModel);
@@ -324,8 +326,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEqual(new[]
             {
-                existingStochastSoilProfile,
-                existingStochastSoilProfile
+                existingStochasticSoilProfileOne,
+                existingStochasticSoilProfileTwo
             }, model.StochasticSoilProfiles);
         }
 

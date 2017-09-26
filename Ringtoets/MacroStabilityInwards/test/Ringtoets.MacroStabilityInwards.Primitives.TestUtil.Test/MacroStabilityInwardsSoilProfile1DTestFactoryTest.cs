@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
             Assert.IsNotNull(soilProfile);
 
             Assert.AreEqual(typeof(MacroStabilityInwardsSoilProfile1D), soilProfile.GetType());
-            Assert.IsEmpty(soilProfile.Name);
+            Assert.AreEqual("Profile", soilProfile.Name);
             Assert.AreEqual(0.0, soilProfile.Bottom);
 
             MacroStabilityInwardsSoilLayer1D soiLayer = soilProfile.Layers.Single();

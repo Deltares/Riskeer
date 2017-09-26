@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -33,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
     public class MacroStabilityInwardsPreconsolidationStressUnderSurfaceLineTest
     {
         [Test]
-        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentException()
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(null);
@@ -41,6 +42,19 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("properties", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetInvalidConstructionProperties))]
+        public void Constructor_ConstructionPropertiesInvalidValues_ThrowsArgumentOutOfRangeException(
+            MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties invalidConstructionProperties,
+            string expectedMessage)
+        {
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(invalidConstructionProperties);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -95,6 +109,26 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
             Assert.AreEqual(constructionProperties.XCoordinate, stressProperties.XCoordinate);
             Assert.AreEqual(constructionProperties.ZCoordinate, stressProperties.ZCoordinate);
             Assert.AreEqual(preconsolidationStressDesignVariable, stressProperties.PreconsolidationStressDesignVariable);
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidConstructionProperties()
+        {
+            var random = new Random(30);
+
+            yield return new TestCaseData(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
+            {
+                XCoordinate = random.NextDouble(),
+                ZCoordinate = random.NextDouble(),
+                PreconsolidationStressMean = -1,
+                PreconsolidationStressCoefficientOfVariation = random.NextDouble()
+            }, "Gemiddelde moet groter zijn dan 0.").SetName("Invalid Mean");
+            yield return new TestCaseData(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
+            {
+                XCoordinate = random.NextDouble(),
+                ZCoordinate = random.NextDouble(),
+                PreconsolidationStressMean = 0.005,
+                PreconsolidationStressCoefficientOfVariation = -1
+            }, "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.").SetName("Invalid Coefficient of Variation");
         }
     }
 }
