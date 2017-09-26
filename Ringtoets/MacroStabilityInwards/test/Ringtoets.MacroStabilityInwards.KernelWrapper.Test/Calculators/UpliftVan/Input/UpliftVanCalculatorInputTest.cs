@@ -61,6 +61,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()))
             }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
 
+            var upliftVanSoilProfile = new UpliftVanSoilProfile(new[]
+            {
+                new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties()),
+            }, new UpliftVanPreconsolidationStress[0]);
+
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
             double xCoordinateDrainageConstruction = random.Next();
@@ -102,6 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     AssessmentLevel = hRiverValue,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
+                    UpliftVanSoilProfile = upliftVanSoilProfile,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolder = waterLevelPolder,
                     XCoordinateDrainageConstruction = xCoordinateDrainageConstruction,
@@ -141,6 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
             Assert.AreSame(soilProfile, input.SoilProfile);
+            Assert.AreSame(upliftVanSoilProfile, input.UpliftVanSoilProfile);
 
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder);
@@ -190,6 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Assert
             Assert.IsNull(input.SurfaceLine);
             Assert.IsNull(input.SoilProfile);
+            Assert.IsNull(input.UpliftVanSoilProfile);
             Assert.IsNull(input.LeftGrid);
             Assert.IsNull(input.RightGrid);
 
