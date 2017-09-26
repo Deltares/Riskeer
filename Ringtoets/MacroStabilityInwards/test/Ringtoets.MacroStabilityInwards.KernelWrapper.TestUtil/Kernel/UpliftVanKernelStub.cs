@@ -21,7 +21,7 @@
 
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernel;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel
 {

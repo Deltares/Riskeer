@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Converters;

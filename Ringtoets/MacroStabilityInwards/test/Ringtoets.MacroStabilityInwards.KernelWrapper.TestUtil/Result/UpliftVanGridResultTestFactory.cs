@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {

@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil
 {

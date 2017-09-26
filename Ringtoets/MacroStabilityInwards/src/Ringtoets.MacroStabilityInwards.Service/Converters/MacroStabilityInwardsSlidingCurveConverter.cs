@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {

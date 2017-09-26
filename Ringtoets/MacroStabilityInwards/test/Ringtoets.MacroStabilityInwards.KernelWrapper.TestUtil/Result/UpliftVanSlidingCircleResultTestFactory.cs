@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {

@@ -21,7 +21,7 @@
 
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Result
 {

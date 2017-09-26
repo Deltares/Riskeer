@@ -60,25 +60,25 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Creators\SlipPlaneUpliftVanCreatorTest.cs" />
-    <Compile Include="Creators\SoilProfileCreatorTest.cs" />
-    <Compile Include="Creators\StabilityLocationCreatorTest.cs" />
-    <Compile Include="Creators\SurfaceLineCreatorTest.cs" />
-    <Compile Include="UpliftVanCalculatorInputTest.cs" />
-    <Compile Include="UpliftVanCalculatorResultTest.cs" />
-    <Compile Include="UpliftVanCalculatorTest.cs" />
-    <Compile Include="Creators\SoilCreatorTest.cs" />
-    <Compile Include="Creators\SoilModelCreatorTest.cs" />
-    <Compile Include="Result\UpliftVanGridResultTest.cs" />
-    <Compile Include="Result\UpliftVanSliceResultTest.cs" />
-    <Compile Include="Result\UpliftVanSlidingCircleResultTest.cs" />
-    <Compile Include="Creators\UpliftVanSlidingCurveResultCreatorTest.cs" />
-    <Compile Include="Result\UpliftVanSlidingCurveResultTest.cs" />
-    <Compile Include="Creators\UpliftVanCalculationGridResultCreatorTest.cs" />
-    <Compile Include="Result\UpliftVanCalculationGridResultTest.cs" />
-    <Compile Include="Kernel\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
+    <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
+    <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />
+    <Compile Include="Creators\Input\StabilityLocationCreatorTest.cs" />
+    <Compile Include="Creators\Input\SurfaceLineCreatorTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanCalculatorInputTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultTest.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorTest.cs" />
+    <Compile Include="Creators\Input\SoilCreatorTest.cs" />
+    <Compile Include="Creators\Input\SoilModelCreatorTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResultTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTest.cs" />
+    <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreatorTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTest.cs" />
+    <Compile Include="Creators\Output\UpliftVanCalculationGridResultCreatorTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculationGridResultTest.cs" />
+    <Compile Include="Kernels\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Kernel\UpliftVanKernelWrapperTest.cs" />
+    <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

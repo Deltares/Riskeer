@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {

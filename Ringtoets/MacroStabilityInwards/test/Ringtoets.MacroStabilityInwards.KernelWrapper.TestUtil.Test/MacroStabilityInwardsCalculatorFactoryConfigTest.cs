@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test
 {

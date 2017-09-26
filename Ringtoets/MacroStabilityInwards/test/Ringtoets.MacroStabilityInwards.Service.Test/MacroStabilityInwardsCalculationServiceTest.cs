@@ -30,7 +30,9 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Result;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
