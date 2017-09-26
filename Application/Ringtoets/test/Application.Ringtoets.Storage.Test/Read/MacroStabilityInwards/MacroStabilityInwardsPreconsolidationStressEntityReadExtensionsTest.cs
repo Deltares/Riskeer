@@ -61,10 +61,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(stress);
-            Assert.AreEqual(entity.CoordinateX, stress.XCoordinate, stress.XCoordinate.GetAccuracy());
-            Assert.AreEqual(entity.CoordinateZ, stress.ZCoordinate, stress.ZCoordinate.GetAccuracy());
+            Assert.AreEqual(entity.CoordinateX, stress.Location.X);
+            Assert.AreEqual(entity.CoordinateZ, stress.Location.Y);
 
-            VariationCoefficientLogNormalDistribution preconsolidationStressDistribution = stress.PreconsolidationStress;
+            VariationCoefficientLogNormalDistribution preconsolidationStressDistribution = stress.Stress;
             Assert.AreEqual(entity.PreconsolidationStressMean, preconsolidationStressDistribution.Mean,
                             preconsolidationStressDistribution.GetAccuracy());
             Assert.AreEqual(entity.PreconsolidationStressCoefficientOfVariation, preconsolidationStressDistribution.CoefficientOfVariation,

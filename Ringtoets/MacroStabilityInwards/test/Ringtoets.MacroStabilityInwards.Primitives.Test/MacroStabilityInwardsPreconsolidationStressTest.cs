@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -49,18 +50,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                          stressMean,
                                                                          stressCoefficientOfVariation);
             // Assert
-            Assert.AreEqual(2, stress.XCoordinate.NumberOfDecimalPlaces);
-            Assert.AreEqual(xCoordinate, stress.XCoordinate,
-                            stress.XCoordinate.GetAccuracy());
-            Assert.AreEqual(2, stress.ZCoordinate.NumberOfDecimalPlaces);
-            Assert.AreEqual(zCoordinate, stress.ZCoordinate,
-                            stress.ZCoordinate.GetAccuracy());
+            Assert.AreEqual(new Point2D(xCoordinate, zCoordinate), stress.Location);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) stressMean,
                 CoefficientOfVariation = (RoundedDouble) stressCoefficientOfVariation
-            }, stress.PreconsolidationStress);
+            }, stress.Stress);
         }
 
         [Test]
@@ -325,26 +321,26 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                              stressCoefficientOfVariation);
 
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate + random.NextDouble(),
-                                                                                          baseStress.ZCoordinate,
+                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X+ random.NextDouble(),
+                                                                                          baseStress.Location.Y,
                                                                                           stressMean,
                                                                                           stressCoefficientOfVariation))
                 .SetName("Different X Coordinate");
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate,
-                                                                                          baseStress.ZCoordinate + random.NextDouble(),
+                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X,
+                                                                                          baseStress.Location.Y + random.NextDouble(),
                                                                                           stressMean,
                                                                                           stressCoefficientOfVariation))
                 .SetName("Different Z Coordinate");
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate,
-                                                                                          baseStress.ZCoordinate,
+                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X,
+                                                                                          baseStress.Location.Y,
                                                                                           stressMean + random.NextDouble(),
                                                                                           stressCoefficientOfVariation))
                 .SetName("Different Mean");
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.XCoordinate,
-                                                                                          baseStress.ZCoordinate,
+                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X,
+                                                                                          baseStress.Location.Y,
                                                                                           stressMean,
                                                                                           stressCoefficientOfVariation + random.NextDouble()))
                 .SetName("Different Coefficient of Variation");

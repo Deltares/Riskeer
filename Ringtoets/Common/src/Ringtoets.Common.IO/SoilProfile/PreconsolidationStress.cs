@@ -34,31 +34,31 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Gets or sets the Z coordinate of the preconsolidation stress location.
-        /// [m]
+        /// [m+NAP]
         /// </summary>
         public double ZCoordinate { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets distribution type of the preconsolidation stress.
         /// </summary>
-        public long? PreconsolidationStressDistributionType { get; set; }
+        public long? StressDistributionType { get; set; }
 
         /// <summary>
         /// Gets or sets the mean for the distribution of the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
-        public double PreconsolidationStressMean { get; set; } = double.NaN;
+        public double StressMean { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the coefficient of variation for the distribution of the preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
-        public double PreconsolidationStressCoefficientOfVariation { get; set; } = double.NaN;
+        public double StressCoefficientOfVariation { get; set; } = double.NaN;
 
         /// <summary>
         /// Gets or sets the shift for the distribution of the  preconsolidation stress.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
-        public double PreconsolidationStressShift { get; set; } = double.NaN;
+        public double StressShift { get; set; } = double.NaN;
     }
 }

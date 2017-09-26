@@ -244,28 +244,28 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, preconsolidationStresses.Select(stress => stress.PreconsolidationStressDistributionType));
+                }, preconsolidationStresses.Select(stress => stress.StressDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1337,
                     3371,
                     8.5,
                     9.3
-                }, preconsolidationStresses.Select(stress => stress.PreconsolidationStressMean));
+                }, preconsolidationStresses.Select(stress => stress.StressMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.0074794315632011965,
                     0.0029664787896766538,
                     1.8823529411764706,
                     0.8064516129032258
-                }, preconsolidationStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
+                }, preconsolidationStresses.Select(stress => stress.StressCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     11,
                     12,
                     0,
                     0
-                }, preconsolidationStresses.Select(stress => stress.PreconsolidationStressShift));
+                }, preconsolidationStresses.Select(stress => stress.StressShift));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -290,10 +290,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 Assert.IsNaN(actualPreconsolidationStress.XCoordinate);
                 Assert.IsNaN(actualPreconsolidationStress.ZCoordinate);
-                Assert.IsNull(actualPreconsolidationStress.PreconsolidationStressDistributionType);
-                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressMean);
-                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
-                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressShift);
+                Assert.IsNull(actualPreconsolidationStress.StressDistributionType);
+                Assert.IsNaN(actualPreconsolidationStress.StressMean);
+                Assert.IsNaN(actualPreconsolidationStress.StressCoefficientOfVariation);
+                Assert.IsNaN(actualPreconsolidationStress.StressShift);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -346,22 +346,22 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             {
                 3,
                 3
-            }, readStresses.Select(stress => stress.PreconsolidationStressDistributionType));
+            }, readStresses.Select(stress => stress.StressDistributionType));
             CollectionAssert.AreEqual(new[]
             {
                 2,
                 3
-            }, readStresses.Select(stress => stress.PreconsolidationStressMean));
+            }, readStresses.Select(stress => stress.StressMean));
             CollectionAssert.AreEqual(new[]
             {
                 1,
                 1
-            }, readStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
+            }, readStresses.Select(stress => stress.StressCoefficientOfVariation));
             CollectionAssert.AreEqual(new[]
             {
                 0,
                 0
-            }, readStresses.Select(stress => stress.PreconsolidationStressShift));
+            }, readStresses.Select(stress => stress.StressShift));
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

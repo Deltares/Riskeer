@@ -36,10 +36,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.IsNaN(stress.XCoordinate);
             Assert.IsNaN(stress.ZCoordinate);
-            Assert.IsNull(stress.PreconsolidationStressDistributionType);
-            Assert.IsNaN(stress.PreconsolidationStressMean);
-            Assert.IsNaN(stress.PreconsolidationStressCoefficientOfVariation);
-            Assert.IsNaN(stress.PreconsolidationStressShift);
+            Assert.IsNull(stress.StressDistributionType);
+            Assert.IsNaN(stress.StressMean);
+            Assert.IsNaN(stress.StressCoefficientOfVariation);
+            Assert.IsNaN(stress.StressShift);
         }
     }
 }

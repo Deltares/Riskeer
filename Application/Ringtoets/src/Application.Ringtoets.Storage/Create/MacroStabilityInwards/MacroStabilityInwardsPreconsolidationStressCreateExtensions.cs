@@ -49,10 +49,10 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 
             return new MacroStabilityInwardsPreconsolidationStressEntity
             {
-                CoordinateX = preconsolidationStress.XCoordinate,
-                CoordinateZ = preconsolidationStress.ZCoordinate,
-                PreconsolidationStressMean = preconsolidationStress.PreconsolidationStress.Mean,
-                PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStress.CoefficientOfVariation,
+                CoordinateX = preconsolidationStress.Location.X,
+                CoordinateZ = preconsolidationStress.Location.Y,
+                PreconsolidationStressMean = preconsolidationStress.Stress.Mean,
+                PreconsolidationStressCoefficientOfVariation = preconsolidationStress.Stress.CoefficientOfVariation,
                 Order = order
             };
         }

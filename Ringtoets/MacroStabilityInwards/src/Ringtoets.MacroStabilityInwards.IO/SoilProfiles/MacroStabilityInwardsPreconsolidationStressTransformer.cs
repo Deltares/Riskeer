@@ -54,16 +54,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(preconsolidationStress));
             }
 
-            DistributionHelper.ValidateIsNonShiftedLogNormal(preconsolidationStress.PreconsolidationStressDistributionType,
-                                                             preconsolidationStress.PreconsolidationStressShift,
+            DistributionHelper.ValidateIsNonShiftedLogNormal(preconsolidationStress.StressDistributionType,
+                                                             preconsolidationStress.StressShift,
                                                              Resources.PreconsolidationStress_DisplayName);
 
             try
             {
                 return new MacroStabilityInwardsPreconsolidationStress(preconsolidationStress.XCoordinate,
                                                                        preconsolidationStress.ZCoordinate,
-                                                                       preconsolidationStress.PreconsolidationStressMean,
-                                                                       preconsolidationStress.PreconsolidationStressCoefficientOfVariation);
+                                                                       preconsolidationStress.StressMean,
+                                                                       preconsolidationStress.StressCoefficientOfVariation);
             }
             catch (ArgumentOutOfRangeException e)
             {

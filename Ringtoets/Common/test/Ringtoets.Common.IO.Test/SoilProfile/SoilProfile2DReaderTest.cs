@@ -532,28 +532,28 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     3,
                     3,
                     3
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressDistributionType));
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressDistributionType));
                 CollectionAssert.AreEqual(new[]
                 {
                     1337,
                     3371,
                     8.5,
                     9.3
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressMean));
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressMean));
                 CollectionAssert.AreEqual(new[]
                 {
                     0.0074794315632011965,
                     0.0029664787896766538,
                     1.8823529411764706,
                     0.8064516129032258
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressCoefficientOfVariation));
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressCoefficientOfVariation));
                 CollectionAssert.AreEqual(new[]
                 {
                     11,
                     12,
                     0,
                     0
-                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.PreconsolidationStressShift));
+                }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressShift));
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -577,10 +577,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 Assert.IsNaN(actualPreconsolidationStress.XCoordinate);
                 Assert.IsNaN(actualPreconsolidationStress.ZCoordinate);
-                Assert.IsNull(actualPreconsolidationStress.PreconsolidationStressDistributionType);
-                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressMean);
-                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressCoefficientOfVariation);
-                Assert.IsNaN(actualPreconsolidationStress.PreconsolidationStressShift);
+                Assert.IsNull(actualPreconsolidationStress.StressDistributionType);
+                Assert.IsNaN(actualPreconsolidationStress.StressMean);
+                Assert.IsNaN(actualPreconsolidationStress.StressCoefficientOfVariation);
+                Assert.IsNaN(actualPreconsolidationStress.StressShift);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

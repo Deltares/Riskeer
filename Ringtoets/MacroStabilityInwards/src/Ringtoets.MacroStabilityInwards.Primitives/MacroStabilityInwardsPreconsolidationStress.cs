@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
 
@@ -57,10 +58,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             ValidateParameterNaN(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
             ValidateParameterNaN(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
 
-            XCoordinate = new RoundedDouble(2, xCoordinate);
-            ZCoordinate = new RoundedDouble(2, zCoordinate);
+            new RoundedDouble(2, xCoordinate);
+            new RoundedDouble(2, zCoordinate);
 
-            PreconsolidationStress = new VariationCoefficientLogNormalDistribution(2)
+            Location = new Point2D(xCoordinate, zCoordinate);
+
+            Stress = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) preconsolidationStressMean,
                 CoefficientOfVariation = (RoundedDouble) preconsolidationStressCoefficientOfVariation
@@ -68,22 +71,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Gets the value representing the X coordinate of the preconsolidation stress location.
-        /// [m]
-        /// </summary>
-        public RoundedDouble XCoordinate { get; }
-
-        /// <summary>
-        /// Gets the value representing the Z coordinate of the preconsolidation stress location.
-        /// [m]
-        /// </summary>
-        public RoundedDouble ZCoordinate { get; }
-
-        /// <summary>
         /// Gets the distribution for the preconsolidation stress.
         /// [kN/m²]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution PreconsolidationStress { get; }
+        public VariationCoefficientLogNormalDistribution Stress { get; }
+
+        /// <summary>
+        /// Gets the location of the preconsolidation stress
+        /// [m]
+        /// </summary>
+        /// <remarks>The <see cref="Point2D.Y"/> has the unit [m+NAP]</remarks>
+        public Point2D Location { get; }
 
         public override bool Equals(object obj)
         {
@@ -106,9 +104,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             unchecked
             {
-                int hashCode = XCoordinate.GetHashCode();
-                hashCode = (hashCode * 397) ^ ZCoordinate.GetHashCode();
-                hashCode = (hashCode * 397) ^ PreconsolidationStress.GetHashCode();
+                int hashCode = Location.GetHashCode();
+                hashCode = (hashCode * 397) ^ Stress.GetHashCode();
                 return hashCode;
             }
         }
@@ -130,9 +127,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         private bool Equals(MacroStabilityInwardsPreconsolidationStress other)
         {
-            return XCoordinate.Equals(other.XCoordinate)
-                   && ZCoordinate.Equals(other.ZCoordinate)
-                   && PreconsolidationStress.Equals(other.PreconsolidationStress);
+            return Location.Equals(other.Location)
+                   && Stress.Equals(other.Stress);
         }
     }
 }

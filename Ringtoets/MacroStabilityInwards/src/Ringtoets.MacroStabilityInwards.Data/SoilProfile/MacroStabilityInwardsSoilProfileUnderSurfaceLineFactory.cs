@@ -137,10 +137,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             var macroStabilityInwardsPreconsolidationStressUnderSurfaceLine = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
                 new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
                 {
-                    XCoordinate = preconsolidationStress.XCoordinate,
-                    ZCoordinate = preconsolidationStress.ZCoordinate,
-                    PreconsolidationStressMean = preconsolidationStress.PreconsolidationStress.Mean,
-                    PreconsolidationStressCoefficientOfVariation = preconsolidationStress.PreconsolidationStress.CoefficientOfVariation
+                    XCoordinate = preconsolidationStress.Location.X,
+                    ZCoordinate = preconsolidationStress.Location.Y,
+                    PreconsolidationStressMean = preconsolidationStress.Stress.Mean,
+                    PreconsolidationStressCoefficientOfVariation = preconsolidationStress.Stress.CoefficientOfVariation
                 });
 
             macroStabilityInwardsPreconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable =

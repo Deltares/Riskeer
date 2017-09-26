@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine
 {
     /// <summary>
-    /// Preconsolidation stress properties.
+    /// A preconsolidation stress that has has been adapted using a surfaceline.
     /// </summary>
     public class MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine
     {
@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUn
 
         /// <summary>
         /// Gets the value representing the Z coordinate of the preconsolidation stress location.
-        /// [m]
+        /// [m+NAP]
         /// </summary>
         public double ZCoordinate { get; }
 

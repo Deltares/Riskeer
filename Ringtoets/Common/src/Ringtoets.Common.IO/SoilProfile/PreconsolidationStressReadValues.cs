@@ -67,13 +67,13 @@ namespace Ringtoets.Common.IO.SoilProfile
                 ZCoordinate = reader.ReadOrDefault<double?>(readColumn);
 
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressDistributionType;
-                PreconsolidationStressDistributionType = reader.ReadOrDefault<long?>(readColumn);
+                StressDistributionType = reader.ReadOrDefault<long?>(readColumn);
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressMean;
-                PreconsolidationStressMean = reader.ReadOrDefault<double?>(readColumn);
+                StressMean = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressCoefficientOfVariation;
-                PreconsolidationStressCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
+                StressCoefficientOfVariation = reader.ReadOrDefault<double?>(readColumn);
                 readColumn = PreconsolidationStressTableDefinitions.PreconsolidationStressShift;
-                PreconsolidationStressShift = reader.ReadOrDefault<double?>(readColumn);
+                StressShift = reader.ReadOrDefault<double?>(readColumn);
             }
             catch (InvalidCastException e)
             {
@@ -92,31 +92,31 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Gets the value representing the Z coordinate of the preconsolidation stress location.
-        /// [m]
+        /// [m+NAP]
         /// </summary>
         public double? ZCoordinate { get; }
 
         /// <summary>
         /// Gets the distribution type of the preconsolidation stress.
         /// </summary>
-        public long? PreconsolidationStressDistributionType { get; }
+        public long? StressDistributionType { get; }
 
         /// <summary>
         /// Gets the value representing the mean of the distribution for the preconsolidation stress.
         /// [kN/m²]
         /// </summary>
-        public double? PreconsolidationStressMean { get; }
+        public double? StressMean { get; }
 
         /// <summary>
         /// Gets the value representing the coefficient of variation of the distribution for the preconsolidation stress.
         /// [kN/m²]
         /// </summary>
-        public double? PreconsolidationStressCoefficientOfVariation { get; }
+        public double? StressCoefficientOfVariation { get; }
 
         /// <summary>
         /// Gets the value representing the shift of the distribution for the preconsolidation stress.
         /// [kN/m²]
         /// </summary>
-        public double? PreconsolidationStressShift { get; }
+        public double? StressShift { get; }
     }
 }

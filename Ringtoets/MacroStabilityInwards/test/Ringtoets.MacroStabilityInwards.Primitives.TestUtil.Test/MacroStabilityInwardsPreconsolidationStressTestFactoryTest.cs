@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -40,14 +41,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
             Assert.IsNotNull(stress);
 
             Assert.AreEqual(typeof(MacroStabilityInwardsPreconsolidationStress), stress.GetType());
-            Assert.AreEqual(13, stress.XCoordinate, stress.XCoordinate.GetAccuracy());
-            Assert.AreEqual(34, stress.ZCoordinate, stress.ZCoordinate.GetAccuracy());
+            Assert.AreEqual(new Point2D(13, 34), stress.Location);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 10.09,
                 CoefficientOfVariation = (RoundedDouble) 20.05
-            }, stress.PreconsolidationStress);
+            }, stress.Stress);
         }
     }
 }

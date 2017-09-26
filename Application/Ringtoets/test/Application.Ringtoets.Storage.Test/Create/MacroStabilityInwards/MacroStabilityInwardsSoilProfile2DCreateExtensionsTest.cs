@@ -125,10 +125,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         private static void AssertPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress preconsolidationStress,
                                                          MacroStabilityInwardsPreconsolidationStressEntity entity)
         {
-            Assert.AreEqual(preconsolidationStress.XCoordinate, entity.CoordinateX);
-            Assert.AreEqual(preconsolidationStress.ZCoordinate, entity.CoordinateZ);
+            Assert.AreEqual(preconsolidationStress.Location.X, entity.CoordinateX);
+            Assert.AreEqual(preconsolidationStress.Location.Y, entity.CoordinateZ);
 
-            VariationCoefficientLogNormalDistribution preconsolidationDistribution = preconsolidationStress.PreconsolidationStress;
+            VariationCoefficientLogNormalDistribution preconsolidationDistribution = preconsolidationStress.Stress;
             Assert.AreEqual(preconsolidationDistribution.Mean, entity.PreconsolidationStressMean,
                             preconsolidationDistribution.GetAccuracy());
             Assert.AreEqual(preconsolidationDistribution.CoefficientOfVariation, entity.PreconsolidationStressCoefficientOfVariation,

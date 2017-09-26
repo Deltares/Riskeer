@@ -181,25 +181,25 @@ namespace Ringtoets.Common.IO.SoilProfile
                 preconsolidationStress.ZCoordinate = stressReadValues.ZCoordinate.Value;
             }
 
-            if (stressReadValues.PreconsolidationStressDistributionType.HasValue)
+            if (stressReadValues.StressDistributionType.HasValue)
             {
-                preconsolidationStress.PreconsolidationStressDistributionType =
-                    stressReadValues.PreconsolidationStressDistributionType.Value;
+                preconsolidationStress.StressDistributionType =
+                    stressReadValues.StressDistributionType.Value;
             }
-            if (stressReadValues.PreconsolidationStressMean.HasValue)
+            if (stressReadValues.StressMean.HasValue)
             {
-                preconsolidationStress.PreconsolidationStressMean =
-                    stressReadValues.PreconsolidationStressMean.Value;
+                preconsolidationStress.StressMean =
+                    stressReadValues.StressMean.Value;
             }
-            if (stressReadValues.PreconsolidationStressCoefficientOfVariation.HasValue)
+            if (stressReadValues.StressCoefficientOfVariation.HasValue)
             {
-                preconsolidationStress.PreconsolidationStressCoefficientOfVariation =
-                    stressReadValues.PreconsolidationStressCoefficientOfVariation.Value;
+                preconsolidationStress.StressCoefficientOfVariation =
+                    stressReadValues.StressCoefficientOfVariation.Value;
             }
-            if (stressReadValues.PreconsolidationStressShift.HasValue)
+            if (stressReadValues.StressShift.HasValue)
             {
-                preconsolidationStress.PreconsolidationStressShift =
-                    stressReadValues.PreconsolidationStressShift.Value;
+                preconsolidationStress.StressShift =
+                    stressReadValues.StressShift.Value;
             }
 
             return preconsolidationStress;

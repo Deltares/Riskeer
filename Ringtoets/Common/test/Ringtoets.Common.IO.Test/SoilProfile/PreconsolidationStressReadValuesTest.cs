@@ -90,10 +90,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(xCoordinate, properties.XCoordinate);
             Assert.AreEqual(zCoordinate, properties.ZCoordinate);
-            Assert.AreEqual(preconsolidationStressDistributionType, properties.PreconsolidationStressDistributionType);
-            Assert.AreEqual(preconsolidationStressMean, properties.PreconsolidationStressMean);
-            Assert.AreEqual(preconsolidationStressCoefficientOfVariation, properties.PreconsolidationStressCoefficientOfVariation);
-            Assert.AreEqual(preconsolidationStressShift, properties.PreconsolidationStressShift);
+            Assert.AreEqual(preconsolidationStressDistributionType, properties.StressDistributionType);
+            Assert.AreEqual(preconsolidationStressMean, properties.StressMean);
+            Assert.AreEqual(preconsolidationStressCoefficientOfVariation, properties.StressCoefficientOfVariation);
+            Assert.AreEqual(preconsolidationStressShift, properties.StressShift);
             mockRepository.VerifyAll();
         }
 

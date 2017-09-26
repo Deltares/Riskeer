@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.XCoordinate;
+                return new RoundedDouble(2, data.Location.X);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.ZCoordinate;
+                return new RoundedDouble(2, data.Location.Y);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(data.PreconsolidationStress);
+                return new VariationCoefficientLogNormalDistributionProperties(data.Stress);
             }
         }
 

@@ -54,10 +54,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 XCoordinate = random.NextDouble(),
                 ZCoordinate = random.NextDouble(),
-                PreconsolidationStressDistributionType = 3,
-                PreconsolidationStressMean = random.NextDouble(),
-                PreconsolidationStressCoefficientOfVariation = random.NextDouble(),
-                PreconsolidationStressShift = 0
+                StressDistributionType = 3,
+                StressMean = random.NextDouble(),
+                StressCoefficientOfVariation = random.NextDouble(),
+                StressShift = 0
             };
 
             // Call
@@ -65,15 +65,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 MacroStabilityInwardsPreconsolidationStressTransformer.Transform(preconsolidationStress);
 
             // Assert
-            Assert.AreEqual(preconsolidationStress.XCoordinate, transformedStress.XCoordinate,
-                            transformedStress.XCoordinate.GetAccuracy());
-            Assert.AreEqual(preconsolidationStress.ZCoordinate, transformedStress.ZCoordinate,
-                            transformedStress.ZCoordinate.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.XCoordinate, transformedStress.Location.X);
+            Assert.AreEqual(preconsolidationStress.ZCoordinate, transformedStress.Location.Y);
 
-            VariationCoefficientLogNormalDistribution transformedPreconsolidationStressDistribution = transformedStress.PreconsolidationStress;
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressMean, transformedPreconsolidationStressDistribution.Mean,
+            VariationCoefficientLogNormalDistribution transformedPreconsolidationStressDistribution = transformedStress.Stress;
+            Assert.AreEqual(preconsolidationStress.StressMean, transformedPreconsolidationStressDistribution.Mean,
                             transformedPreconsolidationStressDistribution.GetAccuracy());
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStressCoefficientOfVariation,
+            Assert.AreEqual(preconsolidationStress.StressCoefficientOfVariation,
                             transformedPreconsolidationStressDistribution.CoefficientOfVariation,
                             transformedPreconsolidationStressDistribution.GetAccuracy());
         }
@@ -126,14 +124,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             yield return new TestCaseData(new PreconsolidationStress
             {
-                PreconsolidationStressDistributionType = random.Next(3, int.MaxValue),
-                PreconsolidationStressShift = 0
+                StressDistributionType = random.Next(3, int.MaxValue),
+                StressShift = 0
             }).SetName("Invalid DistributionType");
 
             yield return new TestCaseData(new PreconsolidationStress
             {
-                PreconsolidationStressDistributionType = 3,
-                PreconsolidationStressShift = random.NextDouble()
+                StressDistributionType = 3,
+                StressShift = random.NextDouble()
             }).SetName("Invalid Shift");
         }
 
@@ -146,15 +144,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 XCoordinate = random.NextDouble(),
                 ZCoordinate = random.NextDouble(),
-                PreconsolidationStressMean = -1,
-                PreconsolidationStressCoefficientOfVariation = random.NextDouble()
+                StressMean = -1,
+                StressCoefficientOfVariation = random.NextDouble()
             }).SetName("Invalid Mean");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = random.NextDouble(),
                 ZCoordinate = random.NextDouble(),
-                PreconsolidationStressMean = preconsolidationStressMean,
-                PreconsolidationStressCoefficientOfVariation = -1
+                StressMean = preconsolidationStressMean,
+                StressCoefficientOfVariation = -1
             }).SetName("Invalid Coefficient of Variation");
         }
 
@@ -170,29 +168,29 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 XCoordinate = double.NaN,
                 ZCoordinate = zCoordinate,
-                PreconsolidationStressMean = preconsolidationStressMean,
-                PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
+                StressMean = preconsolidationStressMean,
+                StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
             }, "X-coördinaat").SetName("XCoordinate NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = double.NaN,
-                PreconsolidationStressMean = preconsolidationStressMean,
-                PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
+                StressMean = preconsolidationStressMean,
+                StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
             }, "Z-coördinaat").SetName("ZCoordinate NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = zCoordinate,
-                PreconsolidationStressMean = double.NaN,
-                PreconsolidationStressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
+                StressMean = double.NaN,
+                StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
             }, "gemiddelde").SetName("Mean NaN");
             yield return new TestCaseData(new PreconsolidationStress
             {
                 XCoordinate = xCoordinate,
                 ZCoordinate = zCoordinate,
-                PreconsolidationStressMean = preconsolidationStressMean,
-                PreconsolidationStressCoefficientOfVariation = double.NaN
+                StressMean = preconsolidationStressMean,
+                StressCoefficientOfVariation = double.NaN
             }, "variatiecoëfficient").SetName("Coefficient of Variation NaN");
         }
     }

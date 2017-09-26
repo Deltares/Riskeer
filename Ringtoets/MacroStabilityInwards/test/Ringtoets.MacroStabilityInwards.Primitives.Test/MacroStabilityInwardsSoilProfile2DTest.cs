@@ -362,10 +362,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             MacroStabilityInwardsPreconsolidationStress stress)
         {
             var random = new Random(29);
-            return new MacroStabilityInwardsPreconsolidationStress(stress.XCoordinate + random.NextDouble(),
-                                                                   stress.ZCoordinate + random.NextDouble(),
-                                                                   stress.PreconsolidationStress.Mean + random.NextDouble(),
-                                                                   stress.PreconsolidationStress.CoefficientOfVariation + random.NextDouble());
+            return new MacroStabilityInwardsPreconsolidationStress(stress.Location.X + random.NextDouble(),
+                                                                   stress.Location.Y + random.NextDouble(),
+                                                                   stress.Stress.Mean + random.NextDouble(),
+                                                                   stress.Stress.CoefficientOfVariation + random.NextDouble());
         }
 
         private static string GetRandomName(Random random)

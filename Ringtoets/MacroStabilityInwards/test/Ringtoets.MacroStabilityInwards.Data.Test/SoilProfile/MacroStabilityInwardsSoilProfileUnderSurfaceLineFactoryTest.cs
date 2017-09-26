@@ -629,13 +629,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         private static void AssertPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress preconsolidationStress,
                                                          MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine preconsolidationStressUnderSurfaceLine)
         {
-            Assert.AreEqual(preconsolidationStress.XCoordinate, preconsolidationStressUnderSurfaceLine.XCoordinate);
-            Assert.AreEqual(preconsolidationStress.ZCoordinate, preconsolidationStressUnderSurfaceLine.ZCoordinate);
+            Assert.AreEqual(preconsolidationStress.Location.X, preconsolidationStressUnderSurfaceLine.XCoordinate);
+            Assert.AreEqual(preconsolidationStress.Location.Y, preconsolidationStressUnderSurfaceLine.ZCoordinate);
 
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStress.Mean,
+            Assert.AreEqual(preconsolidationStress.Stress.Mean,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.Mean,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
-            Assert.AreEqual(preconsolidationStress.PreconsolidationStress.CoefficientOfVariation,
+            Assert.AreEqual(preconsolidationStress.Stress.CoefficientOfVariation,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation,
                             preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
 
