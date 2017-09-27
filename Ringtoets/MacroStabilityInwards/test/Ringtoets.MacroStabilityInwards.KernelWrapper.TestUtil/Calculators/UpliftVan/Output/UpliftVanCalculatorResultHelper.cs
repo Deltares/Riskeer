@@ -19,64 +19,64 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.Service.Converters;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
 {
-    [TestFixture]
-    public class MacroStabilityInwardsSlidingCurveConverterTest
+    /// <summary>
+    /// Helper that can be used in tests.
+    /// </summary>
+    public static class UpliftVanCalculatorResultHelper
     {
-        [Test]
-        public void Convert_ResultNull_ThrowsArgumentNullException()
+        /// <summary>
+        /// Assert whether the <paramref name="actual"/> is equal to the <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected values.</param>
+        /// <param name="actual">The actual values.</param>
+        /// <exception cref="AssertionException">Thrown when the <paramref name="actual"/>
+        /// is not equal to the <paramref name="expected"/>.</exception>
+        public static void AssertSlidingCurve(UpliftVanSlidingCurveResult expected, UpliftVanSlidingCurveResult actual)
         {
-            // Call
-            TestDelegate call = () => MacroStabilityInwardsSlidingCurveConverter.Convert(null);
+            Assert.AreEqual(expected.IteratedHorizontalForce, actual.IteratedHorizontalForce);
+            Assert.AreEqual(expected.NonIteratedHorizontalForce, actual.NonIteratedHorizontalForce);
+            AssertCircle(expected.LeftCircle, actual.LeftCircle);
+            AssertCircle(expected.RightCircle, actual.RightCircle);
 
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("result", exception.ParamName);
+            AssertSlices(expected.Slices.ToArray(), actual.Slices.ToArray());
         }
 
-        [Test]
-        public void Convert_WithResult_ReturnConvertedSlidingCurve()
+        public static void AssertSlipPlaneGrid(UpliftVanCalculationGridResult expected, UpliftVanCalculationGridResult actual)
         {
-            // Setup
-            UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultTestFactory.Create();
-
-            // Call
-            MacroStabilityInwardsSlidingCurve output = MacroStabilityInwardsSlidingCurveConverter.Convert(result);
-
-            // Assert
-            Assert.AreEqual(result.IteratedHorizontalForce, output.IteratedHorizontalForce);
-            Assert.AreEqual(result.NonIteratedHorizontalForce, output.NonIteratedHorizontalForce);
-            AssertCircle(result.LeftCircle, output.LeftCircle);
-            AssertCircle(result.RightCircle, output.RightCircle);
-            AssertSlices(result.Slices, output.Slices);
+            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
+            AssertGrid(expected.LeftGrid, actual.LeftGrid);
+            AssertGrid(expected.RightGrid, actual.RightGrid);
         }
 
-        private static void AssertCircle(UpliftVanSlidingCircleResult circleResult, MacroStabilityInwardsSlidingCircle circleOutput)
+        private static void AssertGrid(UpliftVanGridResult expected, UpliftVanGridResult actual)
         {
-            Assert.AreEqual(circleResult.Center, circleOutput.Center);
-            Assert.AreEqual(circleResult.IsActive, circleOutput.IsActive);
-            Assert.AreEqual(circleResult.Radius, circleOutput.Radius);
-            Assert.AreEqual(circleResult.DrivingMoment, circleOutput.DrivingMoment);
-            Assert.AreEqual(circleResult.ResistingMoment, circleOutput.ResistingMoment);
-            Assert.AreEqual(circleResult.IteratedForce, circleOutput.IteratedForce);
-            Assert.AreEqual(circleResult.NonIteratedForce, circleOutput.NonIteratedForce);
+            Assert.AreEqual(expected.XLeft, actual.XLeft);
+            Assert.AreEqual(expected.XRight, actual.XRight);
+            Assert.AreEqual(expected.ZTop, actual.ZTop);
+            Assert.AreEqual(expected.ZBottom, actual.ZBottom);
+            Assert.AreEqual(expected.NumberOfHorizontalPoints, actual.NumberOfHorizontalPoints);
+            Assert.AreEqual(expected.NumberOfVerticalPoints, actual.NumberOfVerticalPoints);
         }
 
-        private static void AssertSlices(IEnumerable<UpliftVanSliceResult> resultSlices, IEnumerable<MacroStabilityInwardsSlice> outputSlices)
+        private static void AssertCircle(UpliftVanSlidingCircleResult expected, UpliftVanSlidingCircleResult actual)
         {
-            UpliftVanSliceResult[] expectedSlices = resultSlices.ToArray();
-            MacroStabilityInwardsSlice[] actualSlices = outputSlices.ToArray();
+            Assert.AreEqual(expected.Center, actual.Center);
+            Assert.AreEqual(expected.Radius, actual.Radius);
+            Assert.AreEqual(expected.IsActive, actual.IsActive);
+            Assert.AreEqual(expected.NonIteratedForce, actual.NonIteratedForce);
+            Assert.AreEqual(expected.IteratedForce, actual.IteratedForce);
+            Assert.AreEqual(expected.DrivingMoment, actual.DrivingMoment);
+            Assert.AreEqual(expected.ResistingMoment, actual.ResistingMoment);
+        }
 
+        private static void AssertSlices(UpliftVanSliceResult[] expectedSlices, UpliftVanSliceResult[] actualSlices)
+        {
             Assert.AreEqual(expectedSlices.Length, actualSlices.Length);
 
             for (var i = 0; i < expectedSlices.Length; i++)

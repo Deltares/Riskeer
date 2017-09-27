@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernel;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels
 {

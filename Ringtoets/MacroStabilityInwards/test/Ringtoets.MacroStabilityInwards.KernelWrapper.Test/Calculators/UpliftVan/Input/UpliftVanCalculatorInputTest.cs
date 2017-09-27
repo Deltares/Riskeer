@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             var upliftVanSoilProfile = new UpliftVanSoilProfile(new[]
             {
-                new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties()),
+                new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties())
             }, new UpliftVanPreconsolidationStress[0]);
 
             double waterLevelRiverAverage = random.Next();

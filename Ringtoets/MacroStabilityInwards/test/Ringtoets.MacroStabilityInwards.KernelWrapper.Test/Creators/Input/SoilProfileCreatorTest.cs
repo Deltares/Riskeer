@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
