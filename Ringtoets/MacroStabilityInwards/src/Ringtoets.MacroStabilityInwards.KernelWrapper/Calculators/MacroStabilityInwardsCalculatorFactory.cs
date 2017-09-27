@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         private static IMacroStabilityInwardsCalculatorFactory instance;
 
         /// <summary>
-        /// Sets the current <see cref="IMacroStabilityInwardsCalculatorFactory"/>.
+        /// Gets or sets an instance of <see cref="IMacroStabilityInwardsCalculatorFactory"/>.
         /// </summary>
         public static IMacroStabilityInwardsCalculatorFactory Instance
         {
