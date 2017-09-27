@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual<Ring>(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
-            Assert.NotNull(layer.Properties);
+            Assert.NotNull(layer.Data);
         }
 
         [Test]
@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Blue
                 }
@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Blue
                 }
@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(32))
                 })
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Blue
                 }
@@ -198,7 +198,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Gold
                 }
@@ -257,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomRing(random)
             })
             {
-                Properties =
+                Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }

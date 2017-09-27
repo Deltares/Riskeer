@@ -108,57 +108,57 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(top, soilLayer1D.Top);
 
-            MacroStabilityInwardsSoilLayerProperties properties = soilLayer1D.Properties;
+            MacroStabilityInwardsSoilLayerData data = soilLayer1D.Data;
 
-            Assert.AreEqual(materialName, properties.MaterialName);
+            Assert.AreEqual(materialName, data.MaterialName);
             bool expectedIsAquifer = isAquifer.Equals(1.0);
-            Assert.AreEqual(expectedIsAquifer, properties.IsAquifer);
+            Assert.AreEqual(expectedIsAquifer, data.IsAquifer);
             Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
-            Assert.AreEqual(expectedColor, properties.Color);
+            Assert.AreEqual(expectedColor, data.Color);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) abovePhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, properties.AbovePhreaticLevel);
+            }, data.AbovePhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) belowPhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, properties.BelowPhreaticLevel);
+            }, data.BelowPhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) cohesionMean,
                 CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
-            }, properties.Cohesion);
+            }, data.Cohesion);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) frictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
-            }, properties.FrictionAngle);
+            }, data.FrictionAngle);
             
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) shearStrengthRatioMean,
                 CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
-            }, properties.ShearStrengthRatio);
+            }, data.ShearStrengthRatio);
             
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) strengthIncreaseExponentMean,
                 CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
-            }, properties.StrengthIncreaseExponent);
+            }, data.StrengthIncreaseExponent);
             
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) popMean,
                 CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
-            }, properties.Pop);
+            }, data.Pop);
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedUsePopValue, soilLayer1D.Properties.UsePop);
+            Assert.AreEqual(transformedUsePopValue, soilLayer1D.Data.UsePop);
         }
 
         [Test]
@@ -207,7 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedShearStrengthModel, soilLayer1D.Properties.ShearStrengthModel);
+            Assert.AreEqual(transformedShearStrengthModel, soilLayer1D.Data.ShearStrengthModel);
         }
 
         [Test]
@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedIsAquifer, soilLayer1D.Properties.IsAquifer);
+            Assert.AreEqual(transformedIsAquifer, soilLayer1D.Data.IsAquifer);
         }
 
         [Test]
@@ -286,7 +286,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer1D soilLayer1D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedColor, soilLayer1D.Properties.Color);
+            Assert.AreEqual(transformedColor, soilLayer1D.Data.Color);
         }
 
         [Test]
@@ -376,57 +376,57 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            MacroStabilityInwardsSoilLayerProperties properties = soilLayer2D.Properties;
+            MacroStabilityInwardsSoilLayerData data = soilLayer2D.Data;
 
-            Assert.AreEqual(materialName, properties.MaterialName);
+            Assert.AreEqual(materialName, data.MaterialName);
             bool expectedIsAquifer = isAquifer.Equals(1.0);
-            Assert.AreEqual(expectedIsAquifer, properties.IsAquifer);
+            Assert.AreEqual(expectedIsAquifer, data.IsAquifer);
             Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
-            Assert.AreEqual(expectedColor, properties.Color);
+            Assert.AreEqual(expectedColor, data.Color);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) abovePhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, properties.AbovePhreaticLevel);
+            }, data.AbovePhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) belowPhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, properties.BelowPhreaticLevel);
+            }, data.BelowPhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) cohesionMean,
                 CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
-            }, properties.Cohesion);
+            }, data.Cohesion);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) frictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
-            }, properties.FrictionAngle);
+            }, data.FrictionAngle);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble)shearStrengthRatioMean,
                 CoefficientOfVariation = (RoundedDouble)shearStrengthRatioCoefficientOfVariation
-            }, properties.ShearStrengthRatio);
+            }, data.ShearStrengthRatio);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble)strengthIncreaseExponentMean,
                 CoefficientOfVariation = (RoundedDouble)strengthIncreaseExponentCoefficientOfVariation
-            }, properties.StrengthIncreaseExponent);
+            }, data.StrengthIncreaseExponent);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble)popMean,
                 CoefficientOfVariation = (RoundedDouble)popCoefficientOfVariation
-            }, properties.Pop);
+            }, data.Pop);
 
             AssertRings(layer, soilLayer2D);
         }
@@ -444,7 +444,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedUsePopValue, soilLayer2D.Properties.UsePop);
+            Assert.AreEqual(transformedUsePopValue, soilLayer2D.Data.UsePop);
         }
 
         [Test]
@@ -477,7 +477,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedShearStrengthModel, soilLayer2D.Properties.ShearStrengthModel);
+            Assert.AreEqual(transformedShearStrengthModel, soilLayer2D.Data.ShearStrengthModel);
         }
 
         [Test]
@@ -524,7 +524,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedIsAquifer, soilLayer2D.Properties.IsAquifer);
+            Assert.AreEqual(transformedIsAquifer, soilLayer2D.Data.IsAquifer);
         }
 
         [Test]
@@ -557,7 +557,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            Assert.AreEqual(transformedColor, soilLayer2D.Properties.Color);
+            Assert.AreEqual(transformedColor, soilLayer2D.Data.Color);
         }
 
         [Test]

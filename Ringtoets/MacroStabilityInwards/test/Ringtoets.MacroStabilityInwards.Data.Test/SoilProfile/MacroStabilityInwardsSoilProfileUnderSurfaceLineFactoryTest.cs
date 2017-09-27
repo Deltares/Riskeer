@@ -360,7 +360,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             var layer = new MacroStabilityInwardsSoilLayer1D(1)
             {
-                Properties =
+                Data =
                 {
                     UsePop = usePop,
                     IsAquifer = isAquifer,
@@ -416,7 +416,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 profile, surfaceLine);
 
             // Assert
-            Assert.AreSame(layer.Properties, profileUnderSurfaceLine.Layers.First().Properties);
+            Assert.AreSame(layer.Data, profileUnderSurfaceLine.Layers.First().Data);
         }
 
         [Test]
@@ -516,44 +516,44 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             double popCoefficientOfVariation = random.NextDouble();
 
             MacroStabilityInwardsSoilLayer2D layer = GetSoilLayer();
-            layer.Properties.UsePop = usePop;
-            layer.Properties.IsAquifer = isAquifer;
-            layer.Properties.ShearStrengthModel = shearStrengthModel;
-            layer.Properties.MaterialName = material;
+            layer.Data.UsePop = usePop;
+            layer.Data.IsAquifer = isAquifer;
+            layer.Data.ShearStrengthModel = shearStrengthModel;
+            layer.Data.MaterialName = material;
 
-            layer.Properties.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+            layer.Data.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) abovePhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) abovePhreaticLevelShift
             };
-            layer.Properties.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+            layer.Data.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) belowPhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) belowPhreaticLevelShift
             };
-            layer.Properties.Cohesion = new VariationCoefficientLogNormalDistribution
+            layer.Data.Cohesion = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) cohesionMean,
                 CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
             };
-            layer.Properties.FrictionAngle = new VariationCoefficientLogNormalDistribution
+            layer.Data.FrictionAngle = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) frictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
             };
-            layer.Properties.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+            layer.Data.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) shearStrengthRatioMean,
                 CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
             };
-            layer.Properties.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+            layer.Data.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) strengthIncreaseExponentMean,
                 CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
             };
-            layer.Properties.Pop = new VariationCoefficientLogNormalDistribution
+            layer.Data.Pop = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) popMean,
                 CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
@@ -569,7 +569,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
 
             // Assert
-            Assert.AreSame(layer.Properties, profileUnderSurfaceLine.Layers.First().Properties);
+            Assert.AreSame(layer.Data, profileUnderSurfaceLine.Layers.First().Data);
         }
 
         [Test]

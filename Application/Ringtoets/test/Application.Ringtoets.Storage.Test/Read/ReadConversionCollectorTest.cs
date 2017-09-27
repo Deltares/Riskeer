@@ -555,7 +555,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
-                        Properties =
+                        Data =
                         {
                             IsAquifer = true
                         }

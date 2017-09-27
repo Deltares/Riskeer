@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var random = new Random(31);
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Properties =
+                Data =
                 {
                     IsAquifer = random.NextBoolean(),
                     MaterialName = "MaterialName",
@@ -107,28 +107,28 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(soilLayer.Top, entity.Top);
 
-            MacroStabilityInwardsSoilLayerProperties properties = soilLayer.Properties;
-            Assert.AreEqual(Convert.ToByte(properties.IsAquifer), entity.IsAquifer);
-            Assert.AreEqual(properties.MaterialName, entity.MaterialName);
-            Assert.AreEqual(properties.Color.ToArgb(), Convert.ToInt32(entity.Color));
-            Assert.AreEqual(Convert.ToByte(properties.UsePop), entity.UsePop);
-            Assert.AreEqual(Convert.ToByte(properties.ShearStrengthModel), entity.ShearStrengthModel);
-            Assert.AreEqual(properties.AbovePhreaticLevel.Mean, entity.AbovePhreaticLevelMean);
-            Assert.AreEqual(properties.AbovePhreaticLevel.CoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation);
-            Assert.AreEqual(properties.AbovePhreaticLevel.Shift, entity.AbovePhreaticLevelShift);
-            Assert.AreEqual(properties.BelowPhreaticLevel.Mean, entity.BelowPhreaticLevelMean);
-            Assert.AreEqual(properties.BelowPhreaticLevel.CoefficientOfVariation, entity.BelowPhreaticLevelCoefficientOfVariation);
-            Assert.AreEqual(properties.BelowPhreaticLevel.Shift, entity.BelowPhreaticLevelShift);
-            Assert.AreEqual(properties.Cohesion.Mean, entity.CohesionMean);
-            Assert.AreEqual(properties.Cohesion.CoefficientOfVariation, entity.CohesionCoefficientOfVariation);
-            Assert.AreEqual(properties.FrictionAngle.Mean, entity.FrictionAngleMean);
-            Assert.AreEqual(properties.FrictionAngle.CoefficientOfVariation, entity.FrictionAngleCoefficientOfVariation);
-            Assert.AreEqual(properties.ShearStrengthRatio.Mean, entity.ShearStrengthRatioMean);
-            Assert.AreEqual(properties.ShearStrengthRatio.CoefficientOfVariation, entity.ShearStrengthRatioCoefficientOfVariation);
-            Assert.AreEqual(properties.StrengthIncreaseExponent.Mean, entity.StrengthIncreaseExponentMean);
-            Assert.AreEqual(properties.StrengthIncreaseExponent.CoefficientOfVariation, entity.StrengthIncreaseExponentCoefficientOfVariation);
-            Assert.AreEqual(properties.Pop.Mean, entity.PopMean);
-            Assert.AreEqual(properties.Pop.CoefficientOfVariation, entity.PopCoefficientOfVariation);
+            MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
+            Assert.AreEqual(Convert.ToByte(data.IsAquifer), entity.IsAquifer);
+            Assert.AreEqual(data.MaterialName, entity.MaterialName);
+            Assert.AreEqual(data.Color.ToArgb(), Convert.ToInt32(entity.Color));
+            Assert.AreEqual(Convert.ToByte(data.UsePop), entity.UsePop);
+            Assert.AreEqual(Convert.ToByte(data.ShearStrengthModel), entity.ShearStrengthModel);
+            Assert.AreEqual(data.AbovePhreaticLevel.Mean, entity.AbovePhreaticLevelMean);
+            Assert.AreEqual(data.AbovePhreaticLevel.CoefficientOfVariation, entity.AbovePhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(data.AbovePhreaticLevel.Shift, entity.AbovePhreaticLevelShift);
+            Assert.AreEqual(data.BelowPhreaticLevel.Mean, entity.BelowPhreaticLevelMean);
+            Assert.AreEqual(data.BelowPhreaticLevel.CoefficientOfVariation, entity.BelowPhreaticLevelCoefficientOfVariation);
+            Assert.AreEqual(data.BelowPhreaticLevel.Shift, entity.BelowPhreaticLevelShift);
+            Assert.AreEqual(data.Cohesion.Mean, entity.CohesionMean);
+            Assert.AreEqual(data.Cohesion.CoefficientOfVariation, entity.CohesionCoefficientOfVariation);
+            Assert.AreEqual(data.FrictionAngle.Mean, entity.FrictionAngleMean);
+            Assert.AreEqual(data.FrictionAngle.CoefficientOfVariation, entity.FrictionAngleCoefficientOfVariation);
+            Assert.AreEqual(data.ShearStrengthRatio.Mean, entity.ShearStrengthRatioMean);
+            Assert.AreEqual(data.ShearStrengthRatio.CoefficientOfVariation, entity.ShearStrengthRatioCoefficientOfVariation);
+            Assert.AreEqual(data.StrengthIncreaseExponent.Mean, entity.StrengthIncreaseExponentMean);
+            Assert.AreEqual(data.StrengthIncreaseExponent.CoefficientOfVariation, entity.StrengthIncreaseExponentCoefficientOfVariation);
+            Assert.AreEqual(data.Pop.Mean, entity.PopMean);
+            Assert.AreEqual(data.Pop.CoefficientOfVariation, entity.PopCoefficientOfVariation);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(double.NaN)
             {
-                Properties =
+                Data =
                 {
                     AbovePhreaticLevel =
                     {
@@ -211,7 +211,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             const string materialName = "MaterialName";
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(0)
             {
-                Properties =
+                Data =
                 {
                     MaterialName = materialName
                 }

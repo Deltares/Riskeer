@@ -44,10 +44,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetAbovePhreaticLevel_ValidSoilLayerProperties_CreateDesignVariableForAbovePhreaticLevel()
+        public void GetAbovePhreaticLevel_ValidSoilLayerData_CreateDesignVariableForAbovePhreaticLevel()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 AbovePhreaticLevel =
                 {
@@ -66,10 +66,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetBelowPhreaticLevel_ValidSoilLayerProperties_CreateDesignVariableForBelowPhreaticLevel()
+        public void GetBelowPhreaticLevel_ValidSoilLayerData_CreateDesignVariableForBelowPhreaticLevel()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 BelowPhreaticLevel = 
                 {
@@ -89,10 +89,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetCohesion_ValidSoilLayerProperties_CreateDesignVariableForCohesion()
+        public void GetCohesion_ValidSoilLayerData_CreateDesignVariableForCohesion()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 Cohesion =
                 {
@@ -111,10 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetFrictionAngle_ValidSoilLayerProperties_CreateDesignVariableForFrictionAngle()
+        public void GetFrictionAngle_ValidSoilLayerData_CreateDesignVariableForFrictionAngle()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 FrictionAngle =
                 {
@@ -133,10 +133,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetShearStrengthRatio_ValidSoilLayerProperties_CreateDesignVariableForShearStrengthRatio()
+        public void GetShearStrengthRatio_ValidSoilLayerData_CreateDesignVariableForShearStrengthRatio()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 ShearStrengthRatio = 
                 {
@@ -155,10 +155,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetStrengthIncreaseExponent_ValidSoilLayerProperties_CreateDesignVariableForStrengthIncreaseExponent()
+        public void GetStrengthIncreaseExponent_ValidSoilLayerData_CreateDesignVariableForStrengthIncreaseExponent()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 StrengthIncreaseExponent = 
                 {
@@ -177,10 +177,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetPop_ValidSoilLayerProperties_CreateDesignVariableForPop()
+        public void GetPop_ValidSoilLayerData_CreateDesignVariableForPop()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerProperties
+            var properties = new MacroStabilityInwardsSoilLayerData
             {
                 Pop =
                 {

@@ -30,77 +30,77 @@ namespace Ringtoets.MacroStabilityInwards.Data
     public static class MacroStabilityInwardsSemiProbabilisticDesignVariableFactory
     {
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.AbovePhreaticLevel"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.AbovePhreaticLevel"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.AbovePhreaticLevel)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.AbovePhreaticLevel)
             {
                 Percentile = 0.5
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.BelowPhreaticLevel"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.BelowPhreaticLevel"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.BelowPhreaticLevel)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.BelowPhreaticLevel)
             {
                 Percentile = 0.5
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.Cohesion"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.Cohesion"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetCohesion(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetCohesion(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.Cohesion)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.Cohesion)
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.FrictionAngle"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.FrictionAngle"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetFrictionAngle(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetFrictionAngle(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.FrictionAngle)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.FrictionAngle)
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthRatio"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthRatio"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetShearStrengthRatio(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetShearStrengthRatio(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.ShearStrengthRatio)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.ShearStrengthRatio)
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.StrengthIncreaseExponent"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.StrengthIncreaseExponent"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.StrengthIncreaseExponent)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.StrengthIncreaseExponent)
             {
                 Percentile = 0.05
             };
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.Pop"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.Pop"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPop(MacroStabilityInwardsSoilLayerProperties properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPop(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(properties.Pop)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(data.Pop)
             {
                 Percentile = 0.05
             };

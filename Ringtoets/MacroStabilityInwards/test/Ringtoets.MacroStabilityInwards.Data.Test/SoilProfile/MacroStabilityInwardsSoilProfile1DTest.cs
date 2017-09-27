@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 equivalentLayers.Add(new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = i == 0
                     }
@@ -321,7 +321,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Properties =
+                Data =
                 {
                     MaterialName = GetRandomName(random),
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),

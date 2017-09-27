@@ -240,31 +240,31 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="MacroStabilityInwardsSurfaceLineTransformer_CharacteristicPoint_0_is_undefined" xml:space="preserve">
     <value>Karakteristiek punt '{0}' is niet gedefiniëerd.</value>
   </data>
-  <data name="SoilLayerProperties_AbovePhreaticLevelDistribution_Description" xml:space="preserve">
+  <data name="SoilLayerData_AbovePhreaticLevelDistribution_Description" xml:space="preserve">
     <value>Onverzadigd gewicht</value>
   </data>
-  <data name="SoilLayerProperties_CohesionDistribution_DisplayName" xml:space="preserve">
+  <data name="SoilLayerData_CohesionDistribution_DisplayName" xml:space="preserve">
     <value>Cohesie</value>
   </data>
-  <data name="SoilLayerProperties_FrictionAngleDistribution_DisplayName" xml:space="preserve">
+  <data name="SoilLayerData_FrictionAngleDistribution_DisplayName" xml:space="preserve">
     <value>Wrijvingshoek</value>
   </data>
-  <data name="SoilLayerProperties_PopDistribution_DisplayName" xml:space="preserve">
+  <data name="SoilLayerData_PopDistribution_DisplayName" xml:space="preserve">
     <value>POP</value>
   </data>
-  <data name="SoilLayerProperties_ShearStrengthRatioDistribution_DisplayName" xml:space="preserve">
+  <data name="SoilLayerData_ShearStrengthRatioDistribution_DisplayName" xml:space="preserve">
     <value>Schuifsterkte ratio S</value>
   </data>
-  <data name="SoilLayerProperties_StrengthIncreaseExponentDistribution_DisplayName" xml:space="preserve">
+  <data name="SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName" xml:space="preserve">
     <value>Sterkte toename exponent</value>
   </data>
-  <data name="SoilLayerProperties_BelowPhreaticLevelDistribution_DisplayName" xml:space="preserve">
+  <data name="SoilLayerData_BelowPhreaticLevelDistribution_DisplayName" xml:space="preserve">
     <value>Verzadigd gewicht</value>
   </data>
-  <data name="SoilLayerProperties_UsePop_Description" xml:space="preserve">
+  <data name="SoilLayerData_UsePop_Description" xml:space="preserve">
     <value>Gebruik POP</value>
   </data>
-  <data name="SoilLayerProperties_ShearStrengthModel_Description" xml:space="preserve">
+  <data name="SoilLayerData_ShearStrengthModel_Description" xml:space="preserve">
     <value>Schuifsterkte model</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerTransformer_TransformShearStrengthModel_No_MacroStabilityInwardsShearStrengthModel" xml:space="preserve">

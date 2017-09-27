@@ -35,19 +35,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
-        /// <param name="properties">The properties of the soil layer.</param>
+        /// <param name="data">The data of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, MacroStabilityInwardsSoilLayerProperties properties)
-            : this(outerRing, Enumerable.Empty<Point2D[]>(), properties) {}
+        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, MacroStabilityInwardsSoilLayerData data)
+            : this(outerRing, Enumerable.Empty<Point2D[]>(), data) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.
         /// </summary>
         /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
         /// <param name="holes">The holes of the geometry of the soil layer.</param>
-        /// <param name="properties">The properties of the soil layer.</param>
+        /// <param name="data">The data of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, MacroStabilityInwardsSoilLayerProperties properties)
+        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, MacroStabilityInwardsSoilLayerData data)
         {
             if (outerRing == null)
             {
@@ -57,13 +57,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(holes));
             }
-            if (properties == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(properties));
+                throw new ArgumentNullException(nameof(data));
             }
             OuterRing = outerRing;
             Holes = holes;
-            Properties = properties;
+            Data = data;
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         public IEnumerable<Point2D[]> Holes { get; }
 
         /// <summary>
-        /// Gets the properties of the soil layer.
+        /// Gets the data of the soil layer.
         /// </summary>
-        public MacroStabilityInwardsSoilLayerProperties Properties { get; }
+        public MacroStabilityInwardsSoilLayerData Data { get; }
     }
 }

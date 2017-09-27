@@ -52,14 +52,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(thicknessCoverageLayer)
                     {
-                        Properties =
+                        Data =
                         {
                             IsAquifer = false
                         }
                     },
                     new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
-                        Properties =
+                        Data =
                         {
                             IsAquifer = true
                         }
@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new MacroStabilityInwardsSoilLayer1D(0.0)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = true
                     }
@@ -122,21 +122,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = false
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = true
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = false
                     }
@@ -168,21 +168,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new MacroStabilityInwardsSoilLayer1D(4.3)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = false
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(3.3)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = true
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(1.1)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = true
                     }

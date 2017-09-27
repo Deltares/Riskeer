@@ -1485,7 +1485,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                  MacroStabilityInwardsSoilLayer1D actualLayer)
         {
             Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
-            AssertMacroStabilityInwardsSoilLayerProperties(expectedLayer.Properties, actualLayer.Properties);
+            AssertMacroStabilityInwardsSoilLayerData(expectedLayer.Data, actualLayer.Data);
         }
 
         private static void AssertMacroStabilityInwardsSoilLayer(MacroStabilityInwardsSoilLayer2D expectedLayer,
@@ -1493,54 +1493,54 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedLayer.OuterRing, actualLayer.OuterRing);
             CollectionAssert.AreEqual(expectedLayer.Holes, actualLayer.Holes);
-            AssertMacroStabilityInwardsSoilLayerProperties(expectedLayer.Properties, actualLayer.Properties);
+            AssertMacroStabilityInwardsSoilLayerData(expectedLayer.Data, actualLayer.Data);
         }
 
-        private static void AssertMacroStabilityInwardsSoilLayerProperties(MacroStabilityInwardsSoilLayerProperties expectedProperties,
-                                                                           MacroStabilityInwardsSoilLayerProperties actualProperties)
+        private static void AssertMacroStabilityInwardsSoilLayerData(MacroStabilityInwardsSoilLayerData expectedData,
+                                                                           MacroStabilityInwardsSoilLayerData actualData)
         {
-            Assert.AreEqual(expectedProperties.IsAquifer, actualProperties.IsAquifer);
-            Assert.AreEqual(expectedProperties.MaterialName, actualProperties.MaterialName);
-            Assert.AreEqual(expectedProperties.Color.ToArgb(), actualProperties.Color.ToArgb());
-            Assert.AreEqual(expectedProperties.UsePop, actualProperties.UsePop);
-            Assert.AreEqual(expectedProperties.ShearStrengthModel, actualProperties.ShearStrengthModel);
+            Assert.AreEqual(expectedData.IsAquifer, actualData.IsAquifer);
+            Assert.AreEqual(expectedData.MaterialName, actualData.MaterialName);
+            Assert.AreEqual(expectedData.Color.ToArgb(), actualData.Color.ToArgb());
+            Assert.AreEqual(expectedData.UsePop, actualData.UsePop);
+            Assert.AreEqual(expectedData.ShearStrengthModel, actualData.ShearStrengthModel);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.AbovePhreaticLevel.Mean,
-                CoefficientOfVariation = expectedProperties.AbovePhreaticLevel.CoefficientOfVariation,
-                Shift = expectedProperties.AbovePhreaticLevel.Shift
-            }, actualProperties.AbovePhreaticLevel);
+                Mean = expectedData.AbovePhreaticLevel.Mean,
+                CoefficientOfVariation = expectedData.AbovePhreaticLevel.CoefficientOfVariation,
+                Shift = expectedData.AbovePhreaticLevel.Shift
+            }, actualData.AbovePhreaticLevel);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.BelowPhreaticLevel.Mean,
-                CoefficientOfVariation = expectedProperties.BelowPhreaticLevel.CoefficientOfVariation,
-                Shift = expectedProperties.BelowPhreaticLevel.Shift
-            }, actualProperties.BelowPhreaticLevel);
+                Mean = expectedData.BelowPhreaticLevel.Mean,
+                CoefficientOfVariation = expectedData.BelowPhreaticLevel.CoefficientOfVariation,
+                Shift = expectedData.BelowPhreaticLevel.Shift
+            }, actualData.BelowPhreaticLevel);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.Cohesion.Mean,
-                CoefficientOfVariation = expectedProperties.Cohesion.CoefficientOfVariation
-            }, actualProperties.Cohesion);
+                Mean = expectedData.Cohesion.Mean,
+                CoefficientOfVariation = expectedData.Cohesion.CoefficientOfVariation
+            }, actualData.Cohesion);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.FrictionAngle.Mean,
-                CoefficientOfVariation = expectedProperties.FrictionAngle.CoefficientOfVariation
-            }, actualProperties.FrictionAngle);
+                Mean = expectedData.FrictionAngle.Mean,
+                CoefficientOfVariation = expectedData.FrictionAngle.CoefficientOfVariation
+            }, actualData.FrictionAngle);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.ShearStrengthRatio.Mean,
-                CoefficientOfVariation = expectedProperties.ShearStrengthRatio.CoefficientOfVariation
-            }, actualProperties.ShearStrengthRatio);
+                Mean = expectedData.ShearStrengthRatio.Mean,
+                CoefficientOfVariation = expectedData.ShearStrengthRatio.CoefficientOfVariation
+            }, actualData.ShearStrengthRatio);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.StrengthIncreaseExponent.Mean,
-                CoefficientOfVariation = expectedProperties.StrengthIncreaseExponent.CoefficientOfVariation
-            }, actualProperties.StrengthIncreaseExponent);
+                Mean = expectedData.StrengthIncreaseExponent.Mean,
+                CoefficientOfVariation = expectedData.StrengthIncreaseExponent.CoefficientOfVariation
+            }, actualData.StrengthIncreaseExponent);
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = expectedProperties.Pop.Mean,
-                CoefficientOfVariation = expectedProperties.Pop.CoefficientOfVariation
-            }, actualProperties.Pop);
+                Mean = expectedData.Pop.Mean,
+                CoefficientOfVariation = expectedData.Pop.CoefficientOfVariation
+            }, actualData.Pop);
         }
 
         private static void AssertMacroStabilityInwardsSurfaceLine(MacroStabilityInwardsSurfaceLine expectedSurfaceLine,

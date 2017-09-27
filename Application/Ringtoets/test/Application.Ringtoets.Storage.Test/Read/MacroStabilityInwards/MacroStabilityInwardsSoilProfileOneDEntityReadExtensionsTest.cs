@@ -99,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             {
                 "B",
                 "A"
-            }, profile.Layers.Select(l => l.Properties.MaterialName));
+            }, profile.Layers.Select(l => l.Data.MaterialName));
         }
 
         [Test]
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.AreEqual(entity.MacroStabilityInwardsSoilLayerOneDEntities.Count, profile.Layers.Count());
 
             MacroStabilityInwardsSoilLayer1D layer = profile.Layers.ElementAt(0);
-            Assert.AreEqual(entity.MacroStabilityInwardsSoilLayerOneDEntities.First().MaterialName, layer.Properties.MaterialName);
+            Assert.AreEqual(entity.MacroStabilityInwardsSoilLayerOneDEntities.First().MaterialName, layer.Data.MaterialName);
         }
 
         [Test]

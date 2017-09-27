@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }
             layers.Add(new MacroStabilityInwardsSoilLayer1D(-1.0)
             {
-                Properties =
+                Data =
                 {
                     MaterialName = name,
                     Color = Color.Aquamarine

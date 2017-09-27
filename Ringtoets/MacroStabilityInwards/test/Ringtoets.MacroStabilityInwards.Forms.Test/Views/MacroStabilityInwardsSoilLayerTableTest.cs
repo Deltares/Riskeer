@@ -156,9 +156,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     MacroStabilityInwardsSoilLayer1D soilLayer = layers[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
                     AssertColumnValueEqual(soilLayer.Top, rowCells[topColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayer.Properties.MaterialName, rowCells[nameColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayer.Properties.Color, rowCells[colorColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayer.Properties.IsAquifer, rowCells[isAquiferColumnIndex].Value);
+                    AssertColumnValueEqual(soilLayer.Data.MaterialName, rowCells[nameColumnIndex].Value);
+                    AssertColumnValueEqual(soilLayer.Data.Color, rowCells[colorColumnIndex].Value);
+                    AssertColumnValueEqual(soilLayer.Data.IsAquifer, rowCells[isAquiferColumnIndex].Value);
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Properties =
+                Data =
                 {
                     MaterialName = $"{random.NextDouble()}",
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()),

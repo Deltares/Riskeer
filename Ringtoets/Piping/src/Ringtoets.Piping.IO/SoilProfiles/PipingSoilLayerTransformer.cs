@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             catch (NotSupportedException)
             {
                 throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_DisplayName));
+                                                                       RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
             }
         }
     }

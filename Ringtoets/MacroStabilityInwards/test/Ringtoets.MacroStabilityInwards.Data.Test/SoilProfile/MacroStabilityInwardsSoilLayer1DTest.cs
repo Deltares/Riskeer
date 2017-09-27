@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Assert
             Assert.NotNull(layer);
-            Assert.NotNull(layer.Properties);
+            Assert.NotNull(layer.Data);
             Assert.AreEqual(top, layer.Top);
         }
 
@@ -111,21 +111,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             var layerE = new MacroStabilityInwardsSoilLayer1D(3)
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Blue
                 }
             };
             var layerF = new MacroStabilityInwardsSoilLayer1D(4)
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Blue
                 }
             };
             var layerG = new MacroStabilityInwardsSoilLayer1D(3)
             {
-                Properties =
+                Data =
                 {
                     Color = Color.Gold
                 }
@@ -177,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var random = new Random(randomSeed);
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Properties =
+                Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }

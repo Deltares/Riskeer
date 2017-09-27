@@ -46,10 +46,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
         public static UpliftVanSoilProfile Convert(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
         {
@@ -65,35 +65,35 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         }
 
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsSoilLayerProperties"/>
+        /// Converts <see cref="MacroStabilityInwardsSoilLayerData"/>
         /// into <see cref="UpliftVanSoilLayer"/>.
         /// </summary>
         /// <param name="layers">The layers to convert.</param>
         /// <returns>The converted <see cref="UpliftVanSoilLayer"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
         private static IEnumerable<UpliftVanSoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
         {
             return layers.Select(l =>
             {
-                MacroStabilityInwardsSoilLayerProperties properties = l.Properties;
+                MacroStabilityInwardsSoilLayerData data = l.Data;
                 return new UpliftVanSoilLayer(l.OuterRing, l.Holes, new UpliftVanSoilLayer.ConstructionProperties
                 {
-                    MaterialName = properties.MaterialName,
-                    UsePop = properties.UsePop,
-                    IsAquifer = properties.IsAquifer,
-                    ShearStrengthModel = ConvertShearStrengthModel(properties.ShearStrengthModel),
-                    AbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(properties).GetDesignValue(),
-                    BelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(properties).GetDesignValue(),
-                    Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(properties).GetDesignValue(),
-                    FrictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(properties).GetDesignValue(),
-                    ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(properties).GetDesignValue(),
-                    StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(properties).GetDesignValue(),
-                    Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(properties).GetDesignValue()
+                    MaterialName = data.MaterialName,
+                    UsePop = data.UsePop,
+                    IsAquifer = data.IsAquifer,
+                    ShearStrengthModel = ConvertShearStrengthModel(data.ShearStrengthModel),
+                    AbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(data).GetDesignValue(),
+                    BelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(data).GetDesignValue(),
+                    Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(data).GetDesignValue(),
+                    FrictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(data).GetDesignValue(),
+                    ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data).GetDesignValue(),
+                    StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data).GetDesignValue(),
+                    Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue()
                 });
             }).ToArray();
         }

@@ -48,15 +48,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 throw new ArgumentNullException(nameof(holes));
             }
 
-            Properties = new MacroStabilityInwardsSoilLayerProperties();
+            Data = new MacroStabilityInwardsSoilLayerData();
             OuterRing = outerRing;
             Holes = holes.ToArray();
         }
 
         /// <summary>
-        /// Gets the properties of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
+        /// Gets the data of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        public MacroStabilityInwardsSoilLayerProperties Properties { get; }
+        public MacroStabilityInwardsSoilLayerData Data { get; }
 
         /// <summary>
         /// Gets the outer ring of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         {
             unchecked
             {
-                int hashCode = Properties.GetHashCode();
+                int hashCode = Data.GetHashCode();
                 hashCode = (hashCode * 397) ^ OuterRing.GetHashCode();
                 foreach (Ring hole in Holes)
                 {
@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         private bool Equals(MacroStabilityInwardsSoilLayer2D other)
         {
-            return Properties.Equals(other.Properties)
+            return Data.Equals(other.Data)
                    && OuterRing.Equals(other.OuterRing)
                    && Holes.SequenceEqual(other.Holes);
         }

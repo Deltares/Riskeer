@@ -70,7 +70,7 @@
     <Compile Include="MacroStabilityInwardsShearStrengthModel.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer1D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer2D.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayerProperties.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayerData.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayerUnderSurfaceLine.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile1D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2D.cs" />

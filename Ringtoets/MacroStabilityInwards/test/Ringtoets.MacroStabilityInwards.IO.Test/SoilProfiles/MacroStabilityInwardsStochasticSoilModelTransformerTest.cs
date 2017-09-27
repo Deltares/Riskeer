@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 new MacroStabilityInwardsSoilLayer1D(top)
                 {
-                    Properties =
+                    Data =
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
@@ -160,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                     })
                 })
                 {
-                    Properties =
+                    Data =
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi

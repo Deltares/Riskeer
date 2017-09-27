@@ -27,9 +27,9 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// Properties of a soil layer.
+    /// Data of a soil layer.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayerProperties
+    public class MacroStabilityInwardsSoilLayerData
     {
         private readonly VariationCoefficientLogNormalDistribution abovePhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution belowPhreaticLevel;
@@ -41,9 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         private string materialName = string.Empty;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerData"/>.
         /// </summary>
-        public MacroStabilityInwardsSoilLayerProperties()
+        public MacroStabilityInwardsSoilLayerData()
         {
             abovePhreaticLevel = new VariationCoefficientLogNormalDistribution(2)
             {
@@ -252,7 +252,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((MacroStabilityInwardsSoilLayerProperties) obj);
+            return Equals((MacroStabilityInwardsSoilLayerData) obj);
         }
 
         public override int GetHashCode()
@@ -275,7 +275,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
-        private bool Equals(MacroStabilityInwardsSoilLayerProperties other)
+        private bool Equals(MacroStabilityInwardsSoilLayerData other)
         {
             return string.Equals(materialName, other.materialName, StringComparison.InvariantCulture)
                    && IsAquifer == other.IsAquifer

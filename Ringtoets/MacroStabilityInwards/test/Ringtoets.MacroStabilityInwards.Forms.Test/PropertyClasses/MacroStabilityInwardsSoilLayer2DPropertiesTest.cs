@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                  })
                                                              })
             {
-                Properties =
+                Data =
                 {
                     MaterialName = "Test Name",
                     IsAquifer = true
@@ -91,8 +91,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
 
             // Assert
-            Assert.AreEqual(layer.Properties.MaterialName, properties.Name);
-            Assert.AreEqual(layer.Properties.IsAquifer, properties.IsAquifer);
+            Assert.AreEqual(layer.Data.MaterialName, properties.Name);
+            Assert.AreEqual(layer.Data.IsAquifer, properties.IsAquifer);
             CollectionAssert.AreEqual(layer.OuterRing.Points, properties.OuterRing);
             Assert.AreEqual(1, properties.Holes.Length);
             Assert.AreSame(layer.Holes[0], properties.Holes[0].Data);
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
-            layer.Properties.MaterialName = "Layer A 2D";
+            layer.Data.MaterialName = "Layer A 2D";
 
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
 
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             string name = properties.ToString();
 
             // Assert
-            Assert.AreEqual(layer.Properties.MaterialName, name);
+            Assert.AreEqual(layer.Data.MaterialName, name);
         }
 
         [Test]

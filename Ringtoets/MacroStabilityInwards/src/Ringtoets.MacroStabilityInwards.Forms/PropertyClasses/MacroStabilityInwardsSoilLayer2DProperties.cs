@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Properties.MaterialName;
+                return data.Data.MaterialName;
             }
         }
 
@@ -102,13 +102,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Properties.IsAquifer;
+                return data.Data.IsAquifer;
             }
         }
 
         public override string ToString()
         {
-            return data.Properties.MaterialName;
+            return data.Data.MaterialName;
         }
     }
 }

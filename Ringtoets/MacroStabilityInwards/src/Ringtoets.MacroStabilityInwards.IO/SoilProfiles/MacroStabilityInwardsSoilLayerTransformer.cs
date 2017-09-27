@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             ValidateStochasticParameters(soilLayer);
 
             var layer = new MacroStabilityInwardsSoilLayer1D(soilLayer.Top);
-            SetProperties(soilLayer, layer.Properties);
+            SetProperties(soilLayer, layer.Data);
 
             return layer;
         }
@@ -95,59 +95,59 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             Ring[] innerRings = soilLayer.InnerLoops.Select(TransformSegmentToRing).ToArray();
 
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings);
-            SetProperties(soilLayer, layer.Properties);
+            SetProperties(soilLayer, layer.Data);
 
             return layer;
         }
 
         /// <summary>
-        /// Sets the properties of the <see cref="MacroStabilityInwardsSoilLayerProperties"/>.
+        /// Sets the properties of the <see cref="MacroStabilityInwardsSoilLayerData"/>.
         /// </summary>
-        /// <param name="soilLayer">The soil layer to get the properties from.</param>
-        /// <param name="properties">The properties to set the data upon.</param>
+        /// <param name="soilLayer">The soil layer to get the data from.</param>
+        /// <param name="data">The data to set the data upon.</param>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
-        private static void SetProperties(SoilLayerBase soilLayer, MacroStabilityInwardsSoilLayerProperties properties)
+        private static void SetProperties(SoilLayerBase soilLayer, MacroStabilityInwardsSoilLayerData data)
         {
-            properties.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
-            properties.UsePop = TransformUsePop(soilLayer.UsePop);
+            data.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
+            data.UsePop = TransformUsePop(soilLayer.UsePop);
 
-            properties.MaterialName = soilLayer.MaterialName;
-            properties.IsAquifer = TransformIsAquifer(soilLayer.IsAquifer);
-            properties.Color = SoilLayerColorConverter.Convert(soilLayer.Color);
-            properties.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+            data.MaterialName = soilLayer.MaterialName;
+            data.IsAquifer = TransformIsAquifer(soilLayer.IsAquifer);
+            data.Color = SoilLayerColorConverter.Convert(soilLayer.Color);
+            data.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.AbovePhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.AbovePhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) soilLayer.AbovePhreaticLevelShift
             };
-            properties.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+            data.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.BelowPhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.BelowPhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) soilLayer.BelowPhreaticLevelShift
             };
-            properties.Cohesion = new VariationCoefficientLogNormalDistribution
+            data.Cohesion = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.CohesionMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.CohesionCoefficientOfVariation
             };
-            properties.FrictionAngle = new VariationCoefficientLogNormalDistribution
+            data.FrictionAngle = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.FrictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.FrictionAngleCoefficientOfVariation
             };
-            properties.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+            data.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.ShearStrengthRatioMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.ShearStrengthRatioCoefficientOfVariation
             };
-            properties.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+            data.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.StrengthIncreaseExponentMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.StrengthIncreaseExponentCoefficientOfVariation
             };
-            properties.Pop = new VariationCoefficientLogNormalDistribution
+            data.Pop = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) soilLayer.PopMean,
                 CoefficientOfVariation = (RoundedDouble) soilLayer.PopCoefficientOfVariation
@@ -171,7 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             catch (NotSupportedException)
             {
                 throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                       RingtoetsCommonIOResources.SoilLayerProperties_IsAquifer_DisplayName));
+                                                                       RingtoetsCommonIOResources.SoilLayerData_IsAquifer_DisplayName));
             }
         }
 
@@ -196,7 +196,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
 
             throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                   Resources.SoilLayerProperties_UsePop_Description));
+                                                                   Resources.SoilLayerData_UsePop_Description));
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
             }
 
             throw new ImportedDataTransformException(string.Format(RingtoetsCommonIOResources.Transform_Invalid_value_ParameterName_0,
-                                                                   Resources.SoilLayerProperties_ShearStrengthModel_Description));
+                                                                   Resources.SoilLayerData_ShearStrengthModel_Description));
         }
 
         /// <summary>
@@ -269,36 +269,36 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
             DistributionHelper.ValidateIsLogNormal(soilLayer.AbovePhreaticLevelDistributionType,
-                                                   Resources.SoilLayerProperties_AbovePhreaticLevelDistribution_Description);
+                                                   Resources.SoilLayerData_AbovePhreaticLevelDistribution_Description);
 
             DistributionHelper.ValidateIsLogNormal(
                 soilLayer.BelowPhreaticLevelDistributionType,
-                Resources.SoilLayerProperties_BelowPhreaticLevelDistribution_DisplayName);
+                Resources.SoilLayerData_BelowPhreaticLevelDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.CohesionDistributionType,
                 soilLayer.CohesionShift,
-                Resources.SoilLayerProperties_CohesionDistribution_DisplayName);
+                Resources.SoilLayerData_CohesionDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.FrictionAngleDistributionType,
                 soilLayer.FrictionAngleShift,
-                Resources.SoilLayerProperties_FrictionAngleDistribution_DisplayName);
+                Resources.SoilLayerData_FrictionAngleDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.ShearStrengthRatioDistributionType,
                 soilLayer.ShearStrengthRatioShift,
-                Resources.SoilLayerProperties_ShearStrengthRatioDistribution_DisplayName);
+                Resources.SoilLayerData_ShearStrengthRatioDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.StrengthIncreaseExponentDistributionType,
                 soilLayer.StrengthIncreaseExponentShift,
-                Resources.SoilLayerProperties_StrengthIncreaseExponentDistribution_DisplayName);
+                Resources.SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName);
 
             DistributionHelper.ValidateIsNonShiftedLogNormal(
                 soilLayer.PopDistributionType,
                 soilLayer.PopShift,
-                Resources.SoilLayerProperties_PopDistribution_DisplayName);
+                Resources.SoilLayerData_PopDistribution_DisplayName);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                 null, Enumerable.Empty<Point2D[]>(),
-                new MacroStabilityInwardsSoilLayerProperties());
+                new MacroStabilityInwardsSoilLayerData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
-                new Point2D[0], null, new MacroStabilityInwardsSoilLayerProperties());
+                new Point2D[0], null, new MacroStabilityInwardsSoilLayerData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("properties", exception.ParamName);
+            Assert.AreEqual("data", exception.ParamName);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
-                null, new MacroStabilityInwardsSoilLayerProperties());
+                null, new MacroStabilityInwardsSoilLayerData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("properties", exception.ParamName);
+            Assert.AreEqual("data", exception.ParamName);
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Call
             var outerRing = new Point2D[0];
             IEnumerable<Point2D[]> holes = Enumerable.Empty<Point2D[]>();
-            var properties = new MacroStabilityInwardsSoilLayerProperties();
+            var properties = new MacroStabilityInwardsSoilLayerData();
 
             // Setup
             var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, holes, properties);
@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreSame(holes, layer.Holes);
-            Assert.AreSame(properties, layer.Properties);
+            Assert.AreSame(properties, layer.Data);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Call
             var outerRing = new Point2D[0];
-            var properties = new MacroStabilityInwardsSoilLayerProperties();
+            var properties = new MacroStabilityInwardsSoilLayerData();
 
             // Setup
             var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, properties);
@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.IsEmpty(layer.Holes);
-            Assert.AreSame(properties, layer.Properties);
+            Assert.AreSame(properties, layer.Data);
         }
     }
 }

@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
@@ -350,7 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 new MacroStabilityInwardsSoilLayer1D(0.0)
                 {
-                    Properties =
+                    Data =
                     {
                         IsAquifer = true
                     }

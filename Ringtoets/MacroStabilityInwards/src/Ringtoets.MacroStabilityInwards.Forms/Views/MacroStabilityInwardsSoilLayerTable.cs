@@ -66,9 +66,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             public FormattedMacroStabilityInwardsSoilLayerRow(MacroStabilityInwardsSoilLayer1D layer)
             {
                 Top = new RoundedDouble(2, layer.Top);
-                MaterialName = layer.Properties.MaterialName;
-                Color = layer.Properties.Color;
-                IsAquifer = layer.Properties.IsAquifer;
+                MaterialName = layer.Data.MaterialName;
+                Color = layer.Data.Color;
+                IsAquifer = layer.Data.IsAquifer;
             }
 
             /// <summary>

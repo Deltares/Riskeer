@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var layer = new MacroStabilityInwardsSoilLayer1D(-2.9)
             {
-                Properties =
+                Data =
                 {
                     MaterialName = "Test Name",
                     IsAquifer = true
@@ -74,8 +74,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsSoilLayer1DProperties(layer);
 
             // Assert
-            Assert.AreEqual(layer.Properties.MaterialName, properties.Name);
-            Assert.AreEqual(layer.Properties.IsAquifer, properties.IsAquifer);
+            Assert.AreEqual(layer.Data.MaterialName, properties.Name);
+            Assert.AreEqual(layer.Data.IsAquifer, properties.IsAquifer);
             Assert.AreEqual(layer.Top.ToString(CultureInfo.CurrentCulture), properties.TopLevel);
         }
 
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var layer = new MacroStabilityInwardsSoilLayer1D(-2.9)
             {
-                Properties =
+                Data =
                 {
                     MaterialName = "Layer A"
                 }
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             string name = properties.ToString();
 
             // Assert
-            Assert.AreEqual(layer.Properties.MaterialName, name);
+            Assert.AreEqual(layer.Data.MaterialName, name);
         }
 
         [Test]

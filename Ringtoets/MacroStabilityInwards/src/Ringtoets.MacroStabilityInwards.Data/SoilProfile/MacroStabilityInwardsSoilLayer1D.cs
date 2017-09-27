@@ -33,13 +33,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         public MacroStabilityInwardsSoilLayer1D(double top)
         {
             Top = top;
-            Properties = new MacroStabilityInwardsSoilLayerProperties();
+            Data = new MacroStabilityInwardsSoilLayerData();
         }
 
         /// <summary>
-        /// Gets the properties of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
+        /// Gets the data of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
-        public MacroStabilityInwardsSoilLayerProperties Properties { get; }
+        public MacroStabilityInwardsSoilLayerData Data { get; }
 
         /// <summary>
         /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             unchecked
             {
                 int hashCode = Top.GetHashCode();
-                hashCode = (hashCode * 397) ^ Properties.GetHashCode();
+                hashCode = (hashCode * 397) ^ Data.GetHashCode();
                 return hashCode;
             }
         }
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         private bool Equals(MacroStabilityInwardsSoilLayer1D other)
         {
             return Top.Equals(other.Top)
-                   && Properties.Equals(other.Properties);
+                   && Data.Equals(other.Data);
         }
     }
 }

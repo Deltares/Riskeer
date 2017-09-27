@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                     RingToPoints(layer.OuterRing),
                     layer.Holes.Select(RingToPoints),
-                    layer.Properties)).ToArray();
+                    layer.Data)).ToArray();
 
             return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine, soilProfile.PreconsolidationStresses);
         }
@@ -112,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 foreach (Point2D[] soilLayerArea in GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometryArray, layer.OuterLoop))
                 {
-                    collection.Add(new MacroStabilityInwardsSoilLayerUnderSurfaceLine(soilLayerArea, layer.Properties));
+                    collection.Add(new MacroStabilityInwardsSoilLayerUnderSurfaceLine(soilLayerArea, layer.Data));
                 }
             }
 
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 new Point2D(maxX, top),
                 new Point2D(maxX, bottom),
                 new Point2D(minX, bottom)
-            }, layer.Properties);
+            }, layer.Data);
         }
 
         private static IEnumerable<Point2D[]> GetSoilLayerWithSurfaceLineIntersection(IEnumerable<Point2D> surfaceLineGeometry, IEnumerable<Point2D> soilLayerGeometry)
@@ -140,15 +140,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         private class TempSoilLayerGeometry
         {
-            public TempSoilLayerGeometry(Point2D[] outerLoop, MacroStabilityInwardsSoilLayerProperties properties)
+            public TempSoilLayerGeometry(Point2D[] outerLoop, MacroStabilityInwardsSoilLayerData data)
             {
                 OuterLoop = outerLoop;
-                Properties = properties;
+                Data = data;
             }
 
             public Point2D[] OuterLoop { get; }
 
-            public MacroStabilityInwardsSoilLayerProperties Properties { get; }
+            public MacroStabilityInwardsSoilLayerData Data { get; }
         }
     }
 }

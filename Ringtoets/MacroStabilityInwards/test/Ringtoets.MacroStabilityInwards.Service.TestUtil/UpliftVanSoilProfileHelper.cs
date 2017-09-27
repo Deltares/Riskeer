@@ -70,18 +70,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
                 Assert.AreEqual(expectedLayers[i].OuterRing, actualLayers[i].OuterRing);
                 CollectionAssert.AreEqual(expectedLayers[i].Holes, actualLayers[i].Holes);
 
-                MacroStabilityInwardsSoilLayerProperties expectedProperties = expectedLayers[i].Properties;
-                Assert.AreEqual(expectedProperties.MaterialName, actualLayers[i].MaterialName);
-                Assert.AreEqual(expectedProperties.UsePop, actualLayers[i].UsePop);
-                Assert.AreEqual(expectedProperties.IsAquifer, actualLayers[i].IsAquifer);
+                MacroStabilityInwardsSoilLayerData expectedData = expectedLayers[i].Data;
+                Assert.AreEqual(expectedData.MaterialName, actualLayers[i].MaterialName);
+                Assert.AreEqual(expectedData.UsePop, actualLayers[i].UsePop);
+                Assert.AreEqual(expectedData.IsAquifer, actualLayers[i].IsAquifer);
 
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(expectedProperties).GetDesignValue(), actualLayers[i].AbovePhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(expectedProperties).GetDesignValue(), actualLayers[i].BelowPhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(expectedProperties).GetDesignValue(), actualLayers[i].Cohesion);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(expectedProperties).GetDesignValue(), actualLayers[i].FrictionAngle);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(expectedProperties).GetDesignValue(), actualLayers[i].StrengthIncreaseExponent);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(expectedProperties).GetDesignValue(), actualLayers[i].ShearStrengthRatio);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(expectedProperties).GetDesignValue(), actualLayers[i].Pop);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(expectedData).GetDesignValue(), actualLayers[i].AbovePhreaticLevel);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(expectedData).GetDesignValue(), actualLayers[i].BelowPhreaticLevel);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(expectedData).GetDesignValue(), actualLayers[i].Cohesion);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(expectedData).GetDesignValue(), actualLayers[i].FrictionAngle);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(expectedData).GetDesignValue(), actualLayers[i].StrengthIncreaseExponent);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(expectedData).GetDesignValue(), actualLayers[i].ShearStrengthRatio);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(expectedData).GetDesignValue(), actualLayers[i].Pop);
             }
         }
     }

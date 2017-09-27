@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             {
                 "B",
                 "A"
-            }, profile.Layers.Select(l => l.Properties.MaterialName));
+            }, profile.Layers.Select(l => l.Data.MaterialName));
 
             CollectionAssert.AreEqual(new[]
             {

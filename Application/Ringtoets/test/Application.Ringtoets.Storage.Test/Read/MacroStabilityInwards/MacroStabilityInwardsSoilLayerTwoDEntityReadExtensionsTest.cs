@@ -116,54 +116,54 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(layer);
-            MacroStabilityInwardsSoilLayerProperties properties = layer.Properties;
-            Assert.AreEqual(isAquifer, properties.IsAquifer);
-            Assert.AreEqual(Color.FromArgb(color), properties.Color);
-            Assert.AreEqual(entity.MaterialName, properties.MaterialName);
+            MacroStabilityInwardsSoilLayerData data = layer.Data;
+            Assert.AreEqual(isAquifer, data.IsAquifer);
+            Assert.AreEqual(Color.FromArgb(color), data.Color);
+            Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) abovePhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, properties.AbovePhreaticLevel);
+            }, data.AbovePhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) belowPhreaticLevelMean,
                 CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
                 Shift = (RoundedDouble) belowPhreaticLevelShift
-            }, properties.BelowPhreaticLevel);
+            }, data.BelowPhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) cohesionMean,
                 CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
-            }, properties.Cohesion);
+            }, data.Cohesion);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) frictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
-            }, properties.FrictionAngle);
+            }, data.FrictionAngle);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) shearStrengthRatioMean,
                 CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
-            }, properties.ShearStrengthRatio);
+            }, data.ShearStrengthRatio);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) strengthIncreaseExponentMean,
                 CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
-            }, properties.StrengthIncreaseExponent);
+            }, data.StrengthIncreaseExponent);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) popMean,
                 CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
-            }, properties.Pop);
+            }, data.Pop);
 
             CollectionAssert.AreEqual(outerRingPoints, layer.OuterRing.Points);
             CollectionAssert.AreEqual(holes, layer.Holes);
@@ -185,52 +185,52 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(layer);
-            MacroStabilityInwardsSoilLayerProperties properties = layer.Properties;
-            Assert.AreEqual(entity.MaterialName, properties.MaterialName);
+            MacroStabilityInwardsSoilLayerData data = layer.Data;
+            Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN,
                 Shift = RoundedDouble.NaN
-            }, properties.AbovePhreaticLevel);
+            }, data.AbovePhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN,
                 Shift = RoundedDouble.NaN
-            }, properties.BelowPhreaticLevel);
+            }, data.BelowPhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.Cohesion);
+            }, data.Cohesion);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.FrictionAngle);
+            }, data.FrictionAngle);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.ShearStrengthRatio);
+            }, data.ShearStrengthRatio);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.StrengthIncreaseExponent);
+            }, data.StrengthIncreaseExponent);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.Pop);
+            }, data.Pop);
         }
 
         private static Ring CreateRandomRing(Random random)

@@ -353,81 +353,81 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Onverzadigd gewicht.
         /// </summary>
-        public static string SoilLayerProperties_AbovePhreaticLevelDistribution_Description {
+        public static string SoilLayerData_AbovePhreaticLevelDistribution_Description {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_AbovePhreaticLevelDistribution_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_AbovePhreaticLevelDistribution_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Verzadigd gewicht.
         /// </summary>
-        public static string SoilLayerProperties_BelowPhreaticLevelDistribution_DisplayName {
+        public static string SoilLayerData_BelowPhreaticLevelDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_BelowPhreaticLevelDistribution_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_BelowPhreaticLevelDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cohesie.
         /// </summary>
-        public static string SoilLayerProperties_CohesionDistribution_DisplayName {
+        public static string SoilLayerData_CohesionDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_CohesionDistribution_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_CohesionDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Wrijvingshoek.
         /// </summary>
-        public static string SoilLayerProperties_FrictionAngleDistribution_DisplayName {
+        public static string SoilLayerData_FrictionAngleDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_FrictionAngleDistribution_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_FrictionAngleDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to POP.
         /// </summary>
-        public static string SoilLayerProperties_PopDistribution_DisplayName {
+        public static string SoilLayerData_PopDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_PopDistribution_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_PopDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Schuifsterkte model.
         /// </summary>
-        public static string SoilLayerProperties_ShearStrengthModel_Description {
+        public static string SoilLayerData_ShearStrengthModel_Description {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_ShearStrengthModel_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_ShearStrengthModel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Schuifsterkte ratio S.
         /// </summary>
-        public static string SoilLayerProperties_ShearStrengthRatioDistribution_DisplayName {
+        public static string SoilLayerData_ShearStrengthRatioDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_ShearStrengthRatioDistribution_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_ShearStrengthRatioDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Sterkte toename exponent.
         /// </summary>
-        public static string SoilLayerProperties_StrengthIncreaseExponentDistribution_DisplayName {
+        public static string SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_StrengthIncreaseExponentDistribution_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_StrengthIncreaseExponentDistribution_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gebruik POP.
         /// </summary>
-        public static string SoilLayerProperties_UsePop_Description {
+        public static string SoilLayerData_UsePop_Description {
             get {
-                return ResourceManager.GetString("SoilLayerProperties_UsePop_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayerData_UsePop_Description", resourceCulture);
             }
         }
         

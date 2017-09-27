@@ -314,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomRing(random.Next())
             })
             {
-                Properties =
+                Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }
@@ -328,9 +328,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 soilLayer.Holes[0]
             })
             {
-                Properties =
+                Data =
                 {
-                    Color = soilLayer.Properties.Color
+                    Color = soilLayer.Data.Color
                 }
             };
         }

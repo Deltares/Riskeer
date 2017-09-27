@@ -42,8 +42,8 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -592,7 +592,7 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertMacroStabilityInwardsFailureMechanism(AssessmentSection demoAssessmentSection)
         {
-            var failureMechanism = demoAssessmentSection.MacroStabilityInwards;
+            MacroStabilityInwardsFailureMechanism failureMechanism = demoAssessmentSection.MacroStabilityInwards;
 
             Assert.AreEqual("testmodel.soil", failureMechanism.StochasticSoilModels.SourcePath);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
@@ -641,7 +641,7 @@ namespace Demo.Ringtoets.Test.Commands
                 })
             };
             CollectionAssert.AreEqual(holes, soilLayer2D.Holes);
-            Assert.AreEqual("2D Layer", soilLayer2D.Properties.MaterialName);
+            Assert.AreEqual("2D Layer", soilLayer2D.Data.MaterialName);
         }
 
         private static void AssertMacroStabilityInwardsSoilProfile1D(MacroStabilityInwardsSoilProfile1D soilProfile1D)
@@ -650,8 +650,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(22.567, soilProfile1D.Bottom);
 
             MacroStabilityInwardsSoilLayer1D soilLayer = soilProfile1D.Layers.Single();
-            Assert.AreEqual("1D Layer", soilLayer.Properties.MaterialName);
-            Assert.IsTrue(soilLayer.Properties.IsAquifer);
+            Assert.AreEqual("1D Layer", soilLayer.Data.MaterialName);
+            Assert.IsTrue(soilLayer.Data.IsAquifer);
         }
 
         #endregion
