@@ -43,10 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
             for (var i = 0; i < expected.Soils.Count; i++)
             {
-                Soil expectedSoil = expected.Soils[i];
-                Soil actualSoil = actual.Soils[i];
-
-                AssertSoils(expectedSoil, actualSoil);
+                AssertSoils(expected.Soils[i], actual.Soils[i]);
             }
         }
 
@@ -59,41 +56,73 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSoilProfiles(SoilProfile2D expected, SoilProfile2D actual)
         {
-            Assert.AreEqual(expected.PreconsolidationStresses.Count, actual.PreconsolidationStresses.Count);
+            AssertSurfaces(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
+            AssertPreconsolidationStresses(expected.PreconsolidationStresses.ToArray(), actual.PreconsolidationStresses.ToArray());
+        }
 
-            for (var i = 0; i < expected.PreconsolidationStresses.Count; i++)
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="SoilLayer2D"/> array.</param>
+        /// <param name="actual">The actual <see cref="SoilLayer2D"/> array.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertSurfaces(SoilLayer2D[] expected, SoilLayer2D[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
             {
-                PreConsolidationStress expectedPreconsolidationStress = expected.PreconsolidationStresses[i];
-                PreConsolidationStress actualPreconsolidationStress = actual.PreconsolidationStresses[i];
+                SoilLayer2D expectedSurface = expected[i];
+                SoilLayer2D actualSurface = actual[i];
+
+                Assert.AreEqual(expectedSurface.IsAquifer, actualSurface.IsAquifer);
+                AssertGeometrySurfaces(expectedSurface.GeometrySurface, actualSurface.GeometrySurface);
+                AssertSoils(expectedSurface.Soil, actualSurface.Soil);
+                Assert.AreEqual(expectedSurface.WaterpressureInterpolationModel, actualSurface.WaterpressureInterpolationModel);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="PreConsolidationStress"/> array.</param>
+        /// <param name="actual">The actual <see cref="PreConsolidationStress"/> array.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertPreconsolidationStresses(PreConsolidationStress[] expected, PreConsolidationStress[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                PreConsolidationStress expectedPreconsolidationStress = expected[i];
+                PreConsolidationStress actualPreconsolidationStress = actual[i];
 
                 Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
                 Assert.AreEqual(expectedPreconsolidationStress.X, actualPreconsolidationStress.X);
                 Assert.AreEqual(expectedPreconsolidationStress.Z, actualPreconsolidationStress.Z);
             }
+        }
 
-            Assert.AreEqual(expected.Surfaces.Count, actual.Surfaces.Count);
-
-            for (var i = 0; i < expected.Surfaces.Count; i++)
-            {
-                SoilLayer2D expectedSurface = expected.Surfaces[i];
-                SoilLayer2D actualSurface = actual.Surfaces[i];
-
-                Assert.AreEqual(expectedSurface.IsAquifer, actualSurface.IsAquifer);
-
-                CollectionAssert.AreEqual(new[]
-                                          {
-                                              expectedSurface.GeometrySurface.OuterLoop
-                                          }.Concat(expectedSurface.GeometrySurface.InnerLoops),
-                                          new[]
-                                          {
-                                              actualSurface.GeometrySurface.OuterLoop
-                                          }.Concat(actualSurface.GeometrySurface.InnerLoops),
-                                          new WTIStabilityGeometryLoopComparer());
-
-                AssertSoils(expectedSurface.Soil, actualSurface.Soil);
-
-                Assert.AreEqual(expectedSurface.WaterpressureInterpolationModel, actualSurface.WaterpressureInterpolationModel);
-            }
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="GeometrySurface"/>.</param>
+        /// <param name="actual">The actual <see cref="GeometrySurface"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGeometrySurfaces(GeometrySurface expected, GeometrySurface actual)
+        {
+            CollectionAssert.AreEqual(new[]
+                                      {
+                                          expected.OuterLoop
+                                      }.Concat(expected.InnerLoops),
+                                      new[]
+                                      {
+                                          actual.OuterLoop
+                                      }.Concat(actual.InnerLoops),
+                                      new WTIStabilityGeometryLoopComparer());
         }
 
         /// <summary>
