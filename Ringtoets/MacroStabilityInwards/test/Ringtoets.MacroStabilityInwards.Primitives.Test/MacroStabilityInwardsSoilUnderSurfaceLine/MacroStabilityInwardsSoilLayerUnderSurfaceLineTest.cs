@@ -36,9 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
-                null, Enumerable.Empty<Point2D[]>(), 
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()));
+                null, Enumerable.Empty<Point2D[]>(),
+                new MacroStabilityInwardsSoilLayerProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -50,8 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
-                new Point2D[0], null, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()));
+                new Point2D[0], null, new MacroStabilityInwardsSoilLayerProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -74,8 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
-                null, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()));
+                null, new MacroStabilityInwardsSoilLayerProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -99,8 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
             // Call
             var outerRing = new Point2D[0];
             IEnumerable<Point2D[]> holes = Enumerable.Empty<Point2D[]>();
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties());
+            var properties = new MacroStabilityInwardsSoilLayerProperties();
 
             // Setup
             var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, holes, properties);
@@ -116,8 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test.MacroStabilityInwardsS
         {
             // Call
             var outerRing = new Point2D[0];
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties());
+            var properties = new MacroStabilityInwardsSoilLayerProperties();
 
             // Setup
             var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, properties);

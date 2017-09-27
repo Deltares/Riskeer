@@ -23,6 +23,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
@@ -71,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
                 Assert.AreEqual(expectedLayers[i].OuterRing, actualLayers[i].OuterRing);
                 CollectionAssert.AreEqual(expectedLayers[i].Holes, actualLayers[i].Holes);
 
-                MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine expectedProperties = expectedLayers[i].Properties;
+                MacroStabilityInwardsSoilLayerProperties expectedProperties = expectedLayers[i].Properties;
                 Assert.AreEqual(expectedProperties.MaterialName, actualLayers[i].MaterialName);
                 Assert.AreEqual(expectedProperties.UsePop, actualLayers[i].UsePop);
                 Assert.AreEqual(expectedProperties.IsAquifer, actualLayers[i].IsAquifer);

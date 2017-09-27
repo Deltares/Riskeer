@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -46,12 +48,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetAbovePhreaticLevel_ValidSoilLayerProperties_CreateDesignVariableForAbovePhreaticLevel()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                AbovePhreaticLevel =
                 {
-                    AbovePhreaticLevelMean = mean,
-                    AbovePhreaticLevelCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation,
+                    Shift = (RoundedDouble) (mean - 0.1)
+                }
+            };
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> abovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(properties);
@@ -65,12 +70,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetBelowPhreaticLevel_ValidSoilLayerProperties_CreateDesignVariableForBelowPhreaticLevel()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                BelowPhreaticLevel = 
                 {
-                    BelowPhreaticLevelMean = mean,
-                    BelowPhreaticLevelCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation,
+                    Shift = (RoundedDouble) (mean - 0.1)
+                }
+            };
+
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(properties);
@@ -84,12 +93,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCohesion_ValidSoilLayerProperties_CreateDesignVariableForCohesion()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                Cohesion =
                 {
-                    CohesionMean = mean,
-                    CohesionCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+                }
+            };
+
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(properties);
@@ -103,12 +115,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetFrictionAngle_ValidSoilLayerProperties_CreateDesignVariableForFrictionAngle()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                FrictionAngle =
                 {
-                    FrictionAngleMean = mean,
-                    FrictionAngleCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+                }
+            };
+
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> frictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(properties);
@@ -122,12 +137,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetShearStrengthRatio_ValidSoilLayerProperties_CreateDesignVariableForShearStrengthRatio()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                ShearStrengthRatio = 
                 {
-                    ShearStrengthRatioMean = mean,
-                    ShearStrengthRatioCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+                }
+            };
+
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> shearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(properties);
@@ -141,12 +159,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetStrengthIncreaseExponent_ValidSoilLayerProperties_CreateDesignVariableForStrengthIncreaseExponent()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                StrengthIncreaseExponent = 
                 {
-                    StrengthIncreaseExponentMean = mean,
-                    StrengthIncreaseExponentCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+                }
+            };
+
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> strengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(properties);
@@ -160,12 +181,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetPop_ValidSoilLayerProperties_CreateDesignVariableForPop()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+            var properties = new MacroStabilityInwardsSoilLayerProperties
+            {
+                Pop =
                 {
-                    PopMean = mean,
-                    PopCoefficientOfVariation = coefficientOfVariation
-                });
+                    Mean = (RoundedDouble) mean,
+                    CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
+                }
+            };
+
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(properties);

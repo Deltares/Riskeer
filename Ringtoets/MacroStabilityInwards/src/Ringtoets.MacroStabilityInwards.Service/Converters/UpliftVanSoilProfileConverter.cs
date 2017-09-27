@@ -46,10 +46,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
         public static UpliftVanSoilProfile Convert(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
         {
@@ -65,22 +65,22 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         }
 
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine"/>
+        /// Converts <see cref="MacroStabilityInwardsSoilLayerProperties"/>
         /// into <see cref="UpliftVanSoilLayer"/>.
         /// </summary>
         /// <param name="layers">The layers to convert.</param>
         /// <returns>The converted <see cref="UpliftVanSoilLayer"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
         private static IEnumerable<UpliftVanSoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
         {
             return layers.Select(l =>
             {
-                MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties = l.Properties;
+                MacroStabilityInwardsSoilLayerProperties properties = l.Properties;
                 return new UpliftVanSoilLayer(l.OuterRing, l.Holes, new UpliftVanSoilLayer.ConstructionProperties
                 {
                     MaterialName = properties.MaterialName,

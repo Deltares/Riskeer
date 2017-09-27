@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -30,9 +31,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
     public static class MacroStabilityInwardsSemiProbabilisticDesignVariableFactory
     {
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.AbovePhreaticLevel"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.AbovePhreaticLevel"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.AbovePhreaticLevel)
             {
@@ -41,9 +42,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.BelowPhreaticLevel"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.BelowPhreaticLevel"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.BelowPhreaticLevel)
             {
@@ -52,9 +53,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.Cohesion"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.Cohesion"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetCohesion(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetCohesion(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.Cohesion)
             {
@@ -63,9 +64,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.FrictionAngle"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.FrictionAngle"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetFrictionAngle(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetFrictionAngle(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.FrictionAngle)
             {
@@ -74,9 +75,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ShearStrengthRatio"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.ShearStrengthRatio"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetShearStrengthRatio(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetShearStrengthRatio(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.ShearStrengthRatio)
             {
@@ -85,9 +86,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.StrengthIncreaseExponent"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.StrengthIncreaseExponent"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.StrengthIncreaseExponent)
             {
@@ -96,9 +97,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.Pop"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerProperties.Pop"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPop(MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPop(MacroStabilityInwardsSoilLayerProperties properties)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(properties.Pop)
             {

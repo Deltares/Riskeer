@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,26 +61,49 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                 {
                     CreateRing(11),
                     CreateRing(22)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                }, new MacroStabilityInwardsSoilLayerProperties
                 {
                     UsePop = random.NextBoolean(),
                     IsAquifer = random.NextBoolean(),
                     MaterialName = "Test",
-                    AbovePhreaticLevelMean = random.NextDouble(),
-                    AbovePhreaticLevelCoefficientOfVariation = random.NextDouble(),
-                    BelowPhreaticLevelMean = random.NextDouble(),
-                    BelowPhreaticLevelCoefficientOfVariation = random.NextDouble(),
-                    CohesionMean = random.NextDouble(),
-                    CohesionCoefficientOfVariation = random.NextDouble(),
-                    FrictionAngleMean = random.NextDouble(),
-                    FrictionAngleCoefficientOfVariation = random.NextDouble(),
-                    StrengthIncreaseExponentMean = random.NextDouble(),
-                    StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble(),
-                    ShearStrengthRatioMean = random.NextDouble(),
-                    ShearStrengthRatioCoefficientOfVariation = random.NextDouble(),
-                    PopMean = random.NextDouble(),
-                    PopCoefficientOfVariation = random.NextDouble()
-                }))
+                    AbovePhreaticLevel =
+                    {
+                        Mean = (RoundedDouble) 10,
+                        CoefficientOfVariation = (RoundedDouble) 0.3,
+                        Shift = (RoundedDouble) 0.1
+                    },
+                    BelowPhreaticLevel =
+                    {
+                        Mean = (RoundedDouble) 5,
+                        CoefficientOfVariation = (RoundedDouble) 0.8,
+                        Shift = (RoundedDouble) 0.3
+                    },
+                    Cohesion =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    FrictionAngle =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    StrengthIncreaseExponent =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    ShearStrengthRatio =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    Pop =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    }
+                })
             }, new[]
             {
                 new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
@@ -105,10 +129,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new Point2D[0][],
-                                                                   new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                                                                   new MacroStabilityInwardsSoilLayerProperties
                                                                    {
                                                                        ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
-                                                                   }))
+                                                                   })
             }, new[]
             {
                 new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties())
@@ -133,10 +157,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new Point2D[0][],
-                                                                   new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                                                                   new MacroStabilityInwardsSoilLayerProperties
                                                                    {
                                                                        ShearStrengthModel = originalShearStrengthModel
-                                                                   }))
+                                                                   })
             }, new[]
             {
                 new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties())
