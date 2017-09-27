@@ -26,9 +26,9 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null, new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>());
+            TestDelegate call = () => SoilProfileCreator.Create(null, new Dictionary<UpliftVanSoilLayer, Soil>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,9 +52,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_DictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
-                                                                    Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>(),
-                                                                    Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>()),
+            TestDelegate call = () => SoilProfileCreator.Create(new UpliftVanSoilProfile(
+                                                                    Enumerable.Empty<UpliftVanSoilLayer>(),
+                                                                    Enumerable.Empty<UpliftVanPreconsolidationStress>()), 
                                                                 null);
 
             // Assert
@@ -93,34 +93,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 }
             };
 
-            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
+            var layer = new UpliftVanSoilLayer(
                 outerRing, holes,
-                new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                    {
-                        IsAquifer = true
-                    }));
+                new UpliftVanSoilLayer.ConstructionProperties
+                {
+                    IsAquifer = true
+                });
 
             var soil = new Soil();
 
-            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            var soilProfile = new UpliftVanSoilProfile(new[]
             {
                 layer
             }, new[]
             {
-                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
-                    new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
-                    {
-                        XCoordinate = preconsolidationStressXCoordinate,
-                        ZCoordinate = preconsolidationStressZCoordinate
-                    })
-                {
-                    PreconsolidationStressDesignVariable = preconsolidationStressDesignValue
-                }
+                new UpliftVanPreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
             });
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil>
+            SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<UpliftVanSoilLayer, Soil>
             {
                 {
                     layer, soil
@@ -139,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             SoilLayer2D surface = profile.Surfaces.First();
             Assert.AreSame(soil, surface.Soil);
-            Assert.AreEqual(layer.Properties.IsAquifer, surface.IsAquifer);
+            Assert.AreEqual(layer.IsAquifer, surface.IsAquifer);
             Assert.AreEqual(WaterpressureInterpolationModel.Automatic, surface.WaterpressureInterpolationModel);
 
             var point1 = new WTIStabilityPoint2D(0, 0);

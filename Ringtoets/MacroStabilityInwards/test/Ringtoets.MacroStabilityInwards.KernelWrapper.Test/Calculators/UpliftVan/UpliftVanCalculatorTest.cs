@@ -39,7 +39,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
+using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
@@ -126,9 +126,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
             Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
-            Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils =
-                input.SoilProfile.Layers
+            Soil[] soils = SoilCreator.Create(input.UpliftVanSoilProfile);
+            Dictionary<UpliftVanSoilLayer, Soil> layersWithSoils =
+                input.UpliftVanSoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {
                          layer,
@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                      .ToDictionary(x => x.layer, x => x.soil);
 
             UpliftVanKernelInputHelper.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
-            UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
+            UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.UpliftVanSoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
             UpliftVanKernelInputHelper.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
 
             Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
@@ -195,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
-                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                UpliftVanSoilProfile = CreateValidSoilProfile(surfaceLine),
                 LeftGrid = new MacroStabilityInwardsGrid(),
                 RightGrid = new MacroStabilityInwardsGrid()
             });
@@ -211,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
-                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                UpliftVanSoilProfile = CreateValidSoilProfile(surfaceLine),
                 WaterLevelRiverAverage = random.Next(),
                 WaterLevelPolder = random.Next(),
                 XCoordinateDrainageConstruction = random.Next(),
@@ -248,34 +248,46 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             });
         }
 
-        private static MacroStabilityInwardsSoilProfileUnderSurfaceLine CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
+        private static UpliftVanSoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            return new UpliftVanSoilProfile(new[]
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    surfaceLine.LocalGeometry.First(),
-                    surfaceLine.LocalGeometry.Last()
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    surfaceLine.LocalGeometry.First(),
-                    surfaceLine.LocalGeometry.Last()
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    IsAquifer = true
-                })),
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    surfaceLine.LocalGeometry.First(),
-                    surfaceLine.LocalGeometry.Last()
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties())),
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    surfaceLine.LocalGeometry.First(),
-                    surfaceLine.LocalGeometry.Last()
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties()))
-            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties()),
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties
+                    {
+                        IsAquifer = true
+                    }),
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties()),
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties())
+            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
         }
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()

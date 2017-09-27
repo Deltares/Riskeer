@@ -25,7 +25,7 @@ using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
@@ -44,8 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>
         /// <returns>A new <see cref="SoilProfile2D"/> with the <paramref name="layersWithSoils"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SoilProfile2D Create(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile,
-                                           IDictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils)
+        public static SoilProfile2D Create(UpliftVanSoilProfile soilProfile,
+                                           IDictionary<UpliftVanSoilLayer, Soil> layersWithSoils)
         {
             if (soilProfile == null)
             {
@@ -59,11 +59,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             var profile = new SoilProfile2D();
             profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
 
-            foreach (KeyValuePair<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layerWithSoil in layersWithSoils)
+            foreach (KeyValuePair<UpliftVanSoilLayer, Soil> layerWithSoil in layersWithSoils)
             {
                 profile.Surfaces.Add(new SoilLayer2D
                 {
-                    IsAquifer = layerWithSoil.Key.Properties.IsAquifer,
+                    IsAquifer = layerWithSoil.Key.IsAquifer,
                     Soil = layerWithSoil.Value,
                     GeometrySurface = CreateGeometrySurface(layerWithSoil.Key),
                     WaterpressureInterpolationModel = WaterpressureInterpolationModel.Automatic
@@ -75,17 +75,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return profile;
         }
 
-        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(UpliftVanSoilProfile soilProfile)
         {
             return soilProfile.PreconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
             {
-                StressValue = preconsolidationStress.PreconsolidationStressDesignVariable,
-                X = preconsolidationStress.XCoordinate,
-                Z = preconsolidationStress.ZCoordinate
+                StressValue = preconsolidationStress.Stress,
+                X = preconsolidationStress.Coordinate.X,
+                Z = preconsolidationStress.Coordinate.Y
             }).ToArray();
         }
 
-        private static GeometrySurface CreateGeometrySurface(MacroStabilityInwardsSoilLayerUnderSurfaceLine layer)
+        private static GeometrySurface CreateGeometrySurface(UpliftVanSoilLayer layer)
         {
             var surface = new GeometrySurface
             {

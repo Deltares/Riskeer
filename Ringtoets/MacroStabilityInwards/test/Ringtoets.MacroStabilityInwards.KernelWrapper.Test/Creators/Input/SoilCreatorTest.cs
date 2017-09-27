@@ -25,9 +25,8 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
@@ -50,42 +49,71 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_ProfileWithLayers_ReturnsProfileWithLayers()
         {
             // Setup
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            var random = new Random(11);
+
+            var profile = new UpliftVanSoilProfile(new[]
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties
                     {
                         UsePop = true,
-                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
-                        MaterialName = "Sand"
-                    })),
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                        IsAquifer = false,
+                        ShearStrengthModel = UpliftVanShearStrengthModel.CPhi,
+                        MaterialName = "Sand",
+                        AbovePhreaticLevel = random.NextDouble(),
+                        BelowPhreaticLevel = random.NextDouble(),
+                        Cohesion = random.NextDouble(),
+                        FrictionAngle = random.NextDouble(),
+                        ShearStrengthRatio = random.NextDouble(),
+                        StrengthIncreaseExponent = random.NextDouble(),
+                        Pop = random.NextDouble()
+                    }),
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties
                     {
                         UsePop = true,
-                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated,
-                        MaterialName = "Clay"
-                    })),
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, new TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(
-                    new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
+                        IsAquifer = true,
+                        ShearStrengthModel = UpliftVanShearStrengthModel.CPhiOrSuCalculated,
+                        MaterialName = "Clay",
+                        AbovePhreaticLevel = random.NextDouble(),
+                        BelowPhreaticLevel = random.NextDouble(),
+                        Cohesion = random.NextDouble(),
+                        FrictionAngle = random.NextDouble(),
+                        ShearStrengthRatio = random.NextDouble(),
+                        StrengthIncreaseExponent = random.NextDouble(),
+                        Pop = random.NextDouble()
+                    }),
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties
                     {
                         UsePop = false,
-                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated,
-                        MaterialName = "Grass"
-                    }))
-            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
+                        IsAquifer = true,
+                        ShearStrengthModel = UpliftVanShearStrengthModel.SuCalculated,
+                        MaterialName = "Grass",
+                        AbovePhreaticLevel = random.NextDouble(),
+                        BelowPhreaticLevel = random.NextDouble(),
+                        Cohesion = random.NextDouble(),
+                        FrictionAngle = random.NextDouble(),
+                        ShearStrengthRatio = random.NextDouble(),
+                        StrengthIncreaseExponent = random.NextDouble(),
+                        Pop = random.NextDouble()
+                    })
+            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
 
             // Call
             Soil[] soils = SoilCreator.Create(profile);
@@ -93,21 +121,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             Assert.AreEqual(3, soils.Length);
 
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.UsePop), soils.Select(s => s.UsePop));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.MaterialName), soils.Select(s => s.Name));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.UsePop), soils.Select(s => s.UsePop));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.MaterialName), soils.Select(s => s.Name));
             CollectionAssert.AreEqual(new[]
             {
                 ShearStrengthModel.CPhi,
                 ShearStrengthModel.CPhiOrCuCalculated,
                 ShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.AbovePhreaticLevelDesignVariable.Value), soils.Select(s => s.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.BelowPhreaticLevelDesignVariable.Value), soils.Select(s => s.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.CohesionDesignVariable.Value), soils.Select(s => s.Cohesion));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.FrictionAngleDesignVariable.Value), soils.Select(s => s.FrictionAngle));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.ShearStrengthRatioDesignVariable.Value), soils.Select(s => s.RatioCuPc));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.StrengthIncreaseExponentDesignVariable.Value), soils.Select(s => s.StrengthIncreaseExponent));
-            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Properties.PopDesignVariable.Value), soils.Select(s => s.PoP));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.AbovePhreaticLevel), soils.Select(s => s.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.BelowPhreaticLevel), soils.Select(s => s.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Cohesion), soils.Select(s => s.Cohesion));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.FrictionAngle), soils.Select(s => s.FrictionAngle));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.ShearStrengthRatio), soils.Select(s => s.RatioCuPc));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.StrengthIncreaseExponent), soils.Select(s => s.StrengthIncreaseExponent));
+            CollectionAssert.AreEqual(profile.Layers.Select(l => l.Pop), soils.Select(s => s.PoP));
 
             foreach (Soil soil in soils)
             {
@@ -119,40 +147,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InvalidShearStrengthModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            var profile = new UpliftVanSoilProfile(new[]
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(new MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine.ConstructionProperties
-                {
-                    ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
-                }))
-            }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
+                new UpliftVanSoilLayer(
+                    new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(1, 1)
+                    }, Enumerable.Empty<Point2D[]>(),
+                    new UpliftVanSoilLayer.ConstructionProperties
+                    {
+                        ShearStrengthModel = (UpliftVanShearStrengthModel) 99
+                    })
+            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
 
             // Call
             TestDelegate test = () => SoilCreator.Create(profile);
 
             // Assert
-            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsShearStrengthModel).Name}'.";
+            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(UpliftVanShearStrengthModel).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
-        }
-
-        private class TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine : MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine
-        {
-            public TestMacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine(ConstructionProperties properties)
-                : base(properties)
-            {
-                var random = new Random(21);
-                AbovePhreaticLevelDesignVariable = random.NextRoundedDouble();
-                BelowPhreaticLevelDesignVariable = random.NextRoundedDouble();
-                CohesionDesignVariable = random.NextRoundedDouble();
-                FrictionAngleDesignVariable = random.NextRoundedDouble();
-                ShearStrengthRatioDesignVariable = random.NextRoundedDouble();
-                StrengthIncreaseExponentDesignVariable = random.NextRoundedDouble();
-                PopDesignVariable = random.NextRoundedDouble();
-            }
         }
     }
 }

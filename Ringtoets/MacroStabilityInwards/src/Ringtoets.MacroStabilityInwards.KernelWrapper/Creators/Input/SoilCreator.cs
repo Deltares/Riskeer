@@ -24,8 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -38,66 +37,61 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// Creates a <see cref="Soil"/> based on information contained in the profile <paramref name="profile"/>,
         /// which can be used in the <see cref="UpliftVanCalculator"/>.
         /// </summary>
-        /// <param name="profile">The <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> from
+        /// <param name="profile">The <see cref="UpliftVanSoilProfile"/> from
         /// which to take the information.</param>
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        public static Soil[] Create(MacroStabilityInwardsSoilProfileUnderSurfaceLine profile)
+        public static Soil[] Create(UpliftVanSoilProfile profile)
         {
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            return profile.Layers.Select(l =>
+            return profile.Layers.Select(l => new Soil(l.MaterialName)
             {
-                MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine properties = l.Properties;
-
-                return new Soil(properties.MaterialName)
-                {
-                    UsePop = properties.UsePop,
-                    ShearStrengthModel = ConvertShearStrengthModel(properties.ShearStrengthModel),
-                    AbovePhreaticLevel = properties.AbovePhreaticLevelDesignVariable,
-                    BelowPhreaticLevel = properties.BelowPhreaticLevelDesignVariable,
-                    Cohesion = properties.CohesionDesignVariable,
-                    FrictionAngle = properties.FrictionAngleDesignVariable,
-                    RatioCuPc = properties.ShearStrengthRatioDesignVariable,
-                    StrengthIncreaseExponent = properties.StrengthIncreaseExponentDesignVariable,
-                    PoP = properties.PopDesignVariable,
-                    DilatancyType = DilatancyType.Zero
-                };
+                UsePop = l.UsePop,
+                ShearStrengthModel = ConvertShearStrengthModel(l.ShearStrengthModel),
+                AbovePhreaticLevel = l.AbovePhreaticLevel,
+                BelowPhreaticLevel = l.BelowPhreaticLevel,
+                Cohesion = l.Cohesion,
+                FrictionAngle = l.FrictionAngle,
+                RatioCuPc = l.ShearStrengthRatio,
+                StrengthIncreaseExponent = l.StrengthIncreaseExponent,
+                PoP = l.Pop,
+                DilatancyType = DilatancyType.Zero
             }).ToArray();
         }
 
         /// <summary>
-        /// Converts a <see cref="MacroStabilityInwardsShearStrengthModel"/> to a <see cref="ShearStrengthModel"/>.
+        /// Converts a <see cref="UpliftVanShearStrengthModel"/> to a <see cref="ShearStrengthModel"/>.
         /// </summary>
-        /// <param name="shearStrengthModel">The <see cref="MacroStabilityInwardsShearStrengthModel"/> to convert.</param>
+        /// <param name="shearStrengthModel">The <see cref="UpliftVanShearStrengthModel"/> to convert.</param>
         /// <returns>A <see cref="ShearStrengthModel"/> based on the information of <paramref name="shearStrengthModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static ShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        private static ShearStrengthModel ConvertShearStrengthModel(UpliftVanShearStrengthModel shearStrengthModel)
         {
-            if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))
+            if (!Enum.IsDefined(typeof(UpliftVanShearStrengthModel), shearStrengthModel))
             {
                 throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
                                                        (int) shearStrengthModel,
-                                                       typeof(MacroStabilityInwardsShearStrengthModel));
+                                                       typeof(UpliftVanShearStrengthModel));
             }
 
             switch (shearStrengthModel)
             {
-                case MacroStabilityInwardsShearStrengthModel.SuCalculated:
+                case UpliftVanShearStrengthModel.SuCalculated:
                     return ShearStrengthModel.CuCalculated;
-                case MacroStabilityInwardsShearStrengthModel.CPhi:
+                case UpliftVanShearStrengthModel.CPhi:
                     return ShearStrengthModel.CPhi;
-                case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
+                case UpliftVanShearStrengthModel.CPhiOrSuCalculated:
                     return ShearStrengthModel.CPhiOrCuCalculated;
                 default:
                     throw new NotSupportedException();
