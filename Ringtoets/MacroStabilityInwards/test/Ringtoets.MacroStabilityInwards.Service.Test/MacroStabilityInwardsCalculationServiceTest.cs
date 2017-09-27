@@ -348,8 +348,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
         {
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
-            Assert.AreSame(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
-            UpliftVanSoilProfileHelper.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.UpliftVanSoilProfile);
+            UpliftVanSoilProfileHelper.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);

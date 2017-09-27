@@ -46,7 +46,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
-            UpliftVanSoilProfile = properties.UpliftVanSoilProfile;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
             WaterLevelPolder = properties.WaterLevelPolder;
             XCoordinateDrainageConstruction = properties.XCoordinateDrainageConstruction;
@@ -130,16 +129,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// Gets or sets the surface line.
             /// </summary>
             public MacroStabilityInwardsSurfaceLine SurfaceLine { internal get; set; }
-
+            
             /// <summary>
             /// Gets or sets the profile which contains a definition of soil layers with properties.
             /// </summary>
-            public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the profile which contains a definition of soil layers with properties.
-            /// </summary>
-            public UpliftVanSoilProfile UpliftVanSoilProfile { internal get; set; }
+            public UpliftVanSoilProfile SoilProfile { internal get; set; }
 
             /// <summary>
             /// Gets or sets the dike soil scenario.
@@ -343,16 +337,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Gets the surface line.
         /// </summary>
         public MacroStabilityInwardsSurfaceLine SurfaceLine { get; }
-
+        
         /// <summary>
         /// Gets the profile which contains a definition of soil layers with properties.
         /// </summary>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfile { get; }
-
-        /// <summary>
-        /// Gets the profile which contains a definition of soil layers with properties.
-        /// </summary>
-        public UpliftVanSoilProfile UpliftVanSoilProfile { get; }
+        public UpliftVanSoilProfile SoilProfile { get; }
 
         /// <summary>
         /// Gets the dike soil scenario.

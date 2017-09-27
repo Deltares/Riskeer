@@ -183,8 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     AssessmentLevel = inputParameters.AssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = inputParameters.SoilProfileUnderSurfaceLine,
-                    UpliftVanSoilProfile = UpliftVanSoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
+                    SoilProfile = UpliftVanSoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
                     DikeSoilScenario = inputParameters.DikeSoilScenario,
                     WaterLevelRiverAverage = inputParameters.WaterLevelRiverAverage,
                     WaterLevelPolder = inputParameters.WaterLevelPolder,

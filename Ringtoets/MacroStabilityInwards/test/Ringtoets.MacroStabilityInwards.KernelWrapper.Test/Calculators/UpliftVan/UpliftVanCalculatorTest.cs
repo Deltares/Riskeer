@@ -126,9 +126,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
             Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
-            Soil[] soils = SoilCreator.Create(input.UpliftVanSoilProfile);
+            Soil[] soils = SoilCreator.Create(input.SoilProfile);
             Dictionary<UpliftVanSoilLayer, Soil> layersWithSoils =
-                input.UpliftVanSoilProfile.Layers
+                input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {
                          layer,
@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                      .ToDictionary(x => x.layer, x => x.soil);
 
             UpliftVanKernelInputHelper.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
-            UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.UpliftVanSoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
+            UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
             UpliftVanKernelInputHelper.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
 
             Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
@@ -195,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
-                UpliftVanSoilProfile = CreateValidSoilProfile(surfaceLine),
+                SoilProfile = CreateValidSoilProfile(surfaceLine),
                 LeftGrid = new MacroStabilityInwardsGrid(),
                 RightGrid = new MacroStabilityInwardsGrid()
             });
@@ -211,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             {
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
-                UpliftVanSoilProfile = CreateValidSoilProfile(surfaceLine),
+                SoilProfile = CreateValidSoilProfile(surfaceLine),
                 WaterLevelRiverAverage = random.Next(),
                 WaterLevelPolder = random.Next(),
                 XCoordinateDrainageConstruction = random.Next(),
