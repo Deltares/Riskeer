@@ -140,6 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
             UpliftVanKernelInputHelper.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
             UpliftVanKernelInputHelper.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
+            UpliftVanKernelInputHelper.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input), upliftVanKernel.SlipPlaneUpliftVan);
 
             Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
             Assert.AreEqual(input.CreateZones, upliftVanKernel.CreateZones);
@@ -294,12 +295,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()
         {
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var dikeToeAtRiver = new Point3D(1, 0, 8);
+
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 2),
-                new Point3D(1, 0, 8),
+                dikeToeAtRiver,
                 new Point3D(2, 0, -1)
             });
+
+            surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
+
             return surfaceLine;
         }
 

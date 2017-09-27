@@ -114,6 +114,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
+        /// <param name="expected">The expected <see cref="SlipPlaneUpliftVan"/>.</param>
+        /// <param name="actual">The actual <see cref="SlipPlaneUpliftVan"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertSlipPlanesUpliftVan(SlipPlaneUpliftVan expected, SlipPlaneUpliftVan actual)
+        {
+            AssertSlipCircleGrid(expected.SlipPlaneLeftGrid, actual.SlipPlaneLeftGrid);
+            AssertSlipCircleGrid(expected.SlipPlaneRightGrid, actual.SlipPlaneRightGrid);
+            AssertSlipCircleTangentLine(expected.SlipCircleTangentLine, actual.SlipCircleTangentLine);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
         /// <param name="expected">The expected <see cref="SoilLayer2D"/> array.</param>
         /// <param name="actual">The actual <see cref="SoilLayer2D"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
@@ -284,6 +298,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         {
             Assert.AreEqual(expected.X, actual.X);
             Assert.AreEqual(expected.Z, actual.Z);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="SlipCircleGrid"/>.</param>
+        /// <param name="actual">The actual <see cref="SlipCircleGrid"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertSlipCircleGrid(SlipCircleGrid expected, SlipCircleGrid actual)
+        {
+            Assert.AreEqual(expected.GridXLeft, actual.GridXLeft);
+            Assert.AreEqual(expected.GridXRight, actual.GridXRight);
+            Assert.AreEqual(expected.GridZTop, actual.GridZTop);
+            Assert.AreEqual(expected.GridZBottom, actual.GridZBottom);
+            Assert.AreEqual(expected.GridXNumber, actual.GridXNumber);
+            Assert.AreEqual(expected.GridZNumber, actual.GridZNumber);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="SlipCircleTangentLine"/>.</param>
+        /// <param name="actual">The actual <see cref="SlipCircleTangentLine"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertSlipCircleTangentLine(SlipCircleTangentLine expected, SlipCircleTangentLine actual)
+        {
+            Assert.AreEqual(expected.AutomaticAtBoundaries, actual.AutomaticAtBoundaries);
+            Assert.AreEqual(expected.TangentLineZTop, actual.TangentLineZTop);
+            Assert.AreEqual(expected.TangentLineZBottom, actual.TangentLineZBottom);
+            Assert.AreEqual(expected.TangentLineNumber, actual.TangentLineNumber);
         }
     }
 }
