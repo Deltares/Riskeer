@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 
@@ -59,6 +60,41 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             AssertSoilLayers(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
             AssertPreconsolidationStresses(expected.PreconsolidationStresses.ToArray(), actual.PreconsolidationStresses.ToArray());
             AssertGeometryDatas(expected.Geometry, actual.Geometry);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="StabilityLocation"/>.</param>
+        /// <param name="actual">The actual <see cref="StabilityLocation"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertStabilityLocations(StabilityLocation expected, StabilityLocation actual)
+        {
+            Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
+            Assert.AreEqual(expected.WaterLevelRiver, actual.WaterLevelRiver);
+            Assert.AreEqual(expected.WaterLevelRiverAverage, actual.WaterLevelRiverAverage);
+            Assert.AreEqual(expected.WaterLevelPolder, actual.WaterLevelPolder);
+            Assert.AreEqual(expected.WaterLevelRiverLow, actual.WaterLevelRiverLow);
+            Assert.AreEqual(expected.DrainageConstructionPresent, actual.DrainageConstructionPresent);
+            Assert.AreEqual(expected.XCoordMiddleDrainageConstruction, actual.XCoordMiddleDrainageConstruction);
+            Assert.AreEqual(expected.ZCoordMiddleDrainageConstruction, actual.ZCoordMiddleDrainageConstruction);
+            Assert.AreEqual(expected.MinimumLevelPhreaticLineAtDikeTopRiver, actual.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(expected.MinimumLevelPhreaticLineAtDikeTopPolder, actual.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaultOffsets);
+            Assert.AreEqual(expected.PlLineOffsetBelowPointBRingtoetsWti2017, actual.PlLineOffsetBelowPointBRingtoetsWti2017);
+            Assert.AreEqual(expected.PlLineOffsetBelowDikeTopAtPolder, actual.PlLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(expected.PlLineOffsetBelowShoulderBaseInside, actual.PlLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(expected.PlLineOffsetBelowDikeToeAtPolder, actual.PlLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(expected.HeadInPlLine2Outwards, actual.HeadInPlLine2Outwards);
+            Assert.AreEqual(expected.HeadInPlLine2Inwards, actual.HeadInPlLine2Inwards);
+            Assert.AreEqual(expected.AdjustPl3And4ForUplift, actual.AdjustPl3And4ForUplift);
+            Assert.AreEqual(expected.PenetrationLength, actual.PenetrationLength);
+            Assert.AreEqual(expected.LeakageLengthOutwardsPl3, actual.LeakageLengthOutwardsPl3);
+            Assert.AreEqual(expected.LeakageLengthInwardsPl3, actual.LeakageLengthInwardsPl3);
+            Assert.AreEqual(expected.LeakageLengthOutwardsPl4, actual.LeakageLengthOutwardsPl4);
+            Assert.AreEqual(expected.LeakageLengthInwardsPl4, actual.LeakageLengthInwardsPl4);
+            Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
         }
 
         /// <summary>
@@ -158,9 +194,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         private static void AssertGeometryDatas(GeometryData expected, GeometryData actual)
         {
             AssertGeometrySurfaces(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
+
             CollectionAssert.AreEqual(expected.Loops, actual.Loops, new WTIStabilityGeometryLoopComparer());
             CollectionAssert.AreEqual(expected.Curves, actual.Curves, new WTIStabilityGeometryCurveComparer());
             CollectionAssert.AreEqual(expected.Points, actual.Points, new WTIStabilityPoint2DComparer());
+
+            Assert.AreEqual(expected.Bottom, actual.Bottom);
+            Assert.AreEqual(expected.Left, actual.Left);
+            Assert.AreEqual(expected.Right, actual.Right);
         }
 
         /// <summary>
