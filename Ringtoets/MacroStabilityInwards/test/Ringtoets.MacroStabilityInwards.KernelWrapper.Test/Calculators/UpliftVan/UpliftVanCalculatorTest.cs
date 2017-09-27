@@ -90,6 +90,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
+        public void Calculate_CalculatorWithValidInputAndKernelWithValidOutput_KernelCalculateMethodCalled()
+        {
+            // Setup
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            SetValidKernelOutput(upliftVanKernel);
+
+            // Call
+            new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
+        }
+
+        [Test]
         public void Calculate_CalculatorWithCompleteInput_InputCorrectlySetToKernel()
         {
             // Setup
@@ -110,8 +127,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.AutomaticForbiddenZones, upliftVanKernel.AutomaticForbiddenZones);
             Assert.AreEqual(input.SlipPlaneMinimumDepth, upliftVanKernel.SlipPlaneMinimumDepth);
             Assert.AreEqual(input.SlipPlaneMinimumLength, upliftVanKernel.SlipPlaneMinimumLength);
-
-            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
         }
 
         [Test]
@@ -137,8 +152,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                                                                result.SlidingCurveResult);
             UpliftVanCalculatorResultHelper.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                                                                 result.CalculationGridResult);
-
-            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
         }
 
         [Test]
