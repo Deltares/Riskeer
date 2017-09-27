@@ -139,6 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanKernelInputHelper.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
             UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
             UpliftVanKernelInputHelper.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
+            UpliftVanKernelInputHelper.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
 
             Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
             Assert.AreEqual(input.CreateZones, upliftVanKernel.CreateZones);

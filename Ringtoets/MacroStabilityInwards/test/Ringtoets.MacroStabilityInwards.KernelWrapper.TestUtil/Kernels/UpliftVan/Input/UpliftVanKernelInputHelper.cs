@@ -100,6 +100,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
+        /// <param name="expected">The expected <see cref="SurfaceLine2"/>.</param>
+        /// <param name="actual">The actual <see cref="SurfaceLine2"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertSurfaceLines(SurfaceLine2 expected, SurfaceLine2 actual)
+        {
+            Assert.AreEqual(expected.Name, actual.Name);
+            AssertGeometryPointStrings(expected.Geometry, actual.Geometry);
+            AssertCharacteristicPointSets(expected.CharacteristicPoints, actual.CharacteristicPoints);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
         /// <param name="expected">The expected <see cref="SoilLayer2D"/> array.</param>
         /// <param name="actual">The actual <see cref="SoilLayer2D"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
@@ -219,6 +233,57 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             {
                 AssertGeometrySurfaces(expected[i], actual[i]);
             }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="CharacteristicPointSet"/>.</param>
+        /// <param name="actual">The actual <see cref="CharacteristicPointSet"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertCharacteristicPointSets(CharacteristicPointSet expected, CharacteristicPointSet actual)
+        {
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (var i = 0; i < expected.Count; i++)
+            {
+                CharacteristicPoint expectedCharacteristicPoint = expected[i];
+                CharacteristicPoint actualCharacteristicPoint = actual[i];
+
+                AssertGeometryPoints(expectedCharacteristicPoint.GeometryPoint, actualCharacteristicPoint.GeometryPoint);
+                Assert.AreEqual(expectedCharacteristicPoint.CharacteristicPointType, actualCharacteristicPoint.CharacteristicPointType);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="GeometryPointString"/>.</param>
+        /// <param name="actual">The actual <see cref="GeometryPointString"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGeometryPointStrings(GeometryPointString expected, GeometryPointString actual)
+        {
+            Assert.AreEqual(expected.Points.Count, actual.Points.Count);
+
+            for (var i = 0; i < expected.Points.Count; i++)
+            {
+                AssertGeometryPoints(expected.Points[i], actual.Points[i]);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="GeometryPoint"/>.</param>
+        /// <param name="actual">The actual <see cref="GeometryPoint"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGeometryPoints(GeometryPoint expected, GeometryPoint actual)
+        {
+            Assert.AreEqual(expected.X, actual.X);
+            Assert.AreEqual(expected.Z, actual.Z);
         }
     }
 }
