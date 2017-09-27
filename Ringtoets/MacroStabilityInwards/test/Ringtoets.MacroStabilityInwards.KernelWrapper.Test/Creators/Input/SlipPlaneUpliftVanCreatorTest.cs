@@ -61,7 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var rightGridZBottom = new RoundedDouble(2, random.NextDouble());
             int rightGridXNumber = random.Next();
             int rightGridZNumber = random.Next();
-
             double tangentLineZTop = random.NextDouble();
             double tangentLineZBottom = random.NextDouble();
             bool tangentLineAutomaticAtBoundaries = random.NextBoolean();
@@ -107,7 +106,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(rightGridZBottom, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZBottom);
             Assert.AreEqual(rightGridXNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
-
             Assert.AreEqual(tangentLineZTop, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(tangentLineAutomaticAtBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.AutomaticAtBoundaries);

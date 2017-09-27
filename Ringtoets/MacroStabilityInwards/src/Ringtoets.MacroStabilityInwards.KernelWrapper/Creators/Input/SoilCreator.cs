@@ -23,22 +23,21 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="Soil"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
+    /// Creates <see cref="Soil"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SoilCreator
     {
         /// <summary>
         /// Creates a <see cref="Soil"/> based on information contained in the profile <paramref name="profile"/>,
-        /// which can be used in the <see cref="UpliftVanCalculator"/>.
+        /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
-        /// <param name="profile">The <see cref="UpliftVanSoilProfile"/> from
-        /// which to take the information.</param>
+        /// <param name="profile">The <see cref="UpliftVanSoilProfile"/> from which to take the information.</param>
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
@@ -68,10 +67,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanShearStrengthModel"/> to a <see cref="ShearStrengthModel"/>.
+        /// Converts a <see cref="UpliftVanShearStrengthModel"/> into a <see cref="ShearStrengthModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="UpliftVanShearStrengthModel"/> to convert.</param>
-        /// <returns>A <see cref="ShearStrengthModel"/> based on the information of <paramref name="shearStrengthModel"/>.</returns>
+        /// <returns>A <see cref="ShearStrengthModel"/> based on <paramref name="shearStrengthModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>

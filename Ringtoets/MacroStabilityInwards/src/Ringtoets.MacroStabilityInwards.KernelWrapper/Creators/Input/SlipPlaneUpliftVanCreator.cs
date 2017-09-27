@@ -21,24 +21,24 @@
 
 using System;
 using Deltares.WTIStability;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SlipPlaneUpliftVan"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
+    /// Creates <see cref="SlipPlaneUpliftVan"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SlipPlaneUpliftVanCreator
     {
         /// <summary>
         /// Creates a <see cref="SlipPlaneUpliftVan"/> based on the given <paramref name="input"/>,
-        /// which can be used in the <see cref="UpliftVanCalculator"/>.
+        /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
         /// <returns>A new <see cref="SlipPlaneUpliftVan"/> with the given information from <paramref name="input"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>        
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         public static SlipPlaneUpliftVan Create(UpliftVanCalculatorInput input)
         {
             if (input == null)

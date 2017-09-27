@@ -49,12 +49,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_DictionaryNull_ThrowsArgumentNullException()
+        public void Create_SoilDictionaryNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => SoilProfileCreator.Create(new UpliftVanSoilProfile(
                                                                     Enumerable.Empty<UpliftVanSoilLayer>(),
-                                                                    Enumerable.Empty<UpliftVanPreconsolidationStress>()), 
+                                                                    Enumerable.Empty<UpliftVanPreconsolidationStress>()),
                                                                 null);
 
             // Assert

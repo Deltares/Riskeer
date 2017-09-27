@@ -23,20 +23,20 @@ using System;
 using System.ComponentModel;
 using Deltares.WaternetCreator;
 using Deltares.WTIStability;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="StabilityLocation"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
+    /// Creates <see cref="StabilityLocation"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class StabilityLocationCreator
     {
         /// <summary>
         /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/>,
-        /// which can be used in the <see cref="UpliftVanCalculator"/>.
+        /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
         /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>
@@ -82,10 +82,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> to a <see cref="DikeSoilScenario"/>.
+        /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> into a <see cref="DikeSoilScenario"/>.
         /// </summary>
         /// <param name="dikeSoilScenario">The <see cref="MacroStabilityInwardsDikeSoilScenario"/> to convert.</param>
-        /// <returns>A <see cref="DikeSoilScenario"/> based on the information of <paramref name="dikeSoilScenario"/>.</returns>
+        /// <returns>A <see cref="DikeSoilScenario"/> based on <paramref name="dikeSoilScenario"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dikeSoilScenario"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="dikeSoilScenario"/>

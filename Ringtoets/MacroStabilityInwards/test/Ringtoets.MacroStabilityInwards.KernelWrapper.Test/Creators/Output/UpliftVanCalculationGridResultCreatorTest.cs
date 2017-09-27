@@ -100,7 +100,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             // Assert
             AssertGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid, result.LeftGrid);
             AssertGrid(slipPlaneUpliftVan.SlipPlaneRightGrid, result.RightGrid);
-
             CollectionAssert.AreEqual(slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights.Select(sl => sl.Height), result.TangentLines);
         }
 

@@ -24,21 +24,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SoilProfile"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
+    /// Creates <see cref="SoilProfile"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SoilProfileCreator
     {
         /// <summary>
         /// Creates a <see cref="SoilProfile2D"/> with the given <paramref name="layersWithSoils"/>
-        /// which can be used in the <see cref="UpliftVanCalculator"/>.
+        /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to create the <see cref="SoilProfile2D"/> for.</param>
         /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>

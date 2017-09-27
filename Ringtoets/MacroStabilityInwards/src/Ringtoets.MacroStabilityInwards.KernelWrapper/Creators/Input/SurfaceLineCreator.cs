@@ -24,19 +24,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SurfaceLine2"/> instances which are required by the <see cref="UpliftVanCalculator"/>.
+    /// Creates <see cref="SurfaceLine2"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SurfaceLineCreator
     {
         /// <summary>
         /// Creates a <see cref="SurfaceLine2"/> based on information of <paramref name="surfaceLine"/>,
-        /// which can be used in the <see cref="UpliftVanCalculator"/>.
+        /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> from
         /// which to take the information.</param>

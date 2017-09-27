@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
     public class SurfaceLineCreatorTest
     {
         [Test]
-        public void Create_MacroStabilityInwardsSurfaceLineNull_ThrowsArgumentNullException()
+        public void Create_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => SurfaceLineCreator.Create(null);
@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_SurfaceLineWithOnlyOnePoint_CreatePipingSurfaceLineWithOnePoint()
+        public void Create_SurfaceLineWithOnlyOnePoint_CreateSurfaceLineWithOnePoint()
         {
             // Setup
             const string name = "Global coordinate surface line";
