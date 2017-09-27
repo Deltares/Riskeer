@@ -58,8 +58,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 failureMechanism
             }, assessmentSection.GetFailureMechanisms());
-            Assert.AreEqual(1.0 / 10, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, assessmentSection.FailureMechanismContribution.SignalingNorm);
+
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(1.0 / 10, contribution.LowerLimitNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
+            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             mocks.VerifyAll();
         }
 
