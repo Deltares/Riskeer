@@ -56,8 +56,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSoilProfiles(SoilProfile2D expected, SoilProfile2D actual)
         {
-            AssertSurfaces(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
+            AssertSoilLayers(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
             AssertPreconsolidationStresses(expected.PreconsolidationStresses.ToArray(), actual.PreconsolidationStresses.ToArray());
+            AssertGeometryDatas(expected.Geometry, actual.Geometry);
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// <param name="actual">The actual <see cref="SoilLayer2D"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSurfaces(SoilLayer2D[] expected, SoilLayer2D[] actual)
+        private static void AssertSoilLayers(SoilLayer2D[] expected, SoilLayer2D[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -145,6 +146,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.StrengthIncreaseExponent, actual.StrengthIncreaseExponent);
             Assert.AreEqual(expected.PoP, actual.PoP);
             Assert.AreEqual(expected.DilatancyType, actual.DilatancyType);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="GeometryData"/>.</param>
+        /// <param name="actual">The actual <see cref="GeometryData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGeometryDatas(GeometryData expected, GeometryData actual)
+        {
+            AssertGeometrySurfaces(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
+            CollectionAssert.AreEqual(expected.Loops, actual.Loops, new WTIStabilityGeometryLoopComparer());
+            CollectionAssert.AreEqual(expected.Curves, actual.Curves, new WTIStabilityGeometryCurveComparer());
+            CollectionAssert.AreEqual(expected.Points, actual.Points, new WTIStabilityPoint2DComparer());
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="GeometrySurface"/> array.</param>
+        /// <param name="actual">The actual <see cref="GeometrySurface"/> array.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGeometrySurfaces(GeometrySurface[] expected, GeometrySurface[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                AssertGeometrySurfaces(expected[i], actual[i]);
+            }
         }
     }
 }
