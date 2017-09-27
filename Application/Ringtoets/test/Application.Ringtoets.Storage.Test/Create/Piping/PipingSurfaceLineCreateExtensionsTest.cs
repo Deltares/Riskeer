@@ -260,9 +260,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);
-            byte[] characteristicPointTypeValues = entity.PipingCharacteristicPointEntities
-                                                         .Select(cpe => cpe.Type)
-                                                         .ToArray();
 
             CollectionAssert.AreEquivalent(new[]
             {
@@ -272,7 +269,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 (byte) PipingCharacteristicPointType.BottomDitchDikeSide,
                 (byte) PipingCharacteristicPointType.BottomDitchPolderSide,
                 (byte) PipingCharacteristicPointType.DitchPolderSide
-            }, characteristicPointTypeValues);
+            }, entity.PipingCharacteristicPointEntities
+                     .Select(cpe => cpe.Type));
 
             foreach (PipingCharacteristicPointEntity characteristicPointEntity in entity.PipingCharacteristicPointEntities)
             {
