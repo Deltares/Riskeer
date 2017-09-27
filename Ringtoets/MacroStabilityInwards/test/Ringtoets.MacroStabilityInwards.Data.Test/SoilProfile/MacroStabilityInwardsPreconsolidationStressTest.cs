@@ -35,6 +35,42 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsPreconsolidationStressTest
     {
         [Test]
+        public void Constructor_LocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble)0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
+            
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(null, distribution);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("location", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_StressDistributionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(location, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("stressDistribution", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ValidArguments_ReturnsExpectedValues()
         {
             // Setup

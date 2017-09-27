@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var stressDistribution = new VariationCoefficientLogNormalDistribution
             {
                 Mean = (RoundedDouble) 0.005,
-                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
             };
 
             var preconsolidationStress = new MacroStabilityInwardsPreconsolidationStress(location, stressDistribution);
