@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
@@ -623,17 +624,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             yield return new TestCaseData(Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>())
                 .SetName("No preconsolidation stresses");
 
-            var random = new Random(21);
             var preconsolidationStresses = new List<MacroStabilityInwardsPreconsolidationStress>
             {
-                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble()),
-                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble(),
-                                                                random.NextDouble())
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(),
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
             };
             yield return new TestCaseData(preconsolidationStresses)
                 .SetName("Multiple preconsolidation stresses");

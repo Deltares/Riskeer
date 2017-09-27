@@ -22,6 +22,9 @@
 using System;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -48,10 +51,13 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var stress = new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                         random.NextDouble(),
-                                                                         random.NextDouble(),
-                                                                         random.NextDouble());
+
+            var stress = new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                         new VariationCoefficientLogNormalDistribution
+                                                                         {
+                                                                             Mean = (RoundedDouble) 0.005,
+                                                                             CoefficientOfVariation = random.NextRoundedDouble()
+                                                                         });
             int order = random.Next();
 
             // Call

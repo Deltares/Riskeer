@@ -1185,7 +1185,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                 soilLayer2D
             }, new[]
             {
-                new MacroStabilityInwardsPreconsolidationStress(0.1, 0.2, 0.3, 0.4)
+                new MacroStabilityInwardsPreconsolidationStress(new Point2D(1, 2), new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) 3,
+                    CoefficientOfVariation = (RoundedDouble) 4
+                })
             });
 
             macroStabilityInwardsFailureMechanism.StochasticSoilModels.AddRange(new[]

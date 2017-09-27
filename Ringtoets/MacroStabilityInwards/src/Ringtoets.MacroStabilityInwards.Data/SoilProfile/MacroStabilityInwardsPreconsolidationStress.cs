@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Primitives.Properties;
@@ -36,37 +35,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
         /// </summary>
-        /// <param name="xCoordinate">The x coordinate of the preconsolidation stress location.</param>
-        /// <param name="zCoordinate">The z coordinate of the preconsolidation stress location.</param>
-        /// <param name="preconsolidationStressMean">The mean of the stochastic distribution 
-        /// for the preconsolidation stress.</param>
-        /// <param name="preconsolidationStressCoefficientOfVariation">The coefficient of 
-        /// variation of the stochastic distribution for the preconsolidation stress.</param>
+        /// <param name="location">The location of the preconsolidation stress.</param>
+        /// <param name="stressDistribution">The stress distribution belonging to the preconsolidation stress.</param>
         /// <exception cref="ArgumentException">Thrown when any of the parameters are <see cref="double.NaN"/>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="preconsolidationStressMean"/> is less than or equal to 0.</item>
-        /// <item><paramref name="preconsolidationStressCoefficientOfVariation"/> is less than 0.</item>
-        /// </list></exception>
-        public MacroStabilityInwardsPreconsolidationStress(double xCoordinate,
-                                                           double zCoordinate,
-                                                           double preconsolidationStressMean,
-                                                           double preconsolidationStressCoefficientOfVariation)
+        public MacroStabilityInwardsPreconsolidationStress(Point2D location, VariationCoefficientLogNormalDistribution stressDistribution)
         {
-            ValidateParameterNaN(xCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
-            ValidateParameterNaN(zCoordinate, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
-            ValidateParameterNaN(preconsolidationStressMean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
-            ValidateParameterNaN(preconsolidationStressCoefficientOfVariation, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
+            ValidateParameterNaN(location.X, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
+            ValidateParameterNaN(location.Y, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
+            ValidateParameterNaN(stressDistribution.Mean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
+            ValidateParameterNaN(stressDistribution.CoefficientOfVariation,
+                                 Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
 
-            new RoundedDouble(2, xCoordinate);
-            new RoundedDouble(2, zCoordinate);
-
-            Location = new Point2D(xCoordinate, zCoordinate);
+            Location = location;
 
             Stress = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) preconsolidationStressMean,
-                CoefficientOfVariation = (RoundedDouble) preconsolidationStressCoefficientOfVariation
+                Mean = stressDistribution.Mean,
+                CoefficientOfVariation = stressDistribution.CoefficientOfVariation
             };
         }
 

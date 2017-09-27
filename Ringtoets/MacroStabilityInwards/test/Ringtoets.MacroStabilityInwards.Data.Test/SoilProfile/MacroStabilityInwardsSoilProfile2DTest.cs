@@ -24,10 +24,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
@@ -353,20 +355,29 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         private static MacroStabilityInwardsPreconsolidationStress CreateRandomPreconsolidationStress(int seed)
         {
             var random = new Random(seed);
-            return new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                   random.NextDouble(),
-                                                                   random.NextDouble(),
-                                                                   random.NextDouble());
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
+
+            return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
         }
 
         private static MacroStabilityInwardsPreconsolidationStress CopyAndModifyPreconsolidationsStress(
-            MacroStabilityInwardsPreconsolidationStress stress)
+            MacroStabilityInwardsPreconsolidationStress preconsolidationStress)
         {
             var random = new Random(29);
-            return new MacroStabilityInwardsPreconsolidationStress(stress.Location.X + random.NextDouble(),
-                                                                   stress.Location.Y + random.NextDouble(),
-                                                                   stress.Stress.Mean + random.NextDouble(),
-                                                                   stress.Stress.CoefficientOfVariation + random.NextDouble());
+            var modifiedLocation = new Point2D(preconsolidationStress.Location.X + random.NextDouble(),
+                                               preconsolidationStress.Location.Y);
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = preconsolidationStress.Stress.Mean,
+                CoefficientOfVariation = preconsolidationStress.Stress.CoefficientOfVariation
+            };
+
+            return new MacroStabilityInwardsPreconsolidationStress(modifiedLocation, distribution);
         }
 
         private static string GetRandomName(Random random)

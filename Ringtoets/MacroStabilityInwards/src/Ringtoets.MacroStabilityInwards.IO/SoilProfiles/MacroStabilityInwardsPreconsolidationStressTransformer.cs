@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -60,10 +63,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             try
             {
-                return new MacroStabilityInwardsPreconsolidationStress(preconsolidationStress.XCoordinate,
-                                                                       preconsolidationStress.ZCoordinate,
-                                                                       preconsolidationStress.StressMean,
-                                                                       preconsolidationStress.StressCoefficientOfVariation);
+                var distribution = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) preconsolidationStress.StressMean,
+                    CoefficientOfVariation = (RoundedDouble) preconsolidationStress.StressCoefficientOfVariation
+                };
+
+                var location = new Point2D(preconsolidationStress.XCoordinate,
+                                           preconsolidationStress.ZCoordinate);
+
+                return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
             }
             catch (ArgumentOutOfRangeException e)
             {

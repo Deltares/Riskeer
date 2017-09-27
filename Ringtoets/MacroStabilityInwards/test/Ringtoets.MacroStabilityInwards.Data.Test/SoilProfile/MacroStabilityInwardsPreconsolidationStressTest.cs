@@ -40,23 +40,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
             // Call
-            var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                         zCoordinate,
-                                                                         stressMean,
-                                                                         stressCoefficientOfVariation);
+            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+
             // Assert
-            Assert.AreEqual(new Point2D(xCoordinate, zCoordinate), stress.Location);
+            Assert.AreEqual(location, stress.Location);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) stressMean,
-                CoefficientOfVariation = (RoundedDouble) stressCoefficientOfVariation
+                Mean = distribution.Mean,
+                CoefficientOfVariation = distribution.CoefficientOfVariation
             }, stress.Stress);
         }
 
@@ -68,34 +68,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                                      double stressCoefficientOfVariation,
                                                                      string parameterName)
         {
+            // Setup
+            var location = new Point2D(xCoordinate, zCoordinate);
+            var stressDistribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) stressMean,
+                CoefficientOfVariation = (RoundedDouble) stressCoefficientOfVariation
+            };
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                                      zCoordinate,
-                                                                                      stressMean,
-                                                                                      stressCoefficientOfVariation);
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(location, stressDistribution);
 
             // Assert
             string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(-1, 0, "Gemiddelde moet groter zijn dan 0.")]
-        [TestCase(1, -1, "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.")]
-        public void Constructor_ArgumentsOutOfRange_ThrowArgumentOutOfRangeException(double stressMean,
-                                                                                     double stressCoefficientOfVariation,
-                                                                                     string expectedMessage)
-        {
-            // Setup
-            var random = new Random(21);
-
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                                      random.NextDouble(),
-                                                                                      stressMean,
-                                                                                      stressCoefficientOfVariation);
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -104,15 +90,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                         zCoordinate,
-                                                                         stressMean,
-                                                                         stressCoefficientOfVariation);
+            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Call
             bool result = stress.Equals(null);
@@ -126,16 +111,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var random = new Random(21);
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
-
-            var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                         zCoordinate,
-                                                                         stressMean,
-                                                                         stressCoefficientOfVariation);
+            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             MacroStabilityInwardsPreconsolidationStress sameStress = stress;
 
@@ -154,15 +137,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                         zCoordinate,
-                                                                         stressMean,
-                                                                         stressCoefficientOfVariation);
+            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Call
             bool result = stress.Equals(new object());
@@ -177,20 +159,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var stress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                         zCoordinate,
-                                                                         stressMean,
-                                                                         stressCoefficientOfVariation);
-
-            var derivedStress = new DerivedMacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                                       zCoordinate,
-                                                                                       stressMean,
-                                                                                       stressCoefficientOfVariation);
+            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+            var derivedStress = new DerivedMacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Call
             bool result = stress.Equals(derivedStress);
@@ -205,20 +182,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var stressA = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
-
-            var stressB = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
+            var stressA = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+            var stressB = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Call
             bool isStressAEqualToB = stressA.Equals(stressB);
@@ -249,23 +221,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var stressA = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
-            var stressB = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
-            var stressC = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
+            var stressA = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+            var stressB = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+            var stressC = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Call
             bool aEqualsB = stressA.Equals(stressB);
@@ -284,20 +249,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Setup
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var stressA = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
-
-            var stressB = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                          zCoordinate,
-                                                                          stressMean,
-                                                                          stressCoefficientOfVariation);
+            var stressA = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+            var stressB = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Call
             int hashCodeStressA = stressA.GetHashCode();
@@ -311,39 +271,40 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             var random = new Random(21);
 
-            double xCoordinate = random.NextDouble();
-            double zCoordinate = random.NextDouble();
-            double stressMean = random.NextDouble();
-            double stressCoefficientOfVariation = random.NextDouble();
+            var baseLocation = new Point2D(random.NextDouble(), random.NextDouble());
+            var baseDistribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
 
-            var baseStress = new MacroStabilityInwardsPreconsolidationStress(xCoordinate,
-                                                                             zCoordinate,
-                                                                             stressMean,
-                                                                             stressCoefficientOfVariation);
+            var baseStress = new MacroStabilityInwardsPreconsolidationStress(baseLocation, baseDistribution);
 
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X+ random.NextDouble(),
-                                                                                          baseStress.Location.Y,
-                                                                                          stressMean,
-                                                                                          stressCoefficientOfVariation))
+                                          new MacroStabilityInwardsPreconsolidationStress(new Point2D(baseLocation.X + random.NextDouble(),
+                                                                                                      baseLocation.Y),
+                                                                                          baseDistribution))
                 .SetName("Different X Coordinate");
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X,
-                                                                                          baseStress.Location.Y + random.NextDouble(),
-                                                                                          stressMean,
-                                                                                          stressCoefficientOfVariation))
+                                          new MacroStabilityInwardsPreconsolidationStress(new Point2D(baseLocation.X,
+                                                                                                      baseLocation.Y + random.NextDouble()),
+                                                                                          baseDistribution))
                 .SetName("Different Z Coordinate");
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X,
-                                                                                          baseStress.Location.Y,
-                                                                                          stressMean + random.NextDouble(),
-                                                                                          stressCoefficientOfVariation))
+                                          new MacroStabilityInwardsPreconsolidationStress(baseLocation,
+                                                                                          new VariationCoefficientLogNormalDistribution
+                                                                                          {
+                                                                                              Mean = baseDistribution.Mean + random.NextRoundedDouble(),
+                                                                                              CoefficientOfVariation = baseDistribution.CoefficientOfVariation
+                                                                                          }))
                 .SetName("Different Mean");
             yield return new TestCaseData(baseStress,
-                                          new MacroStabilityInwardsPreconsolidationStress(baseStress.Location.X,
-                                                                                          baseStress.Location.Y,
-                                                                                          stressMean,
-                                                                                          stressCoefficientOfVariation + random.NextDouble()))
+                                          new MacroStabilityInwardsPreconsolidationStress(baseLocation,
+                                                                                          new VariationCoefficientLogNormalDistribution
+                                                                                          {
+                                                                                              Mean = baseDistribution.Mean,
+                                                                                              CoefficientOfVariation = baseDistribution.CoefficientOfVariation + random.NextRoundedDouble()
+                                                                                          }))
                 .SetName("Different Coefficient of Variation");
         }
 
@@ -364,11 +325,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private class DerivedMacroStabilityInwardsPreconsolidationStress : MacroStabilityInwardsPreconsolidationStress
         {
-            public DerivedMacroStabilityInwardsPreconsolidationStress(double xCoordinate,
-                                                                      double zCoordinate,
-                                                                      double preconsolidationStressMean,
-                                                                      double preconsolidationStressCoefficientOfVariation)
-                : base(xCoordinate, zCoordinate, preconsolidationStressMean, preconsolidationStressCoefficientOfVariation) {}
+            public DerivedMacroStabilityInwardsPreconsolidationStress(Point2D location, VariationCoefficientLogNormalDistribution distribution)
+                : base(location, distribution) {}
         }
     }
 }

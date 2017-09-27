@@ -50,26 +50,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_WithPreconsolidationStress_ReturnsExpectedValues()
         {
             // Setup
-            var random = new Random(21);
-            var stress = new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(),
-                                                                         random.NextDouble(),
-                                                                         random.NextDouble(),
-                                                                         random.NextDouble());
+            MacroStabilityInwardsPreconsolidationStress preconsolidationStress =
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress();
 
             // Call
-            var properties = new MacroStabilityInwardsPreconsolidationStressProperties(stress);
+            var properties = new MacroStabilityInwardsPreconsolidationStressProperties(preconsolidationStress);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsPreconsolidationStress>>(properties);
-            Assert.AreSame(stress, properties.Data);
+            Assert.AreSame(preconsolidationStress, properties.Data);
 
             Assert.AreEqual(2, properties.XCoordinate.NumberOfDecimalPlaces);
-            Assert.AreEqual(stress.Location.X, properties.XCoordinate, properties.XCoordinate.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.Location.X, properties.XCoordinate, properties.XCoordinate.GetAccuracy());
             Assert.AreEqual(2, properties.ZCoordinate.NumberOfDecimalPlaces);
-            Assert.AreEqual(stress.Location.Y, properties.ZCoordinate, properties.ZCoordinate.GetAccuracy());
+            Assert.AreEqual(preconsolidationStress.Location.Y, properties.ZCoordinate, properties.ZCoordinate.GetAccuracy());
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.PreconsolidationStress);
-            Assert.AreSame(stress.Stress, properties.PreconsolidationStress.Data);
+            Assert.AreSame(preconsolidationStress.Stress, properties.PreconsolidationStress.Data);
         }
 
         [Test]

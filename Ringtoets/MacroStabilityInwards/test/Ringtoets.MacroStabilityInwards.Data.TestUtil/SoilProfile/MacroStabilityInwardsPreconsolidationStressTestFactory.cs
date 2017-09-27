@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
@@ -35,7 +38,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// <returns>The created <see cref="MacroStabilityInwardsPreconsolidationStress"/>.</returns>
         public static MacroStabilityInwardsPreconsolidationStress CreateMacroStabilityInwardsPreconsolidationStress()
         {
-            return new MacroStabilityInwardsPreconsolidationStress(13, 34, 10.09, 20.05);
+            return new MacroStabilityInwardsPreconsolidationStress(new Point2D(13, 34),
+                                                                   new VariationCoefficientLogNormalDistribution
+                                                                   {
+                                                                       Mean = (RoundedDouble) 10.09,
+                                                                       CoefficientOfVariation = (RoundedDouble) 20.05
+                                                                   });
         }
     }
 }

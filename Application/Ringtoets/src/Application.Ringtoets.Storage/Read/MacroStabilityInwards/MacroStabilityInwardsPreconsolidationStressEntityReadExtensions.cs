@@ -21,6 +21,9 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
@@ -46,11 +49,14 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new MacroStabilityInwardsPreconsolidationStress(entity.CoordinateX,
-                                                                   entity.CoordinateZ,
-                                                                   entity.PreconsolidationStressMean,
-                                                                   entity.PreconsolidationStressCoefficientOfVariation
-            );
+            var location = new Point2D(entity.CoordinateX, entity.CoordinateZ);
+            var distribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) entity.PreconsolidationStressMean,
+                CoefficientOfVariation = (RoundedDouble) entity.PreconsolidationStressCoefficientOfVariation
+            };
+
+            return new MacroStabilityInwardsPreconsolidationStress(location, distribution);
         }
     }
 }

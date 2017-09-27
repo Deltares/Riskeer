@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -71,14 +72,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var properties = new MacroStabilityInwardsSoilLayerData
             {
-                BelowPhreaticLevel = 
+                BelowPhreaticLevel =
                 {
                     Mean = (RoundedDouble) mean,
                     CoefficientOfVariation = (RoundedDouble) coefficientOfVariation,
                     Shift = (RoundedDouble) (mean - 0.1)
                 }
             };
-
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(properties);
@@ -101,7 +101,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 }
             };
 
-
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(properties);
 
@@ -123,7 +122,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 }
             };
 
-
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> frictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(properties);
 
@@ -138,13 +136,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var properties = new MacroStabilityInwardsSoilLayerData
             {
-                ShearStrengthRatio = 
+                ShearStrengthRatio =
                 {
                     Mean = (RoundedDouble) mean,
                     CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
                 }
             };
-
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> shearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(properties);
@@ -160,13 +157,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var properties = new MacroStabilityInwardsSoilLayerData
             {
-                StrengthIncreaseExponent = 
+                StrengthIncreaseExponent =
                 {
                     Mean = (RoundedDouble) mean,
                     CoefficientOfVariation = (RoundedDouble) coefficientOfVariation
                 }
             };
-
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> strengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(properties);
@@ -189,7 +185,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 }
             };
 
-
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(properties);
 
@@ -202,7 +197,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetPreconsolidationStress_ValidPreconsolidationStress_CreateDesignVariableForPreconsolidationStress()
         {
             // Setup
-            var preconsolidationStress = new MacroStabilityInwardsPreconsolidationStress(0, 0, mean, coefficientOfVariation);
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var stressDistribution = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 0.005,
+                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+            };
+
+            var preconsolidationStress = new MacroStabilityInwardsPreconsolidationStress(location, stressDistribution);
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> preconsoldationStress =

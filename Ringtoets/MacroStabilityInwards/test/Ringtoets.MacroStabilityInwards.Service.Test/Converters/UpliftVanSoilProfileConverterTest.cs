@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -106,7 +107,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                 })
             }, new[]
             {
-                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble())
+                new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                new VariationCoefficientLogNormalDistribution
+                                                                {
+                                                                    Mean = (RoundedDouble) 0.05,
+                                                                    CoefficientOfVariation = random.NextRoundedDouble()
+                                                                })
             });
 
             // Call
