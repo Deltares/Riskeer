@@ -127,8 +127,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
+            Dictionary<MacroStabilityInwardsSoilLayerUnderSurfaceLine, Soil> layersWithSoils =
+                input.SoilProfile.Layers
+                     .Zip(soils, (layer, soil) => new
+                     {
+                         layer,
+                         soil
+                     })
+                     .ToDictionary(x => x.layer, x => x.soil);
 
             UpliftVanKernelInputHelper.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
+            UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
 
             Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
             Assert.AreEqual(input.CreateZones, upliftVanKernel.CreateZones);

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 
@@ -45,18 +46,76 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
                 Soil expectedSoil = expected.Soils[i];
                 Soil actualSoil = actual.Soils[i];
 
-                Assert.AreEqual(expectedSoil.Name, actualSoil.Name);
-                Assert.AreEqual(expectedSoil.UsePop, actualSoil.UsePop);
-                Assert.AreEqual(expectedSoil.ShearStrengthModel, actualSoil.ShearStrengthModel);
-                Assert.AreEqual(expectedSoil.AbovePhreaticLevel, actualSoil.AbovePhreaticLevel);
-                Assert.AreEqual(expectedSoil.BelowPhreaticLevel, actualSoil.BelowPhreaticLevel);
-                Assert.AreEqual(expectedSoil.Cohesion, actualSoil.Cohesion);
-                Assert.AreEqual(expectedSoil.FrictionAngle, actualSoil.FrictionAngle);
-                Assert.AreEqual(expectedSoil.RatioCuPc, actualSoil.RatioCuPc);
-                Assert.AreEqual(expectedSoil.StrengthIncreaseExponent, actualSoil.StrengthIncreaseExponent);
-                Assert.AreEqual(expectedSoil.PoP, actualSoil.PoP);
-                Assert.AreEqual(expectedSoil.DilatancyType, actualSoil.DilatancyType);
+                AssertSoils(expectedSoil, actualSoil);
             }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="SoilProfile2D"/>.</param>
+        /// <param name="actual">The actual <see cref="SoilProfile2D"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertSoilProfiles(SoilProfile2D expected, SoilProfile2D actual)
+        {
+            Assert.AreEqual(expected.PreconsolidationStresses.Count, actual.PreconsolidationStresses.Count);
+
+            for (var i = 0; i < expected.PreconsolidationStresses.Count; i++)
+            {
+                PreConsolidationStress expectedPreconsolidationStress = expected.PreconsolidationStresses[i];
+                PreConsolidationStress actualPreconsolidationStress = actual.PreconsolidationStresses[i];
+
+                Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
+                Assert.AreEqual(expectedPreconsolidationStress.X, actualPreconsolidationStress.X);
+                Assert.AreEqual(expectedPreconsolidationStress.Z, actualPreconsolidationStress.Z);
+            }
+
+            Assert.AreEqual(expected.Surfaces.Count, actual.Surfaces.Count);
+
+            for (var i = 0; i < expected.Surfaces.Count; i++)
+            {
+                SoilLayer2D expectedSurface = expected.Surfaces[i];
+                SoilLayer2D actualSurface = actual.Surfaces[i];
+
+                Assert.AreEqual(expectedSurface.IsAquifer, actualSurface.IsAquifer);
+
+                CollectionAssert.AreEqual(new[]
+                                          {
+                                              expectedSurface.GeometrySurface.OuterLoop
+                                          }.Concat(expectedSurface.GeometrySurface.InnerLoops),
+                                          new[]
+                                          {
+                                              actualSurface.GeometrySurface.OuterLoop
+                                          }.Concat(actualSurface.GeometrySurface.InnerLoops),
+                                          new WTIStabilityGeometryLoopComparer());
+
+                AssertSoils(expectedSurface.Soil, actualSurface.Soil);
+
+                Assert.AreEqual(expectedSurface.WaterpressureInterpolationModel, actualSurface.WaterpressureInterpolationModel);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="Soil"/>.</param>
+        /// <param name="actual">The actual <see cref="Soil"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertSoils(Soil expected, Soil actual)
+        {
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.UsePop, actual.UsePop);
+            Assert.AreEqual(expected.ShearStrengthModel, actual.ShearStrengthModel);
+            Assert.AreEqual(expected.AbovePhreaticLevel, actual.AbovePhreaticLevel);
+            Assert.AreEqual(expected.BelowPhreaticLevel, actual.BelowPhreaticLevel);
+            Assert.AreEqual(expected.Cohesion, actual.Cohesion);
+            Assert.AreEqual(expected.FrictionAngle, actual.FrictionAngle);
+            Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
+            Assert.AreEqual(expected.StrengthIncreaseExponent, actual.StrengthIncreaseExponent);
+            Assert.AreEqual(expected.PoP, actual.PoP);
+            Assert.AreEqual(expected.DilatancyType, actual.DilatancyType);
         }
     }
 }
