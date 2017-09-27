@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of a <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
-    /// specific <see cref="Common.Data.Hydraulics.HydraulicBoundaryLocation"/>.
+    /// specific <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
@@ -42,13 +42,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="hydraulicBoundaryLocations">The <see cref="ObservableList{T}"/> 
         /// containing all the hydraulic boundary locations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData, ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
+                                                                            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
             : base(wrappedData)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             HydraulicBoundaryLocations = hydraulicBoundaryLocations;
         }
 
@@ -59,12 +61,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 
         public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryLocation> other)
         {
-            return base.Equals(other) && ReferenceEquals(((GrassCoverErosionOutwardsHydraulicBoundaryLocationContext) other).HydraulicBoundaryLocations, HydraulicBoundaryLocations);
+            return base.Equals(other)
+                   && ReferenceEquals(((GrassCoverErosionOutwardsHydraulicBoundaryLocationContext) other).HydraulicBoundaryLocations, HydraulicBoundaryLocations);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ WrappedData.GetHashCode();
+            return base.GetHashCode()
+                   ^ HydraulicBoundaryLocations.GetHashCode();
         }
     }
 }

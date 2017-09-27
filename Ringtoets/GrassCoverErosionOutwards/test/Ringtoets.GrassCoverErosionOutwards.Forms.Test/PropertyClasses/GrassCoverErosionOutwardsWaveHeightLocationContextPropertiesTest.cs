@@ -292,7 +292,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                WaveHeightCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = false
+                    }
+                }
+            };
+
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
                 hydraulicBoundaryLocation
@@ -304,9 +314,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 Data = new GrassCoverErosionOutwardsWaveHeightLocationContext(hydraulicBoundaryLocation, locations)
             };
-
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
             // Call
             properties.ShouldIllustrationPointsBeCalculated = true;

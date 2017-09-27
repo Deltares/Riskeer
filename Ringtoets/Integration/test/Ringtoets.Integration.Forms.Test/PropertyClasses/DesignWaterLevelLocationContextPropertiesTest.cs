@@ -302,7 +302,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation =
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = false
+                    }
+                }
+            };
+
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -317,9 +327,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             {
                 Data = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryDatabase)
             };
-
-            // Precondition
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
             // Call
             properties.ShouldIllustrationPointsBeCalculated = true;

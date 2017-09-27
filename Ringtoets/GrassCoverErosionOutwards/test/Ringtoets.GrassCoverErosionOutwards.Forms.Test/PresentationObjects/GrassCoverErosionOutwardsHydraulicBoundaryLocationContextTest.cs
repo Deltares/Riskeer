@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
@@ -32,24 +33,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationContextTest
     {
         [Test]
-        public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
+        public void Constructor_NullHydraulicBoundaryLocations_ThrowsArgumentNullException()
         {
             // Setup
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-
-            // Call
-            TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(null, locations);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-        }
-
-        [Test]
-        public void Constructor_NullHydraulicBoundaryDatabase_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
             TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, null);
@@ -63,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var locations = new ObservableList<HydraulicBoundaryLocation>
             {
                 hydraulicBoundaryLocation
@@ -83,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
@@ -99,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
@@ -116,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var hydraulicBoundaryLocationList1 = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocationList2 = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList1);
             var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList2);
 
@@ -134,8 +121,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "First name", 2.0, 3.0);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Second name", 4.0, 5.0);
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("First name");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("Second name");
             var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation1, hydraulicBoundaryLocationList);
             var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation2, hydraulicBoundaryLocationList);
 
@@ -153,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
             var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 
@@ -171,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var context1 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
             var context2 = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationList);
 

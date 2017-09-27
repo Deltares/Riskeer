@@ -56,12 +56,14 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 
         public override bool Equals(WrappedObjectContextBase<HydraulicBoundaryLocation> other)
         {
-            return base.Equals(other) && ReferenceEquals(((HydraulicBoundaryLocationContext) other).HydraulicBoundaryDatabase, HydraulicBoundaryDatabase);
+            return base.Equals(other)
+                   && ReferenceEquals(((HydraulicBoundaryLocationContext) other).HydraulicBoundaryDatabase, HydraulicBoundaryDatabase);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ WrappedData.GetHashCode();
+            return base.GetHashCode()
+                   ^ HydraulicBoundaryDatabase.GetHashCode();
         }
     }
 }
