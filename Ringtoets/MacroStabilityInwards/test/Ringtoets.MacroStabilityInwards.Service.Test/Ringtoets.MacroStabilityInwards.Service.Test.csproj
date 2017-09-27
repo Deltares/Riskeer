@@ -120,6 +120,10 @@
       <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Service.TestUtil\Ringtoets.MacroStabilityInwards.Service.TestUtil.csproj">
+      <Project>{F966AE28-DE6B-497A-8449-37EC607E9F69}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Service.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

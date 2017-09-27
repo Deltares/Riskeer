@@ -32,9 +32,9 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Service.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {
@@ -349,6 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
             Assert.AreSame(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
+            UpliftVanSoilProfileHelper.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.UpliftVanSoilProfile);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);

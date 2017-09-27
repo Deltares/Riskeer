@@ -26,11 +26,11 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
+using Ringtoets.MacroStabilityInwards.Service.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
 {
@@ -95,14 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             UpliftVanSoilProfile upliftVanSoilProfile = UpliftVanSoilProfileConverter.Convert(profile);
 
             // Assert
-            MacroStabilityInwardsSoilLayerUnderSurfaceLine[] expectedLayers = profile.Layers.ToArray();
-            UpliftVanSoilLayer[] actualLayers = upliftVanSoilProfile.Layers.ToArray();
-
-            MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine[] expectedPreconsolidationStresses = profile.PreconsolidationStresses.ToArray();
-            UpliftVanPreconsolidationStress[] actualPreconsolidationStresses = upliftVanSoilProfile.PreconsolidationStresses.ToArray();
-
-            AssertLayers(expectedLayers, actualLayers);
-            AssertPreconsolidationStresses(expectedPreconsolidationStresses, actualPreconsolidationStresses);
+            UpliftVanSoilProfileHelper.AssertSoilProfile(profile, upliftVanSoilProfile);
         }
 
         [Test]
@@ -154,42 +147,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
 
             // Assert
             Assert.AreEqual(expectedShearStrengthModel, upliftVanSoilProfile.Layers.First().ShearStrengthModel);
-        }
-
-        private static void AssertPreconsolidationStresses(MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine[] expectedPreconsolidationStresses,
-                                                           UpliftVanPreconsolidationStress[] actualPreconsolidationStresses)
-        {
-            Assert.AreEqual(expectedPreconsolidationStresses.Length, actualPreconsolidationStresses.Length);
-            for (var i = 0; i < expectedPreconsolidationStresses.Length; i++)
-            {
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(expectedPreconsolidationStresses[i]).GetDesignValue(), actualPreconsolidationStresses[i].Stress);
-                Assert.AreEqual(expectedPreconsolidationStresses[i].XCoordinate, actualPreconsolidationStresses[i].Coordinate.X);
-                Assert.AreEqual(expectedPreconsolidationStresses[i].ZCoordinate, actualPreconsolidationStresses[i].Coordinate.Y);
-            }
-        }
-
-        private static void AssertLayers(MacroStabilityInwardsSoilLayerUnderSurfaceLine[] expectedLayers, UpliftVanSoilLayer[] actualLayers)
-        {
-            Assert.AreEqual(expectedLayers.Length, actualLayers.Length);
-
-            for (var i = 0; i < expectedLayers.Length; i++)
-            {
-                Assert.AreEqual(expectedLayers[i].OuterRing, actualLayers[i].OuterRing);
-                CollectionAssert.AreEqual(expectedLayers[i].Holes, actualLayers[i].Holes);
-
-                MacroStabilityInwardsSoilLayerPropertiesUnderSurfaceLine expectedProperties = expectedLayers[i].Properties;
-                Assert.AreEqual(expectedProperties.MaterialName, actualLayers[i].MaterialName);
-                Assert.AreEqual(expectedProperties.UsePop, actualLayers[i].UsePop);
-                Assert.AreEqual(expectedProperties.IsAquifer, actualLayers[i].IsAquifer);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(expectedProperties).GetDesignValue(), actualLayers[i].AbovePhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(expectedProperties).GetDesignValue(), actualLayers[i].BelowPhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(expectedProperties).GetDesignValue(), actualLayers[i].Cohesion);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(expectedProperties).GetDesignValue(), actualLayers[i].FrictionAngle);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(expectedProperties).GetDesignValue(), actualLayers[i].StrengthIncreaseExponent);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(expectedProperties).GetDesignValue(), actualLayers[i].ShearStrengthRatio);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(expectedProperties).GetDesignValue(), actualLayers[i].Pop);
-            }
         }
 
         private static Point2D[] CreateRing(int seed)
