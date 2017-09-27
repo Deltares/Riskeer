@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;

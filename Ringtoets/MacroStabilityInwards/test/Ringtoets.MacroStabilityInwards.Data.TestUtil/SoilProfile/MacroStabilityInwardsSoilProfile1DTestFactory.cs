@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {
     /// <summary>
     /// A factor to create configured <see cref="MacroStabilityInwardsSoilProfile1D"/> that 

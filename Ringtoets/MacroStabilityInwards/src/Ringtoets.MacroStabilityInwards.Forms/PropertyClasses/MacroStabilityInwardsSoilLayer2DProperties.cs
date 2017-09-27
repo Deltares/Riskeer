@@ -27,8 +27,8 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
@@ -73,7 +73,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_Description))]
-
         public Point2D[] OuterRing
         {
             get

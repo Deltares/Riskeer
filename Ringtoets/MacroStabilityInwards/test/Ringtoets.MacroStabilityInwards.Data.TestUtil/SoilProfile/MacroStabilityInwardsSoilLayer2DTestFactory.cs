@@ -20,34 +20,27 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsSoilProfile2D"/> instances that 
+    /// Factory to create simple <see cref="MacroStabilityInwardsSoilLayer2D"/> instances that 
     /// can be used for testing.
     /// </summary>
-    public static class MacroStabilityInwardsSoilProfile2DTestFactory
+    public static class MacroStabilityInwardsSoilLayer2DTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsSoilProfile2D"/>.</returns>
-        public static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()
+        /// <returns>The created <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
+        public static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
         {
-            return new MacroStabilityInwardsSoilProfile2D("MacroStabilityInwardsSoilProfile2D", new[]
+            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }), new Ring[0]),
-                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(1, 1),
-                    new Point2D(2, 2)
-                }), new Ring[0])
-            }, new MacroStabilityInwardsPreconsolidationStress[0]);
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }), new Ring[0]);
         }
     }
 }

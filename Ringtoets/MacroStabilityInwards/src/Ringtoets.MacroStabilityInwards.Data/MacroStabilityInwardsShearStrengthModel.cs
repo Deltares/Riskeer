@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,21 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Factory to create simple <see cref="MacroStabilityInwardsPreconsolidationStress"/>
-    /// instances that can be used for testing.
+    /// All shear strength model types.
     /// </summary>
-    public static class MacroStabilityInwardsPreconsolidationStressTestFactory
+    public enum MacroStabilityInwardsShearStrengthModel
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
-        /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsPreconsolidationStress"/>.</returns>
-        public static MacroStabilityInwardsPreconsolidationStress CreateMacroStabilityInwardsPreconsolidationStress()
-        {
-            return new MacroStabilityInwardsPreconsolidationStress(13, 34, 10.09, 20.05);
-        }
+        SuCalculated = 1,
+        CPhi = 2,
+        CPhiOrSuCalculated = 3
     }
 }

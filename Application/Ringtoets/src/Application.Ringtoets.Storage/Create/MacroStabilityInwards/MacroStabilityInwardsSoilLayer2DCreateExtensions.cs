@@ -23,7 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
@@ -54,36 +54,27 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             {
                 OuterRingXml = new Point2DXmlSerializer().ToXml(soilLayer.OuterRing.Points),
                 HolesXml = new RingXmlSerializer().ToXml(soilLayer.Holes),
-
                 IsAquifer = Convert.ToByte(properties.IsAquifer),
                 MaterialName = properties.MaterialName.DeepClone(),
                 Color = properties.Color.ToArgb(),
                 UsePop = Convert.ToByte(properties.UsePop),
                 ShearStrengthModel = Convert.ToByte(properties.ShearStrengthModel),
-
                 AbovePhreaticLevelMean = properties.AbovePhreaticLevel.Mean.ToNaNAsNull(),
                 AbovePhreaticLevelCoefficientOfVariation = properties.AbovePhreaticLevel.CoefficientOfVariation.ToNaNAsNull(),
                 AbovePhreaticLevelShift = properties.AbovePhreaticLevel.Shift.ToNaNAsNull(),
-
                 BelowPhreaticLevelMean = properties.BelowPhreaticLevel.Mean.ToNaNAsNull(),
                 BelowPhreaticLevelCoefficientOfVariation = properties.BelowPhreaticLevel.CoefficientOfVariation.ToNaNAsNull(),
                 BelowPhreaticLevelShift = properties.BelowPhreaticLevel.Shift.ToNaNAsNull(),
-
                 CohesionMean = properties.Cohesion.Mean.ToNaNAsNull(),
                 CohesionCoefficientOfVariation = properties.Cohesion.CoefficientOfVariation.ToNaNAsNull(),
-
                 FrictionAngleMean = properties.FrictionAngle.Mean.ToNaNAsNull(),
                 FrictionAngleCoefficientOfVariation = properties.FrictionAngle.CoefficientOfVariation.ToNaNAsNull(),
-
                 ShearStrengthRatioMean = properties.ShearStrengthRatio.Mean.ToNaNAsNull(),
                 ShearStrengthRatioCoefficientOfVariation = properties.ShearStrengthRatio.CoefficientOfVariation.ToNaNAsNull(),
-
                 StrengthIncreaseExponentMean = properties.StrengthIncreaseExponent.Mean.ToNaNAsNull(),
                 StrengthIncreaseExponentCoefficientOfVariation = properties.StrengthIncreaseExponent.CoefficientOfVariation.ToNaNAsNull(),
-
                 PopMean = properties.Pop.Mean.ToNaNAsNull(),
                 PopCoefficientOfVariation = properties.Pop.CoefficientOfVariation.ToNaNAsNull(),
-
                 Order = order
             };
         }

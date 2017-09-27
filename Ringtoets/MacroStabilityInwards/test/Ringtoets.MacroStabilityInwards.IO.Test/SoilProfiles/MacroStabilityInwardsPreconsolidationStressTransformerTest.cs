@@ -26,8 +26,8 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 {
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         private static IEnumerable<TestCaseData> GetPreconsolidationStressInvalidDistributionValues()
         {
             var random = new Random(21);
-            double preconsolidationStressMean = 0.005;
+            const double preconsolidationStressMean = 0.005;
 
             yield return new TestCaseData(new PreconsolidationStress
             {

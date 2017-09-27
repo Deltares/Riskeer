@@ -21,83 +21,36 @@
 
 using System;
 using System.Drawing;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilLayer2DTest
+    public class MacroStabilityInwardsSoilLayer1DTest
     {
         [Test]
-        public void Constructor_WithoutOuterRing_ArgumentNullException()
+        public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
         {
             // Setup
-            var holes = new[]
-            {
-                new Ring(new[]
-                {
-                    new Point2D(0, 2),
-                    new Point2D(2, 2)
-                })
-            };
+            double top = new Random(22).NextDouble();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null, holes);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("outerRing", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithoutHoles_ThrowsArgumentNullException()
-        {
-            // Setup
-            var outerRing = new Ring(new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(2, 2)
-            });
-
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("holes", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithOuterRingAndHoles_ReturnsNewInstance()
-        {
-            // Setup
-            var random = new Random(39);
-            Ring outerRing = CreateRandomRing(random);
-            var holes = new[]
-            {
-                CreateRandomRing(random)
-            };
-
-            // Call
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
+            var layer = new MacroStabilityInwardsSoilLayer1D(top);
 
             // Assert
             Assert.NotNull(layer);
-            Assert.AreSame(outerRing, layer.OuterRing);
-            Assert.AreNotSame(holes, layer.Holes);
-            TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.NotNull(layer.Properties);
+            Assert.AreEqual(top, layer.Top);
         }
 
         [Test]
         public void GetHashCode_EqualLayers_AreEqual()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layerA = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layerB = CreateRandomLayer(21);
 
             // Precondition
             Assert.AreEqual(layerA, layerB);
@@ -112,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layer = CreateRandomLayer(21);
 
             // Call
             bool areEqual = layer.Equals(new object());
@@ -125,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layer = CreateRandomLayer(21);
 
             // Call
             bool areEqual = layer.Equals(null);
@@ -136,7 +89,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         [Test]
         [TestCaseSource(nameof(LayerCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsSoilLayer2D otherLayer, bool expectedEqual)
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayer1D layer,
+                                                                    MacroStabilityInwardsSoilLayer1D otherLayer,
+                                                                    bool expectedEqual)
         {
             // Call
             bool areEqualOne = layer.Equals(otherLayer);
@@ -149,53 +104,26 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
         private static TestCaseData[] LayerCombinations()
         {
-            MacroStabilityInwardsSoilLayer2D layerA = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer2D layerB = CreateRandomLayer(21);
-            MacroStabilityInwardsSoilLayer2D layerC = CreateRandomLayer(73);
-            MacroStabilityInwardsSoilLayer2D layerD = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layerA = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layerB = CreateRandomLayer(21);
+            MacroStabilityInwardsSoilLayer1D layerC = CreateRandomLayer(73);
+            MacroStabilityInwardsSoilLayer1D layerD = CreateRandomLayer(21);
 
-            var layerE = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(21)),
-                new[]
-                {
-                    CreateRandomRing(new Random(22))
-                })
+            var layerE = new MacroStabilityInwardsSoilLayer1D(3)
             {
                 Properties =
                 {
                     Color = Color.Blue
                 }
             };
-            var layerF = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(31)),
-                new[]
-                {
-                    CreateRandomRing(new Random(22))
-                })
+            var layerF = new MacroStabilityInwardsSoilLayer1D(4)
             {
                 Properties =
                 {
                     Color = Color.Blue
                 }
             };
-            var layerG = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(21)),
-                new[]
-                {
-                    CreateRandomRing(new Random(32))
-                })
-            {
-                Properties =
-                {
-                    Color = Color.Blue
-                }
-            };
-            var layerH = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(21)),
-                new[]
-                {
-                    CreateRandomRing(new Random(22))
-                })
+            var layerG = new MacroStabilityInwardsSoilLayer1D(3)
             {
                 Properties =
                 {
@@ -235,41 +163,25 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new TestCaseData(layerE, layerF, false)
                 {
-                    TestName = "Equals_DifferentOuterRing_False"
+                    TestName = "Equals_DifferentTop_False"
                 },
                 new TestCaseData(layerE, layerG, false)
-                {
-                    TestName = "Equals_DifferentHoles_False"
-                },
-                new TestCaseData(layerE, layerH, false)
                 {
                     TestName = "Equals_DifferentProperties_False"
                 }
             };
         }
 
-        private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(int randomSeed)
+        private static MacroStabilityInwardsSoilLayer1D CreateRandomLayer(int randomSeed)
         {
             var random = new Random(randomSeed);
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new[]
-            {
-                CreateRandomRing(random)
-            })
+            return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
                 Properties =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }
             };
-        }
-
-        private static Ring CreateRandomRing(Random random)
-        {
-            return new Ring(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
         }
     }
 }

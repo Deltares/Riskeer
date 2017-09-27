@@ -52,7 +52,11 @@
     </Compile>
     <Compile Include="MacroStabilityInwardsInputFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioFactory.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStressTestFactory.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircleTestFactory.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer2DTestFactory.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile1DTestFactory.cs" />
+    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2DTestFactory.cs" />
     <Compile Include="MacroStabilityInwardsTestDataGenerator.cs" />
     <Compile Include="MacroStabilityInwardsTestDataGeneratorHelper.cs" />
     <Compile Include="Segment2DLoopCollectionHelper.cs" />

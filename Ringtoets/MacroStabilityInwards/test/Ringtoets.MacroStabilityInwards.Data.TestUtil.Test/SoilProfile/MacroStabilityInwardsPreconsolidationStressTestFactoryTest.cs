@@ -24,8 +24,10 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 {
     [TestFixture]
     public class MacroStabilityInwardsPreconsolidationStressTestFactoryTest

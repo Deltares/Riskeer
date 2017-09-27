@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.MacroStabilityInwardsSoilUnderSurfaceLine;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
 {
@@ -129,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// Gets or sets the surface line.
             /// </summary>
             public MacroStabilityInwardsSurfaceLine SurfaceLine { internal get; set; }
-            
+
             /// <summary>
             /// Gets or sets the profile which contains a definition of soil layers with properties.
             /// </summary>
@@ -337,7 +336,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Gets the surface line.
         /// </summary>
         public MacroStabilityInwardsSurfaceLine SurfaceLine { get; }
-        
+
         /// <summary>
         /// Gets the profile which contains a definition of soil layers with properties.
         /// </summary>

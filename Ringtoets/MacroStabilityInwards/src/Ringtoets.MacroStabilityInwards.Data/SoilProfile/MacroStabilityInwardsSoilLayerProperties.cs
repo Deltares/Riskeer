@@ -21,19 +21,16 @@
 
 using System;
 using System.Drawing;
-using System.Runtime.ExceptionServices;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// Properties of a soil layer.
     /// </summary>
     public class MacroStabilityInwardsSoilLayerProperties
     {
-        private string materialName = string.Empty;
-
         private readonly VariationCoefficientLogNormalDistribution abovePhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution belowPhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution cohesion;
@@ -41,6 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private readonly VariationCoefficientLogNormalDistribution strengthIncreaseExponent;
         private readonly VariationCoefficientLogNormalDistribution shearStrengthRatio;
         private readonly VariationCoefficientLogNormalDistribution pop;
+        private string materialName = string.Empty;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerProperties"/>.

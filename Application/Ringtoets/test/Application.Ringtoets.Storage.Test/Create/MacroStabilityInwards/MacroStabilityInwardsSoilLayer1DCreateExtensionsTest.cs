@@ -26,8 +26,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -144,38 +144,38 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN,
-                        Shift = RoundedDouble.NaN,
+                        Shift = RoundedDouble.NaN
                     },
                     BelowPhreaticLevel =
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN,
-                        Shift = RoundedDouble.NaN,
+                        Shift = RoundedDouble.NaN
                     },
                     Cohesion =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
                     FrictionAngle =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    ShearStrengthRatio = 
+                    ShearStrengthRatio =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    StrengthIncreaseExponent = 
+                    StrengthIncreaseExponent =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    Pop = 
+                    Pop =
                     {
                         Mean = RoundedDouble.NaN,
-                        CoefficientOfVariation = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     }
                 }
             };

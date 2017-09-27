@@ -29,7 +29,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -68,38 +69,38 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     {
                         Mean = random.NextRoundedDouble(),
                         CoefficientOfVariation = random.NextRoundedDouble(),
-                        Shift = random.NextRoundedDouble(),
+                        Shift = random.NextRoundedDouble()
                     },
                     BelowPhreaticLevel =
                     {
                         Mean = random.NextRoundedDouble(),
                         CoefficientOfVariation = random.NextRoundedDouble(),
-                        Shift = random.NextRoundedDouble(),
+                        Shift = random.NextRoundedDouble()
                     },
                     Cohesion =
                     {
                         Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     FrictionAngle =
                     {
                         Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
-                    ShearStrengthRatio = 
+                    ShearStrengthRatio =
                     {
                         Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
-                    StrengthIncreaseExponent = 
+                    StrengthIncreaseExponent =
                     {
                         Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     Pop =
                     {
                         Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     }
                 }
             };
@@ -160,27 +161,27 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                         CoefficientOfVariation = RoundedDouble.NaN,
                         Shift = RoundedDouble.NaN
                     },
-                    Cohesion = 
+                    Cohesion =
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    FrictionAngle = 
+                    FrictionAngle =
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    ShearStrengthRatio = 
+                    ShearStrengthRatio =
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    StrengthIncreaseExponent = 
+                    StrengthIncreaseExponent =
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN
                     },
-                    Pop = 
+                    Pop =
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN

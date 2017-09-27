@@ -19,38 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {
     /// <summary>
-    /// Factory for creating a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> that can 
-    /// be used for testing.
+    /// Factory to create simple <see cref="MacroStabilityInwardsSoilProfile2D"/> instances that 
+    /// can be used for testing.
     /// </summary>
-    public static class MacroStabilityInwardsSoilLayerTwoDEntityTestFactory
+    public static class MacroStabilityInwardsSoilProfile2DTestFactory
     {
         /// <summary>
-        /// Creates a valid <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/>.</returns>
-        public static MacroStabilityInwardsSoilLayerTwoDEntity CreateMacroStabilityInwardsSoilLayerTwoDEntity()
+        /// <returns>The created <see cref="MacroStabilityInwardsSoilProfile2D"/>.</returns>
+        public static MacroStabilityInwardsSoilProfile2D CreateMacroStabilityInwardsSoilProfile2D()
         {
-            var random = new Random(31);
-            var outerRing = new Ring(new[]
+            return new MacroStabilityInwardsSoilProfile2D("MacroStabilityInwardsSoilProfile2D", new[]
             {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
-
-            return new MacroStabilityInwardsSoilLayerTwoDEntity
-            {
-                OuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points),
-                HolesXml = new RingXmlSerializer().ToXml(new Ring[0])
-            };
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }), new Ring[0]),
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(2, 2)
+                }), new Ring[0])
+            }, new MacroStabilityInwardsPreconsolidationStress[0]);
         }
     }
 }

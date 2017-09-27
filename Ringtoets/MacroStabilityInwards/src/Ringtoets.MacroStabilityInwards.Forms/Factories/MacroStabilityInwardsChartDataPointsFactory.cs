@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Components.Chart.Data;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories

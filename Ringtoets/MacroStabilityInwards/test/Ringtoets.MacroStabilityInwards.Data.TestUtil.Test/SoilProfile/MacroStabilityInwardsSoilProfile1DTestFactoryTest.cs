@@ -21,8 +21,10 @@
 
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilProfile1DTestFactoryTest
