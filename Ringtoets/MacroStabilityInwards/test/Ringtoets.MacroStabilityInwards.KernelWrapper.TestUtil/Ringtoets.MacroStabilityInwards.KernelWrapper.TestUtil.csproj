@@ -60,8 +60,9 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultTestFactory.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTestFactory.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactory.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultHelper.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorOutputHelper.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactory.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\UpliftVanKernelInputHelper.cs" />
     <Compile Include="Kernels\UpliftVan\Output\SlidingDualCircleTestFactory.cs" />
     <Compile Include="Kernels\UpliftVan\Output\SlipPlaneUpliftVanTestFactory.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelFactoryConfig.cs" />
