@@ -330,9 +330,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(14, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
-            short[] characteristicPointTypeValues = entity.MacroStabilityInwardsCharacteristicPointEntities
-                                                          .Select(cpe => cpe.Type)
-                                                          .ToArray();
             CollectionAssert.AreEquivalent(new[]
             {
                 (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside,
@@ -349,7 +346,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 (byte) MacroStabilityInwardsCharacteristicPointType.DitchDikeSide,
                 (byte) MacroStabilityInwardsCharacteristicPointType.DitchPolderSide,
                 (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside
-            }, characteristicPointTypeValues);
+            }, entity.MacroStabilityInwardsCharacteristicPointEntities
+                     .Select(cpe => cpe.Type));
 
             foreach (MacroStabilityInwardsCharacteristicPointEntity characteristicPointEntity in entity.MacroStabilityInwardsCharacteristicPointEntities)
             {

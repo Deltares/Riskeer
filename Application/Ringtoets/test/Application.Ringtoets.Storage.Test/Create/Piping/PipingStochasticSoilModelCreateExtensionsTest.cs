@@ -111,8 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 StochasticSoilProfiles =
                 {
-                    new PipingStochasticSoilProfile(0.6, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
-                    new PipingStochasticSoilProfile(0.4, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                    new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                 }
             };
             var registry = new PersistenceRegistry();
@@ -124,8 +123,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Count, entity.PipingStochasticSoilProfileEntities.Count);
 
-            PipingStochasticSoilProfileEntity stochastEntity = entity.PipingStochasticSoilProfileEntities.First();
-            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.First().Probability, stochastEntity.Probability);
+            PipingStochasticSoilProfileEntity stochastEntity = entity.PipingStochasticSoilProfileEntities.Single();
+            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Single().Probability, stochastEntity.Probability);
             Assert.IsNotNull(stochastEntity.PipingSoilProfileEntity);
 
             CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);

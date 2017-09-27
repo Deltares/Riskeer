@@ -110,16 +110,16 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         [Test]
         public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned()
         {
-            // Setup
+            // Given
             MacroStabilityInwardsSoilProfile2D soilProfile = CreateMacroStabilityInwardsSoilProfile2D();
             var registry = new PersistenceRegistry();
 
             MacroStabilityInwardsSoilProfileTwoDEntity firstEntity = soilProfile.Create(registry);
 
-            // Call
+            // When
             MacroStabilityInwardsSoilProfileTwoDEntity secondEntity = soilProfile.Create(registry);
 
-            // Assert
+            // Then
             Assert.AreSame(firstEntity, secondEntity);
         }
 

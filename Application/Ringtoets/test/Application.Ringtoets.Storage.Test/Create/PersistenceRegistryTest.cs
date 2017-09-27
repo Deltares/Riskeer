@@ -178,7 +178,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             }
 
             [Test]
-            public void Contains_NoDataModelAdded_ReturnsFalse()
+            public void Contains_PersistenceRegistryEmpty_ReturnsFalse()
             {
                 // Setup
                 var registry = new PersistenceRegistry();

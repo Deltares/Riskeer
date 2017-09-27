@@ -96,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             TestSerializableObject[] roundtripResult = serializer.FromXml(xml);
 
             // Then
-            Assert.AreEqual(0, roundtripResult.Length);
+            CollectionAssert.IsEmpty(roundtripResult);
         }
 
         [Test]

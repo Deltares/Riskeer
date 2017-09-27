@@ -165,30 +165,36 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         {
             // Setup
             var random = new Random(21);
-            var entity = new MacroStabilityInwardsStochasticSoilProfileEntity
+            double probability = random.NextDouble();
+            var soilProfileTwoDEntity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
-                Probability = random.NextDouble(),
-                MacroStabilityInwardsSoilProfileTwoDEntity = new MacroStabilityInwardsSoilProfileTwoDEntity
+                Name = "SoilProfile",
+                MacroStabilityInwardsSoilLayerTwoDEntities =
                 {
-                    Name = "SoilProfile",
-                    MacroStabilityInwardsSoilLayerTwoDEntities =
-                    {
-                        MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
-                    }
+                    MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity()
                 }
+            };
+
+            var firstEntity = new MacroStabilityInwardsStochasticSoilProfileEntity
+            {
+                Probability = probability,
+                MacroStabilityInwardsSoilProfileTwoDEntity = soilProfileTwoDEntity
+            };
+            var secondEntity = new MacroStabilityInwardsStochasticSoilProfileEntity
+            {
+                Probability = 1 - probability,
+                MacroStabilityInwardsSoilProfileTwoDEntity = soilProfileTwoDEntity
             };
             var collector = new ReadConversionCollector();
 
+            MacroStabilityInwardsStochasticSoilProfile firstStochasticSoilProfile = firstEntity.Read(collector);
+
             // Call
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = entity.Read(collector);
+            MacroStabilityInwardsStochasticSoilProfile secondStochasticSoilProfile = secondEntity.Read(collector);
 
             // Assert
-            Assert.IsNotNull(stochasticSoilProfile);
-            Assert.AreEqual(entity.Probability, stochasticSoilProfile.Probability, 1e-6);
-
-            IMacroStabilityInwardsSoilProfile profile = stochasticSoilProfile.SoilProfile;
-            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(profile);
-            Assert.AreEqual(entity.MacroStabilityInwardsSoilProfileTwoDEntity.Name, profile.Name);
+            Assert.AreNotSame(firstStochasticSoilProfile, secondStochasticSoilProfile);
+            Assert.AreSame(firstStochasticSoilProfile.SoilProfile, secondStochasticSoilProfile.SoilProfile);
         }
 
         [Test]

@@ -150,11 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 {
                     new PipingSoilLayerEntity
                     {
-                        Top = random.NextDouble() + 0.5
-                    },
-                    new PipingSoilLayerEntity
-                    {
-                        Top = random.NextDouble() + 1.2
+                        Top = random.NextDouble() + 1
                     }
                 }
             };

@@ -162,16 +162,16 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         [Test]
         public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned()
         {
-            // Setup
+            // Given
             var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("some name");
             var registry = new PersistenceRegistry();
 
             StochasticSoilModelEntity firstEntity = stochasticSoilModel.Create(registry, 0);
 
-            // Call
+            // When
             StochasticSoilModelEntity secondEntity = stochasticSoilModel.Create(registry, 0);
 
-            // Assert
+            // Then
             Assert.AreSame(firstEntity, secondEntity);
         }
     }
