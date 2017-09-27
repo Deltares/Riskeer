@@ -99,10 +99,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         }
 
         private static IEnumerable<UpliftVanPreconsolidationStress> ConvertPreconsolidationStresses(
-            IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStresses)
+            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
             return preconsolidationStresses.Select(ps => new UpliftVanPreconsolidationStress(
-                                                       new Point2D(ps.XCoordinate, ps.ZCoordinate),
+                                                       ps.Location,
                                                        MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(ps).GetDesignValue()));
         }
 

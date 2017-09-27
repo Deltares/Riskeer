@@ -108,11 +108,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine"/>.
+        /// Creates the design variable for <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPreconsolidationStress(MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine preconsolidationStressUnderSurfaceLine)
+        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress preconsolidationStressUnderSurfaceLine)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(preconsolidationStressUnderSurfaceLine.PreconsolidationStress)
+            return new VariationCoefficientLogNormalDistributionDesignVariable(preconsolidationStressUnderSurfaceLine.Stress)
             {
                 Percentile = 0.05
             };

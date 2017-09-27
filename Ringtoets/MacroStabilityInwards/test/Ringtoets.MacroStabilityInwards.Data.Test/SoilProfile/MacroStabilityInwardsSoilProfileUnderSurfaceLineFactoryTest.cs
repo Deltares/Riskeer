@@ -591,30 +591,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 profile, new MacroStabilityInwardsSurfaceLine(string.Empty));
 
             // Assert
-            MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine[] preconsolidationStressesUnderSurfaceLine = profileUnderSurfaceLine.PreconsolidationStresses.ToArray();
-            int expectedNrOfStresses = expectedStresses.Length;
-            Assert.AreEqual(expectedNrOfStresses, preconsolidationStressesUnderSurfaceLine.Length);
-            for (var i = 0; i < expectedNrOfStresses; i++)
-            {
-                AssertPreconsolidationStress(expectedStresses[i], preconsolidationStressesUnderSurfaceLine[i]);
-            }
-        }
-
-        private static void AssertPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress preconsolidationStress,
-                                                         MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine preconsolidationStressUnderSurfaceLine)
-        {
-            Assert.AreEqual(preconsolidationStress.Location.X, preconsolidationStressUnderSurfaceLine.XCoordinate);
-            Assert.AreEqual(preconsolidationStress.Location.Y, preconsolidationStressUnderSurfaceLine.ZCoordinate);
-
-            Assert.AreEqual(preconsolidationStress.Stress.Mean,
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.Mean,
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
-            Assert.AreEqual(preconsolidationStress.Stress.CoefficientOfVariation,
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.CoefficientOfVariation,
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStress.GetAccuracy());
-
-            Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine).GetDesignValue(),
-                            preconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable);
+            Assert.AreSame(profileUnderSurfaceLine.PreconsolidationStresses, profileUnderSurfaceLine.PreconsolidationStresses);
         }
 
         private static MacroStabilityInwardsSoilLayer2D GetSoilLayer()

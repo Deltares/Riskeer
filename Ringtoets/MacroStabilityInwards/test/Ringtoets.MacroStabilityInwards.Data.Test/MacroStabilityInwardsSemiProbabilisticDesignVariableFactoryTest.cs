@@ -203,19 +203,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetPreconsolidationStress_ValidPreconsolidationStress_CreateDesignVariableForPreconsolidationStress()
         {
             // Setup
-            var preconsolidationStressUnderSurfaceLine = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
-                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
-                {
-                    PreconsolidationStressMean = mean,
-                    PreconsolidationStressCoefficientOfVariation = coefficientOfVariation
-                });
+            var preconsolidationStress = new MacroStabilityInwardsPreconsolidationStress(0, 0, mean, coefficientOfVariation);
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> preconsoldationStress =
-                MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStressUnderSurfaceLine);
+                MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStress);
 
             // Assert
-            DistributionAssert.AreEqual(preconsolidationStressUnderSurfaceLine.PreconsolidationStress, preconsoldationStress.Distribution);
+            DistributionAssert.AreEqual(preconsolidationStress.Stress, preconsoldationStress.Distribution);
             AssertPercentile(0.05, preconsoldationStress);
         }
 

@@ -95,29 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     layer.Holes.Select(RingToPoints),
                     layer.Properties)).ToArray();
 
-            IEnumerable<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine> preconsolidationStressesUnderSurfaceLine =
-                soilProfile.PreconsolidationStresses.Select(ToPreconsolidationStressUnderSurfaceLine).ToArray();
-
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine, preconsolidationStressesUnderSurfaceLine);
-        }
-
-        private static MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine ToPreconsolidationStressUnderSurfaceLine(
-            MacroStabilityInwardsPreconsolidationStress preconsolidationStress)
-        {
-            var macroStabilityInwardsPreconsolidationStressUnderSurfaceLine = new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(
-                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
-                {
-                    XCoordinate = preconsolidationStress.Location.X,
-                    ZCoordinate = preconsolidationStress.Location.Y,
-                    PreconsolidationStressMean = preconsolidationStress.Stress.Mean,
-                    PreconsolidationStressCoefficientOfVariation = preconsolidationStress.Stress.CoefficientOfVariation
-                });
-
-            macroStabilityInwardsPreconsolidationStressUnderSurfaceLine.PreconsolidationStressDesignVariable =
-                MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(macroStabilityInwardsPreconsolidationStressUnderSurfaceLine)
-                                                                           .GetDesignValue();
-
-            return macroStabilityInwardsPreconsolidationStressUnderSurfaceLine;
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine, soilProfile.PreconsolidationStresses);
         }
 
         private static Point2D[] RingToPoints(Ring ring)
@@ -139,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 }
             }
 
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(collection, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine>());
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(collection, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
         }
 
         private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilProfile1D soilProfile, double minX, double maxX)

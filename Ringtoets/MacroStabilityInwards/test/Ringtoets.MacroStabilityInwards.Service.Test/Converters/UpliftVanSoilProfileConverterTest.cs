@@ -106,13 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                 })
             }, new[]
             {
-                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties
-                {
-                    PreconsolidationStressMean = random.NextDouble(),
-                    PreconsolidationStressCoefficientOfVariation = random.NextDouble(),
-                    XCoordinate = random.NextDouble(),
-                    ZCoordinate = random.NextDouble()
-                })
+                new MacroStabilityInwardsPreconsolidationStress(random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble())
             });
 
             // Call
@@ -133,10 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                                                                    {
                                                                        ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
                                                                    })
-            }, new[]
-            {
-                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties())
-            });
+            }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
             TestDelegate test = () => UpliftVanSoilProfileConverter.Convert(profile);
@@ -161,10 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                                                                    {
                                                                        ShearStrengthModel = originalShearStrengthModel
                                                                    })
-            }, new[]
-            {
-                new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine(new MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine.ConstructionProperties())
-            });
+            }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
             UpliftVanSoilProfile upliftVanSoilProfile = UpliftVanSoilProfileConverter.Convert(profile);

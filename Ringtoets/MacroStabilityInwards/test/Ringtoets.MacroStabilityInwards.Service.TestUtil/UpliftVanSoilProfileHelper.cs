@@ -44,22 +44,21 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
             MacroStabilityInwardsSoilLayerUnderSurfaceLine[] expectedLayers = originSoilProfile.Layers.ToArray();
             UpliftVanSoilLayer[] actualLayers = actualSoilProfile.Layers.ToArray();
 
-            MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine[] expectedPreconsolidationStresses = originSoilProfile.PreconsolidationStresses.ToArray();
+            MacroStabilityInwardsPreconsolidationStress[] expectedPreconsolidationStresses = originSoilProfile.PreconsolidationStresses.ToArray();
             UpliftVanPreconsolidationStress[] actualPreconsolidationStresses = actualSoilProfile.PreconsolidationStresses.ToArray();
 
             AssertLayers(expectedLayers, actualLayers);
             AssertPreconsolidationStresses(expectedPreconsolidationStresses, actualPreconsolidationStresses);
         }
 
-        private static void AssertPreconsolidationStresses(MacroStabilityInwardsPreconsolidationStressUnderSurfaceLine[] expectedPreconsolidationStresses,
+        private static void AssertPreconsolidationStresses(MacroStabilityInwardsPreconsolidationStress[] expectedPreconsolidationStresses,
                                                            UpliftVanPreconsolidationStress[] actualPreconsolidationStresses)
         {
             Assert.AreEqual(expectedPreconsolidationStresses.Length, actualPreconsolidationStresses.Length);
             for (var i = 0; i < expectedPreconsolidationStresses.Length; i++)
             {
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(expectedPreconsolidationStresses[i]).GetDesignValue(), actualPreconsolidationStresses[i].Stress);
-                Assert.AreEqual(expectedPreconsolidationStresses[i].XCoordinate, actualPreconsolidationStresses[i].Coordinate.X);
-                Assert.AreEqual(expectedPreconsolidationStresses[i].ZCoordinate, actualPreconsolidationStresses[i].Coordinate.Y);
+                Assert.AreEqual(expectedPreconsolidationStresses[i].Location, actualPreconsolidationStresses[i].Coordinate);
             }
         }
 
