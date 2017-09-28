@@ -29,10 +29,10 @@ using System.Xml;
 namespace Application.Ringtoets.Storage.Serializers
 {
     /// <summary>
-    /// Converter class that converts between a collection of <see cref="TSerializedData"/> and an XML representation of that data.
+    /// Converter class that converts between a collection of <see cref="TSerializedData"/> and 
+    /// an XML representation of that data.
     /// </summary>
     internal abstract class DataCollectionSerializer<TData, TSerializedData>
-        where TData : class
         where TSerializedData : class
     {
         private static readonly Type serializationRootType = typeof(TSerializedData[]);

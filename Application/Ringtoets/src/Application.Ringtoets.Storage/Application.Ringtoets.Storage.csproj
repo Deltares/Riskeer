@@ -531,6 +531,7 @@
     <Compile Include="DbContext\FailureMechanismType.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensions.cs" />
     <Compile Include="Read\ProjectEntityReadExtensions.cs" />
+    <Compile Include="Serializers\TangentLinesXmlSerializer.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
