@@ -26,16 +26,43 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.I
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
 {
     [TestFixture]
-    public class WTIStabilityGeometryCurveComparerTest
+    public class GeometryLoopComparerTest
     {
         [Test]
         public void Compare_SameInstance_ReturnZero()
         {
             // Setup
-            var curve = new GeometryCurve(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
+            var loop = new GeometryLoop();
 
             // Call
-            int result = new WTIStabilityGeometryCurveComparer().Compare(curve, curve);
+            int result = new GeometryLoopComparer().Compare(loop, loop);
+
+            // Assert
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void Compare_SameCurveInstance_ReturnZero()
+        {
+            // Setup
+            var curve = new GeometryCurve(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
+            var loop1 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve
+                }
+            };
+            var loop2 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve
+                }
+            };
+
+            // Call
+            int result = new GeometryLoopComparer().Compare(loop1, loop2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -49,11 +76,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             const double y1 = 2.2;
             const double x2 = 3.3;
             const double y2 = 4.4;
-            var curve1 = new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2));
-            var curve2 = new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2));
+            var loop1 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2))
+                }
+            };
+            var loop2 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2))
+                }
+            };
 
             // Call
-            int result = new WTIStabilityGeometryCurveComparer().Compare(curve1, curve2);
+            int result = new GeometryLoopComparer().Compare(loop1, loop2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -63,11 +102,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
         public void Compare_DifferentCoordinates_ReturnOne()
         {
             // Setup
-            var curve1 = new GeometryCurve(new Point2D(0, 0), new Point2D(1, 1));
-            var curve2 = new GeometryCurve(new Point2D(2, 2), new Point2D(3, 3));
+            var loop1 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    new GeometryCurve(new Point2D(0, 0), new Point2D(1, 1))
+                }
+            };
+            var loop2 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    new GeometryCurve(new Point2D(2, 2), new Point2D(3, 3))
+                }
+            };
 
             // Call
-            int result = new WTIStabilityGeometryCurveComparer().Compare(curve1, curve2);
+            int result = new GeometryLoopComparer().Compare(loop1, loop2);
 
             // Assert
             Assert.AreEqual(1, result);

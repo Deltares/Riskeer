@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
     /// This class compares the coordinates of two <see cref="Point2D"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
-    public class WTIStabilityPoint2DComparer : IComparer<Point2D>, IComparer
+    public class StabilityPointComparer : IComparer<Point2D>, IComparer
     {
         public int Compare(object x, object y)
         {

@@ -31,9 +31,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
     /// of all <see cref="GeometryCurve"/> instances of the <see cref="GeometryLoop"/>
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
-    public class WTIStabilityGeometryLoopComparer : IComparer<GeometryLoop>, IComparer
+    public class GeometryLoopComparer : IComparer<GeometryLoop>, IComparer
     {
-        private readonly WTIStabilityGeometryCurveComparer curveComparer = new WTIStabilityGeometryCurveComparer();
+        private readonly GeometryCurveComparer curveComparer = new GeometryCurveComparer();
 
         public int Compare(object x, object y)
         {

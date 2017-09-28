@@ -68,9 +68,9 @@
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelStub.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorStub.cs" />
     <Compile Include="Calculators\TestMacroStabilityInwardsCalculatorFactory.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\WTIStabilityGeometryCurveComparer.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\WTIStabilityGeometryLoopComparer.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\WTIStabilityPoint2DComparer.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\GeometryCurveComparer.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\GeometryLoopComparer.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\StabilityPointComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

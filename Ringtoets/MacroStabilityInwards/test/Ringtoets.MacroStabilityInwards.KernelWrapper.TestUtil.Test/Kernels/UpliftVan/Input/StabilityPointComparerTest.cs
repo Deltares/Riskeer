@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.I
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
 {
     [TestFixture]
-    public class WTIStabilityPoint2DComparerTest
+    public class StabilityPointComparerTest
     {
         [Test]
         public void Compare_SameInstance_ReturnZero()
@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             var point = new Point2D(1.1, 2.2);
 
             // Call
-            int result = new WTIStabilityPoint2DComparer().Compare(point, point);
+            int result = new StabilityPointComparer().Compare(point, point);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             var point2 = new Point2D(x, y);
 
             // Call
-            int result = new WTIStabilityPoint2DComparer().Compare(point1, point2);
+            int result = new StabilityPointComparer().Compare(point1, point2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             var point2 = new Point2D(1, 1);
 
             // Call
-            int result = new WTIStabilityPoint2DComparer().Compare(point1, point2);
+            int result = new StabilityPointComparer().Compare(point1, point2);
 
             // Assert
             Assert.AreEqual(1, result);

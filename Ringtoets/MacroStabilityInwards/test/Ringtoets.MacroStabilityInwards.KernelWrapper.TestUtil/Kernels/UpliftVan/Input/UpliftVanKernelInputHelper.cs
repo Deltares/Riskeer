@@ -187,7 +187,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
                                       {
                                           actual.OuterLoop
                                       }.Concat(actual.InnerLoops),
-                                      new WTIStabilityGeometryLoopComparer());
+                                      new GeometryLoopComparer());
         }
 
         /// <summary>
@@ -223,9 +223,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         {
             AssertGeometrySurfaces(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
 
-            CollectionAssert.AreEqual(expected.Loops, actual.Loops, new WTIStabilityGeometryLoopComparer());
-            CollectionAssert.AreEqual(expected.Curves, actual.Curves, new WTIStabilityGeometryCurveComparer());
-            CollectionAssert.AreEqual(expected.Points, actual.Points, new WTIStabilityPoint2DComparer());
+            CollectionAssert.AreEqual(expected.Loops, actual.Loops, new GeometryLoopComparer());
+            CollectionAssert.AreEqual(expected.Curves, actual.Curves, new GeometryCurveComparer());
+            CollectionAssert.AreEqual(expected.Points, actual.Points, new StabilityPointComparer());
 
             Assert.AreEqual(expected.Bottom, actual.Bottom);
             Assert.AreEqual(expected.Left, actual.Left);

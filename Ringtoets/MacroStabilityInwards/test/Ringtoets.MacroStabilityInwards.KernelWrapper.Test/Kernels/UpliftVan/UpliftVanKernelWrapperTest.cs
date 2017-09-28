@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                             GeometrySurface = new GeometrySurface
                             {
                                 OuterLoop = loop
-                            },
+                            }
                         }
                     }
                 },

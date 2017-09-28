@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Schema;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
 using Deltares.WTIStability.Levenberg;
 

@@ -62,9 +62,9 @@
     <Compile Include="Kernels\TestMacroStabilityInwardsKernelFactoryTest.cs" />
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelStubTest.cs" />
     <Compile Include="Calculators\TestMacroStabilityInwardsCalculatorFactoryTest.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\WTIStabilityGeometryCurveComparerTest.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\WTIStabilityGeometryLoopComparerTest.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\WTIStabilityPoint2DComparerTest.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\GeometryCurveComparerTest.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\GeometryLoopComparerTest.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\StabilityPointComparerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

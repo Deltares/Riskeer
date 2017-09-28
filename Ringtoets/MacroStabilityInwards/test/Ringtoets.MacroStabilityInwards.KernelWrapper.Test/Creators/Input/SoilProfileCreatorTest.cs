@@ -188,7 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 point7,
                 point8,
                 point9
-            }, profile.Geometry.Points, new WTIStabilityPoint2DComparer());
+            }, profile.Geometry.Points, new StabilityPointComparer());
             CollectionAssert.AreEqual(new[]
             {
                 outerLoopCurve1,
@@ -199,20 +199,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 innerLoop1Curve3,
                 innerLoop2Curve1,
                 innerLoop2Curve2
-            }, profile.Geometry.Curves, new WTIStabilityGeometryCurveComparer());
+            }, profile.Geometry.Curves, new GeometryCurveComparer());
             CollectionAssert.AreEqual(new[]
             {
                 expectedOuterLoop,
                 expectedInnerLoop1,
                 expectedInnerLoop2
-            }, profile.Geometry.Loops, new WTIStabilityGeometryLoopComparer());
+            }, profile.Geometry.Loops, new GeometryLoopComparer());
 
-            CollectionAssert.AreEqual(expectedOuterLoop.CurveList, surface.GeometrySurface.OuterLoop.CurveList, new WTIStabilityGeometryCurveComparer());
+            CollectionAssert.AreEqual(expectedOuterLoop.CurveList, surface.GeometrySurface.OuterLoop.CurveList, new GeometryCurveComparer());
             CollectionAssert.AreEqual(new[]
             {
                 expectedInnerLoop1,
                 expectedInnerLoop2
-            }, surface.GeometrySurface.InnerLoops, new WTIStabilityGeometryLoopComparer());
+            }, surface.GeometrySurface.InnerLoops, new GeometryLoopComparer());
 
             Assert.AreEqual(0, profile.Geometry.Left);
             Assert.AreEqual(0, profile.Geometry.Bottom);
