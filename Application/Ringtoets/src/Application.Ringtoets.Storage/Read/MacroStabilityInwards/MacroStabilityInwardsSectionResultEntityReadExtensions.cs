@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -37,19 +36,23 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// Reads the <see cref="MacroStabilityInwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> to 
+        /// update the <paramref name="sectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+            sectionResult.AssessmentLayerThree = entity.LayerThree.ToNullAsNaN();
         }
     }
 }

@@ -1057,13 +1057,11 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
 	[MacroStabilityInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[LayerOne],
-	[LayerTwoA],
 	[LayerThree])
 SELECT
 	[MacrostabilityInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[LayerOne],
-	[LayerTwoA],
 	CASE
 		WHEN [LayerThree] > 1 OR [LayerThree] < 0 
 			THEN NULL

@@ -705,7 +705,6 @@
           <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="real" />
           <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
@@ -4854,7 +4853,6 @@
           <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Double" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="MacroStabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -7719,7 +7717,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsSectionResultEntityId" ColumnName="MacroStabilityInwardsSectionResultEntityId" />

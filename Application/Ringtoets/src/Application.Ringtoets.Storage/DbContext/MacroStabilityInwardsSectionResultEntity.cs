@@ -35,7 +35,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public long MacroStabilityInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte LayerOne { get; set; }
-        public double? LayerTwoA { get; set; }
         public double? LayerThree { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
