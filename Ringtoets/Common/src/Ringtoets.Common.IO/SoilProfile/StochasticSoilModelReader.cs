@@ -26,7 +26,6 @@ using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-using log4net;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.SoilProfile.Schema;
@@ -40,8 +39,6 @@ namespace Ringtoets.Common.IO.SoilProfile
     {
         private readonly Dictionary<long, SoilProfile1D> soilProfile1Ds = new Dictionary<long, SoilProfile1D>();
         private readonly Dictionary<long, SoilProfile2D> soilProfile2Ds = new Dictionary<long, SoilProfile2D>();
-
-        private readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelReader));
 
         private IDataReader dataReader;
         private SegmentPointReader segmentPointReader;
@@ -163,9 +160,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     }
                     catch (SoilProfileReadException e)
                     {
-                        string message = string.Format(Resources.StochasticSoilModelReader_Error_reading_profile_Error_profile_skipped,
-                                                       e.Message);
-                        log.Warn(message, e);
+                        throw new StochasticSoilModelException(e.Message, e);
                     }
                 }
             }
@@ -188,9 +183,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     }
                     catch (SoilProfileReadException e)
                     {
-                        string message = string.Format(Resources.StochasticSoilModelReader_Error_reading_profile_Error_profile_skipped,
-                                                       e.Message);
-                        log.Warn(message, e);
+                        throw new StochasticSoilModelException(e.Message, e);
                     }
                 }
             }

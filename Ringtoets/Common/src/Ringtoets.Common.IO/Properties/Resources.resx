@@ -880,9 +880,6 @@ Het bestand wordt overgeslagen.</value>
   <data name="SoilProfileReader_Profile_Name_0_has_invalid_value_on_Column_1" xml:space="preserve">
     <value>Het lezen van de ondergrondschematisatie '{0}' is mislukt. Geen geldige waarde in kolom '{1}'.</value>
   </data>
-  <data name="StochasticSoilModelReader_Error_reading_profile_Error_profile_skipped" xml:space="preserve">
-    <value>{0} Deze ondergrondschematisatie wordt overgeslagen.</value>
-  </data>
   <data name="Stochastic_parameter_0_has_no_lognormal_distribution" xml:space="preserve">
     <value>Parameter '{0}' is niet lognormaal verdeeld.</value>
   </data>

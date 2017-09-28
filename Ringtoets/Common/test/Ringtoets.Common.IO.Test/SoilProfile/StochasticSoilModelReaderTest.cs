@@ -181,7 +181,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Validate_InvalidSoilProfile1d_LogsWarning()
+        public void Validate_InvalidSoilProfile1d_ThrowsStochasticSoilModelException()
         {
             // Setup
             string dbFile = Path.Combine(soilProfile1DReaderTestDataPath, "1dprofileWithIncorrectBottom.soil");
@@ -189,27 +189,18 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                Action call = () => reader.Validate();
+                TestDelegate call = () => reader.Validate();
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
-                {
-                    Tuple<string, Level, Exception>[] tuplesArray = tuples.ToArray();
-                    Assert.AreEqual(1, tuplesArray.Length);
-
-                    string expectedMessage = "Het uitlezen van de ondergrondschematisatie is mislukt. " +
-                                             "Deze ondergrondschematisatie wordt overgeslagen.";
-                    Assert.AreEqual(expectedMessage, tuplesArray[0].Item1);
-                    Assert.AreEqual(Level.Warn, tuplesArray[0].Item2);
-                    Assert.IsInstanceOf<SoilProfileReadException>(tuplesArray[0].Item3);
-                });
+                var exception = Assert.Throws<StochasticSoilModelException>(call);
+                Assert.IsInstanceOf<SoilProfileReadException>(exception.InnerException);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
-        public void Validate_InvalidSoilProfile2d_LogsWarning()
+        public void Validate_InvalidSoilProfile2d_ThrowsStochasticSoilModelException()
         {
             // Setup
             string dbFile = Path.Combine(soilProfile2DReaderTestDataPath, "2dProfileWithXInvalid.soil");
@@ -217,21 +208,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                Action call = () => reader.Validate();
+                TestDelegate call = () => reader.Validate();
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
-                {
-                    Tuple<string, Level, Exception>[] tuplesArray = tuples.ToArray();
-                    Assert.AreEqual(1, tuplesArray.Length);
-
-                    string expectedMessage = "Het lezen van de ondergrondschematisatie 'Profile' is mislukt. " +
-                                             "Geen geldige waarde in kolom 'IntersectionX'. " +
-                                             "Deze ondergrondschematisatie wordt overgeslagen.";
-                    Assert.AreEqual(expectedMessage, tuplesArray[0].Item1);
-                    Assert.AreEqual(Level.Warn, tuplesArray[0].Item2);
-                    Assert.IsInstanceOf<SoilProfileReadException>(tuplesArray[0].Item3);
-                });
+                var exception = Assert.Throws<StochasticSoilModelException>(call);
+                Assert.IsInstanceOf<SoilProfileReadException>(exception.InnerException);
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

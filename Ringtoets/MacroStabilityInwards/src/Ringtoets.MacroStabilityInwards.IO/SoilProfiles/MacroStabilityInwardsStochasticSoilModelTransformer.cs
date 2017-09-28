@@ -26,7 +26,6 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
@@ -74,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         {
             IEnumerable<StochasticSoilProfile> profilesToTransform =
                 StochasticSoilProfileHelper.GetValidatedStochasticSoilProfilesToTransform(stochasticSoilProfiles,
-                                                                                      soilModelName);
+                                                                                          soilModelName);
 
             return profilesToTransform.Select(
                 ssp => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(
