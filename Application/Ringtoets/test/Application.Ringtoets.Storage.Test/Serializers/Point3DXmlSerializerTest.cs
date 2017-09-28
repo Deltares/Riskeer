@@ -60,20 +60,5 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             // Then
             CollectionAssert.AreEqual(original, roundtripResult);
         }
-
-        [Test]
-        public void GivenEmptyArray_WhenConvertingRoundTrip_ThenReturnEmptyArray()
-        {
-            // Given
-            var original = new Point3D[0];
-            var serializer = new Point3DXmlSerializer();
-
-            // When
-            string xml = serializer.ToXml(original);
-            Point3D[] roundtripResult = serializer.FromXml(xml);
-
-            // Then
-            CollectionAssert.IsEmpty(roundtripResult);
-        }
     }
 }

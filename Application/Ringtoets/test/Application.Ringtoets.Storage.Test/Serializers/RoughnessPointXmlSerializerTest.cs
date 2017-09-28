@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Serializers
         }
 
         [Test]
-        public void GivenArrayWithPoint2D_WhenConvertingRoundTrip_ThenEqualArrayOfPoints2D()
+        public void GivenArrayWithRoughnessPoint_WhenConvertingRoundTrip_ThenEqualArrayOfRoughnessPoint()
         {
             // Given
             var original = new[]
@@ -64,21 +64,6 @@ namespace Application.Ringtoets.Storage.Test.Serializers
 
             // Then
             CollectionAssert.AreEqual(original, roundtripResult, new RoughnessPointComparer());
-        }
-
-        [Test]
-        public void GivenEmptyArray_WhenConvertingRoundTrip_ThenReturnEmptyArray()
-        {
-            // Given
-            var original = new RoughnessPoint[0];
-            var converter = new RoughnessPointXmlSerializer();
-
-            // When
-            string xml = converter.ToXml(original);
-            RoughnessPoint[] roundtripResult = converter.FromXml(xml);
-
-            // Then
-            CollectionAssert.IsEmpty(roundtripResult);
         }
 
         private class RoughnessPointComparer : IComparer

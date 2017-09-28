@@ -71,20 +71,5 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             // Then
             CollectionAssert.AreEqual(original, roundtripResult);
         }
-
-        [Test]
-        public void GivenEmptyArray_WhenConvertingRoundTrip_ThenReturnEmptyArray()
-        {
-            // Given
-            var original = new Ring[0];
-            var serializer = new RingXmlSerializer();
-
-            // When
-            string xml = serializer.ToXml(original);
-            Ring[] roundtripResult = serializer.FromXml(xml);
-
-            // Then
-            CollectionAssert.IsEmpty(roundtripResult);
-        }
     }
 }

@@ -32,6 +32,8 @@ namespace Application.Ringtoets.Storage.Serializers
     /// Converter class that converts between a collection of <see cref="TSerializedData"/> and an XML representation of that data.
     /// </summary>
     internal abstract class DataCollectionSerializer<TData, TSerializedData>
+        where TData : class
+        where TSerializedData : class
     {
         private static readonly Type serializationRootType = typeof(TSerializedData[]);
         private readonly Encoding encoding = Encoding.UTF8;
@@ -98,8 +100,18 @@ namespace Application.Ringtoets.Storage.Serializers
             }
         }
 
+        /// <summary>
+        /// Converts <paramref name="elements"/> to the serializable representation.
+        /// </summary>
+        /// <param name="elements">The elements to convert.</param>
+        /// <returns>The serialized elements.</returns>
         protected abstract TSerializedData[] ToSerializableData(IEnumerable<TData> elements);
 
+        /// <summary>
+        /// Converts the <paramref name="serializedElements"/> to <see cref="TData"/>.
+        /// </summary>
+        /// <param name="serializedElements">The serialized data to convert.</param>
+        /// <returns>The deserialized elements</returns>
         protected abstract TData[] FromSerializableData(IEnumerable<TSerializedData> serializedElements);
     }
 }
