@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
     <Reference Include="WTIStability, Version=17.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
@@ -82,6 +83,7 @@
     <Compile Include="Creators\Output\UpliftVanCalculationGridResultCreatorTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculationGridResultTest.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
+    <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperTest.cs" />
   </ItemGroup>

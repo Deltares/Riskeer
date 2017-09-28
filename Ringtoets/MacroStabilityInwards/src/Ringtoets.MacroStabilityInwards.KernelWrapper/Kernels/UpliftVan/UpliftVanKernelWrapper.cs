@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml.Schema;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
 using Deltares.WTIStability.Levenberg;
 
@@ -34,7 +38,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     /// </summary>
     public class UpliftVanKernelWrapper : IUpliftVanKernel
     {
-        private readonly WTIStabilityCalculation wtiStabilityCalculation;
         private readonly StabilityModel stabilityModel;
 
         /// <summary>
@@ -42,7 +45,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// </summary>
         public UpliftVanKernelWrapper()
         {
-            wtiStabilityCalculation = new WTIStabilityCalculation();
             stabilityModel = new StabilityModel
             {
                 ModelOption = ModelOptions.UpliftVan,
@@ -183,12 +185,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void Calculate()
         {
-            wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
+            try
+            {
+                var wtiStabilityCalculation = new WTIStabilityCalculation();
+                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
 
-            string messages = wtiStabilityCalculation.Validate();
-            string result = wtiStabilityCalculation.Run();
+                string result = wtiStabilityCalculation.Run();
 
-            ReadResult(result);
+                ReadResult(result);
+            }
+            catch (XmlSchemaValidationException e)
+            {
+                throw new UpliftVanKernelWrapperException(e);
+            }
+            catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
+            {
+                throw new UpliftVanKernelWrapperException(e);
+            }
         }
 
         private void ReadResult(string result)
@@ -197,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
             if (convertedResult.Messages.Any())
             {
-                throw new Exception();
+                throw new UpliftVanKernelWrapperException(convertedResult.Messages.Select(m => m.Message));
             }
 
             FactorOfStability = convertedResult.FactorOfSafety;

@@ -19,6 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Xml.Schema;
+using Deltares.WTIStability;
+using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -41,6 +45,181 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
             Assert.IsNull(kernel.SlidingCurveResult);
             Assert.IsNull(kernel.SlipPlaneResult);
+        }
+
+        [Test]
+        public void Calculate_InputNotComplete_ThrowsUpliftVanKernelWrapperException()
+        {
+            // Setup
+            var kernel = new UpliftVanKernelWrapper();
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Calculate_InvalidInput_ThrowsUpliftVanKernelWrapperException()
+        {
+            // Setup
+            var point1 = new Point2D(0, 0);
+            var point2 = new Point2D(1, 1);
+            var point3 = new Point2D(2, 2);
+            var point4 = new Point2D(3, 3);
+            var curve1 = new GeometryCurve(point1, point2);
+            var curve2 = new GeometryCurve(point2, point3);
+            var curve3 = new GeometryCurve(point3, point4);
+            var curve4 = new GeometryCurve(point4, point1);
+            var loop = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve1, curve2, curve3, curve4
+                }
+            };
+            var kernel = new UpliftVanKernelWrapper
+            {
+                SurfaceLine = new SurfaceLine2(),
+                Location = new StabilityLocation(),
+                SoilProfile = new SoilProfile2D
+                {
+                    Geometry = new GeometryData
+                    {
+                        Points =
+                        {
+                            point1, point2, point3, point4
+                        },
+                        Curves =
+                        {
+                            curve1, curve2, curve3, curve4
+                        },
+                        Loops =
+                        {
+                            loop
+                        }
+                    },
+                    Surfaces =
+                    {
+                        new SoilLayer2D
+                        {
+                            GeometrySurface = new GeometrySurface
+                            {
+                                OuterLoop = loop
+                            },
+                        }
+                    }
+                },
+                SoilModel = new SoilModel
+                {
+                    Soils =
+                    {
+                        new Soil()
+                    }
+                },
+                SlipPlaneUpliftVan = new SlipPlaneUpliftVan(),
+                MoveGrid = true,
+                AutomaticForbiddenZones = true,
+                CreateZones = true,
+                SlipPlaneMinimumDepth = 0,
+                MaximumSliceWidth = 0,
+                SlipPlaneMinimumLength = 0
+            };
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            Assert.IsInstanceOf<ArgumentNullException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Calculate_ErrorInCalculation_ThrowsUpliftVanKernelWrapperException()
+        {
+            // Setup
+            var point1 = new Point2D(0, 0);
+            var point2 = new Point2D(1, 1);
+            var point3 = new Point2D(2, 2);
+            var point4 = new Point2D(3, 3);
+            var curve1 = new GeometryCurve(point1, point2);
+            var curve2 = new GeometryCurve(point2, point3);
+            var curve3 = new GeometryCurve(point3, point4);
+            var curve4 = new GeometryCurve(point4, point1);
+            var loop = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve1, curve2, curve3, curve4
+                }
+            };
+            var geometrySurface = new GeometrySurface
+            {
+                OuterLoop = loop
+            };
+            var soil = new Soil();
+            var kernel = new UpliftVanKernelWrapper
+            {
+                SurfaceLine = new SurfaceLine2(),
+                Location = new StabilityLocation(),
+                SoilProfile = new SoilProfile2D
+                {
+                    Geometry = new GeometryData
+                    {
+                        Points =
+                        {
+                            point1, point2, point3, point4
+                        },
+                        Curves =
+                        {
+                            curve1, curve2, curve3, curve4
+                        },
+                        Loops =
+                        {
+                            loop
+                        },
+                        Surfaces =
+                        {
+                            geometrySurface
+                        }
+                    },
+                    Surfaces =
+                    {
+                        new SoilLayer2D
+                        {
+                            GeometrySurface = geometrySurface,
+                            Soil = soil
+                        }
+                    }
+                },
+                SoilModel = new SoilModel
+                {
+                    Soils =
+                    {
+                        soil
+                    }
+                },
+                SlipPlaneUpliftVan = new SlipPlaneUpliftVan(),
+                MoveGrid = true,
+                AutomaticForbiddenZones = true,
+                CreateZones = true,
+                SlipPlaneMinimumDepth = 0,
+                MaximumSliceWidth = 0,
+                SlipPlaneMinimumLength = 0
+            };
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            CollectionAssert.AreEqual(new []
+            {
+                $"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}Parameter name: index",
+                "Fatale fout in Uplift-Van berekening"
+            }, exception.Messages);
         }
     }
 }

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
     <Reference Include="WTIStability, Version=17.2.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
@@ -63,6 +64,7 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResult.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResult.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResult.cs" />
+    <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreator.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculationGridResult.cs" />
