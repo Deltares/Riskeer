@@ -515,7 +515,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(120, actualGoverningWindDirection.Angle, actualGoverningWindDirection.Angle.GetAccuracy());
 
             Stochast stochast = generalResult.Stochasts.Single();
-            Assert.AreEqual("Name of stochast", stochast.Name);
+            Assert.AreEqual("Name of a stochast", stochast.Name);
             Assert.AreEqual(37, stochast.Alpha, stochast.Alpha.GetAccuracy());
             Assert.AreEqual(13, stochast.Duration, stochast.Duration.GetAccuracy());
 
@@ -531,7 +531,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(3, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
 
             SubMechanismIllustrationPointStochast illustrationPointStochast = illustrationPoint.Stochasts.Single();
-            Assert.AreEqual("Name of a submechanism stochast", illustrationPointStochast.Name);
+            Assert.AreEqual("Name of a stochast", illustrationPointStochast.Name);
             Assert.AreEqual(10, illustrationPointStochast.Duration, illustrationPointStochast.Duration.GetAccuracy());
             Assert.AreEqual(9, illustrationPointStochast.Alpha, illustrationPointStochast.Alpha.GetAccuracy());
             Assert.AreEqual(8, illustrationPointStochast.Realization, illustrationPointStochast.Realization.GetAccuracy());

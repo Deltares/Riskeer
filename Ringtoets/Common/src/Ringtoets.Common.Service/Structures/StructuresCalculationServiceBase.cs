@@ -283,7 +283,7 @@ namespace Ringtoets.Common.Service.Structures
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, calculation.Name) + " " + e.Message);
+                log.Error(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, calculation.Name) + " " + e.Message);
             }
 
             calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);

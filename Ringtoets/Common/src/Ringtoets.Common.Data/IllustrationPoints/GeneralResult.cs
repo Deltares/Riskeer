@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <exception cref="ArgumentNullException">Thrown when any of the input
         /// parameters is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when one of the input parameters
-        /// is invalid (duplicate items, missing items)</exception>
+        /// is invalid (duplicate items, missing items).</exception>
         public GeneralResult(WindDirection governingWindDirection,
                              IEnumerable<Stochast> stochasts,
                              IEnumerable<T> topLevelIllustrationPoints)
@@ -63,11 +63,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(topLevelIllustrationPoints));
             }
 
-            IEnumerable<TopLevelFaultTreeIllustrationPoint> points = topLevelIllustrationPoints.OfType<TopLevelFaultTreeIllustrationPoint>();
-            if (points.Any())
-            {
-                ValidateStochastInChildren(points, stochasts);
-            }
+            ValidateStochastInChildren(topLevelIllustrationPoints, stochasts);
             ValidateStochasts(stochasts);
             ValidateTopLevelIllustrationPoints(topLevelIllustrationPoints);
 
@@ -102,14 +98,26 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             return clone;
         }
 
-        private void ValidateStochastInChildren(IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelFaultTreeIllustrationPoints, IEnumerable<Stochast> stochasts)
+        private void ValidateStochastInChildren(IEnumerable<T> topLevelillustrationPoints, IEnumerable<Stochast> stochasts)
         {
             var childStochastNames = new List<string>();
 
-            foreach (TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint in topLevelFaultTreeIllustrationPoints)
+            foreach (T topLevelIllustrationPoint in topLevelillustrationPoints)
             {
-                IllustrationPointNode nodeRoot = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot;
-                childStochastNames.AddRange(GetStochastNamesFromChildren(nodeRoot));
+                var topLevelFaultTreeIllustrationPoint = topLevelIllustrationPoint as TopLevelFaultTreeIllustrationPoint;
+                if (topLevelFaultTreeIllustrationPoint != null)
+                {
+                    IllustrationPointNode nodeRoot = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot;
+                    childStochastNames.AddRange(GetStochastNamesFromChildren(nodeRoot));
+                    continue;
+                }
+
+                var topLevelSubMechanismIllustrationPoint = topLevelIllustrationPoint as TopLevelSubMechanismIllustrationPoint;
+                if (topLevelSubMechanismIllustrationPoint != null)
+                {
+                    SubMechanismIllustrationPoint nodeRoot = topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
+                    childStochastNames.AddRange(nodeRoot.Stochasts.Select(s => s.Name));
+                }
             }
             childStochastNames = childStochastNames.Distinct().ToList();
             IEnumerable<string> topLevelStochastNames = stochasts.Select(s => s.Name);

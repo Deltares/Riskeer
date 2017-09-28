@@ -189,9 +189,17 @@ namespace Ringtoets.Common.Service
                 return;
             }
 
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = waveHeightCalculation.CalculateIllustrationPoints
-                                                                                     ? GetGeneralResult(calculator.IllustrationPointsResult)
-                                                                                     : null;
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
+            try
+            {
+                generalResult = waveHeightCalculation.CalculateIllustrationPoints
+                                    ? GetGeneralResult(calculator.IllustrationPointsResult)
+                                    : null;
+            }
+            catch (ArgumentException e)
+            {
+                log.Error(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, waveHeightCalculation.Name) + " " + e.Message);
+            }
 
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
                 messageProvider, waveHeightCalculation.Name, calculationInput.Beta, norm, calculator.Converged, generalResult);

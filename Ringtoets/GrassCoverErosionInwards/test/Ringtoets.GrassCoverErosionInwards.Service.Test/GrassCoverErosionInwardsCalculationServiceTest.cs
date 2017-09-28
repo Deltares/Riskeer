@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -39,7 +38,6 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
@@ -2260,7 +2258,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithIncorrectTopLevelStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithIncorrectTopLevelStochasts()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2428,7 +2426,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2512,7 +2510,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2856,7 +2854,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithIncorrectTopLevelStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithIncorrectTopLevelStochasts()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -3024,7 +3022,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -3108,7 +3106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -3440,7 +3438,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithIncorrectTopLevelStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithIncorrectTopLevelStochasts()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -3608,7 +3606,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -3692,7 +3690,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {

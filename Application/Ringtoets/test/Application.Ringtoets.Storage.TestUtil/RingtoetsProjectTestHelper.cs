@@ -385,7 +385,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()
         {
             var illustrationPointResult = new IllustrationPointResult("Description of result", 5);
-            var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a submechanism stochast", 10, 9, 8);
+            var subMechanismIllustrationPointStochast = new SubMechanismIllustrationPointStochast("Name of a stochast", 10, 9, 8);
 
             var illustrationPoint = new SubMechanismIllustrationPoint("Name of illustrationPoint", 3, new[]
             {
@@ -401,7 +401,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                                       illustrationPoint);
 
             var governingWindDirection = new WindDirection("SSE", 120);
-            var stochast = new Stochast("Name of stochast", 13, 37);
+            var stochast = new Stochast("Name of a stochast", 13, 37);
             return new GeneralResult<TopLevelSubMechanismIllustrationPoint>(governingWindDirection,
                                                                             new[]
                                                                             {

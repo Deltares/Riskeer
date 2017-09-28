@@ -51,10 +51,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultWithIncorrectTopLevelStochasts_ExpectedProperties()
+        public void CreateGeneralResultFaultTreeWithIncorrectTopLevelStochasts_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithIncorrectTopLevelStochasts();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithIncorrectTopLevelStochasts();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -78,6 +78,37 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             Assert.AreEqual("Point A", ((FaultTreeIllustrationPoint) topLevelIllustrationPoint.Value.Data).Name);
 
             Stochast topLevelIllustrationPointStochast = ((FaultTreeIllustrationPoint) topLevelIllustrationPoint.Value.Data).Stochasts.Single();
+            Assert.AreEqual("Stochast C", topLevelIllustrationPointStochast.Name);
+        }
+
+        [Test]
+        public void CreateGeneralResultSubMechanismWithIncorrectTopLevelStochasts_ExpectedProperties()
+        {
+            // Call
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithIncorrectTopLevelStochasts();
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResult>(generalResult);
+            Assert.AreEqual(0.5, generalResult.Beta);
+
+            var expectedWindDirection = new TestWindDirection();
+            AssertWindDirection(expectedWindDirection, generalResult.GoverningWindDirection);
+            Assert.AreEqual(2, generalResult.Stochasts.Count());
+            Stochast[] stochasts = generalResult.Stochasts.ToArray();
+            Assert.AreEqual("Stochast A", stochasts[0].Name);
+            Assert.AreEqual("Stochast B", stochasts[1].Name);
+
+            KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode> topLevelIllustrationPoint =
+                generalResult.IllustrationPoints.Single();
+
+            WindDirectionClosingSituation actualWindDirectionClosingSituation = topLevelIllustrationPoint.Key;
+            AssertWindDirection(expectedWindDirection, actualWindDirectionClosingSituation.WindDirection);
+            Assert.AreEqual("closing A", actualWindDirectionClosingSituation.ClosingSituation);
+
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
+            Assert.AreEqual("Point A", ((SubMechanismIllustrationPoint) topLevelIllustrationPoint.Value.Data).Name);
+
+            Stochast topLevelIllustrationPointStochast = ((SubMechanismIllustrationPoint) topLevelIllustrationPoint.Value.Data).Stochasts.Single();
             Assert.AreEqual("Stochast C", topLevelIllustrationPointStochast.Name);
         }
 
@@ -119,10 +150,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultWithNonDistinctIllustrationPoints_ExpectedProperties()
+        public void CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPoints();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -133,7 +164,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode>[] topLevelIllustrationPoints =
                 generalResult.IllustrationPoints.ToArray();
             Assert.AreEqual(2, topLevelIllustrationPoints.Length);
-             
+
             AssertWindDirection(new WindDirection("N", 0.0), topLevelIllustrationPoints[0].Key.WindDirection);
             Assert.AreEqual("closing A", topLevelIllustrationPoints[0].Key.ClosingSituation);
 
@@ -145,10 +176,36 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultWithNonDistinctIllustrationPointResults_ExpectedProperties()
+        public void CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctIllustrationPointResults();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints();
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResult>(generalResult);
+            Assert.AreEqual(0.5, generalResult.Beta);
+
+            AssertWindDirection(new TestWindDirection(), generalResult.GoverningWindDirection);
+
+            KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode>[] topLevelIllustrationPoints =
+                generalResult.IllustrationPoints.ToArray();
+            Assert.AreEqual(2, topLevelIllustrationPoints.Length);
+
+            AssertWindDirection(new WindDirection("N", 0.0), topLevelIllustrationPoints[0].Key.WindDirection);
+            Assert.AreEqual("closing A", topLevelIllustrationPoints[0].Key.ClosingSituation);
+
+            AssertWindDirection(new WindDirection("S", 0.0), topLevelIllustrationPoints[1].Key.WindDirection);
+            Assert.AreEqual("closing A", topLevelIllustrationPoints[1].Key.ClosingSituation);
+
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(topLevelIllustrationPoints[0].Value.Data);
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(topLevelIllustrationPoints[1].Value.Data);
+        }
+
+        [Test]
+        public void CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults_ExpectedProperties()
+        {
+            // Call
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -165,16 +222,47 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             Assert.AreEqual("closing A", actualWindDirectionClosingSituation.ClosingSituation);
 
             Assert.IsInstanceOf<FaultTreeIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
-            Assert.AreEqual("Point A", ((FaultTreeIllustrationPoint)topLevelIllustrationPoint.Value.Data).Name);
+            Assert.AreEqual("Point A", ((FaultTreeIllustrationPoint) topLevelIllustrationPoint.Value.Data).Name);
 
             IllustrationPointTreeNode[] children = topLevelIllustrationPoint.Value.Children.ToArray();
             Assert.IsInstanceOf<SubMechanismIllustrationPoint>(children[0].Data);
-            IllustrationPointResult[] illustrationPointResults = ((SubMechanismIllustrationPoint)children[0].Data).Results.ToArray();
+            IllustrationPointResult[] illustrationPointResults = ((SubMechanismIllustrationPoint) children[0].Data).Results.ToArray();
             Assert.AreEqual("Result A", illustrationPointResults[0].Description);
             Assert.AreEqual(0.0, illustrationPointResults[0].Value);
             Assert.AreEqual("Result A", illustrationPointResults[1].Description);
             Assert.AreEqual(1.0, illustrationPointResults[1].Value);
             Assert.IsInstanceOf<FaultTreeIllustrationPoint>(children[1].Data);
+        }
+
+        [Test]
+        public void CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults_ExpectedProperties()
+        {
+            // Call
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults();
+
+            // Assert
+            Assert.IsInstanceOf<GeneralResult>(generalResult);
+            Assert.AreEqual(0.5, generalResult.Beta);
+
+            var expectedWindDirection = new TestWindDirection();
+            AssertWindDirection(expectedWindDirection, generalResult.GoverningWindDirection);
+
+            KeyValuePair<WindDirectionClosingSituation, IllustrationPointTreeNode> topLevelIllustrationPoint =
+                generalResult.IllustrationPoints.Single();
+
+            WindDirectionClosingSituation actualWindDirectionClosingSituation = topLevelIllustrationPoint.Key;
+            AssertWindDirection(expectedWindDirection, actualWindDirectionClosingSituation.WindDirection);
+            Assert.AreEqual("closing A", actualWindDirectionClosingSituation.ClosingSituation);
+
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
+            var subMechanismIllustrationPoint = (SubMechanismIllustrationPoint) topLevelIllustrationPoint.Value.Data;
+            Assert.AreEqual("Point SA", subMechanismIllustrationPoint.Name);
+
+            IllustrationPointResult[] illustrationPointResults = subMechanismIllustrationPoint.Results.ToArray();
+            Assert.AreEqual("Result A", illustrationPointResults[0].Description);
+            Assert.AreEqual(0.0, illustrationPointResults[0].Value);
+            Assert.AreEqual("Result A", illustrationPointResults[1].Description);
+            Assert.AreEqual(1.0, illustrationPointResults[1].Value);
         }
 
         [Test]
@@ -194,9 +282,9 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
                 generalResult.IllustrationPoints.Single();
             Assert.IsInstanceOf<FaultTreeIllustrationPoint>(topLevelIllustrationPoint.Value.Data);
 
-            var children = topLevelIllustrationPoint.Value.Children.ToArray();
-            Assert.AreEqual("Point B", ((SubMechanismIllustrationPoint)children[0].Data).Name);
-            Assert.AreEqual("Point B", ((SubMechanismIllustrationPoint)children[1].Data).Name);
+            IllustrationPointTreeNode[] children = topLevelIllustrationPoint.Value.Children.ToArray();
+            Assert.AreEqual("Point B", ((SubMechanismIllustrationPoint) children[0].Data).Name);
+            Assert.AreEqual("Point B", ((SubMechanismIllustrationPoint) children[1].Data).Name);
 
             Assert.IsInstanceOf<SubMechanismIllustrationPoint>(children[0].Data);
             Assert.IsInstanceOf<SubMechanismIllustrationPoint>(children[1].Data);

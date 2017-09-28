@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -38,7 +37,6 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -603,16 +601,10 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            var stochasts = new[]
-            {
-                new Stochast("Stochast A", 0, 0),
-                new Stochast("Stochast A", 0, 0)
-            };
-            var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
                 OutputDirectory = validFilePath,
-                IllustrationPointsResult = new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints)
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
@@ -661,25 +653,128 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
+        public void Calculate_ValidInputButIllustrationPointResultsWithIncorrectTopLevelStochasts_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                OutputDirectory = validFilePath,
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithIncorrectTopLevelStochasts()
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+
+            const string performedCalculationMessage = "Calculation successful";
+            var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ShouldIllustrationPointsBeCalculated = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService(messageProvider);
+
+                // Call
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
+                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                                    "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
+                    Assert.AreEqual(performedCalculationMessage, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButIllustrationPointResultsWithIncorrectStochastsInChildren_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                OutputDirectory = validFilePath,
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithIncorrectStochastsInChildren()
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+
+            const string performedCalculationMessage = "Calculation successful";
+            var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ShouldIllustrationPointsBeCalculated = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService(messageProvider);
+
+                // Call
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
+                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                                    "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
+                    Assert.AreEqual(performedCalculationMessage, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             var mocks = new MockRepository();
-            var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
-            {
-                {
-                    new WindDirectionClosingSituation(new WindDirection("N", 0.0), "closing A"),
-                    new IllustrationPointTreeNode(new TestFaultTreeIllustrationPoint())
-                },
-                {
-                    new WindDirectionClosingSituation(new WindDirection("S", 0.0), "closing A"),
-                    new IllustrationPointTreeNode(new TestFaultTreeIllustrationPoint())
-                }
-            };
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
                 OutputDirectory = validFilePath,
-                IllustrationPointsResult = new GeneralResult(0.5, new TestWindDirection(), Enumerable.Empty<Stochast>(), illustrationPoints)
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
@@ -718,6 +813,120 @@ namespace Ringtoets.Common.Service.Test.Structures
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
                                     "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. " +
+                                    "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
+                    Assert.AreEqual(performedCalculationMessage, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctIllustrationPointResults_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                OutputDirectory = validFilePath,
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+
+            const string performedCalculationMessage = "Calculation successful";
+            var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ShouldIllustrationPointsBeCalculated = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService(messageProvider);
+
+                // Call
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
+                                    "Een of meerdere resultaten hebben dezelfde naam. " +
+                                    "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
+                    Assert.AreEqual(performedCalculationMessage, msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+                Assert.IsNotNull(calculation.Output);
+                Assert.IsFalse(calculation.Output.HasGeneralResult);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctNamesInChildren_IllustrationPointsNotSetAndLogsWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
+            {
+                OutputDirectory = validFilePath,
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctNamesInChildren()
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
+                             .Return(calculator);
+
+            const string performedCalculationMessage = "Calculation successful";
+            var messageProvider = mocks.StrictMock<IStructuresCalculationMessageProvider>();
+            messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(validFilePath)).Return(performedCalculationMessage);
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new TestStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    ShouldIllustrationPointsBeCalculated = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var service = new TestStructuresCalculationService(messageProvider);
+
+                // Call
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                {
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
+                                    "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual(performedCalculationMessage, msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);

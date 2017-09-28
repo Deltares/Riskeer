@@ -277,7 +277,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping, calculation.Name) + " " + e.Message);
+                log.Error(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping, calculation.Name) + " " + e.Message);
             }
 
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
@@ -676,7 +676,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_dike_height, calculationName) + " " + e.Message);
+                log.Error(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_dike_height, calculationName) + " " + e.Message);
             }
 
             return new DikeHeightOutput(dikeHeight, targetProbability,
@@ -726,7 +726,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping_rate, calculationName) + " " + e.Message);
+                log.Error(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping_rate, calculationName) + " " + e.Message);
             }
 
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,
