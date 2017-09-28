@@ -26,9 +26,9 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
 {
     /// <summary>
-    /// Helper that can be used in tests.
+    /// Class for asserting Uplift Van calculator output.
     /// </summary>
-    public static class UpliftVanCalculatorOutputHelper
+    public static class UpliftVanCalculatorOutputAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.

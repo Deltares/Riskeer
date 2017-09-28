@@ -136,11 +136,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                      })
                      .ToDictionary(x => x.layer, x => x.soil);
 
-            UpliftVanKernelInputHelper.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
-            UpliftVanKernelInputHelper.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
-            UpliftVanKernelInputHelper.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
-            UpliftVanKernelInputHelper.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
-            UpliftVanKernelInputHelper.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input), upliftVanKernel.SlipPlaneUpliftVan);
+            UpliftVanKernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
+            UpliftVanKernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
+            UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
+            UpliftVanKernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
+            UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input), upliftVanKernel.SlipPlaneUpliftVan);
 
             Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
             Assert.AreEqual(input.CreateZones, upliftVanKernel.CreateZones);
@@ -168,9 +168,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(upliftVanKernel.ZValue, result.ZValue);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, result.ForbiddenZonesXEntryMax);
             Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, result.ForbiddenZonesXEntryMin);
-            UpliftVanCalculatorOutputHelper.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
+            UpliftVanCalculatorOutputAssert.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                                                                result.SlidingCurveResult);
-            UpliftVanCalculatorOutputHelper.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
+            UpliftVanCalculatorOutputAssert.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                                                                 result.CalculationGridResult);
         }
 
@@ -289,7 +289,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     },
                     Enumerable.Empty<Point2D[]>(),
                     new UpliftVanSoilLayer.ConstructionProperties())
-            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
+            }, new[]
+            {
+                new UpliftVanPreconsolidationStress(new Point2D(0, 0), 1.1)
+            });
         }
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()

@@ -59,9 +59,9 @@
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryConfig.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTestFactory.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactory.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorOutputHelper.cs" />
+    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorOutputAssert.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactory.cs" />
-    <Compile Include="Kernels\UpliftVan\Input\UpliftVanKernelInputHelper.cs" />
+    <Compile Include="Kernels\UpliftVan\Input\UpliftVanKernelInputAssert.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Kernels\TestMacroStabilityInwardsKernelFactory.cs" />

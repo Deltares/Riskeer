@@ -27,9 +27,9 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// Helper that can be used in tests.
+    /// Class for asserting Uplift Van kernel input.
     /// </summary>
-    public static class UpliftVanKernelInputHelper
+    public static class UpliftVanKernelInputAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
@@ -160,8 +160,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.Length, actual.Length);
 
             for (var i = 0; i < expected.Length; i++)
-            {
-                PreConsolidationStress expectedPreconsolidationStress = expected[i];
+            {PreConsolidationStress
+                 expectedPreconsolidationStress = expected[i];
                 PreConsolidationStress actualPreconsolidationStress = actual[i];
 
                 Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
