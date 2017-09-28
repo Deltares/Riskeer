@@ -44,6 +44,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// for every combination of wind directions and closing situations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input
         /// parameters is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when one of the input parameters
+        /// is invalid (duplicate items, missing items)</exception>
         public GeneralResult(WindDirection governingWindDirection,
                              IEnumerable<Stochast> stochasts,
                              IEnumerable<T> topLevelIllustrationPoints)

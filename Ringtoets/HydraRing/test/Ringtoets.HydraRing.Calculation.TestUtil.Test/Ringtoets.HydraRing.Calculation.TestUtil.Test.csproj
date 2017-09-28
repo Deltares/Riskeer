@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="HydraRingDataEqualityHelperTest.cs" />
     <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPointTest.cs" />
+    <Compile Include="IllustrationPoints\GeneralResultTestFactoryTest.cs" />
     <Compile Include="IllustrationPoints\TestGeneralResultTest.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestWindDirectionTest.cs" />

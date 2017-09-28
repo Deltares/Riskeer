@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// </summary>
         /// <param name="children">The children that are attached to this node.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="children"/>
-        /// does not contain 0 or 2 elements.</exception>
+        /// does not contain 0 or 2 elements or when the children are invalid (duplicates, missing items).</exception>
         public void SetChildren(IllustrationPointNode[] children)
         {
             if (children == null)

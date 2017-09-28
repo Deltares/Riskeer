@@ -43,6 +43,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// tree node element in the fault tree.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
         /// <paramref name="stochasts"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when one of the input parameters
+        /// is invalid (duplicate items, missing items)</exception>
         public FaultTreeIllustrationPoint(string name,
                                           double beta,
                                           IEnumerable<Stochast> stochasts,
