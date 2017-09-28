@@ -49,6 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 SearchAlgorithm = SearchAlgorithm.Grid,
                 GridOrientation = GridOrientation.Inwards,
                 SlipPlaneConstraints = new SlipPlaneConstraints(),
+                SlipCircle = new SlipCircle(),
                 GeneticAlgorithmOptions = new GeneticAlgorithmOptions
                 {
                     EliteCount = 2,
@@ -65,6 +66,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                     Seed = 1
                 }
             };
+
+            FactorOfStability = double.NaN;
+            ZValue = double.NaN;
+            ForbiddenZonesXEntryMin = double.NaN;
+            ForbiddenZonesXEntryMax = double.NaN;
         }
 
         public SoilModel SoilModel
@@ -127,10 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             set
             {
-                stabilityModel.SlipCircle = new SlipCircle
-                {
-                    Auto = value
-                };
+                stabilityModel.SlipCircle.Auto = value;
             }
         }
 

@@ -35,6 +35,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
+            Assert.IsNaN(kernel.FactorOfStability);
+            Assert.IsNaN(kernel.ZValue);
+            Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
+            Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
+            Assert.IsNull(kernel.SlidingCurveResult);
+            Assert.IsNull(kernel.SlipPlaneResult);
         }
     }
 }
