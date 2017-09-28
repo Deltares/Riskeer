@@ -267,8 +267,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var faultTreeNodeRootWithChildren = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             faultTreeNodeRootWithChildren.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
             });
 
             return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(WindDirectionTestFactory.CreateTestWindDirection(),

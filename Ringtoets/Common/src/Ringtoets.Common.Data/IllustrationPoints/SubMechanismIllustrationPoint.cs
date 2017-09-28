@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -37,6 +39,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <param name="beta">The beta value that was realized.</param>
         /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
         /// <param name="illustrationPointResults">The output variables.</param>
+        /// <exception cref="ArgumentException">Thrown when the names of the <paramref name="stochasts"/> are not unique.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of: 
         /// <list type="bullet">
         /// <item><paramref name="name"/></item>
@@ -58,6 +61,9 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(illustrationPointResults));
             }
+
+            ValidateStochasts(stochasts);
+            ValidateResults(illustrationPointResults);
 
             Stochasts = stochasts;
             IllustrationPointResults = illustrationPointResults;
@@ -81,6 +87,24 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             clone.IllustrationPointResults = IllustrationPointResults.Select(r => (IllustrationPointResult) r.Clone()).ToArray();
 
             return clone;
+        }
+
+        private static void ValidateResults(IEnumerable<IllustrationPointResult> illustrationPointResults)
+        {
+            bool nonDistinct = illustrationPointResults.AnyNonDistinct(i => i.Description);
+            if (nonDistinct)
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_results));
+            }
+        }
+
+        private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
+        {
+            bool hasNonDistinctStochasts = stochasts.AnyNonDistinct(s => s.Name);
+            if (hasNonDistinctStochasts)
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
+            }
         }
     }
 }

@@ -91,8 +91,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             topLevel.FaultTreeNodeRoot.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("A")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
             });
 
             // Call

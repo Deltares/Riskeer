@@ -66,6 +66,20 @@ namespace Ringtoets.Common.Data.TestUtil.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/> with <see cref="CombinationType"/> 
+        /// set to <see cref="CombinationType.And"/>.
+        /// </summary>
+        /// <param name="name">The name of the illustration point.</param>
+        /// <returns>The created <see cref="FaultTreeIllustrationPoint"/>.</returns>
+        public static FaultTreeIllustrationPoint CreateTestFaultTreeIllustrationPointCombinationTypeAnd(string name)
+        {
+            return new FaultTreeIllustrationPoint(name,
+                                                  1.23,
+                                                  Enumerable.Empty<Stochast>(),
+                                                  CombinationType.And);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FaultTreeIllustrationPoint"/> with <see cref="CombinationType"/> 
         /// set to <see cref="CombinationType.Or"/>.
         /// </summary>
         /// <param name="beta">The beta value of the illustration point.</param>

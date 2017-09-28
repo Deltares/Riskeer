@@ -29,7 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
     public class TestSubMechanismIllustrationPointTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
             var illustrationPoint = new TestSubMechanismIllustrationPoint();
@@ -37,6 +37,20 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             // Assert
             Assert.IsInstanceOf<SubMechanismIllustrationPoint>(illustrationPoint);
             Assert.AreEqual("Illustration point", illustrationPoint.Name);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+            CollectionAssert.IsEmpty(illustrationPoint.Results);
+            Assert.AreEqual(1, illustrationPoint.Beta);
+        }
+
+        [Test]
+        public void Constructor_WithName_ExpectedValues()
+        {
+            // Call
+            var illustrationPoint = new TestSubMechanismIllustrationPoint("Point name");
+
+            // Assert
+            Assert.IsInstanceOf<SubMechanismIllustrationPoint>(illustrationPoint);
+            Assert.AreEqual("Point name", illustrationPoint.Name);
             CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
             CollectionAssert.IsEmpty(illustrationPoint.Results);
             Assert.AreEqual(1, illustrationPoint.Beta);

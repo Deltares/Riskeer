@@ -86,6 +86,33 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
+        public void Constructor_StochastNotUnique_ThrowArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            var stochasts = new[]
+            {
+                new Stochast("unique", 0, 0),
+                new Stochast("non-unique", 0, 0),
+                new Stochast("non-unique", 0, 0),
+                new Stochast("nonunique", 0, 0),
+                new Stochast("nonunique", 0, 0)
+            };
+
+            // Call
+            TestDelegate test = () => new FaultTreeIllustrationPoint("Point A",
+                                                                     random.NextDouble(),
+                                                                     stochasts,
+                                                                     CombinationType.And);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup

@@ -143,7 +143,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
 
             var hydraRingFaultTreeIllustrationPointChildOne = new HydraRingFaultTreeIllustrationPoint("fault tree child one",
                                                                                                       random.NextDouble(),
-                                                                                                      Enumerable.Empty<HydraRingStochast>(),
+                                                                                                      new[]
+                                                                                                      {
+                                                                                                          hydraRingStochast
+                                                                                                      },
                                                                                                       HydraRingCombinationType.Or);
 
             var hydraRingFaultTreeIllustrationPointChildTwo = new HydraRingSubMechanismIllustrationPoint("fault tree child two",
@@ -186,7 +189,10 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             CollectionAssert.IsEmpty(children[1].Children);
 
             var childOne = (FaultTreeIllustrationPoint) children[0].Data;
-            CollectionAssert.IsEmpty(childOne.Stochasts);
+            Stochast childStochast = illustrationPointData.Stochasts.Single();
+            Assert.AreEqual(hydraRingStochast.Alpha, childStochast.Alpha, childStochast.Alpha.GetAccuracy());
+            Assert.AreEqual(hydraRingStochast.Duration, childStochast.Duration, childStochast.Duration.GetAccuracy());
+            Assert.AreEqual(hydraRingStochast.Name, childStochast.Name);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPointChildOne.Name, childOne.Name);
             Assert.AreEqual(hydraRingFaultTreeIllustrationPointChildOne.Beta, childOne.Beta, childOne.Beta.GetAccuracy());
             Assert.AreEqual(CombinationType.Or, childOne.CombinationType);

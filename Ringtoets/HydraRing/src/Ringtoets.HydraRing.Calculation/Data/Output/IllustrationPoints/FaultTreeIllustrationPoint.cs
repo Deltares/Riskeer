@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
 {
@@ -52,6 +54,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
                 throw new ArgumentNullException(nameof(stochasts));
             }
 
+            ValidateStochasts(stochasts);
+
             Beta = beta;
             CombinationType = combinationType;
             Name = name;
@@ -78,5 +82,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
         /// obtain a result for the fault tree illustration point.
         /// </summary>
         public CombinationType CombinationType { get; }
+
+        private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
+        {
+            bool hasNonDistinctStochasts = stochasts.AnyNonDistinct(s => s.Name);
+            if (hasNonDistinctStochasts)
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
+            }
+        }
     }
 }

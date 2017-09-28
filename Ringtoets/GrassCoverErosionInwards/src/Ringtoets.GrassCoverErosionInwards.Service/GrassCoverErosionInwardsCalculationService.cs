@@ -267,10 +267,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                calculation.Name,
                                Resources.GrassCoverErosionInwardsCalculationService_Overtopping);
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated
-                                                                                  ? ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult,
-                                                                                                                    overtoppingCalculator.IllustrationPointsParserErrorMessage)
-                                                                                  : null;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
+            try
+            {
+                generalResult = calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated
+                                    ? ConvertIllustrationPointsResult(overtoppingCalculator.IllustrationPointsResult,
+                                                                      overtoppingCalculator.IllustrationPointsParserErrorMessage)
+                                    : null;
+            }
+            catch (ArgumentException e)
+            {
+                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping, calculation.Name) + " " + e.Message);
+            }
 
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
                                                           overtoppingCalculator.IsOvertoppingDominant,
@@ -658,10 +666,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                   calculationName));
             }
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = shouldIllustrationPointsBeCalculated
-                                                                                  ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
-                                                                                                                    calculator.IllustrationPointsParserErrorMessage)
-                                                                                  : null;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
+            try
+            {
+                generalResult = shouldIllustrationPointsBeCalculated
+                                    ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
+                                                                      calculator.IllustrationPointsParserErrorMessage)
+                                    : null;
+            }
+            catch (ArgumentException e)
+            {
+                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_dike_height, calculationName) + " " + e.Message);
+            }
 
             return new DikeHeightOutput(dikeHeight, targetProbability,
                                         targetReliability, probability, reliability,
@@ -700,10 +716,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                   calculationName));
             }
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = shouldIllustrationPointsBeCalculated
-                                                                                  ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
-                                                                                                                    calculator.IllustrationPointsParserErrorMessage)
-                                                                                  : null;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
+            try
+            {
+                generalResult = shouldIllustrationPointsBeCalculated
+                                    ? ConvertIllustrationPointsResult(calculator.IllustrationPointsResult,
+                                                                      calculator.IllustrationPointsParserErrorMessage)
+                                    : null;
+            }
+            catch (ArgumentException e)
+            {
+                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping_rate, calculationName) + " " + e.Message);
+            }
 
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,
                                              targetReliability, probability, reliability,

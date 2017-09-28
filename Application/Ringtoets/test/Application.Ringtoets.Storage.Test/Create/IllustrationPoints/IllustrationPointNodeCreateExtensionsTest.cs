@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             // Setup
             var random = new Random(21);
 
-            var illustrationPoint = new FaultTreeIllustrationPoint("Illustration point name",
+            var illustrationPoint = new FaultTreeIllustrationPoint("Illustration point name A",
                                                                    random.NextDouble(),
                                                                    Enumerable.Empty<Stochast>(),
                                                                    random.NextEnumValue<CombinationType>());
@@ -164,32 +164,32 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
         {
             yield return new TestCaseData(new List<IllustrationPointNode>
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
             }).SetName("SubMechanismIllustrationPoints");
 
             yield return new TestCaseData(new List<IllustrationPointNode>
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd("B"))
             }).SetName("SubMechanismAndFaultTreeIllustrationPoints");
 
             yield return new TestCaseData(new List<IllustrationPointNode>
             {
-                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()),
-                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd("A")),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd("B"))
             }).SetName("FaultTreeIllustrationPoints");
 
-            var node = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint());
+            var node = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd("A"));
             node.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B")),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd("C"))
             });
 
             yield return new TestCaseData(new List<IllustrationPointNode>
             {
-                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint()),
+                new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd("AA")),
                 node
             }).SetName("FaultTreeIllustrationPointsWithChildren");
         }

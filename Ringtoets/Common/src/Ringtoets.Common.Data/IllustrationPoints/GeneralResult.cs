@@ -61,6 +61,11 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(topLevelIllustrationPoints));
             }
 
+            IEnumerable<TopLevelFaultTreeIllustrationPoint> points = topLevelIllustrationPoints.OfType<TopLevelFaultTreeIllustrationPoint>();
+            if (points.Any())
+            {
+                ValidateStochastInChildren(points, stochasts);
+            }
             ValidateStochasts(stochasts);
             ValidateTopLevelIllustrationPoints(topLevelIllustrationPoints);
 
@@ -93,6 +98,45 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             clone.TopLevelIllustrationPoints = TopLevelIllustrationPoints.Select(s => (T) s.Clone()).ToArray();
 
             return clone;
+        }
+
+        private void ValidateStochastInChildren(IEnumerable<TopLevelFaultTreeIllustrationPoint> topLevelFaultTreeIllustrationPoints, IEnumerable<Stochast> stochasts)
+        {
+            var childStochastNames = new List<string>();
+
+            foreach (TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint in topLevelFaultTreeIllustrationPoints)
+            {
+                IllustrationPointNode nodeRoot = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot;
+                childStochastNames.AddRange(GetStochastNamesFromChildren(nodeRoot));
+            }
+            childStochastNames = childStochastNames.Distinct().ToList();
+            IEnumerable<string> topLevelStochastNames = stochasts.Select(s => s.Name);
+
+            if (childStochastNames.Except(topLevelStochastNames).Any())
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_top_level_stochasts));
+            }
+        }
+
+        private IEnumerable<string> GetStochastNamesFromChildren(IllustrationPointNode nodeRoot)
+        {
+            var stochastNames = new List<string>();
+            var faultTreeData = nodeRoot.Data as FaultTreeIllustrationPoint;
+            if (faultTreeData != null)
+            {
+                stochastNames.AddRange(faultTreeData.Stochasts.Select(s => s.Name));
+                foreach (IllustrationPointNode illustrationPointNode in nodeRoot.Children)
+                {
+                    stochastNames.AddRange(GetStochastNamesFromChildren(illustrationPointNode));
+                }
+                return stochastNames;
+            }
+            var subMechanismData = nodeRoot.Data as SubMechanismIllustrationPoint;
+            if (subMechanismData != null)
+            {
+                stochastNames.AddRange(subMechanismData.Stochasts.Select(s => s.Name));
+            }
+            return stochastNames;
         }
 
         private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)

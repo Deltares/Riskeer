@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
@@ -79,6 +80,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentException(Resources.IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
                                             nameof(children));
             }
+
+            var faultTreeData = Data as FaultTreeIllustrationPoint;
+            if (faultTreeData != null)
+            {
+                ValidateChildren(faultTreeData, children);
+            }
+
             Children = children;
         }
 
@@ -90,6 +98,37 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             clone.Children = Children.Select(c => (IllustrationPointNode) c.Clone()).ToArray();
 
             return clone;
+        }
+
+        private static void ValidateChildren(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
+        {
+            // Validate child names
+            IEnumerable<IllustrationPointNode> illustrationPointNodes = children as IList<IllustrationPointNode> ?? children.ToList();
+            if (illustrationPointNodes.AnyNonDistinct(c => c.Data.Name))
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_child_names));
+            }
+
+            // Validate child stochasts
+            var stochastNames = new List<string>();
+            foreach (IllustrationPointNode illustrationPointNode in illustrationPointNodes)
+            {
+                var faultTreeData = illustrationPointNode.Data as FaultTreeIllustrationPoint;
+                if (faultTreeData != null)
+                {
+                    stochastNames.AddRange(faultTreeData.Stochasts.Select(s => s.Name));
+                    continue;
+                }
+                var subMechanismData = illustrationPointNode.Data as SubMechanismIllustrationPoint;
+                if (subMechanismData != null)
+                {
+                    stochastNames.AddRange(subMechanismData.Stochasts.Select(s => s.Name));
+                }
+            }
+            if (data.Stochasts.Select(s => s.Name).Intersect(stochastNames).Count() != stochastNames.Distinct().Count())
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_top_level_stochasts));
+            }
         }
     }
 }

@@ -158,5 +158,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_OvertoppingRate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de HBN illustratiepunten voor berekening {0}:.
+        /// </summary>
+        internal static string SetGeneralResult_Error_while_converting_generalresult_dike_height {
+            get {
+                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult_dike_height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de overloop en overslag illustratiepunten voor berekening {0}:.
+        /// </summary>
+        internal static string SetGeneralResult_Error_while_converting_generalresult_overtopping {
+            get {
+                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult_overtopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de overslagdebiet illustratiepunten voor berekening {0}:.
+        /// </summary>
+        internal static string SetGeneralResult_Error_while_converting_generalresult_overtopping_rate {
+            get {
+                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult_overtopping_rate", resourceCulture);
+            }
+        }
     }
 }

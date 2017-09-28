@@ -112,6 +112,58 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
+        public void Constructor_StochastNotUnique_ThrowArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            var stochasts = new[]
+            {
+                new SubMechanismIllustrationPointStochast("unique", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("non-unique", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", 0, 0, 0),
+                new SubMechanismIllustrationPointStochast("nonunique", 0, 0, 0)
+            };
+
+            // Call
+            TestDelegate test = () => new SubMechanismIllustrationPoint("Point A",
+                                                                        random.NextDouble(),
+                                                                        stochasts,
+                                                                        Enumerable.Empty<IllustrationPointResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
+        public void Constructor_IllustrationPointResultsNotUnique_ThrowArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            var results = new[]
+            {
+                new IllustrationPointResult("non-unique", 0),
+                new IllustrationPointResult("non-unique", 0),
+                new IllustrationPointResult("unique", 0)
+            };
+
+            // Call
+            TestDelegate test = () => new SubMechanismIllustrationPoint("Point A",
+                                                                        random.NextDouble(),
+                                                                        Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                                                                        results);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Een of meerdere resultaten hebben dezelfde naam. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup

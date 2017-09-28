@@ -456,7 +456,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 0.5,
                                 new[]
                                 {
-                                    new Stochast("FaultTreeIllustrationPoint stochast", 1, 2.58)
+                                    new Stochast("Stochast", 0.1, 0.9)
                                 }, CombinationType.And
                             ))
                     )

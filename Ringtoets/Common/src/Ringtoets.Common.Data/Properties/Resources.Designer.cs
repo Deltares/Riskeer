@@ -555,6 +555,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string GeneralResult_Imported_non_unique_child_names {
+            get {
+                return ResourceManager.GetString("GeneralResult_Imported_non_unique_child_names", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_closing_situations_or_wind_direction {
@@ -564,11 +573,29 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string GeneralResult_Imported_non_unique_results {
+            get {
+                return ResourceManager.GetString("GeneralResult_Imported_non_unique_results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_stochasts {
             get {
                 return ResourceManager.GetString("GeneralResult_Imported_non_unique_stochasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string GeneralResult_Imported_with_incorrect_top_level_stochasts {
+            get {
+                return ResourceManager.GetString("GeneralResult_Imported_with_incorrect_top_level_stochasts", resourceCulture);
             }
         }
         

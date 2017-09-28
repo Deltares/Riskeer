@@ -195,9 +195,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
             Assert.NotNull(generalResult);
             Assert.NotNull(generalResult.GoverningWindDirection);
             Assert.AreEqual(30, generalResult.GoverningWindDirection.Angle);
-            Assert.AreEqual(" 30,0", generalResult.GoverningWindDirection.Name);
-            Assert.AreEqual(-0.122527, generalResult.Beta);
-            Assert.AreEqual(46, generalResult.Stochasts.Count());
+            Assert.AreEqual(" 30", generalResult.GoverningWindDirection.Name);
+            Assert.AreEqual(-3.74187, generalResult.Beta);
+            Assert.AreEqual(44, generalResult.Stochasts.Count());
 
             Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode> illustrationPointNodes = generalResult.IllustrationPoints;
             Assert.AreEqual(12, illustrationPointNodes.Count);
@@ -225,27 +225,27 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers.IllustrationPoints
 
             Assert.AreEqual(12, subMechanisms.Count);
             SubMechanismIllustrationPoint subMechanismIllustrationPoint = subMechanisms.First();
-            Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
+            Assert.AreEqual("Bezwijken kunstwerk als gevolg van erosie bodem", subMechanismIllustrationPoint.Name);
             Assert.AreEqual(-7.94268, subMechanismIllustrationPoint.Beta);
             Assert.AreEqual(new[]
             {
-                Tuple.Create("Faalkans kunstwerk gegeven erosie bodem", -1.0, 4383.0, -7.94268)
+                Tuple.Create("Faalkans gegeven erosie bodem", -1.0, 4383.0, -7.94268)
             }, subMechanismIllustrationPoint.Stochasts.Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration, s.Realization)));
             CollectionAssert.IsEmpty(subMechanismIllustrationPoint.Results);
 
             FaultTreeIllustrationPoint faultTreeIllustrationPoint = faultTrees.First();
-            Assert.AreEqual("Structure 2017 Z12", subMechanismIllustrationPoint.Name);
-            Assert.AreEqual(2.23881, faultTreeIllustrationPoint.Beta);
+            Assert.AreEqual("Bezwijken kunstwerk als gevolg van erosie bodem", subMechanismIllustrationPoint.Name);
+            Assert.AreEqual(0.508398, faultTreeIllustrationPoint.Beta);
             Assert.AreEqual(CombinationType.Or, faultTreeIllustrationPoint.CombinationType);
-            Assert.AreEqual(46, faultTreeIllustrationPoint.Stochasts.Count());
+            Assert.AreEqual(44, faultTreeIllustrationPoint.Stochasts.Count());
             Assert.AreEqual(new[]
             {
-                Tuple.Create("Kerende hoogte van het kunstwerk", 0.0, 4383.0),
+                Tuple.Create("Kerende hoogte", 0.0, 4383.0),
                 Tuple.Create("Modelfactor voor onvolkomen stroming", 0.0, 4383.0),
-                Tuple.Create("Drempelhoogte niet gesloten kering of Hoogte van de onderkant van de wand/drempel", 0.0, 4383.0),
-                Tuple.Create("Afvoercoefficient", -0.000743268, 4383.0),
-                Tuple.Create("Doorstroomoppervlak van doorstroomopeningen", -1.48258e-05, 4383.0),
-                Tuple.Create("Constructieve sterkte lineair belastingmodel stabiliteit", 0.011086, 4383.0)
+                Tuple.Create("Drempelhoogte", 0.0, 4383.0),
+                Tuple.Create("Afvoercoefficient", -3.91812E-07, 4383.0),
+                Tuple.Create("Doorstroomoppervlak", 3.93695E-08, 4383.0),
+                Tuple.Create("Lineaire belastingschematisering constructieve sterkte", 0.214064, 4383.0)
             }, faultTreeIllustrationPoint.Stochasts.Take(6).Select(s => Tuple.Create(s.Name, s.Alpha, s.Duration)));
         }
 

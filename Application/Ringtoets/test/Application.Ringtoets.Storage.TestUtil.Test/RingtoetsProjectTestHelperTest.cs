@@ -439,9 +439,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(0.5, faultTreeIllustrationPoint.Beta, faultTreeIllustrationPoint.Beta.GetAccuracy());
 
             Stochast innerStochast = faultTreeIllustrationPoint.Stochasts.Single();
-            Assert.AreEqual("FaultTreeIllustrationPoint stochast", innerStochast.Name);
-            Assert.AreEqual(2.58, innerStochast.Alpha, innerStochast.Alpha.GetAccuracy());
-            Assert.AreEqual(1, innerStochast.Duration, innerStochast.Duration.GetAccuracy());
+            Assert.AreEqual("Stochast", innerStochast.Name);
+            Assert.AreEqual(0.9, innerStochast.Alpha, innerStochast.Alpha.GetAccuracy());
+            Assert.AreEqual(0.1, innerStochast.Duration, innerStochast.Duration.GetAccuracy());
         }
 
         #region Hydraulic Boundary Database

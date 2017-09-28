@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateTestFaultTreeIllustrationPointCombinationTypeAnd_ValidParameter_ReturnsExpectedProperties()
+        public void CreateTestFaultTreeIllustrationPointCombinationTypeAnd_ValidBetaParameter_ReturnsExpectedProperties()
         {
             // Setup
             double beta = new Random().NextDouble();
@@ -76,6 +76,24 @@ namespace Ringtoets.Common.Data.TestUtil.Test.IllustrationPoints
 
             Assert.AreEqual("Illustration point", illustrationPoint.Name);
             Assert.AreEqual(beta, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
+            Assert.AreEqual(CombinationType.And, illustrationPoint.CombinationType);
+            CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
+        }
+
+        [Test]
+        public void CreateTestFaultTreeIllustrationPointCombinationTypeAnd_ValidNameParameter_ReturnsExpectedProperties()
+        {
+            // Setup
+            const string name = "Random name";
+
+            // Call
+            FaultTreeIllustrationPoint illustrationPoint = FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPointCombinationTypeAnd(name);
+
+            // Assert
+            Assert.IsInstanceOf<FaultTreeIllustrationPoint>(illustrationPoint);
+
+            Assert.AreEqual(name, illustrationPoint.Name);
+            Assert.AreEqual(1.23, illustrationPoint.Beta, illustrationPoint.Beta.GetAccuracy());
             Assert.AreEqual(CombinationType.And, illustrationPoint.CombinationType);
             CollectionAssert.IsEmpty(illustrationPoint.Stochasts);
         }

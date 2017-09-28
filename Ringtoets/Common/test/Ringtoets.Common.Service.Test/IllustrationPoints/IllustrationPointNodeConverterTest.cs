@@ -130,14 +130,14 @@ namespace Ringtoets.Common.Service.Test.IllustrationPoints
             var nestedHydraRingIllustrationPointTreeNodes = new HydraRingIllustrationPointTreeNode(new TestHydraRingFaultTreeIllustrationPoint());
             nestedHydraRingIllustrationPointTreeNodes.SetChildren(new[]
             {
-                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()),
-                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint())
+                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint("Point A")),
+                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint("Point B"))
             });
 
             var hydraRingIllustrationPointRootTreeNode = new HydraRingIllustrationPointTreeNode(new TestHydraRingFaultTreeIllustrationPoint());
             hydraRingIllustrationPointRootTreeNode.SetChildren(new[]
             {
-                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint()),
+                new HydraRingIllustrationPointTreeNode(new TestHydraRingSubMechanismIllustrationPoint("Point C")),
                 nestedHydraRingIllustrationPointTreeNodes
             });
 

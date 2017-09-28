@@ -112,6 +112,59 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
+        public void SetChildren_ChildNamesNotUnique_ThrowArgumentException()
+        {
+            // Setup
+            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint("Top"));
+            var childrenToBeAdded = new[]
+            {
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("A")),
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("A"))
+            };
+
+            // Call
+            TestDelegate test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
+        public void SetChildren_ChildContainsDifferentStochasts_ThrowArgumentException()
+        {
+            // Setup
+            var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("Top",
+                                                                                                 0.0,
+                                                                                                 new[]
+                                                                                                 {
+                                                                                                     new Stochast("Stochast A", 0, 0)
+                                                                                                 },
+                                                                                                 CombinationType.And));
+            var childrenToBeAdded = new[]
+            {
+                new IllustrationPointNode(new FaultTreeIllustrationPoint("A",
+                                                                         0.0,
+                                                                         new[]
+                                                                         {
+                                                                             new Stochast("Stochast B", 0, 0)
+                                                                         }, CombinationType.Or)),
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("B"))
+            };
+
+            // Call
+            TestDelegate test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
+                            exception.Message);
+        }
+
+        [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup

@@ -54,5 +54,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
         {
             Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", actual);
         }
+
+        public static void AssertGeneralResultNonDistinctStochasts(string calculationDescription, string calculationName, string actual)
+        {
+            Assert.AreEqual($"Fout bij het uitlezen van de {calculationDescription} illustratiepunten voor berekening {calculationName}: " +
+                            "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
+        }
+
+        public static void AssertGeneralResultNonDistinctIllustrationPoints(string calculationDescription, string calculationName, string actual)
+        {
+            Assert.AreEqual($"Fout bij het uitlezen van de {calculationDescription} illustratiepunten voor berekening {calculationName}: " +
+                            "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
+        }
+
+        public static void AssertGeneralResultNonDistinctIllustrationPointResults(string calculationDescription, string calculationName, string actual)
+        {
+            Assert.AreEqual($"Fout bij het uitlezen van de {calculationDescription} illustratiepunten voor berekening {calculationName}: " +
+                            "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
+        }
+
+        public static void AssertGeneralResultIncorrectTopLevelStochasts(string calculationDescription, string calculationName, string actual)
+        {
+            Assert.AreEqual($"Fout bij het uitlezen van de {calculationDescription} illustratiepunten voor berekening {calculationName}: " +
+                            "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
+        }
+
+        public static void AssertGeneralResultNonDistinctChildNames(string calculationDescription, string calculationName, string actual)
+        {
+            Assert.AreEqual($"Fout bij het uitlezen van de {calculationDescription} illustratiepunten voor berekening {calculationName}: " +
+                            "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
+                            "Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
+        }
     }
 }

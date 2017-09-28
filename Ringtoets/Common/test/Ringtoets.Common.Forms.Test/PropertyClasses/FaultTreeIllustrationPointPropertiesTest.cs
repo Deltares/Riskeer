@@ -107,14 +107,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                                      stochast
                                                                                                  },
                                                                                                  CombinationType.And));
-            var illustrationPointNodeChild = new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree child",
-                                                                                                      3.5,
-                                                                                                      new Stochast[0],
-                                                                                                      CombinationType.Or));
+            var illustrationPointNodeChild1 = new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree child",
+                                                                                                       3.5,
+                                                                                                       new[]
+                                                                                                       {
+                                                                                                           stochast
+                                                                                                       },
+                                                                                                       CombinationType.Or));
+            var illustrationPointNodeChild2 = new IllustrationPointNode(new FaultTreeIllustrationPoint("Fault tree child 2",
+                                                                                                       3.5,
+                                                                                                       new Stochast[0],
+                                                                                                       CombinationType.Or));
             var illustrationPointNodeChildren = new[]
             {
-                illustrationPointNodeChild,
-                illustrationPointNodeChild
+                illustrationPointNodeChild1,
+                illustrationPointNodeChild2
             };
             illustrationPointNode.SetChildren(illustrationPointNodeChildren);
 
@@ -170,8 +177,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
             });
 
             // Call
@@ -238,8 +245,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
             });
 
             // Call

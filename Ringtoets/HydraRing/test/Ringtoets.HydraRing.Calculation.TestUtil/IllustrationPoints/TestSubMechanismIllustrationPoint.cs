@@ -35,5 +35,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
         public TestSubMechanismIllustrationPoint()
             : base("Illustration point", Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
                    Enumerable.Empty<IllustrationPointResult>(), 1) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestSubMechanismIllustrationPoint"/>.
+        /// </summary>
+        /// <param name="name">The name of the illustration point</param>
+        public TestSubMechanismIllustrationPoint(string name)
+            : base(name, Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
+                   Enumerable.Empty<IllustrationPointResult>(), 1) {}
     }
 }

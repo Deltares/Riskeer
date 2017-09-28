@@ -182,6 +182,208 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         }
 
         [Test]
+        [TestCase("description", "output")]
+        [TestCase("", null)]
+        [TestCase(null, "")]
+        public void AssertGeneralResultNonDistinctStochasts_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+            string description, string name)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                    description,
+                    name,
+                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertGeneralResultNonDistinctStochasts_NotEqualMessage_ThrowsAssertionException(
+            string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                    string.Empty,
+                    string.Empty,
+                    message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCase("description", "output")]
+        [TestCase("", null)]
+        [TestCase(null, "")]
+        public void AssertGeneralResultNonDistinctIllustrationPoints_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+            string description, string name)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                    description,
+                    name,
+                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertGeneralResultNonDistinctIllustrationPoints_NotEqualMessage_ThrowsAssertionException(
+            string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                    string.Empty,
+                    string.Empty,
+                    message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCase("description", "output")]
+        [TestCase("", null)]
+        [TestCase(null, "")]
+        public void AssertGeneralResultNonDistinctIllustrationPointResults_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+            string description, string name)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                    description,
+                    name,
+                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertGeneralResultNonDistinctIllustrationPointResults_NotEqualMessage_ThrowsAssertionException(
+            string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                    string.Empty,
+                    string.Empty,
+                    message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCase("description", "output")]
+        [TestCase("", null)]
+        [TestCase(null, "")]
+        public void AssertGeneralResultIncorrectTopLevelStochasts_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+            string description, string name)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultIncorrectTopLevelStochasts(
+                    description,
+                    name,
+                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                    "Het uitlezen van illustratiepunten wordt overgeslagen.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertGeneralResultIncorrectTopLevelStochasts_NotEqualMessage_ThrowsAssertionException(
+            string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultIncorrectTopLevelStochasts(
+                    string.Empty,
+                    string.Empty,
+                    message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        [TestCase("description", "output")]
+        [TestCase("", null)]
+        [TestCase(null, "")]
+        public void AssertGeneralResultNonDistinctChildNames_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+            string description, string name)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                    description,
+                    name,
+                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
+                    "Het uitlezen van illustratiepunten wordt overgeslagen.");
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+                  "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void AssertGeneralResultNonDistinctChildNames_NotEqualMessage_ThrowsAssertionException(
+            string message)
+        {
+            // Call
+            TestDelegate test = () =>
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                    string.Empty,
+                    string.Empty,
+                    message);
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
         public void AssertGeneralResultNotSetMessage_EqualMessage_DoesNotThrow()
         {
             // Call

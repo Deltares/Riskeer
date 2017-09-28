@@ -80,8 +80,8 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
             var illustrationPointNode = new IllustrationPointNode(FaultTreeIllustrationPointTestFactory.CreateTestFaultTreeIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("0")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("1"))
             });
 
             var topLevelIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(
@@ -103,9 +103,9 @@ namespace Application.Ringtoets.Storage.Test.Create.IllustrationPoints
                 entity.FaultTreeIllustrationPointEntity.SubMechanismIllustrationPointEntities.ToArray();
             Assert.AreEqual(2, subMechanismIllustrationPointEntities.Length);
 
-            var expectedIllustrationPoint = new TestSubMechanismIllustrationPoint();
             for (var i = 0; i < 2; i++)
             {
+                var expectedIllustrationPoint = new TestSubMechanismIllustrationPoint(i.ToString());
                 SubMechanismIllustrationPointEntity illustrationPointEntity = subMechanismIllustrationPointEntities[i];
                 Assert.AreEqual(expectedIllustrationPoint.Name, illustrationPointEntity.Name);
                 Assert.AreEqual(expectedIllustrationPoint.Beta, illustrationPointEntity.Beta, expectedIllustrationPoint.Beta.GetAccuracy());

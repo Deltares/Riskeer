@@ -66,8 +66,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
                 rootNode.SetChildren(new[]
                 {
-                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint()),
-                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
                 });
 
                 control.Data = new TopLevelFaultTreeIllustrationPoint(
@@ -150,11 +150,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
 
-                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint("A"));
                 rootNode.SetChildren(new[]
                 {
                     illustrationPointNode,
-                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint())
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
                 });
 
                 control.Data = new TopLevelFaultTreeIllustrationPoint(
@@ -166,43 +166,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 control.SelectionChanged += (sender, args) => selectionChanged++;
 
                 PointedTreeElementVertex selectedVertex = GetPointedTreeGraph(control).Vertices.ElementAt(2);
-
-                // When
-                selectedVertex.IsSelected = true;
-
-                // Then
-                object selection = control.Selection;
-                Assert.AreSame(illustrationPointNode, selection);
-                Assert.AreEqual(1, selectionChanged);
-            }
-        }
-
-        [Test]
-        [TestCase(2, TestName = "GivenControlWithDuplicatedData_WhenVertex2Selected_SelectionSetToCorrespondingIllustrationPointNode")]
-        [TestCase(3, TestName = "GivenControlWithDuplicatedData_WhenVertex3Selected_SelectionSetToCorrespondingIllustrationPointNode")]
-        public void GivenControlWithDuplicatedData_WhenVertexSelected_SelectionSetToCorrespondingIllustrationPointNodeSelectionChangedFired(int vertexIndex)
-        {
-            // Given
-            using (var control = new IllustrationPointsFaultTreeControl())
-            {
-                var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
-
-                var rootNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
-                rootNode.SetChildren(new[]
-                {
-                    illustrationPointNode,
-                    illustrationPointNode
-                });
-
-                control.Data = new TopLevelFaultTreeIllustrationPoint(
-                    WindDirectionTestFactory.CreateTestWindDirection(),
-                    "closing situation",
-                    rootNode);
-
-                var selectionChanged = 0;
-                control.SelectionChanged += (sender, args) => selectionChanged++;
-
-                PointedTreeElementVertex selectedVertex = GetPointedTreeGraph(control).Vertices.ElementAt(vertexIndex);
 
                 // When
                 selectedVertex.IsSelected = true;

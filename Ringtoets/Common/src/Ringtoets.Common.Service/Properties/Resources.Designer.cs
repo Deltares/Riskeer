@@ -301,6 +301,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0}:.
+        /// </summary>
+        public static string SetGeneralResult_Error_while_converting_generalresult {
+            get {
+                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen kunstwerk geselecteerd..
         /// </summary>
         public static string StructuresCalculationService_ValidateInput_No_Structure_selected {

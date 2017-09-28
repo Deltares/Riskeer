@@ -166,6 +166,11 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
       <Project>{b69d5b6c-6e14-4fa9-9ebc-8f97678cdb70}</Project>
       <Name>Ringtoets.HydraRing.IO</Name>

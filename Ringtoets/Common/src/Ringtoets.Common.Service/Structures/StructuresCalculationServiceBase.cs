@@ -273,10 +273,18 @@ namespace Ringtoets.Common.Service.Structures
         private void SetOutput(StructuresCalculation<TStructureInput> calculation,
                                ProbabilityAssessmentOutput probabilityAssessmentOutput)
         {
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult =
-                calculation.InputParameters.ShouldIllustrationPointsBeCalculated
-                    ? GetGeneralResult(calculator.IllustrationPointsResult)
-                    : null;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = null;
+            try
+            {
+                generalResult =
+                    calculation.InputParameters.ShouldIllustrationPointsBeCalculated
+                        ? GetGeneralResult(calculator.IllustrationPointsResult)
+                        : null;
+            }
+            catch (ArgumentException e)
+            {
+                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, calculation.Name) + " " + e.Message);
+            }
 
             calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);
         }

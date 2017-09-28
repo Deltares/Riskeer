@@ -192,8 +192,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint())
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("A")),
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("B"))
             });
 
             // Call
@@ -288,8 +288,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()),
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint())
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("A")),
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint("B"))
             });
 
             // Call
