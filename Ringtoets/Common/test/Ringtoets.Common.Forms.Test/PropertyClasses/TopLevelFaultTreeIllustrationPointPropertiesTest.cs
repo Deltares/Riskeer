@@ -46,11 +46,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_FaultTreeNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(31);
+
             // Call
-            TestDelegate test = () => new TopLevelFaultTreeIllustrationPointProperties(null, new[]
-            {
-                "closing situation"
-            });
+            TestDelegate test = () => new TopLevelFaultTreeIllustrationPointProperties(null, random.NextBoolean());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -58,26 +58,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ClosingSituationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var topLevel = new TopLevelFaultTreeIllustrationPoint(
-                new WindDirection("N", 5.0),
-                "closing situation",
-                new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
-
-            // Call
-            TestDelegate test = () => new TopLevelFaultTreeIllustrationPointProperties(topLevel, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("allClosingSituations", paramName);
-        }
-
-        [Test]
         public void Constructor_FaultTreeIllustrationPoint_CorrectValues()
         {
             // Setup
+            var random = new Random(31);
             var topLevel = new TopLevelFaultTreeIllustrationPoint(
                 new WindDirection("N", 5.0),
                 "closing situation",
@@ -96,10 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
 
             // Call
-            var faultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, new[]
-            {
-                "closing situation"
-            });
+            var faultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, random.NextBoolean());
 
             // Assert
             Assert.AreEqual("N", faultTree.WindDirection);
@@ -143,10 +124,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
 
             // Call
-            var topLevelFaultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, new[]
-            {
-                "closing situation"
-            });
+            var topLevelFaultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, true);
 
             // Assert
             const string illustrationPointsCategoryName = "Illustratiepunten";
@@ -207,11 +185,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
 
             // Call
-            var topLevelFaultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, new[]
-            {
-                "closing situation",
-                "closing situation 2"
-            });
+            var topLevelFaultTree = new TopLevelFaultTreeIllustrationPointProperties(topLevel, false);
 
             // Assert
             const string illustrationPointsCategoryName = "Illustratiepunten";
@@ -273,12 +247,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void ToString_CorrectValue_ReturnsCorrectString()
         {
             // Setup
+            var random = new Random(31);
             var topLevelFaultTreeIllustrationPoint = new TopLevelFaultTreeIllustrationPoint(
                 new WindDirection("N", 5.0),
                 "closing situation",
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint()));
 
-            var topLevelFaultTreeProperties = new TopLevelFaultTreeIllustrationPointProperties(topLevelFaultTreeIllustrationPoint, new string[0]);
+            var topLevelFaultTreeProperties = new TopLevelFaultTreeIllustrationPointProperties(topLevelFaultTreeIllustrationPoint, random.NextBoolean());
 
             // Call
             string toString = topLevelFaultTreeProperties.ToString();

@@ -332,8 +332,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<SelectedTopLevelFaultTreeIllustrationPoint, TopLevelFaultTreeIllustrationPointProperties>
             {
-                CreateInstance = point => new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
-                                                                                           point.ClosingSituations)
+                CreateInstance = CreateTopLevelFaultTreeIllustrationPointProperties
             };
             yield return new PropertyInfo<IllustrationPointNodeContext, IllustrationPointProperties>
             {
@@ -880,6 +879,12 @@ namespace Ringtoets.Integration.Plugin
             return new IllustrationPointProperties(illustrationPointNode,
                                                    context.WindDirectionName,
                                                    context.ClosingSituation);
+        }
+
+        private static TopLevelFaultTreeIllustrationPointProperties CreateTopLevelFaultTreeIllustrationPointProperties(SelectedTopLevelFaultTreeIllustrationPoint point)
+        {
+            return new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
+                                                                    point.ClosingSituations.AnyNonDistinct(cs => cs));
         }
 
         #endregion

@@ -88,7 +88,6 @@
     <Compile Include="Factories\RingtoetsGraphNodeFactoryTest.cs" />
     <Compile Include="Factories\RingtoetsStackChartDataFactoryTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
-    <Compile Include="Helpers\IllustrationPointControlItemHelperTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />

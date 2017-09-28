@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -127,9 +128,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             bool areClosingSituationsSame = generalResult.TopLevelIllustrationPoints
-                                                         .Select(point => point.ClosingSituation)
-                                                         .Distinct()
-                                                         .Count() < 2;
+                                                         .AnyNonDistinct(p => p.ClosingSituation);
 
             Selection = new IllustrationPointNodeContext(selection,
                                                          topLevelFaultTreeIllustrationPoint.WindDirection.Name,

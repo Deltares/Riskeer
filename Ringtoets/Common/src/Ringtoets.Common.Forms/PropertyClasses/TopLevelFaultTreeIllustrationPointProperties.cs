@@ -47,21 +47,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="TopLevelFaultTreeIllustrationPointProperties"/>.
         /// </summary>
         /// <param name="faultTreeData">The data to use for the properties.</param>
-        /// <param name="allClosingSituations">All closing situations in the tree.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public TopLevelFaultTreeIllustrationPointProperties(
-            TopLevelFaultTreeIllustrationPoint faultTreeData, IEnumerable<string> allClosingSituations)
+        /// <param name="areClosingSituationsSame">Defines if all closing situations in the tree are the same.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="faultTreeData"/> is <c>null</c>.</exception>
+        public TopLevelFaultTreeIllustrationPointProperties(TopLevelFaultTreeIllustrationPoint faultTreeData,
+                                                            bool areClosingSituationsSame)
         {
             if (faultTreeData == null)
             {
                 throw new ArgumentNullException(nameof(faultTreeData));
             }
-            if (allClosingSituations == null)
-            {
-                throw new ArgumentNullException(nameof(allClosingSituations));
-            }
+
             data = faultTreeData;
-            areClosingSituationsSame = allClosingSituations.Distinct().Count() < 2;
+            this.areClosingSituationsSame = areClosingSituationsSame;
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]

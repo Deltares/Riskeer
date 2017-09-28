@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -28,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -196,15 +196,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                     return new TopLevelFaultTreeIllustrationPointProperties[0];
                 }
 
-                IEnumerable<string> listOfClosingSituations = data.GeneralResult
-                                                                  .TopLevelIllustrationPoints
-                                                                  .Select(point => point.ClosingSituation);
+                bool areClosingSituationsSame = data.GeneralResult
+                                                    .TopLevelIllustrationPoints
+                                                    .AnyNonDistinct(p => p.ClosingSituation);
 
                 return data.GeneralResult
                            .TopLevelIllustrationPoints
                            .Select(point =>
                                        new TopLevelFaultTreeIllustrationPointProperties(
-                                           point, listOfClosingSituations)).ToArray();
+                                           point, areClosingSituationsSame)).ToArray();
             }
         }
 
