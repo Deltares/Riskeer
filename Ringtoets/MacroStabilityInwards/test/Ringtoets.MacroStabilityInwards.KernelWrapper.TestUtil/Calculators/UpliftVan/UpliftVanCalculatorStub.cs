@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -35,9 +36,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         public UpliftVanCalculatorInput Input { get; set; }
 
         public UpliftVanCalculatorResult Output { get; private set; }
+        public bool ThrowExceptionOnCalculate { get; set; }
 
         public UpliftVanCalculatorResult Calculate()
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2");
+            }
             return Output ?? (Output = CreateUpliftVanCalculatorResult());
         }
 

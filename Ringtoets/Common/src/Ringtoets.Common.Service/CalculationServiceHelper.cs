@@ -117,5 +117,25 @@ namespace Ringtoets.Common.Service
         {
             return !canceled && !exceptionThrown && !string.IsNullOrEmpty(lastErrorFileContent);
         }
+
+        /// <summary>
+        /// Logs message and exception as error.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="exception">The exception to log.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public static void LogExceptionAsError(string message, Exception exception)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+            log.Error(message, exception);
+        }
     }
 }

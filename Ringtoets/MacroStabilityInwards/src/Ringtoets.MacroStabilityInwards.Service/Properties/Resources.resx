@@ -129,4 +129,7 @@
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel" xml:space="preserve">
     <value>Kan het toetspeil niet afleiden op basis van de invoer.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation" xml:space="preserve">
+    <value>Macrostabiliteit berekening mislukt.</value>
+  </data>
 </root>

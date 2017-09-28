@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -56,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
         }
 
         [Test]
-        public void Calculate_Always_ReturnResult()
+        public void Calculate_ThrowExceptionOnCalculateFalse_ReturnResult()
         {
             // Setup
             var calculator = new UpliftVanCalculatorStub();
@@ -71,6 +72,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.AreEqual(0.4, result.ForbiddenZonesXEntryMax);
             Assert.IsNotNull(result.SlidingCurveResult);
             Assert.IsNotNull(result.CalculationGridResult);
+        }
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowUpliftVanCalculatorException()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanCalculatorException>(test);
+            Assert.IsNull(exception.InnerException);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsNull(calculator.Output);
         }
     }
 }

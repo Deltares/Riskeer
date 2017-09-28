@@ -24,12 +24,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
@@ -342,6 +344,45 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                 // Assert
                 AssertOutput(calculatorFactory.LastCreatedUpliftVanCalculator.Output, testCalculation.Output);
+            }
+        }
+
+        [Test]
+        public void Calculate_ErrorWhileCalculating_LogErrorMessageAndThrowException()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnCalculate = true;
+
+                // Precondition
+                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                    }
+                    catch (UpliftVanCalculatorException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                {
+                    Tuple<string, Level, Exception> tuple = tuples.ElementAt(1);
+                    Assert.AreEqual("Macrostabiliteit berekening mislukt.", tuple.Item1);
+                    Assert.AreEqual(Level.Error, tuple.Item2);
+                    Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
+                });
+                Assert.IsTrue(exceptionThrown);
             }
         }
 

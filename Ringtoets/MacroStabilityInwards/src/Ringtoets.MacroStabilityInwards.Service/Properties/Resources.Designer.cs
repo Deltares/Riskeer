@@ -82,6 +82,16 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Macrostabiliteit berekening mislukt..
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_" +
+                        "calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan het toetspeil niet afleiden op basis van de invoer..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel {

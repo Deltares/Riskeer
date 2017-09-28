@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -109,6 +110,11 @@ namespace Ringtoets.MacroStabilityInwards.Service
                         ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
                         ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
                     });
+            }
+            catch (UpliftVanCalculatorException e)
+            {
+                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation, e);
+                throw;
             }
             finally
             {

@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.Common.Service.TestUtil;
 
@@ -202,6 +203,47 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.IsFalse(errorOccurred);
+        }
+
+        [Test]
+        public void LogExceptionAsError_MessageNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => CalculationServiceHelper.LogExceptionAsError(null, new Exception());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("message", exception.ParamName);
+        }
+
+        [Test]
+        public void LogExceptionAsError_ExceptionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => CalculationServiceHelper.LogExceptionAsError("message", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("exception", exception.ParamName);
+        }
+
+        [Test]
+        public void LogExceptionAsError_WithParameters_LogMessageAndException()
+        {
+            // Setup
+            const string message = "Message";
+
+            // Call
+            Action call = () => CalculationServiceHelper.LogExceptionAsError(message, new Exception());
+
+            // Assert
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+            {
+                Tuple<string, Level, Exception> tuple = tuples.Single();
+                Assert.AreEqual(message, tuple.Item1);
+                Assert.AreEqual(Level.Error, tuple.Item2);
+                Assert.IsInstanceOf<Exception>(tuple.Item3);
+            });
         }
     }
 }
