@@ -109,14 +109,28 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D);
         }
 
+        /// <summary>
+        /// Creates a <see cref="PipingSoilProfile"/> based on the information of <see cref="SoilProfile1D"/>
+        /// </summary>
+        /// <param name="soilProfile1D">The soil profile to use in the transformation.</param>
+        /// <returns>The created <see cref="PipingSoilProfile"/>.</returns>
+        /// <exception cref="ImportedDataTransformException">Thrown when the <paramref name="soilProfile1D"/>
+        /// cannot be transformed in a <see cref="PipingSoilProfile"/>.</exception>
         private static PipingSoilProfile CreatePipingSoilProfile(SoilProfile1D soilProfile1D)
         {
             IEnumerable<PipingSoilLayer> layers = soilProfile1D.Layers.Select(PipingSoilLayerTransformer.Transform);
 
-            return new PipingSoilProfile(soilProfile1D.Name,
-                                         soilProfile1D.Bottom,
-                                         layers.ToArray(),
-                                         SoilProfileType.SoilProfile1D);
+            try
+            {
+                return new PipingSoilProfile(soilProfile1D.Name,
+                                             soilProfile1D.Bottom,
+                                             layers.ToArray(),
+                                             SoilProfileType.SoilProfile1D);
+            }
+            catch (ArgumentException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
     }
 }

@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_BottomAboveLayers_ThrowsSoilProfileReadException()
+        public void ReadSoilProfile_BottomAboveLayers_ReturnsProfileWithExpectedBottomAndTopValues()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofileWithIncorrectBottom.soil");
@@ -249,12 +249,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 reader.Initialize();
 
                 // Call
-                TestDelegate test = () => reader.ReadSoilProfile();
+                SoilProfile1D profile = reader.ReadSoilProfile();
 
                 // Assert
-                var exception = Assert.Throws<SoilProfileReadException>(test);
-                Assert.AreEqual("Het uitlezen van de ondergrondschematisatie is mislukt.", exception.Message);
-                Assert.AreEqual("Profile", exception.ProfileName);
+                Assert.AreEqual(9999999, profile.Bottom);
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    1.1,
+                    2.2,
+                    3.3
+                }, profile.Layers.Select(layer => layer.Top));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

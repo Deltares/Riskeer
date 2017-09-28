@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile
@@ -31,8 +30,6 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class SoilProfile1D : ISoilProfile
     {
-        private readonly SoilLayer1D[] soilLayers;
-
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfile1D"/>.
         /// </summary>
@@ -42,13 +39,6 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="layers"/> contains no layers</item>
-        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> 
-        /// less than <paramref name="bottom"/></item>
-        /// </list>
-        /// </exception>
         public SoilProfile1D(long id, string name, double bottom, IEnumerable<SoilLayer1D> layers)
         {
             if (name == null)
@@ -56,12 +46,15 @@ namespace Ringtoets.Common.IO.SoilProfile
                 throw new ArgumentNullException(nameof(name));
             }
 
-            ValidateLayersCollection(layers, bottom);
+            if (layers == null)
+            {
+                throw new ArgumentNullException(nameof(layers));
+            }
 
             Id = id;
             Name = name;
             Bottom = bottom;
-            soilLayers = layers.OrderByDescending(l => l.Top).ToArray();
+            Layers = layers;
         }
 
         /// <summary>
@@ -75,47 +68,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         public double Bottom { get; }
 
         /// <summary>
-        /// Gets an ordered (by <see cref="SoilLayer1D.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
+        /// Gets an <see cref="IEnumerable{T}"/> of 
         /// <see cref="SoilLayer1D"/> for the <see cref="SoilLayer1D"/>.
         /// </summary>
-        public IEnumerable<SoilLayer1D> Layers
-        {
-            get
-            {
-                return soilLayers;
-            }
-        }
+        public IEnumerable<SoilLayer1D> Layers { get; }
 
         public string Name { get; }
-
-        /// <summary>
-        /// Validates the given <paramref name="layers"/>. A valid <paramref name="layers"/> has layers which 
-        /// all have values for <see cref="SoilLayer1D.Top"/> which are greater than or equal to <see cref="Bottom"/>.
-        /// </summary>
-        /// <param name="layers">The collection of <see cref="SoilLayer1D"/> to validate.</param>
-        /// <param name="bottom">The bottom level of the profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="layers"/> contains no layers;</item>
-        /// <item><paramref name="layers"/> contains a layer with the <see cref="SoilLayer1D.Top"/> 
-        /// less than <see cref="Bottom"/>.</item>
-        /// </list>
-        /// </exception>
-        private void ValidateLayersCollection(IEnumerable<SoilLayer1D> layers, double bottom)
-        {
-            if (layers == null)
-            {
-                throw new ArgumentNullException(nameof(layers), string.Format(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers));
-            }
-            if (!layers.Any())
-            {
-                throw new ArgumentException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers);
-            }
-            if (layers.Any(l => l.Top < bottom))
-            {
-                throw new ArgumentException(Resources.SoilProfile_Layers_Layer_top_below_profile_bottom);
-            }
-        }
     }
 }

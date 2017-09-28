@@ -57,33 +57,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_NoLayers_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => new SoilProfile1D(1, "name", 1, new SoilLayer1D[0]);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Geen lagen gevonden voor de ondergrondschematisatie.", exception.Message);
-        }
-
-        [Test]
-        public void Constructor_BottomAboveLayers_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => new SoilProfile1D(1, "name", 9999, new[]
-            {
-                new SoilLayer1D(2)
-            });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.",
-                            exception.Message);
-        }
-
-        [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedProperties()
+        [TestCase(10)]
+        [TestCase(-10)]
+        public void Constructor_ValidArguments_ReturnsExpectedProperties(double bottomOffset)
         {
             // Setup
             const long id = 123;
@@ -91,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const int bottom = 1;
             var soilLayer1Ds = new[]
             {
-                new SoilLayer1D(2)
+                new SoilLayer1D(bottom + bottomOffset)
             };
 
             // Call
@@ -102,8 +78,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(id, soilProfile1D.Id);
             Assert.AreEqual(name, soilProfile1D.Name);
             Assert.AreEqual(bottom, soilProfile1D.Bottom);
-            CollectionAssert.AreEqual(soilLayer1Ds, soilProfile1D.Layers);
-            Assert.AreNotSame(soilLayer1Ds, soilProfile1D.Layers);
+            Assert.AreSame(soilLayer1Ds, soilProfile1D.Layers);
         }
     }
 }

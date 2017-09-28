@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,7 +26,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
-using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
@@ -184,7 +182,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Validate_InvalidSoilProfile1d_ThrowsStochasticSoilModelException()
         {
             // Setup
-            string dbFile = Path.Combine(soilProfile1DReaderTestDataPath, "1dprofileWithIncorrectBottom.soil");
+            string dbFile = Path.Combine(soilProfile1DReaderTestDataPath, "1dprofileWithInvalidBottom.soil");
 
             using (var reader = new StochasticSoilModelReader(dbFile))
             {

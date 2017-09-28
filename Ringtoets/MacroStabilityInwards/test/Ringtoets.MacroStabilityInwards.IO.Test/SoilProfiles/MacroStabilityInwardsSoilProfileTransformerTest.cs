@@ -68,6 +68,39 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
+        public void Transform_SoilProfile1DWithoutLayers_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var profile = new SoilProfile1D(1, "test", 3, Enumerable.Empty<SoilLayer1D>());
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Transform_SoilProfile1DBottomAboveTop_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const double bottom = 10;
+            const double top = -bottom;
+            var profile = new SoilProfile1D(1, "test", 3, new []
+            {
+                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
+            });
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
         public void Transform_ValidSoilProfile1D_ReturnMacroStabilityInwardsSoilProfile1D()
         {
             // Setup

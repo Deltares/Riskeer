@@ -78,11 +78,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// in a valid transformed instance.</exception>
         private static MacroStabilityInwardsSoilProfile1D Transform(SoilProfile1D soilProfile)
         {
-            return new MacroStabilityInwardsSoilProfile1D(soilProfile.Name,
-                                                          soilProfile.Bottom,
-                                                          soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
-                                                                     .ToArray());
+            try
+            {
+                return new MacroStabilityInwardsSoilProfile1D(soilProfile.Name,
+                                                              soilProfile.Bottom,
+                                                              soilProfile.Layers
+                                                                         .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
+                                                                         .ToArray());
+            }
+            catch (ArgumentException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
 
         /// <summary>

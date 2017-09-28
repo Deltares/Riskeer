@@ -348,6 +348,53 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
+        public void Transform_SoilProfileWithoutLayers_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            var random = new Random(22);
+            double bottom = random.NextDouble();
+            const long pipingSoilProfileId = 1234L;
+
+            var profile = new SoilProfile1D(pipingSoilProfileId,
+                                            profileName,
+                                            bottom,
+                                            Enumerable.Empty<SoilLayer1D>());
+
+            // Call
+            TestDelegate call = () => PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        public void Transform_SoilProfileBottomAboveTop_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            const string profileName = "SomeProfile";
+            const double bottom = 10;
+            const double top = -10;
+            const long pipingSoilProfileId = 1234L;
+
+            var profile = new SoilProfile1D(pipingSoilProfileId,
+                                            profileName,
+                                            bottom,
+                                            new[]
+                                            {
+                                                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
+                                            });
+
+            // Call
+            TestDelegate call = () => PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
         public void Transform_SoilProfile1DWithSingleLayer_ReturnsProfileWithBottomAndALayer()
         {
             // Setup
@@ -406,11 +453,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
             Assert.AreEqual(2, transformed.Layers.Count());
-            CollectionAssert.AreEquivalent(new[]
-            {
-                top,
-                top2
-            }, transformed.Layers.Select(l => l.Top));
             Assert.AreEqual(bottom, transformed.Bottom);
         }
 
