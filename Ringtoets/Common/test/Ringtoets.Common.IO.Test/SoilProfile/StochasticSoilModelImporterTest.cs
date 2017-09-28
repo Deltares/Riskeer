@@ -354,7 +354,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             bool importResult = importer.Import();
 
             // Assert
-            Assert.IsTrue(importResult);
+            Assert.IsFalse(importResult);
 
             var expectedProgressMessages = new List<ProgressNotification>
             {
@@ -491,9 +491,9 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             const string logMessage = "Er zijn geen stochastische ondergrondmodellen gevonden die horen bij het faalmechanisme.";
-            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(logMessage, LogLevelConstant.Warn);
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create(logMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsTrue(importResult);
+            Assert.IsFalse(importResult);
         }
 
         [Test]

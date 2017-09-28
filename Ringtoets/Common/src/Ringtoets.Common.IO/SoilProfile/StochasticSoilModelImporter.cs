@@ -126,8 +126,8 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             if (!transformedStochasticSoilModels.Items.Any())
             {
-                Log.WarnFormat(Resources.StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism);
-                return true;
+                Log.Error(Resources.StochasticSoilModelImporter_No_stochastic_soil_models_found_for_failure_mechanism);
+                return false;
             }
 
             NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 1, 1);
