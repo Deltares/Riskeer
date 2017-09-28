@@ -31,22 +31,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
     public static class UpliftVanCalculatorOutputHelper
     {
         /// <summary>
-        /// Assert whether the <paramref name="actual"/> is equal to the <paramref name="expected"/>.
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected values.</param>
-        /// <param name="actual">The actual values.</param>
-        /// <exception cref="AssertionException">Thrown when the <paramref name="actual"/>
-        /// is not equal to the <paramref name="expected"/>.</exception>
+        /// <param name="expected">The expected <see cref="UpliftVanSlidingCurveResult"/>.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanSlidingCurveResult"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSlidingCurve(UpliftVanSlidingCurveResult expected, UpliftVanSlidingCurveResult actual)
         {
             Assert.AreEqual(expected.IteratedHorizontalForce, actual.IteratedHorizontalForce);
             Assert.AreEqual(expected.NonIteratedHorizontalForce, actual.NonIteratedHorizontalForce);
             AssertCircle(expected.LeftCircle, actual.LeftCircle);
             AssertCircle(expected.RightCircle, actual.RightCircle);
-
             AssertSlices(expected.Slices.ToArray(), actual.Slices.ToArray());
         }
 
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="UpliftVanCalculationGridResult"/>.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanCalculationGridResult"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSlipPlaneGrid(UpliftVanCalculationGridResult expected, UpliftVanCalculationGridResult actual)
         {
             CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
@@ -54,16 +60,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             AssertGrid(expected.RightGrid, actual.RightGrid);
         }
 
-        private static void AssertGrid(UpliftVanGridResult expected, UpliftVanGridResult actual)
-        {
-            Assert.AreEqual(expected.XLeft, actual.XLeft);
-            Assert.AreEqual(expected.XRight, actual.XRight);
-            Assert.AreEqual(expected.ZTop, actual.ZTop);
-            Assert.AreEqual(expected.ZBottom, actual.ZBottom);
-            Assert.AreEqual(expected.NumberOfHorizontalPoints, actual.NumberOfHorizontalPoints);
-            Assert.AreEqual(expected.NumberOfVerticalPoints, actual.NumberOfVerticalPoints);
-        }
-
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="UpliftVanSlidingCircleResult"/>.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanSlidingCircleResult"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
         private static void AssertCircle(UpliftVanSlidingCircleResult expected, UpliftVanSlidingCircleResult actual)
         {
             Assert.AreEqual(expected.Center, actual.Center);
@@ -75,43 +78,67 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             Assert.AreEqual(expected.ResistingMoment, actual.ResistingMoment);
         }
 
-        private static void AssertSlices(UpliftVanSliceResult[] expectedSlices, UpliftVanSliceResult[] actualSlices)
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="UpliftVanSliceResult"/> array.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanSliceResult"/> array.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertSlices(UpliftVanSliceResult[] expected, UpliftVanSliceResult[] actual)
         {
-            Assert.AreEqual(expectedSlices.Length, actualSlices.Length);
+            Assert.AreEqual(expected.Length, actual.Length);
 
-            for (var i = 0; i < expectedSlices.Length; i++)
+            for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(expectedSlices[i].Cohesion, actualSlices[i].Cohesion);
-                Assert.AreEqual(expectedSlices[i].FrictionAngle, actualSlices[i].FrictionAngle);
-                Assert.AreEqual(expectedSlices[i].CriticalPressure, actualSlices[i].CriticalPressure);
-                Assert.AreEqual(expectedSlices[i].OverConsolidationRatio, actualSlices[i].OverConsolidationRatio);
-                Assert.AreEqual(expectedSlices[i].Pop, actualSlices[i].Pop);
-                Assert.AreEqual(expectedSlices[i].DegreeOfConsolidationPorePressureSoil, actualSlices[i].DegreeOfConsolidationPorePressureSoil);
-                Assert.AreEqual(expectedSlices[i].DegreeOfConsolidationPorePressureLoad, actualSlices[i].DegreeOfConsolidationPorePressureLoad);
-                Assert.AreEqual(expectedSlices[i].Dilatancy, actualSlices[i].Dilatancy);
-                Assert.AreEqual(expectedSlices[i].ExternalLoad, actualSlices[i].ExternalLoad);
-                Assert.AreEqual(expectedSlices[i].HydrostaticPorePressure, actualSlices[i].HydrostaticPorePressure);
-                Assert.AreEqual(expectedSlices[i].LeftForce, actualSlices[i].LeftForce);
-                Assert.AreEqual(expectedSlices[i].LeftForceAngle, actualSlices[i].LeftForceAngle);
-                Assert.AreEqual(expectedSlices[i].LeftForceY, actualSlices[i].LeftForceY);
-                Assert.AreEqual(expectedSlices[i].RightForce, actualSlices[i].RightForce);
-                Assert.AreEqual(expectedSlices[i].RightForceAngle, actualSlices[i].RightForceAngle);
-                Assert.AreEqual(expectedSlices[i].RightForceY, actualSlices[i].RightForceY);
-                Assert.AreEqual(expectedSlices[i].LoadStress, actualSlices[i].LoadStress);
-                Assert.AreEqual(expectedSlices[i].NormalStress, actualSlices[i].NormalStress);
-                Assert.AreEqual(expectedSlices[i].PorePressure, actualSlices[i].PorePressure);
-                Assert.AreEqual(expectedSlices[i].HorizontalPorePressure, actualSlices[i].HorizontalPorePressure);
-                Assert.AreEqual(expectedSlices[i].VerticalPorePressure, actualSlices[i].VerticalPorePressure);
-                Assert.AreEqual(expectedSlices[i].PiezometricPorePressure, actualSlices[i].PiezometricPorePressure);
-                Assert.AreEqual(expectedSlices[i].EffectiveStress, actualSlices[i].EffectiveStress);
-                Assert.AreEqual(expectedSlices[i].EffectiveStressDaily, actualSlices[i].EffectiveStressDaily);
-                Assert.AreEqual(expectedSlices[i].ExcessPorePressure, actualSlices[i].ExcessPorePressure);
-                Assert.AreEqual(expectedSlices[i].ShearStress, actualSlices[i].ShearStress);
-                Assert.AreEqual(expectedSlices[i].SoilStress, actualSlices[i].SoilStress);
-                Assert.AreEqual(expectedSlices[i].TotalPorePressure, actualSlices[i].TotalPorePressure);
-                Assert.AreEqual(expectedSlices[i].TotalStress, actualSlices[i].TotalStress);
-                Assert.AreEqual(expectedSlices[i].Weight, actualSlices[i].Weight);
+                Assert.AreEqual(expected[i].Cohesion, actual[i].Cohesion);
+                Assert.AreEqual(expected[i].FrictionAngle, actual[i].FrictionAngle);
+                Assert.AreEqual(expected[i].CriticalPressure, actual[i].CriticalPressure);
+                Assert.AreEqual(expected[i].OverConsolidationRatio, actual[i].OverConsolidationRatio);
+                Assert.AreEqual(expected[i].Pop, actual[i].Pop);
+                Assert.AreEqual(expected[i].DegreeOfConsolidationPorePressureSoil, actual[i].DegreeOfConsolidationPorePressureSoil);
+                Assert.AreEqual(expected[i].DegreeOfConsolidationPorePressureLoad, actual[i].DegreeOfConsolidationPorePressureLoad);
+                Assert.AreEqual(expected[i].Dilatancy, actual[i].Dilatancy);
+                Assert.AreEqual(expected[i].ExternalLoad, actual[i].ExternalLoad);
+                Assert.AreEqual(expected[i].HydrostaticPorePressure, actual[i].HydrostaticPorePressure);
+                Assert.AreEqual(expected[i].LeftForce, actual[i].LeftForce);
+                Assert.AreEqual(expected[i].LeftForceAngle, actual[i].LeftForceAngle);
+                Assert.AreEqual(expected[i].LeftForceY, actual[i].LeftForceY);
+                Assert.AreEqual(expected[i].RightForce, actual[i].RightForce);
+                Assert.AreEqual(expected[i].RightForceAngle, actual[i].RightForceAngle);
+                Assert.AreEqual(expected[i].RightForceY, actual[i].RightForceY);
+                Assert.AreEqual(expected[i].LoadStress, actual[i].LoadStress);
+                Assert.AreEqual(expected[i].NormalStress, actual[i].NormalStress);
+                Assert.AreEqual(expected[i].PorePressure, actual[i].PorePressure);
+                Assert.AreEqual(expected[i].HorizontalPorePressure, actual[i].HorizontalPorePressure);
+                Assert.AreEqual(expected[i].VerticalPorePressure, actual[i].VerticalPorePressure);
+                Assert.AreEqual(expected[i].PiezometricPorePressure, actual[i].PiezometricPorePressure);
+                Assert.AreEqual(expected[i].EffectiveStress, actual[i].EffectiveStress);
+                Assert.AreEqual(expected[i].EffectiveStressDaily, actual[i].EffectiveStressDaily);
+                Assert.AreEqual(expected[i].ExcessPorePressure, actual[i].ExcessPorePressure);
+                Assert.AreEqual(expected[i].ShearStress, actual[i].ShearStress);
+                Assert.AreEqual(expected[i].SoilStress, actual[i].SoilStress);
+                Assert.AreEqual(expected[i].TotalPorePressure, actual[i].TotalPorePressure);
+                Assert.AreEqual(expected[i].TotalStress, actual[i].TotalStress);
+                Assert.AreEqual(expected[i].Weight, actual[i].Weight);
             }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="UpliftVanGridResult"/>.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanGridResult"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertGrid(UpliftVanGridResult expected, UpliftVanGridResult actual)
+        {
+            Assert.AreEqual(expected.XLeft, actual.XLeft);
+            Assert.AreEqual(expected.XRight, actual.XRight);
+            Assert.AreEqual(expected.ZTop, actual.ZTop);
+            Assert.AreEqual(expected.ZBottom, actual.ZBottom);
+            Assert.AreEqual(expected.NumberOfHorizontalPoints, actual.NumberOfHorizontalPoints);
+            Assert.AreEqual(expected.NumberOfVerticalPoints, actual.NumberOfVerticalPoints);
         }
     }
 }
