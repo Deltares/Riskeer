@@ -193,11 +193,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
             catch (XmlSchemaValidationException e)
             {
-                throw new UpliftVanKernelWrapperException(e);
+                throw new UpliftVanKernelWrapperException(e.Message, e);
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
-                throw new UpliftVanKernelWrapperException(e);
+                throw new UpliftVanKernelWrapperException(e.Message, e);
             }
         }
 
@@ -207,7 +207,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
             if (convertedResult.Messages.Any())
             {
-                throw new UpliftVanKernelWrapperException(convertedResult.Messages.Select(m => m.Message));
+                string message = convertedResult.Messages.Aggregate(string.Empty, (current, logMessage) => current + $"{logMessage}{Environment.NewLine}").Trim();
+                throw new UpliftVanKernelWrapperException(message);
             }
 
             FactorOfStability = convertedResult.FactorOfSafety;

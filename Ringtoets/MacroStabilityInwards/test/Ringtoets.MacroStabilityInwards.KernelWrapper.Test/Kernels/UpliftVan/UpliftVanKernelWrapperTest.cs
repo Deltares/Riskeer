@@ -59,6 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
         [Test]
@@ -134,6 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
             Assert.IsInstanceOf<ArgumentNullException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
         [Test]
@@ -215,11 +217,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
-            CollectionAssert.AreEqual(new []
-            {
-                $"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}Parameter name: index",
-                "Fatale fout in Uplift-Van berekening"
-            }, exception.Messages);
+            CollectionAssert.AreEqual($"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}" +
+                                      $"Parameter name: index{Environment.NewLine}" +
+                                      $"Fatale fout in Uplift-Van berekening", exception.Message);
         }
     }
 }

@@ -40,6 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         /// Performs the calculation.
         /// </summary>
         /// <returns>A <see cref="UpliftVanCalculatorResult"/>.</returns>
+        /// <exception cref="UpliftVanCalculatorException">Thrown when an error
+        /// occurs during the calculation.</exception>
         UpliftVanCalculatorResult Calculate();
 
         /// <summary>

@@ -90,9 +90,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             {
                 upliftVanKernel.Calculate();
             }
-            catch (Exception e)
+            catch (UpliftVanKernelWrapperException e)
             {
-                // Temporary do nothing
+                throw new UpliftVanCalculatorException(e.Message, e);
             }
 
             return upliftVanKernel;

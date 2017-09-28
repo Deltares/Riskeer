@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -34,6 +35,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
+
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { get; set; }
 
         public SoilModel SoilModel { get; set; }
 
@@ -73,6 +79,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
         public void Calculate()
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
+            }
+
             Calculated = true;
         }
     }

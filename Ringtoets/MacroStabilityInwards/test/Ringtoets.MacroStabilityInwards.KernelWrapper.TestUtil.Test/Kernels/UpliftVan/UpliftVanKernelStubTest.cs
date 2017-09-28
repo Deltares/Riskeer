@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan
@@ -38,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
         }
 
         [Test]
-        public void Calculate_Always_SetCalculatedTrue()
+        public void Calculate_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
         {
             // Setup
             var kernel = new UpliftVanKernelStub();
@@ -51,6 +53,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
 
             // Assert
             Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsUpliftVanKernelWrapperException()
+        {
+            // Setup
+            var kernel = new UpliftVanKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Calculated);
         }
     }
 }

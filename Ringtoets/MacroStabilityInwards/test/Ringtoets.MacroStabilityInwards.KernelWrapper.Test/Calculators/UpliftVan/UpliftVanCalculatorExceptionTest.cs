@@ -22,11 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
     [TestFixture]
-    public class UpliftVanKernelWrapperExceptionTest
-        : CustomExceptionDesignGuidelinesTestFixture<UpliftVanKernelWrapperException, Exception> {}
+    public class UpliftVanCalculatorExceptionTest : CustomExceptionDesignGuidelinesTestFixture<UpliftVanCalculatorException, Exception> {}
 }

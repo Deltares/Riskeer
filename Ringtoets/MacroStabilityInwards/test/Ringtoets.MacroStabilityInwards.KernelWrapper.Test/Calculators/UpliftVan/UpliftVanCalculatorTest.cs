@@ -34,6 +34,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
@@ -172,6 +173,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                                                                result.SlidingCurveResult);
             UpliftVanCalculatorOutputAssert.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                                                                 result.CalculationGridResult);
+        }
+
+        [Test]
+        public void Calculate_KernelThrowsUpliftVanKernelWrapperException_ThrowUpliftVanCalculatorException()
+        {
+            // Setup
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            SetCompleteKernelOutput(upliftVanKernel);
+            upliftVanKernel.ThrowExceptionOnCalculate = true;
+
+            // Call
+            TestDelegate test = () => new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanCalculatorException>(test);
+            Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);            
         }
 
         [Test]
