@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
     public class UpliftVanSlidingCircleResultTestFactoryTest
     {
         [Test]
-        public void Create_Always_ReturnCircleWithDefaultValues()
+        public void Create_Always_ReturnUpliftVanSlidingCircleResult()
         {
             // Call
             UpliftVanSlidingCircleResult circle = UpliftVanSlidingCircleResultTestFactory.Create();

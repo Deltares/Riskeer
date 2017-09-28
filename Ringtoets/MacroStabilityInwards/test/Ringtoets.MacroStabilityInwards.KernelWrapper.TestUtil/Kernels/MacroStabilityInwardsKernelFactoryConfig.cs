@@ -27,8 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestMacroStabilityInwardsKernelFactory"/> 
     /// for <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/> while testing. 
-    /// Disposing an instance of this class will revert the 
-    /// <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>.
+    /// Disposing an instance of this class will revert the <see cref="MacroStabilityInwardsKernelWrapperFactory.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:

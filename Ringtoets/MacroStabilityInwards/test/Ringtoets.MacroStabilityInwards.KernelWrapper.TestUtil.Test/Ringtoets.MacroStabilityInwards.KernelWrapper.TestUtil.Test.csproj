@@ -53,12 +53,10 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryConfigTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorStubTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactoryTest.cs" />
-    <Compile Include="Kernels\UpliftVan\Output\SlidingDualCircleTestFactoryTest.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelFactoryConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Kernels\TestMacroStabilityInwardsKernelFactoryTest.cs" />

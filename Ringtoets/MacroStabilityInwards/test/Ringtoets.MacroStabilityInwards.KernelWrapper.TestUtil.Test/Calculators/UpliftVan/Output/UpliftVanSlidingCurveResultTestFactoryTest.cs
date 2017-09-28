@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
     public class UpliftVanSlidingCurveResultTestFactoryTest
     {
         [Test]
-        public void Create_Always_ReturnSlidingCurveResult()
+        public void Create_Always_ReturnUpliftVanSlidingCurveResult()
         {
             // Call
             UpliftVanSlidingCurveResult curve = UpliftVanSlidingCurveResultTestFactory.Create();
@@ -38,7 +38,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             // Assert
             AssertCircle(curve.LeftCircle);
             AssertCircle(curve.RightCircle);
-
             Assert.AreEqual(0, curve.IteratedHorizontalForce);
             Assert.AreEqual(0, curve.NonIteratedHorizontalForce);
             CollectionAssert.IsEmpty(curve.Slices);

@@ -25,8 +25,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
 {
     /// <summary>
-    /// Factory to create simple <see cref="UpliftVanSlidingCurveResult"/>
-    /// instances that can be used for testing.
+    /// Factory to create simple <see cref="UpliftVanSlidingCurveResult"/> instances that can be used for testing.
     /// </summary>
     public static class UpliftVanSlidingCurveResultTestFactory
     {
@@ -36,10 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         /// <returns>The created <see cref="UpliftVanSlidingCurveResult"/>.</returns>
         public static UpliftVanSlidingCurveResult Create()
         {
-            return new UpliftVanSlidingCurveResult(
-                UpliftVanSlidingCircleResultTestFactory.Create(),
-                UpliftVanSlidingCircleResultTestFactory.Create(),
-                Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
+            return new UpliftVanSlidingCurveResult(UpliftVanSlidingCircleResultTestFactory.Create(),
+                                                   UpliftVanSlidingCircleResultTestFactory.Create(),
+                                                   Enumerable.Empty<UpliftVanSliceResult>(), 0, 0);
         }
     }
 }

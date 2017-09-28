@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
 {
     /// <summary>
-    /// Factory that creates macro stability inwards kernels that can be used for testing purposes.
+    /// Factory which creates macro stability inwards kernel stubs for testing purposes.
     /// </summary>
     public class TestMacroStabilityInwardsKernelFactory : IMacroStabilityInwardsKernelFactory
     {

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -37,7 +38,6 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftV
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
@@ -311,8 +311,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
         private static void SetValidKernelOutput(UpliftVanKernelStub upliftVanKernel)
         {
-            upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
-            upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
+            upliftVanKernel.SlidingCurveResult = CreateSlidingDualCircle();
+            upliftVanKernel.SlipPlaneResult = CreateSlipPlaneUpliftVan();
         }
 
         private static void SetCompleteKernelOutput(UpliftVanKernelStub upliftVanKernel)
@@ -323,8 +323,107 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             upliftVanKernel.ZValue = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
-            upliftVanKernel.SlidingCurveResult = SlidingDualCircleTestFactory.Create();
-            upliftVanKernel.SlipPlaneResult = SlipPlaneUpliftVanTestFactory.Create();
+            upliftVanKernel.SlidingCurveResult = CreateSlidingDualCircle();
+            upliftVanKernel.SlipPlaneResult = CreateSlipPlaneUpliftVan();
+        }
+
+        private static SlipPlaneUpliftVan CreateSlipPlaneUpliftVan()
+        {
+            return new SlipPlaneUpliftVan
+            {
+                SlipPlaneLeftGrid = new SlipCircleGrid
+                {
+                    GridXLeft = 0.1,
+                    GridXRight = 0.2,
+                    GridZTop = 0.3,
+                    GridZBottom = 0.4,
+                    GridXNumber = 1,
+                    GridZNumber = 2
+                },
+                SlipPlaneRightGrid = new SlipCircleGrid
+                {
+                    GridXLeft = 0.5,
+                    GridXRight = 0.6,
+                    GridZTop = 0.7,
+                    GridZBottom = 0.8,
+                    GridXNumber = 3,
+                    GridZNumber = 4
+                },
+                SlipPlaneTangentLine = new SlipCircleTangentLine
+                {
+                    BoundaryHeights =
+                    {
+                        new TangentLine(1.1),
+                        new TangentLine(2.2)
+                    }
+                }
+            };
+        }
+
+        private static SlidingDualCircle CreateSlidingDualCircle()
+        {
+            return new SlidingDualCircle
+            {
+                LeftCircleIsActive = false,
+                ActiveCircle = new GeometryPoint(0.1, 0.2),
+                ActiveForce = 0.3,
+                ActiveForce0 = 0.4,
+                ActiveRadius = 0.5,
+                DrivingMomentActive = 0.6,
+                ResistingMomentActive = 0.7,
+                PassiveCircle = new GeometryPoint(0.8, 0.9),
+                PassiveForce = 1.0,
+                PassiveForce0 = 1.1,
+                PassiveRadius = 1.2,
+                DrivingMomentPassive = 1.3,
+                ResistingMomentPassive = 1.4,
+                HorizontalForce = 1.5,
+                HorizontalForce0 = 1.6,
+                Slices =
+                {
+                    new Slice
+                    {
+                        TopLeftX = 1.7,
+                        TopLeftZ = 1.8,
+                        TopRightX = 1.9,
+                        TopRightZ = 2.0,
+                        BottomLeftX = 2.1,
+                        BottomLeftZ = 2.2,
+                        BottomRightX = 2.3,
+                        BottomRightZ = 2.4,
+                        Cohesion = 2.5,
+                        Phi = 2.6,
+                        PGrens = 2.7,
+                        OCR = 2.8,
+                        POP = 2.9,
+                        DegreeofConsolidationPorePressure = 3.0,
+                        PorePressureDueToDegreeOfConsolidationLoad = 3.1,
+                        Dilatancy = 3.2,
+                        ExternalLoad = 3.3,
+                        HydrostaticPorePressure = 3.4,
+                        LeftForce = 3.5,
+                        LeftForceAngle = 3.6,
+                        LeftForceY = 3.7,
+                        RightForce = 3.8,
+                        RightForceAngle = 3.9,
+                        RightForceY = 4.0,
+                        LoadStress = 4.1,
+                        NormalStress = 4.2,
+                        PoreOnSurface = 4.3,
+                        HPoreOnSurface = 4.4,
+                        VPoreOnSurface = 4.5,
+                        PiezometricPorePressure = 4.6,
+                        EffectiveStress = 4.7,
+                        EffectiveStressDaily = 4.8,
+                        ExcessPorePressure = 4.9,
+                        ShearStress = 5.0,
+                        SoilStress = 5.1,
+                        TotalPorePressure = 5.2,
+                        TotalStress = 5.3,
+                        Weight = 5.4
+                    }
+                }
+            };
         }
     }
 }

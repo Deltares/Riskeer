@@ -26,7 +26,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 {
     /// <summary>
-    /// Class that represents an Uplift Van kernel stub.
+    /// Uplift Van kernel stub for testing purposes.
     /// </summary>
     public class UpliftVanKernelStub : IUpliftVanKernel
     {

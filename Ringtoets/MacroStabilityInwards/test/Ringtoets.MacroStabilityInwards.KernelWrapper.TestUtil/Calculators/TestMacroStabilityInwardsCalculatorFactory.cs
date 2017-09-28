@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftV
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
 {
     /// <summary>
-    /// Test calculator factory which can be used in tests.
+    /// Factory which creates macro stability inwards calculator stubs for testing purposes.
     /// </summary>
     public class TestMacroStabilityInwardsCalculatorFactory : IMacroStabilityInwardsCalculatorFactory
     {
@@ -48,6 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
         public IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             LastCreatedUpliftVanCalculator.Input = input;
+
             return LastCreatedUpliftVanCalculator;
         }
     }

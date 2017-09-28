@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftV
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan
 {
     /// <summary>
-    /// Stub for the real macro stability inwards calculator.
+    /// Uplift Van calculator stub for testing purposes.
     /// </summary>
     public class UpliftVanCalculatorStub : IUpliftVanCalculator
     {
@@ -38,12 +38,34 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
 
         public UpliftVanCalculatorResult Calculate()
         {
-            return Output ?? (Output = UpliftVanCalculatorResultTestFactory.Create());
+            return Output ?? (Output = CreateUpliftVanCalculatorResult());
         }
 
         public List<string> Validate()
         {
             return new List<string>();
+        }
+
+        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult()
+        {
+            return new UpliftVanCalculatorResult(
+                UpliftVanSlidingCurveResultTestFactory.Create(),
+                new UpliftVanCalculationGridResult(
+                    UpliftVanGridResultTestFactory.Create(),
+                    UpliftVanGridResultTestFactory.Create(),
+                    new[]
+                    {
+                        3,
+                        2,
+                        1.5
+                    }),
+                new UpliftVanCalculatorResult.ConstructionProperties
+                {
+                    FactorOfStability = 0.1,
+                    ZValue = 0.2,
+                    ForbiddenZonesXEntryMin = 0.3,
+                    ForbiddenZonesXEntryMax = 0.4
+                });
         }
     }
 }
