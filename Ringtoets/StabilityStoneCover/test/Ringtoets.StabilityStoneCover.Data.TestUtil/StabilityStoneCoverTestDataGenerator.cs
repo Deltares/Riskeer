@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityStoneCover.Data.TestUtil
         /// Creates a random instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.
         /// </summary>
         /// <returns>A random instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.</returns>
-        public static StabilityStoneCoverWaveConditionsOutput GetRandomStabilityStoneCoverWaveConditoinsOutput()
+        public static StabilityStoneCoverWaveConditionsOutput GetRandomStabilityStoneCoverWaveConditionsOutput()
         {
             return new StabilityStoneCoverWaveConditionsOutput(new[]
                                                                {

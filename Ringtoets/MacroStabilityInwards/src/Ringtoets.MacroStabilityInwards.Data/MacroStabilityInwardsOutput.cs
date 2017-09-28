@@ -65,39 +65,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets the sliding curve.
-        /// </summary>
-        public MacroStabilityInwardsSlidingCurve SlidingCurve { get; }
-
-        /// <summary>
-        /// Gets the slip plane.
-        /// </summary>
-        public MacroStabilityInwardsSlipPlaneUpliftVan SlipPlane { get; }
-
-        /// <summary>
-        /// Gets the factor of stability of the Uplift Van calculation.
-        /// </summary>
-        public double FactorOfStability { get; }
-
-        /// <summary>
-        /// Gets the z value.
-        /// </summary>
-        public double ZValue { get; }
-
-        /// <summary>
-        /// Gets the forbidden zones x entry min.
-        /// </summary>
-        public double ForbiddenZonesXEntryMin { get; }
-
-        /// <summary>
-        /// Gets the forbidden zones x entry max.
-        /// </summary>
-        public double ForbiddenZonesXEntryMax { get; }
-
-        #endregion
+        public object Clone()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="MacroStabilityInwardsOutput"/>.
@@ -135,5 +106,39 @@ namespace Ringtoets.MacroStabilityInwards.Data
             /// </summary>
             public double ForbiddenZonesXEntryMax { internal get; set; }
         }
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the sliding curve.
+        /// </summary>
+        public MacroStabilityInwardsSlidingCurve SlidingCurve { get; }
+
+        /// <summary>
+        /// Gets the slip plane.
+        /// </summary>
+        public MacroStabilityInwardsSlipPlaneUpliftVan SlipPlane { get; }
+
+        /// <summary>
+        /// Gets the factor of stability of the Uplift Van calculation.
+        /// </summary>
+        public double FactorOfStability { get; }
+
+        /// <summary>
+        /// Gets the z value.
+        /// </summary>
+        public double ZValue { get; }
+
+        /// <summary>
+        /// Gets the forbidden zones x entry min.
+        /// </summary>
+        public double ForbiddenZonesXEntryMin { get; }
+
+        /// <summary>
+        /// Gets the forbidden zones x entry max.
+        /// </summary>
+        public double ForbiddenZonesXEntryMax { get; }
+
+        #endregion
     }
 }

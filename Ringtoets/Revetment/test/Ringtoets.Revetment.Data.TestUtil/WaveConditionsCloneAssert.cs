@@ -67,7 +67,6 @@ namespace Ringtoets.Revetment.Data.TestUtil
             Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
             Assert.AreEqual(original.Orientation, clone.Orientation);
             Assert.AreEqual(original.StepSize, clone.StepSize);
-            Assert.AreEqual(original.UpperBoundaryDesignWaterLevel, clone.UpperBoundaryDesignWaterLevel);
             Assert.AreEqual(original.UpperBoundaryRevetment, clone.UpperBoundaryRevetment);
             Assert.AreEqual(original.LowerBoundaryWaterLevels, clone.LowerBoundaryWaterLevels);
             Assert.AreEqual(original.LowerBoundaryRevetment, clone.LowerBoundaryRevetment);

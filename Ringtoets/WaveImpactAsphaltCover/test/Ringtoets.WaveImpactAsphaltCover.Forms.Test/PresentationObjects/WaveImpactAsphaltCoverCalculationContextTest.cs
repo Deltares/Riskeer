@@ -126,7 +126,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void Equals_ToOtherWithDifferentType_ReturnFalse()
         {
             // Setup
-            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -160,9 +159,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var context1 = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation1, parent, failureMechanism, assessmentSection);
             var context2 = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation2, parent, failureMechanism, assessmentSection);
-
-            // Precondition
-            Assert.IsFalse(context1.Equals(context2));
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -234,6 +230,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         [Test]
         public void GetHashCode_EqualObjects_ReturnSameHashCode()
         {
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();

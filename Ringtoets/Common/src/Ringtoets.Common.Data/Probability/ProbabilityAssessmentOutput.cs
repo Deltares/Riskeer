@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Probability
     /// <summary>
     /// This class contains the results of a probabilistic assessment calculation.
     /// </summary>
-    public class ProbabilityAssessmentOutput : Observable, ICalculationOutput, ICloneable
+    public class ProbabilityAssessmentOutput : Observable, ICalculationOutput
     {
         private double requiredProbability;
         private double probability;

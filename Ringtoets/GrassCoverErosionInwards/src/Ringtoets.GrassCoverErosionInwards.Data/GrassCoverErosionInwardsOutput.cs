@@ -28,7 +28,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// The overall result of a grass cover erosion inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput, ICloneable
+    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.

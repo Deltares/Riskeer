@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            StabilityStoneCoverWaveConditionsOutput original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditoinsOutput();
+            StabilityStoneCoverWaveConditionsOutput original = StabilityStoneCoverTestDataGenerator.GetRandomStabilityStoneCoverWaveConditionsOutput();
 
             // Call
             object clone = original.Clone();

@@ -31,7 +31,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Container for the results of a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsOutput : Observable, ICalculationOutput, ICloneable
+    public class WaveImpactAsphaltCoverWaveConditionsOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsOutput"/>.

@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Simple class containing the results of a Piping calculation.
     /// </summary>
-    public class PipingOutput : Observable, ICalculationOutput, ICloneable
+    public class PipingOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutput"/>. 
