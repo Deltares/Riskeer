@@ -282,6 +282,38 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                          });
         }
 
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithTwoTopLevelIllustrationPointsWithChildren(bool sameClosingSituations)
+        {
+            var faultTreeNodeRootWithChildren = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
+            faultTreeNodeRootWithChildren.SetChildren(new[]
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("SubMechanismIllustrationPoint 1")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("SubMechanismIllustrationPoint 2"))
+            });
+
+            var topLevelFaultTreeIllustrationPoint1 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    new WindDirection("Wind direction 1", 1.0),
+                    sameClosingSituations ? "same closing situation" : "first closing situation",
+                    faultTreeNodeRootWithChildren);
+
+            var topLevelFaultTreeIllustrationPoint2 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    new WindDirection("Wind direction 2", 2.0),
+                    sameClosingSituations ? "same closing situation" : "second closing situation",
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint()));
+
+            var generalResultFunc = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
+                WindDirectionTestFactory.CreateTestWindDirection(),
+                Enumerable.Empty<Stochast>(),
+                new[]
+                {
+                    topLevelFaultTreeIllustrationPoint1,
+                    topLevelFaultTreeIllustrationPoint2
+                });
+            return generalResultFunc;
+        }
+
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithoutTopLevelIllustrationPoints()
         {
             return new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
@@ -430,7 +462,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingFaultTreeIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFullyConfiguredView_WhenSelectingFaultTreeIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly(bool sameClosingSituations)
         {
             // Given
             var mocks = new MockRepository();
@@ -438,7 +472,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTwoTopLevelIllustrationPoints();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTwoTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResultFunc)
             {
                 Data = data
@@ -465,14 +499,20 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var selectedFaultTreeContext = view.Selection as IllustrationPointNodeContext;
                 Assert.IsNotNull(selectedFaultTreeContext);
                 Assert.AreSame(expectedSelectedNode, selectedFaultTreeContext.IllustrationPointNode);
-                Assert.AreEqual(topLevel.ClosingSituation, selectedFaultTreeContext.ClosingSituation);
+
+                Assert.AreEqual(sameClosingSituations
+                                    ? string.Empty
+                                    : topLevel.ClosingSituation,
+                                selectedFaultTreeContext.ClosingSituation);
                 Assert.AreEqual(topLevel.WindDirection.Name, selectedFaultTreeContext.WindDirectionName);
             }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingSubMechanismIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFullyConfiguredView_WhenSelectingSubMechanismIllustrationPointInTree_ThenSelectionChangedAndPropagatedAccordingly(bool sameClosingSituations)
         {
             // Given
             var mocks = new MockRepository();
@@ -480,7 +520,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTopLevelIllustrationPointsWithChildren();
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTwoTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResultFunc)
             {
                 Data = data
@@ -507,7 +547,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var selectedSubMechanismContext = view.Selection as IllustrationPointNodeContext;
                 Assert.IsNotNull(selectedSubMechanismContext);
                 Assert.AreSame(expectedSelectedNode, selectedSubMechanismContext.IllustrationPointNode);
-                Assert.AreEqual(topLevel.ClosingSituation, selectedSubMechanismContext.ClosingSituation);
+                Assert.AreEqual(sameClosingSituations
+                                    ? string.Empty
+                                    : topLevel.ClosingSituation,
+                                selectedSubMechanismContext.ClosingSituation);
                 Assert.AreEqual(topLevel.WindDirection.Name, selectedSubMechanismContext.WindDirectionName);
             }
             mocks.VerifyAll();

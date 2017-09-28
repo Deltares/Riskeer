@@ -119,15 +119,23 @@ namespace Ringtoets.Common.Forms.Views
         {
             var selection = illustrationPointsFaultTreeControl.Selection as IllustrationPointNode;
             TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = illustrationPointsFaultTreeControl.Data;
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = getGeneralResultFunc();
 
-            if (selection == null || topLevelFaultTreeIllustrationPoint == null)
+            if (selection == null || topLevelFaultTreeIllustrationPoint == null || generalResult == null)
             {
                 return;
             }
 
+            bool areClosingSituationsSame = generalResult.TopLevelIllustrationPoints
+                                                         .Select(point => point.ClosingSituation)
+                                                         .Distinct()
+                                                         .Count() < 2;
+
             Selection = new IllustrationPointNodeContext(selection,
                                                          topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                         topLevelFaultTreeIllustrationPoint.ClosingSituation);
+                                                         areClosingSituationsSame
+                                                             ? string.Empty
+                                                             : topLevelFaultTreeIllustrationPoint.ClosingSituation);
 
             OnSelectionChanged();
         }
