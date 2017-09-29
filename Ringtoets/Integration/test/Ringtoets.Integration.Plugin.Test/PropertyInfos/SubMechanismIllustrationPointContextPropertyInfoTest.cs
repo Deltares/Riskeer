@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class IllustrationPointNodeSubMechanismContextPropertyInfoTest
+    public class SubMechanismIllustrationPointContextPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(IllustrationPointProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(SubMechanismIllustrationPointProperties));
         }
 
         [TearDown]
@@ -53,32 +53,17 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IllustrationPointNodeContext), info.DataType);
-            Assert.AreEqual(typeof(IllustrationPointProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(IllustrationPointContext<SubMechanismIllustrationPoint>), info.DataType);
+            Assert.AreEqual(typeof(SubMechanismIllustrationPointProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_WithIllustrationPointNotSubMechanismOrFaultTree_ReturnIllustrationPointProperties()
-        {
-            // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestIllustrationPoint());
-            var context = new IllustrationPointNodeContext(
-                illustrationPointNode, "Wind direction", "Closing situation");
-
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
-
-            // Assert
-            Assert.IsInstanceOf<IllustrationPointProperties>(objectProperties);
-            Assert.AreSame(illustrationPointNode, objectProperties.Data);
-        }
-
-        [Test]
-        public void CreateInstance_WithSubMechanismIllustrationPoint_ReturnSubMechanismIllustrationPointProperties()
+        public void CreateInstance_ValidArguments_ReturnFaultTreeIllustrationPointBaseProperties()
         {
             // Setup
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
-            var context = new IllustrationPointNodeContext(
+            var context = new IllustrationPointContext<SubMechanismIllustrationPoint>(
+                (SubMechanismIllustrationPoint) illustrationPointNode.Data,
                 illustrationPointNode, "Wind direction", "Closing situation");
 
             // Call
@@ -86,22 +71,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             // Assert
             Assert.IsInstanceOf<SubMechanismIllustrationPointProperties>(objectProperties);
-            Assert.AreSame(illustrationPointNode, objectProperties.Data);
-        }
-
-        [Test]
-        public void CreateInstance_WithFaultTreeIllustrationPoint_ReturnFaultTreeIllustrationPointProperties()
-        {
-            // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
-            var context = new IllustrationPointNodeContext(
-                illustrationPointNode, "Wind direction", "Closing situation");
-
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
-
-            // Assert
-            Assert.IsInstanceOf<FaultTreeIllustrationPointProperties>(objectProperties);
             Assert.AreSame(illustrationPointNode, objectProperties.Data);
         }
     }

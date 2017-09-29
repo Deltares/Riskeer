@@ -496,7 +496,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 TopLevelFaultTreeIllustrationPoint topLevel = generalResultFunc.TopLevelIllustrationPoints.First();
                 IllustrationPointNode expectedSelectedNode = topLevel.FaultTreeNodeRoot;
 
-                var selectedFaultTreeContext = view.Selection as IllustrationPointNodeContext;
+                var selectedFaultTreeContext = view.Selection as IllustrationPointContext<FaultTreeIllustrationPoint>;
                 Assert.IsNotNull(selectedFaultTreeContext);
                 Assert.AreSame(expectedSelectedNode, selectedFaultTreeContext.IllustrationPointNode);
 
@@ -544,7 +544,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 TopLevelFaultTreeIllustrationPoint topLevel = generalResultFunc.TopLevelIllustrationPoints.ElementAt(0);
                 IllustrationPointNode expectedSelectedNode = topLevel.FaultTreeNodeRoot.Children.First();
 
-                var selectedSubMechanismContext = view.Selection as IllustrationPointNodeContext;
+                var selectedSubMechanismContext = view.Selection as IllustrationPointContext<SubMechanismIllustrationPoint>;
                 Assert.IsNotNull(selectedSubMechanismContext);
                 Assert.AreSame(expectedSelectedNode, selectedSubMechanismContext.IllustrationPointNode);
                 Assert.AreEqual(sameClosingSituations

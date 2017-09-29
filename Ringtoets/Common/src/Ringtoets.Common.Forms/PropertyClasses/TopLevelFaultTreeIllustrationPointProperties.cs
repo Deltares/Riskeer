@@ -145,11 +145,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 var points = new List<IllustrationPointProperties>();
                 foreach (IllustrationPointNode illustrationPointNode in data.FaultTreeNodeRoot.Children)
                 {
+                    string closingSituation = areClosingSituationsSame ? string.Empty : ClosingSituation;
+
                     if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
                         points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode,
                                                                             WindDirection,
-                                                                            areClosingSituationsSame ? string.Empty : ClosingSituation));
+                                                                            closingSituation));
                         continue;
                     }
 
@@ -157,7 +159,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     {
                         points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode,
                                                                                WindDirection,
-                                                                               areClosingSituationsSame ? string.Empty : ClosingSituation));
+                                                                               closingSituation));
                         continue;
                     }
 

@@ -127,14 +127,26 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            bool areClosingSituationsSame = generalResult.TopLevelIllustrationPoints
-                                                         .HasDuplicates(p => p.ClosingSituation);
+            string closingSituation = generalResult.TopLevelIllustrationPoints.HasDuplicates(p => p.ClosingSituation)
+                                          ? string.Empty
+                                          : topLevelFaultTreeIllustrationPoint.ClosingSituation;
 
-            Selection = new IllustrationPointNodeContext(selection,
-                                                         topLevelFaultTreeIllustrationPoint.WindDirection.Name,
-                                                         areClosingSituationsSame
-                                                             ? string.Empty
-                                                             : topLevelFaultTreeIllustrationPoint.ClosingSituation);
+            var faultTreeIllustrationPoint = selection.Data as FaultTreeIllustrationPoint;
+            if (faultTreeIllustrationPoint != null)
+            {
+                Selection = new IllustrationPointContext<FaultTreeIllustrationPoint>(faultTreeIllustrationPoint,
+                                                                                     selection,
+                                                                                     topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                                                     closingSituation);
+            }
+            var subMechanismIllustrationPoint = selection.Data as SubMechanismIllustrationPoint;
+            if (subMechanismIllustrationPoint != null)
+            {
+                Selection = new IllustrationPointContext<SubMechanismIllustrationPoint>(subMechanismIllustrationPoint,
+                                                                                        selection,
+                                                                                        topLevelFaultTreeIllustrationPoint.WindDirection.Name,
+                                                                                        closingSituation);
+            }
 
             OnSelectionChanged();
         }

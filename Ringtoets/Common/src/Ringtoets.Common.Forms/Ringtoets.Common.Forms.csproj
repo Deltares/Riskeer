@@ -76,7 +76,7 @@
     <Compile Include="PresentationObjects\FailureMechanismSectionResultContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\IFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\IllustrationPointNodeContext.cs" />
+    <Compile Include="PresentationObjects\IllustrationPointContext.cs" />
     <Compile Include="PresentationObjects\InputContextBase.cs" />
     <Compile Include="PresentationObjects\MapCalculationData.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />

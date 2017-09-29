@@ -48,7 +48,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
@@ -111,6 +110,7 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
+using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -334,9 +334,17 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = CreateTopLevelFaultTreeIllustrationPointProperties
             };
-            yield return new PropertyInfo<IllustrationPointNodeContext, IllustrationPointProperties>
+            yield return new PropertyInfo<IllustrationPointContext<FaultTreeIllustrationPoint>, FaultTreeIllustrationPointProperties>
             {
-                CreateInstance = CreateIllustrationPointProperties
+                CreateInstance = context => new FaultTreeIllustrationPointProperties(context.IllustrationPointNode,
+                                                                                     context.WindDirectionName,
+                                                                                     context.ClosingSituation)
+            };
+            yield return new PropertyInfo<IllustrationPointContext<SubMechanismIllustrationPoint>, SubMechanismIllustrationPointProperties>
+            {
+                CreateInstance = context => new SubMechanismIllustrationPointProperties(context.IllustrationPointNode,
+                                                                                        context.WindDirectionName,
+                                                                                        context.ClosingSituation)
             };
         }
 
@@ -858,28 +866,6 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #region PropertyInfos
-
-        private static IllustrationPointProperties CreateIllustrationPointProperties(IllustrationPointNodeContext context)
-        {
-            IllustrationPointNode illustrationPointNode = context.IllustrationPointNode;
-
-            if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
-            {
-                return new FaultTreeIllustrationPointProperties(illustrationPointNode,
-                                                                context.WindDirectionName,
-                                                                context.ClosingSituation);
-            }
-            if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
-            {
-                return new SubMechanismIllustrationPointProperties(illustrationPointNode,
-                                                                   context.WindDirectionName,
-                                                                   context.ClosingSituation);
-            }
-
-            return new IllustrationPointProperties(illustrationPointNode,
-                                                   context.WindDirectionName,
-                                                   context.ClosingSituation);
-        }
 
         private static TopLevelFaultTreeIllustrationPointProperties CreateTopLevelFaultTreeIllustrationPointProperties(SelectedTopLevelFaultTreeIllustrationPoint point)
         {
