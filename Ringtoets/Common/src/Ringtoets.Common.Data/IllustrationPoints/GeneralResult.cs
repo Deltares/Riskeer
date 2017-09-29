@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
             if (childStochastNames.Except(topLevelStochastNames).Any())
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_top_level_stochasts));
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_stochasts_in_children));
             }
         }
 

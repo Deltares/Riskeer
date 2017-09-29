@@ -143,12 +143,12 @@
     <value>overslagdebiet</value>
   </data>
   <data name="SetGeneralResult_Error_while_converting_generalresult_dike_height" xml:space="preserve">
-    <value>Fout bij het uitlezen van de HBN illustratiepunten voor berekening {0}:</value>
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (HBN):</value>
   </data>
   <data name="SetGeneralResult_Error_while_converting_generalresult_overtopping" xml:space="preserve">
-    <value>Fout bij het uitlezen van de overloop en overslag illustratiepunten voor berekening {0}:</value>
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overloop en overslag):</value>
   </data>
   <data name="SetGeneralResult_Error_while_converting_generalresult_overtopping_rate" xml:space="preserve">
-    <value>Fout bij het uitlezen van de overslagdebiet illustratiepunten voor berekening {0}:</value>
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet):</value>
   </data>
 </root>

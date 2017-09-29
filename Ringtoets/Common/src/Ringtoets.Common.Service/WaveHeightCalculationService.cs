@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Service
             }
             catch (ArgumentException e)
             {
-                log.Error(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, waveHeightCalculation.Name) + " " + e.Message);
+                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, waveHeightCalculation.Name) + " " + e.Message);
             }
 
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(

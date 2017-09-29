@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de HBN illustratiepunten voor berekening {0}:.
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (HBN):.
         /// </summary>
         internal static string SetGeneralResult_Error_while_converting_generalresult_dike_height {
             get {
@@ -169,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de overloop en overslag illustratiepunten voor berekening {0}:.
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overloop en overslag):.
         /// </summary>
         internal static string SetGeneralResult_Error_while_converting_generalresult_overtopping {
             get {
@@ -178,7 +178,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de overslagdebiet illustratiepunten voor berekening {0}:.
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet):.
         /// </summary>
         internal static string SetGeneralResult_Error_while_converting_generalresult_overtopping_rate {
             get {

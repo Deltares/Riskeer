@@ -390,7 +390,7 @@ namespace Ringtoets.Common.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening punt_flw_ 1: " +
-                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
@@ -444,7 +444,7 @@ namespace Ringtoets.Common.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening punt_flw_ 1: " +
-                                    "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. " +
+                                    "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
@@ -498,7 +498,7 @@ namespace Ringtoets.Common.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening punt_flw_ 1: " +
-                                    "Een of meerdere resultaten hebben dezelfde naam. " +
+                                    "Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);

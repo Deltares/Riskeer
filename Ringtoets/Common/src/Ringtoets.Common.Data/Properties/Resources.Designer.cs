@@ -564,7 +564,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_closing_situations_or_wind_direction {
             get {
@@ -573,7 +573,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to Een of meerdere uitvoer variabelen hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_results {
             get {
@@ -591,11 +591,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
-        public static string GeneralResult_Imported_with_incorrect_top_level_stochasts {
+        public static string GeneralResult_Imported_with_incorrect_stochasts_in_children {
             get {
-                return ResourceManager.GetString("GeneralResult_Imported_with_incorrect_top_level_stochasts", resourceCulture);
+                return ResourceManager.GetString("GeneralResult_Imported_with_incorrect_stochasts_in_children", resourceCulture);
             }
         }
         

@@ -158,7 +158,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere resultaten hebben dezelfde naam. " +
+            Assert.AreEqual("Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
                             "Het uitlezen van illustratiepunten wordt overgeslagen.",
                             exception.Message);
         }

@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. " +
+            Assert.AreEqual("Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
                             "Het uitlezen van illustratiepunten wordt overgeslagen.",
                             exception.Message);
         }
@@ -204,7 +204,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+            Assert.AreEqual("De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
                             "Het uitlezen van illustratiepunten wordt overgeslagen.",
                             exception.Message);
         }

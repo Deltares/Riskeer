@@ -391,13 +391,13 @@
     <value>Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
   <data name="GeneralResult_Imported_non_unique_closing_situations_or_wind_direction" xml:space="preserve">
-    <value>Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+    <value>Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
   <data name="GeneralResult_Imported_non_unique_results" xml:space="preserve">
-    <value>Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+    <value>Een of meerdere uitvoer variabelen hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
-  <data name="GeneralResult_Imported_with_incorrect_top_level_stochasts" xml:space="preserve">
-    <value>De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
+  <data name="GeneralResult_Imported_with_incorrect_stochasts_in_children" xml:space="preserve">
+    <value>De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
   <data name="GeneralResult_Imported_non_unique_child_names" xml:space="preserve">
     <value>Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.</value>

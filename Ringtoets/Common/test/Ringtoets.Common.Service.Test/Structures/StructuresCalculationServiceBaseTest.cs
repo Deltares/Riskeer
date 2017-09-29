@@ -698,7 +698,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
-                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual(performedCalculationMessage, msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
@@ -755,7 +755,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
-                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual(performedCalculationMessage, msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
@@ -812,7 +812,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
-                                    "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. " +
+                                    "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual(performedCalculationMessage, msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
@@ -869,7 +869,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening Nieuwe berekening: " +
-                                    "Een of meerdere resultaten hebben dezelfde naam. " +
+                                    "Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual(performedCalculationMessage, msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);

@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             }
             if (data.Stochasts.Select(s => s.Name).Intersect(stochastNames).Count() != stochastNames.Distinct().Count())
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_top_level_stochasts));
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_stochasts_in_children));
             }
         }
     }

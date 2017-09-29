@@ -75,7 +75,7 @@ namespace Core.Common.Utils.Extensions
             {
                 throw new ArgumentNullException(nameof(keySelector));
             }
-            return source.GroupBy(keySelector).Any(g => g.Count() > 1);
+            return source.Select(keySelector).Count() != source.Select(keySelector).Distinct().Count();
         }
     }
 }

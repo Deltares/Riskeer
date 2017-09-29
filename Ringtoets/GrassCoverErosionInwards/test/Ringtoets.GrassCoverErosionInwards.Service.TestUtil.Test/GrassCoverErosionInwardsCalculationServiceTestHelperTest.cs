@@ -193,7 +193,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
                     description,
                     name,
-                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
                     "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.");
 
             // Assert
@@ -201,9 +201,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         }
 
         [Test]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
                   "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.")]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
                   "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
@@ -233,18 +233,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
                     description,
                     name,
-                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
-                    "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.");
+                    $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
+                    "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
+                    "Het uitlezen van illustratiepunten wordt overgeslagen.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.")]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "Een of meerdere illustratiepunten hebben dezelfde sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertGeneralResultNonDistinctIllustrationPoints_NotEqualMessage_ThrowsAssertionException(
@@ -273,18 +276,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
                     description,
                     name,
-                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
-                    "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.");
+                    $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
+                    "Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
+                    "Het uitlezen van illustratiepunten wordt overgeslagen.");
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.")]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "Een of meerdere resultaten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertGeneralResultNonDistinctIllustrationPointResults_NotEqualMessage_ThrowsAssertionException(
@@ -313,8 +319,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultIncorrectTopLevelStochasts(
                     description,
                     name,
-                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
-                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. " +
+                    $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
+                    "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
                     "Het uitlezen van illustratiepunten wordt overgeslagen.");
 
             // Assert
@@ -322,10 +328,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         }
 
         [Test]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslagen.")]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als de illustratiepunten die het punt bevat. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertGeneralResultIncorrectTopLevelStochasts_NotEqualMessage_ThrowsAssertionException(
@@ -354,7 +362,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                 GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
                     description,
                     name,
-                    $"Fout bij het uitlezen van de {description} illustratiepunten voor berekening {name}: " +
+                    $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
                     "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
                     "Het uitlezen van illustratiepunten wordt overgeslagen.");
 
@@ -363,10 +371,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         }
 
         [Test]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.")]
-        [TestCase("out bij het uitlezen van de  illustratiepunten voor berekening  : " +
-                  "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslagen.")]
+        [TestCase("out bij het uitlezen van de illustratiepunten voor berekening  ( ): " +
+                  "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
+                  "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
         public void AssertGeneralResultNonDistinctChildNames_NotEqualMessage_ThrowsAssertionException(
