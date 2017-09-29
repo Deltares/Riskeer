@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_SoilProfile2DWithOutLayers_ThrowsImportedDataTransformException()
+        public void Transform_SoilProfile2DWithoutIntersectionX_ThrowsImportedDataTransformException()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -172,7 +172,30 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
 
             // Assert
-            Assert.Throws<ImportedDataTransformException>(test);
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+            string expectedMessage = $"Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{profileName}'.";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Transform_SoilProfile2DWithoutLayers_ThrowsImportedDataTransformException()
+        {
+            // Setup
+            var random = new Random(21);
+            var profile = new SoilProfile2D(0, string.Empty, Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>())
+            {
+                IntersectionX = random.NextDouble()
+            };
+
+            // Call
+            TestDelegate test = () => PipingSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]
@@ -366,7 +389,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]
@@ -391,7 +417,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]

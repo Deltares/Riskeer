@@ -102,13 +102,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// in a valid transformed instance.</exception>
         private static MacroStabilityInwardsSoilProfile2D Transform(SoilProfile2D soilProfile)
         {
-            return new MacroStabilityInwardsSoilProfile2D(soilProfile.Name,
-                                                          soilProfile.Layers
-                                                                     .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
-                                                                     .ToArray(),
-                                                          soilProfile.PreconsolidationStresses
-                                                                     .Select(MacroStabilityInwardsPreconsolidationStressTransformer.Transform)
-                                                                     .ToArray());
+            try
+            {
+                return new MacroStabilityInwardsSoilProfile2D(soilProfile.Name,
+                                                              soilProfile.Layers
+                                                                         .Select(MacroStabilityInwardsSoilLayerTransformer.Transform)
+                                                                         .ToArray(),
+                                                              soilProfile.PreconsolidationStresses
+                                                                         .Select(MacroStabilityInwardsPreconsolidationStressTransformer.Transform)
+                                                                         .ToArray());
+            }
+            catch (ArgumentException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
     }
 }

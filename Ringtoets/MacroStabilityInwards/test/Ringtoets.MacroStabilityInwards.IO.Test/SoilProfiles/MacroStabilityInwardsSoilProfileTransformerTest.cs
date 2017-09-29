@@ -78,7 +78,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]
@@ -97,7 +100,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             // Assert
             var exception = Assert.Throws<ImportedDataTransformException>(call);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]
@@ -117,6 +123,23 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.AreEqual(profile.Bottom, transformedProfile.Bottom);
             Assert.AreEqual(profile.Layers.Count(), transformedProfile.Layers.Count());
             CollectionAssert.AllItemsAreInstancesOfType(transformedProfile.Layers, typeof(MacroStabilityInwardsSoilLayer1D));
+        }
+
+        [Test]
+        public void Transform_SoilProfile2DWithoutLayers_ThrowsImportedDataException()
+        {
+            // Setup
+            var profile = new SoilProfile2D(1, "test", Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>());
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSoilProfileTransformer.Transform(profile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]

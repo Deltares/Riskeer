@@ -266,7 +266,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadSoilProfile_DatabaseWith1DProfileNoLayers_ReturnsProfile()
+        public void ReadSoilProfile_Empty1DProfileWithoutLayers_ReturnsProfile()
         {
             // Setup
             string dbFile = Path.Combine(testDataPath, "1dprofileNoLayers.soil");
@@ -279,6 +279,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 // Assert
                 Assert.AreEqual("Schematisering1", profile.Name);
+                Assert.AreEqual(1, profile.Id);
                 Assert.IsNaN(profile.Bottom);
                 CollectionAssert.IsEmpty(profile.Layers);
             }

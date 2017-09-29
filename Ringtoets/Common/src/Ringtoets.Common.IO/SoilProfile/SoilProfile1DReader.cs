@@ -263,11 +263,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 try
                 {
-                    var readBottom = reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.Bottom);
-                    if (readBottom.HasValue)
-                    {
-                        Bottom = readBottom.Value;
-                    }
+                    Bottom = reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.Bottom) ?? double.NaN;
                 }
                 catch (InvalidCastException e)
                 {
@@ -281,7 +277,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// <summary>
             /// The bottom of the profile.
             /// </summary>
-            public double Bottom { get; } = double.NaN;
+            public double Bottom { get; }
         }
     }
 }

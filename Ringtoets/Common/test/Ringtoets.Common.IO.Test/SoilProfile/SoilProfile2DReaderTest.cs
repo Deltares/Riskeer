@@ -133,6 +133,30 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadSoilProfile_Empty2DProfileWithoutLayers_ReturnsSoilProfile()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "2dprofileNoLayers.soil");
+
+            using (var reader = new SoilProfile2DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfile2D profile = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual("Profile", profile.Name);
+                Assert.AreEqual(1, profile.Id);
+                Assert.IsNaN(profile.IntersectionX);
+                CollectionAssert.IsEmpty(profile.Layers);
+                CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadSoilProfile_DatabaseWith2DSoilProfile3Layers_ReturnOneProfile()
         {
             // Setup

@@ -257,10 +257,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>The SQL query to execute.</returns>
         public static string GetSoilProfile2DQuery()
         {
-            string getNumberOfLayerProfile2DQuery =
-                $"SELECT SP2D_ID, COUNT(*) AS {SoilProfileTableDefinitions.LayerCount} " +
-                "FROM SoilLayer2D " +
-                "GROUP BY SP2D_ID";
+            const string getNumberOfLayerProfile2DQuery =
+                "SELECT COUNT(*) " +
+                "FROM SoilLayer2D WHERE SoilLayer2D.SP2D_ID = sp2d.SP2D_ID";
 
             string getLayerPropertiesOfLayer2DQuery =
                 $"SELECT SL2D_ID, PV_Value AS {SoilProfileTableDefinitions.IsAquifer} " +
@@ -271,7 +270,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             return
                 "SELECT " +
                 $"sp2d.SP2D_Name AS {SoilProfileTableDefinitions.ProfileName}, " +
-                $"layerCount.{SoilProfileTableDefinitions.LayerCount}, " +
                 $"sl2d.GeometrySurface AS {SoilProfileTableDefinitions.LayerGeometry}, " +
                 $"mpl.X AS {SoilProfileTableDefinitions.IntersectionX}, " +
                 $"{SoilProfileTableDefinitions.MaterialName}, " +
@@ -316,13 +314,13 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PopMean}, " +
                 $"{SoilProfileTableDefinitions.PopCoefficientOfVariation}, " +
                 $"{SoilProfileTableDefinitions.PopShift}, " +
-                $"sp2d.SP2D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
+                $"sp2d.SP2D_ID AS {SoilProfileTableDefinitions.SoilProfileId}, " +
+                $"({getNumberOfLayerProfile2DQuery}) AS {SoilProfileTableDefinitions.LayerCount} " +
                 $"FROM {MechanismTableDefinitions.TableName} AS m " +
                 $"JOIN {SegmentTableDefinitions.TableName} AS segment USING({MechanismTableDefinitions.MechanismId}) " +
                 "JOIN (SELECT SSM_ID, SP2D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP2D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
-                $"JOIN ({getNumberOfLayerProfile2DQuery}) {SoilProfileTableDefinitions.LayerCount} USING(SP2D_ID) " +
-                "JOIN SoilLayer2D sl2d USING(SP2D_ID) " +
+                "LEFT JOIN SoilLayer2D sl2d USING(SP2D_ID) " +
                 "LEFT JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
                 $"LEFT JOIN ({getMaterialPropertiesOfLayerQuery}) materialProperties USING(MA_ID) " +
                 $"LEFT JOIN ({getLayerPropertiesOfLayer2DQuery}) USING(SL2D_ID) " +

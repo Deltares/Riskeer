@@ -257,7 +257,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             const string expectedQuery =
                 "SELECT sp2d.SP2D_Name AS ProfileName, " +
-                "layerCount.LayerCount, " +
                 "sl2d.GeometrySurface AS LayerGeometry, " +
                 "mpl.X AS IntersectionX, " +
                 "MaterialName, " +
@@ -302,7 +301,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "PopMean, " +
                 "PopCoefficientOfVariation, " +
                 "PopShift, " +
-                "sp2d.SP2D_ID AS SoilProfileId " +
+                "sp2d.SP2D_ID AS SoilProfileId, " +
+                "(" +
+                "SELECT " +
+                "COUNT(*) " +
+                "FROM SoilLayer2D WHERE SoilLayer2D.SP2D_ID = sp2d.SP2D_ID) AS LayerCount " +
                 "FROM Mechanism AS m " +
                 "JOIN Segment AS segment USING(ME_ID) " +
                 "JOIN " +
@@ -312,13 +315,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "GROUP BY SSM_ID, SP2D_ID" +
                 ") ssp USING(SSM_ID) " +
                 "JOIN SoilProfile2D sp2d USING(SP2D_ID) " +
-                "JOIN " +
-                "(" +
-                "SELECT SP2D_ID, COUNT(*) AS LayerCount " +
-                "FROM SoilLayer2D " +
-                "GROUP BY SP2D_ID" +
-                ") LayerCount USING(SP2D_ID) " +
-                "JOIN SoilLayer2D sl2d USING(SP2D_ID) " +
+                "LEFT JOIN SoilLayer2D sl2d USING(SP2D_ID) " +
                 "LEFT JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
                 "LEFT JOIN " +
                 "(" +

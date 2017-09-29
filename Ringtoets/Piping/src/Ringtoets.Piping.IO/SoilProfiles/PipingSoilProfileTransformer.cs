@@ -106,7 +106,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 bottom = Math.Min(bottom, newBottom);
             }
 
-            return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D);
+            try
+            {
+                return new PipingSoilProfile(profileName, bottom, layers, SoilProfileType.SoilProfile2D);
+            }
+            catch (ArgumentException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
 
         /// <summary>

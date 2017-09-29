@@ -40,7 +40,6 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="preconsolidationStresses">The preconsolidation stresses that are defined for the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="layers"/> or
         /// <paramref name="preconsolidationStresses"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         public SoilProfile2D(long id, string name, IEnumerable<SoilLayer2D> layers, IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
             if (name == null)
@@ -51,8 +50,10 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
-
-            ValidateLayersCollection(layers);
+            if (layers == null)
+            {
+                throw new ArgumentNullException(nameof(layers));
+            }
 
             Id = id;
             Name = name;
@@ -82,23 +83,5 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Gets the collection of preconsolidation stresses that are defined for the profile.
         /// </summary>
         public IEnumerable<PreconsolidationStress> PreconsolidationStresses { get; }
-
-        /// <summary>
-        /// Validates the given <paramref name="layers"/>. A valid <paramref name="layers"/> has layers.
-        /// </summary>
-        /// <param name="layers">The collection of <see cref="SoilLayer2D"/> to validate.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
-        private static void ValidateLayersCollection(IEnumerable<SoilLayer2D> layers)
-        {
-            if (layers == null)
-            {
-                throw new ArgumentNullException(nameof(layers), string.Format(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers));
-            }
-            if (!layers.Any())
-            {
-                throw new ArgumentException(Resources.SoilProfile_Cannot_construct_SoilProfile_without_layers);
-            }
-        }
     }
 }
