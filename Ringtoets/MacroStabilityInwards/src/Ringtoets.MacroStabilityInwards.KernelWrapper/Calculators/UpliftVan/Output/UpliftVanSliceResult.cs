@@ -182,6 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
         /// <summary>
         /// Gets the left force.
+        /// [kN/m²]
         /// </summary>
         public double LeftForce { get; }
 
@@ -193,11 +194,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
         /// <summary>
         /// Gets the left force y.
+        /// [kN/m²]
         /// </summary>
         public double LeftForceY { get; }
 
         /// <summary>
         /// Gets the right force.
+        /// [kN/m²]
         /// </summary>
         public double RightForce { get; }
 
@@ -209,6 +212,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
         /// <summary>
         /// Gets the right force y.
+        /// [kN/m²]
         /// </summary>
         public double RightForceY { get; }
 
@@ -399,6 +403,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
             /// <summary>
             /// Gets or sets the left force.
+            /// [kN/m²]
             /// </summary>
             public double LeftForce { internal get; set; }
 
@@ -410,11 +415,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
             /// <summary>
             /// Gets or sets the left force y.
+            /// [kN/m²]
             /// </summary>
             public double LeftForceY { internal get; set; }
 
             /// <summary>
             /// Gets or sets the right force.
+            /// [kN/m²]
             /// </summary>
             public double RightForce { internal get; set; }
 
@@ -426,6 +433,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
             /// <summary>
             /// Gets or sets the right force y.
+            /// [kN/m²]
             /// </summary>
             public double RightForceY { internal get; set; }
 
