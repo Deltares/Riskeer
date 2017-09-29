@@ -167,6 +167,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             try
             {
+                MoveToNextProfile(criticalProperties.ProfileId);
                 return new SoilProfile1D(criticalProperties.ProfileId,
                                          criticalProperties.ProfileName,
                                          properties.Bottom,
@@ -262,7 +263,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 try
                 {
-                    Bottom = reader.Read<double>(SoilProfileTableDefinitions.Bottom);
+                    var readBottom = reader.ReadOrDefault<double?>(SoilProfileTableDefinitions.Bottom);
+                    if (readBottom.HasValue)
+                    {
+                        Bottom = readBottom.Value;
+                    }
                 }
                 catch (InvalidCastException e)
                 {
@@ -276,7 +281,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             /// <summary>
             /// The bottom of the profile.
             /// </summary>
-            public double Bottom { get; }
+            public double Bottom { get; } = double.NaN;
         }
     }
 }

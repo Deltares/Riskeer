@@ -128,7 +128,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string expectedQuery =
                 "SELECT " +
                 "sp1d.SP1D_Name AS ProfileName, " +
-                "layerCount.LayerCount, " +
                 "sp1d.BottomLevel AS Bottom, " +
                 "sl1d.TopLevel AS Top, " +
                 "MaterialName, " +
@@ -173,7 +172,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "PopMean, " +
                 "PopCoefficientOfVariation, " +
                 "PopShift, " +
-                "sp1d.SP1D_ID AS SoilProfileId " +
+                "sp1d.SP1D_ID AS SoilProfileId," +
+                "(" +
+                "SELECT " +
+                "COUNT(*) " +
+                "FROM SoilLayer1D WHERE SoilLayer1D.SP1D_ID = sp1d.SP1D_ID) AS LayerCount " +
                 "FROM Segment AS segment " +
                 "JOIN " +
                 "(" +
@@ -182,13 +185,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 "GROUP BY SSM_ID, SP1D_ID" +
                 ") ssp USING(SSM_ID) " +
                 "JOIN SoilProfile1D sp1d USING(SP1D_ID) " +
-                "JOIN " +
-                "(" +
-                "SELECT SP1D_ID, COUNT(*) AS LayerCount " +
-                "FROM SoilLayer1D " +
-                "GROUP BY SP1D_ID" +
-                ") LayerCount USING(SP1D_ID) " +
-                "JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
+                "LEFT JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
                 "LEFT JOIN " +
                 "(" +
                 "SELECT " +

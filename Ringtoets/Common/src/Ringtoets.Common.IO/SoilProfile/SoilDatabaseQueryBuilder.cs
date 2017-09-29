@@ -183,10 +183,9 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>The SQL query to execute.</returns>
         public static string GetSoilProfile1DQuery()
         {
-            string getNumberOfLayerProfile1DQuery =
-                $"SELECT SP1D_ID, COUNT(*) AS {SoilProfileTableDefinitions.LayerCount} " +
-                "FROM SoilLayer1D " +
-                "GROUP BY SP1D_ID";
+            const string getNumberOfLayerProfile1DQuery =
+                "SELECT COUNT(*) " +
+                "FROM SoilLayer1D WHERE SoilLayer1D.SP1D_ID = sp1d.SP1D_ID";
 
             string getLayerPropertiesOfLayer1DQuery =
                 $"SELECT SL1D_ID, PV_Value AS {SoilProfileTableDefinitions.IsAquifer} " +
@@ -197,7 +196,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             return
                 "SELECT " +
                 $"sp1d.SP1D_Name AS {SoilProfileTableDefinitions.ProfileName}, " +
-                $"layerCount.{SoilProfileTableDefinitions.LayerCount}, " +
                 $"sp1d.BottomLevel AS {SoilProfileTableDefinitions.Bottom}, " +
                 $"sl1d.TopLevel AS {SoilProfileTableDefinitions.Top}, " +
                 $"{SoilProfileTableDefinitions.MaterialName}, " +
@@ -242,12 +240,12 @@ namespace Ringtoets.Common.IO.SoilProfile
                 $"{SoilProfileTableDefinitions.PopMean}, " +
                 $"{SoilProfileTableDefinitions.PopCoefficientOfVariation}, " +
                 $"{SoilProfileTableDefinitions.PopShift}, " +
-                $"sp1d.SP1D_ID AS {SoilProfileTableDefinitions.SoilProfileId} " +
+                $"sp1d.SP1D_ID AS {SoilProfileTableDefinitions.SoilProfileId}," +
+                $"({getNumberOfLayerProfile1DQuery}) AS {SoilProfileTableDefinitions.LayerCount} " +
                 "FROM Segment AS segment " +
                 "JOIN (SELECT SSM_ID, SP1D_ID FROM StochasticSoilProfile GROUP BY SSM_ID, SP1D_ID) ssp USING(SSM_ID) " +
                 "JOIN SoilProfile1D sp1d USING(SP1D_ID) " +
-                $"JOIN ({getNumberOfLayerProfile1DQuery}) {SoilProfileTableDefinitions.LayerCount} USING(SP1D_ID) " +
-                "JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
+                "LEFT JOIN SoilLayer1D sl1d USING(SP1D_ID) " +
                 $"LEFT JOIN ({getMaterialPropertiesOfLayerQuery}) materialProperties USING(MA_ID) " +
                 $"LEFT JOIN ({getLayerPropertiesOfLayer1DQuery}) USING(SL1D_ID) " +
                 "GROUP BY sp1d.SP1D_ID, sl1d.SL1D_ID;";

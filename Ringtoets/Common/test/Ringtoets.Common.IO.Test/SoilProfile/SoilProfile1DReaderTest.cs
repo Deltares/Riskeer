@@ -266,6 +266,25 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadSoilProfile_DatabaseWith1DProfileNoLayers_ReturnsProfile()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "1dprofileNoLayers.soil");
+            using (var reader = new SoilProfile1DReader(dbFile))
+            {
+                reader.Initialize();
+
+                // Call
+                SoilProfile1D profile = reader.ReadSoilProfile();
+
+                // Assert
+                Assert.AreEqual("Schematisering1", profile.Name);
+                Assert.IsNaN(profile.Bottom);
+                CollectionAssert.IsEmpty(profile.Layers);
+            }
+        }
+
+        [Test]
         public void ReadSoilProfile_DatabaseWith1DProfile4Layers_ReturnsProfile()
         {
             // Setup
