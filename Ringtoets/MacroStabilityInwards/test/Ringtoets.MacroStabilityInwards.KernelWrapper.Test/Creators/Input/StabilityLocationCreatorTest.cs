@@ -103,14 +103,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
             double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
             double phreaticLineOffsetBelowDikeToeAtPolder = random.Next();
-            double piezometricHeadPhreaticLine2Outwards = random.Next();
-            double piezometricHeadPhreaticLine2Inwards = random.Next();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
-            double penetrationLength = random.Next();
             double leakageLengthOutwardsPhreaticLine3 = random.Next();
             double leakageLengthInwardsPhreaticLine3 = random.Next();
             double leakageLengthOutwardsPhreaticLine4 = random.Next();
             double leakageLengthInwardsPhreaticLine4 = random.Next();
+            double piezometricHeadPhreaticLine2Outwards = random.Next();
+            double piezometricHeadPhreaticLine2Inwards = random.Next();
+            double penetrationLength = random.Next();
 
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
@@ -129,14 +129,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder,
                     PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside,
                     PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder,
-                    PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
-                    PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
-                    PenetrationLength = penetrationLength,
                     LeakageLengthOutwardsPhreaticLine3 = leakageLengthOutwardsPhreaticLine3,
                     LeakageLengthInwardsPhreaticLine3 = leakageLengthInwardsPhreaticLine3,
                     LeakageLengthOutwardsPhreaticLine4 = leakageLengthOutwardsPhreaticLine4,
-                    LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4
+                    LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
+                    PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
+                    PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
+                    PenetrationLength = penetrationLength
                 });
 
             // Call
@@ -144,12 +144,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.ClayDikeOnClay, location.DikeSoilScenario);
+            Assert.AreEqual(WaternetCreationMode.CreateWaternet, location.WaternetCreationMode);
+            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
             Assert.AreEqual(assessmentLevel, location.WaterLevelRiver);
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine3);
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
             Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolder, location.WaterLevelPolder);
-            Assert.IsNaN(location.WaterLevelRiverLow);
             Assert.AreEqual(drainageConstructionPresent, location.DrainageConstructionPresent);
             Assert.AreEqual(xCoordinateDrainageConstruction, location.XCoordMiddleDrainageConstruction);
             Assert.AreEqual(zCoordinateDrainageConstruction, location.ZCoordMiddleDrainageConstruction);
@@ -160,15 +161,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
             Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
             Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, location.AdjustPl3And4ForUplift);
-            Assert.AreEqual(penetrationLength, location.PenetrationLength);
             Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, location.LeakageLengthOutwardsPl3);
             Assert.AreEqual(leakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);
             Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, location.LeakageLengthOutwardsPl4);
             Assert.AreEqual(leakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, location.WaternetCreationMode);
+            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
+            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
+            Assert.AreEqual(penetrationLength, location.PenetrationLength);
+
+            AssertIrrelevantValues(location);
+        }
+
+        private static void AssertIrrelevantValues(StabilityLocation location)
+        {
+            Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
+            Assert.AreEqual(0.0, location.X); // Unused property
+            Assert.AreEqual(0.0, location.Y); // Unused property
+            Assert.IsNaN(location.PiezometricHeads.HeadPl3); // Unused property
+            Assert.AreEqual(0.30, location.PiezometricHeads.DampingFactorPl3); // Unused property
+            Assert.IsNaN(location.PiezometricHeads.HeadPl4); // Unused property
+            Assert.AreEqual(0.30, location.PiezometricHeads.DampingFactorPl4); // Unused property
         }
     }
 }

@@ -280,21 +280,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
 
-            #region Relevant default values
-
             Assert.IsNull(stabilityModel.LocationDaily);
             Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // No multiplication factors CPhi for WBI
-            Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
-
-            #endregion
-
-            #region Wrapped values
-
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
             Assert.AreSame(stabilityLocation, stabilityModel.Location);
             Assert.AreSame(soilModel, stabilityModel.SoilModel);
@@ -308,10 +299,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(slipPlaneMinimumDepth, stabilityModel.SlipPlaneConstraints.SlipPlaneMinDepth);
             Assert.AreEqual(slipPlaneMinimumLength, stabilityModel.SlipPlaneConstraints.SlipPlaneMinLength);
 
-            #endregion
+            AssertIrrelevantValues(stabilityModel);
+            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+        }
 
-            #region Irrelevant default values
-
+        private static void AssertIrrelevantValues(StabilityModel stabilityModel)
+        {
+            Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // No multiplication factors CPhi for WBI
+            Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
             Assert.IsFalse(stabilityModel.OnlyMinimumSafetyCurve); // Only for Bishop
@@ -323,19 +318,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
             Assert.AreEqual(ShearStrengthModel.CPhi, stabilityModel.DefaultShearStrengthModel); // Unused property
             Assert.AreEqual(50.0, stabilityModel.NumberOfGridMoves); // Only for Bishop
-            Assert.IsEmpty(stabilityModel.ConsolidationMatrix.ConsolidationValues); 
+            Assert.IsEmpty(stabilityModel.ConsolidationMatrix.ConsolidationValues); // No consolidation for WBI
+            Assert.IsNotNull(stabilityModel.ConsolidationLoad); // No consolidation for WBI
+        }
 
-            #endregion
-
-            #region Automatically set values
-
+        private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
+        {
+            Assert.AreSame(stabilityModel, stabilityModel.Location.StabilityModel);
+            Assert.AreSame(soilProfile2D, stabilityModel.Location.SoilProfile2D);
+            Assert.AreSame(surfaceLine, stabilityModel.Location.Surfaceline);
+            Assert.IsTrue(stabilityModel.Location.Inwards);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
             Assert.IsNotNull(stabilityModel.GeotechnicsData);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
-            Assert.IsNotNull(stabilityModel.ConsolidationMatrix);
-            Assert.IsNotNull(stabilityModel.ConsolidationLoad);
-
-            #endregion
         }
     }
 }

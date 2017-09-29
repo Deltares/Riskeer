@@ -21,12 +21,10 @@
 
 using System;
 using System.Linq;
-using System.Xml.Schema;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.IO;
-using Deltares.WTIStability.Levenberg;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
