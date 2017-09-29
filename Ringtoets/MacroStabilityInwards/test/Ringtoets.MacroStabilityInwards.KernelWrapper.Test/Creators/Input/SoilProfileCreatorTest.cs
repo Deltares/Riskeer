@@ -119,17 +119,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Assert
-            Assert.AreEqual(1, profile.Surfaces.Count);
-
             Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
             PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
 
+            Assert.IsTrue(string.IsNullOrEmpty(preconsolidationStress.Name)); // Unused property
+            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
             Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
             Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
-            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
 
+            Assert.AreEqual(1, profile.Surfaces.Count);
             SoilLayer2D surface = profile.Surfaces.First();
             Assert.AreSame(soil, surface.Soil);
+            Assert.IsFalse(string.IsNullOrEmpty(surface.Name)); // Unused property
             Assert.AreEqual(layer.IsAquifer, surface.IsAquifer);
             Assert.AreEqual(WaterpressureInterpolationModel.Automatic, surface.WaterpressureInterpolationModel);
 
@@ -176,6 +177,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     innerLoop2Curve2
                 }
             };
+
+            CollectionAssert.AreEqual(new[]
+            {
+                surface.GeometrySurface
+            }, profile.Geometry.Surfaces);
 
             CollectionAssert.AreEqual(new[]
             {
