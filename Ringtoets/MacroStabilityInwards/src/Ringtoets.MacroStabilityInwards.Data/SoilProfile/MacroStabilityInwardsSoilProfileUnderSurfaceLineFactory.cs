@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
                 layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
                     RingToPoints(layer.OuterRing),
-                    layer.Holes.Select(RingToPoints),
+                    layer.Holes.Select(RingToPoints).ToArray(),
                     layer.Data)).ToArray();
 
             return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine, soilProfile.PreconsolidationStresses);

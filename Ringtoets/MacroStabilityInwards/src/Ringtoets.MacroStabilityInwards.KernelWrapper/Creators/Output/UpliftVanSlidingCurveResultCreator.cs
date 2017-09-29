@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
     /// <summary>
     /// Creates <see cref="UpliftVanSlidingCurveResult"/> instances.
     /// </summary>
-    public static class UpliftVanSlidingCurveResultCreator
+    internal static class UpliftVanSlidingCurveResultCreator
     {
         /// <summary>
         /// Creates a <see cref="UpliftVanSlidingCurveResult"/> based on the information

@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
     /// <summary>
     /// Creates <see cref="UpliftVanCalculationGridResult"/> instances.
     /// </summary>
-    public static class UpliftVanCalculationGridResultCreator
+    internal static class UpliftVanCalculationGridResultCreator
     {
         /// <summary>
         /// Creates a <see cref="UpliftVanCalculationGridResult"/> based on the information

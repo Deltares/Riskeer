@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <param name="zBottom">The bottom boundary of the grid.</param>
         /// <param name="numberOfHorizontalPoints">The number of horizontal points.</param>
         /// <param name="numberOfVerticalPoints">The number of vertical points.</param>
-        public UpliftVanGridResult(double xLeft, double xRight, double zTop, double zBottom, int numberOfHorizontalPoints, int numberOfVerticalPoints)
+        internal UpliftVanGridResult(double xLeft, double xRight, double zTop, double zBottom, int numberOfHorizontalPoints, int numberOfVerticalPoints)
         {
             XLeft = xLeft;
             XRight = xRight;

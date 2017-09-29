@@ -41,9 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <param name="resistingMoment">The resisting moment of the circle.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="center"/>
         /// is <c>null</c>.</exception>
-        public UpliftVanSlidingCircleResult(Point2D center, double radius, bool isActive,
-                                            double nonIteratedForce, double iteratedForce,
-                                            double drivingMoment, double resistingMoment)
+        internal UpliftVanSlidingCircleResult(Point2D center, double radius, bool isActive,
+                                              double nonIteratedForce, double iteratedForce,
+                                              double drivingMoment, double resistingMoment)
         {
             if (center == null)
             {

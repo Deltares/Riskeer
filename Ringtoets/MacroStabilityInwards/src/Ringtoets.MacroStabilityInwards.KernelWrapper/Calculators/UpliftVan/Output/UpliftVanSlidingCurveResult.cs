@@ -41,8 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// of the curve.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public UpliftVanSlidingCurveResult(UpliftVanSlidingCircleResult leftCircle, UpliftVanSlidingCircleResult rightCircle,
-                                           IEnumerable<UpliftVanSliceResult> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
+        internal UpliftVanSlidingCurveResult(UpliftVanSlidingCircleResult leftCircle, UpliftVanSlidingCircleResult rightCircle,
+                                             IEnumerable<UpliftVanSliceResult> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
         {
             if (leftCircle == null)
             {

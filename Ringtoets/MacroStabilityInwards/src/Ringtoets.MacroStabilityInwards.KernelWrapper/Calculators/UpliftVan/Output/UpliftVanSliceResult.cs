@@ -39,9 +39,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <param name="properties">The object containing the values for the properties 
         /// of the new <see cref="UpliftVanSliceResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public UpliftVanSliceResult(Point2D topLeftPoint, Point2D topRightPoint,
-                                    Point2D bottomLeftPoint, Point2D bottomRightPoint,
-                                    ConstructionProperties properties)
+        internal UpliftVanSliceResult(Point2D topLeftPoint, Point2D topRightPoint,
+                                      Point2D bottomLeftPoint, Point2D bottomRightPoint,
+                                      ConstructionProperties properties)
         {
             if (topLeftPoint == null)
             {
@@ -299,7 +299,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <summary>
         /// Container for properties for constructing a <see cref="UpliftVanSliceResult"/>.
         /// </summary>
-        public class ConstructionProperties
+        internal class ConstructionProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="ConstructionProperties"/>.

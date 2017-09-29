@@ -29,3 +29,4 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil")]
 [assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Integration.Test")]
+[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.Service.Test")]

@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <summary>
         /// Container for properties for constructing a <see cref="UpliftVanCalculatorResult"/>.
         /// </summary>
-        public class ConstructionProperties
+        internal class ConstructionProperties
         {
             /// <summary>
             /// Creates a new instance of <see cref="ConstructionProperties"/>.
