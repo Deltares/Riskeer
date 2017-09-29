@@ -31,10 +31,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
     public class GeneralResultTestFactoryTest
     {
         [Test]
-        public void CreateGeneralResultWithNonDistinctStochasts_ExpectedProperties()
+        public void CreateGeneralResultWithDuplicateStochasts_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -150,10 +150,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints_ExpectedProperties()
+        public void CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -176,10 +176,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints_ExpectedProperties()
+        public void CreateGeneralResultSubMechanismWithDuplicateIllustrationPoints_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithDuplicateIllustrationPoints();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -202,10 +202,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults_ExpectedProperties()
+        public void CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -235,10 +235,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults_ExpectedProperties()
+        public void CreateGeneralResultSubMechanismWithDuplicateIllustrationPointResults_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithDuplicateIllustrationPointResults();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);
@@ -266,10 +266,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
         }
 
         [Test]
-        public void CreateGeneralResultWithNonDistinctNamesInChildren_ExpectedProperties()
+        public void CreateGeneralResultWithDuplicateNamesInChildren_ExpectedProperties()
         {
             // Call
-            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctNamesInChildren();
+            GeneralResult generalResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateNamesInChildren();
 
             // Assert
             Assert.IsInstanceOf<GeneralResult>(generalResult);

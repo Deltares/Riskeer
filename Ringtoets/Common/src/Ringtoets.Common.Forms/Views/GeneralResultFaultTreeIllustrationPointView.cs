@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             bool areClosingSituationsSame = generalResult.TopLevelIllustrationPoints
-                                                         .AnyNonDistinct(p => p.ClosingSituation);
+                                                         .HasDuplicates(p => p.ClosingSituation);
 
             Selection = new IllustrationPointNodeContext(selection,
                                                          topLevelFaultTreeIllustrationPoint.WindDirection.Name,

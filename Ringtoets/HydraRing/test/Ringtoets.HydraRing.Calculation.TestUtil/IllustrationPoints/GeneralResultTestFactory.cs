@@ -29,10 +29,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
     {
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/>
-        /// with non distinct stochasts.
+        /// with duplicate stochasts.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with non distinct stochasts.</returns>
-        public static GeneralResult CreateGeneralResultWithNonDistinctStochasts()
+        /// <returns>A <see cref="GeneralResult"/> with duplicate stochasts.</returns>
+        public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
         {
             var stochasts = new[]
             {
@@ -139,10 +139,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/> containing a fault tree
-        /// with non distinct illustration points.
+        /// with duplicate illustration points.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with non distinct illustration points.</returns>
-        public static GeneralResult CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
+        /// <returns>A <see cref="GeneralResult"/> with duplicate illustration points.</returns>
+        public static GeneralResult CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints()
         {
             var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
             {
@@ -160,10 +160,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/> containing a sub mechanism
-        /// with non distinct illustration points.
+        /// with duplicate illustration points.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with non distinct illustration points.</returns>
-        public static GeneralResult CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints()
+        /// <returns>A <see cref="GeneralResult"/> with duplicate illustration points.</returns>
+        public static GeneralResult CreateGeneralResultSubMechanismWithDuplicateIllustrationPoints()
         {
             var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
             {
@@ -181,10 +181,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/> containing a fault tree
-        /// with non distinct illustration point results.
+        /// with duplicate illustration point results.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with non distinct illustration point results.</returns>
-        public static GeneralResult CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
+        /// <returns>A <see cref="GeneralResult"/> with duplicate illustration point results.</returns>
+        public static GeneralResult CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults()
         {
             var illustrationPointNode = new IllustrationPointTreeNode(new FaultTreeIllustrationPoint("Point A",
                                                                                                      0.5,
@@ -215,10 +215,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/> containing a fault tree
-        /// with non distinct illustration point results.
+        /// with duplicate illustration point results.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with non distinct illustration point results.</returns>
-        public static GeneralResult CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults()
+        /// <returns>A <see cref="GeneralResult"/> with duplicate illustration point results.</returns>
+        public static GeneralResult CreateGeneralResultSubMechanismWithDuplicateIllustrationPointResults()
         {
             var illustrationPointNode = new IllustrationPointTreeNode(new SubMechanismIllustrationPoint("Point SA",
                                                                                                         Enumerable.Empty<SubMechanismIllustrationPointStochast>(),
@@ -240,10 +240,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
 
         /// <summary>
         /// Creates a new instance of <see cref="GeneralResult"/>
-        /// with non distinct illustration point names.
+        /// with duplicate illustration point names.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with non distinct illustration point names.</returns>
-        public static GeneralResult CreateGeneralResultWithNonDistinctNamesInChildren()
+        /// <returns>A <see cref="GeneralResult"/> with duplicate illustration point names.</returns>
+        public static GeneralResult CreateGeneralResultWithDuplicateNamesInChildren()
         {
             var illustrationPointNode = new IllustrationPointTreeNode(new FaultTreeIllustrationPoint("Point A",
                                                                                                      0.5,

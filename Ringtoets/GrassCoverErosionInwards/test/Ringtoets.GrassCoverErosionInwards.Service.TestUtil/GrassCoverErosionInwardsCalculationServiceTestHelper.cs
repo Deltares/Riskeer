@@ -55,19 +55,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
             Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", actual);
         }
 
-        public static void AssertGeneralResultNonDistinctStochasts(string calculationDescription, string calculationName, string actual)
+        public static void AssertGeneralResultWithDuplicateStochasts(string calculationDescription, string calculationName, string actual)
         {
             Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculationName} ({calculationDescription}): " +
                             "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
         }
 
-        public static void AssertGeneralResultNonDistinctIllustrationPoints(string calculationDescription, string calculationName, string actual)
+        public static void AssertGeneralResultWithDuplicateIllustrationPoints(string calculationDescription, string calculationName, string actual)
         {
             Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculationName} ({calculationDescription}): " +
                             "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
         }
 
-        public static void AssertGeneralResultNonDistinctIllustrationPointResults(string calculationDescription, string calculationName, string actual)
+        public static void AssertGeneralResultWithDuplicateIllustrationPointResults(string calculationDescription, string calculationName, string actual)
         {
             Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculationName} ({calculationDescription}): " +
                             "Een of meerdere uitvoer variabelen hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil
                             "Het uitlezen van illustratiepunten wordt overgeslagen.", actual);
         }
 
-        public static void AssertGeneralResultNonDistinctChildNames(string calculationDescription, string calculationName, string actual)
+        public static void AssertGeneralResultWithDuplicateChildNames(string calculationDescription, string calculationName, string actual)
         {
             Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {calculationName} ({calculationDescription}): " +
                             "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +

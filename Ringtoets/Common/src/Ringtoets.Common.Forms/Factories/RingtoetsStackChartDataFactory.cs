@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.Factories
                 illustrationPointControlItems.Select(controlItem => Tuple.Create(controlItem.WindDirectionName,
                                                                                  controlItem.ClosingSituation));
 
-            bool showClosingSituation = !illustrationPointControlItems.AnyNonDistinct(item => item.ClosingSituation);
+            bool showClosingSituation = !illustrationPointControlItems.HasDuplicates(item => item.ClosingSituation);
 
             foreach (Tuple<string, string> label in labels)
             {

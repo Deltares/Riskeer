@@ -884,7 +884,7 @@ namespace Ringtoets.Integration.Plugin
         private static TopLevelFaultTreeIllustrationPointProperties CreateTopLevelFaultTreeIllustrationPointProperties(SelectedTopLevelFaultTreeIllustrationPoint point)
         {
             return new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
-                                                                    point.ClosingSituations.AnyNonDistinct(cs => cs));
+                                                                    point.ClosingSituations.HasDuplicates(cs => cs));
         }
 
         #endregion

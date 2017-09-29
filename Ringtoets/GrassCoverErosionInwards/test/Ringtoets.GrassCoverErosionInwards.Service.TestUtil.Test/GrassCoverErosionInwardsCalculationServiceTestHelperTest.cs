@@ -185,12 +185,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         [TestCase("description", "output")]
         [TestCase("", null)]
         [TestCase(null, "")]
-        public void AssertGeneralResultNonDistinctStochasts_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+        public void AssertGeneralResultWithDuplicateStochasts_ForDifferentParametersAndEqualMessage_DoesNotThrow(
             string description, string name)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateStochasts(
                     description,
                     name,
                     $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
@@ -207,12 +207,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                   "Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
-        public void AssertGeneralResultNonDistinctStochasts_NotEqualMessage_ThrowsAssertionException(
+        public void AssertGeneralResultWithDuplicateStochasts_NotEqualMessage_ThrowsAssertionException(
             string message)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateStochasts(
                     string.Empty,
                     string.Empty,
                     message);
@@ -225,12 +225,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         [TestCase("description", "output")]
         [TestCase("", null)]
         [TestCase(null, "")]
-        public void AssertGeneralResultNonDistinctIllustrationPoints_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+        public void AssertGeneralResultWithDuplicateIllustrationPoints_ForDifferentParametersAndEqualMessage_DoesNotThrow(
             string description, string name)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPoints(
                     description,
                     name,
                     $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
@@ -250,12 +250,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                   "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
-        public void AssertGeneralResultNonDistinctIllustrationPoints_NotEqualMessage_ThrowsAssertionException(
+        public void AssertGeneralResultWithDuplicateIllustrationPoints_NotEqualMessage_ThrowsAssertionException(
             string message)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPoints(
                     string.Empty,
                     string.Empty,
                     message);
@@ -268,12 +268,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         [TestCase("description", "output")]
         [TestCase("", null)]
         [TestCase(null, "")]
-        public void AssertGeneralResultNonDistinctIllustrationPointResults_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+        public void AssertGeneralResultWithDuplicateIllustrationPointResults_ForDifferentParametersAndEqualMessage_DoesNotThrow(
             string description, string name)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPointResults(
                     description,
                     name,
                     $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
@@ -293,12 +293,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                   "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
-        public void AssertGeneralResultNonDistinctIllustrationPointResults_NotEqualMessage_ThrowsAssertionException(
+        public void AssertGeneralResultWithDuplicateIllustrationPointResults_NotEqualMessage_ThrowsAssertionException(
             string message)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPointResults(
                     string.Empty,
                     string.Empty,
                     message);
@@ -354,12 +354,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
         [TestCase("description", "output")]
         [TestCase("", null)]
         [TestCase(null, "")]
-        public void AssertGeneralResultNonDistinctChildNames_ForDifferentParametersAndEqualMessage_DoesNotThrow(
+        public void AssertGeneralResultWithDuplicateChildNames_ForDifferentParametersAndEqualMessage_DoesNotThrow(
             string description, string name)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateChildNames(
                     description,
                     name,
                     $"Fout bij het uitlezen van de illustratiepunten voor berekening {name} ({description}): " +
@@ -379,12 +379,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.TestUtil.Test
                   "Het uitlezen van illustratiepunten wordt overgeslage")]
         [TestCase("")]
         [TestCase(null)]
-        public void AssertGeneralResultNonDistinctChildNames_NotEqualMessage_ThrowsAssertionException(
+        public void AssertGeneralResultWithDuplicateChildNames_NotEqualMessage_ThrowsAssertionException(
             string message)
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateChildNames(
                     string.Empty,
                     string.Empty,
                     message);

@@ -80,13 +80,13 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void AnyNonDistinct_IteratorNull_ThrowArgumentNullException()
+        public void HasDuplicates_IteratorNull_ThrowArgumentNullException()
         {
             // Setup
             IEnumerable<object> enumerable = null;
 
             // Call
-            TestDelegate call = () => enumerable.AnyNonDistinct<object, object>(e => null);
+            TestDelegate call = () => enumerable.HasDuplicates<object, object>(e => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -94,13 +94,13 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void AnyNonDistinct_ActionNull_ThrowArgumentNullException()
+        public void HasDuplicates_ActionNull_ThrowArgumentNullException()
         {
             // Setup
             IEnumerable<object> enumerable = Enumerable.Empty<object>();
 
             // Call
-            TestDelegate call = () => enumerable.AnyNonDistinct<object, object>(null);
+            TestDelegate call = () => enumerable.HasDuplicates<object, object>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -108,7 +108,7 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void AnyNonDistinct_WithDistinctItems_ReturnsFalse()
+        public void HasDuplicates_WithUniqueItems_ReturnsFalse()
         {
             // Setup
             var items = new List<int>
@@ -119,14 +119,14 @@ namespace Core.Common.Utils.Test.Extensions
             };
 
             // Call
-            bool hasNonDistinct = items.AnyNonDistinct(t => t);
+            bool hasNonDistinct = items.HasDuplicates(t => t);
 
             // Assert
             Assert.IsFalse(hasNonDistinct);
         }
 
         [Test]
-        public void AnyNonDistinct_WithNonDistinctItems_ReturnsTrue()
+        public void HasDuplicates_WithDuplicateItems_ReturnsTrue()
         {
             // Setup
             var items = new List<int>
@@ -137,7 +137,7 @@ namespace Core.Common.Utils.Test.Extensions
             };
 
             // Call
-            bool hasNonDistinct = items.AnyNonDistinct(t => t);
+            bool hasNonDistinct = items.HasDuplicates(t => t);
 
             // Assert
             Assert.IsTrue(hasNonDistinct);

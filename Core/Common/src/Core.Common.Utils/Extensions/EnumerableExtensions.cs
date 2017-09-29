@@ -63,9 +63,9 @@ namespace Core.Common.Utils.Extensions
         /// <typeparam name="TKey">The type for the key.</typeparam>
         /// <param name="source">A sequence that contains elements to be acted upon.</param>
         /// <param name="keySelector">The key selector to validate uniqueness.</param>
-        /// <returns>Whether the elements contain duplicate items.</returns>
+        /// <returns><c>true</c> when duplicates are present in <see cref="source"/>; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public static bool AnyNonDistinct<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
+        public static bool HasDuplicates<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
         {
             if (source == null)
             {

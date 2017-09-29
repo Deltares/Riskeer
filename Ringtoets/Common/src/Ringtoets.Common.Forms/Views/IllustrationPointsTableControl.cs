@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (data != null)
             {
-                if (!data.AnyNonDistinct(item => item.ClosingSituation))
+                if (!data.HasDuplicates(item => item.ClosingSituation))
                 {
                     illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
                     return;

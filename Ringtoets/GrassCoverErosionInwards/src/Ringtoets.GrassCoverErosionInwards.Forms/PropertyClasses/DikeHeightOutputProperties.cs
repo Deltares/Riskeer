@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
                 bool areClosingSituationsSame = data.GeneralResult
                                                     .TopLevelIllustrationPoints
-                                                    .AnyNonDistinct(p => p.ClosingSituation);
+                                                    .HasDuplicates(p => p.ClosingSituation);
 
                 return data.GeneralResult
                            .TopLevelIllustrationPoints

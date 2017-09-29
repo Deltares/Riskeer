@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)
         {
             bool hasNonDistinctIllustrationPointsPerWindDirection =
-                topLevelIllustrationPoints.AnyNonDistinct(t => $"{t.ClosingSituation} {t.WindDirection.Angle}");
+                topLevelIllustrationPoints.HasDuplicates(t => $"{t.ClosingSituation} {t.WindDirection.Angle}");
             if (hasNonDistinctIllustrationPointsPerWindDirection)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_closing_situations_or_wind_direction));
@@ -161,7 +161,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
-            bool hasNonDistinctStochasts = stochasts.AnyNonDistinct(s => s.Name);
+            bool hasNonDistinctStochasts = stochasts.HasDuplicates(s => s.Name);
             if (hasNonDistinctStochasts)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));

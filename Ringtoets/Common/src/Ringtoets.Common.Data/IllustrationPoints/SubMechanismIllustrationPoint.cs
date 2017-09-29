@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateResults(IEnumerable<IllustrationPointResult> illustrationPointResults)
         {
-            bool nonDistinct = illustrationPointResults.AnyNonDistinct(i => i.Description);
+            bool nonDistinct = illustrationPointResults.HasDuplicates(i => i.Description);
             if (nonDistinct)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_results));
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
-            bool hasNonDistinctStochasts = stochasts.AnyNonDistinct(s => s.Name);
+            bool hasNonDistinctStochasts = stochasts.HasDuplicates(s => s.Name);
             if (hasNonDistinctStochasts)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));

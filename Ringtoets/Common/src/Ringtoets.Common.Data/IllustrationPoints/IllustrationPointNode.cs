@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         {
             // Validate child names
             IEnumerable<IllustrationPointNode> illustrationPointNodes = children as IList<IllustrationPointNode> ?? children.ToList();
-            if (illustrationPointNodes.AnyNonDistinct(c => c.Data.Name))
+            if (illustrationPointNodes.HasDuplicates(c => c.Data.Name))
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_child_names));
             }

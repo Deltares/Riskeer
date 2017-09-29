@@ -290,14 +290,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithNonDistinctStochasts_IllustrationPointNotSetAndLog()
+        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithDuplicateStochasts_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculator = new TestWaveHeightCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts(),
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts(),
                 Converged = true
             };
 
@@ -398,14 +398,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithNonDistinctIllustrationPoints_IllustrationPointNotSetAndLog()
+        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithDuplicateIllustrationPoints_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculator = new TestWaveHeightCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints(),
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithDuplicateIllustrationPoints(),
                 Converged = true
             };
 
@@ -452,14 +452,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithNonDistinctIllustrationPointResults_IllustrationPointNotSetAndLog()
+        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithDuplicateIllustrationPointResults_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculator = new TestWaveHeightCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults(),
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithDuplicateIllustrationPointResults(),
                 Converged = true
             };
 

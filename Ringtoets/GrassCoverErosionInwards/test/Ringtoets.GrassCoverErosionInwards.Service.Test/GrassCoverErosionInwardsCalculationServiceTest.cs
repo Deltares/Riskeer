@@ -2164,7 +2164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithNonDistinctStochasts_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithDuplicateStochasts_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -2174,7 +2174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2215,7 +2215,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[1]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateStochasts(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
                         msgs[2]);
@@ -2416,7 +2416,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithNonDistinctIllustrationPoints_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithDuplicateIllustrationPoints_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -2426,7 +2426,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2467,7 +2467,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[1]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPoints(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
                         msgs[2]);
@@ -2500,7 +2500,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithNonDistinctIllustrationPointResults_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithDuplicateIllustrationPointResults_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -2510,7 +2510,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2551,7 +2551,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[1]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPointResults(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
                         msgs[2]);
@@ -2584,7 +2584,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithNonDistinctNamesInChildren_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingIllustrationPointResultsWithDuplicateNamesInChildren_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -2594,7 +2594,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                                        validFile);
             var overtoppingCalculator = new TestOvertoppingCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctNamesInChildren()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateNamesInChildren()
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
@@ -2635,7 +2635,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         overtoppingCalculator.OutputDirectory,
                         msgs[1]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateChildNames(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingCalculationDescription,
                         calculation.Name,
                         msgs[2]);
@@ -2752,7 +2752,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithNonDistinctStochasts_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithDuplicateStochasts_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -2770,7 +2770,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -2819,7 +2819,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateStochasts(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
@@ -3004,7 +3004,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithNonDistinctIllustrationPoints_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithDuplicateIllustrationPoints_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3022,7 +3022,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -3071,7 +3071,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPoints(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
@@ -3088,7 +3088,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithNonDistinctIllustrationPointResults_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithDuplicateIllustrationPointResults_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3106,7 +3106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -3155,7 +3155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPointResults(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
@@ -3172,7 +3172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithNonDistinctNamesInChildren_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButOvertoppingRateIllustrationPointResultsWithDuplicateNamesInChildren_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3190,7 +3190,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctNamesInChildren()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateNamesInChildren()
             };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath)).Return(overtoppingCalculator);
@@ -3239,7 +3239,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[5]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateChildNames(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.OvertoppingRateCalculationDescription,
                         calculation.Name,
                         msgs[6]);
@@ -3340,7 +3340,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithNonDistinctStochasts_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithDuplicateStochasts_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3354,7 +3354,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -3399,7 +3399,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctStochasts(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateStochasts(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[4]);
@@ -3592,7 +3592,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithNonDistinctIllustrationPoints_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithDuplicateIllustrationPoints_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3606,7 +3606,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -3651,7 +3651,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPoints(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPoints(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[4]);
@@ -3676,7 +3676,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithNonDistinctIllustrationPointResults_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithDuplicateIllustrationPointResults_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3690,7 +3690,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -3735,7 +3735,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctIllustrationPointResults(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateIllustrationPointResults(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[4]);
@@ -3760,7 +3760,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithNonDistinctNamesInChildren_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_ValidInputButDikeHeightIllustrationPointResultsWithDuplicateNamesInChildren_GeneralResultNotSetAndLogsWarning()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -3774,7 +3774,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctNamesInChildren()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateNamesInChildren()
             };
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
             {
@@ -3819,7 +3819,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[3]);
-                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultNonDistinctChildNames(
+                    GrassCoverErosionInwardsCalculationServiceTestHelper.AssertGeneralResultWithDuplicateChildNames(
                         GrassCoverErosionInwardsCalculationServiceTestHelper.HbnCalculationDescription,
                         calculation.Name,
                         msgs[4]);

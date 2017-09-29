@@ -295,14 +295,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsWithNonDistinctStochasts_IllustrationPointNotSetAndLog()
+        public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsWithDuplicateStochasts_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculator = new TestDesignWaterLevelCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts(),
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts(),
                 Converged = true
             };
 
@@ -403,14 +403,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsWithNonDistinctIllustrationPoints_IllustrationPointNotSetAndLog()
+        public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsWithDuplicateIllustrationPoints_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculator = new TestDesignWaterLevelCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPoints(),
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithDuplicateIllustrationPoints(),
                 Converged = true
             };
 
@@ -457,14 +457,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsWithNonDistinctIllustrationPointResults_IllustrationPointNotSetAndLog()
+        public void Calculate_ValidDesignWaterLevelCalculationButIllustrationPointResultsWithDuplicateIllustrationPointResults_IllustrationPointNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             var calculator = new TestDesignWaterLevelCalculator
             {
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithNonDistinctIllustrationPointResults(),
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultSubMechanismWithDuplicateIllustrationPointResults(),
                 Converged = true
             };
 

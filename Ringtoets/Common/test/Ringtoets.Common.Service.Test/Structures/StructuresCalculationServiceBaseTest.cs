@@ -597,14 +597,14 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctStochasts_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ValidInputButIllustrationPointResultsWithDuplicateStochasts_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
                 OutputDirectory = validFilePath,
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctStochasts()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
@@ -767,14 +767,14 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ValidInputButIllustrationPointResultsWithDuplicateIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
                 OutputDirectory = validFilePath,
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPoints()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPoints()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
@@ -824,14 +824,14 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctIllustrationPointResults_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ValidInputButIllustrationPointResultsWithDuplicateIllustrationPointResults_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
                 OutputDirectory = validFilePath,
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithNonDistinctIllustrationPointResults()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultFaultTreeWithDuplicateIllustrationPointResults()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
@@ -881,14 +881,14 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_ValidInputButIllustrationPointResultsWithNonDistinctNamesInChildren_IllustrationPointsNotSetAndLogsWarning()
+        public void Calculate_ValidInputButIllustrationPointResultsWithDuplicateNamesInChildren_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             var mocks = new MockRepository();
             var calculator = new TestStructuresCalculator<ExceedanceProbabilityCalculationInput>
             {
                 OutputDirectory = validFilePath,
-                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithNonDistinctNamesInChildren()
+                IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateNamesInChildren()
             };
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<ExceedanceProbabilityCalculationInput>(testDataPath))
