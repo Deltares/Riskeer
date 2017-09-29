@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            Assert.AreEqual(name, actual.Name);
+            AssertGeneralValues(name, actual);
             CollectionAssert.IsEmpty(actual.Geometry.Points);
         }
 
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            Assert.AreEqual(name, actual.Name);
+            AssertGeneralValues(name, actual);
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X).ToArray(), actual.Geometry.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
@@ -100,8 +100,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
+            AssertGeneralValues(name, actual);
+
             double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
-            Assert.AreEqual(name, actual.Name);
+
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
@@ -124,6 +126,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
+            AssertGeneralValues(name, actual);
+
             double length = Math.Sqrt(2 * 2 + 3 * 3);
             const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
             double[] expectedCoordinatesX =
@@ -132,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 secondCoordinateFactor * length,
                 length
             };
-            Assert.AreEqual(name, actual.Name);
+
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
@@ -153,11 +157,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
+            AssertGeneralValues(name, actual);
+
             double[] expectedCoordinatesX =
             {
                 0.0
             };
-            Assert.AreEqual(name, actual.Name);
+
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
             CollectionAssert.AreEqual(Enumerable.Repeat(CharacteristicPointType.None, surfaceLine.Points.Length), actual.CharacteristicPoints.Select(p => p.CharacteristicPointType));
@@ -207,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            Assert.AreEqual(name, actual.Name);
+            AssertGeneralValues(name, actual);
 
             double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X).ToArray();
             double[] expectedCoordinatesZ = surfaceLine.Points.Select(p => p.Z).ToArray();
@@ -216,6 +222,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(expectedCoordinatesZ, actual.Geometry.Points.Select(p => p.Z));
 
             CharacteristicPointSet actualCharacteristicPoints = actual.CharacteristicPoints;
+            Assert.IsTrue(actualCharacteristicPoints.All(cp => ReferenceEquals(actualCharacteristicPoints, cp.PointSet)));
             CollectionAssert.AreEqual(expectedCoordinatesX, actualCharacteristicPoints.Geometry.Points.Select(p => p.X));
             CollectionAssert.AreEqual(expectedCoordinatesZ, actualCharacteristicPoints.Geometry.Points.Select(p => p.Z));
 
@@ -233,6 +240,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderBaseInside).LocationEquals(ToGeometryPoint(geometry[11])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderTopInside).LocationEquals(ToGeometryPoint(geometry[12])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[13])));
+        }
+
+        private static void AssertGeneralValues(string name, SurfaceLine2 actual)
+        {
+            Assert.AreEqual(LandwardDirection.PositiveX, actual.LandwardDirection);
+
+            Assert.AreEqual(name, actual.Name); // Unused property
+            CollectionAssert.IsEmpty(actual.Geometry.CalcPoints); // Internal property
         }
 
         private static GeometryPoint ToGeometryPoint(Point3D point)

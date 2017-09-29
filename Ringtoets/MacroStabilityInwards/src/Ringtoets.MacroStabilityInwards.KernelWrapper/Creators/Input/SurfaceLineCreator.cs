@@ -51,7 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             var wtiSurfaceLine = new SurfaceLine2
             {
-                Name = surfaceLine.Name
+                Name = surfaceLine.Name,
+                LandwardDirection = LandwardDirection.PositiveX
             };
 
             if (surfaceLine.Points.Any())
