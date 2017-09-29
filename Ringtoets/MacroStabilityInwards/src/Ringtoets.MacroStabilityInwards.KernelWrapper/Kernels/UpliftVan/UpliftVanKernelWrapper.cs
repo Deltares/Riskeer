@@ -44,26 +44,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             stabilityModel = new StabilityModel
             {
-                ModelOption = ModelOptions.UpliftVan,
-                SearchAlgorithm = SearchAlgorithm.Grid,
-                GridOrientation = GridOrientation.Inwards,
+                LocationDaily = null,
                 SlipPlaneConstraints = new SlipPlaneConstraints(),
+                GridOrientation = GridOrientation.Inwards,
                 SlipCircle = new SlipCircle(),
-                GeneticAlgorithmOptions = new GeneticAlgorithmOptions
-                {
-                    EliteCount = 2,
-                    PopulationCount = 60,
-                    GenerationCount = 50,
-                    MutationRate = 0.3,
-                    CrossOverScatterFraction = 0,
-                    CrossOverSinglePointFraction = 0.7,
-                    CrossOverDoublePointFraction = 0.3,
-                    MutationJumpFraction = 0,
-                    MutationCreepFraction = 0.9,
-                    MutationInverseFraction = 0.1,
-                    MutationCreepReduction = 0.05,
-                    Seed = 1
-                }
+                SearchAlgorithm = SearchAlgorithm.Grid,
+                ModelOption = ModelOptions.UpliftVan
             };
 
             FactorOfStability = double.NaN;
