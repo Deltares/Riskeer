@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -35,7 +34,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -125,8 +123,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreSame(inputContext, properties.Data);
 
             StabilityPointStructuresInput input = calculation.InputParameters;
-            string expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(input.FailureProbabilityRepairClosure);
-            string expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(input.ProbabilityCollisionSecondaryStructure);
 
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -145,12 +141,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreSame(input.ConstructiveStrengthQuadraticLoadModel, properties.ConstructiveStrengthQuadraticLoadModel.Data);
             Assert.AreSame(input.StabilityLinearLoadModel, properties.StabilityLinearLoadModel.Data);
             Assert.AreSame(input.StabilityQuadraticLoadModel, properties.StabilityQuadraticLoadModel.Data);
-            Assert.AreEqual(expectedFailureProbabilityRepairClosure, properties.FailureProbabilityRepairClosure);
+            Assert.AreEqual(input.FailureProbabilityRepairClosure, properties.FailureProbabilityRepairClosure);
             Assert.AreSame(input.FailureCollisionEnergy, properties.FailureCollisionEnergy.Data);
             Assert.AreSame(input.ShipMass, properties.ShipMass.Data);
             Assert.AreSame(input.ShipVelocity, properties.ShipVelocity.Data);
             Assert.AreEqual(input.LevellingCount, properties.LevellingCount);
-            Assert.AreEqual(expectedProbabilityCollisionSecondaryStructure, properties.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(input.ProbabilityCollisionSecondaryStructure, properties.ProbabilityCollisionSecondaryStructure);
             Assert.AreSame(input.BankWidth, properties.BankWidth.Data);
             Assert.AreEqual(input.EvaluationLevel, properties.EvaluationLevel);
             Assert.AreEqual(input.VerticalDistance, properties.VerticalDistance);
@@ -1259,14 +1255,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(string probability)
+        public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            var random = new Random(21);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityRepairClosure = probability);
+                properties => properties.FailureProbabilityRepairClosure = random.NextDouble());
         }
 
         [Test]
@@ -1278,14 +1271,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput(string probability)
+        public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
+            var random = new Random(21);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ProbabilityCollisionSecondaryStructure = probability);
+                properties => properties.ProbabilityCollisionSecondaryStructure = random.NextDouble());
         }
 
         [Test]
@@ -1438,184 +1428,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.BankWidth.Mean = newMean);
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityRepairClosure_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newProbabilityString;
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void SetFailureProbabilityRepairClosure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue;
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetFailureProbabilityRepairClosure_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityRepairClosure = null;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SetProbabilityCollisionSecondaryStructure_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newProbabilityString;
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void SetProbabilityCollisionSecondaryStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue;
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetProbabilityCollisionSecondaryStructure_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = null;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

@@ -71,7 +71,12 @@ namespace Ringtoets.Common.Forms.TypeConverters
 
                 try
                 {
-                    return ProbabilityFormattingHelper.Parse(text);
+                    if (text.StartsWith("1/"))
+                    {
+                        return 1 / Convert.ToDouble(text.Substring(2));
+                    }
+
+                    return Convert.ToDouble(text);
                 }
                 catch (FormatException exception)
                 {

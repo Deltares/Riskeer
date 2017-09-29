@@ -33,8 +33,8 @@ using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -325,41 +325,37 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(failureProbabilityOpenStructurePropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityOpenStructure_Description))]
-        public string FailureProbabilityOpenStructure
+        public double FailureProbabilityOpenStructure
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityOpenStructure);
+                return data.WrappedData.FailureProbabilityOpenStructure;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
-                                                                 value,
-                                                                 data.WrappedData,
-                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue), PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityOpenStructure = value, PropertyChangeHandler);
             }
         }
 
         [DynamicReadOnly]
         [PropertyOrder(failureProbabilityReparationPropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureProbabilityReparation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureProbabilityReparation_Description))]
-        public string FailureProbabilityReparation
+        public double FailureProbabilityReparation
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityReparation);
+                return data.WrappedData.FailureProbabilityReparation;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
-                                                                 value,
-                                                                 data.WrappedData,
-                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue), PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityReparation = value, PropertyChangeHandler);
             }
         }
 
@@ -401,21 +397,19 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description))]
-        public string ProbabilityOrFrequencyOpenStructureBeforeFlooding
+        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+                return data.WrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
-                                                                 value,
-                                                                 data.WrappedData,
-                                                                 (wrappedData, parsedValue) => wrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = parsedValue), PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = value, PropertyChangeHandler);
             }
         }
 

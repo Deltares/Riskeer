@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.PropertyBag;
@@ -33,7 +32,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
@@ -217,118 +215,23 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 assessmentSectionChangeHandler);
 
             // Assert
-            string expectedLowerLimitNorm = ProbabilityFormattingHelper.Format(contribution.LowerLimitNorm);
-            string expectedSignalingNorm = ProbabilityFormattingHelper.Format(contribution.SignalingNorm);
-
             Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
-            Assert.AreEqual(expectedLowerLimitNorm, properties.LowerLimitNorm);
-            Assert.AreEqual(expectedSignalingNorm, properties.SignalingNorm);
+            Assert.AreEqual(contribution.LowerLimitNorm, properties.LowerLimitNorm);
+            Assert.AreEqual(contribution.SignalingNorm, properties.SignalingNorm);
             Assert.AreEqual(contribution.NormativeNorm, properties.NormativeNorm);
             mocks.VerifyAll();
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void LowerLimitNorm_Always_ContributionNotifiedAndPropertyChangedCalled(string norm)
+        public void LowerLimitNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = norm);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = 0.001);
         }
 
         [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void LowerLimitNorm_InvalidValues_ThrowsArgumentException(double newValue)
+        public void SignalingNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            // Setup
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            // Call
-            TestDelegate call = () => SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = newProbabilityString);
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void LowerLimitNorm_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Call
-            TestDelegate call = () => SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = newValue);
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void LowerLimitNorm_NullValue_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = null);
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SignalingNorm_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            // Call
-            TestDelegate call = () => SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = newProbabilityString);
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void SignalingNorm_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Call
-            TestDelegate call = () => SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = newValue);
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void SignalingNorm_NullValue_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = null);
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,00001")]
-        [TestCase("1/30000")]
-        [TestCase("1e-5")]
-        public void SignalingNorm_Always_ContributionNotifiedAndPropertyChangedCalled(string norm)
-        {
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = norm);
+            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = 0.00001);
         }
 
         [Test]

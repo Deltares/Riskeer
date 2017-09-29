@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
@@ -34,7 +33,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
@@ -43,7 +41,6 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
@@ -55,8 +52,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
         private const NormType newNormativeNorm = NormType.Signaling;
-        private readonly string newLowerLimitNorm = 0.01.ToString(CultureInfo.CurrentCulture);
-        private readonly string newSignalingNorm = 0.000001.ToString(CultureInfo.CurrentCulture);
+        private readonly double newLowerLimitNorm = 0.01;
+        private readonly double newSignalingNorm = 0.000001;
 
         private void SetPropertyAndVerifyNotifcationsAndOutputForAllDataSet(Action<FailureMechanismContributionProperties> setPropertyAction)
         {
@@ -811,8 +808,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private static void AssertNormValues(FailureMechanismContributionProperties properties, FailureMechanismContribution failureMechanismContribution)
         {
-            Assert.AreEqual(properties.LowerLimitNorm, ProbabilityFormattingHelper.Format(failureMechanismContribution.LowerLimitNorm));
-            Assert.AreEqual(properties.SignalingNorm, ProbabilityFormattingHelper.Format(failureMechanismContribution.SignalingNorm));
+            Assert.AreEqual(properties.LowerLimitNorm, failureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(properties.SignalingNorm, failureMechanismContribution.SignalingNorm);
             Assert.AreEqual(properties.NormativeNorm, failureMechanismContribution.NormativeNorm);
 
             double expectedNorm = failureMechanismContribution.NormativeNorm == NormType.LowerLimit

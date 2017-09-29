@@ -30,8 +30,8 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -110,34 +110,36 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
-        public string SignalingNorm
+        public double SignalingNorm
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SignalingNorm);
+                return data.SignalingNorm;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = GetProbabilityValue(value), normChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = value, normChangeHandler);
             }
         }
 
         [PropertyOrder(3)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
-        public string LowerLimitNorm
+        public double LowerLimitNorm
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.LowerLimitNorm);
+                return data.LowerLimitNorm;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = GetProbabilityValue(value), normChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = value, normChangeHandler);
             }
         }
 
@@ -155,32 +157,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.NormativeNorm = value, normChangeHandler);
-            }
-        }
-
-        /// <summary>
-        /// Gets a probability value based on the input string value.
-        /// </summary>
-        /// <param name="value">The probability value to convert.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> equals <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> cannot be parsed into a <c>double</c>.</exception>
-        private static double GetProbabilityValue(string value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value), RingtoetsCommonFormsResources.Probability_Value_cannot_be_null);
-            }
-            try
-            {
-                return ProbabilityFormattingHelper.Parse(value);
-            }
-            catch (OverflowException)
-            {
-                throw new ArgumentException(RingtoetsCommonFormsResources.Probability_Value_too_large);
-            }
-            catch (FormatException)
-            {
-                throw new ArgumentException(RingtoetsCommonFormsResources.Probability_Could_not_parse_string_to_probability);
             }
         }
     }

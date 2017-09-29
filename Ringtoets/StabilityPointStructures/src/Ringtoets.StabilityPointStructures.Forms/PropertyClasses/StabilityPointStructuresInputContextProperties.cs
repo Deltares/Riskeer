@@ -30,8 +30,8 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Utils;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -494,21 +494,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityRepairClosure_Description))]
-        public string FailureProbabilityRepairClosure
+        public double FailureProbabilityRepairClosure
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityRepairClosure);
+                return data.WrappedData.FailureProbabilityRepairClosure;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
-                                                                 value,
-                                                                 data.WrappedData,
-                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityRepairClosure = parsedValue), PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityRepairClosure = value, PropertyChangeHandler);
             }
         }
 
@@ -585,21 +583,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ProbabilityCollisionSecondaryStructure_Description))]
-        public string ProbabilityCollisionSecondaryStructure
+        public double ProbabilityCollisionSecondaryStructure
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.ProbabilityCollisionSecondaryStructure);
+                return data.WrappedData.ProbabilityCollisionSecondaryStructure;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
-                                                                 value,
-                                                                 data.WrappedData,
-                                                                 (wrappedData, parsedValue) => wrappedData.ProbabilityCollisionSecondaryStructure = parsedValue), PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ProbabilityCollisionSecondaryStructure = value, PropertyChangeHandler);
             }
         }
 

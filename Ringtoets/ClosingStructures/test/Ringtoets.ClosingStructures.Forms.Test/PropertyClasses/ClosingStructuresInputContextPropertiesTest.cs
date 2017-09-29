@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -39,7 +38,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 
@@ -131,9 +129,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreSame(inputContext, properties.Data);
 
             ClosingStructuresInput input = calculation.InputParameters;
-            string expectedProbabilityOrFrequencyOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            string expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
-            string expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
 
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -143,9 +138,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(input.IdenticalApertures, properties.IdenticalApertures);
             Assert.AreSame(input.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
             Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
-            Assert.AreEqual(expectedProbabilityOrFrequencyOpenStructureBeforeFlooding, properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
-            Assert.AreEqual(expectedFailureProbabilityReparation, properties.FailureProbabilityReparation);
+            Assert.AreEqual(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding, properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(input.FailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
+            Assert.AreEqual(input.FailureProbabilityReparation, properties.FailureProbabilityReparation);
             Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
             Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
 
@@ -582,36 +577,27 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified(string probability)
+        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified()
         {
+            var random = new Random(21);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability);
+                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble());
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void FailureProbabilityOpenStructure_Always_InputChangedAndObservablesNotified(string probability)
+        public void FailureProbabilityOpenStructure_Always_InputChangedAndObservablesNotified()
         {
+            var random = new Random(21);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityOpenStructure = probability);
+                properties => properties.FailureProbabilityOpenStructure = random.NextDouble());
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void FailureProbabilityReparation_Always_InputChangedAndObservablesNotified(string probability)
+        public void FailureProbabilityReparation_Always_InputChangedAndObservablesNotified()
         {
+            var random = new Random(21);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityReparation = probability);
+                properties => properties.FailureProbabilityReparation = random.NextDouble());
         }
 
         [Test]
@@ -676,304 +662,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotifcationsAndOutput(
                 properties => properties.LevelCrestStructureNotClosing.Mean = newMean);
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidDoubleValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            string newProbabilityString = newValue.ToString("r", CultureInfo.CurrentCulture);
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newProbabilityString;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = newValue;
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = null;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void FailureProbabilityOpenStructure_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityOpenStructure = newProbabilityString;
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void FailureProbabilityOpenStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityOpenStructure = newValue;
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void FailureProbabilityOpenStructure_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityOpenStructure = null;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void FailureProbabilityReparation_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            const int overflow = 1;
-            string newProbabilityString = string.Concat(newValue.ToString("r", CultureInfo.CurrentCulture), overflow);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityReparation = newProbabilityString;
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aaa")]
-        public void FailureProbabilityReparation_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityReparation = newValue;
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void FailureProbabilityReparation_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            ClosingStructuresInput input = calculation.InputParameters;
-            var inputContext = new ClosingStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityReparation = null;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

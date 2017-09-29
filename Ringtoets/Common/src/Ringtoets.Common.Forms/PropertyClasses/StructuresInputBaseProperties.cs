@@ -37,6 +37,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.UITypeEditors;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
@@ -213,36 +214,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// The change handler responsible for handling effects of a property change.
         /// </summary>
         protected IObservablePropertyChangeHandler PropertyChangeHandler { get; }
-
-        /// <summary>
-        /// Sets a probability value to one of the properties of a wrapped data object.
-        /// </summary>
-        /// <param name="value">The probability value to set.</param>
-        /// <param name="structureInput">The wrapped data to set a probability value for.</param>
-        /// <param name="setValueAction">The action that sets the probability value to a specific property of the wrapped data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> equals <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> cannot be parsed into a <c>double</c>.</exception>
-        protected static void SetProbabilityValue(string value,
-                                                  TStructureInput structureInput,
-                                                  Action<TStructureInput, RoundedDouble> setValueAction)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value), Resources.Probability_Value_cannot_be_null);
-            }
-            try
-            {
-                setValueAction(structureInput, (RoundedDouble) ProbabilityFormattingHelper.Parse(value));
-            }
-            catch (OverflowException)
-            {
-                throw new ArgumentException(Resources.Probability_Value_too_large);
-            }
-            catch (FormatException)
-            {
-                throw new ArgumentException(Resources.Probability_Could_not_parse_string_to_probability);
-            }
-        }
 
         /// <summary>
         /// The action to perform after setting the <see cref="Structure"/> property.
@@ -505,21 +476,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [DynamicPropertyOrder]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_FailureProbabilityStructureWithErosion_Description))]
-        public string FailureProbabilityStructureWithErosion
+        public double FailureProbabilityStructureWithErosion
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityStructureWithErosion);
+                return data.WrappedData.FailureProbabilityStructureWithErosion;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => SetProbabilityValue(
-                                                                 value,
-                                                                 data.WrappedData,
-                                                                 (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue), PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.FailureProbabilityStructureWithErosion = value, PropertyChangeHandler);
             }
         }
 

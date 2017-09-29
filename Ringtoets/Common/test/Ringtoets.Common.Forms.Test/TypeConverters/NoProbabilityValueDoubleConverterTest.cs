@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [SetCulture("nl-NL")]
         [TestCase(123.4567)]
         [TestCase(-9.87654321)]
-        public void ConvertFrom_SomeNumericalTextInDutchCulture_ReturnConvertedRoundedDouble(double input)
+        public void ConvertFrom_SomeNumericalTextInDutchCulture_ReturnConvertedDouble(double input)
         {
             DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedDouble(input);
         }
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [SetCulture("en-US")]
         [TestCase(12.34)]
         [TestCase(-0.96834715)]
-        public void ConvertFrom_SomeNumericalTextInEnglishCulture_ReturnConvertedRoundedDouble(double input)
+        public void ConvertFrom_SomeNumericalTextInEnglishCulture_ReturnConvertedDouble(double input)
         {
             DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedDouble(input);
         }
@@ -119,9 +119,10 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [Test]
         [SetCulture("nl-NL")]
         [TestCase("1/25", 0.04)]
-        [TestCase("1/2,5", 0.4)]
+        [TestCase("1/2,500", 0.4)]
+        [TestCase("1/2.500", 0.0004)]
         [TestCase("1e-3", 0.001)]
-        public void ConvertFrom_StringInDutchCulture_ReturnExpectedConvertedRoundedDouble(string input, double expectedOutput)
+        public void ConvertFrom_StringInDutchCulture_ReturnExpectedConvertedDouble(string input, double expectedOutput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -145,7 +146,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [TestCase("1/25", 0.04)]
         [TestCase("1/2.5", 0.4)]
         [TestCase("1e-3", 0.001)]
-        public void ConvertFrom_StringInEnglishCulture_ReturnExpectedConvertedRoundedDouble(string input, double expectedOutput)
+        public void ConvertFrom_StringInEnglishCulture_ReturnExpectedConvertedDouble(string input, double expectedOutput)
         {
             // Setup
             var mocks = new MockRepository();

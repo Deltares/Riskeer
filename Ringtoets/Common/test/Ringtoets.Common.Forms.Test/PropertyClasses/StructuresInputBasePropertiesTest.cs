@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -38,7 +37,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
@@ -146,7 +144,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreSame(inputContext, properties.Data);
 
             SimpleStructureInput input = calculation.InputParameters;
-            string expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
             Assert.IsNull(properties.Structure);
             Assert.IsNull(properties.StructureLocation);
@@ -160,7 +157,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsNull(properties.ForeshoreProfile);
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
-            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(input.FailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
             Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
 
@@ -676,7 +673,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Call
             properties.Structure = newStructure;
             properties.StructureNormalOrientation = (RoundedDouble) newStructureNormalOrientation;
-            properties.FailureProbabilityStructureWithErosion = "1e-2";
+            properties.FailureProbabilityStructureWithErosion = 1e-2;
             properties.SelectedHydraulicBoundaryLocation = newSelectableHydraulicBoundaryLocation;
             properties.ForeshoreProfile = newForeshoreProfile;
             properties.ShouldIllustrationPointsBeCalculated = newShouldIllustrationPointsBeCalculated;
@@ -684,8 +681,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(newStructure, properties.Structure);
             Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation, properties.StructureNormalOrientation.GetAccuracy());
-            Assert.AreEqual(0.01, inputContext.WrappedData.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual("1/100", properties.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(0.01, properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(newHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreSame(newForeshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(newShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
@@ -709,14 +705,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase("0,1")]
-        [TestCase("1/100")]
-        [TestCase("1e-2")]
-        public void FailureProbabilityStructureWithErosion_Always_InputChangedAndObservablesNotified(string failureProbability)
+        public void FailureProbabilityStructureWithErosion_Always_InputChangedAndObservablesNotified()
         {
+            var random = new Random(21);
             SetPropertyAndVerifyNotifcationsAndOutput(
-                properties => properties.FailureProbabilityStructureWithErosion = failureProbability);
+                properties => properties.FailureProbabilityStructureWithErosion = random.NextDouble());
         }
 
         [Test]
@@ -866,102 +859,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(properties.AfterSettingStructureCalled);
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void FailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanism,
-                                                      assessmentSection);
-
-            string newStringValue = newValue.ToString(CultureInfo.InvariantCulture);
-            SetPropertyValueAfterConfirmationParameterTester customHandler =
-                CreateCustomHandlerForCalculationReturningNoObservables();
-
-            var properties = new SimpleStructuresInputProperties(
-                inputContext,
-                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
-                customHandler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newStringValue;
-
-            // Assert
-            const string expectedMessage = "De waarde is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        [TestCase("1/aa")]
-        public void FailureProbabilityStructureWithErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanism,
-                                                      assessmentSection);
-
-            SetPropertyValueAfterConfirmationParameterTester customHandler =
-                CreateCustomHandlerForCalculationReturningNoObservables();
-
-            var properties = new SimpleStructuresInputProperties(
-                inputContext,
-                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
-                customHandler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue;
-
-            // Assert
-            const string expectedMessage = "De waarde kon niet geïnterpreteerd worden als een kans.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void FailureProbabilityStructureWithErosion_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanism,
-                                                      assessmentSection);
-
-            SetPropertyValueAfterConfirmationParameterTester customHandler =
-                CreateCustomHandlerForCalculationReturningNoObservables();
-
-            var properties = new SimpleStructuresInputProperties(
-                inputContext,
-                new StructuresInputBaseProperties<TestStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties(),
-                customHandler);
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = null;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
         }
 
         private static SetPropertyValueAfterConfirmationParameterTester CreateCustomHandlerForCalculationReturningNoObservables()
