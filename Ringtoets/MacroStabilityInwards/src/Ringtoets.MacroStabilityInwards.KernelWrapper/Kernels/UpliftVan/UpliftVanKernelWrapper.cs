@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing an Uplift Van calculation.
     /// </summary>
-    public class UpliftVanKernelWrapper : IUpliftVanKernel
+    internal class UpliftVanKernelWrapper : IUpliftVanKernel
     {
         private readonly StabilityModel stabilityModel;
 
@@ -190,10 +190,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 string result = wtiStabilityCalculation.Run();
 
                 ReadResult(result);
-            }
-            catch (XmlSchemaValidationException e)
-            {
-                throw new UpliftVanKernelWrapperException(e.Message, e);
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
