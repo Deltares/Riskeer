@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
@@ -27,13 +30,31 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     /// <summary>
     /// <see cref="MacroStabilityInwardsStochasticSoilModel"/> for testing purposes.
     /// </summary>
-    public class TestStochasticSoilModel : MacroStabilityInwardsStochasticSoilModel
+    public class TestMacroStabilityInwardsStochasticSoilModel : MacroStabilityInwardsStochasticSoilModel
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestStochasticSoilModel"/>.
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">The name of the stochastic soil model.</param>
-        public TestStochasticSoilModel(string name) : base(name)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
+        public TestMacroStabilityInwardsStochasticSoilModel(string name) : this(name, new[]
+        {
+            new Point2D(1, 1),
+            new Point2D(2, 2)
+        }) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsStochasticSoilModel"/>.
+        /// </summary>
+        public TestMacroStabilityInwardsStochasticSoilModel() : this(string.Empty) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsStochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="name">The name of the stochastic soil model.</param>
+        /// <param name="geometry">The geometry of the stochastic soil model.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public TestMacroStabilityInwardsStochasticSoilModel(string name, IEnumerable<Point2D> geometry) : base(name, geometry)
         {
             MacroStabilityInwardsSoilProfile1D soilProfileA =
                 MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D("A");
@@ -46,10 +67,5 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfileB)
             });
         }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestStochasticSoilModel"/>.
-        /// </summary>
-        public TestStochasticSoilModel() : this(string.Empty) {}
     }
 }

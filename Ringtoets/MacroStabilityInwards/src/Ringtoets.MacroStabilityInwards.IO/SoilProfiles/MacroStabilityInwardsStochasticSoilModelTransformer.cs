@@ -52,8 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ImportedDataTransformException(message);
             }
 
-            var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name);
-            macroStabilityInwardsModel.Geometry.AddRange(stochasticSoilModel.Geometry);
+            var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name,
+                                                                                          stochasticSoilModel.Geometry);
             macroStabilityInwardsModel.StochasticSoilProfiles.AddRange(
                 TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
             return macroStabilityInwardsModel;

@@ -56,8 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
@@ -75,8 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineIntersectingSoilModel_ReturnTrue()
         {
             // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
@@ -101,8 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNotIntersectingSoilModel_ReturnFalse()
         {
             // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)

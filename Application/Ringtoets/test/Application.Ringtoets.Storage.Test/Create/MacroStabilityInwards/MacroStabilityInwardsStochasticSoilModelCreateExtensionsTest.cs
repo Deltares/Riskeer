@@ -127,12 +127,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("testName");
-            stochasticSoilModel.Geometry.AddRange(new[]
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("testName", new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
             });
+
             var registry = new PersistenceRegistry();
 
             // Call

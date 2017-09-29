@@ -1194,14 +1194,13 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             macroStabilityInwardsFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new MacroStabilityInwardsStochasticSoilModel("MacroStabilityInwards model name")
+                new MacroStabilityInwardsStochasticSoilModel("MacroStabilityInwards model name", new[]
                 {
-                    Geometry =
-                    {
-                        referenceLineGeometryPoints[1],
-                        referenceLineGeometryPoints[2],
-                        referenceLineGeometryPoints[3]
-                    },
+                    referenceLineGeometryPoints[1],
+                    referenceLineGeometryPoints[2],
+                    referenceLineGeometryPoints[3]
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1D),

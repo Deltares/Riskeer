@@ -29,6 +29,7 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.SoilProfile.Schema;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
@@ -279,23 +280,64 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilModel_MissingSegmentPoint_ThrowsStochasticSoilModelException()
+        public void ReadStochasticSoilModel_EmptySoilModelAndNoGeometry_ReturnsSoilModelWithoutGeometry()
         {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "skippedStochasticSoilModel.soil");
+            string dbFile = Path.Combine(testDataPath, "modelWithoutGeometry.soil");
 
             using (var reader = new StochasticSoilModelReader(dbFile))
             {
                 reader.Validate();
 
                 // Call
-                TestDelegate test = () => reader.ReadStochasticSoilModel();
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
 
                 // Assert
-                var exception = Assert.Throws<StochasticSoilModelException>(test);
+                Assert.AreEqual("SoilModel", model.Name);
+                Assert.AreEqual(FailureMechanismType.Piping, model.FailureMechanismType);
+                CollectionAssert.IsEmpty(model.Geometry);
+            }
 
-                const string expectedMessage = "Het stochastische ondergrondmodel '36005_Stability' moet een geometrie bevatten.";
-                Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GivenDatabaseWithStochasticSoilModelWithAndWithoutGeometry_WhenReading_ThenReturnsAllModels()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "skippedStochasticSoilModel.soil");
+
+            var readModels = new List<StochasticSoilModel>();
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                while (reader.HasNext)
+                {
+                    readModels.Add(reader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    "36005_Stability",
+                    "36005_Piping",
+                    "36006_Stability",
+                    "36006_Piping",
+                    "36007_Stability",
+                    "36007_Piping"
+                }, readModels.Select(m => m.Name));
+                CollectionAssert.AreEqual(new[]
+                {
+                    1797,
+                    0,
+                    144,
+                    0,
+                    606,
+                    0
+                }, readModels.Select(m => m.Geometry.Count));
             }
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

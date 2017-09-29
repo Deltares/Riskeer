@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             };
             var soilModels = new MacroStabilityInwardsStochasticSoilModel[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             };
 
             CalculationGroup parent = withParent ? new CalculationGroup() : null;

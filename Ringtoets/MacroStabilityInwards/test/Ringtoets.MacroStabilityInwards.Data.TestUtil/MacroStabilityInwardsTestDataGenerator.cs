@@ -227,13 +227,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 surfaceLine1,
                 surfaceLine2
             }, "some/path/to/surfacelines");
-            var stochasticSoilModel1 = new MacroStabilityInwardsStochasticSoilModel("A")
+            var stochasticSoilModel1 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
             {
-                Geometry =
-                {
-                    new Point2D(-5, 5),
-                    new Point2D(5, 5)
-                },
+                new Point2D(-5, 5),
+                new Point2D(5, 5)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
@@ -242,13 +241,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     }))
                 }
             };
-            var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("C")
+            var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("C", new[]
             {
-                Geometry =
-                {
-                    new Point2D(5, 5),
-                    new Point2D(15, 5)
-                },
+                new Point2D(5, 5),
+                new Point2D(15, 5)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile2D("test", new[]

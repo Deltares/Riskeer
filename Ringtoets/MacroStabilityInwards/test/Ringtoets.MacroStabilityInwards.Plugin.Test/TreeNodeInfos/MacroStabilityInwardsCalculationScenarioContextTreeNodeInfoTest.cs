@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                          },
                                                                                          new[]
                                                                                          {
-                                                                                             new TestStochasticSoilModel()
+                                                                                             new TestMacroStabilityInwardsStochasticSoilModel()
                                                                                          },
                                                                                          failureMechanism,
                                                                                          assessmentSection);

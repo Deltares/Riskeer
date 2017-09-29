@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -41,26 +42,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         protected override IEnumerable<MacroStabilityInwardsStochasticSoilModel> UniqueElements()
         {
-            yield return new MacroStabilityInwardsStochasticSoilModel("Model A");
-            yield return new MacroStabilityInwardsStochasticSoilModel("Model B");
+            yield return new MacroStabilityInwardsStochasticSoilModel("Model A", GetValidGeometry());
+            yield return new MacroStabilityInwardsStochasticSoilModel("Model B", GetValidGeometry());
         }
 
         protected override IEnumerable<MacroStabilityInwardsStochasticSoilModel> SingleNonUniqueElements()
         {
             const string someName = "Soil model";
-            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
-            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName, GetValidGeometry());
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName, GetValidGeometry());
         }
 
         protected override IEnumerable<MacroStabilityInwardsStochasticSoilModel> MultipleNonUniqueElements()
         {
             const string someName = "Soil model";
             const string someOtherName = "Other soil model";
-            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
-            yield return new MacroStabilityInwardsStochasticSoilModel(someName);
-            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName);
-            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName);
-            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName);
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName, GetValidGeometry());
+            yield return new MacroStabilityInwardsStochasticSoilModel(someName, GetValidGeometry());
+            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName, GetValidGeometry());
+            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName, GetValidGeometry());
+            yield return new MacroStabilityInwardsStochasticSoilModel(someOtherName, GetValidGeometry());
         }
 
         protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<MacroStabilityInwardsStochasticSoilModel> itemsToAdd)
@@ -76,6 +77,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             string someOtherName = itemsToAdd.First(i => i.Name != someName).Name;
             Assert.AreEqual("Stochastische ondergrondmodellen moeten een unieke naam hebben. " +
                             $"Gevonden dubbele elementen: {someName}, {someOtherName}.", exception.Message);
+        }
+
+        private static IEnumerable<Point2D> GetValidGeometry()
+        {
+            var random = new Random(21);
+            yield return new Point2D(random.NextDouble(), random.NextDouble());
         }
     }
 }

@@ -101,11 +101,10 @@ namespace Application.Ringtoets.Storage.Read
                 return collector.GetMacroStabilityInwardsStochasticSoilModel(entity);
             }
 
-            var model = new MacroStabilityInwardsStochasticSoilModel(entity.Name);
+            Point2D[] geometry = ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml).ToArray();
+            var model = new MacroStabilityInwardsStochasticSoilModel(entity.Name, geometry);
 
             entity.ReadStochasticSoilProfiles(model, collector);
-            model.Geometry.AddRange(ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml));
-
             collector.Read(entity, model);
 
             return model;

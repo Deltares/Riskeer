@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -77,11 +76,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         public double IntersectionX { get; set; }
 
-        public string Name { get; }
-
         /// <summary>
         /// Gets the collection of preconsolidation stresses that are defined for the profile.
         /// </summary>
         public IEnumerable<PreconsolidationStress> PreconsolidationStresses { get; }
+
+        public string Name { get; }
     }
 }

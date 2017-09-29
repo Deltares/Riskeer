@@ -437,7 +437,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 new[]
                                                                                 {
-                                                                                    new TestStochasticSoilModel()
+                                                                                    new TestMacroStabilityInwardsStochasticSoilModel()
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -524,7 +524,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 },
                                                                                 new[]
                                                                                 {
-                                                                                    new TestStochasticSoilModel()
+                                                                                    new TestMacroStabilityInwardsStochasticSoilModel()
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -1014,7 +1014,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
-                                                                                    new TestStochasticSoilModel()
+                                                                                    new TestMacroStabilityInwardsStochasticSoilModel()
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -1108,14 +1108,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
-                                                                                    new TestStochasticSoilModel
+                                                                                    new TestMacroStabilityInwardsStochasticSoilModel("name", new[]
                                                                                     {
-                                                                                        Geometry =
-                                                                                        {
-                                                                                            new Point2D(0.0, 0.0),
-                                                                                            new Point2D(5.0, 0.0)
-                                                                                        }
-                                                                                    }
+                                                                                        new Point2D(0.0, 0.0),
+                                                                                        new Point2D(5.0, 0.0)
+                                                                                    })
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -1220,14 +1217,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
-                                                                                    new TestStochasticSoilModel
+                                                                                    new TestMacroStabilityInwardsStochasticSoilModel("name", new[]
                                                                                     {
-                                                                                        Geometry =
-                                                                                        {
-                                                                                            new Point2D(0.0, 0.0),
-                                                                                            new Point2D(5.0, 0.0)
-                                                                                        }
-                                                                                    }
+                                                                                        new Point2D(0.0, 0.0),
+                                                                                        new Point2D(5.0, 0.0)
+                                                                                    })
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);

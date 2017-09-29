@@ -236,14 +236,11 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Sets the geometry points of <paramref name="stochasticSoilModel"/> from the database.
         /// </summary>
         /// <param name="stochasticSoilModel">The stochastic soil model of which the geometry to set.</param>
-        /// <exception cref="StochasticSoilModelException">Thrown when the geometry could not be read.</exception>
         private void SetGeometry(StochasticSoilModel stochasticSoilModel)
         {
             if (!segmentPointReader.HasNext || segmentPointReader.ReadStochasticSoilModelId() != currentStochasticSoilModelId)
             {
-                throw new StochasticSoilModelException(
-                    string.Format(Resources.SegmentPointReader_ReadSegmentPoint_StochasticSoilModel_0_must_contain_geometry,
-                                  ReadStochasticSoilModelName()));
+                return;
             }
 
             stochasticSoilModel.Geometry.AddRange(segmentPointReader.ReadSegmentPoints());

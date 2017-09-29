@@ -20,19 +20,20 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestStochasticSoilModelTest
+    public class TestMacroStabilityInwardsStochasticSoilModelTest
     {
         [Test]
         public void DefaultConstructor_ExpectedPropertiesSet()
         {
             // Call
-            var model = new TestStochasticSoilModel();
+            var model = new TestMacroStabilityInwardsStochasticSoilModel();
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModel>(model);
@@ -44,6 +45,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 0.5
             }, model.StochasticSoilProfiles.Select(p => p.Probability));
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, model.Geometry);
         }
 
         [Test]
@@ -53,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             const string name = "some name";
 
             // Call
-            var model = new TestStochasticSoilModel(name);
+            var model = new TestMacroStabilityInwardsStochasticSoilModel(name);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModel>(model);
@@ -65,6 +71,37 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 0.5
             }, model.StochasticSoilProfiles.Select(p => p.Probability));
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, model.Geometry);
+        }
+
+        [Test]
+        public void Constructor_WithValidNameAndGeometry_ExpectedPropertiesSet()
+        {
+            // Setup
+            const string name = "some name";
+            var geometry = new[]
+            {
+                new Point2D(10, 10)
+            };
+
+            // Call
+            var model = new TestMacroStabilityInwardsStochasticSoilModel(name, geometry);
+
+            // Assert
+            Assert.IsInstanceOf<MacroStabilityInwardsStochasticSoilModel>(model);
+            Assert.AreEqual(name, model.Name);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.5,
+                0.5
+            }, model.StochasticSoilProfiles.Select(p => p.Probability));
+            CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            Assert.AreSame(geometry, model.Geometry);
         }
     }
 }

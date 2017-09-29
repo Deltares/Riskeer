@@ -52,6 +52,34 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="name">Name of the segment soil model.</param>
+        /// <param name="geometry">The geometry of the segment soil model.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> is empty.</exception>
+        public MacroStabilityInwardsStochasticSoilModel(string name, IEnumerable<Point2D> geometry)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (geometry == null)
+            {
+                throw new ArgumentNullException(nameof(geometry));
+            }
+            if (!geometry.Any())
+            {
+                string message = string.Format("Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.", name);
+                throw new ArgumentException();
+            }
+
+            Name = name;
+            Geometry = geometry;
+            StochasticSoilProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
+        }
+
+        /// <summary>
         /// Gets the name of the segment soil model.
         /// </summary>
         public string Name { get; private set; }
@@ -59,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <summary>
         /// Gets the list of geometry points.
         /// </summary>
-        public List<Point2D> Geometry { get; }
+        public IEnumerable<Point2D> Geometry { get; private set; }
 
         /// <summary>
         /// Gets the list of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
@@ -86,12 +114,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
 
             Name = fromModel.Name;
-            Geometry.Clear();
-            foreach (Point2D point in fromModel.Geometry)
-            {
-                Geometry.Add(point);
-            }
-
+            Geometry = fromModel.Geometry;
+            
             var newSoilProfiles = new List<IMacroStabilityInwardsSoilProfile>();
             var updatedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             var addedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();

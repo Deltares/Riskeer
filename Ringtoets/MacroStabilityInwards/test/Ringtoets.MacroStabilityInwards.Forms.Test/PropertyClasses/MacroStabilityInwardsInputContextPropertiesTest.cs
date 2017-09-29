@@ -1065,39 +1065,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var soilModels = new[]
             {
-                new MacroStabilityInwardsStochasticSoilModel("A")
+                new MacroStabilityInwardsStochasticSoilModel("A", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(2, -1),
-                        new Point2D(2, 1)
-                    },
+                    new Point2D(2, -1),
+                    new Point2D(2, 1)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new MacroStabilityInwardsStochasticSoilProfile(
                             0.2, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 },
-                new MacroStabilityInwardsStochasticSoilModel("C")
+                new MacroStabilityInwardsStochasticSoilModel("C", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(-2, -1),
-                        new Point2D(-2, 1)
-                    },
+                    new Point2D(2, -1),
+                    new Point2D(2, 1)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new MacroStabilityInwardsStochasticSoilProfile(
                             0.3, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                     }
                 },
-                new MacroStabilityInwardsStochasticSoilModel("E")
+                new MacroStabilityInwardsStochasticSoilModel("E", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(6, -1),
-                        new Point2D(6, 1)
-                    },
+                    new Point2D(6, -1),
+                    new Point2D(6, 1)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new MacroStabilityInwardsStochasticSoilProfile(
@@ -1607,11 +1604,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
         private static MacroStabilityInwardsStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
         {
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName");
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName", new[]
+            {
+                new Point2D(xMin, 1.0),
+                new Point2D(xMax, 0.0)
+            });
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             stochasticSoilModel.StochasticSoilProfiles.Add(new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile));
-            stochasticSoilModel.Geometry.Add(new Point2D(xMin, 1.0));
-            stochasticSoilModel.Geometry.Add(new Point2D(xMax, 0.0));
             return stochasticSoilModel;
         }
 

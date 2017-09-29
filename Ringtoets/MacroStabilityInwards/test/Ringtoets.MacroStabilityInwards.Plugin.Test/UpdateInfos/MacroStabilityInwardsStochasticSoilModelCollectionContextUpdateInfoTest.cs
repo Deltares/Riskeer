@@ -224,7 +224,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             var stochasticSoilModelCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
             stochasticSoilModelCollection.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             }, expectedFilePath);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

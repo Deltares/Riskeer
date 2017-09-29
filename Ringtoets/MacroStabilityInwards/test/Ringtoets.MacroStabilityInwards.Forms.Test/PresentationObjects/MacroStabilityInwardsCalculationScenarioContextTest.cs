@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             };
             var soilModels = new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             };
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             };
             var soilModels = new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             };
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

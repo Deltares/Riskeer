@@ -398,7 +398,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             }, "path");
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView())
@@ -449,7 +449,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }, arbitrarySourcePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             }, arbitrarySourcePath);
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView())
@@ -524,7 +524,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             }, arbitraryFilePath);
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView())
@@ -570,7 +570,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             }, arbitraryFilePath);
             failureMechanism.CalculationsGroup.Attach(observer);
 
@@ -608,7 +608,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }, arbitryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel()
+                new TestMacroStabilityInwardsStochasticSoilModel()
             }, arbitryFilePath);
             failureMechanism.CalculationsGroup.Attach(observer);
 
@@ -719,7 +719,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // When
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
-                    new TestStochasticSoilModel()
+                    new TestMacroStabilityInwardsStochasticSoilModel()
                 }, "path");
                 failureMechanism.NotifyObservers();
 
@@ -768,7 +768,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }, arbitraryFilePath);
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
-                    new TestStochasticSoilModel()
+                    new TestMacroStabilityInwardsStochasticSoilModel()
                 }, arbitraryFilePath);
 
                 // Then
@@ -794,7 +794,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }, arbitraryFilePath);
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
-                    new TestStochasticSoilModel()
+                    new TestMacroStabilityInwardsStochasticSoilModel()
                 }, arbitraryFilePath);
                 macroStabilityInwardsCalculationsView.MacroStabilityInwardsFailureMechanism.NotifyObservers();
 
@@ -818,7 +818,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }, arbitraryFilePath);
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
-                    new TestStochasticSoilModel()
+                    new TestMacroStabilityInwardsStochasticSoilModel()
                 }, arbitraryFilePath);
                 macroStabilityInwardsCalculationsView.MacroStabilityInwardsFailureMechanism = failureMechanism;
 
@@ -1299,14 +1299,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }, arbirtraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestStochasticSoilModel
+                new TestMacroStabilityInwardsStochasticSoilModel("name", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(0.0, 0.0),
-                        new Point2D(5.0, 0.0)
-                    }
-                }
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
             }, arbirtraryFilePath);
 
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
@@ -1409,13 +1406,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new MacroStabilityInwardsSoilLayer1D(1.0)
             }));
 
-            var stochasticSoilModelA = new MacroStabilityInwardsStochasticSoilModel("Model A")
+            var stochasticSoilModelA = new MacroStabilityInwardsStochasticSoilModel("Model A", new[]
             {
-                Geometry =
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                },
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     stochasticSoilProfile1,
@@ -1435,13 +1431,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new MacroStabilityInwardsSoilLayer1D(1.0)
             }));
 
-            var stochasticSoilModelE = new MacroStabilityInwardsStochasticSoilModel("Model E")
+            var stochasticSoilModelE = new MacroStabilityInwardsStochasticSoilModel("Model E", new[]
             {
-                Geometry =
-                {
-                    new Point2D(1.0, 0.0),
-                    new Point2D(6.0, 0.0)
-                },
+                new Point2D(1.0, 0.0),
+                new Point2D(6.0, 0.0)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     stochasticSoilProfile5
@@ -1451,13 +1446,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModelA,
-                new MacroStabilityInwardsStochasticSoilModel("Model C")
+                new MacroStabilityInwardsStochasticSoilModel("Model C", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(1.0, 0.0),
-                        new Point2D(4.0, 0.0)
-                    },
+                    new Point2D(1.0, 0.0),
+                    new Point2D(4.0, 0.0)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new MacroStabilityInwardsStochasticSoilProfile(0.3, new MacroStabilityInwardsSoilProfile1D("Profile 3", -10.0, new[]
