@@ -44,6 +44,8 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCase(0.6, "1/2")]
         [TestCase(0.0001, "1/10.000")]
         [TestCase(0.000000123456789, "1/8.100.000")]
+        [TestCase(-0.0001, "1/-10.000")]
+        [TestCase(-0.5, "1/-2")]
         public void Format_ProbabilityNotZero_ReturnOneOverReturnPeriod(double probability, string expectedText)
         {
             // Call
@@ -69,6 +71,8 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCase(2, "1/2")]
         [TestCase(10000, "1/10.000")]
         [TestCase(8100000, "1/8.100.000")]
+        [TestCase(-1000, "1/-1.000")]
+        [TestCase(-2, "1/-2")]
         public void FormatFromReturnPeriod_ReturnPeriodNotZero_ReturnOneOverReturnPeriod(int returnPeriod, string expectedText)
         {
             // Call

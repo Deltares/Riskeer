@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -34,6 +35,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// </summary>
         /// <param name="probability">The probability.</param>
         /// <returns>The formatted text.</returns>
+        /// <exception cref="FormatException">Thrown when the probability cannot be formatted as a string.</exception>
         public static string Format(double probability)
         {
             if (probability.Equals(0.0))
@@ -50,6 +52,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// </summary>
         /// <param name="returnPeriod">The return period.</param>
         /// <returns>The formatted text.</returns>
+        /// <exception cref="FormatException">Thrown when the return period cannot be formatted as a string.</exception>
         public static string FormatFromReturnPeriod(int returnPeriod)
         {
             if (returnPeriod == 0)

@@ -122,6 +122,14 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [TestCase("1/2,500", 0.4)]
         [TestCase("1/2.500", 0.0004)]
         [TestCase("1e-3", 0.001)]
+        [TestCase("1/1.000", 0.001)]
+        [TestCase("1/0", double.PositiveInfinity)]
+        [TestCase("1/-1.000", -0.001)]
+        [TestCase("1/-10", -0.1)]
+        [TestCase("1/-2,5", -0.4)]
+        [TestCase("-0,5", -0.5)]
+        [TestCase("-1", -1.0)]
+        [TestCase("-1e-2", -0.01)]
         public void ConvertFrom_StringInDutchCulture_ReturnExpectedConvertedDouble(string input, double expectedOutput)
         {
             // Setup
@@ -129,12 +137,10 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var context = mocks.Stub<ITypeDescriptorContext>();
             mocks.ReplayAll();
 
-            string text = input.ToString(CultureInfo.CurrentCulture);
-
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            var conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            var conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, input);
 
             // Assert
             Assert.AreEqual(expectedOutput, conversionResult);
@@ -146,6 +152,14 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         [TestCase("1/25", 0.04)]
         [TestCase("1/2.5", 0.4)]
         [TestCase("1e-3", 0.001)]
+        [TestCase("1/1,000", 0.001)]
+        [TestCase("1/0", double.PositiveInfinity)]
+        [TestCase("1/-1,000", -0.001)]
+        [TestCase("1/-10", -0.1)]
+        [TestCase("1/-2.5", -0.4)]
+        [TestCase("-0.5", -0.5)]
+        [TestCase("-1", -1.0)]
+        [TestCase("-1e-2", -0.01)]
         public void ConvertFrom_StringInEnglishCulture_ReturnExpectedConvertedDouble(string input, double expectedOutput)
         {
             // Setup
@@ -153,12 +167,10 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var context = mocks.Stub<ITypeDescriptorContext>();
             mocks.ReplayAll();
 
-            string text = input.ToString(CultureInfo.CurrentCulture);
-
             var converter = new NoProbabilityValueDoubleConverter();
 
             // Call
-            var conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
+            var conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, input);
 
             // Assert
             Assert.AreEqual(expectedOutput, conversionResult);

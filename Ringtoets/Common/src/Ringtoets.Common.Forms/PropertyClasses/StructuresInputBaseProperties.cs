@@ -518,7 +518,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreProfile == null ? new UseBreakWaterProperties() : new UseBreakWaterProperties(data.WrappedData, PropertyChangeHandler);
+                return data.WrappedData.ForeshoreProfile == null
+                           ? new UseBreakWaterProperties()
+                           : new UseBreakWaterProperties(data.WrappedData, PropertyChangeHandler);
             }
         }
 
