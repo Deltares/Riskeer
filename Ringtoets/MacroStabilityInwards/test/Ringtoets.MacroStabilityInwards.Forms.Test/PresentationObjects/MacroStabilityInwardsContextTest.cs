@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             var soilModels = new[]
             {
-                new TestMacroStabilityInwardsStochasticSoilModel()
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };
 
             var target = new ObservableObject();

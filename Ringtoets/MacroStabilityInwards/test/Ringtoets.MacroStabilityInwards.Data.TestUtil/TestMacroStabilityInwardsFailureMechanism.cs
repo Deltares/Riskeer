@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             }, "path/to/surfaceLines");
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new TestMacroStabilityInwardsStochasticSoilModel()
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             }, "path/to/stochasticSoilModels");
 
             failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>

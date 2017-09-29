@@ -437,7 +437,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                                 new[]
                                                                                 {
-                                                                                    new TestMacroStabilityInwardsStochasticSoilModel()
+                                                                                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -524,7 +524,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 },
                                                                                 new[]
                                                                                 {
-                                                                                    new TestMacroStabilityInwardsStochasticSoilModel()
+                                                                                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -1014,7 +1014,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
-                                                                                    new TestMacroStabilityInwardsStochasticSoilModel()
+                                                                                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
                                                                                 },
                                                                                 failureMechanism,
                                                                                 assessmentSection);
@@ -1108,7 +1108,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
-                                                                                    new TestMacroStabilityInwardsStochasticSoilModel("name", new[]
+                                                                                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name", new[]
                                                                                     {
                                                                                         new Point2D(0.0, 0.0),
                                                                                         new Point2D(5.0, 0.0)
@@ -1217,7 +1217,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                 surfaceLines,
                                                                                 new[]
                                                                                 {
-                                                                                    new TestMacroStabilityInwardsStochasticSoilModel("name", new[]
+                                                                                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name", new[]
                                                                                     {
                                                                                         new Point2D(0.0, 0.0),
                                                                                         new Point2D(5.0, 0.0)

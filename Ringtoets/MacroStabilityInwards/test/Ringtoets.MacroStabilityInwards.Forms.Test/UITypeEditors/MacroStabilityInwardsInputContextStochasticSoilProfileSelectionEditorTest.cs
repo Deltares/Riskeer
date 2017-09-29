@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                      Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                                                                      new[]
                                                                      {
-                                                                         new TestMacroStabilityInwardsStochasticSoilModel()
+                                                                         MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
                                                                      },
                                                                      failureMechanism,
                                                                      assessmentSection);

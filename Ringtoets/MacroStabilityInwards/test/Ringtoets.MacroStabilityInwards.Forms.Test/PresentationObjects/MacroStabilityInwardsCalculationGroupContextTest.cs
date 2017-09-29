@@ -25,7 +25,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -50,9 +49,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
-            var soilModels = new MacroStabilityInwardsStochasticSoilModel[]
+            var soilModels = new[]
             {
-                new TestMacroStabilityInwardsStochasticSoilModel()
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };
 
             CalculationGroup parent = withParent ? new CalculationGroup() : null;
