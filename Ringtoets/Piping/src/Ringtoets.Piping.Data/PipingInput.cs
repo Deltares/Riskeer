@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.Data
 
         /// <summary>
         /// Gets or sets the outside high water level.
-        /// [m]
+        /// [m+NAP]
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown when the user attempts to set the 
         /// assessment level while <see cref="UseAssessmentLevelManualInput"/> is <c>false</c>.</exception>
