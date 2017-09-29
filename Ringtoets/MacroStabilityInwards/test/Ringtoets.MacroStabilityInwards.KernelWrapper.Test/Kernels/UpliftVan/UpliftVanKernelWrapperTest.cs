@@ -305,6 +305,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
+            Assert.AreEqual(0.0, stabilityModel.SlipPlaneConstraints.XEntryMin); // Set during calculation
+            Assert.AreEqual(0.0, stabilityModel.SlipPlaneConstraints.XEntryMax); // Set during calculation
             Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // No multiplication factors CPhi for WBI
             Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
@@ -331,6 +333,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
             Assert.IsNotNull(stabilityModel.GeotechnicsData);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
+            Assert.AreSame(stabilityModel, stabilityModel.SlipCircle.StabilityModel);
         }
     }
 }
