@@ -620,7 +620,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
             {
-                return new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
+                return MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
             }
         }
 

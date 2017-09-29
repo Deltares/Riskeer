@@ -70,17 +70,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             const string name = "modelName";
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, null);
+            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, Enumerable.Empty<Point2D>());
 
             // Assert
-            string expectedMessage = $"Het stochastische ondergrond model '{name}'moet een geometrie bevatten.";
+            string expectedMessage = $"Het stochastische ondergrondmodel '{name}' moet een geometrie bevatten.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
         [TestCase("")]
         [TestCase("segmentSoilModelName")]
-        public void Constructor_WithName_ExpectedValues(string segmentSoilModelName)
+        public void Constructor_WithValidParameters_ExpectedValues(string segmentSoilModelName)
         {
             // Setup
             var random = new Random(21);

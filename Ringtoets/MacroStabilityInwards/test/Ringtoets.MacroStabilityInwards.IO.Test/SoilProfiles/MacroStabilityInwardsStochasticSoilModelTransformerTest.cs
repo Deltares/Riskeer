@@ -30,6 +30,7 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.Common.IO.TestUtil.Test;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
@@ -87,16 +88,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             const double top = 4;
 
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
-            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(1, new SoilProfile1D(2, "test", 3, new[]
-                    {
-                        SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
-                    }))
-                }
-            };
+            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry("some name",
+                                                                                                                 FailureMechanismType.Stability,
+                                                                                                                 new[]
+                                                                                                                 {
+                                                                                                                     new StochasticSoilProfile(1, new SoilProfile1D(2, "test", 3, new[]
+                                                                                                                     {
+                                                                                                                         SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
+                                                                                                                     }))
+                                                                                                                 });
 
             // Call
             MacroStabilityInwardsStochasticSoilModel transformedModel = transformer.Transform(soilModel);
@@ -126,16 +126,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         {
             // Setup
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
-            var soilModel = new StochasticSoilModel("some name", FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(1, new SoilProfile2D(2, "test", new[]
-                    {
-                        SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-                    }, Enumerable.Empty<PreconsolidationStress>()))
-                }
-            };
+            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry("some name",
+                                                                                                                 FailureMechanismType.Stability, new[]
+                                                                                                                 {
+                                                                                                                     new StochasticSoilProfile(1, new SoilProfile2D(2, "test", new[]
+                                                                                                                     {
+                                                                                                                         SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+                                                                                                                     }, Enumerable.Empty<PreconsolidationStress>()))
+                                                                                                                 });
 
             // Call
             MacroStabilityInwardsStochasticSoilModel transformedModel = transformer.Transform(soilModel);
@@ -180,21 +178,17 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 layer
             }, Enumerable.Empty<PreconsolidationStress>());
 
-            var soilModel1 = new StochasticSoilModel("some name", FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(1.0, profile)
-                }
-            };
+            StochasticSoilModel soilModel1 = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry("some name",
+                                                                                                                  FailureMechanismType.Stability, new[]
+                                                                                                                  {
+                                                                                                                      new StochasticSoilProfile(1.0, profile)
+                                                                                                                  });
 
-            var soilModel2 = new StochasticSoilModel("some name", FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(1.0, profile)
-                }
-            };
+            StochasticSoilModel soilModel2 = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry("some name",
+                                                                                                                  FailureMechanismType.Stability, new[]
+                                                                                                                  {
+                                                                                                                      new StochasticSoilProfile(1.0, profile)
+                                                                                                                  });
 
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 
@@ -232,14 +226,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             const double originalProfileOneProbability = 0.2;
             const double originalProfileTwoProbability = 0.7;
-            var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(originalProfileOneProbability, profile),
-                    new StochasticSoilProfile(originalProfileTwoProbability, profile)
-                }
-            };
+            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
+                                                                                                                 FailureMechanismType.Stability, new[]
+                                                                                                                 {
+                                                                                                                     new StochasticSoilProfile(originalProfileOneProbability, profile),
+                                                                                                                     new StochasticSoilProfile(originalProfileTwoProbability, profile)
+                                                                                                                 });
 
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
             MacroStabilityInwardsStochasticSoilModel transformed = null;
@@ -269,14 +261,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var profile = mocks.Stub<ISoilProfile>();
             mocks.ReplayAll();
 
-            var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    new StochasticSoilProfile(0.9, profile),
-                    new StochasticSoilProfile(0.9, profile)
-                }
-            };
+            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
+                                                                                                                 FailureMechanismType.Stability, new[]
+                                                                                                                 {
+                                                                                                                     new StochasticSoilProfile(0.9, profile),
+                                                                                                                     new StochasticSoilProfile(0.9, profile)
+                                                                                                                 });
 
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 
@@ -315,14 +305,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             });
             var stochasticSoilProfile1D = new StochasticSoilProfile(0.7, soilProfile1D);
 
-            var soilModel = new StochasticSoilModel(soilModelName, FailureMechanismType.Stability)
-            {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile2D,
-                    stochasticSoilProfile1D
-                }
-            };
+            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
+                                                                                                                 FailureMechanismType.Stability, new[]
+                                                                                                                 {
+                                                                                                                     stochasticSoilProfile2D,
+                                                                                                                     stochasticSoilProfile1D
+                                                                                                                 });
 
             var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
 

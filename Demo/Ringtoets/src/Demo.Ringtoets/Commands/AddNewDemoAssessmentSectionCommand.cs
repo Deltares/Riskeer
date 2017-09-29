@@ -433,7 +433,13 @@ namespace Demo.Ringtoets.Commands
         {
             MacroStabilityInwardsFailureMechanism failuremechanism = demoAssessmentSection.MacroStabilityInwards;
 
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("Test model");
+            var soilModel = new MacroStabilityInwardsStochasticSoilModel("Test model", new[]
+            {
+                new Point2D(20.210230, 26.00001),
+                new Point2D(3.830, 1.040506),
+                new Point2D(6.9300, 3.032406),
+                new Point2D(14.8312, 12.673506)
+            });
             var soilProfile2D = new MacroStabilityInwardsStochasticSoilProfile(
                 0.2,
                 new MacroStabilityInwardsSoilProfile2D(

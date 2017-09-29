@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
@@ -82,7 +83,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string name = "test test 123";
-            var model = new MacroStabilityInwardsStochasticSoilModel(name);
+            MacroStabilityInwardsStochasticSoilModel model =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(name);
 
             // Call
             string text = info.Text(model);
@@ -118,9 +120,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     new MacroStabilityInwardsSoilLayer1D(10)
                 }));
 
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("SoilModel", new[]
+                {
+                    stochasticSoilProfile1,
+                    stochasticSoilProfile2
+                });
 
             // Call
             object[] objects = info.ChildNodeObjects(stochasticSoilModel);
@@ -138,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var model = new MacroStabilityInwardsStochasticSoilModel("A");
+            MacroStabilityInwardsStochasticSoilModel model = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             var mocks = new MockRepository();
 

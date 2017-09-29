@@ -576,8 +576,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C", new[]
                 {
-                    new Point2D(2, -1),
-                    new Point2D(2, 1)
+                    new Point2D(-2, -1),
+                    new Point2D(-2, 1)
                 })
                 {
                     StochasticSoilProfiles =
@@ -642,8 +642,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C", new[]
                 {
-                    new Point2D(2, -1),
-                    new Point2D(2, 1)
+                    new Point2D(-2, -1),
+                    new Point2D(-2, 1)
                 })
                 {
                     StochasticSoilProfiles =
@@ -865,8 +865,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 },
                 new MacroStabilityInwardsStochasticSoilModel("C", new[]
                 {
-                    new Point2D(2, -1),
-                    new Point2D(2, 1)
+                    new Point2D(-2, -1),
+                    new Point2D(-2, 1)
                 })
                 {
                     StochasticSoilProfiles =

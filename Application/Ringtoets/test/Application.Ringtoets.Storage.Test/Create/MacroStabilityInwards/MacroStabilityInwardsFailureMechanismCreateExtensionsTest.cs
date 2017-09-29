@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
@@ -162,8 +163,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             stochasticSoilModels.AddRange(new[]
             {
-                new MacroStabilityInwardsStochasticSoilModel("name"),
-                new MacroStabilityInwardsStochasticSoilModel("name2")
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name"),
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name2")
             }, "some/path/to/file");
 
             var registry = new PersistenceRegistry();

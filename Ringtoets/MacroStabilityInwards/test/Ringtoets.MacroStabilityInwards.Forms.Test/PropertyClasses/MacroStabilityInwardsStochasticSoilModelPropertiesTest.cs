@@ -28,8 +28,8 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
@@ -55,7 +55,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidStochasticSoilModel_ExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("model");
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilModelProperties(stochasticSoilModel);
@@ -73,10 +74,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name", new []
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("name", new[]
             {
                 new Point2D(1.0, 2.0)
             });
+
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
                 new MacroStabilityInwardsSoilLayer1D(10)
@@ -98,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilModelProperties(stochasticSoilModel);

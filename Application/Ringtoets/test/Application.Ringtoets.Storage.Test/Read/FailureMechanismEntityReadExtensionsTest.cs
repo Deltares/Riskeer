@@ -703,7 +703,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithStochasticSoilModelsSet_MacroStabilityInwardsFailureMechanismWithStochasticSoilModelsSet()
         {
             // Setup
-            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            var random = new Random(21);
+            string segmentPointsXml = new Point2DXmlSerializer().ToXml(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
+
             const string sourcePath = "some/Path";
             var entity = new FailureMechanismEntity
             {
@@ -712,13 +717,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml,
+                        StochasticSoilModelSegmentPointXml = segmentPointsXml,
                         Name = "A",
                         Order = 1
                     },
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml,
+                        StochasticSoilModelSegmentPointXml = segmentPointsXml,
                         Name = "B",
                         Order = 0
                     }

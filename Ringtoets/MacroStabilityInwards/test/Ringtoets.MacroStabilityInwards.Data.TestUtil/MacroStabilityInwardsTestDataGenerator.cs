@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "PUNT_KAT_18", 0, 0),
                     SurfaceLine = surfaceLine,
-                    StochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("PK001_0001_Macrostabiliteit"),
+                    StochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("PK001_0001_Macrostabiliteit"),
                     StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]
                     {
                         new MacroStabilityInwardsSoilLayer1D(0)

@@ -32,6 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -145,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new MacroStabilityInwardsStochasticSoilModel("Name")
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             }, "path");
 
             var stochasticSoilModelCollectionContext = new MacroStabilityInwardsStochasticSoilModelCollectionContext(
@@ -178,7 +179,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var stochasticSoilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile1);
             var stochasticSoilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile2);
 
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Name");
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile1);
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile2);
 

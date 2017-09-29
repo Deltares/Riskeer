@@ -24,6 +24,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
@@ -59,7 +60,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
         {
             // Setup
-            var context = new MacroStabilityInwardsStochasticSoilModel("");
+            MacroStabilityInwardsStochasticSoilModel context = 
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

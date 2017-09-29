@@ -532,9 +532,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
         private static MacroStabilityInwardsStochasticSoilModel CreateStochasticSoilModel(string modelsName)
         {
-            var model = new MacroStabilityInwardsStochasticSoilModel(modelsName);
-
-            model.StochasticSoilProfiles.AddRange(new[]
+            var stochasticSoilProfiles = new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile1D(
                                                                    "A",
@@ -553,7 +551,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                            new Point2D(4, 5)
                                                                        }), Enumerable.Empty<Ring>())
                                                                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
-            });
+            };
+
+            MacroStabilityInwardsStochasticSoilModel model =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(modelsName, stochasticSoilProfiles);
+
             return model;
         }
 
@@ -565,13 +567,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         /// <returns>A new <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</returns>
         private static MacroStabilityInwardsStochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
         {
-            var model = new MacroStabilityInwardsStochasticSoilModel(modelName);
+            var stochasticSoilProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             foreach (string profileName in profileNames)
             {
                 MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(profileName);
-                model.StochasticSoilProfiles.Add(new MacroStabilityInwardsStochasticSoilProfile(1.0 / profileNames.Length, soilProfile));
+                stochasticSoilProfiles.Add(new MacroStabilityInwardsStochasticSoilProfile(1.0 / profileNames.Length, soilProfile));
             }
-            return model;
+
+            return MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(modelName, stochasticSoilProfiles);
         }
 
         private static MacroStabilityInwardsStochasticSoilProfile CloneAndSlightlyModify2DProfile(MacroStabilityInwardsStochasticSoilProfile profile)

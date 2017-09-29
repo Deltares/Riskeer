@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void StochasticSoilModel_AlwaysOnChange_NotifyObserverCalculationPropertyChangedOutputCleared()
         {
             // Setup
-            var newModel = new MacroStabilityInwardsStochasticSoilModel("test");
+            MacroStabilityInwardsStochasticSoilModel newModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
             var newValue = new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(newModel);
 
             var calculation = new MacroStabilityInwardsCalculationScenario();

@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
+using Ringtoets.MacroStabilityInwards.Data.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
@@ -34,23 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilModel : Observable, IMechanismStochasticSoilModel
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
-        /// </summary>
-        /// <param name="name">Name of the segment soil model.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is
-        /// <c>null</c>.</exception>
-        public MacroStabilityInwardsStochasticSoilModel(string name)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-            Name = name;
-            Geometry = new List<Point2D>();
-            StochasticSoilProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
@@ -70,8 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
             if (!geometry.Any())
             {
-                string message = string.Format("Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.", name);
-                throw new ArgumentException();
+                string message = string.Format(Resources.MacroStabilityInwardsStochasticSoilModel_Geometry_of_MacroStabilityInwardsStochasticSoilModelName_0_must_contain_a_geometry, name);
+                throw new ArgumentException(message);
             }
 
             Name = name;

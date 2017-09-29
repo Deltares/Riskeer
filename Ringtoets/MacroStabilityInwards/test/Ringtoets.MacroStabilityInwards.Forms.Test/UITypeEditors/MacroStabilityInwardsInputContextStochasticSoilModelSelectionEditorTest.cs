@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
 
             var input = new MacroStabilityInwardsInput
             {
-                StochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName")
+                StochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };
             var inputContext = new MacroStabilityInwardsInputContext(input,
                                                                      calculationItem,

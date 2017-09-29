@@ -488,7 +488,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            var random = new Random(21);
+            string segmentPointsXml = new Point2DXmlSerializer().ToXml(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
             const string stochasticSoilModelSourcePath = "path";
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -499,12 +503,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new StochasticSoilModelEntity
                     {
                         Name = "modelA",
-                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
+                        StochasticSoilModelSegmentPointXml = segmentPointsXml
                     },
                     new StochasticSoilModelEntity
                     {
                         Name = "modelB",
-                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
+                        StochasticSoilModelSegmentPointXml = segmentPointsXml
                     }
                 },
                 MacroStabilityInwardsFailureMechanismMetaEntities =

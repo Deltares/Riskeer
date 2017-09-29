@@ -41,7 +41,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("name");
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
             TestDelegate test = () => stochasticSoilModel.Create(null, 0);
@@ -69,8 +70,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithValidProperties_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
-            int order = new Random(1).Next();
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
+            var random = new Random(1);
+            int order = random.Next();
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel), new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
             var registry = new PersistenceRegistry();
 
             // Call
@@ -91,14 +96,14 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("testName")
+            var stochasticSoilProfiles = new[]
             {
-                StochasticSoilProfiles =
-                {
-                    new MacroStabilityInwardsStochasticSoilProfile(0.1, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()),
-                    new MacroStabilityInwardsStochasticSoilProfile(0.9, MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D())
-                }
+                new MacroStabilityInwardsStochasticSoilProfile(0.1, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()),
+                new MacroStabilityInwardsStochasticSoilProfile(0.9, MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D())
             };
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("Model", stochasticSoilProfiles);
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -149,7 +154,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             const string name = "testName";
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(name);
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(name);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -163,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned()
         {
             // Given
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("some name");
+            var stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
             var registry = new PersistenceRegistry();
 
             StochasticSoilModelEntity firstEntity = stochasticSoilModel.Create(registry, 0);
