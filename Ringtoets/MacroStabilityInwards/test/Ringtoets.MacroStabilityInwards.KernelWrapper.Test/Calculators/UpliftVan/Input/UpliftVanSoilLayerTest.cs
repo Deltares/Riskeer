@@ -107,6 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(layer.ShearStrengthRatio);
             Assert.IsNaN(layer.StrengthIncreaseExponent);
             Assert.IsNaN(layer.Pop);
+            Assert.AreEqual(UpliftVanDilatancyType.Zero, layer.DilatancyType);
         }
 
         [Test]
@@ -125,6 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double shearStrengthRatio = random.NextDouble();
             double strengthIncreaseExponent = random.NextDouble();
             double pop = random.NextDouble();
+            var dilatancyType = random.NextEnumValue<UpliftVanDilatancyType>();
 
             // Call
             var layer = new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties
@@ -139,7 +141,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 FrictionAngle = frictionAngle,
                 ShearStrengthRatio = shearStrengthRatio,
                 StrengthIncreaseExponent = strengthIncreaseExponent,
-                Pop = pop
+                Pop = pop,
+                DilatancyType = dilatancyType
             });
 
             // Assert
@@ -154,6 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(shearStrengthRatio, layer.ShearStrengthRatio);
             Assert.AreEqual(strengthIncreaseExponent, layer.StrengthIncreaseExponent);
             Assert.AreEqual(pop, layer.Pop);
+            Assert.AreEqual(dilatancyType, layer.DilatancyType);
         }
     }
 }

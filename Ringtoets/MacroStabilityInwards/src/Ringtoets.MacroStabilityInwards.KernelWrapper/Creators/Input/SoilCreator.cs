@@ -41,9 +41,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
-        /// is an invalid value.</exception>
+        /// or <see cref="UpliftVanDilatancyType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
-        /// is a valid value but unsupported.</exception>
+        /// or <see cref="UpliftVanDilatancyType"/> is a valid value but unsupported.</exception>
         public static Soil[] Create(UpliftVanSoilProfile profile)
         {
             if (profile == null)
@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 RatioCuPc = l.ShearStrengthRatio,
                 StrengthIncreaseExponent = l.StrengthIncreaseExponent,
                 PoP = l.Pop,
-                DilatancyType = DilatancyType.Zero
+                DilatancyType = ConvertDilatancyType(l.DilatancyType)
             }).ToArray();
         }
 
@@ -92,6 +92,37 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                     return ShearStrengthModel.CPhi;
                 case UpliftVanShearStrengthModel.CPhiOrSuCalculated:
                     return ShearStrengthModel.CPhiOrCuCalculated;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="UpliftVanDilatancyType"/> into a <see cref="DilatancyType"/>.
+        /// </summary>
+        /// <param name="dilatancyType">The <see cref="UpliftVanDilatancyType"/> to convert.</param>
+        /// <returns>A <see cref="DilatancyType"/> based on <paramref name="dilatancyType"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dilatancyType"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="dilatancyType"/>
+        /// is a valid value but unsupported.</exception>
+        private static DilatancyType ConvertDilatancyType(UpliftVanDilatancyType dilatancyType)
+        {
+            if (!Enum.IsDefined(typeof(UpliftVanDilatancyType), dilatancyType))
+            {
+                throw new InvalidEnumArgumentException(nameof(dilatancyType),
+                                                       (int) dilatancyType,
+                                                       typeof(UpliftVanDilatancyType));
+            }
+
+            switch (dilatancyType)
+            {
+                case UpliftVanDilatancyType.Phi:
+                    return DilatancyType.Phi;
+                case UpliftVanDilatancyType.Zero:
+                    return DilatancyType.Zero;
+                case UpliftVanDilatancyType.MinusPhi:
+                    return DilatancyType.MinusPhi;
                 default:
                     throw new NotSupportedException();
             }

@@ -68,6 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             StrengthIncreaseExponent = properties.StrengthIncreaseExponent;
             ShearStrengthRatio = properties.ShearStrengthRatio;
             Pop = properties.Pop;
+            DilatancyType = properties.DilatancyType;
         }
 
         /// <summary>
@@ -135,6 +136,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// </summary>
         public double Pop { get; }
 
+        /// <summary>
+        /// Gets the dilatancy type.
+        /// </summary>
+        public UpliftVanDilatancyType DilatancyType { get; }
+
         public class ConstructionProperties
         {
             /// <summary>
@@ -151,6 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 StrengthIncreaseExponent = double.NaN;
                 ShearStrengthRatio = double.NaN;
                 Pop = double.NaN;
+                DilatancyType = UpliftVanDilatancyType.Zero;
             }
 
             /// <summary>
@@ -207,6 +214,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// Gets or sets the Pop.
             /// </summary>
             public double Pop { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the dilatancy type.
+            /// </summary>
+            public UpliftVanDilatancyType DilatancyType { internal get; set; }
         }
     }
 }
