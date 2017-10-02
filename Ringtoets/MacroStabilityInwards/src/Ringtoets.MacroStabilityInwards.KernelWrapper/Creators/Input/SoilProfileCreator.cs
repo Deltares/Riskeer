@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
@@ -66,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                     IsAquifer = layerWithSoil.Key.IsAquifer,
                     Soil = layerWithSoil.Value,
                     GeometrySurface = CreateGeometrySurface(layerWithSoil.Key),
-                    WaterpressureInterpolationModel = WaterpressureInterpolationModel.Automatic
+                    WaterpressureInterpolationModel = ConvertWaterPressureInterpolationModel(layerWithSoil.Key.WaterPressureInterpolationModel)
                 });
             }
 
@@ -162,6 +163,35 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             geometryData.Rebox();
 
             return geometryData;
+        }
+
+        /// <summary>
+        /// Converts a <see cref="UpliftVanWaterPressureInterpolationModel"/> into a <see cref="WaterpressureInterpolationModel"/>.
+        /// </summary>
+        /// <param name="waterPressureInterpolationModel">The <see cref="UpliftVanWaterPressureInterpolationModel"/> to convert.</param>
+        /// <returns>A <see cref="WaterpressureInterpolationModel"/> based on <paramref name="waterPressureInterpolationModel"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waterPressureInterpolationModel"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="waterPressureInterpolationModel"/>
+        /// is a valid value but unsupported.</exception>
+        private static WaterpressureInterpolationModel ConvertWaterPressureInterpolationModel(UpliftVanWaterPressureInterpolationModel waterPressureInterpolationModel)
+        {
+            if (!Enum.IsDefined(typeof(UpliftVanWaterPressureInterpolationModel), waterPressureInterpolationModel))
+            {
+                throw new InvalidEnumArgumentException(nameof(waterPressureInterpolationModel),
+                                                       (int) waterPressureInterpolationModel,
+                                                       typeof(UpliftVanWaterPressureInterpolationModel));
+            }
+
+            switch (waterPressureInterpolationModel)
+            {
+                case UpliftVanWaterPressureInterpolationModel.Automatic:
+                    return WaterpressureInterpolationModel.Automatic;
+                case UpliftVanWaterPressureInterpolationModel.Hydrostatic:
+                    return WaterpressureInterpolationModel.Hydrostatic;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

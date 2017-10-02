@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -63,7 +64,41 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_WithAllData_ReturnSoilProfile2D()
+        public void Create_InvalidWaterPressureInterpolationModel_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var layer = new UpliftVanSoilLayer(
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                }, Enumerable.Empty<Point2D[]>(),
+                new UpliftVanSoilLayer.ConstructionProperties
+                {
+                    WaterPressureInterpolationModel = (UpliftVanWaterPressureInterpolationModel) 99
+                });
+
+            var soilProfile = new UpliftVanSoilProfile(new[]
+            {
+                layer
+            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
+
+            // Call
+            TestDelegate test = () => SoilProfileCreator.Create(soilProfile, new Dictionary<UpliftVanSoilLayer, Soil>
+            {
+                {
+                    layer, new Soil()
+                }
+            });
+
+            // Assert
+            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{typeof(UpliftVanWaterPressureInterpolationModel).Name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [TestCase(UpliftVanWaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
+        [TestCase(UpliftVanWaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
+        public void Create_WithAllData_ReturnSoilProfile2D(UpliftVanWaterPressureInterpolationModel upliftVanWaterPressureInterpolationModel, WaterpressureInterpolationModel waterpressureInterpolationModel)
         {
             // Setup
             var random = new Random(11);
@@ -97,7 +132,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 outerRing, holes,
                 new UpliftVanSoilLayer.ConstructionProperties
                 {
-                    IsAquifer = true
+                    IsAquifer = true,
+                    WaterPressureInterpolationModel = upliftVanWaterPressureInterpolationModel
                 });
 
             var soil = new Soil();
@@ -132,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreSame(soil, surface.Soil);
             Assert.IsFalse(string.IsNullOrEmpty(surface.Name)); // Unused property
             Assert.AreEqual(layer.IsAquifer, surface.IsAquifer);
-            Assert.AreEqual(WaterpressureInterpolationModel.Automatic, surface.WaterpressureInterpolationModel);
+            Assert.AreEqual(waterpressureInterpolationModel, surface.WaterpressureInterpolationModel);
 
             var point1 = new WTIStabilityPoint2D(0, 0);
             var point2 = new WTIStabilityPoint2D(10, 10);
