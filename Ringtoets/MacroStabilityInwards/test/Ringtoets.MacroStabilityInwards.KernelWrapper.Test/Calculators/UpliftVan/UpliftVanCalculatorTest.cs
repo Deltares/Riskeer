@@ -220,7 +220,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 LeftGrid = new MacroStabilityInwardsGrid(),
-                RightGrid = new MacroStabilityInwardsGrid()
+                RightGrid = new MacroStabilityInwardsGrid(),
+                DrainageConstruction = new UpliftVanDrainageConstruction()
             });
         }
 
@@ -235,10 +236,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
+                DrainageConstruction = new UpliftVanDrainageConstruction(),
                 WaterLevelRiverAverage = random.Next(),
                 WaterLevelPolder = random.Next(),
-                XCoordinateDrainageConstruction = random.Next(),
-                ZCoordinateDrainageConstruction = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
                 PhreaticLineOffsetBelowDikeTopAtRiver = random.Next(),
@@ -254,7 +254,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 PenetrationLength = random.Next(),
                 UseDefaultOffsets = random.NextBoolean(),
                 AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
-                DrainageConstructionPresent = random.NextBoolean(),
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),
                 MaximumSliceWidth = random.Next(),

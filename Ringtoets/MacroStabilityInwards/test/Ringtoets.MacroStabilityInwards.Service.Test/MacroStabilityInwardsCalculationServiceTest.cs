@@ -346,9 +346,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                     .LastCreatedUpliftVanCalculator.Input;
-                Assert.IsFalse(actualInput.DrainageConstructionPresent);
-                Assert.IsNaN(actualInput.XCoordinateDrainageConstruction);
-                Assert.IsNaN(actualInput.ZCoordinateDrainageConstruction);
+                Assert.IsFalse(actualInput.DrainageConstruction.IsPresent);
+                Assert.IsNaN(actualInput.DrainageConstruction.XCoordinate);
+                Assert.IsNaN(actualInput.DrainageConstruction.ZCoordinate);
             }
         }
 
@@ -372,59 +372,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                     .LastCreatedUpliftVanCalculator.Input;
-                Assert.IsFalse(actualInput.DrainageConstructionPresent);
+                Assert.IsFalse(actualInput.DrainageConstruction.IsPresent);
                 Assert.IsNaN(actualInput.PhreaticLineOffsetBelowDikeToeAtPolder);
                 Assert.IsNaN(actualInput.PhreaticLineOffsetBelowDikeTopAtPolder);
                 Assert.IsNaN(actualInput.PhreaticLineOffsetBelowDikeTopAtRiver);
                 Assert.IsNaN(actualInput.PhreaticLineOffsetBelowShoulderBaseInside);
-            }
-        }
-
-        [Test]
-        public void Calculate_GridDeterminationTypeAutomatic_SetsInputOnCalculator()
-        {
-            // Setup
-            var random = new Random(11);
-            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
-            inputParameters.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
-            inputParameters.TangentLineZTop = random.NextRoundedDouble();
-            inputParameters.TangentLineZBottom = random.NextRoundedDouble();
-            inputParameters.LeftGrid.XLeft = random.NextRoundedDouble();
-            inputParameters.LeftGrid.XRight = random.NextRoundedDouble();
-            inputParameters.LeftGrid.ZTop = random.NextRoundedDouble();
-            inputParameters.LeftGrid.ZBottom = random.NextRoundedDouble();
-            inputParameters.LeftGrid.NumberOfHorizontalPoints = random.Next();
-            inputParameters.LeftGrid.NumberOfVerticalPoints = random.Next();
-            inputParameters.RightGrid.XLeft = random.NextRoundedDouble();
-            inputParameters.RightGrid.XRight = random.NextRoundedDouble();
-            inputParameters.RightGrid.ZTop = random.NextRoundedDouble();
-            inputParameters.RightGrid.ZBottom = random.NextRoundedDouble();
-            inputParameters.RightGrid.NumberOfHorizontalPoints = random.Next();
-            inputParameters.RightGrid.NumberOfVerticalPoints = random.Next();
-
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            {
-                // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
-
-                // Assert
-                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
-                    .LastCreatedUpliftVanCalculator.Input;
-                Assert.IsTrue(actualInput.GridAutomaticDetermined);
-                Assert.IsNaN(actualInput.TangentLineZTop);
-                Assert.IsNaN(actualInput.TangentLineZBottom);
-                Assert.IsNaN(actualInput.LeftGrid.XLeft);
-                Assert.IsNaN(actualInput.LeftGrid.XRight);
-                Assert.IsNaN(actualInput.LeftGrid.ZTop);
-                Assert.IsNaN(actualInput.LeftGrid.ZBottom);
-                Assert.AreEqual(0, actualInput.LeftGrid.NumberOfHorizontalPoints);
-                Assert.AreEqual(0, actualInput.LeftGrid.NumberOfVerticalPoints);
-                Assert.IsNaN(actualInput.RightGrid.XLeft);
-                Assert.IsNaN(actualInput.RightGrid.XRight);
-                Assert.IsNaN(actualInput.RightGrid.ZTop);
-                Assert.IsNaN(actualInput.RightGrid.ZBottom);
-                Assert.AreEqual(0, actualInput.RightGrid.NumberOfHorizontalPoints);
-                Assert.AreEqual(0, actualInput.RightGrid.NumberOfVerticalPoints);
             }
         }
 
@@ -495,8 +447,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
             Assert.AreEqual(originalInput.WaterLevelPolder, actualInput.WaterLevelPolder);
-            Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.XCoordinateDrainageConstruction);
-            Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.DrainageConstruction.IsPresent);
+            Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.DrainageConstruction.XCoordinate);
+            Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.DrainageConstruction.ZCoordinate);
             Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtRiver, actualInput.PhreaticLineOffsetBelowDikeTopAtRiver);
@@ -510,7 +463,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Outwards, actualInput.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Inwards, actualInput.PiezometricHeadPhreaticLine2Inwards);
             Assert.AreEqual(originalInput.PenetrationLength, actualInput.PenetrationLength);
-            Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.DrainageConstructionPresent);
             Assert.AreEqual(originalInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(originalInput.UseDefaultOffsets, actualInput.UseDefaultOffsets);
             Assert.AreEqual(originalInput.MoveGrid, actualInput.MoveGrid);

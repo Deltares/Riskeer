@@ -45,10 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
+            DrainageConstruction = properties.DrainageConstruction;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
             WaterLevelPolder = properties.WaterLevelPolder;
-            XCoordinateDrainageConstruction = properties.XCoordinateDrainageConstruction;
-            ZCoordinateDrainageConstruction = properties.ZCoordinateDrainageConstruction;
             MinimumLevelPhreaticLineAtDikeTopRiver = properties.MinimumLevelPhreaticLineAtDikeTopRiver;
             MinimumLevelPhreaticLineAtDikeTopPolder = properties.MinimumLevelPhreaticLineAtDikeTopPolder;
             PhreaticLineOffsetBelowDikeTopAtRiver = properties.PhreaticLineOffsetBelowDikeTopAtRiver;
@@ -62,7 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             PiezometricHeadPhreaticLine2Outwards = properties.PiezometricHeadPhreaticLine2Outwards;
             PiezometricHeadPhreaticLine2Inwards = properties.PiezometricHeadPhreaticLine2Inwards;
             PenetrationLength = properties.PenetrationLength;
-            DrainageConstructionPresent = properties.DrainageConstructionPresent;
             AdjustPhreaticLine3And4ForUplift = properties.AdjustPhreaticLine3And4ForUplift;
             UseDefaultOffsets = properties.UseDefaultOffsets;
             DikeSoilScenario = properties.DikeSoilScenario;
@@ -93,8 +91,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 AssessmentLevel = double.NaN;
                 WaterLevelRiverAverage = double.NaN;
                 WaterLevelPolder = double.NaN;
-                XCoordinateDrainageConstruction = double.NaN;
-                ZCoordinateDrainageConstruction = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopRiver = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopPolder = double.NaN;
                 PhreaticLineOffsetBelowDikeTopAtRiver = double.NaN;
@@ -135,6 +131,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public UpliftVanSoilProfile SoilProfile { internal get; set; }
 
             /// <summary>
+            /// Gets or sets the drainage construction.
+            /// </summary>
+            public UpliftVanDrainageConstruction DrainageConstruction { internal get; set; }
+
+            /// <summary>
             /// Gets or sets the dike soil scenario.
             /// </summary>
             public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { internal get; set; }
@@ -150,23 +151,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// [m+NAP]
             /// </summary>
             public double WaterLevelPolder { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether a drainage construction is present.
-            /// </summary>
-            public bool DrainageConstructionPresent { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the x coordinate of the drainage construction.
-            /// [m]
-            /// </summary>
-            public double XCoordinateDrainageConstruction { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the z coordinate of the drainage construction.
-            /// [m+NAP]
-            /// </summary>
-            public double ZCoordinateDrainageConstruction { internal get; set; }
 
             /// <summary>
             /// Gets or sets the minimum level phreatic line at dike top river.
@@ -343,6 +327,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public UpliftVanSoilProfile SoilProfile { get; }
 
         /// <summary>
+        /// Gets the drainage construction.
+        /// </summary>
+        public UpliftVanDrainageConstruction DrainageConstruction { get; }
+
+        /// <summary>
         /// Gets the dike soil scenario.
         /// </summary>
         public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { get; }
@@ -358,23 +347,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// [m+NAP]
         /// </summary>
         public double WaterLevelPolder { get; }
-
-        /// <summary>
-        /// Gets whether a drainage construction is present.
-        /// </summary>
-        public bool DrainageConstructionPresent { get; }
-
-        /// <summary>
-        /// Gets the x coordinate of the drainage construction.
-        /// [m]
-        /// </summary>
-        public double XCoordinateDrainageConstruction { get; }
-
-        /// <summary>
-        /// Gets the z coordinate of the drainage construction.
-        /// [m+NAP]
-        /// </summary>
-        public double ZCoordinateDrainageConstruction { get; }
 
         /// <summary>
         /// Gets the minimum level phreatic line at dike top river.

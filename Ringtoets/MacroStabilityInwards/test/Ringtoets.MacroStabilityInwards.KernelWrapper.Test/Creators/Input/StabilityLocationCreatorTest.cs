@@ -75,7 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DikeSoilScenario = macroStabilityInwardsDikeSoilScenario
+                    DikeSoilScenario = macroStabilityInwardsDikeSoilScenario,
+                    DrainageConstruction = new UpliftVanDrainageConstruction()
                 });
 
             // Call
@@ -93,7 +94,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double assessmentLevel = random.Next();
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
-            bool drainageConstructionPresent = random.NextBoolean();
             double xCoordinateDrainageConstruction = random.Next();
             double zCoordinateDrainageConstruction = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
@@ -112,6 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double piezometricHeadPhreaticLine2Inwards = random.Next();
             double penetrationLength = random.Next();
 
+            var drainageConstruction = new UpliftVanDrainageConstruction(xCoordinateDrainageConstruction, zCoordinateDrainageConstruction);
+
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
@@ -119,9 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     AssessmentLevel = assessmentLevel,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolder = waterLevelPolder,
-                    DrainageConstructionPresent = drainageConstructionPresent,
-                    XCoordinateDrainageConstruction = xCoordinateDrainageConstruction,
-                    ZCoordinateDrainageConstruction = zCoordinateDrainageConstruction,
+                    DrainageConstruction = drainageConstruction,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                     UseDefaultOffsets = useDefaultOffsets,
@@ -151,7 +151,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
             Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolder, location.WaterLevelPolder);
-            Assert.AreEqual(drainageConstructionPresent, location.DrainageConstructionPresent);
             Assert.AreEqual(xCoordinateDrainageConstruction, location.XCoordMiddleDrainageConstruction);
             Assert.AreEqual(zCoordinateDrainageConstruction, location.ZCoordMiddleDrainageConstruction);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);

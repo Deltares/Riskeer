@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Converters\MacroStabilityInwardsSlidingCurveConverterTest.cs" />
     <Compile Include="Converters\MacroStabilityInwardsSlipPlaneUpliftVanConverterTest.cs" />
+    <Compile Include="Converters\UpliftVanDrainageConstructionConverterTest.cs" />
     <Compile Include="Converters\UpliftVanSoilProfileConverterTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivityTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationServiceTest.cs" />

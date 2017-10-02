@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
     public class UpliftVanCalculatorInputTest
     {
         [Test]
-        public void Constructor_WithoutConstructionProperies_ThrowsArgumentNullException()
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new UpliftVanCalculatorInput(null);
@@ -56,10 +56,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties())
             }, new UpliftVanPreconsolidationStress[0]);
 
+            var drainageConstruction = new UpliftVanDrainageConstruction();
+
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
-            double xCoordinateDrainageConstruction = random.Next();
-            double zCoordinateDrainageConstruction = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
             double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
@@ -75,7 +75,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double penetrationLength = random.Next();
             bool useDefaultOffsets = random.NextBoolean();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
-            bool drainageConstructionPresent = random.NextBoolean();
             var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
             bool moveGrid = random.NextBoolean();
             double maximumSliceWidth = random.Next();
@@ -97,10 +96,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     AssessmentLevel = hRiverValue,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
+                    DrainageConstruction = drainageConstruction,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolder = waterLevelPolder,
-                    XCoordinateDrainageConstruction = xCoordinateDrainageConstruction,
-                    ZCoordinateDrainageConstruction = zCoordinateDrainageConstruction,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                     PhreaticLineOffsetBelowDikeTopAtRiver = phreaticLineOffsetBelowDikeTopAtRiver,
@@ -116,7 +114,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     PenetrationLength = penetrationLength,
                     UseDefaultOffsets = useDefaultOffsets,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
-                    DrainageConstructionPresent = drainageConstructionPresent,
                     DikeSoilScenario = dikeSoilScenario,
                     MoveGrid = moveGrid,
                     MaximumSliceWidth = maximumSliceWidth,
@@ -136,11 +133,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
             Assert.AreSame(soilProfile, input.SoilProfile);
+            Assert.AreSame(drainageConstruction, input.DrainageConstruction);
 
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder);
-            Assert.AreEqual(xCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction);
-            Assert.AreEqual(zCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver, input.PhreaticLineOffsetBelowDikeTopAtRiver);
@@ -156,7 +152,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(penetrationLength, input.PenetrationLength);
             Assert.AreEqual(useDefaultOffsets, input.UseDefaultOffsets);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, input.AdjustPhreaticLine3And4ForUplift);
-            Assert.AreEqual(drainageConstructionPresent, input.DrainageConstructionPresent);
 
             Assert.AreEqual(dikeSoilScenario, input.DikeSoilScenario);
             Assert.AreEqual(moveGrid, input.MoveGrid);
@@ -185,14 +180,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Assert
             Assert.IsNull(input.SurfaceLine);
             Assert.IsNull(input.SoilProfile);
+            Assert.IsNull(input.DrainageConstruction);
             Assert.IsNull(input.LeftGrid);
             Assert.IsNull(input.RightGrid);
 
             Assert.IsNaN(input.AssessmentLevel);
             Assert.IsNaN(input.WaterLevelRiverAverage);
             Assert.IsNaN(input.WaterLevelPolder);
-            Assert.IsNaN(input.XCoordinateDrainageConstruction);
-            Assert.IsNaN(input.ZCoordinateDrainageConstruction);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNaN(input.PhreaticLineOffsetBelowDikeTopAtRiver);
@@ -211,8 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(input.TangentLineZBottom);
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
-
-            Assert.IsFalse(input.DrainageConstructionPresent);
+            
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
             Assert.IsFalse(input.UseDefaultOffsets);
             Assert.IsFalse(input.MoveGrid);
