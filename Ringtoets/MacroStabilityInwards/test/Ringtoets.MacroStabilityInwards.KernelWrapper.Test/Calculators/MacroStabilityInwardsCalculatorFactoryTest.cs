@@ -24,7 +24,9 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
 {
@@ -77,7 +79,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
 
             // Call
             IUpliftVanCalculator upliftVanCalculator = factory.CreateUpliftVanCalculator(
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties()),
+                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                }),
                 new TestMacroStabilityInwardsKernelFactory());
 
             // Assert

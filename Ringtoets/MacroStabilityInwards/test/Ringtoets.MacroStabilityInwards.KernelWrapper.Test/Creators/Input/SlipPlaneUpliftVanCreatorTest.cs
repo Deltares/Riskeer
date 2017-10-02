@@ -26,6 +26,7 @@ using Deltares.WTIStability;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
@@ -67,6 +68,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
             {
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                SoilProfile = new TestUpliftVanSoilProfile(),
+                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                DrainageConstruction = new UpliftVanDrainageConstruction(),
                 LeftGrid = new MacroStabilityInwardsGrid
                 {
                     XLeft = leftGridXLeft,

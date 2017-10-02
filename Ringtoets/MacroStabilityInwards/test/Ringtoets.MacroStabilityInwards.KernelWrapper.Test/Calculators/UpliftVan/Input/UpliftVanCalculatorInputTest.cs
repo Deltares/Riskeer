@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
@@ -50,12 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             double hRiverValue = random.NextDouble();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-
-            var soilProfile = new UpliftVanSoilProfile(new[]
-            {
-                new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties())
-            }, new UpliftVanPreconsolidationStress[0]);
-
+            var soilProfile = new TestUpliftVanSoilProfile();
             var drainageConstruction = new UpliftVanDrainageConstruction();
             var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
 
@@ -161,15 +156,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         [Test]
         public void Constructor_EmptyConstructionProperties_ExpectedValues()
         {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var soilProfile = new TestUpliftVanSoilProfile();
+            var drainageConstruction = new UpliftVanDrainageConstruction();
+            var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
+
             // Call
             var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties());
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = surfaceLine,
+                    SoilProfile = soilProfile,
+                    DrainageConstruction = drainageConstruction,
+                    PhreaticLineOffsets = phreaticLineOffsets
+                });
 
             // Assert
-            Assert.IsNull(input.SurfaceLine);
-            Assert.IsNull(input.SoilProfile);
-            Assert.IsNull(input.DrainageConstruction);
-            Assert.IsNull(input.PhreaticLineOffsets);
             Assert.IsNull(input.LeftGrid);
             Assert.IsNull(input.RightGrid);
 
@@ -190,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(input.TangentLineZBottom);
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
-            
+
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
             Assert.IsFalse(input.MoveGrid);
             Assert.IsFalse(input.GridAutomaticDetermined);
@@ -199,6 +202,70 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsFalse(input.AutomaticForbiddenZones);
 
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
+        }
+
+        [Test]
+        public void Constructor_SurfaceLineNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                });
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "SurfaceLine must be set.");
+        }
+
+        [Test]
+        public void Constructor_SoilProfileNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                });
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "SoilProfile must be set.");
+        }
+
+        [Test]
+        public void Constructor_DrainageConstructionNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
+                });
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "DrainageConstruction must be set.");
+        }
+
+        [Test]
+        public void Constructor_PhreaticLineOffsetsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                });
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsets must be set.");
         }
     }
 }

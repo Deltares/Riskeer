@@ -27,6 +27,7 @@ using Deltares.WTIStability;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
@@ -52,6 +53,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
                     DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99
                 });
 
@@ -77,7 +82,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     DikeSoilScenario = macroStabilityInwardsDikeSoilScenario,
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
                 });
 
             // Call
@@ -119,6 +126,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
                     AssessmentLevel = assessmentLevel,
                     WaterLevelRiverAverage = waterLevelRiverAverage,

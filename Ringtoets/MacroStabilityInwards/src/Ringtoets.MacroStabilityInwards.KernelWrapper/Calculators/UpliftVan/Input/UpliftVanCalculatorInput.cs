@@ -42,6 +42,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 throw new ArgumentNullException(nameof(properties));
             }
 
+            if (properties.SurfaceLine == null)
+            {
+                throw new ArgumentException("SurfaceLine must be set.");
+            }
+            if (properties.SoilProfile == null)
+            {
+                throw new ArgumentException("SoilProfile must be set.");
+            }
+            if (properties.DrainageConstruction == null)
+            {
+                throw new ArgumentException("DrainageConstruction must be set.");
+            }
+            if (properties.PhreaticLineOffsets == null)
+            {
+                throw new ArgumentException("PhreaticLineOffsets must be set.");
+            }
+
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
