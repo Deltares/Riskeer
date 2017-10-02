@@ -43,6 +43,7 @@
     </golfreductie>
     <voorlandprofiel>profiel1</voorlandprofiel>
     <faalkansgegevenerosiebodem>1E-6</faalkansgegevenerosiebodem>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <orientatie>67.1</orientatie>
     <kunstwerk>kunstwerk1</kunstwerk>
     <hrlocatie>Locatie1</hrlocatie>

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 
@@ -63,6 +64,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.IsNull(configuration.WidthFlowApertures);
             Assert.IsNull(configuration.ForeshoreProfileId);
             Assert.IsNull(configuration.WaveReduction);
+            Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -79,6 +81,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             var random = new Random(22);
             double structureNormalOrientation = random.NextDouble();
             double failureProbabilityStructureWithErosion = random.NextDouble();
+            bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
 
             var modelFactorSuperCriticalFlow = new StochastConfiguration();
             var stormDuration = new StochastConfiguration();
@@ -104,6 +107,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             configuration.WidthFlowApertures = widthFlowApertures;
             configuration.ForeshoreProfileId = foreshoreProfileName;
             configuration.WaveReduction = waveReduction;
+            configuration.ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated;
 
             // Assert
             Assert.AreEqual(configurationName, configuration.Name);
@@ -120,6 +124,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreSame(widthFlowApertures, configuration.WidthFlowApertures);
             Assert.AreEqual(foreshoreProfileName, configuration.ForeshoreProfileId);
             Assert.AreSame(waveReduction, configuration.WaveReduction);
+            Assert.AreEqual(shouldIllustrationPointsBeCalculated, configuration.ShouldIllustrationPointsBeCalculated);
         }
 
         private class SimpleStructuresCalculationConfiguration : StructuresCalculationConfiguration

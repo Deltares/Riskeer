@@ -3,6 +3,7 @@
   <berekening naam="Partial calculation 2">
     <dijkprofiel>id_of_dikeprofile</dijkprofiel>
     <dijkhoogte>-1.2</dijkhoogte>
+	<illustratiepunteninlezen>true</illustratiepunteninlezen>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
       <damhoogte>3.4</damhoogte>

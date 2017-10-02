@@ -256,6 +256,13 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidMultipleUseForeshore.xml",
                                               "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleUseForeshores");
+
+                yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedEmpty.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedNoBoolean.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldIllustrationPointsBeCalculatedNoBoolean");
             }
         }
 

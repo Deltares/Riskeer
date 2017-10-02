@@ -56,6 +56,11 @@ namespace Ringtoets.Common.IO.Configurations
         /// </summary>
         public const string Orientation = "orientatie";
 
+        /// <summary>
+        /// The identifier for the illustration point attributes.
+        /// </summary>
+        public const string ShouldIllustrationPointsBeCalculatedElement = "illustratiepunteninlezen";
+
         #region Stochasts
 
         /// <summary>

@@ -331,6 +331,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidStochastMultipleVariationCoefficient.xml",
                                               "Element 'variatiecoefficient' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidStochastMultipleVariationCoefficient");
+                yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedEmpty.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedNoBoolean.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldIllustrationPointsBeCalculatedNoBoolean");
             }
         }
 
@@ -544,6 +550,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.VerticalDistance);
             Assert.IsNull(calculation.WidthFlowApertures);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]

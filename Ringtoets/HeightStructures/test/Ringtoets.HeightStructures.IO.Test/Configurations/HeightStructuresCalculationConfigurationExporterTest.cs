@@ -131,6 +131,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     StructureNormalOrientation = (RoundedDouble) 67.1,
                     UseBreakWater = true,
                     UseForeshore = true,
+                    ShouldIllustrationPointsBeCalculated = true,
                     BreakWater =
                     {
                         Type = BreakWaterType.Dam,

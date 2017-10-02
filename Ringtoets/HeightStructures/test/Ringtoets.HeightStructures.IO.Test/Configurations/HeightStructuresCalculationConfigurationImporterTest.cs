@@ -345,6 +345,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                     FailureProbabilityStructureWithErosion = 1e-6,
                     UseBreakWater = true,
                     UseForeshore = true,
+                    ShouldIllustrationPointsBeCalculated = true,
                     BreakWater =
                     {
                         Height = (RoundedDouble) 1.23,
@@ -562,37 +563,6 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
-        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
-        [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk met ID 'unknown' bestaat niet.")]
-        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, file);
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
-                                                                                calculationGroup,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>(),
-                                                                                new HeightStructuresFailureMechanism());
-            var successful = false;
-
-            // Call
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
         [Test]
         public void DoPostImport_CalculationWithStructureInSection_AssignsCalculationToSectionResult()
         {
@@ -637,6 +607,37 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
+        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
+            "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
+            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
+        [TestCase("validConfigurationUnknownStructure.xml",
+            "Het kunstwerk met ID 'unknown' bestaat niet.")]
+        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new HeightStructuresCalculationConfigurationImporter(filePath,
+                                                                                calculationGroup,
+                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                Enumerable.Empty<ForeshoreProfile>(),
+                                                                                Enumerable.Empty<HeightStructure>(),
+                                                                                new HeightStructuresFailureMechanism());
+            var successful = false;
+
+            // Call
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
         private static void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
@@ -648,6 +649,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
+            Assert.AreEqual(expectedCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.LevelCrestStructure, actualCalculation.InputParameters.LevelCrestStructure);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.AllowedLevelIncreaseStorage, actualCalculation.InputParameters.AllowedLevelIncreaseStorage);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.FlowWidthAtBottomProtection, actualCalculation.InputParameters.FlowWidthAtBottomProtection);

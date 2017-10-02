@@ -10,6 +10,7 @@
     <kansmislukkensluiting>0.22</kansmislukkensluiting>
     <faalkansherstel>0.0006</faalkansherstel>
     <nrdoorstroomopeningen>4</nrdoorstroomopeningen>
+	<illustratiepunteninlezen>true</illustratiepunteninlezen>
     <instroommodel>verticalewand</instroommodel>
     <voorlandprofiel>profiel1</voorlandprofiel>
     <golfreductie>

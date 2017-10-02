@@ -4,6 +4,7 @@
     <hrlocatie>Locatie1</hrlocatie>
     <kunstwerk>kunstwerk1</kunstwerk>
     <orientatie>7</orientatie>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <faalkansgegevenerosiebodem>0.0001</faalkansgegevenerosiebodem>
     <voorlandprofiel>profiel1</voorlandprofiel>
     <analysehoogte>0.1</analysehoogte>

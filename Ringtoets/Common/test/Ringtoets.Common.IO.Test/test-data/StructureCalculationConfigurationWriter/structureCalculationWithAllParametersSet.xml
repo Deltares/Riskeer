@@ -44,5 +44,6 @@
       </stochast>
       <stochast naam="testStochastName" />
     </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
   </berekening>
 </configuratie>

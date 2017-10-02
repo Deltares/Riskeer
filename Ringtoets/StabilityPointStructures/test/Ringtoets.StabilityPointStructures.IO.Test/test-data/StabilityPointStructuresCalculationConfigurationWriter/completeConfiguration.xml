@@ -111,5 +111,6 @@
         <standaardafwijking>0.3</standaardafwijking>
       </stochast>
     </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
   </berekening>
 </configuratie>

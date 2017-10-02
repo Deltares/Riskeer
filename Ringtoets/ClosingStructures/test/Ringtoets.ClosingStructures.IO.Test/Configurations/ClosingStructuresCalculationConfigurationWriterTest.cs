@@ -142,6 +142,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 FailureProbabilityOpenStructure = 1e-3,
                 FailureProbabilityReparation = 1e-2,
                 InflowModelType = ConfigurationClosingStructureInflowModelType.LowSill,
+                ShouldIllustrationPointsBeCalculated = true,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseBreakWater = true,

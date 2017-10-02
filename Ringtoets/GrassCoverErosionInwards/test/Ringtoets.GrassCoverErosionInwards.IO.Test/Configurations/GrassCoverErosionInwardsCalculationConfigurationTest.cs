@@ -59,6 +59,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNull(readCalculation.OvertoppingRateCalculationType);
             Assert.IsNull(readCalculation.WaveReduction);
             Assert.IsNull(readCalculation.CriticalFlowRate);
+            Assert.IsNull(readCalculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.IsNull(readCalculation.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsNull(readCalculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -78,6 +81,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             const bool useForeshore = true;
             const double criticalFlowMean = 4.4;
             const double critifalFlowStandardDeviation = 5.5;
+            const bool readOvertoppingOutputIllustrationPoints = true;
+            const bool readDikeHeightIllustrationPoints = true;
+            const bool readOvertoppingRateIllustrationPoints = true;
 
             // Call
             var readCalculation = new GrassCoverErosionInwardsCalculationConfiguration(calculationName)
@@ -89,6 +95,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 DikeHeight = dikeHeight,
                 DikeHeightCalculationType = dikeHeightCalculationType,
                 OvertoppingRateCalculationType = overtoppingRateCalculationType,
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = readOvertoppingOutputIllustrationPoints,
+                ShouldDikeHeightIllustrationPointsBeCalculated = readDikeHeightIllustrationPoints,
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = readOvertoppingRateIllustrationPoints,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseBreakWater = useBreakWater,
@@ -117,6 +126,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(useForeshore, readCalculation.WaveReduction.UseForeshoreProfile);
             Assert.AreEqual(criticalFlowMean, readCalculation.CriticalFlowRate.Mean);
             Assert.AreEqual(critifalFlowStandardDeviation, readCalculation.CriticalFlowRate.StandardDeviation);
+            Assert.AreEqual(readOvertoppingOutputIllustrationPoints, readCalculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(readDikeHeightIllustrationPoints, readCalculation.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(readOvertoppingRateIllustrationPoints, readCalculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         [Test]

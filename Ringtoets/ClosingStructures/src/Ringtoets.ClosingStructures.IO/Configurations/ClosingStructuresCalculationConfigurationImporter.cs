@@ -114,6 +114,8 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
+            SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
+
             if (TrySetStructure(readCalculation.StructureId, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
@@ -468,6 +470,15 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             }
 
             return false;
+        }
+
+        private static void SetShouldIllustrationPointsBeCalculated(ClosingStructuresCalculationConfiguration calculationConfiguration,
+                                                                    StructuresCalculation<ClosingStructuresInput> calculation)
+        {
+            if (calculationConfiguration.ShouldIllustrationPointsBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = calculationConfiguration.ShouldIllustrationPointsBeCalculated.Value;
+            }
         }
     }
 }

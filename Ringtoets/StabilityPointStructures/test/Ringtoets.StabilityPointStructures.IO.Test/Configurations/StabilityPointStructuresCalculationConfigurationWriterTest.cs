@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -240,6 +239,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     Mean = 0.15,
                     VariationCoefficient = 0.25
                 },
+                ShouldIllustrationPointsBeCalculated = true,
                 StabilityLinearLoadModel = new StochastConfiguration
                 {
                     Mean = 0.16,

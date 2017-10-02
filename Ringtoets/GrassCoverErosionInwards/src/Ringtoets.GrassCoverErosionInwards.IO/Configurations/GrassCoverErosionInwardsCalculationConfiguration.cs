@@ -75,7 +75,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         /// cover erosion inwards calculation.
         /// </summary>
         public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for Overtopping Output.
+        /// </summary>
+        public bool? ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for Dike Height.
+        /// </summary>
+        public bool? ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated for Overtopping Flow.
+        /// </summary>
+        public bool? ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
+
         /// <summary>
         /// Gets or sets the wave reduction configuration.
         /// </summary>

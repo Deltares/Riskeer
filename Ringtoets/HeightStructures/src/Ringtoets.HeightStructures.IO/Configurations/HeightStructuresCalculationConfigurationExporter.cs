@@ -55,6 +55,11 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
             calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
 
+            if (input.ShouldIllustrationPointsBeCalculated)
+            {
+                calculationConfiguration.ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated;
+            }
+
             if (input.Structure != null)
             {
                 calculationConfiguration.StructureId = input.Structure.Id;

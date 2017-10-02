@@ -6,6 +6,7 @@
     <orientatie>67.1</orientatie>
     <faalkansgegevenerosiebodem>1E-6</faalkansgegevenerosiebodem>
     <voorlandprofiel>profiel1</voorlandprofiel>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
       <damtype>havendam</damtype>

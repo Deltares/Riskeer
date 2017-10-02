@@ -55,6 +55,14 @@ namespace Ringtoets.Common.IO.Configurations.Export
 
             WriteStochasts(configuration, writer);
 
+            if (configuration.ShouldIllustrationPointsBeCalculated.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement,
+                    XmlConvert.ToString(configuration.ShouldIllustrationPointsBeCalculated.Value));
+            }
+
             writer.WriteEndElement();
         }
 

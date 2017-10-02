@@ -106,6 +106,11 @@ namespace Ringtoets.Common.IO.Configurations
         public string ForeshoreProfileId { get; set; }
 
         /// <summary>
+        /// Gets or sets if the illustration points should be calculated.
+        /// </summary>
+        public bool? ShouldIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>

@@ -69,6 +69,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 StormDuration = input.StormDuration.ToStochastConfigurationWithMean()
             };
 
+            if (input.ShouldIllustrationPointsBeCalculated)
+            {
+                calculationConfiguration.ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated;
+            }
+
             SetConfigurationStructureDependendParameters(calculationConfiguration, input);
 
             calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);

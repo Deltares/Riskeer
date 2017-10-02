@@ -169,6 +169,27 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidMultipleStochasts.xml",
                                               "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleStochasts");
+
+                yield return new TestCaseData("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedEmpty.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedNoBoolean.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedNoBoolean");
+
+                yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty.xml",
+                                              "The 'hbnillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedNoBoolean.xml",
+                                              "The 'hbnillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedNoBoolean");
+
+                yield return new TestCaseData("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedEmpty.xml",
+                                              "The 'overslagdebietillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedNoBoolean.xml",
+                                              "The 'overslagdebietillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedNoBoolean");
             }
         }
 
@@ -328,6 +349,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(false, calculation.WaveReduction.UseForeshoreProfile);
             Assert.AreEqual(0.1, calculation.CriticalFlowRate.Mean);
             Assert.AreEqual(0.2, calculation.CriticalFlowRate.StandardDeviation);
+            Assert.IsTrue(calculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.IsTrue(calculation.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsFalse(calculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -357,6 +381,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(3.4, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
             Assert.IsNull(calculation.CriticalFlowRate);
+            Assert.IsTrue(calculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.IsNull(calculation.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsNull(calculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         [Test]

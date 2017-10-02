@@ -561,7 +561,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                     {
                         Mean = (RoundedDouble) 2.0,
                         StandardDeviation = (RoundedDouble) 1.1
-                    }
+                    },
+                    ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                    ShouldDikeHeightIllustrationPointsBeCalculated = false,
+                    ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                 }
             };
 
@@ -625,6 +628,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
+            Assert.AreEqual(expectedCalculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
+                            actualCalculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedCalculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated,
+                            actualCalculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedCalculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated,
+                            actualCalculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.CriticalFlowRate, actualCalculation.InputParameters.CriticalFlowRate);
         }
     }

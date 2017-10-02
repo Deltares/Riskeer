@@ -69,6 +69,29 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement,
                 configuration.DikeHeight);
 
+            if (configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement,
+                    XmlConvert.ToString(configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.Value));
+            }
+
+            if (configuration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElementElement,
+                    XmlConvert.ToString(configuration.ShouldDikeHeightIllustrationPointsBeCalculated.Value));
+            }
+
+            if (configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement,
+                    XmlConvert.ToString(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value));
+            }
             WriteConfigurationLoadSchematizationTypeWhenAvailable(
                 writer,
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,

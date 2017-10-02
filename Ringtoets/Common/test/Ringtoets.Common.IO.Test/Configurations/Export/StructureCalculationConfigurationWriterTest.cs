@@ -156,7 +156,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                 {
                     Mean = 121.3,
                     StandardDeviation = 222.1
-                }
+                },
+                ShouldIllustrationPointsBeCalculated = true
             };
         }
 

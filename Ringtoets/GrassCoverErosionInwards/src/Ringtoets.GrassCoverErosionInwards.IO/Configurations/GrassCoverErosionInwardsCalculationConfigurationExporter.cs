@@ -62,6 +62,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 
             configuration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
 
+            if (input.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
+            {
+                configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated = input.ShouldOvertoppingOutputIllustrationPointsBeCalculated;
+            }
+            if (input.ShouldDikeHeightIllustrationPointsBeCalculated)
+            {
+                configuration.ShouldDikeHeightIllustrationPointsBeCalculated = input.ShouldDikeHeightIllustrationPointsBeCalculated;
+            }
+            if (input.ShouldOvertoppingRateIllustrationPointsBeCalculated)
+            {
+                configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated = input.ShouldOvertoppingRateIllustrationPointsBeCalculated;
+            }
+
             if (input.DikeProfile != null)
             {
                 configuration.DikeProfileId = input.DikeProfile.Id;

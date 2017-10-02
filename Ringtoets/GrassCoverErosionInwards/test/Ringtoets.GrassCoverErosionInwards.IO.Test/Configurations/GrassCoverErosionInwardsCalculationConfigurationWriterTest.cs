@@ -180,7 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Setup
             var configuration = new GrassCoverErosionInwardsCalculationConfiguration("fail")
             {
-                OvertoppingRateCalculationType= (ConfigurationHydraulicLoadsCalculationType?) 9000
+                OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?) 9000
             };
 
             var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
@@ -206,6 +206,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 DikeHeightCalculationType = ConfigurationHydraulicLoadsCalculationType.NoCalculation,
                 OvertoppingRateCalculationType = ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm,
                 DikeHeight = 0,
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                ShouldDikeHeightIllustrationPointsBeCalculated = false,
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseForeshoreProfile = true,

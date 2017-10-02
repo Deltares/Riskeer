@@ -182,6 +182,12 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidMultipleUseForeshore.xml",
                                               "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleUseForeshores");
+                yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedEmpty.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedNoBoolean.xml",
+                                              "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldIllustrationPointsBeCalculatedNoBoolean");
             }
         }
 
@@ -244,6 +250,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StorageStructureArea);
             Assert.IsNull(calculation.StormDuration);
             Assert.IsNull(calculation.WidthFlowApertures);
+            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
 
             Assert.IsNull(calculation.WaveReduction);
         }
@@ -292,6 +299,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsTrue(calculation.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -336,6 +344,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.IsTrue(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
             Assert.IsNull(calculation.WaveReduction.UseBreakWater);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -380,6 +389,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
             Assert.IsNull(calculation.WaveReduction.UseBreakWater);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -420,6 +430,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.IsNull(calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
         }
 
         [Test]
@@ -461,6 +472,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.IsNull(calculation.WidthFlowApertures.StandardDeviation);
 
             Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
         }
     }
 }

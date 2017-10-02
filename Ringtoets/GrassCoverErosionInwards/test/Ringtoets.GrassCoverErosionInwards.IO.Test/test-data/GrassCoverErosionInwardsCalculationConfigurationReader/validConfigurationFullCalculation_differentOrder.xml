@@ -8,6 +8,9 @@
         <verwachtingswaarde>0.1</verwachtingswaarde>
       </stochast>
     </stochasten>
+	<illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <hbnillustratiepunteninlezen>true</hbnillustratiepunteninlezen>
+    <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
     <golfreductie>
       <voorlandgebruiken>false</voorlandgebruiken>
       <damhoogte>1.234</damhoogte>

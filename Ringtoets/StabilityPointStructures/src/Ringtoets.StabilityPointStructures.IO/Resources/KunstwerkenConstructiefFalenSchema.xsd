@@ -49,6 +49,7 @@ All rights reserved.
             <xs:element ref="stochasten" minOccurs="0"/>
             <xs:element ref="volumiekgewichtwater" minOccurs="0"/>
             <xs:element ref="voorlandprofiel" minOccurs="0"/>
+            <xs:element ref="illustratiepunteninlezen" minOccurs="0"/>
           </xs:all>
         </xs:extension>
       </xs:complexContent>

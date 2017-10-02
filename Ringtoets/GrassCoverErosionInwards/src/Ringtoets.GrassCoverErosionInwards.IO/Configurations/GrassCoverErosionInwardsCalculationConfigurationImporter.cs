@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             };
             SetDikeHeightCalculationType(calculationConfiguration, calculation);
             SetOvertoppingRateCalculationType(calculationConfiguration, calculation);
-
+            SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
             if (TrySetCriticalFlowRate(calculationConfiguration, calculation)
                 && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
                 && TrySetDikeProfile(calculationConfiguration.DikeProfileId, calculation)
@@ -238,6 +238,28 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             if (calculationConfiguration.OvertoppingRateCalculationType.HasValue)
             {
                 calculation.InputParameters.OvertoppingRateCalculationType = (OvertoppingRateCalculationType) calculationConfiguration.OvertoppingRateCalculationType.Value;
+            }
+        }
+
+        /// <summary>
+        /// Assigns the properties defining whether the illustration points need to be read for various calculations.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private static void SetShouldIllustrationPointsBeCalculated(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                                    GrassCoverErosionInwardsCalculation calculation)
+        {
+            if (calculationConfiguration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.Value;
+            }
+            if (calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.Value;
+            }
+            if (calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value;
             }
         }
 

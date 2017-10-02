@@ -36,6 +36,7 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreEqual("naam", ConfigurationSchemaIdentifiers.NameAttribute);
             Assert.AreEqual("hrlocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
             Assert.AreEqual("orientatie", ConfigurationSchemaIdentifiers.Orientation);
+            Assert.AreEqual("illustratiepunteninlezen", ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement);
 
             Assert.AreEqual("stochasten", ConfigurationSchemaIdentifiers.StochastsElement);
             Assert.AreEqual("stochast", ConfigurationSchemaIdentifiers.StochastElement);

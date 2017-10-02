@@ -112,6 +112,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 ForeshoreProfileId = "profiel1",
                 FailureProbabilityStructureWithErosion = 1e-6,
                 StructureNormalOrientation = 67.1,
+                ShouldIllustrationPointsBeCalculated = true,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseBreakWater = true,

@@ -66,6 +66,7 @@
           <standaardafwijking>0.2</standaardafwijking>
         </stochast>
       </stochasten>
+      <illustratiepunteninlezen>true</illustratiepunteninlezen>
     </berekening>
     <map naam="Nested">
       <berekening naam="sparse config">

@@ -62,4 +62,10 @@ All rights reserved.
     </xs:simpleType>
   </xs:element>
 
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden.-->
+  <xs:element name="illustratiepunteninlezen">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

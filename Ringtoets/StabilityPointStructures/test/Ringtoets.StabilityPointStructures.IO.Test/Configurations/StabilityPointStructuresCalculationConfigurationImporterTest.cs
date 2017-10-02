@@ -939,6 +939,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     Structure = structure,
                     ForeshoreProfile = foreshoreProfile,
+                    ShouldIllustrationPointsBeCalculated = true,
                     AllowedLevelIncreaseStorage =
                     {
                         Mean = (RoundedDouble) 0.2,
@@ -1101,40 +1102,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.AreEqual(expectedValue, calculation.InputParameters.ProbabilityCollisionSecondaryStructure);
         }
 
-        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel met ID 'unknown' bestaat niet.",
-            TestName = "Import_UnknownData({0:80})")]
-        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.",
-            TestName = "Import_UnknownData({0:80})")]
-        [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk met ID 'unknown' bestaat niet.",
-            TestName = "Import_UnknownData({0:80})")]
-        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, file);
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-                                                                                        calculationGroup,
-                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>(),
-                                                                                        new StabilityPointStructuresFailureMechanism());
-            var successful = false;
-
-            // Call
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
         [Test]
         public void DoPostImport_CalculationWithStructureInSection_AssignsCalculationToSectionResult()
         {
@@ -1179,6 +1146,40 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
+        [TestCase("validConfigurationUnknownForeshoreProfile.xml",
+            "Het voorlandprofiel met ID 'unknown' bestaat niet.",
+            TestName = "Import_UnknownData({0:80})")]
+        [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
+            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.",
+            TestName = "Import_UnknownData({0:80})")]
+        [TestCase("validConfigurationUnknownStructure.xml",
+            "Het kunstwerk met ID 'unknown' bestaat niet.",
+            TestName = "Import_UnknownData({0:80})")]
+        public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, file);
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        Enumerable.Empty<StabilityPointStructure>(),
+                                                                                        new StabilityPointStructuresFailureMechanism());
+            var successful = false;
+
+            // Call
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
         private static void AssertCalculation(StructuresCalculation<StabilityPointStructuresInput> expectedCalculation,
                                               StructuresCalculation<StabilityPointStructuresInput> actualCalculation)
         {
@@ -1201,6 +1202,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.StructureNormalOrientation, actualCalculation.InputParameters.StructureNormalOrientation);
             Assert.AreEqual(expectedCalculation.InputParameters.UseForeshore, actualCalculation.InputParameters.UseForeshore);
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
+            Assert.AreEqual(expectedCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
             Assert.AreEqual(expectedCalculation.InputParameters.VerticalDistance, actualCalculation.InputParameters.VerticalDistance);
             Assert.AreEqual(expectedCalculation.InputParameters.VolumicWeightWater, actualCalculation.InputParameters.VolumicWeightWater);

@@ -137,6 +137,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     InflowModelType = ClosingStructureInflowModelType.LowSill,
                     UseBreakWater = true,
                     UseForeshore = true,
+                    ShouldIllustrationPointsBeCalculated = true,
                     BreakWater =
                     {
                         Type = BreakWaterType.Dam,

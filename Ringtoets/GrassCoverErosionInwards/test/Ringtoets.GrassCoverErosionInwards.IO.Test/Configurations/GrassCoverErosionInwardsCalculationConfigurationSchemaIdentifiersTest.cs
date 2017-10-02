@@ -36,6 +36,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual("dijkhoogte", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement);
             Assert.AreEqual("hbnberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement);
             Assert.AreEqual("overslagdebietberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement);
+            Assert.AreEqual("illustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement);
+            Assert.AreEqual("hbnillustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElementElement);
+            Assert.AreEqual("overslagdebietillustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement);
         }
     }
 }

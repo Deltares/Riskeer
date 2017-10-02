@@ -5,6 +5,9 @@
     <dijkprofiel>id</dijkprofiel>
     <orientatie>67.1</orientatie>
     <dijkhoogte>0</dijkhoogte>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietillustratiepunteninlezen>true</overslagdebietillustratiepunteninlezen>
     <hbnberekenen>niet</hbnberekenen>
     <overslagdebietberekenen>norm</overslagdebietberekenen>
     <golfreductie>

@@ -208,6 +208,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     ForeshoreProfile = new TestForeshoreProfile("profiel1"),
                     Structure = new TestStabilityPointStructure("kunstwerk1", "kunstwerk1"),
+                    ShouldIllustrationPointsBeCalculated = true,
                     AllowedLevelIncreaseStorage = new LogNormalDistribution
                     {
                         Mean = (RoundedDouble) 0.2,
