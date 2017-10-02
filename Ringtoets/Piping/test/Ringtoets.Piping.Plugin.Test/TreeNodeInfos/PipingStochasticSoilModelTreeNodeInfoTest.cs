@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives.TestUtil;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -81,7 +82,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const string name = "test test 123";
-            var model = new PipingStochasticSoilModel(name);
+            PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(name);
 
             // Call
             string text = info.Text(model);
@@ -107,14 +108,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var stochasticSoilProfile1 = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             var stochasticSoilProfile2 = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
-            var stochasticSoilModel = new PipingStochasticSoilModel("Name")
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Name", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile1,
-                    stochasticSoilProfile2
-                }
-            };
+                stochasticSoilProfile1,
+                stochasticSoilProfile2
+            });
 
             // Call
             object[] objects = info.ChildNodeObjects(stochasticSoilModel);
@@ -132,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var model = new PipingStochasticSoilModel("A");
+            PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             var mocks = new MockRepository();
 

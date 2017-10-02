@@ -255,22 +255,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var stochasticSoilModel1 = new PipingStochasticSoilModel("name1")
+                var stochasticSoilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name1", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(1.0, 2.0),
-                        new Point2D(1.1, 2.2)
-                    }
-                };
-                var stochasticSoilModel2 = new PipingStochasticSoilModel("name2")
+                    new Point2D(1.0, 2.0),
+                    new Point2D(1.1, 2.2)
+                });
+
+                var stochasticSoilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name2", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(3.0, 4.0),
-                        new Point2D(3.3, 4.4)
-                    }
-                };
+                    new Point2D(3.0, 4.0),
+                    new Point2D(3.3, 4.4)
+                });
 
                 var surfaceLineA = new PipingSurfaceLine("Line A");
                 surfaceLineA.SetGeometry(new[]
@@ -683,14 +678,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var stochasticSoilModel = new PipingStochasticSoilModel("")
+                var stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(1, 2),
-                        new Point2D(1, 2)
-                    }
-                };
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                });
 
                 view.Data = failureMechanismContext;
 

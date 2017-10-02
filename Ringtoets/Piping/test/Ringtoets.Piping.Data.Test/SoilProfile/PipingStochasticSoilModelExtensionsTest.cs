@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test.SoilProfile
@@ -48,8 +49,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var soilModel = new PipingStochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
@@ -67,8 +67,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineIntersectingSoilModel_ReturnTrue()
         {
             // Setup
-            var soilModel = new PipingStochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
@@ -93,8 +92,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNotIntersectingSoilModel_ReturnFalse()
         {
             // Setup
-            var soilModel = new PipingStochasticSoilModel("A");
-            soilModel.Geometry.AddRange(new[]
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)

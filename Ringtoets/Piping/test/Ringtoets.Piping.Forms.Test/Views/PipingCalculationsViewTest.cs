@@ -1474,13 +1474,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, arbirtraryFilePath);
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new PipingStochasticSoilModel("PipingStochasticSoilModel")
+                new PipingStochasticSoilModel("PipingStochasticSoilModel", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(0.0, 0.0),
-                        new Point2D(5.0, 0.0)
-                    },
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
@@ -1610,13 +1609,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D));
 
-            var stochasticSoilModelA = new PipingStochasticSoilModel("Model A")
+            var stochasticSoilModelA = new PipingStochasticSoilModel("Model A", new[]
             {
-                Geometry =
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                },
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     stochasticSoilProfile1,
@@ -1637,13 +1635,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new PipingSoilLayer(1.0)
                 }, SoilProfileType.SoilProfile1D));
 
-            var stochasticSoilModelE = new PipingStochasticSoilModel("Model E")
+            var stochasticSoilModelE = new PipingStochasticSoilModel("Model E", new[]
             {
-                Geometry =
-                {
-                    new Point2D(1.0, 0.0),
-                    new Point2D(6.0, 0.0)
-                },
+                new Point2D(1.0, 0.0),
+                new Point2D(6.0, 0.0)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     stochasticSoilProfile5
@@ -1653,13 +1650,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 stochasticSoilModelA,
-                new PipingStochasticSoilModel("Model C")
+                new PipingStochasticSoilModel("Model C", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(1.0, 0.0),
-                        new Point2D(4.0, 0.0)
-                    },
+                    new Point2D(1.0, 0.0),
+                    new Point2D(4.0, 0.0)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new PipingStochasticSoilProfile(0.3, new PipingSoilProfile("Profile 3", -10.0, new[]

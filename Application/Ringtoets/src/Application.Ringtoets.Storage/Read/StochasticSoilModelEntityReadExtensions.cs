@@ -65,9 +65,9 @@ namespace Application.Ringtoets.Storage.Read
                 return collector.GetPipingStochasticSoilModel(entity);
             }
 
-            var model = new PipingStochasticSoilModel(entity.Name);
+            Point2D[] geometry = ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml).ToArray();
+            var model = new PipingStochasticSoilModel(entity.Name, geometry);
             entity.ReadStochasticSoilProfiles(model, collector);
-            model.Geometry.AddRange(ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml));
 
             collector.Read(entity, model);
 

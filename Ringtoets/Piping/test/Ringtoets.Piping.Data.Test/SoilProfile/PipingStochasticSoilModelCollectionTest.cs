@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test.SoilProfile
 {
@@ -41,26 +42,26 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
 
         protected override IEnumerable<PipingStochasticSoilModel> UniqueElements()
         {
-            yield return new PipingStochasticSoilModel("Model A");
-            yield return new PipingStochasticSoilModel("Model B");
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Model A");
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Model B");
         }
 
         protected override IEnumerable<PipingStochasticSoilModel> SingleNonUniqueElements()
         {
             const string someName = "Soil model";
-            yield return new PipingStochasticSoilModel(someName);
-            yield return new PipingStochasticSoilModel(someName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someName);
         }
 
         protected override IEnumerable<PipingStochasticSoilModel> MultipleNonUniqueElements()
         {
             const string someName = "Soil model";
             const string someOtherName = "Other soil model";
-            yield return new PipingStochasticSoilModel(someName);
-            yield return new PipingStochasticSoilModel(someName);
-            yield return new PipingStochasticSoilModel(someOtherName);
-            yield return new PipingStochasticSoilModel(someOtherName);
-            yield return new PipingStochasticSoilModel(someOtherName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someOtherName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someOtherName);
+            yield return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(someOtherName);
         }
 
         protected override void AssertSingleNonUniqueElements(ArgumentException exception, IEnumerable<PipingStochasticSoilModel> itemsToAdd)

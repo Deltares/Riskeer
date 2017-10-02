@@ -475,14 +475,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         /// <returns>A new <see cref="PipingStochasticSoilModel"/>.</returns>
         private static PipingStochasticSoilModel CreateSimpleModel(string modelName, params string[] profileNames)
         {
-            var model = new PipingStochasticSoilModel(modelName);
+            var stochasticProfiles = new List<PipingStochasticSoilProfile>();
             foreach (string profileName in profileNames)
             {
-                model.StochasticSoilProfiles.Add(new PipingStochasticSoilProfile(
-                                                     1.0 / profileNames.Length,
-                                                     PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName)));
+                stochasticProfiles.Add(new PipingStochasticSoilProfile(
+                                           1.0 / profileNames.Length,
+                                           PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName)));
             }
-            return model;
+
+            return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelName, stochasticProfiles);
         }
 
         private static PipingStochasticSoilProfile CloneAndSlightlyModify(PipingStochasticSoilProfile profile)

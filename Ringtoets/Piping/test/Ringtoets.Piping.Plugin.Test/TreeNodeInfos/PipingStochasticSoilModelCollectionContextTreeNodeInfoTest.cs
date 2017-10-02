@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -144,7 +145,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new PipingStochasticSoilModel("Name")
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, "path");
 
             var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(
@@ -166,14 +167,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stochasticSoilModel = new PipingStochasticSoilModel("Name")
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Name", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
-                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                }
-            };
+                new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
+                new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+            });
 
             var failureMechanism = new PipingFailureMechanism();
             var stochasticSoilModelCollectionContext = new PipingStochasticSoilModelCollectionContext(

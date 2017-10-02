@@ -44,6 +44,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -517,7 +518,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             protected override PipingStochasticSoilModel CreateDataModel()
             {
-                return new PipingStochasticSoilModel(nameof(PipingStochasticSoilModel));
+                return PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(nameof(PipingStochasticSoilModel));
             }
         }
 
@@ -620,7 +621,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             protected override MacroStabilityInwardsStochasticSoilModel CreateDataModel()
             {
-                return MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
+                return MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
             }
         }
 

@@ -24,6 +24,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
@@ -59,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void CreateInstance_Always_NewPropertiesWithInputAsData()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("some name");
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(stochasticSoilModel);

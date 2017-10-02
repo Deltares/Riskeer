@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.Data.TestUtil.Test
 {
@@ -35,19 +38,25 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Assert
-            Assert.IsInstanceOf<PipingStochasticSoilModel>(model);
+            Assert.AreEqual(typeof(PipingStochasticSoilModel), model.GetType());
             Assert.IsEmpty(model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+
             CollectionAssert.AreEquivalent(new[]
             {
                 0.5,
                 0.5
             }, model.StochasticSoilProfiles.Select(p => p.Probability));
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, model.Geometry);
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModelWithName_ExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithName_ExpectedPropertiesSet()
         {
             // Setup
             const string name = "some name";
@@ -56,7 +65,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(name);
 
             // Assert
-            Assert.IsInstanceOf<PipingStochasticSoilModel>(model);
+            Assert.AreEqual(typeof(PipingStochasticSoilModel), model.GetType());
             Assert.AreEqual(name, model.Name);
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
             CollectionAssert.AreEquivalent(new[]
@@ -65,6 +74,64 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
                 0.5
             }, model.StochasticSoilProfiles.Select(p => p.Probability));
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, model.Geometry);
+        }
+
+        [Test]
+        public void CreatePipingStochastSoilModel_WithNameAndGeometry_ExpectedPropertiesSet()
+        {
+            // Setup
+            var random = new Random(21);
+            const string name = "some name";
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
+
+            // Call
+            PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(name, geometry);
+
+            // Assert
+            Assert.AreEqual(typeof(PipingStochasticSoilModel), model.GetType());
+            Assert.AreEqual(name, model.Name);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                0.5,
+                0.5
+            }, model.StochasticSoilProfiles.Select(p => p.Probability));
+            CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            Assert.AreSame(geometry, model.Geometry);
+        }
+
+        [Test]
+        public void CreatePipingStochasticSoilModel_WithNameAndStochasticSoilProfiles_ExpectedPropertiesSet()
+        {
+            // Setup
+            var random = new Random(21);
+            const string name = "some name";
+            var stochasticProfiles = new[]
+            {
+                new PipingStochasticSoilProfile(random.NextDouble(), PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+            };
+
+            // Call
+            PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(name, stochasticProfiles);
+
+            // Assert
+            Assert.AreEqual(typeof(PipingStochasticSoilModel), model.GetType());
+            Assert.AreEqual(name, model.Name);
+            CollectionAssert.AreEqual(stochasticProfiles, model.StochasticSoilProfiles);
+            CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, model.Geometry);
         }
     }
 }

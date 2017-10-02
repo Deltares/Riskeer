@@ -52,11 +52,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ImportedDataTransformException(message);
             }
 
-            var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name,
-                                                                                          stochasticSoilModel.Geometry);
-            macroStabilityInwardsModel.StochasticSoilProfiles.AddRange(
-                TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
-            return macroStabilityInwardsModel;
+            try
+            {
+                var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name,
+                                                                                              stochasticSoilModel.Geometry);
+                macroStabilityInwardsModel.StochasticSoilProfiles.AddRange(
+                    TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
+
+                return macroStabilityInwardsModel;
+            }
+            catch (ArgumentException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
 
         /// <summary>

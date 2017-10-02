@@ -223,12 +223,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new Point3D(2.5, 1.0, 1.0),
                 new Point3D(5.0, 1.0, 0.0)
             });
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
-            stochasticSoilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel",
+                                                                                                                                 new[]
+                                                                                                                                 {
+                                                                                                                                     new Point2D(1.0, 0.0),
+                                                                                                                                     new Point2D(5.0, 0.0)
+                                                                                                                                 });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
@@ -271,12 +271,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new Point3D(3.0, 0.0, 1.0),
                 new Point3D(3.0, -5.0, 0.0)
             });
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
-            stochasticSoilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel",
+                                                                                                                                 new[]
+                                                                                                                                 {
+                                                                                                                                     new Point2D(1.0, 0.0),
+                                                                                                                                     new Point2D(5.0, 0.0)
+                                                                                                                                 });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
@@ -582,13 +582,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 new PipingSoilLayer(0)
             }, SoilProfileType.SoilProfile1D));
 
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("Ondergrondmodel");
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
-            stochasticSoilModel.Geometry.AddRange(new[]
+            var stochasticSoilModel = new PipingStochasticSoilModel("Ondergrondmodel", new[]
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
             });
+            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]

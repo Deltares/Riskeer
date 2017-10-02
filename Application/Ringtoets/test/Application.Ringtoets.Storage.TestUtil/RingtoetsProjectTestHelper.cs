@@ -878,14 +878,13 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                new PipingStochasticSoilModel("modelName")
+                new PipingStochasticSoilModel("modelName", new[]
                 {
-                    Geometry =
-                    {
-                        referenceLineGeometryPoints[1],
-                        referenceLineGeometryPoints[2],
-                        referenceLineGeometryPoints[3]
-                    },
+                    referenceLineGeometryPoints[1],
+                    referenceLineGeometryPoints[2],
+                    referenceLineGeometryPoints[3]
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new PipingStochasticSoilProfile(0.2, pipingSoilProfile),

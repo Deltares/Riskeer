@@ -130,11 +130,9 @@ namespace Ringtoets.Piping.Forms.Test.Factories
             };
             var stochasticSoilModels = new[]
             {
-                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName1"),
-                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName2")
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName1", pointsOne),
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName2", pointsTwo)
             };
-            stochasticSoilModels[0].Geometry.AddRange(pointsOne);
-            stochasticSoilModels[1].Geometry.AddRange(pointsTwo);
 
             // Call
             MapFeature[] features = PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels);

@@ -41,6 +41,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
@@ -456,13 +457,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     }
                 }, SoilProfileType.SoilProfile1D)
             );
-            var stochasticSoilModel = new PipingStochasticSoilModel("StochasticSoilModelName")
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile
-                }
-            };
+                stochasticSoilProfile
+            });
 
             HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
 
@@ -1283,13 +1281,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PipingSurfaceLine testSurfaceLine = ValidSurfaceLine(0, 2);
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var stochasticSoilModel = new PipingStochasticSoilModel("StochasticSoilModelName")
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile
-                }
-            };
+                stochasticSoilProfile
+            });
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -1334,13 +1329,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var stochasticSoilModel = new PipingStochasticSoilModel("StochasticSoilModelName")
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile
-                }
-            };
+                stochasticSoilProfile
+            });
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
@@ -1491,37 +1483,34 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             var soilModels = new[]
             {
-                new PipingStochasticSoilModel("A")
+                new PipingStochasticSoilModel("A", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(2, -1),
-                        new Point2D(2, 1)
-                    },
+                    new Point2D(2, -1),
+                    new Point2D(2, 1)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 },
-                new PipingStochasticSoilModel("C")
+                new PipingStochasticSoilModel("C", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(-2, -1),
-                        new Point2D(-2, 1)
-                    },
+                    new Point2D(-2, -1),
+                    new Point2D(-2, 1)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
                     }
                 },
-                new PipingStochasticSoilModel("E")
+                new PipingStochasticSoilModel("E", new[]
                 {
-                    Geometry =
-                    {
-                        new Point2D(6, -1),
-                        new Point2D(6, 1)
-                    },
+                    new Point2D(6, -1),
+                    new Point2D(6, 1)
+                })
+                {
                     StochasticSoilProfiles =
                     {
                         new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
@@ -1593,13 +1582,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var model = new PipingStochasticSoilModel("A")
+            PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                }
-            };
+                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+            });
+
             var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
                 InputParameters =
@@ -2030,13 +2017,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private static PipingStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
         {
-            return new PipingStochasticSoilModel("StochasticSoilModelName")
+            return new PipingStochasticSoilModel("StochasticSoilModelName", new[]
             {
-                Geometry =
-                {
-                    new Point2D(xMin, 1.0),
-                    new Point2D(xMax, 0.0)
-                },
+                new Point2D(xMin, 1.0),
+                new Point2D(xMax, 0.0)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())

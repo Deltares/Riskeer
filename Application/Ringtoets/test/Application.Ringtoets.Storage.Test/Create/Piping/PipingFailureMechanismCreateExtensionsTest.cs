@@ -32,6 +32,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
@@ -143,8 +144,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             stochasticSoilModels.AddRange(new[]
             {
-                new PipingStochasticSoilModel("name"),
-                new PipingStochasticSoilModel("name2")
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name"),
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name2")
             }, "some/path/to/file");
 
             var registry = new PersistenceRegistry();

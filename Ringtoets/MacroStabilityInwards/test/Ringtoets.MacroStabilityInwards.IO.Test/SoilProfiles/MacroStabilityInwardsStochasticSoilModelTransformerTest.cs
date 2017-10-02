@@ -30,7 +30,6 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.Common.IO.TestUtil.Test;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
@@ -79,6 +78,26 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var exception = Assert.Throws<ImportedDataTransformException>(test);
             Assert.AreEqual($"Het stochastische ondergrondmodel met '{failureMechanismType}' als faalmechanisme type is niet ondersteund. " +
                             "Alleen stochastische ondergrondmodellen met 'Stability' als faalmechanisme type zijn ondersteund.", exception.Message);
+        }
+
+        [Test]
+        public void Transform_StochasticSoilModelWithoutGeometry_ThrowsImportedDataException()
+        {
+            // Setup
+            var stochasticSoilModel = new StochasticSoilModel("name", FailureMechanismType.Stability);
+
+            var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
+
+            // Call
+            TestDelegate test = () => transformer.Transform(stochasticSoilModel);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsNotNull(innerException);
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         [Test]

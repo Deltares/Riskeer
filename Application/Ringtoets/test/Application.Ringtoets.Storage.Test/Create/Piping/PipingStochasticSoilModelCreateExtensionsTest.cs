@@ -69,9 +69,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollector_ReturnsPipingStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
-            int order = new Random(1).Next();
+            var random = new Random(1);
+            int order = random.Next();
             const string testName = "testName";
-            var stochasticSoilModel = new PipingStochasticSoilModel(testName);
+            var stochasticSoilModel = new PipingStochasticSoilModel(testName, new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
             var registry = new PersistenceRegistry();
 
             // Call
@@ -107,13 +111,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesAndPipingStochasticSoilProfileEntitiesSet()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("testName")
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("testName", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                }
-            };
+                new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+            });
             var registry = new PersistenceRegistry();
 
             // Call
@@ -135,12 +136,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var random = new Random(31);
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("testName");
-            stochasticSoilModel.Geometry.AddRange(new[]
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("testName", new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
             });
+
             var registry = new PersistenceRegistry();
 
             // Call

@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
@@ -248,7 +249,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithStochasticSoilModelEntityInCollector_CalculationHasAlreadyReadStochasticSoilModel()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("A");
+            var stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var stochasticSoilModelEntity = new StochasticSoilModelEntity();
 
             var stochasticSoilProfile = new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
@@ -293,10 +294,15 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 }
             };
 
+            var random = new Random(21);
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
                 PipingStochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity

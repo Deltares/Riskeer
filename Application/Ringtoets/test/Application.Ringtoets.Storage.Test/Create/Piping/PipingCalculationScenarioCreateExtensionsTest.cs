@@ -244,8 +244,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
             var stochasticSoilProfile = new PipingStochasticSoilProfile(0.6, soilProfile);
 
-            var soilModel = new PipingStochasticSoilModel("A");
-            soilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
+            {
+                stochasticSoilProfile
+            });
 
             var registry = new PersistenceRegistry();
             StochasticSoilModelEntity soilModelEntity = soilModel.Create(registry, 0);

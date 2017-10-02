@@ -85,10 +85,15 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingStochasticSoilModel_WithMinimumEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup
+            var random = new Random(21);
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
             var entity = new StochasticSoilModelEntity
             {
                 Name = "testName",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry)
             };
             var collector = new ReadConversionCollector();
 
@@ -98,7 +103,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(model);
             Assert.AreEqual(entity.Name, model.Name);
-            CollectionAssert.IsEmpty(model.Geometry);
+            CollectionAssert.AreEqual(geometry, model.Geometry);
             CollectionAssert.IsEmpty(model.StochasticSoilProfiles);
         }
 
@@ -106,10 +111,15 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingStochasticSoilModel_WithStochasticSoilProfiles_ReturnsNewPipingStochasticSoilModelWithStochasticSoilProfiles()
         {
             // Setup
+            var random = new Random(21);
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
             var entity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
                 PipingStochasticSoilProfileEntities =
                 {
                     new PipingStochasticSoilProfileEntity
@@ -180,10 +190,15 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingStochasticSoilModel_SameStochasticSoilModelEntityMultipleTimes_ReturnSameStochasticSoilModel()
         {
             // Setup
+            var random = new Random(21);
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
             var entity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry)
             };
 
             var collector = new ReadConversionCollector();

@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives.TestUtil;
 
@@ -54,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_ValidStochasticSoilModel_ExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("Name");
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Call
             var properties = new PipingStochasticSoilModelProperties(stochasticSoilModel);
@@ -70,12 +71,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("Name")
+            var stochasticSoilModel = new PipingStochasticSoilModel("Name", new[]
             {
-                Geometry =
-                {
-                    new Point2D(1.0, 2.0)
-                },
+                new Point2D(1.0, 2.0)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var stochasticSoilModel = new PipingStochasticSoilModel("Name");
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Call
             var properties = new PipingStochasticSoilModelProperties(stochasticSoilModel);

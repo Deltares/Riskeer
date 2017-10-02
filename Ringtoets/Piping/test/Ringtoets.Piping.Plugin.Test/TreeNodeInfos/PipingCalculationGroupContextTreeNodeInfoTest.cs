@@ -1298,13 +1298,12 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLines,
                     new[]
                     {
-                        new PipingStochasticSoilModel("name")
+                        new PipingStochasticSoilModel("name", new[]
                         {
-                            Geometry =
-                            {
-                                new Point2D(0.0, 0.0),
-                                new Point2D(5.0, 0.0)
-                            },
+                            new Point2D(0.0, 0.0),
+                            new Point2D(5.0, 0.0)
+                        })
+                        {
                             StochasticSoilProfiles =
                             {
                                 new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
@@ -1415,14 +1414,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                  surfaceLines,
                                                                  new[]
                                                                  {
-                                                                     new PipingStochasticSoilModel("name")
+                                                                     PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name", new[]
                                                                      {
-                                                                         Geometry =
-                                                                         {
-                                                                             new Point2D(0.0, 0.0),
-                                                                             new Point2D(5.0, 0.0)
-                                                                         }
-                                                                     }
+                                                                         new Point2D(0.0, 0.0),
+                                                                         new Point2D(5.0, 0.0)
+                                                                     })
                                                                  },
                                                                  pipingFailureMechanism,
                                                                  assessmentSection);

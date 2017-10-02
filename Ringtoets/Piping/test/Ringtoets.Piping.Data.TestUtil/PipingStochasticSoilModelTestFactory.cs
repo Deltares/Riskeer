@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives.TestUtil;
 
@@ -33,9 +36,40 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">The name of the stochastic soil model.</param>
+        /// <returns>A valid instance of <see cref="PipingStochasticSoilModel"/> with 
+        /// the specified <paramref name="name"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
         public static PipingStochasticSoilModel CreatePipingStochasticSoilModel(string name)
         {
-            return new PipingStochasticSoilModel(name)
+            return CreatePipingStochasticSoilModel(name, new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            });
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
+        /// </summary>
+        /// <returns>A valid instance of <see cref="PipingStochasticSoilModel"/>.</returns>
+        public static PipingStochasticSoilModel CreatePipingStochasticSoilModel()
+        {
+            return CreatePipingStochasticSoilModel(string.Empty);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="name">The name of the stochastic soil model.</param>
+        /// <param name="geometry">The geometry of the stochastic soil model.</param>
+        /// <returns>A valid instance of <see cref="PipingStochasticSoilModel"/>
+        /// with the specified <paramref name="name"/> and <paramref name="geometry"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> is empty.</exception>
+        public static PipingStochasticSoilModel CreatePipingStochasticSoilModel(string name, IEnumerable<Point2D> geometry)
+        {
+            return new PipingStochasticSoilModel(name, geometry)
             {
                 StochasticSoilProfiles =
                 {
@@ -48,9 +82,22 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
-        public static PipingStochasticSoilModel CreatePipingStochasticSoilModel()
+        /// <param name="name">The name of the stochastic soil model.</param>
+        /// <param name="pipingStochasticSoilProfiles">The stochastic soil profiles of the soil model.</param>
+        /// <returns>A valid instance of <see cref="PipingStochasticSoilModel"/>
+        /// with the specified <paramref name="name"/> and <paramref name="pipingStochasticSoilProfiles"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="pipingStochasticSoilProfiles"/> is empty.</exception>
+        public static PipingStochasticSoilModel CreatePipingStochasticSoilModel(string name, IEnumerable<PipingStochasticSoilProfile> pipingStochasticSoilProfiles)
         {
-            return CreatePipingStochasticSoilModel(string.Empty);
+            var model = new PipingStochasticSoilModel(name, new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            });
+            model.StochasticSoilProfiles.AddRange(pipingStochasticSoilProfiles);
+
+            return model;
         }
     }
 }

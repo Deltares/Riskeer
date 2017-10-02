@@ -96,13 +96,10 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var soilProfile = new PipingStochasticSoilProfile(1, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
-            var soilModel = new PipingStochasticSoilModel("A")
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A", new[]
             {
-                StochasticSoilProfiles =
-                {
-                    soilProfile
-                }
-            };
+                soilProfile
+            });
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {

@@ -104,13 +104,12 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
             var stochasticSoilProfile = new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            var stochasticSoilModel = new PipingStochasticSoilModel("Model")
+            var stochasticSoilModel = new PipingStochasticSoilModel("Model", new[]
             {
-                Geometry =
-                {
-                    new Point2D(0, 2),
-                    new Point2D(4, 2)
-                },
+                new Point2D(0, 2),
+                new Point2D(4, 2)
+            })
+            {
                 StochasticSoilProfiles =
                 {
                     stochasticSoilProfile

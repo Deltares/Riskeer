@@ -40,17 +40,29 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">Name of the segment soil model.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is 
+        /// <param name="geometry"></param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is 
         /// <c>null</c>.</exception>
-        public PipingStochasticSoilModel(string name)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/>
+        /// is empty.</exception>
+        public PipingStochasticSoilModel(string name, IEnumerable<Point2D> geometry)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+            if (geometry == null)
+            {
+                throw new ArgumentNullException(nameof(geometry));
+            }
+            if (!geometry.Any())
+            {
+                string message = string.Format("Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.", name);
+                throw new ArgumentException(message);
+            }
 
             Name = name;
-            Geometry = new List<Point2D>();
+            Geometry = geometry;
             StochasticSoilProfiles = new List<PipingStochasticSoilProfile>();
         }
 
@@ -60,9 +72,9 @@ namespace Ringtoets.Piping.Data.SoilProfile
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the list of geometry points.
+        /// Gets the geometry points.
         /// </summary>
-        public List<Point2D> Geometry { get; }
+        public IEnumerable<Point2D> Geometry { get; private set; }
 
         /// <summary>
         /// Gets the list of <see cref="PipingStochasticSoilProfile"/>.
@@ -89,11 +101,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
             }
 
             Name = fromModel.Name;
-            Geometry.Clear();
-            foreach (Point2D point in fromModel.Geometry)
-            {
-                Geometry.Add(point);
-            }
+            Geometry = fromModel.Geometry;
 
             var newSoilProfiles = new List<PipingSoilProfile>();
             var updatedProfiles = new List<PipingStochasticSoilProfile>();
