@@ -82,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         {
             return base.Equals(other)
                    && other is ClosingStructuresCalculationGroupContext
-                   && ReferenceEquals(Parent, ((ClosingStructuresCalculationGroupContext)other).Parent);
+                   && ReferenceEquals(Parent, ((ClosingStructuresCalculationGroupContext) other).Parent);
         }
 
         public override bool Equals(object obj)

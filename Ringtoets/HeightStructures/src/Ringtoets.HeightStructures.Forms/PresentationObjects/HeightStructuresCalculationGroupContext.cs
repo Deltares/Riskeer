@@ -82,7 +82,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         {
             return base.Equals(other)
                    && other is HeightStructuresCalculationGroupContext
-                   && ReferenceEquals(Parent, ((HeightStructuresCalculationGroupContext)other).Parent);
+                   && ReferenceEquals(Parent, ((HeightStructuresCalculationGroupContext) other).Parent);
         }
 
         public override bool Equals(object obj)
