@@ -39,24 +39,29 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// Properties for the illustration points.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class IllustrationPointProperties : ObjectProperties<IllustrationPointNode>
+    public class IllustrationPointProperties : ObjectProperties<IllustrationPointBase>
     {
-        private readonly string name;
+        private readonly IEnumerable<IllustrationPointNode> childNodes;
 
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointProperties"/>.
         /// </summary>
-        /// <param name="illustrationPointNode">The data to use for the properties.</param>
+        /// <param name="illustrationPoint">The data to use for the properties.</param>
+        /// <param name="childNodes">The child nodes that belongs to the <paramref name="illustrationPoint"/>.</param>
         /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public IllustrationPointProperties(
-            IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation)
+        public IllustrationPointProperties(IllustrationPointBase illustrationPoint, IEnumerable<IllustrationPointNode> childNodes,
+                                           string windDirection, string closingSituation)
         {
-            if (illustrationPointNode == null)
+            if (illustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(illustrationPointNode));
+                throw new ArgumentNullException(nameof(illustrationPoint));
+            }
+            if (childNodes == null)
+            {
+                throw new ArgumentNullException(nameof(childNodes));
             }
             if (windDirection == null)
             {
@@ -66,10 +71,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
-            data = illustrationPointNode;
+            data = illustrationPoint;
+            this.childNodes = childNodes;
             WindDirection = windDirection;
             ClosingSituation = closingSituation;
-            name = data.Data.Name;
         }
 
         [PropertyOrder(0)]
@@ -81,7 +86,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return StatisticsConverter.ReliabilityToProbability(data.Data.Beta);
+                return StatisticsConverter.ReliabilityToProbability(data.Beta);
             }
         }
 
@@ -94,7 +99,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Data.Beta;
+                return data.Beta;
             }
         }
 
@@ -123,17 +128,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 var points = new List<IllustrationPointProperties>();
-                foreach (IllustrationPointNode illustrationPointNode in data.Children)
+                foreach (IllustrationPointNode illustrationPointNode in childNodes)
                 {
                     if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
-                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode, WindDirection, ClosingSituation));
+                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode.Data,
+                                                                            illustrationPointNode.Children,
+                                                                            WindDirection, ClosingSituation));
                         continue;
                     }
 
                     if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
                     {
-                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode, WindDirection, ClosingSituation));
+                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode.Data,
+                                                                               illustrationPointNode.Children,
+                                                                               WindDirection, ClosingSituation));
                         continue;
                     }
 
@@ -150,7 +159,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             if (propertyName.Equals(nameof(IllustrationPoints)))
             {
-                return data.Children.Any();
+                return childNodes.Any();
             }
 
             if (propertyName.Equals(nameof(ClosingSituation)))
@@ -163,7 +172,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{name}";
+            return $"{data.Name}";
         }
     }
 }

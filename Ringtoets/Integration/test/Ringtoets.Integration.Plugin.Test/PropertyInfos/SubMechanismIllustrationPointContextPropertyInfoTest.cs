@@ -61,17 +61,17 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_ValidArguments_ReturnFaultTreeIllustrationPointBaseProperties()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
-            var context = new IllustrationPointContext<SubMechanismIllustrationPoint>(
-                (SubMechanismIllustrationPoint) illustrationPointNode.Data,
-                illustrationPointNode, "Wind direction", "Closing situation");
+            var illustrationPoint = new TestSubMechanismIllustrationPoint();
+            var illustrationPointNode = new IllustrationPointNode(illustrationPoint);
+            var context = new IllustrationPointContext<SubMechanismIllustrationPoint>(illustrationPoint, illustrationPointNode,
+                                                                                      "Wind direction", "Closing situation");
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<SubMechanismIllustrationPointProperties>(objectProperties);
-            Assert.AreSame(illustrationPointNode, objectProperties.Data);
+            Assert.AreSame(illustrationPoint, objectProperties.Data);
         }
     }
 }

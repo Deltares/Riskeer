@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Attributes;
@@ -41,23 +42,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="FaultTreeIllustrationPointProperties"/>.
         /// </summary>
-        /// <param name="illustrationPointNode">The data to use for the properties. </param>
+        /// <param name="illustrationPoint">The data to use for the properties.</param>
+        /// <param name="childNodes">The child nodes that belongs to the <paramref name="illustrationPoint"/>.</param>
         /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="IllustrationPointNode.Data"/> property of <paramref name="illustrationPointNode"/>
-        /// is not of type <see cref="FaultTreeIllustrationPoint"/>.</exception>
-        public FaultTreeIllustrationPointProperties(
-            IllustrationPointNode illustrationPointNode, string windDirection, string closingSituation) : base(illustrationPointNode, windDirection, closingSituation)
+        public FaultTreeIllustrationPointProperties(IllustrationPointBase illustrationPoint, IEnumerable<IllustrationPointNode> childNodes,
+            string windDirection, string closingSituation) 
+            : base(illustrationPoint, childNodes, windDirection, closingSituation)
         {
-            var illustrationPoint = data.Data as FaultTreeIllustrationPoint;
-            if (illustrationPoint == null)
-            {
-                throw new ArgumentException($"{nameof(illustrationPointNode)} type has to be {nameof(FaultTreeIllustrationPoint)}");
-            }
-
-            faultTreeIllustrationPoint = illustrationPoint;
+            faultTreeIllustrationPoint = (FaultTreeIllustrationPoint) data;
         }
 
         [PropertyOrder(4)]

@@ -149,7 +149,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
                     if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
                     {
-                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode,
+                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode.Data,
+                                                                            illustrationPointNode.Children,
                                                                             WindDirection,
                                                                             closingSituation));
                         continue;
@@ -157,7 +158,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
                     if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
                     {
-                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode,
+                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode.Data,
+                                                                               illustrationPointNode.Children,
                                                                                WindDirection,
                                                                                closingSituation));
                         continue;
