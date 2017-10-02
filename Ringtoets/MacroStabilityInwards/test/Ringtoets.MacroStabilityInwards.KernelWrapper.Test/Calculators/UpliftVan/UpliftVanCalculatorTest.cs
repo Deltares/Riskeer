@@ -221,7 +221,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 LeftGrid = new MacroStabilityInwardsGrid(),
                 RightGrid = new MacroStabilityInwardsGrid(),
-                DrainageConstruction = new UpliftVanDrainageConstruction()
+                DrainageConstruction = new UpliftVanDrainageConstruction(),
+                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
             });
         }
 
@@ -237,14 +238,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 DrainageConstruction = new UpliftVanDrainageConstruction(),
+                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                 WaterLevelRiverAverage = random.Next(),
                 WaterLevelPolder = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
-                PhreaticLineOffsetBelowDikeTopAtRiver = random.Next(),
-                PhreaticLineOffsetBelowDikeTopAtPolder = random.Next(),
-                PhreaticLineOffsetBelowShoulderBaseInside = random.Next(),
-                PhreaticLineOffsetBelowDikeToeAtPolder = random.Next(),
                 LeakageLengthOutwardsPhreaticLine3 = random.Next(),
                 LeakageLengthInwardsPhreaticLine3 = random.Next(),
                 LeakageLengthOutwardsPhreaticLine4 = random.Next(),
@@ -252,7 +250,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 PiezometricHeadPhreaticLine2Outwards = random.Next(),
                 PiezometricHeadPhreaticLine2Inwards = random.Next(),
                 PenetrationLength = random.Next(),
-                UseDefaultOffsets = random.NextBoolean(),
                 AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),

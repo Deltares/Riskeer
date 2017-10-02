@@ -46,14 +46,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
             DrainageConstruction = properties.DrainageConstruction;
+            PhreaticLineOffsets = properties.PhreaticLineOffsets;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
             WaterLevelPolder = properties.WaterLevelPolder;
             MinimumLevelPhreaticLineAtDikeTopRiver = properties.MinimumLevelPhreaticLineAtDikeTopRiver;
             MinimumLevelPhreaticLineAtDikeTopPolder = properties.MinimumLevelPhreaticLineAtDikeTopPolder;
-            PhreaticLineOffsetBelowDikeTopAtRiver = properties.PhreaticLineOffsetBelowDikeTopAtRiver;
-            PhreaticLineOffsetBelowDikeTopAtPolder = properties.PhreaticLineOffsetBelowDikeTopAtPolder;
-            PhreaticLineOffsetBelowShoulderBaseInside = properties.PhreaticLineOffsetBelowShoulderBaseInside;
-            PhreaticLineOffsetBelowDikeToeAtPolder = properties.PhreaticLineOffsetBelowDikeToeAtPolder;
             LeakageLengthOutwardsPhreaticLine3 = properties.LeakageLengthOutwardsPhreaticLine3;
             LeakageLengthInwardsPhreaticLine3 = properties.LeakageLengthInwardsPhreaticLine3;
             LeakageLengthOutwardsPhreaticLine4 = properties.LeakageLengthOutwardsPhreaticLine4;
@@ -62,7 +59,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             PiezometricHeadPhreaticLine2Inwards = properties.PiezometricHeadPhreaticLine2Inwards;
             PenetrationLength = properties.PenetrationLength;
             AdjustPhreaticLine3And4ForUplift = properties.AdjustPhreaticLine3And4ForUplift;
-            UseDefaultOffsets = properties.UseDefaultOffsets;
             DikeSoilScenario = properties.DikeSoilScenario;
             MoveGrid = properties.MoveGrid;
             MaximumSliceWidth = properties.MaximumSliceWidth;
@@ -93,10 +89,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 WaterLevelPolder = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopRiver = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopPolder = double.NaN;
-                PhreaticLineOffsetBelowDikeTopAtRiver = double.NaN;
-                PhreaticLineOffsetBelowDikeTopAtPolder = double.NaN;
-                PhreaticLineOffsetBelowShoulderBaseInside = double.NaN;
-                PhreaticLineOffsetBelowDikeToeAtPolder = double.NaN;
                 LeakageLengthOutwardsPhreaticLine3 = double.NaN;
                 LeakageLengthInwardsPhreaticLine3 = double.NaN;
                 LeakageLengthOutwardsPhreaticLine4 = double.NaN;
@@ -136,6 +128,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public UpliftVanDrainageConstruction DrainageConstruction { internal get; set; }
 
             /// <summary>
+            /// Gets or sets the phreatic line offsets.
+            /// </summary>
+            public UpliftVanPhreaticLineOffsets PhreaticLineOffsets { internal get; set; }
+
+            /// <summary>
             /// Gets or sets the dike soil scenario.
             /// </summary>
             public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { internal get; set; }
@@ -163,35 +160,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// [m+NAP]
             /// </summary>
             public double MinimumLevelPhreaticLineAtDikeTopPolder { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether the default offsets should be used.
-            /// </summary>
-            public bool UseDefaultOffsets { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the offset of the phreatic line below dike top at river.
-            /// [m]
-            /// </summary>
-            public double PhreaticLineOffsetBelowDikeTopAtRiver { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the offset of the phreatic line below dike top at polder.
-            /// [m]
-            /// </summary>
-            public double PhreaticLineOffsetBelowDikeTopAtPolder { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the offset of the phreatic line below shoulder base inside.
-            /// [m]
-            /// </summary>
-            public double PhreaticLineOffsetBelowShoulderBaseInside { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the offset of the phreatic line below dike toe at polder.
-            /// [m]
-            /// </summary>
-            public double PhreaticLineOffsetBelowDikeToeAtPolder { internal get; set; }
 
             /// <summary>
             /// Gets or sets whether phreatic line 3 and 4 should be adjusted for Uplift.
@@ -332,6 +300,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public UpliftVanDrainageConstruction DrainageConstruction { get; }
 
         /// <summary>
+        /// Gets the phreatic line offsets.
+        /// </summary>
+        public UpliftVanPhreaticLineOffsets PhreaticLineOffsets { get; }
+
+        /// <summary>
         /// Gets the dike soil scenario.
         /// </summary>
         public MacroStabilityInwardsDikeSoilScenario DikeSoilScenario { get; }
@@ -359,35 +332,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// [m+NAP]
         /// </summary>
         public double MinimumLevelPhreaticLineAtDikeTopPolder { get; }
-
-        /// <summary>
-        /// Gets whether the default offsets should be used.
-        /// </summary>
-        public bool UseDefaultOffsets { get; }
-
-        /// <summary>
-        /// Gets the offset of the phreatic line below dike top at river.
-        /// [m]
-        /// </summary>
-        public double PhreaticLineOffsetBelowDikeTopAtRiver { get; }
-
-        /// <summary>
-        /// Gets the offset of the phreatic line below dike top at polder.
-        /// [m]
-        /// </summary>
-        public double PhreaticLineOffsetBelowDikeTopAtPolder { get; }
-
-        /// <summary>
-        /// Gets the offset of the phreatic line below shoulder base inside.
-        /// [m]
-        /// </summary>
-        public double PhreaticLineOffsetBelowShoulderBaseInside { get; }
-
-        /// <summary>
-        /// Gets the offset of the phreatic line below dike toe at polder.
-        /// [m]
-        /// </summary>
-        public double PhreaticLineOffsetBelowDikeToeAtPolder { get; }
 
         /// <summary>
         /// Gets whether phreatic line 3 and 4 should be adjusted for Uplift.

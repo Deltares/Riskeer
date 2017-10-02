@@ -76,7 +76,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     DikeSoilScenario = macroStabilityInwardsDikeSoilScenario,
-                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
                 });
 
             // Call
@@ -98,7 +99,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double zCoordinateDrainageConstruction = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
-            bool useDefaultOffsets = random.NextBoolean();
             double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
             double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
             double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
@@ -113,6 +113,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double penetrationLength = random.Next();
 
             var drainageConstruction = new UpliftVanDrainageConstruction(xCoordinateDrainageConstruction, zCoordinateDrainageConstruction);
+            var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets(phreaticLineOffsetBelowDikeTopAtRiver, phreaticLineOffsetBelowDikeTopAtPolder,
+                                                                       phreaticLineOffsetBelowDikeToeAtPolder, phreaticLineOffsetBelowShoulderBaseInside);
 
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
@@ -122,13 +124,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolder = waterLevelPolder,
                     DrainageConstruction = drainageConstruction,
+                    PhreaticLineOffsets = phreaticLineOffsets,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
-                    UseDefaultOffsets = useDefaultOffsets,
-                    PhreaticLineOffsetBelowDikeTopAtRiver = phreaticLineOffsetBelowDikeTopAtRiver,
-                    PhreaticLineOffsetBelowDikeTopAtPolder = phreaticLineOffsetBelowDikeTopAtPolder,
-                    PhreaticLineOffsetBelowShoulderBaseInside = phreaticLineOffsetBelowShoulderBaseInside,
-                    PhreaticLineOffsetBelowDikeToeAtPolder = phreaticLineOffsetBelowDikeToeAtPolder,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
                     LeakageLengthOutwardsPhreaticLine3 = leakageLengthOutwardsPhreaticLine3,
                     LeakageLengthInwardsPhreaticLine3 = leakageLengthInwardsPhreaticLine3,
@@ -155,7 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(zCoordinateDrainageConstruction, location.ZCoordMiddleDrainageConstruction);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, location.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(useDefaultOffsets, location.UseDefaultOffsets);
+            Assert.IsFalse(location.UseDefaultOffsets);
             Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
             Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
             Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
