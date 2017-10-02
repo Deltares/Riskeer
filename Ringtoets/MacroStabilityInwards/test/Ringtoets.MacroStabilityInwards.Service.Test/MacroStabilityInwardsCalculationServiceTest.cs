@@ -329,6 +329,106 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
+        public void Calculate_DrainageConstructionPresentFalse_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
+            inputParameters.DrainageConstructionPresent = false;
+            inputParameters.XCoordinateDrainageConstruction = random.NextRoundedDouble();
+            inputParameters.ZCoordinateDrainageConstruction = random.NextRoundedDouble();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+
+                // Assert
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
+                    .LastCreatedUpliftVanCalculator.Input;
+                Assert.IsFalse(actualInput.DrainageConstructionPresent);
+                Assert.IsNaN(actualInput.XCoordinateDrainageConstruction);
+                Assert.IsNaN(actualInput.ZCoordinateDrainageConstruction);
+            }
+        }
+
+        [Test]
+        public void Calculate_UseDefaultOffsetsTrue_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
+            inputParameters.UseDefaultOffsets = true;
+            inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+            inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            inputParameters.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+
+                // Assert
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
+                    .LastCreatedUpliftVanCalculator.Input;
+                Assert.IsFalse(actualInput.DrainageConstructionPresent);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetBelowDikeToeAtPolder);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetBelowDikeTopAtPolder);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetBelowDikeTopAtRiver);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetBelowShoulderBaseInside);
+            }
+        }
+
+        [Test]
+        public void Calculate_GridDeterminationTypeAutomatic_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
+            inputParameters.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
+            inputParameters.TangentLineZTop = random.NextRoundedDouble();
+            inputParameters.TangentLineZBottom = random.NextRoundedDouble();
+            inputParameters.LeftGrid.XLeft = random.NextRoundedDouble();
+            inputParameters.LeftGrid.XRight = random.NextRoundedDouble();
+            inputParameters.LeftGrid.ZTop = random.NextRoundedDouble();
+            inputParameters.LeftGrid.ZBottom = random.NextRoundedDouble();
+            inputParameters.LeftGrid.NumberOfHorizontalPoints = random.Next();
+            inputParameters.LeftGrid.NumberOfVerticalPoints = random.Next();
+            inputParameters.RightGrid.XLeft = random.NextRoundedDouble();
+            inputParameters.RightGrid.XRight = random.NextRoundedDouble();
+            inputParameters.RightGrid.ZTop = random.NextRoundedDouble();
+            inputParameters.RightGrid.ZBottom = random.NextRoundedDouble();
+            inputParameters.RightGrid.NumberOfHorizontalPoints = random.Next();
+            inputParameters.RightGrid.NumberOfVerticalPoints = random.Next();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+
+                // Assert
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
+                    .LastCreatedUpliftVanCalculator.Input;
+                Assert.IsTrue(actualInput.GridAutomaticDetermined);
+                Assert.IsNaN(actualInput.TangentLineZTop);
+                Assert.IsNaN(actualInput.TangentLineZBottom);
+                Assert.IsNaN(actualInput.LeftGrid.XLeft);
+                Assert.IsNaN(actualInput.LeftGrid.XRight);
+                Assert.IsNaN(actualInput.LeftGrid.ZTop);
+                Assert.IsNaN(actualInput.LeftGrid.ZBottom);
+                Assert.AreEqual(0, actualInput.LeftGrid.NumberOfHorizontalPoints);
+                Assert.AreEqual(0, actualInput.LeftGrid.NumberOfVerticalPoints);
+                Assert.IsNaN(actualInput.RightGrid.XLeft);
+                Assert.IsNaN(actualInput.RightGrid.XRight);
+                Assert.IsNaN(actualInput.RightGrid.ZTop);
+                Assert.IsNaN(actualInput.RightGrid.ZBottom);
+                Assert.AreEqual(0, actualInput.RightGrid.NumberOfHorizontalPoints);
+                Assert.AreEqual(0, actualInput.RightGrid.NumberOfVerticalPoints);
+            }
+        }
+
+        [Test]
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
