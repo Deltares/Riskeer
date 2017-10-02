@@ -92,7 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                     ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data).GetDesignValue(),
                     StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data).GetDesignValue(),
                     Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue(),
-                    DilatancyType = UpliftVanDilatancyType.Zero
+                    DilatancyType = UpliftVanDilatancyType.Zero,
+                    WaterPressureInterpolationModel = UpliftVanWaterPressureInterpolationModel.Automatic
                 });
             }).ToArray();
         }

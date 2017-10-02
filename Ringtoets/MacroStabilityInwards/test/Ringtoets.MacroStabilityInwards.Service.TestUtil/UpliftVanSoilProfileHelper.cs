@@ -75,6 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
                 Assert.AreEqual(expectedData.UsePop, actualLayers[i].UsePop);
                 Assert.AreEqual(expectedData.IsAquifer, actualLayers[i].IsAquifer);
                 Assert.AreEqual(UpliftVanDilatancyType.Zero, actualLayers[i].DilatancyType);
+                Assert.AreEqual(UpliftVanWaterPressureInterpolationModel.Automatic, actualLayers[i].WaterPressureInterpolationModel);
 
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(expectedData).GetDesignValue(), actualLayers[i].AbovePhreaticLevel);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(expectedData).GetDesignValue(), actualLayers[i].BelowPhreaticLevel);
