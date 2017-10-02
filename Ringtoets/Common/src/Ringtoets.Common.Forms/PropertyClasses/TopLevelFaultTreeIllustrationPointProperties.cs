@@ -147,19 +147,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     string closingSituation = areClosingSituationsSame ? string.Empty : ClosingSituation;
 
-                    if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
+                    var faultTreeIllustrationPoint = illustrationPointNode.Data as FaultTreeIllustrationPoint;
+                    if (faultTreeIllustrationPoint != null)
                     {
-                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode.Data,
+                        points.Add(new FaultTreeIllustrationPointProperties(faultTreeIllustrationPoint,
                                                                             illustrationPointNode.Children,
                                                                             WindDirection,
                                                                             closingSituation));
                         continue;
                     }
 
-                    if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
+                    var subMechanismIllustrationPoint = illustrationPointNode.Data as SubMechanismIllustrationPoint;
+                    if (subMechanismIllustrationPoint != null)
                     {
-                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode.Data,
-                                                                               illustrationPointNode.Children,
+                        points.Add(new SubMechanismIllustrationPointProperties(subMechanismIllustrationPoint,
                                                                                WindDirection,
                                                                                closingSituation));
                         continue;

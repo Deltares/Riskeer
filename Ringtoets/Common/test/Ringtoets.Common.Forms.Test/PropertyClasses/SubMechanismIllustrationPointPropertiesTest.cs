@@ -65,7 +65,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new SubMechanismIllustrationPointProperties(illustrationPoint,
-                                                                         new IllustrationPointNode[0],
                                                                          windDirection,
                                                                          closingSituation);
 
@@ -112,10 +111,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, KeyValueExpandableArrayConverter>(
                 nameof(SubMechanismIllustrationPointProperties.Results));
             CollectionAssert.AreEqual(illustrationPoint.IllustrationPointResults, properties.Results);
-
-            TestHelper.AssertTypeConverter<SubMechanismIllustrationPointProperties, ExpandableArrayConverter>(
-                nameof(SubMechanismIllustrationPointProperties.IllustrationPoints));
-            CollectionAssert.IsEmpty(properties.IllustrationPoints);
         }
 
         [Test]
@@ -125,8 +120,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
 
             // Call
-            var subMechanismProperties = new SubMechanismIllustrationPointProperties(illustrationPointNode.Data,
-                                                                                     new IllustrationPointNode[0], 
+            var subMechanismProperties = new SubMechanismIllustrationPointProperties((SubMechanismIllustrationPoint) illustrationPointNode.Data,
                                                                                      "N",
                                                                                      "Regular");
 

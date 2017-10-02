@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
@@ -41,27 +38,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class IllustrationPointProperties : ObjectProperties<IllustrationPointBase>
     {
-        private readonly IEnumerable<IllustrationPointNode> childNodes;
-
         /// <summary>
         /// Creates a new instance of <see cref="IllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPoint">The data to use for the properties.</param>
-        /// <param name="childNodes">The child nodes that belongs to the <paramref name="illustrationPoint"/>.</param>
         /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
         /// <param name="closingSituation">String containing the name of the closing situation. If empty 
         /// the <see cref="ClosingSituation"/> property will not be visible.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public IllustrationPointProperties(IllustrationPointBase illustrationPoint, IEnumerable<IllustrationPointNode> childNodes,
+        public IllustrationPointProperties(IllustrationPointBase illustrationPoint,
                                            string windDirection, string closingSituation)
         {
             if (illustrationPoint == null)
             {
                 throw new ArgumentNullException(nameof(illustrationPoint));
-            }
-            if (childNodes == null)
-            {
-                throw new ArgumentNullException(nameof(childNodes));
             }
             if (windDirection == null)
             {
@@ -72,7 +62,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(closingSituation));
             }
             data = illustrationPoint;
-            this.childNodes = childNodes;
             WindDirection = windDirection;
             ClosingSituation = closingSituation;
         }
@@ -116,58 +105,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_Description))]
         public string ClosingSituation { get; }
 
-        [DynamicVisible]
-        [PropertyOrder(6)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        [KeyValueElement(nameof(WindDirection), "")]
-        public IllustrationPointProperties[] IllustrationPoints
-        {
-            get
-            {
-                var points = new List<IllustrationPointProperties>();
-                foreach (IllustrationPointNode illustrationPointNode in childNodes)
-                {
-                    if (illustrationPointNode.Data is FaultTreeIllustrationPoint)
-                    {
-                        points.Add(new FaultTreeIllustrationPointProperties(illustrationPointNode.Data,
-                                                                            illustrationPointNode.Children,
-                                                                            WindDirection, ClosingSituation));
-                        continue;
-                    }
-
-                    if (illustrationPointNode.Data is SubMechanismIllustrationPoint)
-                    {
-                        points.Add(new SubMechanismIllustrationPointProperties(illustrationPointNode.Data,
-                                                                               illustrationPointNode.Children,
-                                                                               WindDirection, ClosingSituation));
-                        continue;
-                    }
-
-                    // If type is not supported, throw exception (currently not possible, safeguard for future)
-                    throw new NotSupportedException($"IllustrationPointNode of type {illustrationPointNode.Data.GetType().Name} is not supported. " +
-                                                    $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
-                }
-                return points.ToArray();
-            }
-        }
-
         [DynamicVisibleValidationMethod]
-        public bool IsDynamicVisible(string propertyName)
+        public virtual bool IsDynamicVisible(string propertyName)
         {
-            if (propertyName.Equals(nameof(IllustrationPoints)))
-            {
-                return childNodes.Any();
-            }
-
-            if (propertyName.Equals(nameof(ClosingSituation)))
-            {
-                return ClosingSituation != string.Empty;
-            }
-
-            return false;
+            return propertyName.Equals(nameof(ClosingSituation)) && ClosingSituation != string.Empty;
         }
 
         public override string ToString()

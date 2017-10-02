@@ -344,7 +344,6 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<IllustrationPointContext<SubMechanismIllustrationPoint>, SubMechanismIllustrationPointProperties>
             {
                 CreateInstance = context => new SubMechanismIllustrationPointProperties(context.IllustrationPoint,
-                                                                                        context.IllustrationPointNode.Children,
                                                                                         context.WindDirectionName,
                                                                                         context.ClosingSituation)
             };

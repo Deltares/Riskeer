@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
@@ -43,6 +45,20 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int illustrationPointPropertyIndex = 6;
 
         private const string illustrationPointsCategoryName = "Illustratiepunten";
+
+        [Test]
+        public void Constructor_ChildNodesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new FaultTreeIllustrationPointProperties(new TestFaultTreeIllustrationPoint(),
+                                                                               null,
+                                                                               "NNE",
+                                                                               "Closing Situation");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("childNodes", paramName);
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -107,16 +123,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 stochast
             }, properties.Durations);
 
-            Assert.IsNotNull(properties.IllustrationPoints);
+            TestHelper.AssertTypeConverter<FaultTreeIllustrationPointProperties, ExpandableArrayConverter>(
+                nameof(FaultTreeIllustrationPointProperties.IllustrationPoints));
             Assert.AreEqual(2, properties.IllustrationPoints.Length);
-            foreach (IllustrationPointProperties illustrationPointProperties in properties.IllustrationPoints)
-            {
-                Assert.AreEqual("NNE", illustrationPointProperties.WindDirection);
-                Assert.AreEqual("closing situation", illustrationPointProperties.ClosingSituation);
-                Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(3.5), illustrationPointProperties.CalculatedProbability);
-                Assert.AreEqual(3.5, illustrationPointProperties.Reliability);
-                Assert.AreEqual(0, illustrationPointProperties.IllustrationPoints.Length);
-            }
+            Assert.AreSame(illustrationPointNodeChild1.Data, properties.IllustrationPoints.ElementAt(0).Data);
+            Assert.AreSame(illustrationPointNodeChild2.Data, properties.IllustrationPoints.ElementAt(1).Data);
         }
 
         [Test]
@@ -185,6 +196,86 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Illustratiepunten",
                                                                             "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
+        }
+
+        [Test]
+        public void IsDynamicVisible_WithChildren_ReturnsTrue()
+        {
+            // Setup
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
+            var childNodes = new[]
+            {
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("A")),
+                new IllustrationPointNode(new TestSubMechanismIllustrationPoint("B"))
+            };
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPoint, childNodes, "N", "Regular");
+
+            // Call
+            bool isVisible = properties.IsDynamicVisible(nameof(properties.IllustrationPoints));
+
+            // Assert
+            Assert.IsTrue(isVisible);
+        }
+
+        [Test]
+        public void IsDynamicVisible_WithoutChildren_ReturnsFalse()
+        {
+            // Setup
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPoint, new IllustrationPointNode[0], "N", "Regular");
+
+            // Call
+            bool isVisible = properties.IsDynamicVisible(nameof(properties.IllustrationPoints));
+
+            // Assert
+            Assert.IsFalse(isVisible);
+        }
+
+        [Test]
+        public void IsDynamicVisible_WithClosingSituation_ReturnsTrue()
+        {
+            // Setup
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPoint, new IllustrationPointNode[0], "N", "Regular");
+
+            // Call
+            bool isVisible = properties.IsDynamicVisible(nameof(IllustrationPointProperties.ClosingSituation));
+
+            // Assert
+            Assert.IsTrue(isVisible);
+        }
+
+        [Test]
+        public void IsDynamicVisible_WithEmptyClosingSituation_ReturnsFalse()
+        {
+            // Setup
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPoint, new IllustrationPointNode[0], "N", string.Empty);
+
+            // Call
+            bool isVisible = properties.IsDynamicVisible(nameof(IllustrationPointProperties.ClosingSituation));
+
+            // Assert
+            Assert.IsFalse(isVisible);
+        }
+
+        [Test]
+        [TestCase(nameof(FaultTreeIllustrationPointProperties.WindDirection))]
+        [TestCase(nameof(FaultTreeIllustrationPointProperties.CalculatedProbability))]
+        [TestCase(nameof(FaultTreeIllustrationPointProperties.Reliability))]
+        [TestCase(nameof(FaultTreeIllustrationPointProperties.AlphaValues))]
+        [TestCase(nameof(FaultTreeIllustrationPointProperties.Durations))]
+        public void IsDynamicVisible_WithOtherProperties_ReturnsFalse(string property)
+        {
+            // Setup
+            var illustrationPoint = new TestFaultTreeIllustrationPoint();
+            var properties = new FaultTreeIllustrationPointProperties(illustrationPoint, new IllustrationPointNode[0], "N", string.Empty);
+
+            // Call
+            bool isVisible = properties.IsDynamicVisible(property);
+
+            // Assert
+            Assert.IsFalse(isVisible);
         }
     }
 }
