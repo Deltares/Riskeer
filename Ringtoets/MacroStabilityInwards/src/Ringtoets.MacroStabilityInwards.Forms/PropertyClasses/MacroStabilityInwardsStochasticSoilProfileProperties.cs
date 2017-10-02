@@ -144,7 +144,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                     return RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;
                 }
 
-                // If type is not supported, throw exception (currently not possible, safeguard for future)
                 string exceptionMessage = $"{data.SoilProfile.GetType()} is not supported." +
                                           $" Supported types: {nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.";
                 throw new NotSupportedException(exceptionMessage);

@@ -45,9 +45,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="illustrationPoint">The fault tree illustration point to use for the properties.</param>
         /// <param name="childNodes">The child nodes that belongs to the <paramref name="illustrationPoint"/>.</param>
-        /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
-        /// <param name="closingSituation">String containing the name of the closing situation. If empty 
-        /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
+        /// <param name="windDirection">The wind direction of the illustration point.</param>
+        /// <param name="closingSituation">The closing situation of the illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FaultTreeIllustrationPointProperties(FaultTreeIllustrationPoint illustrationPoint, IEnumerable<IllustrationPointNode> childNodes,
                                                     string windDirection, string closingSituation)
@@ -62,7 +61,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             this.childNodes = childNodes;
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_Description))]
@@ -76,7 +75,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_Description))]
@@ -91,7 +90,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(6)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_Description))]
@@ -121,7 +120,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                         continue;
                     }
 
-                    // If type is not supported, throw exception (currently not possible, safeguard for future)
                     throw new NotSupportedException($"IllustrationPointNode of type {illustrationPointNode.Data.GetType().Name} is not supported. " +
                                                     $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
                 }

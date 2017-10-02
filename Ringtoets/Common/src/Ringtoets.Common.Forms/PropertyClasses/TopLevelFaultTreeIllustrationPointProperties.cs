@@ -166,8 +166,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                         continue;
                     }
 
-                    // If type is not supported, throw exception (currently not possible, safeguard for future)
-                    throw new NotSupportedException($"IllustrationPointNode of type {nameof(FaultTreeIllustrationPoint)} is not supported. Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
+                    throw new NotSupportedException($"IllustrationPointNode of type {nameof(FaultTreeIllustrationPoint)} is not supported. " +
+                                                    $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
                 }
                 return points.ToArray();
             }

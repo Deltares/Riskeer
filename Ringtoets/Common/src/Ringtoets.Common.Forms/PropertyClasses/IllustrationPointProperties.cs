@@ -42,9 +42,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="IllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPoint">The data to use for the properties.</param>
-        /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
-        /// <param name="closingSituation">String containing the name of the closing situation. If empty 
-        /// the <see cref="ClosingSituation"/> property will not be visible.</param>
+        /// <param name="windDirection">The wind direction of the illustration point.</param>
+        /// <param name="closingSituation">The closing situation of the illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public IllustrationPointProperties(IllustrationPointBase illustrationPoint,
                                            string windDirection, string closingSituation)
@@ -66,7 +65,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             ClosingSituation = closingSituation;
         }
 
-        [PropertyOrder(0)]
+        [PropertyOrder(1)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
@@ -79,7 +78,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(1)]
+        [PropertyOrder(2)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_DisplayName))]
@@ -92,14 +91,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_WindDirection_Description))]
         public string WindDirection { get; }
 
         [DynamicVisible]
-        [PropertyOrder(3)]
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_ClosingSituation_Description))]
@@ -113,7 +112,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{data.Name}";
+            return data.Name;
         }
     }
 }

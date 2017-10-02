@@ -42,9 +42,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="SubMechanismIllustrationPointProperties"/>.
         /// </summary>
         /// <param name="illustrationPoint">The sub mechanism illustration point to use for the properties.</param>
-        /// <param name="windDirection">String containing the wind direction for this illustration point.</param>
-        /// <param name="closingSituation">String containing the name of the closing situation. If empty 
-        /// the <see cref="IllustrationPointProperties.ClosingSituation"/> property will not be visible.</param>
+        /// <param name="windDirection">The wind direction of the illustration point.</param>
+        /// <param name="closingSituation">The closing situation of the illustration point.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public SubMechanismIllustrationPointProperties(SubMechanismIllustrationPoint illustrationPoint,
                                                        string windDirection,
@@ -54,7 +53,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             subMechanismIllustrationPoint = illustrationPoint;
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_Description))]
@@ -70,7 +69,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_Description))]
@@ -86,7 +85,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(6)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Realization_Description))]
@@ -102,7 +101,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(8)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.IllustrationPoint_Result_Description))]
