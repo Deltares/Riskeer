@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -76,5 +77,22 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         }
 
         public CalculationGroup Parent { get; }
+
+        public override bool Equals(WrappedObjectContextBase<CalculationGroup> other)
+        {
+            return base.Equals(other)
+                   && other is ClosingStructuresCalculationGroupContext
+                   && ReferenceEquals(Parent, ((ClosingStructuresCalculationGroupContext)other).Parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ClosingStructuresCalculationGroupContext);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ Parent.GetHashCode();
+        }
     }
 }

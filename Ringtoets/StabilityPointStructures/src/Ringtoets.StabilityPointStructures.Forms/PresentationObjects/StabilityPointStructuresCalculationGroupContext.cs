@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -76,5 +77,22 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         }
 
         public CalculationGroup Parent { get; }
+
+        public override bool Equals(WrappedObjectContextBase<CalculationGroup> other)
+        {
+            return base.Equals(other)
+                   && other is StabilityPointStructuresCalculationGroupContext
+                   && ReferenceEquals(Parent, ((StabilityPointStructuresCalculationGroupContext) other).Parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as StabilityPointStructuresCalculationGroupContext);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ Parent.GetHashCode();
+        }
     }
 }
