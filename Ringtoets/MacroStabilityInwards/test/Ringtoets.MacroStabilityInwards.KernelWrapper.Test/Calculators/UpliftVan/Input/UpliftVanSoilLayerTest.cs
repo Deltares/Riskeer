@@ -108,6 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(layer.StrengthIncreaseExponent);
             Assert.IsNaN(layer.Pop);
             Assert.AreEqual(UpliftVanDilatancyType.Zero, layer.DilatancyType);
+            Assert.AreEqual(UpliftVanWaterPressureInterpolationModel.Automatic, layer.WaterPressureInterpolationModel);
         }
 
         [Test]
@@ -127,6 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double strengthIncreaseExponent = random.NextDouble();
             double pop = random.NextDouble();
             var dilatancyType = random.NextEnumValue<UpliftVanDilatancyType>();
+            var waterPressureInterpolationModel = random.NextEnumValue<UpliftVanWaterPressureInterpolationModel>();
 
             // Call
             var layer = new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties
@@ -142,7 +144,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 ShearStrengthRatio = shearStrengthRatio,
                 StrengthIncreaseExponent = strengthIncreaseExponent,
                 Pop = pop,
-                DilatancyType = dilatancyType
+                DilatancyType = dilatancyType,
+                WaterPressureInterpolationModel = waterPressureInterpolationModel
             });
 
             // Assert
@@ -158,6 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(strengthIncreaseExponent, layer.StrengthIncreaseExponent);
             Assert.AreEqual(pop, layer.Pop);
             Assert.AreEqual(dilatancyType, layer.DilatancyType);
+            Assert.AreEqual(waterPressureInterpolationModel, layer.WaterPressureInterpolationModel);
         }
     }
 }

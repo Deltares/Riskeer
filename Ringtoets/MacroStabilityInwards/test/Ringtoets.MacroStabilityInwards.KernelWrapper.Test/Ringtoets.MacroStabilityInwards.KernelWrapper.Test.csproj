@@ -66,6 +66,7 @@
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPhreaticLineOffsetsTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPreconsolidationStressTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanDilatancyTypeTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanWaterPressureInterpolationModelTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanShearStrengthModelTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayerTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilProfileTest.cs" />

@@ -69,6 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             ShearStrengthRatio = properties.ShearStrengthRatio;
             Pop = properties.Pop;
             DilatancyType = properties.DilatancyType;
+            WaterPressureInterpolationModel = properties.WaterPressureInterpolationModel;
         }
 
         /// <summary>
@@ -141,6 +142,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// </summary>
         public UpliftVanDilatancyType DilatancyType { get; }
 
+        /// <summary>
+        /// Gets the water pressure interpolation model.
+        /// </summary>
+        public UpliftVanWaterPressureInterpolationModel WaterPressureInterpolationModel { get; }
+
         public class ConstructionProperties
         {
             /// <summary>
@@ -158,6 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 ShearStrengthRatio = double.NaN;
                 Pop = double.NaN;
                 DilatancyType = UpliftVanDilatancyType.Zero;
+                WaterPressureInterpolationModel = UpliftVanWaterPressureInterpolationModel.Automatic;
             }
 
             /// <summary>
@@ -219,6 +226,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// Gets or sets the dilatancy type.
             /// </summary>
             public UpliftVanDilatancyType DilatancyType { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the water pressure interpolation model.
+            /// </summary>
+            public UpliftVanWaterPressureInterpolationModel WaterPressureInterpolationModel { internal get; set; }
         }
     }
 }

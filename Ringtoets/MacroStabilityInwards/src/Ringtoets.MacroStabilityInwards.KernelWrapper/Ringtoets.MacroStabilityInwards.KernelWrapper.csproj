@@ -48,6 +48,7 @@
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPhreaticLineOffsets.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPreconsolidationStress.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanDilatancyType.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanWaterPressureInterpolationModel.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanShearStrengthModel.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayer.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilProfile.cs" />
