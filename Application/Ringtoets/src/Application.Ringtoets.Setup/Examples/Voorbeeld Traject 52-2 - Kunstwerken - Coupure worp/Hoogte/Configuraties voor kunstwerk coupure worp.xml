@@ -5,6 +5,7 @@
     <kunstwerk>KWK_1</kunstwerk>
     <orientatie>45</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <stochasten>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>10</verwachtingswaarde>

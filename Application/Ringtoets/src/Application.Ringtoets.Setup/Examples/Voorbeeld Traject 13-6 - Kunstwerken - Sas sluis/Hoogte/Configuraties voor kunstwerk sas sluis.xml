@@ -5,6 +5,7 @@
     <kunstwerk>17k6</kunstwerk>
     <orientatie>180</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <stochasten>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>10</verwachtingswaarde>

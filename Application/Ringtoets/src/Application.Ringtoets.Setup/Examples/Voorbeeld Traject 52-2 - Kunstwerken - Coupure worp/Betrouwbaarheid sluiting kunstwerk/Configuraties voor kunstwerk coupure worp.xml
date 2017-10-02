@@ -11,6 +11,7 @@
     <kansopopenstaan>1</kansopopenstaan>
     <kansmislukkensluiting>0.01</kansmislukkensluiting>
     <faalkansherstel>0.1</faalkansherstel>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <stochasten>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>10</verwachtingswaarde>

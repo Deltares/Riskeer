@@ -20,13 +20,14 @@
       </stochast>
     </stochasten>
   </berekening>
-  <berekening naam="Profiel 2">
+  <berekening naam="Profiel 2 met Illustratiepunten">
     <hrlocatie>YM_1_12-2_dk_00022</hrlocatie>
     <dijkprofiel>03100</dijkprofiel>
     <orientatie>62</orientatie>
     <dijkhoogte>4.18</dijkhoogte>
     <hbnberekenen>niet</hbnberekenen>
     <overslagdebietberekenen>niet</overslagdebietberekenen>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
       <damtype>havendam</damtype>
@@ -68,6 +69,9 @@
       <dijkhoogte>4.28</dijkhoogte>
       <hbnberekenen>norm</hbnberekenen>
       <overslagdebietberekenen>norm</overslagdebietberekenen>
+      <illustratiepunteninlezen>true</illustratiepunteninlezen>
+      <hbnillustratiepunteninlezen>true</hbnillustratiepunteninlezen>
+      <overslagdebietillustratiepunteninlezen>true</overslagdebietillustratiepunteninlezen>
       <golfreductie>
         <damgebruiken>false</damgebruiken>
         <damtype>havendam</damtype>
