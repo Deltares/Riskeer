@@ -48,6 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return new SlipPlaneUpliftVan
             {
+                ActiveSide = ActiveSideType.Left,
                 SlipPlaneLeftGrid = CreateGrid(input.LeftGrid),
                 SlipPlaneRightGrid = CreateGrid(input.RightGrid),
                 SlipPlaneTangentLine = CreateTangentline(input)
@@ -61,7 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 AutomaticAtBoundaries = input.TangentLineAutomaticAtBoundaries,
                 TangentLineZTop = input.TangentLineZTop,
                 TangentLineZBottom = input.TangentLineZBottom,
-                TangentLineNumber = 1
+                TangentLineNumber = 1,
+                MaxSpacingBetweenBoundaries = 10
             };
         }
 

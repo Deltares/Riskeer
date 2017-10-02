@@ -335,6 +335,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
             Assert.IsNotNull(stabilityModel.GeotechnicsData);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
+            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.SlipPlaneUpliftVan.ModelOption);
+            Assert.AreSame(stabilityModel, stabilityModel.SlipPlaneUpliftVan.StabilityModel);
+            Assert.AreSame(stabilityModel, stabilityModel.SlipPlaneUpliftVan.SlipPlaneTangentLine.StabilityModel);
+            Assert.AreEqual(stabilityModel.SlipCircle.Auto, stabilityModel.SlipPlaneUpliftVan.SlipCircleTangentLine.IsAutomaticGrid);
         }
     }
 }
