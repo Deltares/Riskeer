@@ -58,6 +58,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             {
                 throw new ArgumentException("PhreaticLineOffsets must be set.");
             }
+            if (properties.SlipPlane == null)
+            {
+                throw new ArgumentException("SlipPlane must be set.");
+            }
 
             WaternetCreationMode = properties.WaternetCreationMode;
             PlLineCreationMethod = properties.PlLineCreationMethod;

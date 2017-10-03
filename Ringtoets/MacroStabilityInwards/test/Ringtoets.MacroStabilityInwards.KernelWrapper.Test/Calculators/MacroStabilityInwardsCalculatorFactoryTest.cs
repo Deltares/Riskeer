@@ -85,6 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane()
                 }),
                 new TestMacroStabilityInwardsKernelFactory());
 

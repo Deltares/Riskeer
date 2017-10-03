@@ -442,6 +442,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
             UpliftVanSoilProfileHelper.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
+            AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
+            AssertPhreaticLineOffsets(originalInput, actualInput.PhreaticLineOffsets);
+            AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
             Assert.AreEqual(UpliftVanWaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(UpliftVanPlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreEqual(UpliftVanLandwardDirection.PositiveX, actualInput.LandwardDirection);
@@ -476,6 +479,34 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
         }
 
+        private static void AssertDrainageConstruction(MacroStabilityInwardsInput originalInput, UpliftVanDrainageConstruction actualInput)
+        {
+            Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.IsPresent);
+            Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.XCoordinate);
+            Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinate);
+        }
+
+        private static void AssertPhreaticLineOffsets(MacroStabilityInwardsInput originalInput, UpliftVanPhreaticLineOffsets actualInput)
+        {
+            Assert.AreEqual(originalInput.UseDefaultOffsets, actualInput.UseDefaults);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtRiver, actualInput.BelowDikeTopAtRiver);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtPolder, actualInput.BelowDikeTopAtPolder);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeToeAtPolder, actualInput.BelowDikeToeAtPolder);
+            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowShoulderBaseInside, actualInput.BelowShoulderBaseInside);
+        }
+
+        private static void AssertSlipPlaneInput(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlane actualInput)
+        {
+            Assert.AreEqual(originalInput.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic, actualInput.GridAutomaticDetermined);
+            Assert.IsNull(actualInput.LeftGrid);
+            Assert.IsNull(actualInput.RightGrid);
+            Assert.IsTrue(actualInput.TangentLinesAutomaticAtBoundaries);
+            Assert.IsNaN(actualInput.TangentZTop);
+            Assert.IsNaN(actualInput.TangentZBottom);
+            Assert.AreEqual(0, actualInput.TangentLineNumber);
+            Assert.IsNaN(actualInput.MaxSpacingBetweenBoundaries);
+        }
+
         private static void AssertOutput(UpliftVanCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)
         {
             Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
@@ -483,7 +514,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMin, actualOutput.ForbiddenZonesXEntryMin);
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
             AssertSlidingCurve(expectedOutput.SlidingCurveResult, actualOutput.SlidingCurve);
-            AssertSlipPlane(expectedOutput.CalculationGridResult, actualOutput.SlipPlane);
+            AssertSlipPlaneOutput(expectedOutput.CalculationGridResult, actualOutput.SlipPlane);
         }
 
         private static void AssertSlidingCurve(UpliftVanSlidingCurveResult expected, MacroStabilityInwardsSlidingCurve actual)
@@ -548,7 +579,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             }
         }
 
-        private static void AssertSlipPlane(UpliftVanCalculationGridResult expected, MacroStabilityInwardsSlipPlaneUpliftVan actual)
+        private static void AssertSlipPlaneOutput(UpliftVanCalculationGridResult expected, MacroStabilityInwardsSlipPlaneUpliftVan actual)
         {
             CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
             AssertGrid(expected.LeftGrid, actual.LeftGrid);

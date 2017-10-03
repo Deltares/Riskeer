@@ -153,6 +153,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var soilProfile = new TestUpliftVanSoilProfile();
             var drainageConstruction = new UpliftVanDrainageConstruction();
             var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
+            var slipPlane = new UpliftVanSlipPlane();
 
             // Call
             var input = new UpliftVanCalculatorInput(
@@ -161,7 +162,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
-                    PhreaticLineOffsets = phreaticLineOffsets
+                    PhreaticLineOffsets = phreaticLineOffsets,
+                    SlipPlane = slipPlane
                 });
 
             // Assert
@@ -201,7 +203,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane()
                 });
 
             // Assert
@@ -217,7 +220,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane()
                 });
 
             // Assert
@@ -233,7 +237,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    SlipPlane = new UpliftVanSlipPlane()
                 });
 
             // Assert
@@ -249,11 +254,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new UpliftVanDrainageConstruction()
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane()
                 });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsets must be set.");
+        }
+
+        [Test]
+        public void Constructor_SlipPlaneNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
+                });
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "SlipPlane must be set.");
         }
     }
 }

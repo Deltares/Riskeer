@@ -57,6 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99
                 });
 
@@ -84,6 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestUpliftVanSoilProfile(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     DikeSoilScenario = macroStabilityInwardsDikeSoilScenario
                 });
 
@@ -105,6 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     WaternetCreationMode = (UpliftVanWaternetCreationMode) 99
                 });
 
@@ -130,6 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestUpliftVanSoilProfile(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     WaternetCreationMode = upliftVanWaternetCreationMode
                 });
 
@@ -151,6 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     PlLineCreationMethod = (UpliftVanPlLineCreationMethod) 99
                 });
 
@@ -181,6 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestUpliftVanSoilProfile(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     PlLineCreationMethod = upliftVanPlLineCreationMethod
                 });
 
@@ -225,6 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestUpliftVanSoilProfile(),
+                    SlipPlane = new UpliftVanSlipPlane(),
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
                     AssessmentLevel = assessmentLevel,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
