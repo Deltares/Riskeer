@@ -45,6 +45,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanDrainageConstruction.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanLandwardDirection.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPhreaticLineOffsets.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPlLineCreationMethod.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPreconsolidationStress.cs" />

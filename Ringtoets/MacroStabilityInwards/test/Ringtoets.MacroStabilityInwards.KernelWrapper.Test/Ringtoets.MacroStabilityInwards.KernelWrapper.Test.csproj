@@ -64,6 +64,7 @@
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanDrainageConstructionTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPhreaticLineOffsetsTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanLandwardDirectionTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanWaternetCreationModeTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPreconsolidationStressTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanDilatancyTypeTest.cs" />
