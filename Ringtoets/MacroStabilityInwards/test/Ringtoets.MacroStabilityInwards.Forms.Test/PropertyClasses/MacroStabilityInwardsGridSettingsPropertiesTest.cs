@@ -97,9 +97,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool isGridDeterminationTypeAutomatic)
+        [Combinatorial]
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(
+            [Values(true, false)] bool isTangentlineDeterminationTypeLayerSeparate,
+            [Values(true, false)] bool isGridDeterminationTypeAutomatic)
         {
             // Setup
             var mocks = new MockRepository();
@@ -108,9 +109,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput
             {
+                TangentLineDeterminationType = isTangentlineDeterminationTypeLayerSeparate
+                                                   ? MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
+                                                   : MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 GridDeterminationType = isGridDeterminationTypeAutomatic
-                                        ? MacroStabilityInwardsGridDeterminationType.Automatic
-                                        : MacroStabilityInwardsGridDeterminationType.Manual
+                                            ? MacroStabilityInwardsGridDeterminationType.Automatic
+                                            : MacroStabilityInwardsGridDeterminationType.Manual
             };
 
             // Call
@@ -153,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 calculationGridsCategory,
                 "Tangentlijn Z-boven [m+NAP]",
                 "Verticale coördinaat van de bovenste raaklijn.",
-                isGridDeterminationTypeAutomatic);
+                isGridDeterminationTypeAutomatic || isTangentlineDeterminationTypeLayerSeparate);
 
             PropertyDescriptor tangentLineZBottomProperty = dynamicProperties[expectedTangentLineZBottomPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -161,7 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 calculationGridsCategory,
                 "Tangentlijn Z-onder [m+NAP]",
                 "Verticale coördinaat van de onderste raaklijn.",
-                isGridDeterminationTypeAutomatic);
+                isGridDeterminationTypeAutomatic || isTangentlineDeterminationTypeLayerSeparate);
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
             TestHelper.AssertTypeConverter<MacroStabilityInwardsGridSettingsProperties, ExpandableObjectConverter>(nameof(properties.LeftGrid));
@@ -321,7 +325,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnly_isReadOnly_ReturnsExpectedResult(bool isGridDeterminationTypeAutomatic)
+        public void DynamicReadOnly_GridDeterminationType_ReturnsExpectedResult(bool isGridDeterminationTypeAutomatic)
         {
             // Setup
             var mocks = new MockRepository();
@@ -342,6 +346,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(isGridDeterminationTypeAutomatic, result);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void DynamicReadOnly_TangentLineDeterminationType_ReturnsExpectedResult(
+            [Values(true, false)] bool isTangentlineDeterminationTypeLayerSeparate,
+            [Values(true, false)] bool isGridDeterminationTypeAutomatic,
+            [Values(nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZTop),
+                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZTop))] string propertyName)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput
+            {
+                TangentLineDeterminationType = isTangentlineDeterminationTypeLayerSeparate
+                                                   ? MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
+                                                   : MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                GridDeterminationType = isGridDeterminationTypeAutomatic
+                                            ? MacroStabilityInwardsGridDeterminationType.Automatic
+                                            : MacroStabilityInwardsGridDeterminationType.Manual
+            };
+
+            var properties = new MacroStabilityInwardsGridSettingsProperties(input, changeHandler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(propertyName);
+
+            // Assert
+            Assert.AreEqual(isTangentlineDeterminationTypeLayerSeparate || isGridDeterminationTypeAutomatic, result);
         }
 
         private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsGridSettingsProperties> setProperty,

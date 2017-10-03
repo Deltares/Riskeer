@@ -183,6 +183,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
+            if (propertyName == nameof(TangentLineZTop) || propertyName == nameof(TangentLineZBottom))
+            {
+                return data.TangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
+                       || AreGridSettingsReadOnly();
+            }
+
             return AreGridSettingsReadOnly();
         }
 
