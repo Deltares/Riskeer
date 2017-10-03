@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
-using Ringtoets.MacroStabilityInwards.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
             if (!geometry.Any())
             {
-                string message = string.Format(Resources.MacroStabilityInwardsStochasticSoilModel_Geometry_of_MacroStabilityInwardsStochasticSoilModelName_0_must_contain_a_geometry, name);
+                string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
                 throw new ArgumentException(message);
             }
 

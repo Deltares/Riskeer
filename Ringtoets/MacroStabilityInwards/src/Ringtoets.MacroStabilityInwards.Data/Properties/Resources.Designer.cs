@@ -127,16 +127,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; moet een geometrie bevatten..
-        /// </summary>
-        public static string MacroStabilityInwardsStochasticSoilModel_Geometry_of_MacroStabilityInwardsStochasticSoilModelName_0_must_contain_a_geometry {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsStochasticSoilModel_Geometry_of_MacroStabilityInwardsStochas" +
-                        "ticSoilModelName_0_must_contain_a_geometry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Handmatig.
         /// </summary>
         public static string Manual_DisplayName {

@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.SoilProfile
 {
@@ -57,7 +58,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
             }
             if (!geometry.Any())
             {
-                string message = string.Format("Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.", name);
+                string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
                 throw new ArgumentException(message);
             }
 

@@ -144,7 +144,4 @@
   <data name="Specified_DisplayName" xml:space="preserve">
     <value>Gespecificeerd</value>
   </data>
-  <data name="MacroStabilityInwardsStochasticSoilModel_Geometry_of_MacroStabilityInwardsStochasticSoilModelName_0_must_contain_a_geometry" xml:space="preserve">
-    <value>Het stochastische ondergrondmodel '{0}' moet een geometrie bevatten.</value>
-  </data>
 </root>
