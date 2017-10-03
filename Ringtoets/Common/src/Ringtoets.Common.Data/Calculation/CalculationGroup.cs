@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// Class to allow grouping one or multiple <see cref="ICalculation"/> instances.
     /// </summary>
-    public class CalculationGroup : Observable, ICalculationBase
+    public class CalculationGroup : CloneableObservable, ICalculationBase
     {
         private string name;
 
@@ -78,9 +78,9 @@ namespace Ringtoets.Common.Data.Calculation
             }
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (CalculationGroup) MemberwiseClone();
+            var clone = (CalculationGroup) base.Clone();
 
             clone.Children = Children.Select(c => (ICalculationBase) c.Clone()).ToList();
 

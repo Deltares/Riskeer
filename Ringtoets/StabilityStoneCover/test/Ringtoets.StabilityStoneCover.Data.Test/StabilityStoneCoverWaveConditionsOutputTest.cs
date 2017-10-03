@@ -21,8 +21,10 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data.TestUtil;
@@ -72,6 +74,9 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             var output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
 
             // Assert
+            Assert.IsInstanceOf<CloneableObservable>(output);
+            Assert.IsInstanceOf<ICalculationOutput>(output);
+
             Assert.AreSame(columnsOutput, output.ColumnsOutput);
             Assert.AreSame(blocksOutput, output.BlocksOutput);
         }

@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Class that holds all grass cover erosion inwards calculation specific input parameters.
     /// </summary>
-    public class GrassCoverErosionInwardsInput : Observable, ICalculationInput, IUseBreakWater,
+    public class GrassCoverErosionInwardsInput : CloneableObservable, ICalculationInput, IUseBreakWater,
                                                  IUseForeshore, ICloneable
     {
         private const int orientationNumberOfDecimals = 2;
@@ -250,9 +250,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (GrassCoverErosionInwardsInput) MemberwiseClone();
+            var clone = (GrassCoverErosionInwardsInput) base.Clone();
 
             clone.criticalFlowRate = (LogNormalDistribution) CriticalFlowRate.Clone();
             clone.BreakWater = (BreakWater) BreakWater.Clone();

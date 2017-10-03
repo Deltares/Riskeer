@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+
 namespace Core.Common.Base
 {
     /// <summary>
@@ -29,13 +31,18 @@ namespace Core.Common.Base
     public interface IObservable
     {
         /// <summary>
+        /// Gets the observers that are attached to the <see cref="IObservable"/>.
+        /// </summary>
+        IEnumerable<IObserver> Observers { get; }
+
+        /// <summary>
         /// This method attaches <paramref name="observer"/>. As a result, changes in the <see cref="IObservable"/> will now be notified to <paramref name="observer"/>.
         /// </summary>
         /// <param name="observer">The <see cref="IObserver"/> to notify on changes.</param>
         void Attach(IObserver observer);
 
         /// <summary>
-        /// This method dettaches <paramref name="observer"/>. As a result, changes in the <see cref="IObservable"/> will no longer be notified to <paramref name="observer"/>.
+        /// This method detaches <paramref name="observer"/>. As a result, changes in the <see cref="IObservable"/> will no longer be notified to <paramref name="observer"/>.
         /// </summary>
         /// <param name="observer">The <see cref="IObserver"/> to no longer notify on changes.</param>
         void Detach(IObserver observer);

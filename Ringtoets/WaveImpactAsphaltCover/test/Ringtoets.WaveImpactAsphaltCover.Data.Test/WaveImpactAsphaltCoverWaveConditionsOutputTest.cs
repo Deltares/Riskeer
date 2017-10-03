@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data.TestUtil;
 
@@ -54,6 +56,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             var output = new WaveImpactAsphaltCoverWaveConditionsOutput(outputItems);
 
             // Assert
+            Assert.IsInstanceOf<CloneableObservable>(output);
+            Assert.IsInstanceOf<ICalculationOutput>(output);
+
             Assert.AreSame(outputItems, output.Items);
         }
 

@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculation : Observable, ICalculation<WaveConditionsInput>
+    public class GrassCoverErosionOutwardsWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
@@ -66,9 +66,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             Output = null;
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (GrassCoverErosionOutwardsWaveConditionsCalculation) MemberwiseClone();
+            var clone = (GrassCoverErosionOutwardsWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -31,7 +32,7 @@ namespace Ringtoets.Common.Data.TestUtil
     /// A simple test calculation that has input parameters containing a <see cref="ForeshoreProfile"/>
     /// property.
     /// </summary>
-    public class TestCalculationWithForeshoreProfile : Observable,
+    public class TestCalculationWithForeshoreProfile : CloneableObservable,
                                                        ICalculation<TestCalculationWithForeshoreProfile.TestCalculationInputWithForeshoreProfile>
     {
         private TestCalculationWithForeshoreProfile(bool hasOutput)
@@ -118,6 +119,14 @@ namespace Ringtoets.Common.Data.TestUtil
                 get
                 {
                     return ForeshoreProfile?.Geometry;
+                }
+            }
+
+            public IEnumerable<IObserver> Observers
+            {
+                get
+                {
+                    throw new NotImplementedException();
                 }
             }
 

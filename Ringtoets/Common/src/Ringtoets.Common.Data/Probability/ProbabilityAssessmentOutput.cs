@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Probability
     /// <summary>
     /// This class contains the results of a probabilistic assessment calculation.
     /// </summary>
-    public class ProbabilityAssessmentOutput : Observable, ICalculationOutput
+    public class ProbabilityAssessmentOutput : CloneableObservable, ICalculationOutput
     {
         private double requiredProbability;
         private double probability;
@@ -103,10 +103,5 @@ namespace Ringtoets.Common.Data.Probability
         /// Gets the factor of safety of the failure mechanism.
         /// </summary>
         public RoundedDouble FactorOfSafety { get; }
-
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
     }
 }

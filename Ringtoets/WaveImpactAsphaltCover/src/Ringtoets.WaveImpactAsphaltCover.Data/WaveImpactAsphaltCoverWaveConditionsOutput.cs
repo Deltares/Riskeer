@@ -31,7 +31,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Container for the results of a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsOutput : Observable, ICalculationOutput
+    public class WaveImpactAsphaltCoverWaveConditionsOutput : CloneableObservable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsOutput"/>.
@@ -53,9 +53,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// </summary>
         public IEnumerable<WaveConditionsOutput> Items { get; private set; }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (WaveImpactAsphaltCoverWaveConditionsOutput) MemberwiseClone();
+            var clone = (WaveImpactAsphaltCoverWaveConditionsOutput) base.Clone();
 
             clone.Items = Items.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
 

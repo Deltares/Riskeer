@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
-            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<CloneableObservable>(calculation);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
 

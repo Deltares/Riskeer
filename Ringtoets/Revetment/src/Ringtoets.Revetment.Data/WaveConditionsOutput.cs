@@ -32,7 +32,7 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// The result of a wave conditions calculation.
     /// </summary>
-    public class WaveConditionsOutput : Observable, ICalculationOutput
+    public class WaveConditionsOutput : CloneableObservable, ICalculationOutput
     {
         private CalculationConvergence calculationConvergence;
         private double targetProbability;
@@ -177,11 +177,6 @@ namespace Ringtoets.Revetment.Data
 
                 calculationConvergence = value;
             }
-        }
-
-        public object Clone()
-        {
-            return MemberwiseClone();
         }
     }
 }

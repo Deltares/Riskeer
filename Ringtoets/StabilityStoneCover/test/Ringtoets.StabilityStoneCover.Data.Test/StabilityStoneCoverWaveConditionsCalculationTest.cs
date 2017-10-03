@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
-            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);

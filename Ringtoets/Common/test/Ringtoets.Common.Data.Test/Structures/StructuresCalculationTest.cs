@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var calculation = new TestStructuresCalculation();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<CloneableObservable>(calculation);
             Assert.IsInstanceOf<IStructuresCalculation>(calculation);
             Assert.IsInstanceOf<ICalculation<TestStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);

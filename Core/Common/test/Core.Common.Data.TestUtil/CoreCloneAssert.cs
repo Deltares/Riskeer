@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core.Common.Base;
 using NUnit.Framework;
 
 namespace Core.Common.Data.TestUtil
@@ -61,6 +62,12 @@ namespace Core.Common.Data.TestUtil
             Assert.IsInstanceOf<T>(clone);
             Assert.AreNotSame(original, clone);
 
+            var observable = original as IObservable;
+            if (observable != null)
+            {
+                Assert.AreNotSame(observable.Observers, ((IObservable) clone).Observers);
+            }
+
             typeSpecificAsserts(original, (T) clone);
         }
 
@@ -93,6 +100,12 @@ namespace Core.Common.Data.TestUtil
             Assert.IsNotNull(original);
             Assert.IsInstanceOf<IEnumerable<T>>(clone);
             Assert.AreNotSame(original, clone);
+
+            var observable = original as IObservable;
+            if (observable != null)
+            {
+                Assert.AreNotSame(observable.Observers, ((IObservable) clone).Observers);
+            }
 
             CollectionAssert.AreEqual(original, (IEnumerable<T>) clone, new AreClonesComparer<T>(typeSpecificAsserts));
         }

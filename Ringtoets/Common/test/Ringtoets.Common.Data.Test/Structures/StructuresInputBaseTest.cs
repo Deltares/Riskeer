@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(input);
+            Assert.IsInstanceOf<CloneableObservable>(input);
             Assert.IsInstanceOf<IStructuresCalculationInput<StructureBase>>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);

@@ -30,7 +30,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculation : Observable, ICalculation<WaveConditionsInput>
+    public class WaveImpactAsphaltCoverWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
@@ -66,9 +66,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             Output = null;
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (WaveImpactAsphaltCoverWaveConditionsCalculation) MemberwiseClone();
+            var clone = (WaveImpactAsphaltCoverWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();

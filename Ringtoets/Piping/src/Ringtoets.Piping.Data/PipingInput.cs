@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
     /// Class that holds all piping calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class PipingInput : Observable, ICalculationInput, ICloneable
+    public class PipingInput : CloneableObservable, ICalculationInput, ICloneable
     {
         private readonly GeneralPipingInput generalInputParameters;
         private NormalDistribution phreaticLevelExit;
@@ -266,9 +266,9 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (PipingInput) MemberwiseClone();
+            var clone = (PipingInput) base.Clone();
 
             clone.phreaticLevelExit = (NormalDistribution) PhreaticLevelExit.Clone();
             clone.dampingFactorExit = (LogNormalDistribution) DampingFactorExit.Clone();

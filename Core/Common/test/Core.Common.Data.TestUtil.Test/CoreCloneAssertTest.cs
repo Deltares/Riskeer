@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 
 namespace Core.Common.Data.TestUtil.Test
@@ -103,6 +104,40 @@ namespace Core.Common.Data.TestUtil.Test
 
             // Assert
             Assert.AreEqual(1, counter);
+        }
+
+        [Test]
+        public void AreObjectClones_ObservableObjectDifferentObservers_DoesNotThrow()
+        {
+            // Setup
+            var cloneableObservable = new TestCloneableObservable();
+            var clonedCloneableObservable = (TestCloneableObservable) cloneableObservable.Clone();
+
+            // Precondition
+            Assert.IsFalse(ReferenceEquals(cloneableObservable.Observers, clonedCloneableObservable.Observers));
+
+            // Call
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones(cloneableObservable, clonedCloneableObservable, (original, clone) => {});
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AreObjectClones_ObservableObjectSameObservers_ThrowsAssertionException()
+        {
+            // Setup
+            var observable = new TestObservable();
+            var clonedObservable = (TestObservable) observable.Clone();
+
+            // Precondition
+            Assert.IsTrue(ReferenceEquals(observable.Observers, clonedObservable.Observers));
+
+            // Call
+            TestDelegate test = () => CoreCloneAssert.AreObjectClones(observable, clonedObservable, (original, clone) => {});
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
         }
 
         [Test]
@@ -209,5 +244,15 @@ namespace Core.Common.Data.TestUtil.Test
             // Assert
             Assert.AreEqual(2, counter);
         }
+
+        private class TestObservable : Observable, ICloneable
+        {
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
+        }
+
+        private class TestCloneableObservable : CloneableObservable {}
     }
 }

@@ -31,7 +31,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// <summary>
     /// Container for the results of a stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsOutput : Observable, ICalculationOutput
+    public class StabilityStoneCoverWaveConditionsOutput : CloneableObservable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsOutput"/>.
@@ -66,9 +66,9 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public IEnumerable<WaveConditionsOutput> BlocksOutput { get; private set; }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (StabilityStoneCoverWaveConditionsOutput) MemberwiseClone();
+            var clone = (StabilityStoneCoverWaveConditionsOutput) base.Clone();
 
             clone.ColumnsOutput = ColumnsOutput.Select(column => (WaveConditionsOutput) column.Clone()).ToArray();
             clone.BlocksOutput = BlocksOutput.Select(block => (WaveConditionsOutput) block.Clone()).ToArray();

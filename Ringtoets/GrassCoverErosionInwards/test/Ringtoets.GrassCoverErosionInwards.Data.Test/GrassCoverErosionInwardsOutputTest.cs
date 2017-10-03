@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<CloneableObservable>(output);
 
             Assert.AreSame(overtoppingOutput, output.OvertoppingOutput);
             Assert.AreSame(dikeHeightOutput, output.DikeHeightOutput);

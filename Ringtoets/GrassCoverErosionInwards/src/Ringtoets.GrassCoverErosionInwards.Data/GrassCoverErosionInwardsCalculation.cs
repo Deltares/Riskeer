@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculation : Observable, ICalculation
+    public class GrassCoverErosionInwardsCalculation : CloneableObservable, ICalculation
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
@@ -63,9 +63,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (GrassCoverErosionInwardsCalculation) MemberwiseClone();
+            var clone = (GrassCoverErosionInwardsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (GrassCoverErosionInwardsInput) InputParameters.Clone();

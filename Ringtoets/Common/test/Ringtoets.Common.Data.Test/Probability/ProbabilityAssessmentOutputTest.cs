@@ -48,9 +48,8 @@ namespace Ringtoets.Common.Data.Test.Probability
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(probabilityAssessmentOutput);
+            Assert.IsInstanceOf<CloneableObservable>(probabilityAssessmentOutput);
             Assert.IsInstanceOf<ICalculationOutput>(probabilityAssessmentOutput);
-            Assert.IsInstanceOf<ICloneable>(probabilityAssessmentOutput);
             Assert.AreEqual(requiredProbability, probabilityAssessmentOutput.RequiredProbability);
             Assert.AreEqual(5, probabilityAssessmentOutput.RequiredReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredReliability, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());

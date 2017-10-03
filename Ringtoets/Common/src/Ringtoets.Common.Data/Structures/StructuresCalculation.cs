@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Structures
     /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
     /// <typeparam name="T">The type of input contained by the calculation.</typeparam>
-    public class StructuresCalculation<T> : Observable, IStructuresCalculation, ICalculation<T> where T : IStructuresCalculationInput, new()
+    public class StructuresCalculation<T> : CloneableObservable, IStructuresCalculation, ICalculation<T> where T : IStructuresCalculationInput, new()
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StructuresCalculation{T}"/> class.
@@ -69,9 +69,9 @@ namespace Ringtoets.Common.Data.Structures
             return Name;
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (StructuresCalculation<T>) MemberwiseClone();
+            var clone = (StructuresCalculation<T>) base.Clone();
 
             clone.InputParameters = (T) InputParameters.Clone();
             clone.Comments = (Comment) Comments.Clone();

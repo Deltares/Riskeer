@@ -28,7 +28,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// The overall result of a grass cover erosion inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
+    public class GrassCoverErosionInwardsOutput : CloneableObservable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
@@ -66,9 +66,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public OvertoppingRateOutput OvertoppingRateOutput { get; private set; }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (GrassCoverErosionInwardsOutput) MemberwiseClone();
+            var clone = (GrassCoverErosionInwardsOutput) base.Clone();
 
             clone.OvertoppingOutput = (OvertoppingOutput) OvertoppingOutput.Clone();
 

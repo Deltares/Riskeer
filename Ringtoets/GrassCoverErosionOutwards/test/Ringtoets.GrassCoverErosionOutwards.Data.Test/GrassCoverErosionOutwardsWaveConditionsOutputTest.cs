@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.Revetment.Data.TestUtil;
 
@@ -54,6 +56,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputItems);
 
             // Assert
+            Assert.IsInstanceOf<CloneableObservable>(output);
+            Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreSame(outputItems, output.Items);
         }
 

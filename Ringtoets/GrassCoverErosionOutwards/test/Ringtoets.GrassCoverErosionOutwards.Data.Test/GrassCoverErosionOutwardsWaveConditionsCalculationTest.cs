@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
-            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual(RingtoetsCommonDataResources.Calculation_DefaultName, calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);

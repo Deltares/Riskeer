@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Data.Test
             var inputParameters = new PipingInput(generalInputParameters);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(inputParameters);
+            Assert.IsInstanceOf<CloneableObservable>(inputParameters);
             Assert.IsInstanceOf<ICalculationInput>(inputParameters);
             Assert.IsInstanceOf<ICloneable>(inputParameters);
 

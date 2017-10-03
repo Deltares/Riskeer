@@ -66,6 +66,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
         {
             public string Name { get; set; }
 
+            public IEnumerable<IObserver> Observers
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
             public void Attach(IObserver observer)
             {
                 throw new NotImplementedException();

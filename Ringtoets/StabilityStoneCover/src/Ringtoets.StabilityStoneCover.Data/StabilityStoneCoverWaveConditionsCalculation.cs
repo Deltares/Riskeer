@@ -30,7 +30,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculation : Observable, ICalculation<WaveConditionsInput>
+    public class StabilityStoneCoverWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
@@ -66,9 +66,9 @@ namespace Ringtoets.StabilityStoneCover.Data
             Output = null;
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            var clone = (StabilityStoneCoverWaveConditionsCalculation) MemberwiseClone();
+            var clone = (StabilityStoneCoverWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();

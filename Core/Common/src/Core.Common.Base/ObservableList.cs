@@ -31,7 +31,18 @@ namespace Core.Common.Base
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class ObservableList<T> : List<T>, IObservable
     {
-        private readonly ICollection<IObserver> observers = new Collection<IObserver>();
+        /// <summary>
+        /// The observers that are attached.
+        /// </summary>
+        protected ICollection<IObserver> observers = new Collection<IObserver>();
+
+        public IEnumerable<IObserver> Observers
+        {
+            get
+            {
+                return observers;
+            }
+        }
 
         public void Attach(IObserver observer)
         {

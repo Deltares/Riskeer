@@ -107,7 +107,7 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(input);
+            Assert.IsInstanceOf<CloneableObservable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);

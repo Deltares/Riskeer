@@ -30,7 +30,18 @@ namespace Core.Common.Base
     /// </summary>
     public abstract class Observable : IObservable
     {
-        private readonly ICollection<IObserver> observers = new Collection<IObserver>();
+        /// <summary>
+        /// The observers that are attached.
+        /// </summary>
+        protected ICollection<IObserver> observers = new Collection<IObserver>();
+
+        public IEnumerable<IObserver> Observers
+        {
+            get
+            {
+                return observers;
+            }
+        }
 
         public void Attach(IObserver observer)
         {

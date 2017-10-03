@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Simple class containing the results of a Piping calculation.
     /// </summary>
-    public class PipingOutput : Observable, ICalculationOutput
+    public class PipingOutput : CloneableObservable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutput"/>. 
@@ -111,11 +111,6 @@ namespace Ringtoets.Piping.Data
         /// Gets the reduced fall that was calculated for the Sellmeijer sub calculation.
         /// </summary>
         public RoundedDouble SellmeijerReducedFall { get; }
-
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="PipingOutput"/>.

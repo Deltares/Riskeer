@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -28,6 +29,18 @@ namespace Core.Common.Base.Test
     [TestFixture]
     public class ObservableTest
     {
+        [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Call
+            var observable = new TestObservable();
+
+            // Assert
+            Assert.IsInstanceOf<IObservable>(observable);
+            Assert.IsInstanceOf<IEnumerable<IObserver>>(observable.Observers);
+            CollectionAssert.IsEmpty(observable.Observers);
+        }
+
         [Test]
         public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
         {

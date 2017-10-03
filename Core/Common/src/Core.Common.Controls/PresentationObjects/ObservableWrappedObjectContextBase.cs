@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 
 namespace Core.Common.Controls.PresentationObjects
@@ -40,6 +41,14 @@ namespace Core.Common.Controls.PresentationObjects
         protected ObservableWrappedObjectContextBase(T wrappedData) : base(wrappedData) {}
 
         #region IObservable implementation
+
+        public IEnumerable<IObserver> Observers
+        {
+            get
+            {
+                return WrappedData.Observers;
+            }
+        }
 
         public void Attach(IObserver observer)
         {

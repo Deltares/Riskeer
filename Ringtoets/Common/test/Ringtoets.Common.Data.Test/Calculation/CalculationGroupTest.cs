@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
 
             // Assert
             Assert.IsInstanceOf<ICalculationBase>(group);
-            Assert.IsInstanceOf<Observable>(group);
+            Assert.IsInstanceOf<CloneableObservable>(group);
 
             Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
@@ -253,14 +253,9 @@ namespace Ringtoets.Common.Data.Test.Calculation
             CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
         }
 
-        private class TestCalculationBase : Observable, ICalculationBase
+        private class TestCalculationBase : CloneableObservable, ICalculationBase
         {
             public string Name { get; set; }
-
-            public object Clone()
-            {
-                return MemberwiseClone();
-            }
         }
     }
 }

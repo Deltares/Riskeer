@@ -142,11 +142,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(input);
+            Assert.IsInstanceOf<CloneableObservable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
-            Assert.IsInstanceOf<ICloneable>(input);
 
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(2, input.DikeHeight.NumberOfDecimalPlaces);

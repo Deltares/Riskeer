@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.Structures
     /// Base class that holds generic structures calculation input parameters.
     /// </summary>
     /// <typeparam name="T">The type of structure contained by the input.</typeparam>
-    public abstract class StructuresInputBase<T> : Observable, IStructuresCalculationInput<T>, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+    public abstract class StructuresInputBase<T> : CloneableObservable, IStructuresCalculationInput<T>, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
         where T : StructureBase
     {
         private const int structureNormalOrientationNumberOfDecimals = 2;
@@ -149,9 +149,9 @@ namespace Ringtoets.Common.Data.Structures
         /// <remarks>When no structure is present, the input parameters are set to default values.</remarks>
         public abstract void SynchronizeStructureInput();
 
-        public virtual object Clone()
+        public override object Clone()
         {
-            var clone = (StructuresInputBase<T>) MemberwiseClone();
+            var clone = (StructuresInputBase<T>) base.Clone();
 
             clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
             clone.allowedLevelIncreaseStorage = (LogNormalDistribution) AllowedLevelIncreaseStorage.Clone();

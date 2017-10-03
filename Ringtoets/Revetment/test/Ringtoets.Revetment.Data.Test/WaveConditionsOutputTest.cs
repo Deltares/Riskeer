@@ -55,7 +55,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                   targetReliability, calculatedProbability, calculatedReliability, calculationConvergence);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());

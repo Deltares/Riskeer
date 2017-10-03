@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Data.Test
                 SellmeijerReducedFall = sellmeijerReducedFall
             });
 
-            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsInstanceOf<ICloneable>(output);
 
