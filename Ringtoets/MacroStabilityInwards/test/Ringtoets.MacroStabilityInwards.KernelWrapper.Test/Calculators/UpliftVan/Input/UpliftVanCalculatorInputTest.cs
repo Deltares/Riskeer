@@ -54,6 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var drainageConstruction = new UpliftVanDrainageConstruction();
             var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
 
+            var waternetCreationMode = random.NextEnumValue<UpliftVanWaternetCreationMode>();
+            var plLineCreationMethod = random.NextEnumValue<UpliftVanPlLineCreationMethod>();
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
@@ -84,6 +86,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
+                    WaternetCreationMode = waternetCreationMode,
+                    PlLineCreationMethod = plLineCreationMethod,
                     AssessmentLevel = hRiverValue,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
@@ -117,6 +121,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 });
 
             // Assert
+            Assert.AreEqual(waternetCreationMode, input.WaternetCreationMode);
+            Assert.AreEqual(plLineCreationMethod, input.PlLineCreationMethod);
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
             Assert.AreSame(soilProfile, input.SoilProfile);
@@ -201,6 +207,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsFalse(input.CreateZones);
             Assert.IsFalse(input.AutomaticForbiddenZones);
 
+            Assert.AreEqual(UpliftVanWaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
+            Assert.AreEqual(UpliftVanPlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }
 
