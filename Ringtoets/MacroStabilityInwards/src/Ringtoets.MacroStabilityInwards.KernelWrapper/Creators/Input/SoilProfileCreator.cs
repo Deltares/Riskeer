@@ -45,9 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>
         /// <returns>A new <see cref="SoilProfile2D"/> with the <paramref name="layersWithSoils"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanWaterPressureInterpolationModel"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanSoilLayer.WaterPressureInterpolationModel"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanWaterPressureInterpolationModel"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanSoilLayer.WaterPressureInterpolationModel"/>
         /// is a valid value but unsupported.</exception>
         public static SoilProfile2D Create(UpliftVanSoilProfile soilProfile,
                                            IDictionary<UpliftVanSoilLayer, Soil> layersWithSoils)

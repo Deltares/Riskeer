@@ -40,10 +40,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="profile">The <see cref="UpliftVanSoilProfile"/> from which to take the information.</param>
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
-        /// or <see cref="UpliftVanDilatancyType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanShearStrengthModel"/>
-        /// or <see cref="UpliftVanDilatancyType"/> is a valid value but unsupported.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanSoilLayer.ShearStrengthModel"/>
+        /// or <see cref="UpliftVanSoilLayer.DilatancyType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanSoilLayer.ShearStrengthModel"/>
+        /// or <see cref="UpliftVanSoilLayer.DilatancyType"/> is a valid value but unsupported.</exception>
         public static Soil[] Create(UpliftVanSoilProfile profile)
         {
             if (profile == null)
