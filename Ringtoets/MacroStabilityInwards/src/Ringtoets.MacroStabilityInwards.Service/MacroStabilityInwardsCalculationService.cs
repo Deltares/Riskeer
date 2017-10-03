@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -187,6 +186,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
             return new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
+                    WaternetCreationMode = UpliftVanWaternetCreationMode.CreateWaternet,
+                    PlLineCreationMethod = UpliftVanPlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = inputParameters.AssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = UpliftVanSoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
