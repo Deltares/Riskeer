@@ -87,6 +87,58 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-1)]
+        [TestCase(1)]
+        [TestCase(-0.51)]
+        [TestCase(0.51)]
+        [TestCase(double.NaN)]
+        public void AddProbability_ProbabilityToAddResultsInvalidProbability_ThrowsArgumentOutOfRangeException(double probabilityToAdd)
+        {
+            // Setup
+            const double probability = 0.5;
+
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            mocks.ReplayAll();
+
+            var profile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            TestDelegate test = () => profile.AddProbability(probabilityToAdd);
+
+            // Assert
+            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel" +
+                                           " moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.5)]
+        [TestCase(-0.5)]
+        [TestCase(-0.2)]
+        [TestCase(0.2)]
+        public void AddProbability_ProbabilityToAddResultsValidProbability_ReturnsExpectedProbability(double probabilityToAdd)
+        {
+            // Setup
+            const double probability = 0.5;
+
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            mocks.ReplayAll();
+
+            var profile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            profile.AddProbability(probabilityToAdd);
+
+            // Assert
+            Assert.AreEqual(probability + probabilityToAdd, profile.Probability, 1e-6);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Update_WithNullProfile_ThrowsArgumentNullException()
         {
             // Setup
