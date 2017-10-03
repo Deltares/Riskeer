@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -39,6 +40,25 @@ namespace Core.Common.Base.Test
             Assert.IsInstanceOf<IObservable>(observable);
             Assert.IsInstanceOf<IEnumerable<IObserver>>(observable.Observers);
             CollectionAssert.IsEmpty(observable.Observers);
+        }
+
+        [Test]
+        public void Observers_WhenAttachingObserver_ContainsExpectedObserver()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var testObservable = new TestObservable();
+            var observer = mocks.Stub<IObserver>();
+            testObservable.Attach(observer);
+            mocks.ReplayAll();
+
+            // Call
+            IEnumerable<IObserver> observers = testObservable.Observers;
+
+            // Assert
+            Assert.AreEqual(observer, observers.Single());
+
+            mocks.VerifyAll();
         }
 
         [Test]
