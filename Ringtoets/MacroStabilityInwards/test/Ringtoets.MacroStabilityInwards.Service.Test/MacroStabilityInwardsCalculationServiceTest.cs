@@ -472,7 +472,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic, actualInput.GridAutomaticDetermined);
             Assert.AreEqual(originalInput.LeftGrid, actualInput.LeftGrid);
             Assert.AreEqual(originalInput.RightGrid, actualInput.RightGrid);
-            Assert.AreEqual(originalInput.TangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, actualInput.TangentLineAutomaticAtBoundaries);
+            Assert.AreEqual(originalInput.TangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, actualInput.TangentLinesAutomaticAtBoundaries);
             Assert.AreEqual(originalInput.TangentLineZTop, actualInput.TangentLineZTop);
             Assert.AreEqual(originalInput.TangentLineZBottom, actualInput.TangentLineZBottom);
             Assert.AreEqual(originalInput.CreateZones, actualInput.CreateZones);
@@ -560,7 +560,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             AssertGrid(expected.RightGrid, actual.RightGrid);
         }
 
-        private static void AssertGrid(UpliftVanGridResult expectedGrid, MacroStabilityInwardsGrid actualGrid)
+        private static void AssertGrid(UpliftVanGrid expectedGrid, MacroStabilityInwardsGrid actualGrid)
         {
             Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
             Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);

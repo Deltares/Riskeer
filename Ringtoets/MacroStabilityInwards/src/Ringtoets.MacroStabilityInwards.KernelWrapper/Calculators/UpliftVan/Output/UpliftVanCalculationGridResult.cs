@@ -36,8 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <param name="rightGrid">The right grid of the result.</param>
         /// <param name="tangentLines">The tangent lines of the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal UpliftVanCalculationGridResult(UpliftVanGridResult leftGrid,
-                                                UpliftVanGridResult rightGrid,
+        internal UpliftVanCalculationGridResult(UpliftVanGrid leftGrid,
+                                                UpliftVanGrid rightGrid,
                                                 IEnumerable<double> tangentLines)
         {
             if (leftGrid == null)
@@ -61,12 +61,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <summary>
         /// Gets the left grid result.
         /// </summary>
-        public UpliftVanGridResult LeftGrid { get; }
+        public UpliftVanGrid LeftGrid { get; }
 
         /// <summary>
         /// Gets the right grid result.
         /// </summary>
-        public UpliftVanGridResult RightGrid { get; }
+        public UpliftVanGrid RightGrid { get; }
 
         /// <summary>
         /// Gets the tangent lines result.

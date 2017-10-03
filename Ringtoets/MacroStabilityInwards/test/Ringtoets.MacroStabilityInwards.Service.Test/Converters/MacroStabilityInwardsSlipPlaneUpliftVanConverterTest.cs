@@ -22,8 +22,9 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 
@@ -47,8 +48,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         public void Convert_WithResult_ReturnConvertedSlipPlaneUpliftVan()
         {
             // Setup
-            UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
-            UpliftVanGridResult rightGrid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGrid leftGrid = UpliftVanGridTestFactory.Create();
+            UpliftVanGrid rightGrid = UpliftVanGridTestFactory.Create();
             var tangentLines = new[]
             {
                 3,
@@ -67,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             AssertGrid(rightGrid, output.RightGrid);
         }
 
-        private static void AssertGrid(UpliftVanGridResult expectedGrid, MacroStabilityInwardsGrid actualGrid)
+        private static void AssertGrid(UpliftVanGrid expectedGrid, MacroStabilityInwardsGrid actualGrid)
         {
             Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
             Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);

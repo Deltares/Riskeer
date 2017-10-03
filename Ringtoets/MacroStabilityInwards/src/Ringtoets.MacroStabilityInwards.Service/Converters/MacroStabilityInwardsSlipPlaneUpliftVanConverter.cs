@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -54,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, result.TangentLines);
         }
 
-        private static MacroStabilityInwardsGrid ConvertGrid(UpliftVanGridResult grid)
+        private static MacroStabilityInwardsGrid ConvertGrid(UpliftVanGrid grid)
         {
             return new MacroStabilityInwardsGrid
             {

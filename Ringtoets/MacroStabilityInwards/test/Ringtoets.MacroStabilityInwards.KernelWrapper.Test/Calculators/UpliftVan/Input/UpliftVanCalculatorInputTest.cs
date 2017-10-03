@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     GridAutomaticDetermined = gridAutomaticDetermined,
                     LeftGrid = leftGrid,
                     RightGrid = rightGrid,
-                    TangentLineAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries,
+                    TangentLinesAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries,
                     TangentLineZTop = tangentLineZTop,
                     TangentLineZBottom = tangentLineZBottom,
                     CreateZones = createZones,
@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreSame(leftGrid, input.LeftGrid);
             Assert.AreSame(rightGrid, input.RightGrid);
 
-            Assert.AreEqual(tangentLineAutomaticAtBoundaries, input.TangentLineAutomaticAtBoundaries);
+            Assert.AreEqual(tangentLineAutomaticAtBoundaries, input.TangentLinesAutomaticAtBoundaries);
             Assert.AreEqual(tangentLineZTop, input.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom);
             Assert.AreEqual(createZones, input.CreateZones);
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
             Assert.IsFalse(input.MoveGrid);
             Assert.IsFalse(input.GridAutomaticDetermined);
-            Assert.IsFalse(input.TangentLineAutomaticAtBoundaries);
+            Assert.IsFalse(input.TangentLinesAutomaticAtBoundaries);
             Assert.IsFalse(input.CreateZones);
             Assert.IsFalse(input.AutomaticForbiddenZones);
 

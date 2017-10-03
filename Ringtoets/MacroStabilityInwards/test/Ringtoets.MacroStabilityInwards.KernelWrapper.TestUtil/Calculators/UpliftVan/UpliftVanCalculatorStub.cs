@@ -57,8 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultTestFactory.Create(),
                 new UpliftVanCalculationGridResult(
-                    UpliftVanGridResultTestFactory.Create(),
-                    UpliftVanGridResultTestFactory.Create(),
+                    UpliftVanGridTestFactory.Create(),
+                    UpliftVanGridTestFactory.Create(),
                     new[]
                     {
                         3,

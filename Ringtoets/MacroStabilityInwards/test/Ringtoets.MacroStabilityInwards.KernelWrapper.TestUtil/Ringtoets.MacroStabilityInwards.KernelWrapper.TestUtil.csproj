@@ -58,7 +58,7 @@
     </Compile>
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryConfig.cs" />
     <Compile Include="Calculators\UpliftVan\Input\TestUpliftVanSoilProfile.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTestFactory.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanGridTestFactory.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactory.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorOutputAssert.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactory.cs" />

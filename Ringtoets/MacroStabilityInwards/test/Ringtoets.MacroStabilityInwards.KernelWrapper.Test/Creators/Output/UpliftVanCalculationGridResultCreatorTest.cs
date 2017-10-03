@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Deltares.WTIStability;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 
@@ -103,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             CollectionAssert.AreEqual(slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights.Select(sl => sl.Height), result.TangentLines);
         }
 
-        private static void AssertGrid(SlipCircleGrid originalGrid, UpliftVanGridResult actualGrid)
+        private static void AssertGrid(SlipCircleGrid originalGrid, UpliftVanGrid actualGrid)
         {
             Assert.AreEqual(originalGrid.GridXLeft, actualGrid.XLeft);
             Assert.AreEqual(originalGrid.GridXRight, actualGrid.XRight);

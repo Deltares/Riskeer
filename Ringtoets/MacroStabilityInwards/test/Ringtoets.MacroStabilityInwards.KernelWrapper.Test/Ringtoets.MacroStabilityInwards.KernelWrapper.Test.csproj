@@ -68,6 +68,7 @@
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPreconsolidationStressTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanDilatancyTypeTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanPlLineCreationMethodTest.cs" />
+    <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanWaterPressureInterpolationModelTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanShearStrengthModelTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayerTest.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorTest.cs" />
     <Compile Include="Creators\Input\SoilCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilModelCreatorTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTest.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanGridTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResultTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTest.cs" />
     <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreatorTest.cs" />

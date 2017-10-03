@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Output
@@ -33,8 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_SlidingCurveResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridResultTestFactory.Create(),
-                                                                           UpliftVanGridResultTestFactory.Create(),
+            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridTestFactory.Create(),
+                                                                           UpliftVanGridTestFactory.Create(),
                                                                            new double[0]);
 
             // Call
@@ -64,8 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         {
             // Setup
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridResultTestFactory.Create(),
-                                                                           UpliftVanGridResultTestFactory.Create(),
+            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridTestFactory.Create(),
+                                                                           UpliftVanGridTestFactory.Create(),
                                                                            new double[0]);
 
             // Call
@@ -81,8 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         {
             // Setup
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridResultTestFactory.Create(),
-                                                                           UpliftVanGridResultTestFactory.Create(),
+            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridTestFactory.Create(),
+                                                                           UpliftVanGridTestFactory.Create(),
                                                                            new double[0]);
 
             // Call
@@ -98,8 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         {
             // Setup
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridResultTestFactory.Create(),
-                                                                           UpliftVanGridResultTestFactory.Create(),
+            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridTestFactory.Create(),
+                                                                           UpliftVanGridTestFactory.Create(),
                                                                            new double[0]);
 
             // Call
@@ -131,8 +132,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             };
 
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
-            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridResultTestFactory.Create(),
-                                                                           UpliftVanGridResultTestFactory.Create(),
+            var calculationGridResult = new UpliftVanCalculationGridResult(UpliftVanGridTestFactory.Create(),
+                                                                           UpliftVanGridTestFactory.Create(),
                                                                            new double[0]);
 
             // Call

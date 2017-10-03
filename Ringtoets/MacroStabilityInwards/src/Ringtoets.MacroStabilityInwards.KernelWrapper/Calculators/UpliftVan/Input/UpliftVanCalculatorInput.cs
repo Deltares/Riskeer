@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             GridAutomaticDetermined = properties.GridAutomaticDetermined;
             LeftGrid = properties.LeftGrid;
             RightGrid = properties.RightGrid;
-            TangentLineAutomaticAtBoundaries = properties.TangentLineAutomaticAtBoundaries;
+            TangentLinesAutomaticAtBoundaries = properties.TangentLinesAutomaticAtBoundaries;
             TangentLineZTop = properties.TangentLineZTop;
             TangentLineZBottom = properties.TangentLineZBottom;
             CreateZones = properties.CreateZones;
@@ -268,7 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets whether the tangent line boundaries should be defined automatically.
             /// </summary>
-            public bool TangentLineAutomaticAtBoundaries { internal get; set; }
+            public bool TangentLinesAutomaticAtBoundaries { internal get; set; }
 
             /// <summary>
             /// Gets or sets the tangent line z top.
@@ -450,7 +450,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets whether the tangent line boundaries should be defined automatically.
         /// </summary>
-        public bool TangentLineAutomaticAtBoundaries { get; }
+        public bool TangentLinesAutomaticAtBoundaries { get; }
 
         /// <summary>
         /// Gets the tangent line z top.

@@ -22,8 +22,9 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Output
 {
@@ -34,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_LeftGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanGridResult grid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculationGridResult(null, grid, Enumerable.Empty<double>());
@@ -48,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_RightGridNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanGridResult grid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculationGridResult(grid, null, Enumerable.Empty<double>());
@@ -62,8 +63,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_TangentLinesNull_ThrowsArgumentNullException()
         {
             // Setup
-            UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
-            UpliftVanGridResult rightGrid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGrid leftGrid = UpliftVanGridTestFactory.Create();
+            UpliftVanGrid rightGrid = UpliftVanGridTestFactory.Create();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculationGridResult(leftGrid, rightGrid, null);
@@ -77,8 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            UpliftVanGridResult leftGrid = UpliftVanGridResultTestFactory.Create();
-            UpliftVanGridResult rightGrid = UpliftVanGridResultTestFactory.Create();
+            UpliftVanGrid leftGrid = UpliftVanGridTestFactory.Create();
+            UpliftVanGrid rightGrid = UpliftVanGridTestFactory.Create();
             var tangentLines = new[]
             {
                 0,

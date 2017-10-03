@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         {
             return new SlipCircleTangentLine
             {
-                AutomaticAtBoundaries = input.TangentLineAutomaticAtBoundaries,
+                AutomaticAtBoundaries = input.TangentLinesAutomaticAtBoundaries,
                 TangentLineZTop = input.TangentLineZTop,
                 TangentLineZBottom = input.TangentLineZBottom,
                 TangentLineNumber = 1,

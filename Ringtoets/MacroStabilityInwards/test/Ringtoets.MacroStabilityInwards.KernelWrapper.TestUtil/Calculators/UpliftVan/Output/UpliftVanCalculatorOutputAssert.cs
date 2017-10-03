@@ -21,6 +21,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output
@@ -127,11 +128,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="UpliftVanGridResult"/>.</param>
-        /// <param name="actual">The actual <see cref="UpliftVanGridResult"/>.</param>
+        /// <param name="expected">The expected <see cref="UpliftVanGrid"/>.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanGrid"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGrid(UpliftVanGridResult expected, UpliftVanGridResult actual)
+        private static void AssertGrid(UpliftVanGrid expected, UpliftVanGrid actual)
         {
             Assert.AreEqual(expected.XLeft, actual.XLeft);
             Assert.AreEqual(expected.XRight, actual.XRight);

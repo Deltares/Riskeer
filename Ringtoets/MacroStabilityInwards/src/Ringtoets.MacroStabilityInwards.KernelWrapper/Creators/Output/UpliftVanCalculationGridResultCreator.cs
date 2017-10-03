@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Deltares.WTIStability;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
@@ -47,16 +48,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
                 throw new ArgumentNullException(nameof(slipPlaneUpliftVan));
             }
 
-            UpliftVanGridResult leftGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid);
-            UpliftVanGridResult rightGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneRightGrid);
+            UpliftVanGrid leftGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid);
+            UpliftVanGrid rightGrid = CreateGrid(slipPlaneUpliftVan.SlipPlaneRightGrid);
 
             return new UpliftVanCalculationGridResult(leftGrid, rightGrid, slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights
                                                                                              .Select(tl => tl.Height));
         }
 
-        private static UpliftVanGridResult CreateGrid(SlipCircleGrid grid)
+        private static UpliftVanGrid CreateGrid(SlipCircleGrid grid)
         {
-            return new UpliftVanGridResult(grid.GridXLeft, grid.GridXRight, grid.GridZTop, grid.GridZBottom, grid.GridXNumber, grid.GridZNumber);
+            return new UpliftVanGrid(grid.GridXLeft, grid.GridXRight, grid.GridZTop, grid.GridZBottom, grid.GridXNumber, grid.GridZNumber);
         }
     }
 }

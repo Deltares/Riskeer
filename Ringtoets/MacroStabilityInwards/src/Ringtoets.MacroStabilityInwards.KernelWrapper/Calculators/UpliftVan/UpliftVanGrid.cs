@@ -19,15 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
     /// The grid result of an Uplift Van calculation.
     /// </summary>
-    public class UpliftVanGridResult
+    public class UpliftVanGrid
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanGridResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanGrid"/>.
         /// </summary>
         /// <param name="xLeft">The left boundary of the grid.</param>
         /// <param name="xRight">The right boundary of the grid.</param>
@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// <param name="zBottom">The bottom boundary of the grid.</param>
         /// <param name="numberOfHorizontalPoints">The number of horizontal points.</param>
         /// <param name="numberOfVerticalPoints">The number of vertical points.</param>
-        internal UpliftVanGridResult(double xLeft, double xRight, double zTop, double zBottom, int numberOfHorizontalPoints, int numberOfVerticalPoints)
+        internal UpliftVanGrid(double xLeft, double xRight, double zTop, double zBottom, int numberOfHorizontalPoints, int numberOfVerticalPoints)
         {
             XLeft = xLeft;
             XRight = xRight;

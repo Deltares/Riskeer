@@ -55,7 +55,7 @@
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryConfigTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\TestUpliftVanSoilProfileTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorStubTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Output\UpliftVanGridResultTestFactoryTest.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanGridTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactoryTest.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelFactoryConfigTest.cs" />

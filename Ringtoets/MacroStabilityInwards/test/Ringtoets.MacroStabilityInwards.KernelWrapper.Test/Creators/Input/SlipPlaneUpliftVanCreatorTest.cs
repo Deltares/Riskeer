@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 },
                 TangentLineZTop = tangentLineZTop,
                 TangentLineZBottom = tangentLineZBottom,
-                TangentLineAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries
+                TangentLinesAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries
             });
 
             // Call

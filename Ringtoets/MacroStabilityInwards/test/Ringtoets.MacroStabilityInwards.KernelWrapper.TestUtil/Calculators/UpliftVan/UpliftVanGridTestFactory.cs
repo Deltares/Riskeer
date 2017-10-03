@@ -19,28 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.UpliftVan.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan
 {
-    [TestFixture]
-    public class UpliftVanGridResultTestFactoryTest
+    /// <summary>
+    /// Factory to create simple <see cref="UpliftVanGrid"/> instances that can be used for testing.
+    /// </summary>
+    public static class UpliftVanGridTestFactory
     {
-        [Test]
-        public void Create_Always_ReturnUpliftVanGridResult()
+        /// <summary>
+        /// Creates a new <see cref="UpliftVanGrid"/>.
+        /// </summary>
+        /// <returns>The created <see cref="UpliftVanGrid"/>.</returns>
+        public static UpliftVanGrid Create()
         {
-            // Call
-            UpliftVanGridResult grid = UpliftVanGridResultTestFactory.Create();
-
-            // Assert
-            Assert.AreEqual(0.1, grid.XLeft);
-            Assert.AreEqual(0.2, grid.XRight);
-            Assert.AreEqual(0.3, grid.ZTop);
-            Assert.AreEqual(0.4, grid.ZBottom);
-            Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
-            Assert.AreEqual(2, grid.NumberOfVerticalPoints);
+            return new UpliftVanGrid(0.1, 0.2, 0.3, 0.4, 1, 2);
         }
     }
 }

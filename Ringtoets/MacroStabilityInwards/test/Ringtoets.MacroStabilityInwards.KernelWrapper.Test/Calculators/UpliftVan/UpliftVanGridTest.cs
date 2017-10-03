@@ -21,12 +21,12 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Output
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
     [TestFixture]
-    public class UpliftVanGridResultTest
+    public class UpliftVanGridTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             int numberOfVerticalPoints = random.Next();
 
             // Call
-            var gridResult = new UpliftVanGridResult(xLeft, xRight, zTop, zBottom, numberOfHorizontalPoints, numberOfVerticalPoints);
+            var gridResult = new UpliftVanGrid(xLeft, xRight, zTop, zBottom, numberOfHorizontalPoints, numberOfVerticalPoints);
 
             // Assert
             Assert.AreEqual(xLeft, gridResult.XLeft);

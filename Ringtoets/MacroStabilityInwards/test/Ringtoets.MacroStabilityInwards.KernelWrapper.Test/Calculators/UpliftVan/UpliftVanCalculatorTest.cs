@@ -257,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 GridAutomaticDetermined = random.NextBoolean(),
                 LeftGrid = new MacroStabilityInwardsGrid(),
                 RightGrid = new MacroStabilityInwardsGrid(),
-                TangentLineAutomaticAtBoundaries = random.NextBoolean(),
+                TangentLinesAutomaticAtBoundaries = random.NextBoolean(),
                 TangentLineZTop = random.Next(),
                 TangentLineZBottom = random.Next(),
                 CreateZones = random.NextBoolean(),
