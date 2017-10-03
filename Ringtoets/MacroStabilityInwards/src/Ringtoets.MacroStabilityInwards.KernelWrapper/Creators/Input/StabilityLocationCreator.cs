@@ -55,8 +55,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return new StabilityLocation
             {
                 DikeSoilScenario = ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
-                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
+                WaternetCreationMode = ConvertWaternetCreationMode(input.WaternetCreationMode),
+                PlLineCreationMethod = ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiver = input.AssessmentLevel,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolder,
@@ -109,6 +109,74 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                     return DikeSoilScenario.ClayDikeOnSand;
                 case MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand:
                     return DikeSoilScenario.SandDikeOnSand;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="UpliftVanWaternetCreationMode"/> into a <see cref="WaternetCreationMode"/>.
+        /// </summary>
+        /// <param name="waternetCreationMode">The <see cref="UpliftVanWaternetCreationMode"/> to convert.</param>
+        /// <returns>A <see cref="WaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waternetCreationMode"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="waternetCreationMode"/>
+        /// is a valid value but unsupported.</exception>
+        private static WaternetCreationMode ConvertWaternetCreationMode(UpliftVanWaternetCreationMode waternetCreationMode)
+        {
+            if (!Enum.IsDefined(typeof(UpliftVanWaternetCreationMode), waternetCreationMode))
+            {
+                throw new InvalidEnumArgumentException(nameof(waternetCreationMode),
+                                                       (int) waternetCreationMode,
+                                                       typeof(UpliftVanWaternetCreationMode));
+            }
+
+            switch (waternetCreationMode)
+            {
+                case UpliftVanWaternetCreationMode.CreateWaternet:
+                    return WaternetCreationMode.CreateWaternet;
+                case UpliftVanWaternetCreationMode.FillInWaternetValues:
+                    return WaternetCreationMode.FillInWaternetValues;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="UpliftVanPlLineCreationMethod"/> into a <see cref="PlLineCreationMethod"/>.
+        /// </summary>
+        /// <param name="plLineCreationMethod">The <see cref="UpliftVanPlLineCreationMethod"/> to convert.</param>
+        /// <returns>A <see cref="PlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="plLineCreationMethod"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="plLineCreationMethod"/>
+        /// is a valid value but unsupported.</exception>
+        private static PlLineCreationMethod ConvertPlLineCreationMethod(UpliftVanPlLineCreationMethod plLineCreationMethod)
+        {
+            if (!Enum.IsDefined(typeof(UpliftVanPlLineCreationMethod), plLineCreationMethod))
+            {
+                throw new InvalidEnumArgumentException(nameof(plLineCreationMethod),
+                                                       (int) plLineCreationMethod,
+                                                       typeof(UpliftVanPlLineCreationMethod));
+            }
+
+            switch (plLineCreationMethod)
+            {
+                case UpliftVanPlLineCreationMethod.ExpertKnowledgeRrd:
+                    return PlLineCreationMethod.ExpertKnowledgeRrd;
+                case UpliftVanPlLineCreationMethod.ExpertKnowledgeLinearInDike:
+                    return PlLineCreationMethod.ExpertKnowledgeLinearInDike;
+                case UpliftVanPlLineCreationMethod.RingtoetsWti2017:
+                    return PlLineCreationMethod.RingtoetsWti2017;
+                case UpliftVanPlLineCreationMethod.DupuitStatic:
+                    return PlLineCreationMethod.DupuitStatic;
+                case UpliftVanPlLineCreationMethod.DupuitDynamic:
+                    return PlLineCreationMethod.DupuitDynamic;
+                case UpliftVanPlLineCreationMethod.Sensors:
+                    return PlLineCreationMethod.Sensors;
+                case UpliftVanPlLineCreationMethod.None:
+                    return PlLineCreationMethod.None;
                 default:
                     throw new NotSupportedException();
             }

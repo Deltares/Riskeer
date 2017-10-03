@@ -80,11 +80,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DikeSoilScenario = macroStabilityInwardsDikeSoilScenario,
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
                     PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestUpliftVanSoilProfile(),
+                    DikeSoilScenario = macroStabilityInwardsDikeSoilScenario
                 });
 
             // Call
@@ -92,6 +92,103 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(dikeSoilScenario, location.DikeSoilScenario);
+        }
+
+        [Test]
+        public void Create_InvalidWaternetCreationMode_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    WaternetCreationMode = (UpliftVanWaternetCreationMode) 99
+                });
+
+            // Call
+            TestDelegate test = () => StabilityLocationCreator.Create(input);
+
+            // Assert
+            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(UpliftVanWaternetCreationMode).Name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [Test]
+        [TestCase(UpliftVanWaternetCreationMode.CreateWaternet, WaternetCreationMode.CreateWaternet)]
+        [TestCase(UpliftVanWaternetCreationMode.FillInWaternetValues, WaternetCreationMode.FillInWaternetValues)]
+        public void Create_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(UpliftVanWaternetCreationMode upliftVanWaternetCreationMode,
+                                                                                                     WaternetCreationMode waternetCreationMode)
+        {
+            // Setup
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    WaternetCreationMode = upliftVanWaternetCreationMode
+                });
+
+            // Call
+            StabilityLocation location = StabilityLocationCreator.Create(input);
+
+            // Assert
+            Assert.AreEqual(waternetCreationMode, location.WaternetCreationMode);
+        }
+
+        [Test]
+        public void Create_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PlLineCreationMethod = (UpliftVanPlLineCreationMethod) 99
+                });
+
+            // Call
+            TestDelegate test = () => StabilityLocationCreator.Create(input);
+
+            // Assert
+            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(UpliftVanPlLineCreationMethod).Name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [Test]
+        [TestCase(UpliftVanPlLineCreationMethod.ExpertKnowledgeRrd, PlLineCreationMethod.ExpertKnowledgeRrd)]
+        [TestCase(UpliftVanPlLineCreationMethod.ExpertKnowledgeLinearInDike, PlLineCreationMethod.ExpertKnowledgeLinearInDike)]
+        [TestCase(UpliftVanPlLineCreationMethod.RingtoetsWti2017, PlLineCreationMethod.RingtoetsWti2017)]
+        [TestCase(UpliftVanPlLineCreationMethod.DupuitStatic, PlLineCreationMethod.DupuitStatic)]
+        [TestCase(UpliftVanPlLineCreationMethod.DupuitDynamic, PlLineCreationMethod.DupuitDynamic)]
+        [TestCase(UpliftVanPlLineCreationMethod.Sensors, PlLineCreationMethod.Sensors)]
+        [TestCase(UpliftVanPlLineCreationMethod.None, PlLineCreationMethod.None)]
+        public void Create_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(UpliftVanPlLineCreationMethod upliftVanPlLineCreationMethod,
+                                                                                                     PlLineCreationMethod plLineCreationMethod)
+        {
+            // Setup
+            var input = new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    PlLineCreationMethod = upliftVanPlLineCreationMethod
+                });
+
+            // Call
+            StabilityLocation location = StabilityLocationCreator.Create(input);
+
+            // Assert
+            Assert.AreEqual(plLineCreationMethod, location.PlLineCreationMethod);
         }
 
         [Test]
