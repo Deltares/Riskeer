@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -37,9 +38,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         public bool Calculated { get; private set; }
 
         /// <summary>
+        /// Gets a value indicating whether <see cref="Validate"/> was called or not.
+        /// </summary>
+        public bool Validated { get; private set; }
+
+        /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
+
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the validation.
+        /// </summary>
+        public bool ThrowExceptionOnValidate { get; set; }
 
         public SoilModel SoilModel { get; set; }
 
@@ -85,6 +96,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             }
 
             Calculated = true;
+        }
+
+        public List<string> Validate()
+        {
+            if (ThrowExceptionOnValidate)
+            {
+                throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
+            }
+
+            Validated = true;
+            return new List<string>();
         }
     }
 }

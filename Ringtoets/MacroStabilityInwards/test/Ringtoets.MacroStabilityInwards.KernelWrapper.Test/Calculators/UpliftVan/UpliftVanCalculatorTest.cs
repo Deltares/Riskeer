@@ -196,7 +196,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Validate_Always_ReturnEmptyList()
+        public void Validate_CalculatorWithValidInput_ReturnEmptyList()
         {
             // Setup
             UpliftVanCalculatorInput input = CreateValidCalculatorInput();
@@ -207,6 +207,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Assert
             CollectionAssert.IsEmpty(validationResult);
+        }
+
+        [Test]
+        public void Validate_KernelThrowsUpliftVanKernelWrapperException_ThrowUpliftVanCalculatorException()
+        {
+            // Setup
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            upliftVanKernel.ThrowExceptionOnValidate = true;
+
+            // Call
+            TestDelegate test = () => new UpliftVanCalculator(CreateValidCalculatorInput(), testMacroStabilityInwardsKernelFactory).Validate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanCalculatorException>(test);
+            Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
         private static UpliftVanCalculatorInput CreateValidCalculatorInput()

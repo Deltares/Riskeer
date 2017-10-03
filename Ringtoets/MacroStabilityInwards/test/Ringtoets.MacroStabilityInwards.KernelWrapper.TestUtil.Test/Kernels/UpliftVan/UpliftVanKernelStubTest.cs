@@ -76,5 +76,43 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
         }
+
+        [Test]
+        public void Validate_ThrowExceptionOnValidateFalse_SetValidatedTrue()
+        {
+            // Setup
+            var kernel = new UpliftVanKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Validated);
+
+            // Call
+            kernel.Validate();
+
+            // Assert
+            Assert.IsTrue(kernel.Validated);
+        }
+
+        [Test]
+        public void Validate_ThrowExceptionOnValidateTrue_ThrowsUpliftVanKernelWrapperException()
+        {
+            // Setup
+            var kernel = new UpliftVanKernelStub
+            {
+                ThrowExceptionOnValidate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Validated);
+
+            // Call
+            TestDelegate test = () => kernel.Validate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Validated);
+        }
     }
 }

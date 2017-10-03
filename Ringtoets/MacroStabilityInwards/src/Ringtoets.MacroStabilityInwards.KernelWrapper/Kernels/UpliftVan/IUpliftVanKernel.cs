@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -136,5 +137,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when
         /// an unexpected error occurs when performing the calculation.</exception>
         void Calculate();
+
+        /// <summary>
+        /// Validates the input for the Uplift Van calculation.
+        /// </summary>
+        /// <returns>A list of validation strings, or an empty list if there are no validation errors.</returns>
+        List<string> Validate();
     }
 }

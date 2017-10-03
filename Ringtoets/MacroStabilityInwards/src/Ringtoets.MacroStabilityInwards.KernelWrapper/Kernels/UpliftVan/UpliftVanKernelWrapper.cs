@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -174,6 +176,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 string result = wtiStabilityCalculation.Run();
 
                 ReadResult(result);
+            }
+            catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
+            {
+                throw new UpliftVanKernelWrapperException(e.Message, e);
+            }
+        }
+
+        public List<string> Validate()
+        {
+            try
+            {
+                var wtiStabilityCalculation = new WTIStabilityCalculation();
+                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
+
+                string result = wtiStabilityCalculation.Validate();
+                ValidationResult[] deserializedResult = WTIDeserializer.DeserializeValidation(result);
+                return deserializedResult.Select(r => r.Text).ToList();
+
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
