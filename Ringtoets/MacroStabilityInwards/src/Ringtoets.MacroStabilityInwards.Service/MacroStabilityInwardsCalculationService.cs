@@ -189,6 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     WaternetCreationMode = UpliftVanWaternetCreationMode.CreateWaternet,
                     PlLineCreationMethod = UpliftVanPlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = inputParameters.AssessmentLevel,
+                    LandwardDirection = UpliftVanLandwardDirection.PositiveX,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = UpliftVanSoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
                     DrainageConstruction = UpliftVanDrainageConstructionConverter.Convert(inputParameters),
