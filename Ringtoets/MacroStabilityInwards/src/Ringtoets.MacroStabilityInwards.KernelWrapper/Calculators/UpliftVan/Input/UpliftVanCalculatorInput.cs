@@ -67,6 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             SoilProfile = properties.SoilProfile;
             DrainageConstruction = properties.DrainageConstruction;
             PhreaticLineOffsets = properties.PhreaticLineOffsets;
+            SlipPlane = properties.SlipPlane;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
             WaterLevelPolder = properties.WaterLevelPolder;
             MinimumLevelPhreaticLineAtDikeTopRiver = properties.MinimumLevelPhreaticLineAtDikeTopRiver;
@@ -82,12 +83,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             DikeSoilScenario = properties.DikeSoilScenario;
             MoveGrid = properties.MoveGrid;
             MaximumSliceWidth = properties.MaximumSliceWidth;
-            GridAutomaticDetermined = properties.GridAutomaticDetermined;
-            LeftGrid = properties.LeftGrid;
-            RightGrid = properties.RightGrid;
-            TangentLinesAutomaticAtBoundaries = properties.TangentLinesAutomaticAtBoundaries;
-            TangentLineZTop = properties.TangentLineZTop;
-            TangentLineZBottom = properties.TangentLineZBottom;
             CreateZones = properties.CreateZones;
             AutomaticForbiddenZones = properties.AutomaticForbiddenZones;
             SlipPlaneMinimumDepth = properties.SlipPlaneMinimumDepth;
@@ -121,8 +116,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 PenetrationLength = double.NaN;
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
                 MaximumSliceWidth = double.NaN;
-                TangentLineZTop = double.NaN;
-                TangentLineZBottom = double.NaN;
                 SlipPlaneMinimumDepth = double.NaN;
                 SlipPlaneMinimumLength = double.NaN;
             }
@@ -169,6 +162,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// Gets or sets the phreatic line offsets.
             /// </summary>
             public UpliftVanPhreaticLineOffsets PhreaticLineOffsets { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the slip plane.
+            /// </summary>
+            public UpliftVanSlipPlane SlipPlane { internal get; set; }
 
             /// <summary>
             /// Gets or sets the dike soil scenario.
@@ -258,38 +256,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public double MaximumSliceWidth { internal get; set; }
 
             /// <summary>
-            /// Gets or sets whether the grid is automatic determined or not.
-            /// </summary>
-            public bool GridAutomaticDetermined { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the left grid.
-            /// </summary>
-            public MacroStabilityInwardsGrid LeftGrid { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the right grid.
-            /// </summary>
-            public MacroStabilityInwardsGrid RightGrid { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets whether the tangent line boundaries should be defined automatically.
-            /// </summary>
-            public bool TangentLinesAutomaticAtBoundaries { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the tangent line z top.
-            /// [m+NAP]
-            /// </summary>
-            public double TangentLineZTop { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the tangent line z bottom.
-            /// [m+NAP]
-            /// </summary>
-            public double TangentLineZBottom { internal get; set; }
-
-            /// <summary>
             /// Gets or sets whether zones should be created.
             /// </summary>
             public bool CreateZones { internal get; set; }
@@ -356,6 +322,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Gets the phreatic line offsets.
         /// </summary>
         public UpliftVanPhreaticLineOffsets PhreaticLineOffsets { get; }
+
+        /// <summary>
+        /// Gets the slip plane.
+        /// </summary>
+        public UpliftVanSlipPlane SlipPlane { get; }
 
         /// <summary>
         /// Gets the dike soil scenario.
@@ -443,38 +414,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// [m]
         /// </summary>
         public double MaximumSliceWidth { get; }
-
-        /// <summary>
-        /// Gets whether the grid is automatic determined or not.
-        /// </summary>
-        public bool GridAutomaticDetermined { get; }
-
-        /// <summary>
-        /// Gets the left grid.
-        /// </summary>
-        public MacroStabilityInwardsGrid LeftGrid { get; }
-
-        /// <summary>
-        /// Gets the right grid.
-        /// </summary>
-        public MacroStabilityInwardsGrid RightGrid { get; }
-
-        /// <summary>
-        /// Gets whether the tangent line boundaries should be defined automatically.
-        /// </summary>
-        public bool TangentLinesAutomaticAtBoundaries { get; }
-
-        /// <summary>
-        /// Gets the tangent line z top.
-        /// [m+NAP]
-        /// </summary>
-        public double TangentLineZTop { get; }
-
-        /// <summary>
-        /// Gets the tangent line z bottom.
-        /// [m+NAP]
-        /// </summary>
-        public double TangentLineZBottom { get; }
 
         /// <summary>
         /// Gets whether zones should be created.

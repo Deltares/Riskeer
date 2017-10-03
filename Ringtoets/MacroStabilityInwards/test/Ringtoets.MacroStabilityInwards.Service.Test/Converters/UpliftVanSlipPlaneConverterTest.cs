@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.IsTrue(slipPlane.TangentLinesAutomaticAtBoundaries);
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
-            Assert.IsNaN(slipPlane.TangentLineNumber);
+            Assert.AreEqual(0, slipPlane.TangentLineNumber);
             Assert.IsNaN(slipPlane.MaxSpacingBetweenBoundaries);
         }
 
@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.IsTrue(slipPlane.TangentLinesAutomaticAtBoundaries);
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
-            Assert.IsNaN(slipPlane.TangentLineNumber);
+            Assert.AreEqual(0, slipPlane.TangentLineNumber);
             Assert.IsNaN(slipPlane.MaxSpacingBetweenBoundaries);
         }
 

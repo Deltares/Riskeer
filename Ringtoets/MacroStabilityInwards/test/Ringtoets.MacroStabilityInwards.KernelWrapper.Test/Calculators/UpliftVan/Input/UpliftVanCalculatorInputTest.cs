@@ -53,6 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var soilProfile = new TestUpliftVanSoilProfile();
             var drainageConstruction = new UpliftVanDrainageConstruction();
             var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
+            var slipPlane = new UpliftVanSlipPlane();
 
             var waternetCreationMode = random.NextEnumValue<UpliftVanWaternetCreationMode>();
             var plLineCreationMethod = random.NextEnumValue<UpliftVanPlLineCreationMethod>();
@@ -72,12 +73,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var dikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
             bool moveGrid = random.NextBoolean();
             double maximumSliceWidth = random.Next();
-            bool gridAutomaticDetermined = random.NextBoolean();
-            var leftGrid = new MacroStabilityInwardsGrid();
-            var rightGrid = new MacroStabilityInwardsGrid();
-            bool tangentLineAutomaticAtBoundaries = random.NextBoolean();
-            double tangentLineZTop = random.Next();
-            double tangentLineZBottom = random.Next();
             bool createZones = random.NextBoolean();
             bool automaticForbiddenZones = random.NextBoolean();
             double slipPlaneMinDepth = random.Next();
@@ -95,6 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
                     PhreaticLineOffsets = phreaticLineOffsets,
+                    SlipPlane = slipPlane,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolder = waterLevelPolder,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
@@ -110,12 +106,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     DikeSoilScenario = dikeSoilScenario,
                     MoveGrid = moveGrid,
                     MaximumSliceWidth = maximumSliceWidth,
-                    GridAutomaticDetermined = gridAutomaticDetermined,
-                    LeftGrid = leftGrid,
-                    RightGrid = rightGrid,
-                    TangentLinesAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries,
-                    TangentLineZTop = tangentLineZTop,
-                    TangentLineZBottom = tangentLineZBottom,
                     CreateZones = createZones,
                     AutomaticForbiddenZones = automaticForbiddenZones,
                     SlipPlaneMinimumDepth = slipPlaneMinDepth,
@@ -131,6 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreSame(soilProfile, input.SoilProfile);
             Assert.AreSame(drainageConstruction, input.DrainageConstruction);
             Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsets);
+            Assert.AreSame(slipPlane, input.SlipPlane);
 
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder);
@@ -148,14 +139,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(dikeSoilScenario, input.DikeSoilScenario);
             Assert.AreEqual(moveGrid, input.MoveGrid);
             Assert.AreEqual(maximumSliceWidth, input.MaximumSliceWidth);
-            Assert.AreEqual(gridAutomaticDetermined, input.GridAutomaticDetermined);
-
-            Assert.AreSame(leftGrid, input.LeftGrid);
-            Assert.AreSame(rightGrid, input.RightGrid);
-
-            Assert.AreEqual(tangentLineAutomaticAtBoundaries, input.TangentLinesAutomaticAtBoundaries);
-            Assert.AreEqual(tangentLineZTop, input.TangentLineZTop);
-            Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom);
             Assert.AreEqual(createZones, input.CreateZones);
             Assert.AreEqual(automaticForbiddenZones, input.AutomaticForbiddenZones);
             Assert.AreEqual(slipPlaneMinDepth, input.SlipPlaneMinimumDepth);
@@ -182,9 +165,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 });
 
             // Assert
-            Assert.IsNull(input.LeftGrid);
-            Assert.IsNull(input.RightGrid);
-
             Assert.IsNaN(input.AssessmentLevel);
             Assert.IsNaN(input.WaterLevelRiverAverage);
             Assert.IsNaN(input.WaterLevelPolder);
@@ -198,15 +178,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(input.PiezometricHeadPhreaticLine2Inwards);
             Assert.IsNaN(input.PenetrationLength);
             Assert.IsNaN(input.MaximumSliceWidth);
-            Assert.IsNaN(input.TangentLineZTop);
-            Assert.IsNaN(input.TangentLineZBottom);
             Assert.IsNaN(input.SlipPlaneMinimumDepth);
             Assert.IsNaN(input.SlipPlaneMinimumLength);
 
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
             Assert.IsFalse(input.MoveGrid);
-            Assert.IsFalse(input.GridAutomaticDetermined);
-            Assert.IsFalse(input.TangentLinesAutomaticAtBoundaries);
             Assert.IsFalse(input.CreateZones);
             Assert.IsFalse(input.AutomaticForbiddenZones);
 

@@ -141,9 +141,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanKernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
             UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
             UpliftVanKernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
-            UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input), upliftVanKernel.SlipPlaneUpliftVan);
+            UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
 
-            Assert.AreEqual(input.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
+            Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
             Assert.AreEqual(input.CreateZones, upliftVanKernel.CreateZones);
             Assert.AreEqual(input.AutomaticForbiddenZones, upliftVanKernel.AutomaticForbiddenZones);
             Assert.AreEqual(input.SlipPlaneMinimumDepth, upliftVanKernel.SlipPlaneMinimumDepth);
@@ -219,10 +219,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
-                LeftGrid = new MacroStabilityInwardsGrid(),
-                RightGrid = new MacroStabilityInwardsGrid(),
                 DrainageConstruction = new UpliftVanDrainageConstruction(),
-                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
+                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                SlipPlane = new UpliftVanSlipPlane()
             });
         }
 
@@ -239,6 +238,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 DrainageConstruction = new UpliftVanDrainageConstruction(),
                 PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                SlipPlane = new UpliftVanSlipPlane(),
                 WaterLevelRiverAverage = random.Next(),
                 WaterLevelPolder = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
@@ -254,12 +254,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),
                 MaximumSliceWidth = random.Next(),
-                GridAutomaticDetermined = random.NextBoolean(),
-                LeftGrid = new MacroStabilityInwardsGrid(),
-                RightGrid = new MacroStabilityInwardsGrid(),
-                TangentLinesAutomaticAtBoundaries = random.NextBoolean(),
-                TangentLineZTop = random.Next(),
-                TangentLineZBottom = random.Next(),
                 CreateZones = random.NextBoolean(),
                 AutomaticForbiddenZones = random.NextBoolean(),
                 SlipPlaneMinimumDepth = random.Next(),

@@ -21,6 +21,7 @@
 
 using System;
 using Deltares.WTIStability;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -33,41 +34,51 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
     internal static class SlipPlaneUpliftVanCreator
     {
         /// <summary>
-        /// Creates a <see cref="SlipPlaneUpliftVan"/> based on the given <paramref name="input"/>,
+        /// Creates a <see cref="SlipPlaneUpliftVan"/> based on the given <paramref name="slipPlane"/>,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
-        /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="SlipPlaneUpliftVan"/> with the given information from <paramref name="input"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        public static SlipPlaneUpliftVan Create(UpliftVanCalculatorInput input)
+        /// <param name="slipPlane">The <see cref="UpliftVanSlipPlane"/> to get the information from.</param>
+        /// <returns>A new <see cref="SlipPlaneUpliftVan"/> with the given information from <paramref name="slipPlane"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="slipPlane"/> is <c>null</c>.</exception>
+        public static SlipPlaneUpliftVan Create(UpliftVanSlipPlane slipPlane)
         {
-            if (input == null)
+            if (slipPlane == null)
             {
-                throw new ArgumentNullException(nameof(input));
+                throw new ArgumentNullException(nameof(slipPlane));
             }
 
-            return new SlipPlaneUpliftVan
+            var kernelSlipPlane = new SlipPlaneUpliftVan
             {
                 ActiveSide = ActiveSideType.Left,
-                SlipPlaneLeftGrid = CreateGrid(input.LeftGrid),
-                SlipPlaneRightGrid = CreateGrid(input.RightGrid),
-                SlipPlaneTangentLine = CreateTangentline(input)
+                SlipPlaneTangentLine = CreateTangentline(slipPlane)
             };
+
+            if (!slipPlane.GridAutomaticDetermined)
+            {
+                kernelSlipPlane.SlipPlaneLeftGrid = CreateGrid(slipPlane.LeftGrid);
+                kernelSlipPlane.SlipPlaneRightGrid = CreateGrid(slipPlane.RightGrid);
+            }
+            if (!slipPlane.TangentLinesAutomaticAtBoundaries)
+            {
+                kernelSlipPlane.SlipPlaneTangentLine = CreateTangentline(slipPlane);
+            }
+
+            return kernelSlipPlane;
         }
 
-        private static SlipCircleTangentLine CreateTangentline(UpliftVanCalculatorInput input)
+        private static SlipCircleTangentLine CreateTangentline(UpliftVanSlipPlane slipPlane)
         {
             return new SlipCircleTangentLine
             {
-                AutomaticAtBoundaries = input.TangentLinesAutomaticAtBoundaries,
-                TangentLineZTop = input.TangentLineZTop,
-                TangentLineZBottom = input.TangentLineZBottom,
-                TangentLineNumber = 1,
-                MaxSpacingBetweenBoundaries = 10
+                AutomaticAtBoundaries = slipPlane.TangentLinesAutomaticAtBoundaries,
+                TangentLineZTop = slipPlane.TangentZTop,
+                TangentLineZBottom = slipPlane.TangentZBottom,
+                TangentLineNumber = slipPlane.TangentLineNumber,
+                MaxSpacingBetweenBoundaries = slipPlane.MaxSpacingBetweenBoundaries
             };
         }
 
-        private static SlipCircleGrid CreateGrid(MacroStabilityInwardsGrid grid)
+        private static SlipCircleGrid CreateGrid(UpliftVanGrid grid)
         {
             return new SlipCircleGrid
             {

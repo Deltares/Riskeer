@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Deltares.WTIStability;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
@@ -35,14 +36,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
     public class SlipPlaneUpliftVanCreatorTest
     {
         [Test]
-        public void Create_InputNull_ThrowsArgumentNullException()
+        public void Create_SlipPlaneNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => SlipPlaneUpliftVanCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("input", exception.ParamName);
+            Assert.AreEqual("slipPlane", exception.ParamName);
         }
 
         [Test]
@@ -64,39 +65,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             int rightGridZNumber = random.Next();
             double tangentLineZTop = random.NextDouble();
             double tangentLineZBottom = random.NextDouble();
-            bool tangentLineAutomaticAtBoundaries = random.NextBoolean();
+            int tangentLineNumber = random.Next();
+            double maxSpacingBetweenBoundaries = random.NextDouble();
 
-            var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-            {
-                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                SoilProfile = new TestUpliftVanSoilProfile(),
-                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
-                DrainageConstruction = new UpliftVanDrainageConstruction(),
-                LeftGrid = new MacroStabilityInwardsGrid
-                {
-                    XLeft = leftGridXLeft,
-                    XRight = leftGridXRight,
-                    ZTop = leftGridZTop,
-                    ZBottom = leftGridZBottom,
-                    NumberOfHorizontalPoints = leftGridXNumber,
-                    NumberOfVerticalPoints = leftGridZNumber
-                },
-                RightGrid = new MacroStabilityInwardsGrid
-                {
-                    XLeft = rightGridXLeft,
-                    XRight = rightGridXRight,
-                    ZTop = rightGridZTop,
-                    ZBottom = rightGridZBottom,
-                    NumberOfHorizontalPoints = rightGridXNumber,
-                    NumberOfVerticalPoints = rightGridZNumber
-                },
-                TangentLineZTop = tangentLineZTop,
-                TangentLineZBottom = tangentLineZBottom,
-                TangentLinesAutomaticAtBoundaries = tangentLineAutomaticAtBoundaries
-            });
+            var leftGrid = new UpliftVanGrid(leftGridXLeft, leftGridXRight, leftGridZTop, leftGridZBottom, leftGridXNumber, leftGridZNumber);
+            var rightGrid = new UpliftVanGrid(rightGridXLeft, rightGridXRight, rightGridZTop, rightGridZBottom, rightGridXNumber, rightGridZNumber);
+            var slipPlane = new UpliftVanSlipPlane(leftGrid, rightGrid, tangentLineZTop, tangentLineZBottom, tangentLineNumber, maxSpacingBetweenBoundaries);
 
             // Call
-            SlipPlaneUpliftVan slipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input);
+            SlipPlaneUpliftVan slipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(slipPlane);
 
             // Assert
             Assert.AreEqual(ActiveSideType.Left, slipPlaneUpliftVan.ActiveSide);
@@ -114,11 +91,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(rightGridXNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneRightGrid.Owner); // Automatically synced
-            Assert.AreEqual(tangentLineAutomaticAtBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.AutomaticAtBoundaries);
+            Assert.AreEqual(slipPlane.TangentLinesAutomaticAtBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.AutomaticAtBoundaries);
             Assert.AreEqual(tangentLineZTop, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
-            Assert.AreEqual(1, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
-            Assert.AreEqual(10, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries);
+            Assert.AreEqual(tangentLineNumber, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
+            Assert.AreEqual(maxSpacingBetweenBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
         }
     }

@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsTrue(slipPlane.TangentLinesAutomaticAtBoundaries);
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
-            Assert.IsNaN(slipPlane.TangentLineNumber);
+            Assert.AreEqual(0, slipPlane.TangentLineNumber);
             Assert.IsNaN(slipPlane.MaxSpacingBetweenBoundaries);
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsTrue(slipPlane.TangentLinesAutomaticAtBoundaries);
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
-            Assert.IsNaN(slipPlane.TangentLineNumber);
+            Assert.AreEqual(0, slipPlane.TangentLineNumber);
             Assert.IsNaN(slipPlane.MaxSpacingBetweenBoundaries);
         }
 
@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var random = new Random(11);
             double tangentZTop = random.NextDouble();
             double tangentZBottom = random.NextDouble();
-            double tangentLineNumber = random.NextDouble();
+            int tangentLineNumber = random.Next();
             double maxSpacingBetweenBoundaries = random.NextDouble();
 
             UpliftVanGrid leftGrid = UpliftVanGridTestFactory.Create();
