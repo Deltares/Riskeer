@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -243,10 +244,40 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[13])));
         }
 
+        [Test]
+        public void Create_InvalidLandwardDirection_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const string name = "Surface line with landward direction";
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
+
+            // Call
+            TestDelegate test = () => SurfaceLineCreator.Create(surfaceLine, (UpliftVanLandwardDirection) 99);
+
+            // Assert
+            string message = $"The value of argument 'landwardDirection' ({99}) is invalid for Enum type '{typeof(UpliftVanLandwardDirection).Name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+        }
+
+        [TestCase(UpliftVanLandwardDirection.PositiveX, LandwardDirection.PositiveX)]
+        [TestCase(UpliftVanLandwardDirection.NegativeX, LandwardDirection.NegativeX)]
+        public void Create_ValidLandwardDirection_CreateSurfaceLineWithLandwardDirection(UpliftVanLandwardDirection upliftVanLandwardDirection,
+                                                                                         LandwardDirection landwardDirection)
+        {
+            // Setup
+            const string name = "Surface line with landward direction";
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
+
+            // Call
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, upliftVanLandwardDirection);
+
+            // Assert
+            AssertGeneralValues(name, actual);
+            Assert.AreEqual(landwardDirection, actual.LandwardDirection);
+        }
+
         private static void AssertGeneralValues(string name, SurfaceLine2 actual)
         {
-            Assert.AreEqual(LandwardDirection.PositiveX, actual.LandwardDirection);
-
             Assert.AreEqual(name, actual.Name); // Unused property
             CollectionAssert.IsEmpty(actual.Geometry.CalcPoints); // Internal property
         }
