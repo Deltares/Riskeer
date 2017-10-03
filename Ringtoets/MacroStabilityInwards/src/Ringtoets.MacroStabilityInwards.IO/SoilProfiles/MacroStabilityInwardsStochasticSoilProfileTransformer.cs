@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 {
@@ -41,6 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <param name="soilProfile">The transformed soil profile.</param>
         /// <returns>A new <paramref name="soilProfile"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when <see cref="StochasticSoilProfile"/>
+        /// could not be transformed.</exception>
         public static MacroStabilityInwardsStochasticSoilProfile Transform(StochasticSoilProfile stochasticSoilProfile,
                                                                            IMacroStabilityInwardsSoilProfile soilProfile)
         {
@@ -53,7 +55,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            return new MacroStabilityInwardsStochasticSoilProfile(stochasticSoilProfile.Probability, soilProfile);
+            try
+            {
+                return new MacroStabilityInwardsStochasticSoilProfile(stochasticSoilProfile.Probability, soilProfile);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
     }
 }

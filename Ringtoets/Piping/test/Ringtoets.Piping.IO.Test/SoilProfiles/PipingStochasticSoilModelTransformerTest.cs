@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
             StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry("some name", FailureMechanismType.Piping, new[]
             {
-                new StochasticSoilProfile(1.0, new TestSoilProfile())
+                StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(new TestSoilProfile())
             });
 
             // Call
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
             StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(name, FailureMechanismType.Piping, new[]
             {
-                new StochasticSoilProfile(1.0, new SoilProfile2D(0, name, new[]
+                StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(new SoilProfile2D(0, name, new[]
                 {
                     new SoilLayer2D()
                 }, Enumerable.Empty<PreconsolidationStress>()))
@@ -145,6 +145,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void Transform_ValidStochasticSoilModelWithSoilProfile2D_ReturnsExpectedPipingStochasticSoilModel()
         {
             // Setup
+            var random = new Random(21);
             const string name = "name";
             const double intersectionX = 1.0;
 
@@ -158,11 +159,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             };
 
             var transformer = new PipingStochasticSoilModelTransformer();
+            double probability = random.NextDouble();
             var soilModel = new StochasticSoilModel(name, FailureMechanismType.Piping)
             {
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, profile)
+                    new StochasticSoilProfile(probability, profile)
                 },
                 Geometry =
                 {
@@ -181,7 +183,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             var expectedPipingSoilProfile = new List<PipingStochasticSoilProfile>
             {
-                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTransformer.Transform(profile))
+                new PipingStochasticSoilProfile(probability, PipingSoilProfileTransformer.Transform(profile))
             };
             AssertPipingStochasticSoilProfiles(expectedPipingSoilProfile, transformed.StochasticSoilProfiles);
         }
@@ -205,12 +207,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var transformer = new PipingStochasticSoilModelTransformer();
             StochasticSoilModel soilModel1 = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(name, FailureMechanismType.Piping, new[]
             {
-                new StochasticSoilProfile(1.0, profile)
+                StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(profile)
             });
 
             StochasticSoilModel soilModel2 = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(name, FailureMechanismType.Piping, new[]
             {
-                new StochasticSoilProfile(1.0, profile)
+                StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(profile)
             });
 
             // Call
@@ -272,6 +274,31 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
         [Test]
         [SetCulture("nl-NL")]
+        [TestCaseSource(nameof(GetSupportedStochasticSoilProfilesWithInvalidProbabilities))]
+        public void Transform_ValidStochasticSoilModelWithStochasticProfileInvalidProbability_ThrowsImportedDataException(StochasticSoilProfile profile)
+        {
+            const string soilModelName = "name";
+
+            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
+                                                                                                                 FailureMechanismType.Piping, new[]
+                                                                                                                 {
+                                                                                                                     profile
+                                                                                                                 });
+
+            var transformer = new PipingStochasticSoilModelTransformer();
+
+            // Call
+            TestDelegate call = () => transformer.Transform(soilModel);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel " +
+                                           "moet in het bereik [0,0, 1,0] liggen.";
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
         [TestCaseSource(nameof(GetValidConfiguredAndSupportedSoilProfiles))]
         public void Transform_ValidStochasticSoilModelWithSameProfileProbabilityExceedingValidRange_ThrowsImportedDataException(ISoilProfile profile)
         {
@@ -300,6 +327,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void Transform_ValidStochasticSoilModelWithSimilarProfileInTwoStochasticSoilProfiles_ReturnsExpectedPipingStochasticSoilModel()
         {
             // Setup
+            var random = new Random(21);
+
             const string soilModelName = "name";
             const string soilProfileName = "SoilProfile";
             const double intersectionX = 1.0;
@@ -311,13 +340,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 IntersectionX = intersectionX
             };
-            var stochasticSoilProfile2D = new StochasticSoilProfile(0.2, soilProfile2D);
+            var stochasticSoilProfile2D = new StochasticSoilProfile(random.NextDouble(), soilProfile2D);
 
             var soilProfile1D = new SoilProfile1D(0, soilProfileName, 0, new[]
             {
                 SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
             });
-            var stochasticSoilProfile1D = new StochasticSoilProfile(0.2, soilProfile1D);
+            var stochasticSoilProfile1D = new StochasticSoilProfile(random.NextDouble(), soilProfile1D);
 
             var transformer = new PipingStochasticSoilModelTransformer();
             StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName, FailureMechanismType.Piping, new[]
@@ -365,25 +394,68 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                        .Where(t => t != FailureMechanismType.Piping);
         }
 
-        private static IEnumerable<ISoilProfile> GetValidConfiguredAndSupportedSoilProfiles()
+        private static IEnumerable<TestCaseData> GetSupportedStochasticSoilProfilesWithInvalidProbabilities()
+        {
+            var invalidProbabilities = new[]
+            {
+                double.NaN,
+                double.NegativeInfinity,
+                double.PositiveInfinity,
+                1.1,
+                -0.1,
+                5,
+                -5
+            };
+
+            const long id = 1;
+            const string name = "test";
+            foreach (double invalidProbability in invalidProbabilities)
+            {
+                yield return new TestCaseData(new StochasticSoilProfile(invalidProbability,
+                                                                        new SoilProfile2D(id,
+                                                                                          name,
+                                                                                          new[]
+                                                                                          {
+                                                                                              SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+                                                                                          }, Enumerable.Empty<PreconsolidationStress>())
+                                                                        {
+                                                                            IntersectionX = 1.0
+                                                                        }))
+                    .SetName($"2D Soil Profile - {invalidProbability}");
+                yield return new TestCaseData(new StochasticSoilProfile(invalidProbability,
+                                                                        new SoilProfile1D(id,
+                                                                                          name,
+                                                                                          1,
+                                                                                          new[]
+                                                                                          {
+                                                                                              SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
+                                                                                          })))
+                    .SetName($"1D Soil Profile - {invalidProbability}");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GetValidConfiguredAndSupportedSoilProfiles()
         {
             var random = new Random(21);
 
             const long id = 1;
             const string name = "test";
 
-            yield return new SoilProfile2D(id, name, new[]
-            {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
-            }, Enumerable.Empty<PreconsolidationStress>())
-            {
-                IntersectionX = random.NextDouble()
-            };
+            yield return new TestCaseData(new SoilProfile2D(id, name, new[]
+                                          {
+                                              SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+                                          }, Enumerable.Empty<PreconsolidationStress>())
+                                          {
+                                              IntersectionX = random.NextDouble()
+                                          })
+                .SetName("2D Profile");
 
-            yield return new SoilProfile1D(id, name, random.NextDouble(), new[]
-            {
-                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
-            });
+            yield return new TestCaseData(new SoilProfile1D(id, name, random.NextDouble(),
+                                                            new[]
+                                                            {
+                                                                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
+                                                            }))
+                .SetName("1D Profile");
         }
     }
 }

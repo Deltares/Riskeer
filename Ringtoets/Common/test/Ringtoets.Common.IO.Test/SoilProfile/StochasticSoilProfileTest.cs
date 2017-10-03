@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO.SoilProfile;
@@ -30,87 +29,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     [TestFixture]
     public class StochasticSoilProfileTest
     {
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(12.5)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(0 - 1e-6)]
-        [TestCase(-28.5)]
-        [TestCase(double.NaN)]
-        public void Constructor_WithInvalidProbabilities_ThrowsArgumentOutOfRangeException(double probability)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<ISoilProfile>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new StochasticSoilProfile(probability, soilProfile);
-
-            // Assert
-            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(1)]
-        [TestCase(-0.51)]
-        [TestCase(0.51)]
-        [TestCase(double.NaN)]
-        public void AddProbability_ProbabilityToAddResultsInInvalidProbability_ThrowsArgumentOutOfRangeException(double probabilityToAdd)
-        {
-            // Setup
-            const double probability = 0.5;
-
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<ISoilProfile>();
-            mockRepository.ReplayAll();
-
-            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
-
-            // Call
-            TestDelegate call = () => stochasticSoilProfile.AddProbability(probabilityToAdd);
-
-            // Assert
-            const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0.5)]
-        [TestCase(-0.5)]
-        [TestCase(-0.2)]
-        [TestCase(0.2)]
-        public void AddProbability_ProbabilityToAddResultsInValidProbability_ReturnsExpectedProbability(double probabilityToAdd)
-        {
-            // Setup
-            const double probability = 0.5;
-
-            var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<ISoilProfile>();
-            mockRepository.ReplayAll();
-
-            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
-
-            // Call
-            stochasticSoilProfile.AddProbability(probabilityToAdd);
-
-            // Assert
-            double expectedProbability = probability + probabilityToAdd;
-            Assert.AreEqual(expectedProbability, stochasticSoilProfile.Probability, 1e-6);
-        }
-
         [TestCase]
         public void Constructor_SoilProfileNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
-            TestDelegate test = () => new StochasticSoilProfile(0.5, null);
+            TestDelegate test = () => new StochasticSoilProfile(random.NextDouble(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -121,12 +47,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double probability = random.NextDouble();
+
             var mockRepository = new MockRepository();
             var soilProfile = mockRepository.Stub<ISoilProfile>();
             mockRepository.ReplayAll();
-
-            var random = new Random(9);
-            double probability = random.NextDouble();
 
             // Call
             var profile = new StochasticSoilProfile(probability, soilProfile);

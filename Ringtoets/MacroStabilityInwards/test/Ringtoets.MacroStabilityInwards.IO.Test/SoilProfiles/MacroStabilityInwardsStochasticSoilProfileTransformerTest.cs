@@ -22,10 +22,11 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 {
@@ -57,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var soilProfile = mocks.Stub<ISoilProfile>();
             mocks.ReplayAll();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(0, soilProfile);
+            StochasticSoilProfile stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);
@@ -68,9 +69,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             mocks.VerifyAll();
         }
 
-
         [Test]
-        public void Transform_ValidData_ReturnExpectedMacroStabilityInwardsStochasticSoilProfile()
+        [TestCase(double.NaN)]
+        [TestCase(1.1)]
+        [TestCase(-0.1)]
+        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException(double probability)
         {
             // Setup
             var mocks = new MockRepository();
@@ -78,7 +81,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
             mocks.ReplayAll();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(new Random(9).NextDouble(), soilProfile);
+            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, macroStabilityInwardsSoilProfile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
+        }
+
+        [Test]
+        public void Transform_ValidData_ReturnExpectedMacroStabilityInwardsStochasticSoilProfile()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<ISoilProfile>();
+            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            mocks.ReplayAll();
+
+            var stochasticSoilProfile = new StochasticSoilProfile(random.NextDouble(), soilProfile);
 
             // Call
             MacroStabilityInwardsStochasticSoilProfile macroStabilityInwardsStochasticSoilProfile

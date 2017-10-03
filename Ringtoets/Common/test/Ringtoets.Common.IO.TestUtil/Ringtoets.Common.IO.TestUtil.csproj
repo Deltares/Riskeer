@@ -58,6 +58,7 @@
     <Compile Include="SoilLayer1DTestFactory.cs" />
     <Compile Include="SoilLayer2DTestFactory.cs" />
     <Compile Include="StochasticSoilModelTestFactory.cs" />
+    <Compile Include="StochasticSoilProfileTestFactory.cs" />
     <Compile Include="TestConfigurationItem.cs" />
     <Compile Include="TestDikeProfileUpdateStrategy.cs" />
     <Compile Include="TestCalculationConfigurationWriter.cs" />

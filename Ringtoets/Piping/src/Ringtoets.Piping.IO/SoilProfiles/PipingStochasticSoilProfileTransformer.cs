@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -38,6 +39,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// <param name="soilProfile">The transformed piping soil profile.</param>
         /// <returns>A new <paramref name="soilProfile"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when <see cref="StochasticSoilProfile"/>
+        /// could not be transformed.</exception>
         public static PipingStochasticSoilProfile Transform(StochasticSoilProfile stochasticSoilProfile, PipingSoilProfile soilProfile)
         {
             if (stochasticSoilProfile == null)
@@ -49,7 +52,14 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            return new PipingStochasticSoilProfile(stochasticSoilProfile.Probability, soilProfile);
+            try
+            {
+                return new PipingStochasticSoilProfile(stochasticSoilProfile.Probability, soilProfile);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                throw new ImportedDataTransformException(e.Message, e);
+            }
         }
     }
 }

@@ -22,7 +22,9 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.SoilProfiles;
 using Ringtoets.Piping.Primitives;
@@ -55,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var soilProfile = mockRepository.Stub<ISoilProfile>();
             mockRepository.ReplayAll();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(0, soilProfile);
+            var stochasticSoilProfile = StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(soilProfile);
 
             // Call
             TestDelegate test = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, null);
@@ -67,16 +69,44 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
+        [TestCase(double.NaN)]
+        [TestCase(1.1)]
+        [TestCase(-0.1)]
+        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException(double probability)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<ISoilProfile>();
+            mocks.ReplayAll();
+
+            PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+
+            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            TestDelegate call = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, pipingSoilProfile);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(call);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
+        }
+
+        [Test]
         public void Transform_ValidStochasticSoilProfile_ReturnsExpectedPipingStochasticSoilProfile()
         {
             // Setup
+            var random = new Random(21);
+
             var mockRepository = new MockRepository();
             var soilProfile = mockRepository.Stub<ISoilProfile>();
             mockRepository.ReplayAll();
 
             PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(new Random(9).NextDouble(), soilProfile);
+            var stochasticSoilProfile = new StochasticSoilProfile(random.NextDouble(), soilProfile);
 
             // Call
             PipingStochasticSoilProfile pipingStochasticSoilProfile = PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, pipingSoilProfile);

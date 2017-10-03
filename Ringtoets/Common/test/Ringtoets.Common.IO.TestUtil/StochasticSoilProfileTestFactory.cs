@@ -20,43 +20,25 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Ringtoets.Common.IO.Properties;
+using Ringtoets.Common.IO.SoilProfile;
 
-namespace Ringtoets.Common.IO.SoilProfile
+namespace Ringtoets.Common.IO.TestUtil
 {
     /// <summary>
-    /// This class couples a SoilProfile to a probability of occurrence.
+    /// Factory which creates simple instance of <see cref="StochasticSoilProfile"/>
+    /// that can be used for testing.
     /// </summary>
-    public class StochasticSoilProfile
+    public static class StochasticSoilProfileTestFactory
     {
-       
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
+        /// Creates a <see cref="StochasticSoilProfile"/> with a valid probability.
         /// </summary>
-        /// <param name="probability">Probability of the stochastic soil profile.</param>
         /// <param name="soilProfile">The soil profile.</param>
+        /// <returns>A <see cref="StochasticSoilProfile"/> with the specified <paramref name="soilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public StochasticSoilProfile(double probability, ISoilProfile soilProfile)
+        public static StochasticSoilProfile CreateStochasticSoilProfileWithValidProbability(ISoilProfile soilProfile)
         {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException(nameof(soilProfile));
-            }
-            Probability = probability;
-            SoilProfile = soilProfile;
+            return new StochasticSoilProfile(0.5, soilProfile);
         }
-
-        /// <summary>
-        /// Gets the soil profile.
-        /// </summary>
-        public ISoilProfile SoilProfile { get; }
-
-        /// <summary>
-        /// Gets the probability of the stochastic soil profile.
-        /// </summary>
-        public double Probability { get; }
     }
 }

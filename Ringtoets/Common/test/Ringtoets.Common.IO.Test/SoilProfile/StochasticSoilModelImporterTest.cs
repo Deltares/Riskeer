@@ -594,50 +594,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Import_StochasticSoilModelWithoutStochasticSoilProfiles_StopsImportAndLogs()
-        {
-            // Setup
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            var updateStrategy = mocks.StrictMock<IStochasticSoilModelUpdateModelStrategy<IMechanismStochasticSoilModel>>();
-            var filter = mocks.StrictMock<IStochasticSoilModelMechanismFilter>();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "modelWithoutProfile.soil");
-
-            var importer = new StochasticSoilModelImporter<IMechanismStochasticSoilModel>(
-                new TestStochasticSoilModelCollection(),
-                validFilePath,
-                messageProvider,
-                new StochasticSoilModelImporterConfiguration<IMechanismStochasticSoilModel>(
-                    transformer,
-                    filter,
-                    updateStrategy));
-
-            var importResult = true;
-
-            // Call
-            Action call = () => importResult = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
-            {
-                Tuple<string, Level, Exception>[] tupleArray = tuples.ToArray();
-                Assert.AreEqual(1, tupleArray.Length);
-
-                Tuple<string, Level, Exception> actualLog = tupleArray[0];
-
-                string expectedMessage = "Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '36006_Piping'. " +
-                                         $"{Environment.NewLine}Het bestand wordt overgeslagen.";
-
-                Assert.AreEqual(expectedMessage, actualLog.Item1);
-                Assert.AreEqual(Level.Error, actualLog.Item2);
-                Assert.IsInstanceOf<StochasticSoilModelException>(actualLog.Item3);
-            });
-
-            Assert.IsFalse(importResult);
-        }
-
-        [Test]
         public void Import_IncorrectProbability_LogAndImportSoilModelToCollection()
         {
             // Setup

@@ -264,10 +264,8 @@ namespace Ringtoets.Common.IO.SoilProfile
 
                 if (!probability.HasValue)
                 {
-                    string soilModelName = ReadStochasticSoilModelName();
-                    throw new StochasticSoilModelException(
-                        string.Format(Resources.StochasticSoilModelReader_ReadStochasticSoilProfiles_No_profiles_found_in_stochastic_soil_model_Name_0_,
-                                      soilModelName));
+                    MoveNext();
+                    yield break;
                 }
 
                 long? soilProfile1D = ReadSoilProfile1DId();

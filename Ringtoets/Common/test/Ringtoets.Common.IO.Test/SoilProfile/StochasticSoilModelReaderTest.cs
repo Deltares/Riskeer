@@ -282,6 +282,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         [Test]
         public void ReadStochasticSoilModel_EmptySoilModelAndNoGeometry_ReturnsSoilModelWithoutGeometry()
         {
+            // Setup
             string dbFile = Path.Combine(testDataPath, "modelWithoutGeometry.soil");
 
             using (var reader = new StochasticSoilModelReader(dbFile))
@@ -304,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void GivenDatabaseWithStochasticSoilModelWithAndWithoutGeometry_WhenReading_ThenReturnsAllModels()
         {
             // Setup
-            string dbFile = Path.Combine(testDataPath, "skippedStochasticSoilModel.soil");
+            string dbFile = Path.Combine(testDataPath, "modelsWithAndWithoutGeometry.soil");
 
             var readModels = new List<StochasticSoilModel>();
             using (var reader = new StochasticSoilModelReader(dbFile))
@@ -367,6 +368,135 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadStochasticSoilModel_SoilModelWithoutStochasticSoilProfiles_ReturnsSoilModelWithoutLayers()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelWithoutStochasticSoilProfiles.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.AreEqual("SoilModel", model.Name);
+                Assert.AreEqual(FailureMechanismType.Piping, model.FailureMechanismType);
+                CollectionAssert.IsEmpty(model.StochasticSoilProfiles);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GivenDatabaseWithStochasticSoilModelWithAndWithoutSoilProfiles_WhenReading_ReturnsAllModels()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelsWithAndWithoutStochasticSoilProfiles.soil");
+
+            var readModels = new List<StochasticSoilModel>();
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                while (reader.HasNext)
+                {
+                    readModels.Add(reader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                Assert.IsFalse(reader.HasNext);
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    "36005_Stability",
+                    "36005_Piping",
+                    "36006_Stability",
+                    "36006_Piping",
+                    "36007_Stability",
+                    "36007_Piping"
+                }, readModels.Select(m => m.Name));
+                CollectionAssert.AreEqual(new[]
+                {
+                    10,
+                    0,
+                    6,
+                    0,
+                    8,
+                    0
+                }, readModels.Select(m => m.StochasticSoilProfiles.Count));
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_ModelWithStochasticSoilProfilesWith1DProfiles_ReturnsModelWithStochasticProfiles()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelWithStochasticSoilProfile1D.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.AreEqual("SoilModel", model.Name);
+                Assert.AreEqual(FailureMechanismType.Stability, model.FailureMechanismType);
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.1,
+                    0.35,
+                    0.05,
+                    0.1,
+                    0.35,
+                    0.05
+                }.OrderBy(p => p), model.StochasticSoilProfiles.Select(profile => profile.Probability));
+                CollectionAssert.AllItemsAreInstancesOfType(model.StochasticSoilProfiles.Select(profile => profile.SoilProfile), typeof(SoilProfile1D));
+            }
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_ModelWithStochasticProfilesWith2DProfiles_ReturnsModelWithStochasticProfiles()
+        {
+            // Setup
+            string dbFile = Path.Combine(testDataPath, "modelWithStochasticSoilProfile2D.soil");
+
+            using (var reader = new StochasticSoilModelReader(dbFile))
+            {
+                reader.Validate();
+
+                // Call
+                StochasticSoilModel model = reader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.AreEqual("SoilModel", model.Name);
+                Assert.AreEqual(FailureMechanismType.Stability, model.FailureMechanismType);
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.15,
+                    0.175,
+                    0.075,
+                    0.05,
+                    0.05,
+                    0.15,
+                    0.175,
+                    0.075,
+                    0.05,
+                    0.05
+                }.OrderBy(p => p), model.StochasticSoilProfiles.Select(profile => profile.Probability));
+                CollectionAssert.AllItemsAreInstancesOfType(model.StochasticSoilProfiles.Select(profile => profile.SoilProfile), typeof(SoilProfile2D));
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadStochasticSoilModel_OtherFailureMechanism_ThrowsStochasticSoilModelException()
         {
             // Setup
@@ -385,72 +515,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 const string expectedMessage = "Het faalmechanisme 'UNKNOWN' wordt niet ondersteund.";
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
-
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
-        }
-
-        [Test]
-        public void ReadStochasticSoilModel_SoilModelWithoutStochasticSoilProfile_ThrowsStochasticSoilModelExceptionAndCanContinueReading()
-        {
-            // Setup
-            string dbFile = Path.Combine(testDataPath, "modelWithoutProfile.soil");
-
-            StochasticSoilModelException expectedException = null;
-            var readModels = new List<StochasticSoilModel>();
-            using (var reader = new StochasticSoilModelReader(dbFile))
-            {
-                reader.Validate();
-
-                while (reader.HasNext)
-                {
-                    try
-                    {
-                        // Call
-                        readModels.Add(reader.ReadStochasticSoilModel());
-                    }
-                    catch (StochasticSoilModelException e)
-                    {
-                        expectedException = e;
-                        reader.MoveNext();
-                    }
-                }
-
-                Assert.IsFalse(reader.HasNext);
-            }
-
-            // Assert
-            var expectedSegmentAndModelNames = new[]
-            {
-                "36005_Stability",
-                "36005_Piping",
-                "36006_Stability",
-                "36007_Stability",
-                "36007_Piping"
-            };
-            var expectedSegmentPointCount = new[]
-            {
-                1797,
-                1797,
-                144,
-                606,
-                606
-            };
-            var expectedProfileCount = new[]
-            {
-                10,
-                10,
-                6,
-                8,
-                8
-            };
-
-            CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
-            CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
-            CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
-
-            Assert.IsNotNull(expectedException);
-            Assert.AreEqual("Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '36006_Piping'.",
-                            expectedException.Message);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

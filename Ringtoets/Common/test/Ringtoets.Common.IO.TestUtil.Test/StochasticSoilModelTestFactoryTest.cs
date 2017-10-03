@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -63,7 +62,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(1, 2),
-                new Point2D(3, 4) 
+                new Point2D(3, 4)
             }, model.Geometry);
         }
     }
