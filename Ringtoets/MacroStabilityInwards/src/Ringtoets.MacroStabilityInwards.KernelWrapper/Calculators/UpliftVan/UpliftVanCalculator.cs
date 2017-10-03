@@ -83,14 +83,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
             try
             {
-                upliftVanKernel.Validate();
+                return upliftVanKernel.Validate();
             }
             catch (UpliftVanKernelWrapperException e)
             {
                 throw new UpliftVanCalculatorException(e.Message, e);
             }
-
-            return new List<string>();
         }
 
         private IUpliftVanKernel CalculateUpliftVan()

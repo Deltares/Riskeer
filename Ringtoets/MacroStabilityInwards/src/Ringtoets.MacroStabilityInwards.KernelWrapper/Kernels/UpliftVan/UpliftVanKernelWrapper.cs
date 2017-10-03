@@ -192,10 +192,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
                 string result = wtiStabilityCalculation.Validate();
                 ValidationResult[] deserializedResult = WTIDeserializer.DeserializeValidation(result);
-                return deserializedResult.Select(r => r.Text).ToList();
-
+                return deserializedResult.Where(r => r.MessageType == ValidationResultType.Error).Select(r => r.Text).ToList();
             }
-            catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
+            catch (Exception e)
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
