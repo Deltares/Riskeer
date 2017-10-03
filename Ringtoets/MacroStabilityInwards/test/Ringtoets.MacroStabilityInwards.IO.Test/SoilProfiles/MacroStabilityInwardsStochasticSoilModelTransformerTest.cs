@@ -271,14 +271,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Transform_ValidStochasticSoilModelWithSameProfileProbabilitExceedingValidRange_ThrowsImportedDataException()
+        [TestCaseSource(nameof(GetValidConfiguredAndSupportedSoilProfiles))]
+        public void Transform_ValidStochasticSoilModelWithSameProfileProbabilityExceedingValidRange_ThrowsImportedDataException(ISoilProfile profile)
         {
             // Setup
             const string soilModelName = "name";
-
-            var mocks = new MockRepository();
-            var profile = mocks.Stub<ISoilProfile>();
-            mocks.ReplayAll();
 
             StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
                                                                                                                  FailureMechanismType.Stability, new[]
@@ -296,9 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var exception = Assert.Throws<ImportedDataTransformException>(call);
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel " +
                                            "moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, exception.Message);
-
-            mocks.VerifyAll();
+            StringAssert.StartsWith(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -355,6 +350,24 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             return Enum.GetValues(typeof(FailureMechanismType))
                        .Cast<FailureMechanismType>()
                        .Where(t => t != FailureMechanismType.Stability);
+        }
+
+        private static IEnumerable<ISoilProfile> GetValidConfiguredAndSupportedSoilProfiles()
+        {
+            var random = new Random(21);
+
+            const long id = 1;
+            const string name = "test";
+
+            yield return new SoilProfile2D(id, name, new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+            }, Enumerable.Empty<PreconsolidationStress>());
+
+            yield return new SoilProfile1D(id, name, random.NextDouble(), new []
+            {
+                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer()
+            });
         }
     }
 }

@@ -281,15 +281,5 @@ namespace Core.Common.Base.Properties {
                 return ResourceManager.GetString("Segment2D_Constructor_Segment_must_be_created_with_two_points", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisatie &apos;{0}&apos; is meerdere keren gevonden in ondergrondmodel &apos;{1}&apos;. Kansen van voorkomen worden opgeteld..
-        /// </summary>
-        public static string StochasticSoilProfileHelper_GetValidatedStochasticProfilesToTransform_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfileHelper_GetValidatedStochasticProfilesToTransform_StochasticS" +
-                        "oilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed", resourceCulture);
-            }
-        }
     }
 }

@@ -1694,6 +1694,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ondergrondschematisatie &apos;{0}&apos; is meerdere keren gevonden in ondergrondmodel &apos;{1}&apos;. Kansen van voorkomen worden opgeteld..
+        /// </summary>
+        public static string SoilModelTransformer_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed {
+            get {
+                return ResourceManager.GetString("SoilModelTransformer_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_" +
+                        "multiple_occurences_in_SoilModel_1_Probability_Summed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het uitlezen van de ondergrondschematisatie is mislukt..
         /// </summary>
         public static string SoilProfile1DReader_ReadSoilProfile_Failed_to_construct_profile_from_read_data {
