@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -37,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SurfaceLineCreator.Create(null);
+            TestDelegate call = () => SurfaceLineCreator.Create(null, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -73,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -97,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -123,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -154,7 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -210,7 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             surfaceLine.SetDikeTopAtRiverAt(geometry[13]);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);

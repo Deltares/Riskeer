@@ -72,6 +72,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         public static void AssertStabilityLocations(StabilityLocation expected, StabilityLocation actual)
         {
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
+            Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
+            Assert.AreEqual(expected.PlLineCreationMethod, actual.PlLineCreationMethod);
             Assert.AreEqual(expected.WaterLevelRiver, actual.WaterLevelRiver);
             Assert.AreEqual(expected.WaterLevelRiverAverage, actual.WaterLevelRiverAverage);
             Assert.AreEqual(expected.WaterLevelPolder, actual.WaterLevelPolder);
@@ -94,7 +96,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.LeakageLengthInwardsPl3, actual.LeakageLengthInwardsPl3);
             Assert.AreEqual(expected.LeakageLengthOutwardsPl4, actual.LeakageLengthOutwardsPl4);
             Assert.AreEqual(expected.LeakageLengthInwardsPl4, actual.LeakageLengthInwardsPl4);
-            Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
         }
 
         /// <summary>
@@ -107,6 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         public static void AssertSurfaceLines(SurfaceLine2 expected, SurfaceLine2 actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.LandwardDirection, actual.LandwardDirection);
             AssertGeometryPointStrings(expected.Geometry, actual.Geometry);
             AssertCharacteristicPointSets(expected.CharacteristicPoints, actual.CharacteristicPoints);
         }
@@ -330,6 +332,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.TangentLineZTop, actual.TangentLineZTop);
             Assert.AreEqual(expected.TangentLineZBottom, actual.TangentLineZBottom);
             Assert.AreEqual(expected.TangentLineNumber, actual.TangentLineNumber);
+            Assert.AreEqual(expected.MaxSpacingBetweenBoundaries, actual.MaxSpacingBetweenBoundaries);
         }
     }
 }

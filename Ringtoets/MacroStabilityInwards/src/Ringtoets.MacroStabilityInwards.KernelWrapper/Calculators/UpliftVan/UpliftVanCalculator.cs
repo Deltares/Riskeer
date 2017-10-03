@@ -117,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SoilModel = SoilModelCreator.Create(soils);
             upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile, layersWithSoils);
             upliftVanKernel.Location = StabilityLocationCreator.Create(input);
-            upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+            upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection);
             upliftVanKernel.SlipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(input.SlipPlane);
             upliftVanKernel.GridAutomaticDetermined = input.SlipPlane.GridAutomaticDetermined;
             upliftVanKernel.CreateZones = input.CreateZones;

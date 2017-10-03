@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanKernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
             UpliftVanKernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
             UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
-            UpliftVanKernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
+            UpliftVanKernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), upliftVanKernel.SurfaceLine);
             UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
 
             Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
@@ -192,7 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Assert
             var exception = Assert.Throws<UpliftVanCalculatorException>(test);
             Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
-            Assert.AreEqual(exception.InnerException.Message, exception.Message);            
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
         [Test]

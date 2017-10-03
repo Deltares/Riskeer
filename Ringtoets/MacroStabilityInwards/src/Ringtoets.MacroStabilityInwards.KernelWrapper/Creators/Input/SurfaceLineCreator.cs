@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability.Data.Geo;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -40,9 +42,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// </summary>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> from
         /// which to take the information.</param>
+        /// <param name="landwardDirection">The landward direction of the surface line.</param>
         /// <returns>A new <see cref="SurfaceLine2"/> with information taken from the <see cref="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
+        /// is a valid value but unsupported.</exception>
+        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine, UpliftVanLandwardDirection landwardDirection)
         {
             if (surfaceLine == null)
             {
@@ -52,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             var wtiSurfaceLine = new SurfaceLine2
             {
                 Name = surfaceLine.Name,
-                LandwardDirection = LandwardDirection.PositiveX
+                LandwardDirection = ConvertLandwardDirection(landwardDirection)
             };
 
             if (surfaceLine.Points.Any())
@@ -70,6 +77,35 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             }
 
             return wtiSurfaceLine;
+        }
+
+        /// <summary>
+        /// Converts a <see cref="UpliftVanLandwardDirection"/> into a <see cref="LandwardDirection"/>.
+        /// </summary>
+        /// <param name="landwardDirection">The <see cref="UpliftVanLandwardDirection"/> to convert.</param>
+        /// <returns>A <see cref="LandwardDirection"/> based on <paramref name="landwardDirection"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
+        /// is a valid value but unsupported.</exception>
+        private static LandwardDirection ConvertLandwardDirection(UpliftVanLandwardDirection landwardDirection)
+        {
+            if (!Enum.IsDefined(typeof(UpliftVanLandwardDirection), landwardDirection))
+            {
+                throw new InvalidEnumArgumentException(nameof(landwardDirection),
+                                                       (int) landwardDirection,
+                                                       typeof(UpliftVanLandwardDirection));
+            }
+
+            switch (landwardDirection)
+            {
+                case UpliftVanLandwardDirection.PositiveX:
+                    return LandwardDirection.PositiveX;
+                case UpliftVanLandwardDirection.NegativeX:
+                    return LandwardDirection.NegativeX;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoints(MacroStabilityInwardsSurfaceLine surfaceLine, GeometryPoint[] geometryPoints)
