@@ -66,31 +66,31 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
             }, properties.Cohesion);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
             }, properties.FrictionAngle);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
             }, properties.ShearStrengthRatio);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
             }, properties.StrengthIncreaseExponent);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
             }, properties.Pop);
         }
 

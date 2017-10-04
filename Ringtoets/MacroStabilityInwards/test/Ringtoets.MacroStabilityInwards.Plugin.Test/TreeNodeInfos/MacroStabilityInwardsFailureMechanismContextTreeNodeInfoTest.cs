@@ -216,7 +216,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation1 = new MacroStabilityInwardsCalculationScenario()
+                var calculation1 = new MacroStabilityInwardsCalculationScenario
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
                     SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()

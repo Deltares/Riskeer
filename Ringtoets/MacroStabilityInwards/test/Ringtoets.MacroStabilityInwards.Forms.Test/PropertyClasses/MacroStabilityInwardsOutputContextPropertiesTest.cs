@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 macroStabilityInwardsReliability,
                 macroStabilityInwardsFactorOfSafety);
 
-            var output = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties()
+            var output = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = macroStabilityInwardsFactorOfStability
             });
