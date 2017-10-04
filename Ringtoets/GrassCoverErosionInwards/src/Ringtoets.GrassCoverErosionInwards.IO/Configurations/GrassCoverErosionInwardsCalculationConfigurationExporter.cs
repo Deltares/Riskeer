@@ -58,22 +58,14 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         protected override GrassCoverErosionInwardsCalculationConfiguration ToConfiguration(GrassCoverErosionInwardsCalculation calculation)
         {
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
-            var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculation.Name);
-
-            configuration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
-
-            if (input.ShouldOvertoppingOutputIllustrationPointsBeCalculated)
+            var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculation.Name)
             {
-                configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated = input.ShouldOvertoppingOutputIllustrationPointsBeCalculated;
-            }
-            if (input.ShouldDikeHeightIllustrationPointsBeCalculated)
-            {
-                configuration.ShouldDikeHeightIllustrationPointsBeCalculated = input.ShouldDikeHeightIllustrationPointsBeCalculated;
-            }
-            if (input.ShouldOvertoppingRateIllustrationPointsBeCalculated)
-            {
-                configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated = input.ShouldOvertoppingRateIllustrationPointsBeCalculated;
-            }
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = input.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
+                ShouldDikeHeightIllustrationPointsBeCalculated = input.ShouldDikeHeightIllustrationPointsBeCalculated,
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = input.ShouldOvertoppingRateIllustrationPointsBeCalculated,
+                CriticalFlowRate = input.CriticalFlowRate.ToStochastConfiguration()
+            };
 
             if (input.DikeProfile != null)
             {
@@ -105,8 +97,6 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 configuration.OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?)
                     new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertFrom(input.OvertoppingRateCalculationType);
             }
-
-            configuration.CriticalFlowRate = input.CriticalFlowRate.ToStochastConfiguration();
 
             return configuration;
         }

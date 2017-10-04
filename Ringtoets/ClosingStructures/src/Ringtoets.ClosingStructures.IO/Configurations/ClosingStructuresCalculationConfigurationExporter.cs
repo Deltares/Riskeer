@@ -54,13 +54,16 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             ClosingStructuresInput input = calculation.InputParameters;
             var calculationConfiguration = new ClosingStructuresCalculationConfiguration(calculation.Name)
             {
-                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
+                ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated,
+                FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion,
+                FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure,
+                StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
+                DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean(),
+                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean()
             };
 
-            if (input.ShouldIllustrationPointsBeCalculated)
-            {
-                calculationConfiguration.ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated;
-            }
+            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
 
             if (input.Structure != null)
             {
@@ -84,16 +87,6 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 calculationConfiguration.LevelCrestStructureNotClosing = input.LevelCrestStructureNotClosing.ToStochastConfiguration();
                 calculationConfiguration.ThresholdHeightOpenWeir = input.ThresholdHeightOpenWeir.ToStochastConfiguration();
             }
-
-            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
-
-            calculationConfiguration.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
-            calculationConfiguration.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
-
-            calculationConfiguration.StormDuration = input.StormDuration.ToStochastConfigurationWithMean();
-            calculationConfiguration.DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean();
-            calculationConfiguration.ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean();
-
             return calculationConfiguration;
         }
 

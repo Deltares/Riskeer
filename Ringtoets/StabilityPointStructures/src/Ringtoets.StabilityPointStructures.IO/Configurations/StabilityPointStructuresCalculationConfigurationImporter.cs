@@ -118,8 +118,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
-
             if (TrySetStructure(readCalculation.StructureId, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
@@ -138,6 +136,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 SetFactorStormDurationOpenStructure(readCalculation, calculation);
                 SetVolumicWeightWater(readCalculation, calculation);
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
                 return calculation;
             }
             return null;

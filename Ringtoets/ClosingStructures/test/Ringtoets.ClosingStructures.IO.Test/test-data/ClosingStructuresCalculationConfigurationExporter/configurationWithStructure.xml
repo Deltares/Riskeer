@@ -57,5 +57,6 @@
         <standaardafwijking>0.05</standaardafwijking>
       </stochast>
     </stochasten>
+    <illustratiepunteninlezen>false</illustratiepunteninlezen>
   </berekening>
 </configuratie>

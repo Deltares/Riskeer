@@ -51,14 +51,15 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {
             HeightStructuresInput input = calculation.InputParameters;
-            var calculationConfiguration = new HeightStructuresCalculationConfiguration(calculation.Name);
-
-            calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
-
-            if (input.ShouldIllustrationPointsBeCalculated)
+            var calculationConfiguration = new HeightStructuresCalculationConfiguration(calculation.Name)
             {
-                calculationConfiguration.ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated;
-            }
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
+                ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated,
+                StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
+                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean()
+            };
+
+            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
 
             if (input.Structure != null)
             {
@@ -73,12 +74,6 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 calculationConfiguration.LevelCrestStructure = input.LevelCrestStructure.ToStochastConfiguration();
                 calculationConfiguration.CriticalOvertoppingDischarge = input.CriticalOvertoppingDischarge.ToStochastConfiguration();
             }
-
-            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
-
-            calculationConfiguration.StormDuration = input.StormDuration.ToStochastConfigurationWithMean();
-            calculationConfiguration.ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean();
-
             return calculationConfiguration;
         }
 

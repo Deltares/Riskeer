@@ -113,8 +113,6 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 Name = readCalculation.Name
             };
 
-            SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
-
             if (TrySetStructure(readCalculation.StructureId, calculation)
                 && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
@@ -125,6 +123,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                                                                        calculation.Name, Log))
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
                 return calculation;
             }
             return null;

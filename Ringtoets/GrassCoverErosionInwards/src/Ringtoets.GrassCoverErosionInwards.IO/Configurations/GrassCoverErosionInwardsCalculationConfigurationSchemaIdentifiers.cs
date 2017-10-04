@@ -52,17 +52,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         public const string OvertoppingRateCalculationTypeElement = "overslagdebietberekenen";
 
         /// <summary>
-        /// The identifier for the overtopping output illustration point elements.
+        /// The tag of the element containing the value whether illustration points should be read for the overtopping calculation.
         /// </summary>
         public const string ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement = "illustratiepunteninlezen";
 
         /// <summary>
-        /// The identifier for the dike height illustration point elements.
+        /// The tag of the element containing the value whether illustration points should be read for the dike height calculation.
         /// </summary>
         public const string ShouldDikeHeightIllustrationPointsBeCalculatedElementElement = "hbnillustratiepunteninlezen";
 
         /// <summary>
-        /// The identifier for the overtopping flow illustration point elements.
+        /// The tag of the element containing the value whether illustration points should be read for the overtopping rate calculation.
         /// </summary>
         public const string ShouldOvertoppingRateIllustrationPointsBeCalculatedElement = "overslagdebietillustratiepunteninlezen";
     }

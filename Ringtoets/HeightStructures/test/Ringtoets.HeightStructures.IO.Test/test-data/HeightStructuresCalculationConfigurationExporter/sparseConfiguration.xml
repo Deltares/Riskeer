@@ -9,5 +9,6 @@
         <verwachtingswaarde>6</verwachtingswaarde>
       </stochast>
     </stochasten>
+    <illustratiepunteninlezen>false</illustratiepunteninlezen>
   </berekening>
 </configuratie>

@@ -83,6 +83,7 @@
             <verwachtingswaarde>1</verwachtingswaarde>
           </stochast>
         </stochasten>
+        <illustratiepunteninlezen>false</illustratiepunteninlezen>
       </berekening>
     </map>
   </map>

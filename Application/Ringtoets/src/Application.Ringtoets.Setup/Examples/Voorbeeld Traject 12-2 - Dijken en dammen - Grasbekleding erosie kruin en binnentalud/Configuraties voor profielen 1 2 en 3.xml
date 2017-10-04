@@ -28,6 +28,8 @@
     <hbnberekenen>niet</hbnberekenen>
     <overslagdebietberekenen>niet</overslagdebietberekenen>
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
       <damtype>havendam</damtype>

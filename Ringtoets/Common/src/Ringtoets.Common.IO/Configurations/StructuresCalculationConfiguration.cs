@@ -106,7 +106,7 @@ namespace Ringtoets.Common.IO.Configurations
         public string ForeshoreProfileId { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated.
+        /// Gets or sets whether the illustration points should be calculated.
         /// </summary>
         public bool? ShouldIllustrationPointsBeCalculated { get; set; }
 

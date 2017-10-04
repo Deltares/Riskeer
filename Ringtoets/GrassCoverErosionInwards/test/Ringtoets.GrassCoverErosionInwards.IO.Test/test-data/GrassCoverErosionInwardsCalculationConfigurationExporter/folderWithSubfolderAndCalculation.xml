@@ -2,6 +2,9 @@
 <configuratie>
   <map naam="Testmap">
     <berekening naam="Berekening 1">
+      <illustratiepunteninlezen>false</illustratiepunteninlezen>
+      <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+      <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
       <hbnberekenen>niet</hbnberekenen>
       <overslagdebietberekenen>niet</overslagdebietberekenen>
       <stochasten>
@@ -13,6 +16,9 @@
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">
+        <illustratiepunteninlezen>false</illustratiepunteninlezen>
+        <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+        <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
         <hbnberekenen>niet</hbnberekenen>
         <overslagdebietberekenen>niet</overslagdebietberekenen>
         <stochasten>

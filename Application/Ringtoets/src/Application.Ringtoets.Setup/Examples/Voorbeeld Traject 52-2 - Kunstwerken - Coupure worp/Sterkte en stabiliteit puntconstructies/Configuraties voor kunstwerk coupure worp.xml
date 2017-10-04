@@ -117,6 +117,7 @@
       <kansaanvaringtweedekeermiddel>3.0303E-05</kansaanvaringtweedekeermiddel>
       <afstandonderkantwandteendijk>0</afstandonderkantwandteendijk>
       <volumiekgewichtwater>9.81</volumiekgewichtwater>
+      <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <stochasten>
         <stochast naam="breedtebodembescherming">
           <verwachtingswaarde>10</verwachtingswaarde>

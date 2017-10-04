@@ -99,5 +99,6 @@
         <standaardafwijking>0.68</standaardafwijking>
       </stochast>
     </stochasten>
+    <illustratiepunteninlezen>false</illustratiepunteninlezen>
   </berekening>
 </configuratie>

@@ -66,18 +66,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
                 ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean(),
                 VolumicWeightWater = input.VolumicWeightWater,
-                StormDuration = input.StormDuration.ToStochastConfigurationWithMean()
+                StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
+                ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated
             };
 
-            if (input.ShouldIllustrationPointsBeCalculated)
-            {
-                calculationConfiguration.ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated;
-            }
-
             SetConfigurationStructureDependendParameters(calculationConfiguration, input);
-
             calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
-
             return calculationConfiguration;
         }
 

@@ -100,9 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             {
                 Name = calculationConfiguration.Name
             };
-            SetDikeHeightCalculationType(calculationConfiguration, calculation);
-            SetOvertoppingRateCalculationType(calculationConfiguration, calculation);
-            SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
+            
             if (TrySetCriticalFlowRate(calculationConfiguration, calculation)
                 && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
                 && TrySetDikeProfile(calculationConfiguration.DikeProfileId, calculation)
@@ -111,6 +109,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 && ValidateWaveReduction(calculationConfiguration, calculation))
             {
                 SetWaveReductionParameters(calculationConfiguration.WaveReduction, calculation.InputParameters);
+                SetDikeHeightCalculationType(calculationConfiguration, calculation);
+                SetOvertoppingRateCalculationType(calculationConfiguration, calculation);
+                SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
                 return calculation;
             }
             return null;

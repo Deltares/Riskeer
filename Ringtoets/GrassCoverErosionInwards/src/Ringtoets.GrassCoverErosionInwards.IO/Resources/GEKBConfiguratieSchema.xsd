@@ -116,21 +116,21 @@ All rights reserved.
     </xs:simpleType>
   </xs:element>
 
-  <!--Geeft aan of de sterkte berekening illustratiepunten ingelezen moeten worden.-->
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren van een sterkte berekening.-->
   <xs:element name="illustratiepunteninlezen">
     <xs:simpleType>
       <xs:restriction base="xs:boolean"/>
     </xs:simpleType>
   </xs:element>
 
-  <!--Geeft aan of de hbn illustratiepunten ingelezen moeten worden.-->
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren van een hbn berekening.-->
   <xs:element name="hbnillustratiepunteninlezen">
     <xs:simpleType>
       <xs:restriction base="xs:boolean"/>
     </xs:simpleType>
   </xs:element>
 
-  <!--Geeft aan of de overslag illustratiepunten ingelezen moeten worden.-->
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren van een overslag berekening.-->
   <xs:element name="overslagdebietillustratiepunteninlezen">
     <xs:simpleType>
       <xs:restriction base="xs:boolean"/>

@@ -56,19 +56,21 @@ namespace Ringtoets.Piping.IO.Configurations
         {
             PipingInput input = calculation.InputParameters;
 
-            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name);
+            var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name)
+            {
+                DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration(),
+                PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration(),
+                Scenario = calculation.ToScenarioConfiguration()
+            };
 
             if (input.HydraulicBoundaryLocation != null)
             {
-                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation.Name;
+                calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
             }
             else if (input.UseAssessmentLevelManualInput)
             {
                 calculationConfiguration.AssessmentLevel = input.AssessmentLevel;
             }
-
-            calculationConfiguration.DampingFactorExit = input.DampingFactorExit.ToStochastConfiguration();
-            calculationConfiguration.PhreaticLevelExit = input.PhreaticLevelExit.ToStochastConfiguration();
 
             if (input.SurfaceLine != null)
             {
@@ -82,8 +84,6 @@ namespace Ringtoets.Piping.IO.Configurations
                 calculationConfiguration.StochasticSoilModelName = input.StochasticSoilModel.Name;
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
-
-            calculationConfiguration.Scenario = calculation.ToScenarioConfiguration();
 
             return calculationConfiguration;
         }
