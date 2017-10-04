@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
@@ -34,9 +36,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
         public void Constructor_ValidWrappedObjectInstance_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var sourceObject = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
+            var sourceObject = new SimpleObservable(new object());
 
             // Call
             var context = new SimpleObservableWrappedObjectContext(sourceObject);
@@ -45,6 +45,28 @@ namespace Core.Common.Controls.Test.PresentationObjects
             Assert.IsInstanceOf<IObservable>(context);
             Assert.IsInstanceOf<WrappedObjectContextBase<IObservable>>(context);
             Assert.AreSame(sourceObject, context.WrappedData);
+            CollectionAssert.IsEmpty(context.Observers);
+        }
+
+        [Test]
+        public void Observers_WhenAttachingObserver_ContainsExpectedObserver()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sourceObject = new SimpleObservable(new object());
+            var context = new SimpleObservableWrappedObjectContext(sourceObject);
+
+            var observer = mocks.Stub<IObserver>();
+            context.Attach(observer);
+
+            mocks.ReplayAll();
+
+            // Call
+            IEnumerable<IObserver> observers = context.Observers;
+
+            // Assert
+            Assert.AreSame(observer, observers.Single());
+
             mocks.VerifyAll();
         }
 

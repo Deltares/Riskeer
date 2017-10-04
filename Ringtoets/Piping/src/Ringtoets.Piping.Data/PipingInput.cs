@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
     /// Class that holds all piping calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class PipingInput : CloneableObservable, ICalculationInput, ICloneable
+    public class PipingInput : CloneableObservable, ICalculationInput
     {
         private readonly GeneralPipingInput generalInputParameters;
         private NormalDistribution phreaticLevelExit;

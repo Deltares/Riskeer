@@ -27,9 +27,10 @@ namespace Core.Common.Base
     /// <summary>
     /// <see cref="ObservableList{T}"/> that is also <see cref="ICloneable"/>.
     /// </summary>
+    /// <typeparam name="T">Type of the objects in the list.</typeparam> 
     public class CloneableObservableList<T> : ObservableList<T>, ICloneable
     {
-        public virtual object Clone()
+        public object Clone()
         {
             var clone = (CloneableObservableList<T>) MemberwiseClone();
 

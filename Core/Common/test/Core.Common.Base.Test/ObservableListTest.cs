@@ -39,7 +39,6 @@ namespace Core.Common.Base.Test
             // Assert
             Assert.IsInstanceOf<List<object>>(observableList);
             Assert.IsInstanceOf<IObservable>(observableList);
-            Assert.IsInstanceOf<IEnumerable<IObserver>>(observableList.Observers);
             CollectionAssert.IsEmpty(observableList.Observers);
         }
 
@@ -57,7 +56,7 @@ namespace Core.Common.Base.Test
             IEnumerable<IObserver> observers = testObservableList.Observers;
 
             // Assert
-            Assert.AreEqual(observer, observers.Single());
+            Assert.AreSame(observer, observers.Single());
 
             mocks.VerifyAll();
         }

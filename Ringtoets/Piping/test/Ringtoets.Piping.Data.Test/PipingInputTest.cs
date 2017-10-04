@@ -120,7 +120,6 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(inputParameters);
             Assert.IsInstanceOf<ICalculationInput>(inputParameters);
-            Assert.IsInstanceOf<ICloneable>(inputParameters);
 
             DistributionAssert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
             DistributionAssert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);

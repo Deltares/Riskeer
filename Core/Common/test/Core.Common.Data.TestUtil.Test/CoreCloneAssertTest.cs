@@ -245,9 +245,51 @@ namespace Core.Common.Data.TestUtil.Test
             Assert.AreEqual(2, counter);
         }
 
+        [Test]
+        public void AreEnumerationClones_ObservableObjectDifferentObservers_DoesNotThrow()
+        {
+            // Setup
+            var cloneableObservableList = new CloneableObservableList<object>();
+            var clonedCloneableObservableList = (CloneableObservableList<object>) cloneableObservableList.Clone();
+
+            // Precondition
+            Assert.IsFalse(ReferenceEquals(cloneableObservableList.Observers, clonedCloneableObservableList.Observers));
+
+            // Call
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(cloneableObservableList, clonedCloneableObservableList, (original, clone) => {});
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AreEnumerationClones_ObservableObjectSameObservers_ThrowsAssertionException()
+        {
+            // Setup
+            var cloneableObservableList = new TestCloneableObservableList<object>();
+            var clonedCloneableObservableList = (TestCloneableObservableList<object>) cloneableObservableList.Clone();
+
+            // Precondition
+            Assert.IsTrue(ReferenceEquals(cloneableObservableList.Observers, clonedCloneableObservableList.Observers));
+
+            // Call
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(cloneableObservableList, clonedCloneableObservableList, (original, clone) => {});
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
         private class TestObservable : Observable, ICloneable
         {
             public object Clone()
+            {
+                return MemberwiseClone();
+            }
+        }
+
+        private class TestCloneableObservableList<T> : CloneableObservableList<T>
+        {
+            public new object Clone()
             {
                 return MemberwiseClone();
             }

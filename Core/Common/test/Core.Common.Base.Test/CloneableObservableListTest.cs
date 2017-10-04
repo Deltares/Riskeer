@@ -45,9 +45,12 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var original = new CloneableObservableList<object>();
+            var original = new CloneableObservableList<object>
+            {
+                new object(),
+                new object()
+            };
             var observer = mocks.Stub<IObserver>();
-
             original.Attach(observer);
 
             mocks.ReplayAll();
@@ -56,10 +59,8 @@ namespace Core.Common.Base.Test
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreEnumerationClones(original, clone, (o, c) =>
-            {
-                CollectionAssert.IsEmpty(((CloneableObservableList<object>) c).Observers);
-            });
+            CoreCloneAssert.AreEnumerationClones(original, clone, Assert.AreEqual);
+            CollectionAssert.IsEmpty(((CloneableObservableList<object>) clone).Observers);
 
             mocks.VerifyAll();
         }

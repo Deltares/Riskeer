@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Data.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -58,15 +56,11 @@ namespace Core.Common.Base.Test
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, (o, c) =>
-            {
-                CollectionAssert.IsEmpty(c.Observers);
-            });
+            CoreCloneAssert.AreObjectClones(original, clone, (o, c) => { CollectionAssert.IsEmpty(c.Observers); });
 
             mocks.VerifyAll();
         }
 
         private class TestCloneableObservable : CloneableObservable {}
-
     }
 }

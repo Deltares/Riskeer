@@ -35,8 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Class that holds all grass cover erosion inwards calculation specific input parameters.
     /// </summary>
-    public class GrassCoverErosionInwardsInput : CloneableObservable, ICalculationInput, IUseBreakWater,
-                                                 IUseForeshore, ICloneable
+    public class GrassCoverErosionInwardsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore
     {
         private const int orientationNumberOfDecimals = 2;
 
