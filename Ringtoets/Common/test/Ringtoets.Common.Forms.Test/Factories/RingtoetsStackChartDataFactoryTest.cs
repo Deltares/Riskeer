@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             var beta = (RoundedDouble) 3.14;
             var controlItems = new[]
             {
-                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(), 
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  "WindDirectionName1",
                                                  closingSituation,
                                                  Enumerable.Empty<Stochast>(),
@@ -108,12 +108,37 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateColumns_SingleClosingSituationsSingleIllustrationPoint_ColumnsAddedToStackChartData()
+        {
+            // Setup
+            var stackChartData = new StackChartData();
+
+            const string closingSituation = "Regular";
+            var beta = (RoundedDouble) 3.14;
+            var controlItems = new[]
+            {
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "WindDirectionName1",
+                                                 closingSituation,
+                                                 Enumerable.Empty<Stochast>(),
+                                                 beta)
+            };
+
+            // Call
+            RingtoetsStackChartDataFactory.CreateColumns(controlItems, stackChartData);
+
+            // Assert
+            string[] columns = stackChartData.Columns.ToArray();
+            Assert.AreEqual(1, columns.Length);
+            Assert.AreEqual(controlItems[0].WindDirectionName, columns[0]);
+        }
+
+        [Test]
         public void CreateColumns_DifferentClosingSituations_ColumnsAddedToStackChartData()
         {
             // Setup
             const string closingSituationRegular = "Regular";
             const string closingSituationClosed = "Closed";
-            const string closingSituationOpen = "Open";
             var beta = (RoundedDouble) 3.14;
 
             var stackChartData = new StackChartData();
@@ -131,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                                                  beta),
                 new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
                                                  "WindDirection 3",
-                                                 closingSituationOpen,
+                                                 closingSituationClosed,
                                                  Enumerable.Empty<Stochast>(),
                                                  beta)
             };
@@ -144,7 +169,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(3, columns.Length);
             Assert.AreEqual($"{controlItems[0].WindDirectionName} ({closingSituationRegular})", columns[0]);
             Assert.AreEqual($"{controlItems[1].WindDirectionName} ({closingSituationClosed})", columns[1]);
-            Assert.AreEqual($"{controlItems[2].WindDirectionName} ({closingSituationOpen})", columns[2]);
+            Assert.AreEqual($"{controlItems[2].WindDirectionName} ({closingSituationClosed})", columns[2]);
         }
 
         [Test]

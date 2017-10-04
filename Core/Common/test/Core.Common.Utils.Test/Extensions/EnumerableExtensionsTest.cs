@@ -172,7 +172,23 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void HasMultipleUniqueValues_WithUniqueItems_ReturnsFalse()
+        public void HasMultipleUniqueValues_WithSingleUniqueItem_ReturnsFalse()
+        {
+            // Setup
+            var items = new List<int>
+            {
+                1
+            };
+
+            // Call
+            bool hasNonDistinct = items.HasMultipleUniqueValues(t => t);
+
+            // Assert
+            Assert.IsFalse(hasNonDistinct);
+        }
+
+        [Test]
+        public void HasMultipleUniqueValues_WithMultipleItemsOneUnique_ReturnsFalse()
         {
             // Setup
             var items = new List<int>
@@ -196,6 +212,7 @@ namespace Core.Common.Utils.Test.Extensions
             var items = new List<int>
             {
                 1,
+                2,
                 2,
                 3
             };

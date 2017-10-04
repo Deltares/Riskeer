@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "DataGridView");
 
             DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(3, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(4, cells.Count);
@@ -127,6 +127,13 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
             Assert.AreEqual("1/4", cells[calculatedProbabilityColumnIndex].FormattedValue);
             Assert.AreEqual("0,70000", cells[calculatedReliabilityColumnIndex].FormattedValue);
+
+            cells = rows[2].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual("NE", cells[windDirectionColumnIndex].FormattedValue);
+            Assert.AreEqual("Open", cells[closingScenarioColumnIndex].FormattedValue);
+            Assert.AreEqual("1/5", cells[calculatedProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("0,80000", cells[calculatedReliabilityColumnIndex].FormattedValue);
 
             Assert.IsTrue(dataGridView.Columns[closingScenarioColumnIndex].Visible);
         }
@@ -189,7 +196,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             DataGridViewRowCollection rows = dataGridView.Rows;
 
             // Precondition
-            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(3, rows.Count);
 
             // Call
             control.Data = null;
@@ -296,7 +303,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                  "SSE",
                                                  "Open",
                                                  Enumerable.Empty<Stochast>(),
-                                                 new RoundedDouble(5, 0.7))
+                                                 new RoundedDouble(5, 0.7)),
+                new IllustrationPointControlItem(new TestTopLevelIllustrationPoint(),
+                                                 "NE",
+                                                 "Open",
+                                                 Enumerable.Empty<Stochast>(),
+                                                 new RoundedDouble(5, 0.8))
             };
         }
     }
