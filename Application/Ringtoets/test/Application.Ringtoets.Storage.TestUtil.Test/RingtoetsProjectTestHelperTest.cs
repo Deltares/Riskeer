@@ -160,11 +160,13 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual("MacroStabilityInwards model name", soilModel.Name);
-            Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
+
+            MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfiles = soilModel.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, stochasticSoilProfiles.Length);
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = stochasticSoilProfiles[0];
             Assert.AreEqual(0.3, stochasticSoilProfile1.Probability);
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(stochasticSoilProfile1.SoilProfile);
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = stochasticSoilProfiles[1];
             Assert.AreEqual(0.7, stochasticSoilProfile2.Probability);
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(stochasticSoilProfile2.SoilProfile);
             CollectionAssert.IsNotEmpty(((MacroStabilityInwardsSoilProfile2D) stochasticSoilProfile2.SoilProfile).PreconsolidationStresses);

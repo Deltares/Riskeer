@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     public static class MacroStabilityInwardsStochasticSoilModelTestFactory
     {
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
+        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/> with an empty name.
         /// </summary>
         /// <returns>A valid instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.</returns>
         public static MacroStabilityInwardsStochasticSoilModel CreateValidStochasticSoilModel()
@@ -75,14 +75,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsStochasticSoilModel CreateValidStochasticSoilModel(string soilModelName,
                                                                                               IEnumerable<Point2D> geometry)
         {
-            var model = new MacroStabilityInwardsStochasticSoilModel(soilModelName, geometry);
-
             MacroStabilityInwardsSoilProfile1D soilProfileA =
                 MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D("A");
             MacroStabilityInwardsSoilProfile1D soilProfileB =
                 MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D("B");
 
-            model.StochasticSoilProfiles.AddRange(new[]
+            var model = new MacroStabilityInwardsStochasticSoilModel(soilModelName, geometry, new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfileA),
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfileB)
@@ -98,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="soilModelName">The name of the soil model.</param>
         /// <param name="stochasticSoilProfiles">The geometry of the soil model.</param>
         /// <returns>A valid configured <see cref="MacroStabilityInwardsStochasticSoilModel"/> with the 
-        /// specified <paramref name="soilModelName"/>.</returns>
+        /// specified <paramref name="soilModelName"/> and <paramref name="stochasticSoilProfiles"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilModelName"/> or 
         /// <paramref name="stochasticSoilProfiles"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <oaramref name="stochasticSoilProfiles"/> is 
@@ -111,9 +109,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                                      {
                                                                          new Point2D(1, 1),
                                                                          new Point2D(2, 2)
-                                                                     });
-            model.StochasticSoilProfiles.AddRange(stochasticSoilProfiles);
+                                                                     }, stochasticSoilProfiles);
             return model;
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
+        /// with specified stochastic soil profiles and an empty name.
+        /// </summary>
+        /// <param name="stochasticSoilProfiles">The geometry of the soil model.</param>
+        /// <returns>A valid configured <see cref="MacroStabilityInwardsStochasticSoilModel"/> with the 
+        /// specified <paramref name="stochasticSoilProfiles"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="stochasticSoilProfiles"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <oaramref name="stochasticSoilProfiles"/> is 
+        /// <c>empty</c>.</exception>
+        public static MacroStabilityInwardsStochasticSoilModel CreateValidStochasticSoilModel(IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
+        {
+            return CreateValidStochasticSoilModel(string.Empty, stochasticSoilProfiles);
         }
     }
 }

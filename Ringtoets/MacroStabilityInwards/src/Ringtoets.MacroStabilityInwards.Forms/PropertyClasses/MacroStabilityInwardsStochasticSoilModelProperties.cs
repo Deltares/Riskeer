@@ -87,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.StochasticSoilProfiles.Count > 0
+                return data.StochasticSoilProfiles.Any()
                            ? data.StochasticSoilProfiles.Select(ssp => new MacroStabilityInwardsStochasticSoilProfileProperties(ssp)).ToArray()
                            : new MacroStabilityInwardsStochasticSoilProfileProperties[0];
             }

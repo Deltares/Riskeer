@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.IO.Configurations;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -171,11 +172,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 new Point3D(2.5, 1.0, 1.0),
                 new Point3D(5.0, 1.0, 0.0)
             });
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Ondergrondmodel", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("Ondergrondmodel", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                });
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -217,11 +219,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 new Point3D(3.0, 0.0, 1.0),
                 new Point3D(3.0, -5.0, 0.0)
             });
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("Ondergrondmodel", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("Ondergrondmodel", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                });
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]
@@ -387,8 +390,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
+            }, new[]
+            {
+                stochasticSoilProfile
             });
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.SurfaceLines.AddRange(new[]

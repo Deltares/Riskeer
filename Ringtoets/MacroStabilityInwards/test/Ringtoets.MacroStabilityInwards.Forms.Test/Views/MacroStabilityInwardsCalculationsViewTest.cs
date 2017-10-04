@@ -1410,19 +1410,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
+                stochasticSoilProfile1,
+                new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
                 {
-                    stochasticSoilProfile1,
-                    new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
-                    {
-                        new MacroStabilityInwardsSoilLayer1D(-4.0),
-                        new MacroStabilityInwardsSoilLayer1D(0.0),
-                        new MacroStabilityInwardsSoilLayer1D(4.0)
-                    }))
-                }
-            };
+                    new MacroStabilityInwardsSoilLayer1D(-4.0),
+                    new MacroStabilityInwardsSoilLayer1D(0.0),
+                    new MacroStabilityInwardsSoilLayer1D(4.0)
+                }))
+            });
 
             var stochasticSoilProfile5 = new MacroStabilityInwardsStochasticSoilProfile(0.3, new MacroStabilityInwardsSoilProfile1D("Profile 5", -10.0, new[]
             {
@@ -1435,13 +1432,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(6.0, 0.0)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile5
-                }
-            };
+                stochasticSoilProfile5
+            });
 
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -1450,24 +1444,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     new Point2D(1.0, 0.0),
                     new Point2D(4.0, 0.0)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
+                    new MacroStabilityInwardsStochasticSoilProfile(0.3, new MacroStabilityInwardsSoilProfile1D("Profile 3", -10.0, new[]
                     {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, new MacroStabilityInwardsSoilProfile1D("Profile 3", -10.0, new[]
-                        {
-                            new MacroStabilityInwardsSoilLayer1D(-5.0),
-                            new MacroStabilityInwardsSoilLayer1D(-2.0),
-                            new MacroStabilityInwardsSoilLayer1D(1.0)
-                        })),
-                        new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 4", -8.0, new[]
-                        {
-                            new MacroStabilityInwardsSoilLayer1D(-4.0),
-                            new MacroStabilityInwardsSoilLayer1D(0.0),
-                            new MacroStabilityInwardsSoilLayer1D(4.0)
-                        }))
-                    }
-                },
+                        new MacroStabilityInwardsSoilLayer1D(-5.0),
+                        new MacroStabilityInwardsSoilLayer1D(-2.0),
+                        new MacroStabilityInwardsSoilLayer1D(1.0)
+                    })),
+                    new MacroStabilityInwardsStochasticSoilProfile(0.7, new MacroStabilityInwardsSoilProfile1D("Profile 4", -8.0, new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer1D(-4.0),
+                        new MacroStabilityInwardsSoilLayer1D(0.0),
+                        new MacroStabilityInwardsSoilLayer1D(4.0)
+                    }))
+                }),
                 stochasticSoilModelE
             }, arbitraryFilePath);
             return failureMechanism;

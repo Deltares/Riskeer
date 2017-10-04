@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         {
             if (macroStabilityInwardsInput.StochasticSoilModel != null)
             {
-                if (macroStabilityInwardsInput.StochasticSoilModel.StochasticSoilProfiles.Count == 1)
+                if (macroStabilityInwardsInput.StochasticSoilModel.StochasticSoilProfiles.Count() == 1)
                 {
                     macroStabilityInwardsInput.StochasticSoilProfile = macroStabilityInwardsInput.StochasticSoilModel.StochasticSoilProfiles.First();
                     return;

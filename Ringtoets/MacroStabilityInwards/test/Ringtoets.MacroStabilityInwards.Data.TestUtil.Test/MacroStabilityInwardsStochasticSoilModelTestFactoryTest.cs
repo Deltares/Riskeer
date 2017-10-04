@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
     public class MacroStabilityInwardsStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreateValidStochasticSoilModel_ParameterLessConstructor_ReturnsValidStochasticSoilModel()
+        public void CreateValidStochasticSoilModel_ParameterLessConstructor_ExpectedPropertiesSet()
         {
             // Call
             MacroStabilityInwardsStochasticSoilModel model = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.IsEmpty(model.Name);
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new[]
             {
                 0.5,
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithNameParameter_ReturnsValidStochasticSoilModel()
+        public void CreateValidStochasticSoilModel_WithNameParameter_ExpectedPropertiesSet()
         {
             // Setup
             const string soilModelName = "soil model name";
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.AreEqual(soilModelName, model.Name);
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new[]
             {
                 0.5,
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithNameAndGeometryParameters_ReturnsValidStochasticSoilModel()
+        public void CreateValidStochasticSoilModel_WithNameAndGeometryParameters_ExpectedPropertiesSet()
         {
             // Setup
             const string soilModelName = "soil model name";
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.AreEqual(soilModelName, model.Name);
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new[]
             {
                 0.5,
@@ -114,13 +114,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithNameAndSoilProfiles_ReturnValidStochasticSoilModel()
+        public void CreateValidStochasticSoilModel_WithNameAndSoilProfiles_ExpectedPropertiesSet()
         {
             // Setup
             const string soilModelName = "soil model name";
             var stochasticSoilProfiles = new[]
             {
-               new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()) 
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
             };
 
             // Call
@@ -132,6 +132,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
             Assert.AreEqual(soilModelName, model.Name);
+            CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
+            CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, model.Geometry);
+        }
+
+        [Test]
+        public void CreateValidStochasticSoilModel_WithSoilProfiles_ExpectedPropertiesSet()
+        {
+            // Setup
+            var stochasticSoilProfiles = new[]
+            {
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
+            };
+
+            // Call
+            MacroStabilityInwardsStochasticSoilModel model =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(stochasticSoilProfiles);
+
+            // Assert
+            Assert.IsNotNull(model);
+
+            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilModel), model.GetType());
+            Assert.IsEmpty(model.Name);
             CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
             CollectionAssert.AllItemsAreNotNull(model.StochasticSoilProfiles.Select(p => p.SoilProfile));
             CollectionAssert.AreEqual(new[]

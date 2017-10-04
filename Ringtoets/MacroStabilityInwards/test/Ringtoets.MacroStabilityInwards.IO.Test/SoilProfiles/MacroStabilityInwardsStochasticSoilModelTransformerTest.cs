@@ -124,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(soilModel.Name, transformedModel.Name);
             CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
-            Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count);
+            Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count());
 
             var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
             {
@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(soilModel.Name, transformedModel.Name);
             CollectionAssert.AreEqual(soilModel.Geometry, transformedModel.Geometry);
-            Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count);
+            Assert.AreEqual(1, transformedModel.StochasticSoilProfiles.Count());
 
             var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, new MacroStabilityInwardsSoilProfile2D("test", new[]
             {
@@ -220,10 +220,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsStochasticSoilModel transformedModel2 = transformer.Transform(soilModel2);
 
             // Assert
-            List<MacroStabilityInwardsStochasticSoilProfile> transformedStochasticSoilProfiles1 = transformedModel1.StochasticSoilProfiles;
-            List<MacroStabilityInwardsStochasticSoilProfile> transformedStochasticSoilProfiles2 = transformedModel2.StochasticSoilProfiles;
-            Assert.AreEqual(1, transformedStochasticSoilProfiles1.Count);
-            Assert.AreEqual(1, transformedStochasticSoilProfiles2.Count);
+            MacroStabilityInwardsStochasticSoilProfile[] transformedStochasticSoilProfiles1 = transformedModel1.StochasticSoilProfiles.ToArray();
+            MacroStabilityInwardsStochasticSoilProfile[] transformedStochasticSoilProfiles2 = transformedModel2.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(1, transformedStochasticSoilProfiles1.Length);
+            Assert.AreEqual(1, transformedStochasticSoilProfiles2.Length);
 
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1 = transformedStochasticSoilProfiles1[0];
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2 = transformedStochasticSoilProfiles2[0];
@@ -257,8 +257,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                                      "Kansen van voorkomen worden opgeteld.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
 
-            List<MacroStabilityInwardsStochasticSoilProfile> transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles;
-            Assert.AreEqual(1, transformedStochasticSoilProfiles.Count);
+            MacroStabilityInwardsStochasticSoilProfile[] transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(1, transformedStochasticSoilProfiles.Length);
             const double expectedProbability = originalProfileOneProbability + originalProfileTwoProbability;
             Assert.AreEqual(expectedProbability, transformedStochasticSoilProfiles[0].Probability, 1e-6);
         }
@@ -354,8 +354,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsStochasticSoilModel transformed = transformer.Transform(soilModel);
 
             // Assert
-            List<MacroStabilityInwardsStochasticSoilProfile> transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles;
-            Assert.AreEqual(2, transformedStochasticSoilProfiles.Count);
+            MacroStabilityInwardsStochasticSoilProfile[] transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, transformedStochasticSoilProfiles.Length);
             Assert.AreEqual(stochasticSoilProfile2D.Probability, transformedStochasticSoilProfiles[0].Probability, 1e-6);
             Assert.AreEqual(stochasticSoilProfile1D.Probability, transformedStochasticSoilProfiles[1].Probability, 1e-6);
         }

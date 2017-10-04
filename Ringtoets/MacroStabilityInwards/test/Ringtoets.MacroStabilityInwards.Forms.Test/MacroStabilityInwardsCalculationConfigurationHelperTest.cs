@@ -59,13 +59,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile1,
                 soilProfile2
             });
+
             MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
@@ -113,12 +112,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1),
                 new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2)
             });
+
             MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
@@ -162,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
 
             var availableSoilModels = new[]
             {
@@ -207,12 +206,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1),
                 new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2)
             });
+
             MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
@@ -237,41 +236,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineOverlappingSoilModels_ReturnSoilModels()
         {
             // Setup
+            const double y = 1.1;
+
             var soilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 1", -10.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
             }));
+            var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
+            {
+                new Point2D(1.0, y),
+                new Point2D(2.0, y)
+            }, new[]
+            {
+                soilProfile1
+            });
+
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
             }));
-
-            const double y = 1.1;
-            var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, y),
-                new Point2D(2.0, y)
-            });
-
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1
-            });
-
             var soilModel2 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
             {
                 new Point2D(3.0, y),
                 new Point2D(4.0, y)
-            });
-
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile2
             });
+
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -390,13 +386,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile1,
                 soilProfile2
             });
+
             var availableSoilModels = new[]
             {
                 soilModel
@@ -451,7 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
+            }, Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
 
             var availableSoilModels = new[]
             {
@@ -510,13 +505,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1),
                 new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2)
             });
+
             MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
@@ -558,41 +552,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         public void GenerateCalculationItemsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels()
         {
             // Setup
+            const double y = 1.1;
+
             var soilProfile1 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 1", -10.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-5.0),
                 new MacroStabilityInwardsSoilLayer1D(-2.0),
                 new MacroStabilityInwardsSoilLayer1D(1.0)
             }));
+            var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
+            {
+                new Point2D(1.0, y),
+                new Point2D(2.0, y)
+            }, new[]
+            {
+                soilProfile1
+            });
+
             var soilProfile2 = new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("Profile 2", -8.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-4.0),
                 new MacroStabilityInwardsSoilLayer1D(0.0),
                 new MacroStabilityInwardsSoilLayer1D(4.0)
             }));
-
-            const double y = 1.1;
-            var soilModel1 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, y),
-                new Point2D(2.0, y)
-            });
-
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
-            {
-                soilProfile1
-            });
-
             var soilModel2 = new MacroStabilityInwardsStochasticSoilModel("A", new[]
             {
                 new Point2D(3.0, y),
                 new Point2D(4.0, y)
-            });
-
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile2
             });
+
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -662,9 +653,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, y),
                 new Point2D(2.0, y)
-            });
-
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile1,
                 soilProfile2
@@ -674,12 +663,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(3.0, y),
                 new Point2D(4.0, y)
-            });
-
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile2
             });
+
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -770,9 +758,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, y),
                 new Point2D(2.0, y)
-            });
-
-            soilModel1.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile1,
                 soilProfile2
@@ -782,12 +768,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(3.0, y),
                 new Point2D(4.0, y)
-            });
-
-            soilModel2.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 soilProfile2
             });
+
             var availableSoilModels = new[]
             {
                 soilModel1,
@@ -871,13 +856,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1),
                 new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2)
             });
+
             var availableSoilModels = new[]
             {
                 soilModel
@@ -938,14 +922,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
-            });
-
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            }, new[]
             {
                 new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1),
                 new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile2),
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfile3)
             });
+
             var availableSoilModels = new[]
             {
                 soilModel

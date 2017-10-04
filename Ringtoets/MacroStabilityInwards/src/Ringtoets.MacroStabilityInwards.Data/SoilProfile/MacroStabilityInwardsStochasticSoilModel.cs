@@ -35,14 +35,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilModel : Observable, IMechanismStochasticSoilModel
     {
+        private readonly List<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">Name of the segment soil model.</param>
         /// <param name="geometry">The geometry of the segment soil model.</param>
+        /// <param name="stochasticSoilProfiles">The stochastic soil profiles of the segment soil model.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> is empty.</exception>
-        public MacroStabilityInwardsStochasticSoilModel(string name, IEnumerable<Point2D> geometry)
+        public MacroStabilityInwardsStochasticSoilModel(string name,
+                                                        IEnumerable<Point2D> geometry,
+                                                        IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
         {
             if (name == null)
             {
@@ -52,6 +57,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+            if (stochasticSoilProfiles == null)
+            {
+                throw new ArgumentNullException(nameof(stochasticSoilProfiles));
+            }
             if (!geometry.Any())
             {
                 string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
@@ -60,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
             Name = name;
             Geometry = geometry;
-            StochasticSoilProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
+            this.stochasticSoilProfiles.AddRange(stochasticSoilProfiles);
         }
 
         /// <summary>
@@ -69,14 +78,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the list of geometry points.
+        /// Gets the geometry points.
         /// </summary>
         public IEnumerable<Point2D> Geometry { get; private set; }
 
         /// <summary>
-        /// Gets the list of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
+        /// Gets the the collection of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.
         /// </summary>
-        public List<MacroStabilityInwardsStochasticSoilProfile> StochasticSoilProfiles { get; }
+        public IEnumerable<MacroStabilityInwardsStochasticSoilProfile> StochasticSoilProfiles
+        {
+            get
+            {
+                return stochasticSoilProfiles;
+            }
+        }
 
         /// <summary>
         /// Updates the <see cref="MacroStabilityInwardsStochasticSoilModel"/> with the properties
@@ -99,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
             Name = fromModel.Name;
             Geometry = fromModel.Geometry;
-            
+
             var newSoilProfiles = new List<IMacroStabilityInwardsSoilProfile>();
             var updatedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             var addedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
@@ -120,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 }
                 else
                 {
-                    StochasticSoilProfiles.Add(fromProfile);
+                    stochasticSoilProfiles.Add(fromProfile);
                     addedProfiles.Add(fromProfile);
                 }
                 newSoilProfiles.Add(fromProfile.SoilProfile);
@@ -129,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             foreach (MacroStabilityInwardsStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
                 sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
             {
-                StochasticSoilProfiles.Remove(profileToRemove);
+                stochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);
             }
 

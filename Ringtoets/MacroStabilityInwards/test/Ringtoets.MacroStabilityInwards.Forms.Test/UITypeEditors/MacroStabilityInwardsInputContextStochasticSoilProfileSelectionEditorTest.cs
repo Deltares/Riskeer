@@ -110,13 +110,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             {
                 new Point2D(0, 2),
                 new Point2D(4, 2)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile
-                }
-            };
+                stochasticSoilProfile
+            });
+
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {

@@ -130,8 +130,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             };
             var stochasticSoilModels = new[]
             {
-                new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName1", pointsOne),
-                new MacroStabilityInwardsStochasticSoilModel("StochasticSoilModelName2", pointsTwo)
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("StochasticSoilModelName1", pointsOne),
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("StochasticSoilModelName2", pointsTwo)
             };
 
             // Call

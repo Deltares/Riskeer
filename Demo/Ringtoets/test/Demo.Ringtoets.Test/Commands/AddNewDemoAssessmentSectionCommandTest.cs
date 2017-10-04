@@ -599,16 +599,17 @@ namespace Demo.Ringtoets.Test.Commands
 
             MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual("Test model", soilModel.Name);
-            Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
 
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2D = soilModel.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfiles = soilModel.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, stochasticSoilProfiles.Length);
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2D = stochasticSoilProfiles[0];
             Assert.AreEqual(0.2, stochasticSoilProfile2D.Probability);
             var soilProfile2D = stochasticSoilProfile2D.SoilProfile as MacroStabilityInwardsSoilProfile2D;
             Assert.IsNotNull(soilProfile2D);
             CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
             AssertMacroStabilityInwardsSoilProfile2D(soilProfile2D);
 
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1D = soilModel.StochasticSoilProfiles[1];
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1D = stochasticSoilProfiles[1];
             Assert.AreEqual(0.2, stochasticSoilProfile1D.Probability);
             var soilProfile1D = stochasticSoilProfile1D.SoilProfile as MacroStabilityInwardsSoilProfile1D;
             Assert.IsNotNull(soilProfile1D);

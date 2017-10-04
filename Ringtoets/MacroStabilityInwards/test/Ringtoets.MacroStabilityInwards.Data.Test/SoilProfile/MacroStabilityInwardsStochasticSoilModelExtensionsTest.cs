@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
@@ -56,11 +57,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNull_ThrowArgumentNullException()
         {
             // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            MacroStabilityInwardsStochasticSoilModel soilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                });
 
             // Call
             TestDelegate test = () => soilModel.IntersectsWithSurfaceLineGeometry(null);
@@ -74,11 +76,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineIntersectingSoilModel_ReturnTrue()
         {
             // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            MacroStabilityInwardsStochasticSoilModel soilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                });
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -99,11 +102,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void IntersectsWithSurfaceLineGeometry_SurfaceLineNotIntersectingSoilModel_ReturnFalse()
         {
             // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+            MacroStabilityInwardsStochasticSoilModel soilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                });
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]

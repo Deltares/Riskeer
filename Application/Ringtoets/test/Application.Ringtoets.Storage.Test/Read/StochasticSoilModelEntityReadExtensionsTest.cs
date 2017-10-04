@@ -332,7 +332,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count,
-                            model.StochasticSoilProfiles.Count);
+                            model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEqual(new[]
             {
                 "B",

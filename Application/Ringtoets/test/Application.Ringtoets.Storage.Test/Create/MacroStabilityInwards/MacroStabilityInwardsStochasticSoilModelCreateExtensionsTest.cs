@@ -72,10 +72,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random(1);
             int order = random.Next();
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel), new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(nameof(MacroStabilityInwardsStochasticSoilModel));
             var registry = new PersistenceRegistry();
 
             // Call
@@ -86,10 +84,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(stochasticSoilModel.Name, entity.Name);
             Assert.AreEqual(order, entity.Order);
             CollectionAssert.IsEmpty(entity.PipingStochasticSoilProfileEntities);
-            CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
-
-            string expectedXml = new Point2DXmlSerializer().ToXml(stochasticSoilModel.Geometry);
-            Assert.AreEqual(expectedXml, entity.StochasticSoilModelSegmentPointXml);
         }
 
         [Test]
@@ -112,15 +106,15 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             CollectionAssert.IsEmpty(entity.PipingStochasticSoilProfileEntities);
-            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Count, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(stochasticSoilProfiles.Length, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
 
-            MacroStabilityInwardsStochasticSoilProfile firstStochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles[0];
+            MacroStabilityInwardsStochasticSoilProfile firstStochasticSoilProfile = stochasticSoilProfiles[0];
             MacroStabilityInwardsStochasticSoilProfileEntity firstStochasticSoilProfileEntity = entity.MacroStabilityInwardsStochasticSoilProfileEntities.First();
             Assert.AreEqual(firstStochasticSoilProfile.Probability, firstStochasticSoilProfileEntity.Probability);
             Assert.IsNotNull(firstStochasticSoilProfileEntity.MacroStabilityInwardsSoilProfileOneDEntity);
             Assert.IsNull(firstStochasticSoilProfileEntity.MacroStabilityInwardsSoilProfileTwoDEntity);
 
-            MacroStabilityInwardsStochasticSoilProfile secondStochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles[1];
+            MacroStabilityInwardsStochasticSoilProfile secondStochasticSoilProfile = stochasticSoilProfiles[1];
             MacroStabilityInwardsStochasticSoilProfileEntity secondStochasticSoilProfileEntity = entity.MacroStabilityInwardsStochasticSoilProfileEntities.ElementAt(1);
             Assert.AreEqual(secondStochasticSoilProfile.Probability, secondStochasticSoilProfileEntity.Probability);
             Assert.IsNull(secondStochasticSoilProfileEntity.MacroStabilityInwardsSoilProfileOneDEntity);
@@ -132,11 +126,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("testName", new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("testName", new[]
+                {
+                    new Point2D(random.NextDouble(), random.NextDouble()),
+                    new Point2D(random.NextDouble(), random.NextDouble())
+                });
 
             var registry = new PersistenceRegistry();
 
@@ -169,7 +164,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned()
         {
             // Given
-            var stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
             var registry = new PersistenceRegistry();
 
             StochasticSoilModelEntity firstEntity = stochasticSoilModel.Create(registry, 0);

@@ -255,17 +255,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var stochasticSoilModel1 = new MacroStabilityInwardsStochasticSoilModel("name1", new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(1.1, 2.2)
-                });
+                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel1 =
+                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name1", new[]
+                    {
+                        new Point2D(1.0, 2.0),
+                        new Point2D(1.1, 2.2)
+                    });
 
-                var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("name2", new[]
-                {
-                    new Point2D(3.0, 4.0),
-                    new Point2D(3.3, 4.4)
-                });
+                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel2 =
+                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name2", new[]
+                    {
+                        new Point2D(3.0, 4.0),
+                        new Point2D(3.3, 4.4)
+                    });
 
                 var surfaceLineA = new MacroStabilityInwardsSurfaceLine("Line A");
                 surfaceLineA.SetGeometry(new[]
@@ -678,11 +680,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("", new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                });
+                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
+                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("", new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    });
 
                 view.Data = failureMechanismContext;
 

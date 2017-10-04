@@ -1198,14 +1198,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                     referenceLineGeometryPoints[1],
                     referenceLineGeometryPoints[2],
                     referenceLineGeometryPoints[3]
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1D),
-                        new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2D)
-                    }
-                }
+                    new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile1D),
+                    new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2D)
+                })
             }, "some/path/to/stochasticSoilModelFile");
             macroStabilityInwardsFailureMechanism.SurfaceLines.AddRange(new[]
             {

@@ -102,9 +102,10 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             Point2D[] geometry = ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml).ToArray();
-            var model = new MacroStabilityInwardsStochasticSoilModel(entity.Name, geometry);
+            MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfiles = entity.ReadMacroStabilityInwardsStochasticSoilProfiles(collector)
+                                                                                        .ToArray();
+            var model = new MacroStabilityInwardsStochasticSoilModel(entity.Name, geometry, stochasticSoilProfiles);
 
-            entity.ReadStochasticSoilProfiles(model, collector);
             collector.Read(entity, model);
 
             return model;
@@ -121,14 +122,13 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity,
-                                                       MacroStabilityInwardsStochasticSoilModel model,
-                                                       ReadConversionCollector collector)
+        private static IEnumerable<MacroStabilityInwardsStochasticSoilProfile> ReadMacroStabilityInwardsStochasticSoilProfiles(this StochasticSoilModelEntity entity,
+                                                                                                                               ReadConversionCollector collector)
         {
             foreach (MacroStabilityInwardsStochasticSoilProfileEntity stochasticSoilProfileEntity in entity.MacroStabilityInwardsStochasticSoilProfileEntities
                                                                                                            .OrderBy(ssp => ssp.Order))
             {
-                model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
+                yield return stochasticSoilProfileEntity.Read(collector);
             }
         }
 

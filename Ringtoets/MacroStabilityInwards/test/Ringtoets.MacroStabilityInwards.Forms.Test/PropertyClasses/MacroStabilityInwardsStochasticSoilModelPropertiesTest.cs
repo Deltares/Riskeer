@@ -74,17 +74,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("name", new[]
-            {
-                new Point2D(1.0, 2.0)
-            });
-
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("MacroStabilityInwardsSoilProfile", 0, new List<MacroStabilityInwardsSoilLayer1D>
             {
                 new MacroStabilityInwardsSoilLayer1D(10)
             });
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel("name", new[]
+            {
+                new Point2D(1.0, 2.0)
+            }, new[]
+            {
+                stochasticSoilProfile
+            });
 
             // Call
             var properties = new MacroStabilityInwardsStochasticSoilModelProperties(stochasticSoilModel);

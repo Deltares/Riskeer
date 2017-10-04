@@ -43,20 +43,27 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Call
             TestDelegate test = () => new MacroStabilityInwardsStochasticSoilModel(null, new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+                                                                                   {
+                                                                                       new Point2D(random.NextDouble(), random.NextDouble())
+                                                                                   },
+                                                                                   new[]
+                                                                                   {
+                                                                                       CreateStochasticSoilProfile()
+                                                                                   });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("name", exception.ParamName);
         }
 
-       [Test]
+        [Test]
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(string.Empty, null);
+            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(string.Empty, null, new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -70,11 +77,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             const string name = "modelName";
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, Enumerable.Empty<Point2D>());
+            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, Enumerable.Empty<Point2D>(), new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Assert
             string expectedMessage = $"Het stochastische ondergrondmodel '{name}' moet een geometrie bevatten.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_StochasticSoilProfilesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            const string name = "name";
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilModel(name, geometry, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("stochasticSoilProfiles", exception.ParamName);
         }
 
         [Test]
@@ -88,22 +117,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
+            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles = new[]
+            {
+                CreateStochasticSoilProfile()
+            };
 
             // Call
-            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(segmentSoilModelName, geometry);
+
+            var stochasticSoilModel = new MacroStabilityInwardsStochasticSoilModel(segmentSoilModelName, geometry, stochasticSoilProfiles);
 
             // Assert
             Assert.IsInstanceOf<Observable>(stochasticSoilModel);
             Assert.AreEqual(segmentSoilModelName, stochasticSoilModel.Name);
             Assert.AreSame(geometry, stochasticSoilModel.Geometry);
-            CollectionAssert.IsEmpty(stochasticSoilModel.StochasticSoilProfiles);
+            CollectionAssert.AreEqual(stochasticSoilProfiles, stochasticSoilModel.StochasticSoilProfiles);
         }
 
         [Test]
         public void Update_WithNullModel_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Call
             TestDelegate test = () => model.Update(null);
@@ -121,12 +158,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 new Point2D(1, 2),
                 new Point2D(4, 5)
+            }, new[]
+            {
+                CreateStochasticSoilProfile()
             });
 
             const string expectedName = "otherName";
             var otherModel = new MacroStabilityInwardsStochasticSoilModel(expectedName, new[]
             {
                 new Point2D(4, 2)
+            }, new[]
+            {
+                CreateStochasticSoilProfile()
             });
 
             // Call
@@ -144,17 +187,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Update_ModelWithAddedProfile_ProfileAdded()
         {
             // Setup
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel();
-            var expectedAddedProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestSoilProfile());
-            otherModel.StochasticSoilProfiles.Add(expectedAddedProfile);
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile()
+            });
+
+            var expectedAddedProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, new TestSoilProfile("Added Profile"));
+            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile(),
+                expectedAddedProfile
+            });
 
             // Call
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = model.Update(otherModel);
 
             // Assert
             AssertStochasticSoilModelAreEqual(otherModel, model);
-            Assert.AreEqual(expectedAddedProfile, otherModel.StochasticSoilProfiles[0]);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -171,18 +220,22 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             const string profileName = "A";
             var expectedUpdatedProfile = new MacroStabilityInwardsStochasticSoilProfile(
                 0.2, new MacroStabilityInwardsSoilProfile1D(profileName, -2, CreateLayers1D()));
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedUpdatedProfile);
-            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(new MacroStabilityInwardsStochasticSoilProfile(
-                                                      0.2, new MacroStabilityInwardsSoilProfile1D(profileName, -1, CreateLayers1D())));
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                expectedUpdatedProfile
+            });
+            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                new MacroStabilityInwardsStochasticSoilProfile(
+                    0.2, new MacroStabilityInwardsSoilProfile1D(profileName, -1, CreateLayers1D()))
+            });
 
             // Call
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = model.Update(otherModel);
 
             // Assert
             AssertStochasticSoilModelAreEqual(otherModel, model);
-            Assert.AreEqual(expectedUpdatedProfile, otherModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(expectedUpdatedProfile, otherModel.StochasticSoilProfiles.ElementAt(0));
 
             CollectionAssert.IsEmpty(difference.AddedProfiles);
             CollectionAssert.AreEqual(new[]
@@ -199,11 +252,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             const string profileName = "A";
             var soilProfile = new MacroStabilityInwardsSoilProfile1D(profileName, -2, CreateLayers1D());
             var expectedUpdatedProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedUpdatedProfile);
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                expectedUpdatedProfile
+            });
 
-            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfile));
+            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfile)
+            });
 
             // Call
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -224,10 +281,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             const string profileName = "A";
             var soilProfile = new MacroStabilityInwardsSoilProfile1D(profileName, -2, CreateLayers1D());
             var expectedRemovedProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedRemovedProfile);
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                expectedRemovedProfile
+            });
 
-            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel();
+            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel(Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
 
             // Call
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -251,11 +310,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var newProfile = new MacroStabilityInwardsStochasticSoilProfile(
                 0.2,
                 new MacroStabilityInwardsSoilProfile2D(profileName, CreateLayers2D(), Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedRemovedProfile);
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                expectedRemovedProfile
+            });
 
-            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(newProfile);
+            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                newProfile
+            });
 
             // Call
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -277,12 +340,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             const string equalProfileName = "nameA";
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-
             var stochasticProfileA = new MacroStabilityInwardsStochasticSoilProfile(0.5, CreateMacroStabilityInwardsSoilProfile1D(equalProfileName));
             var stochasticProfileB = new MacroStabilityInwardsStochasticSoilProfile(0.5, CreateMacroStabilityInwardsSoilProfile1D("nameB"));
-            model.StochasticSoilProfiles.Add(stochasticProfileA);
-            model.StochasticSoilProfiles.Add(stochasticProfileB);
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                stochasticProfileA,
+                stochasticProfileB
+            });
 
             const string otherName = "other name";
             var otherGeometry = new[]
@@ -290,8 +354,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(2, 0),
                 new Point2D(3, 0)
             };
-            var otherModel = new MacroStabilityInwardsStochasticSoilModel(otherName, otherGeometry);
-
             var otherStochasticProfileA = new MacroStabilityInwardsStochasticSoilProfile(
                 0.7,
                 new MacroStabilityInwardsSoilProfile1D(equalProfileName, -1, new[]
@@ -299,8 +361,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     new MacroStabilityInwardsSoilLayer1D(0)
                 }));
             var otherStochasticProfileB = new MacroStabilityInwardsStochasticSoilProfile(0.3, CreateMacroStabilityInwardsSoilProfile1D("other profile name"));
-            otherModel.StochasticSoilProfiles.Add(otherStochasticProfileA);
-            otherModel.StochasticSoilProfiles.Add(otherStochasticProfileB);
+            var otherModel = new MacroStabilityInwardsStochasticSoilModel(otherName, otherGeometry, new[]
+            {
+                otherStochasticProfileA,
+                otherStochasticProfileB
+            });
 
             // Call
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -308,11 +373,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert
             AssertStochasticSoilModelAreEqual(otherModel, model);
             Assert.AreSame(otherGeometry, model.Geometry);
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
-            Assert.AreSame(stochasticProfileA, model.StochasticSoilProfiles[0]);
-            Assert.AreSame(otherStochasticProfileA.SoilProfile, model.StochasticSoilProfiles[0].SoilProfile);
-            Assert.AreNotSame(stochasticProfileB, model.StochasticSoilProfiles[1]);
-            Assert.AreSame(otherStochasticProfileB.SoilProfile, model.StochasticSoilProfiles[1].SoilProfile);
+
+            MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfiles = model.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, stochasticSoilProfiles.Length);
+            Assert.AreSame(stochasticProfileA, stochasticSoilProfiles[0]);
+            Assert.AreSame(otherStochasticProfileA.SoilProfile, stochasticSoilProfiles[0].SoilProfile);
+            Assert.AreNotSame(stochasticProfileB, stochasticSoilProfiles[1]);
+            Assert.AreSame(otherStochasticProfileB.SoilProfile, stochasticSoilProfiles[1].SoilProfile);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -337,16 +404,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             MacroStabilityInwardsSoilProfile1D soilProfileOne =
                 MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(profileName);
             var addedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfileOne);
-            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(addedStochasticSoilProfile);
+            MacroStabilityInwardsStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                addedStochasticSoilProfile
+            });
 
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D(profileName);
             var existingStochasticSoilProfileOne = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
             var existingStochasticSoilProfileTwo = new MacroStabilityInwardsStochasticSoilProfile(0.3, soilProfile);
 
-            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileOne);
-            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileTwo);
+            MacroStabilityInwardsStochasticSoilModel model = CreateValidModel(new[]
+            {
+                existingStochasticSoilProfileOne,
+                existingStochasticSoilProfileTwo
+            });
 
             // Call 
             TestDelegate call = () => model.Update(otherModel);
@@ -354,10 +425,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert 
             Assert.Throws<InvalidOperationException>(call);
 
-            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count);
-            Assert.AreEqual(addedStochasticSoilProfile, otherModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count());
+            Assert.AreEqual(addedStochasticSoilProfile, otherModel.StochasticSoilProfiles.First());
 
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEqual(new[]
             {
                 existingStochasticSoilProfileOne,
@@ -376,6 +447,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                                                    new[]
                                                                                    {
                                                                                        new Point2D(random.NextDouble(), random.NextDouble())
+                                                                                   },
+                                                                                   new[]
+                                                                                   {
+                                                                                       new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(), new TestSoilProfile())
                                                                                    });
 
             // Call & Assert
@@ -398,7 +473,41 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private class TestSoilProfile : IMacroStabilityInwardsSoilProfile
         {
+            public TestSoilProfile() {}
+
+            public TestSoilProfile(string name)
+            {
+                Name = name;
+            }
+
             public string Name { get; } = "";
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+                if (obj.GetType() != GetType())
+                {
+                    return false;
+                }
+                return Equals((TestSoilProfile) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                return Name.GetHashCode();
+            }
+
+            private bool Equals(TestSoilProfile other)
+            {
+                return string.Equals(Name, other.Name);
+            }
         }
 
         private static IEnumerable<MacroStabilityInwardsSoilLayer1D> CreateLayers1D()
@@ -422,14 +531,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             };
         }
 
-        private static MacroStabilityInwardsStochasticSoilModel CreateValidModel()
+        private static MacroStabilityInwardsStochasticSoilModel CreateValidModel(IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
         {
             var random = new Random(21);
             return new MacroStabilityInwardsStochasticSoilModel("name",
                                                                 new[]
                                                                 {
                                                                     new Point2D(random.NextDouble(), random.NextDouble())
-                                                                });
+                                                                }, stochasticSoilProfiles);
+        }
+
+        private static MacroStabilityInwardsStochasticSoilProfile CreateStochasticSoilProfile()
+        {
+            var random = new Random(21);
+            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new TestSoilProfile());
         }
 
         private static void AssertStochasticSoilModelAreEqual(MacroStabilityInwardsStochasticSoilModel expected,

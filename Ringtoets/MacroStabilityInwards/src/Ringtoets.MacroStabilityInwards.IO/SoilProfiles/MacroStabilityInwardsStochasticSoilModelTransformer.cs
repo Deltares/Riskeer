@@ -36,8 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilModelTransformer : IStochasticSoilModelTransformer<MacroStabilityInwardsStochasticSoilModel>
     {
-        private readonly Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile> soilProfiles = new Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile>();
         private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsStochasticSoilModelTransformer));
+        private readonly Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile> soilProfiles = new Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile>();
 
         public MacroStabilityInwardsStochasticSoilModel Transform(StochasticSoilModel stochasticSoilModel)
         {
@@ -56,10 +56,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             try
             {
+                MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfiles =
+                    TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray();
                 var macroStabilityInwardsModel = new MacroStabilityInwardsStochasticSoilModel(stochasticSoilModel.Name,
-                                                                                              stochasticSoilModel.Geometry);
-                macroStabilityInwardsModel.StochasticSoilProfiles.AddRange(
-                    TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
+                                                                                              stochasticSoilModel.Geometry,
+                                                                                              stochasticSoilProfiles);
 
                 return macroStabilityInwardsModel;
             }

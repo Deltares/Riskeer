@@ -296,7 +296,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         private static void AssertStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel model, StochasticSoilModelEntity entity)
         {
             Assert.AreEqual(model.Name, entity.Name);
-            Assert.AreEqual(model.StochasticSoilProfiles.Count, entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(model.StochasticSoilProfiles.Count(), entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count);
         }
     }
 }

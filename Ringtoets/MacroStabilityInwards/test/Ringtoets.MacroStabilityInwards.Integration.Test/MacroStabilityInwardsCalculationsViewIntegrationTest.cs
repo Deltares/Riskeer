@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_22");
                 calculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[0];
-                calculation1.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[0].StochasticSoilProfiles[0];
+                calculation1.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[0].StochasticSoilProfiles.First();
                 calculation1.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0001_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -152,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_19");
                 calculation2.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0002");
                 calculation2.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[1];
-                calculation2.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[1].StochasticSoilProfiles[0];
+                calculation2.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[1].StochasticSoilProfiles.First();
                 calculation2.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -161,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_16");
                 calculation3.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0003");
                 calculation3.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[2];
-                calculation3.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[2].StochasticSoilProfiles[0];
+                calculation3.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[2].StochasticSoilProfiles.First();
                 calculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_8");
                 calculation4.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0004");
                 calculation4.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[3];
-                calculation4.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[3].StochasticSoilProfiles[0];
+                calculation4.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[3].StochasticSoilProfiles.First();
                 calculation4.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0004_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);

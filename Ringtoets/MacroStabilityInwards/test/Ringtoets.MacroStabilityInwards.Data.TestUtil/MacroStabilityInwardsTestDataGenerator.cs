@@ -231,35 +231,29 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new Point2D(-5, 5),
                 new Point2D(5, 5)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
+                new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile1D("test", 3, new[]
-                    {
-                        new MacroStabilityInwardsSoilLayer1D(4)
-                    }))
-                }
-            };
+                    new MacroStabilityInwardsSoilLayer1D(4)
+                }))
+            });
             var stochasticSoilModel2 = new MacroStabilityInwardsStochasticSoilModel("C", new[]
             {
                 new Point2D(5, 5),
                 new Point2D(15, 5)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
+                new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile2D("test", new[]
                 {
-                    new MacroStabilityInwardsStochasticSoilProfile(1.0, new MacroStabilityInwardsSoilProfile2D("test", new[]
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                     {
-                        new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                        {
-                            new Point2D(0, 0),
-                            new Point2D(1, 0),
-                            new Point2D(0, 0)
-                        }), Enumerable.Empty<Ring>())
-                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
-                }
-            };
+                        new Point2D(0, 0),
+                        new Point2D(1, 0),
+                        new Point2D(0, 0)
+                    }), Enumerable.Empty<Ring>())
+                }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
+            });
 
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -286,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1,
-                    StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.ElementAt(0)
                 }
             };
             var calculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
@@ -313,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel2,
-                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.ElementAt(0)
                 }
             };
 
@@ -325,7 +319,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2,
-                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.ElementAt(0)
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -337,7 +331,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1,
-                    StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.ElementAt(0)
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -355,7 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel2,
-                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.ElementAt(0)
                 }
             };
 

@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.TestUtils.Test
                 1,
                 1,
                 1
-            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.StochasticSoilProfiles.Count));
+            }, dikeSection.MacroStabilityInwards.StochasticSoilModels.Select(sm => sm.StochasticSoilProfiles.Count()));
             CollectionAssert.AreEqual(new[]
             {
                 1.0,
