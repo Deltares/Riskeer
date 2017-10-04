@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -41,19 +42,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
             Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.Output);
-        }
-
-        [Test]
-        public void Validate_Always_ReturnEmptyList()
-        {
-            // Setup
-            var calculator = new UpliftVanCalculatorStub();
-
-            // Call
-            List<string> messages = calculator.Validate();
-
-            // Assert
-            CollectionAssert.IsEmpty(messages);
         }
 
         [Test]
@@ -91,6 +79,37 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNull(calculator.Output);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationResultsFalse_ReturnsEmptyValidationResult()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub();
+
+            // Call
+            List<string> result = calculator.Validate();
+
+            // Assert
+            CollectionAssert.IsEmpty(result);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub
+            {
+                ReturnValidationResults = true
+            };
+
+            // Call
+            List<string> results = calculator.Validate();
+
+            // Assert
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual("Validation Error 1", results.ElementAt(0));
+            Assert.AreEqual("Validation Error 2", results.ElementAt(1));
         }
     }
 }

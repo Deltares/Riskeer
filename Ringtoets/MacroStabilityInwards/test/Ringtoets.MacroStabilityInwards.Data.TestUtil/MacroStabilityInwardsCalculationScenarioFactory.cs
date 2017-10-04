@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -131,7 +132,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
         public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
         {
-            const double bottom = 1.12;
             const double top = 10.56;
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, new[]
             {
@@ -139,34 +139,90 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     Data =
                     {
-                        IsAquifer = false
+                        IsAquifer = false,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
                     }
                 },
-                new MacroStabilityInwardsSoilLayer1D(top / 2)
+                new MacroStabilityInwardsSoilLayer1D(6.0)
                 {
                     Data =
                     {
-                        IsAquifer = true
+                        IsAquifer = true,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                },
+                new MacroStabilityInwardsSoilLayer1D(0.1)
+                {
+                    Data =
+                    {
+                        IsAquifer = false,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
                     }
                 }
             }));
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
-            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
-            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);
-            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2 * top / 4);
-            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3 * top / 4);
+            var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 2);
+            var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 2);
+            var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 3);
+            var fourthCharacteristicPointLocation = new Point3D(0.4, 0.0, 3);
+            var fifthCharacteristicPointLocation = new Point3D(0.5, 0.0, 1);
+            var sixthCharacteristicPointLocation = new Point3D(0.6, 0.0, 1);
+
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0.0, 0.0, 0.0),
                 firstCharacteristicPointLocation,
                 secondCharacteristicPointLocation,
                 thirdCharacteristicPointLocation,
                 fourthCharacteristicPointLocation,
                 fifthCharacteristicPointLocation,
-                new Point3D(1.0, 0.0, top)
+                sixthCharacteristicPointLocation
             });
+            surfaceLine.SetSurfaceLevelOutsideAt(firstCharacteristicPointLocation);
+            surfaceLine.SetDikeToeAtRiverAt(secondCharacteristicPointLocation);
+            surfaceLine.SetDikeTopAtRiverAt(thirdCharacteristicPointLocation);
+            surfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
+            surfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
+            surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(1.0);
             return new MacroStabilityInwardsCalculationScenario
@@ -175,7 +231,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     SurfaceLine = surfaceLine,
                     StochasticSoilProfile = stochasticSoilProfile,
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
+                    WaterLevelPolder = new RoundedDouble(5, 0.5),
+                    PiezometricHeadPhreaticLine2Outwards = new RoundedDouble(5, 1.0),
+                    PiezometricHeadPhreaticLine2Inwards = new RoundedDouble(5, 1.0),
+                    AdjustPhreaticLine3And4ForUplift = true,
+                    UseDefaultOffsets = false,
+                    LeakageLengthInwardsPhreaticLine3 = new RoundedDouble(5, 1.0),
+                    LeakageLengthOutwardsPhreaticLine3 = new RoundedDouble(5, 1.0),
+                    LeakageLengthOutwardsPhreaticLine4 = new RoundedDouble(5, 1.0),
+                    LeakageLengthInwardsPhreaticLine4 = new RoundedDouble(5, 1.0),
+                    PenetrationLength = new RoundedDouble(5, 1.0),
+                    SlipPlaneMinimumLength = new RoundedDouble(5, 1.0),
+                    SlipPlaneMinimumDepth = new RoundedDouble(5, 1.0),
+                    MinimumLevelPhreaticLineAtDikeTopPolder = new RoundedDouble(5, 1.0),
+                    MinimumLevelPhreaticLineAtDikeTopRiver = new RoundedDouble(5, 1.0),
+                    PhreaticLineOffsetBelowDikeToeAtPolder = new RoundedDouble(5, 1.0),
+                    PhreaticLineOffsetBelowDikeTopAtPolder = new RoundedDouble(5, 1.0),
+                    PhreaticLineOffsetBelowDikeTopAtRiver = new RoundedDouble(5, 1.0),
+                    PhreaticLineOffsetBelowShoulderBaseInside = new RoundedDouble(5, 1.0)
                 }
             };
         }
