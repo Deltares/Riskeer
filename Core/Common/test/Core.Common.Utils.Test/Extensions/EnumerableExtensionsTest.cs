@@ -119,10 +119,10 @@ namespace Core.Common.Utils.Test.Extensions
             };
 
             // Call
-            bool hasNonDistinct = items.HasDuplicates(t => t);
+            bool hasDuplicates = items.HasDuplicates(t => t);
 
             // Assert
-            Assert.IsFalse(hasNonDistinct);
+            Assert.IsFalse(hasDuplicates);
         }
 
         [Test]
@@ -137,10 +137,10 @@ namespace Core.Common.Utils.Test.Extensions
             };
 
             // Call
-            bool hasNonDistinct = items.HasDuplicates(t => t);
+            bool hasDuplicates = items.HasDuplicates(t => t);
 
             // Assert
-            Assert.IsTrue(hasNonDistinct);
+            Assert.IsTrue(hasDuplicates);
         }
 
         [Test]
@@ -181,10 +181,10 @@ namespace Core.Common.Utils.Test.Extensions
             };
 
             // Call
-            bool hasNonDistinct = items.HasMultipleUniqueValues(t => t);
+            bool hasMultipleUniqueValues = items.HasMultipleUniqueValues(t => t);
 
             // Assert
-            Assert.IsFalse(hasNonDistinct);
+            Assert.IsFalse(hasMultipleUniqueValues);
         }
 
         [Test]
