@@ -108,13 +108,11 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             {
                 new Point2D(0, 2),
                 new Point2D(4, 2)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile
-                }
-            };
+                stochasticSoilProfile
+            });
+
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {

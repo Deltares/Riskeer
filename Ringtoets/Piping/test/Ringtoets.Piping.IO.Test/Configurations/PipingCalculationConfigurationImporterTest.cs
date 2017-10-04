@@ -586,8 +586,10 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(5.0, 0.0)
+            }, new[]
+            {
+                stochasticSoilProfile
             });
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.AddRange(new[]

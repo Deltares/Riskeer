@@ -76,10 +76,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
                                                                  PersistenceRegistry registry,
                                                                  StochasticSoilModelEntity entity)
         {
-            for (var i = 0; i < model.StochasticSoilProfiles.Count; i++)
+            var i = 0;
+            foreach (PipingStochasticSoilProfile stochasticSoilProfile in model.StochasticSoilProfiles)
             {
-                PipingStochasticSoilProfile stochasticSoilProfile = model.StochasticSoilProfiles[i];
-                entity.PipingStochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
+                entity.PipingStochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i++));
             }
         }
     }

@@ -56,11 +56,10 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
             try
             {
-                var pipingModel = new PipingStochasticSoilModel(stochasticSoilModel.Name, stochasticSoilModel.Geometry);
-                pipingModel.StochasticSoilProfiles.AddRange(
-                    TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray());
+                PipingStochasticSoilProfile[] pipingStochasticSoilProfiles =
+                    TransformStochasticSoilProfiles(stochasticSoilModel.StochasticSoilProfiles, stochasticSoilModel.Name).ToArray();
 
-                return pipingModel;
+                return new PipingStochasticSoilModel(stochasticSoilModel.Name, stochasticSoilModel.Geometry, pipingStochasticSoilProfiles);
             }
             catch (ArgumentException e)
             {

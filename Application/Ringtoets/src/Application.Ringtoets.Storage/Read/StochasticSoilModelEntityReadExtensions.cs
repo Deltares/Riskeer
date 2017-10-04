@@ -66,8 +66,8 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             Point2D[] geometry = ReadSegmentPoints(entity.StochasticSoilModelSegmentPointXml).ToArray();
-            var model = new PipingStochasticSoilModel(entity.Name, geometry);
-            entity.ReadStochasticSoilProfiles(model, collector);
+            PipingStochasticSoilProfile[] stochasticSoilProfiles = ReadPipingStochasticSoilProfiles(entity, collector).ToArray();
+            var model = new PipingStochasticSoilModel(entity.Name, geometry, stochasticSoilProfiles);
 
             collector.Read(entity, model);
 
@@ -111,14 +111,13 @@ namespace Application.Ringtoets.Storage.Read
             return model;
         }
 
-        private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity,
-                                                       PipingStochasticSoilModel model,
-                                                       ReadConversionCollector collector)
+        private static IEnumerable<PipingStochasticSoilProfile> ReadPipingStochasticSoilProfiles(this StochasticSoilModelEntity entity,
+                                                                                                 ReadConversionCollector collector)
         {
             foreach (PipingStochasticSoilProfileEntity stochasticSoilProfileEntity in entity.PipingStochasticSoilProfileEntities
                                                                                             .OrderBy(ssp => ssp.Order))
             {
-                model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
+                yield return stochasticSoilProfileEntity.Read(collector);
             }
         }
 

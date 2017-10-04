@@ -40,7 +40,6 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
@@ -1478,14 +1477,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(5.0, 0.0)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
-                        new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
-                    }
-                }
+                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
+                    new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
+                })
             }, arbirtraryFilePath);
 
             pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
@@ -1613,19 +1609,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
+                stochasticSoilProfile1,
+                new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 2", -8.0, new[]
                 {
-                    stochasticSoilProfile1,
-                    new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 2", -8.0, new[]
-                    {
-                        new PipingSoilLayer(-4.0),
-                        new PipingSoilLayer(0.0),
-                        new PipingSoilLayer(4.0)
-                    }, SoilProfileType.SoilProfile1D))
-                }
-            };
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D))
+            });
 
             var stochasticSoilProfile5 = new PipingStochasticSoilProfile(
                 0.3, new PipingSoilProfile("Profile 5", -10.0, new[]
@@ -1639,13 +1632,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 new Point2D(1.0, 0.0),
                 new Point2D(6.0, 0.0)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
-                {
-                    stochasticSoilProfile5
-                }
-            };
+                stochasticSoilProfile5
+            });
 
             pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
             {
@@ -1654,24 +1644,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     new Point2D(1.0, 0.0),
                     new Point2D(4.0, 0.0)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
+                    new PipingStochasticSoilProfile(0.3, new PipingSoilProfile("Profile 3", -10.0, new[]
                     {
-                        new PipingStochasticSoilProfile(0.3, new PipingSoilProfile("Profile 3", -10.0, new[]
-                        {
-                            new PipingSoilLayer(-5.0),
-                            new PipingSoilLayer(-2.0),
-                            new PipingSoilLayer(1.0)
-                        }, SoilProfileType.SoilProfile1D)),
-                        new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 4", -8.0, new[]
-                        {
-                            new PipingSoilLayer(-4.0),
-                            new PipingSoilLayer(0.0),
-                            new PipingSoilLayer(4.0)
-                        }, SoilProfileType.SoilProfile1D))
-                    }
-                },
+                        new PipingSoilLayer(-5.0),
+                        new PipingSoilLayer(-2.0),
+                        new PipingSoilLayer(1.0)
+                    }, SoilProfileType.SoilProfile1D)),
+                    new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 4", -8.0, new[]
+                    {
+                        new PipingSoilLayer(-4.0),
+                        new PipingSoilLayer(0.0),
+                        new PipingSoilLayer(4.0)
+                    }, SoilProfileType.SoilProfile1D))
+                }),
                 stochasticSoilModelE
             }, arbitraryFilePath);
             return pipingFailureMechanism;

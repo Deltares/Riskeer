@@ -105,10 +105,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             PipingStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
             Assert.AreEqual("modelName", soilModel.Name);
-            Assert.AreEqual(2, soilModel.StochasticSoilProfiles.Count);
-            PipingStochasticSoilProfile stochasticSoilProfile1 = soilModel.StochasticSoilProfiles[0];
+
+            PipingStochasticSoilProfile[] stochasticSoilProfiles = soilModel.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, stochasticSoilProfiles.Length);
+            PipingStochasticSoilProfile stochasticSoilProfile1 = stochasticSoilProfiles[0];
             Assert.AreEqual(0.2, stochasticSoilProfile1.Probability);
-            PipingStochasticSoilProfile stochasticSoilProfile2 = soilModel.StochasticSoilProfiles[1];
+            PipingStochasticSoilProfile stochasticSoilProfile2 = stochasticSoilProfiles[1];
             Assert.AreEqual(0.8, stochasticSoilProfile2.Probability);
 
             Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);

@@ -41,9 +41,13 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         {
             // Call
             TestDelegate test = () => new PipingStochasticSoilModel(null, new[]
-            {
-                new Point2D(1, 1)
-            });
+                                                                    {
+                                                                        new Point2D(1, 1)
+                                                                    },
+                                                                    new[]
+                                                                    {
+                                                                        CreateStochasticSoilProfile()
+                                                                    });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -51,7 +55,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_ValidName_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             const string name = "name";
@@ -59,9 +63,13 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             {
                 new Point2D(1, 1)
             };
+            var stochasticSoilProfiles = new[]
+            {
+                CreateStochasticSoilProfile()
+            };
 
             // Call
-            var model = new PipingStochasticSoilModel(name, geometry);
+            var model = new PipingStochasticSoilModel(name, geometry, stochasticSoilProfiles);
 
             // Assert
             Assert.IsInstanceOf<Observable>(model);
@@ -69,7 +77,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
 
             Assert.AreEqual(name, model.Name);
             Assert.AreSame(geometry, model.Geometry);
-            CollectionAssert.IsEmpty(model.StochasticSoilProfiles);
+            CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
             Assert.AreEqual(name, model.ToString());
         }
 
@@ -77,7 +85,10 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void Constructor_WithGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingStochasticSoilModel(string.Empty, null);
+            TestDelegate call = () => new PipingStochasticSoilModel(string.Empty, null, new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -91,7 +102,10 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             const string name = "modelName";
 
             // Call
-            TestDelegate call = () => new PipingStochasticSoilModel(name, Enumerable.Empty<Point2D>());
+            TestDelegate call = () => new PipingStochasticSoilModel(name, Enumerable.Empty<Point2D>(), new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Assert
             string expectedMessage = $"Het stochastische ondergrondmodel '{name}' moet een geometrie bevatten.";
@@ -99,13 +113,35 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         }
 
         [Test]
+        public void Constructor_StochasticSoilProfilesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string name = "name";
+            var geometry = new[]
+            {
+                new Point2D(1, 1)
+            };
+
+            // Call
+            TestDelegate call = () => new PipingStochasticSoilModel(name, geometry, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("stochasticSoilProfiles", exception.ParamName);
+        }
+
+        [Test]
         public void Update_WithNullModel_ThrowsArgumentNullException()
         {
             // Setup
             var model = new PipingStochasticSoilModel("name", new[]
-            {
-                new Point2D(1, 1)
-            });
+                                                      {
+                                                          new Point2D(1, 1)
+                                                      },
+                                                      new[]
+                                                      {
+                                                          CreateStochasticSoilProfile()
+                                                      });
 
             // Call
             TestDelegate test = () => model.Update(null);
@@ -123,6 +159,9 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             {
                 new Point2D(1, 2),
                 new Point2D(4, 5)
+            }, new[]
+            {
+                CreateStochasticSoilProfile()
             });
 
             const string expectedName = "otherName";
@@ -131,7 +170,10 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
                 new Point2D(4, 2)
             };
 
-            var otherModel = new PipingStochasticSoilModel(expectedName, expectedGeometry);
+            var otherModel = new PipingStochasticSoilModel(expectedName, expectedGeometry, new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -149,17 +191,24 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         public void Update_ModelWithAddedProfile_ProfileAdded()
         {
             // Setup
-            PipingStochasticSoilModel model = CreateValidModel();
-            PipingStochasticSoilModel otherModel = CreateValidModel();
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile()
+            });
+
             var expectedAddedProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-            otherModel.StochasticSoilProfiles.Add(expectedAddedProfile);
+            PipingStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                expectedAddedProfile,
+                CreateStochasticSoilProfile()
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
 
             // Assert
-            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count);
-            Assert.AreEqual(expectedAddedProfile, otherModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(2, otherModel.StochasticSoilProfiles.Count());
+            Assert.AreEqual(expectedAddedProfile, otherModel.StochasticSoilProfiles.First());
 
             CollectionAssert.AreEqual(new[]
             {
@@ -177,19 +226,22 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             var expectedUpdatedProfile = new PipingStochasticSoilProfile(
                 0.2,
                 new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile1D));
-            PipingStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedUpdatedProfile);
-            PipingStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(new PipingStochasticSoilProfile(
-                                                      0.2,
-                                                      new PipingSoilProfile(profileName, -1, CreateLayers(), SoilProfileType.SoilProfile1D)));
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                expectedUpdatedProfile
+            });
+            PipingStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                new PipingStochasticSoilProfile(0.2,
+                                                new PipingSoilProfile(profileName, -1, CreateLayers(), SoilProfileType.SoilProfile1D))
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
 
             // Assert
-            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count);
-            Assert.AreEqual(expectedUpdatedProfile, otherModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count());
+            Assert.AreEqual(expectedUpdatedProfile, otherModel.StochasticSoilProfiles.First());
 
             CollectionAssert.IsEmpty(difference.AddedProfiles);
             CollectionAssert.AreEqual(new[]
@@ -206,11 +258,15 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             const string profileName = "A";
             var soilProfile = new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile1D);
             var expectedUpdatedProfile = new PipingStochasticSoilProfile(0.2, soilProfile);
-            PipingStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedUpdatedProfile);
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                expectedUpdatedProfile
+            });
 
-            PipingStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(new PipingStochasticSoilProfile(0.5, soilProfile));
+            PipingStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                new PipingStochasticSoilProfile(0.5, soilProfile)
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -231,10 +287,16 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             const string profileName = "A";
             var soilProfile = new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile1D);
             var expectedRemovedProfile = new PipingStochasticSoilProfile(0.2, soilProfile);
-            PipingStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedRemovedProfile);
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile(),
+                expectedRemovedProfile
+            });
 
-            PipingStochasticSoilModel otherModel = CreateValidModel();
+            PipingStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile()
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -258,11 +320,17 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             var newProfile = new PipingStochasticSoilProfile(
                 0.2,
                 new PipingSoilProfile(profileName, -2, CreateLayers(), SoilProfileType.SoilProfile2D));
-            PipingStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(expectedRemovedProfile);
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile(),
+                expectedRemovedProfile
+            });
 
-            PipingStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(newProfile);
+            PipingStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                CreateStochasticSoilProfile(),
+                newProfile
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -284,12 +352,13 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         {
             // Setup
             const string equalProfileName = "nameA";
-            PipingStochasticSoilModel model = CreateValidModel();
-
             var stochasticProfileA = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile(equalProfileName));
             var stochasticProfileB = new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("nameB"));
-            model.StochasticSoilProfiles.Add(stochasticProfileA);
-            model.StochasticSoilProfiles.Add(stochasticProfileB);
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                stochasticProfileA,
+                stochasticProfileB
+            });
 
             const string otherName = "other name";
             var otherGeometry = new[]
@@ -297,16 +366,17 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
                 new Point2D(2, 0),
                 new Point2D(3, 0)
             };
-            var otherModel = new PipingStochasticSoilModel(otherName, otherGeometry);
-
             var otherStochasticProfileA = new PipingStochasticSoilProfile(
                 0.7, new PipingSoilProfile(equalProfileName, -1, new[]
                 {
                     new PipingSoilLayer(0)
                 }, SoilProfileType.SoilProfile1D));
             var otherStochasticProfileB = new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile("other profile name"));
-            otherModel.StochasticSoilProfiles.Add(otherStochasticProfileA);
-            otherModel.StochasticSoilProfiles.Add(otherStochasticProfileB);
+            var otherModel = new PipingStochasticSoilModel(otherName, otherGeometry, new[]
+            {
+                otherStochasticProfileA,
+                otherStochasticProfileB
+            });
 
             // Call
             PipingStochasticSoilModelProfileDifference difference = model.Update(otherModel);
@@ -314,11 +384,13 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             // Assert
             Assert.AreEqual(otherName, model.Name);
             Assert.AreSame(otherGeometry, model.Geometry);
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
-            Assert.AreSame(stochasticProfileA, model.StochasticSoilProfiles[0]);
-            Assert.AreSame(otherStochasticProfileA.SoilProfile, model.StochasticSoilProfiles[0].SoilProfile);
-            Assert.AreNotSame(stochasticProfileB, model.StochasticSoilProfiles[1]);
-            Assert.AreSame(otherStochasticProfileB.SoilProfile, model.StochasticSoilProfiles[1].SoilProfile);
+
+            PipingStochasticSoilProfile[] stochasticSoilProfiles = model.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, stochasticSoilProfiles.Length);
+            Assert.AreSame(stochasticProfileA, stochasticSoilProfiles[0]);
+            Assert.AreSame(otherStochasticProfileA.SoilProfile, stochasticSoilProfiles[0].SoilProfile);
+            Assert.AreNotSame(stochasticProfileB, stochasticSoilProfiles[1]);
+            Assert.AreSame(otherStochasticProfileB.SoilProfile, stochasticSoilProfiles[1].SoilProfile);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -340,15 +412,19 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             // Setup 
             const string profileName = "Name of the profile";
             var addedProfile = new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName));
-            PipingStochasticSoilModel otherModel = CreateValidModel();
-            otherModel.StochasticSoilProfiles.Add(addedProfile);
+            PipingStochasticSoilModel otherModel = CreateValidModel(new[]
+            {
+                addedProfile
+            });
 
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName);
             var existingStochasticSoilProfileOne = new PipingStochasticSoilProfile(0.2, soilProfile);
             var existingStochasticSoilProfileTwo = new PipingStochasticSoilProfile(0.3, soilProfile);
-            PipingStochasticSoilModel model = CreateValidModel();
-            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileOne);
-            model.StochasticSoilProfiles.Add(existingStochasticSoilProfileTwo);
+            PipingStochasticSoilModel model = CreateValidModel(new[]
+            {
+                existingStochasticSoilProfileOne,
+                existingStochasticSoilProfileTwo
+            });
 
             // Call 
             TestDelegate call = () => model.Update(otherModel);
@@ -356,15 +432,21 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             // Assert 
             Assert.Throws<InvalidOperationException>(call);
 
-            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count);
-            Assert.AreEqual(addedProfile, otherModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(1, otherModel.StochasticSoilProfiles.Count());
+            Assert.AreEqual(addedProfile, otherModel.StochasticSoilProfiles.First());
 
-            Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            Assert.AreEqual(2, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEqual(new[]
             {
                 existingStochasticSoilProfileOne,
                 existingStochasticSoilProfileTwo
             }, model.StochasticSoilProfiles);
+        }
+
+        private static PipingStochasticSoilProfile CreateStochasticSoilProfile()
+        {
+            var random = new Random(21);
+            return new PipingStochasticSoilProfile(random.NextDouble(), PipingSoilProfileTestFactory.CreatePipingSoilProfile(string.Empty));
         }
 
         private static IEnumerable<PipingSoilLayer> CreateLayers()
@@ -375,14 +457,14 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             };
         }
 
-        private static PipingStochasticSoilModel CreateValidModel()
+        private static PipingStochasticSoilModel CreateValidModel(IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles)
         {
             var random = new Random(21);
             var geometry = new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
-            return new PipingStochasticSoilModel("name", geometry);
+            return new PipingStochasticSoilModel("name", geometry, stochasticSoilProfiles);
         }
     }
 }

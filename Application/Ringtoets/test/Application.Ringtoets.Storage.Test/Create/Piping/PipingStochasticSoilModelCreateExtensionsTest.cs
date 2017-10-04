@@ -72,10 +72,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var random = new Random(1);
             int order = random.Next();
             const string testName = "testName";
-            var stochasticSoilModel = new PipingStochasticSoilModel(testName, new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+            PipingStochasticSoilModel stochasticSoilModel =
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(testName);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -85,11 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(order, entity.Order);
-            CollectionAssert.IsEmpty(entity.PipingStochasticSoilProfileEntities);
             CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
-
-            string expectedXml = new Point2DXmlSerializer().ToXml(stochasticSoilModel.Geometry);
-            Assert.AreEqual(expectedXml, entity.StochasticSoilModelSegmentPointXml);
         }
 
         [Test]
@@ -122,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Count, entity.PipingStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Count(), entity.PipingStochasticSoilProfileEntities.Count);
 
             PipingStochasticSoilProfileEntity stochastEntity = entity.PipingStochasticSoilProfileEntities.Single();
             Assert.AreEqual(stochasticSoilModel.StochasticSoilProfiles.Single().Probability, stochastEntity.Probability);

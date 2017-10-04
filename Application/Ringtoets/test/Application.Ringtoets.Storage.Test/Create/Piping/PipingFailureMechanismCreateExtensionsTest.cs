@@ -258,7 +258,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         private static void AssertStochasticSoilModel(PipingStochasticSoilModel model, StochasticSoilModelEntity entity)
         {
             Assert.AreEqual(model.Name, entity.Name);
-            Assert.AreEqual(model.StochasticSoilProfiles.Count, entity.PipingStochasticSoilProfileEntities.Count);
+            Assert.AreEqual(model.StochasticSoilProfiles.Count(), entity.PipingStochasticSoilProfileEntities.Count);
             CollectionAssert.IsEmpty(entity.MacroStabilityInwardsStochasticSoilProfileEntities);
         }
 

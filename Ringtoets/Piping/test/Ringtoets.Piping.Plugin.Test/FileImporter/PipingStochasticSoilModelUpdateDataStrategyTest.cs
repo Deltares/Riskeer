@@ -247,7 +247,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(1, targetCollection.Count);
             Assert.AreSame(existingModel, targetCollection[0]);
-            Assert.AreEqual(2, targetCollection[0].StochasticSoilProfiles.Count);
+            Assert.AreEqual(2, targetCollection[0].StochasticSoilProfiles.Count());
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 targetCollection,
@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string modelsName = "same model";
-            PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName);
+            PipingStochasticSoilModel existingModel = CreateSimpleModel(modelsName, "Unaffected Profile", "Removed Profile");
 
             var failureMechanism = new PipingFailureMechanism();
             PipingStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
@@ -269,17 +269,17 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 existingModel
             }, sourceFilePath);
 
-            PipingStochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles[0];
+            PipingStochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles.First();
             PipingStochasticSoilModel readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
 
             var calculationWithNotUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
-            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
+            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
             calculationWithNotUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             var calculationWithDeletedProfile = new PipingCalculationScenario(new GeneralPipingInput());
             calculationWithDeletedProfile.InputParameters.StochasticSoilModel = existingModel;
-            calculationWithDeletedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
+            calculationWithDeletedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
             calculationWithDeletedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             failureMechanism.CalculationsGroup.Children.Add(calculationWithDeletedProfile);
@@ -296,8 +296,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             PipingStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
-            Assert.AreEqual(1, firstSoilModel.StochasticSoilProfiles.Count);
-            Assert.AreSame(firstExistingProfile, firstSoilModel.StochasticSoilProfiles[0]);
+            Assert.AreSame(firstExistingProfile, firstSoilModel.StochasticSoilProfiles.ElementAt(0));
 
             Assert.IsTrue(calculationWithNotUpdatedProfile.HasOutput);
             CollectionAssert.DoesNotContain(affectedObjects, calculationWithNotUpdatedProfile);
@@ -314,7 +313,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string modelsName = "same model";
-            PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName);
+            PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName, new[]
+            {
+                CreateStochasticSoilProfile("Updated Profile"),
+                CreateStochasticSoilProfile("Unaffected Profile")
+            });
 
             var failureMechanism = new PipingFailureMechanism();
             PipingStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
@@ -323,18 +326,21 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 existingModel
             }, sourceFilePath);
 
-            PipingStochasticSoilModel readModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName);
-            PipingStochasticSoilProfile changedProfile = CloneAndSlightlyModify(readModel.StochasticSoilProfiles.ElementAt(0));
-            readModel.StochasticSoilProfiles[0] = changedProfile;
+            PipingStochasticSoilProfile changedProfile = CloneAndSlightlyModify(existingModel.StochasticSoilProfiles.ElementAt(0));
+            PipingStochasticSoilModel readModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName, new[]
+            {
+                changedProfile,
+                CreateStochasticSoilProfile("Unaffected Profile")
+            });
 
             var calculationWithUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
             calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
-            calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
+            calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
             calculationWithUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             var calculationWithNotUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
-            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[1];
+            calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
             calculationWithNotUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             failureMechanism.CalculationsGroup.Children.Add(calculationWithNotUpdatedProfile);
@@ -349,17 +355,22 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, sourceFilePath).ToArray();
 
             // Assert
+            Assert.AreEqual(1, targetCollection.Count);
             PipingStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
-            Assert.AreEqual(2, firstSoilModel.StochasticSoilProfiles.Count);
-            Assert.AreSame(existingModel.StochasticSoilProfiles[0], firstSoilModel.StochasticSoilProfiles[0]);
-            Assert.AreSame(existingModel.StochasticSoilProfiles[1], firstSoilModel.StochasticSoilProfiles[1]);
 
+            PipingStochasticSoilProfile[] stochasticSoilProfiles = firstSoilModel.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, stochasticSoilProfiles.Length);
+
+            PipingStochasticSoilProfile updatedStochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
+            Assert.AreSame(updatedStochasticSoilProfile, stochasticSoilProfiles[0]);
             Assert.IsFalse(calculationWithUpdatedProfile.HasOutput);
-            Assert.AreSame(existingModel.StochasticSoilProfiles[0], calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile);
+            Assert.AreSame(updatedStochasticSoilProfile, calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile);
 
+            PipingStochasticSoilProfile unaffectedStochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
+            Assert.AreSame(unaffectedStochasticSoilProfile, stochasticSoilProfiles[1]);
             Assert.IsTrue(calculationWithNotUpdatedProfile.HasOutput);
-            Assert.AreSame(existingModel.StochasticSoilProfiles[1], calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile);
+            Assert.AreSame(unaffectedStochasticSoilProfile, calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile);
 
             CollectionAssert.AreEquivalent(new IObservable[]
             {
@@ -378,13 +389,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             calculation.InputParameters.StochasticSoilModel = existingModel;
-            calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles[0];
+            calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.First();
             calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            PipingStochasticSoilModelCollection PipingStochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
-            PipingStochasticSoilModelCollection.AddRange(new[]
+            PipingStochasticSoilModelCollection pipingStochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
+            pipingStochasticSoilModelCollection.AddRange(new[]
             {
                 existingModel
             }, sourceFilePath);
@@ -400,7 +411,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
             CollectionAssert.AreEquivalent(new IObservable[]
             {
-                PipingStochasticSoilModelCollection,
+                pipingStochasticSoilModelCollection,
                 calculation,
                 calculation.InputParameters
             }, affectedObjects);
@@ -411,7 +422,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             const string modelsName = "same model";
-            PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName);
+            PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName, new[]
+            {
+                CreateStochasticSoilProfile("Removed Profile"),
+                CreateStochasticSoilProfile("Unaffected Profile")
+            });
 
             var failureMechanism = new PipingFailureMechanism();
             PipingStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
@@ -419,11 +434,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 existingModel
             }, sourceFilePath);
-            PipingStochasticSoilProfile removedProfile = existingModel.StochasticSoilProfiles[0];
-            PipingStochasticSoilProfile unaffectedProfile = existingModel.StochasticSoilProfiles[1];
+            PipingStochasticSoilProfile removedProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
+            PipingStochasticSoilProfile unaffectedProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
 
-            PipingStochasticSoilModel readModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName);
-            readModel.StochasticSoilProfiles.RemoveAt(0);
+            PipingStochasticSoilModel readModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(modelsName, new[]
+            {
+                CreateStochasticSoilProfile("Unaffected Profile")
+            });
 
             var calculationWithRemovedProfile = new PipingCalculationScenario(new GeneralPipingInput());
             calculationWithRemovedProfile.InputParameters.StochasticSoilModel = existingModel;
@@ -449,8 +466,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             PipingStochasticSoilModel firstSoilModel = targetCollection[0];
             Assert.AreSame(existingModel, firstSoilModel);
-            Assert.AreEqual(1, firstSoilModel.StochasticSoilProfiles.Count);
-            Assert.AreSame(unaffectedProfile, firstSoilModel.StochasticSoilProfiles[0]);
+            Assert.AreEqual(1, firstSoilModel.StochasticSoilProfiles.Count());
+            Assert.AreSame(unaffectedProfile, firstSoilModel.StochasticSoilProfiles.First());
 
             Assert.IsFalse(calculationWithRemovedProfile.HasOutput);
             Assert.IsNull(calculationWithRemovedProfile.InputParameters.StochasticSoilProfile);
@@ -494,6 +511,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                        profile.SoilProfile.Bottom - 0.2,
                                                        profile.SoilProfile.Layers,
                                                        profile.SoilProfile.SoilProfileSourceType));
+        }
+
+        private static PipingStochasticSoilProfile CreateStochasticSoilProfile(string profileName)
+        {
+            var random = new Random(21);
+            return new PipingStochasticSoilProfile(random.NextDouble(), PipingSoilProfileTestFactory.CreatePipingSoilProfile(profileName));
         }
     }
 }

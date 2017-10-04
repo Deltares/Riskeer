@@ -178,14 +178,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             // Assert
             Assert.AreEqual(name, transformed.Name);
-            Assert.AreEqual(1, transformed.StochasticSoilProfiles.Count);
+            Assert.AreEqual(1, transformed.StochasticSoilProfiles.Count());
             CollectionAssert.AreEqual(soilModel.Geometry, transformed.Geometry);
 
-            var expectedPipingSoilProfile = new List<PipingStochasticSoilProfile>
+            var expectedPipingSoilProfile = new[]
             {
                 new PipingStochasticSoilProfile(probability, PipingSoilProfileTransformer.Transform(profile))
             };
-            AssertPipingStochasticSoilProfiles(expectedPipingSoilProfile, transformed.StochasticSoilProfiles);
+            AssertPipingStochasticSoilProfiles(expectedPipingSoilProfile, transformed.StochasticSoilProfiles.ToArray());
         }
 
         [Test]
@@ -220,10 +220,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             PipingStochasticSoilModel transformed2 = transformer.Transform(soilModel2);
 
             // Assert
-            List<PipingStochasticSoilProfile> transformedStochasticSoilProfiles1 = transformed1.StochasticSoilProfiles;
-            List<PipingStochasticSoilProfile> transformedStochasticSoilProfiles2 = transformed2.StochasticSoilProfiles;
-            Assert.AreEqual(1, transformedStochasticSoilProfiles1.Count);
-            Assert.AreEqual(1, transformedStochasticSoilProfiles2.Count);
+            PipingStochasticSoilProfile[] transformedStochasticSoilProfiles1 = transformed1.StochasticSoilProfiles.ToArray();
+            PipingStochasticSoilProfile[] transformedStochasticSoilProfiles2 = transformed2.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(1, transformedStochasticSoilProfiles1.Length);
+            Assert.AreEqual(1, transformedStochasticSoilProfiles2.Length);
 
             PipingStochasticSoilProfile pipingStochasticSoilProfile1 = transformedStochasticSoilProfiles1[0];
             PipingStochasticSoilProfile pipingStochasticSoilProfile2 = transformedStochasticSoilProfiles2[0];
@@ -266,8 +266,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                      "Kansen van voorkomen worden opgeteld.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn));
 
-            List<PipingStochasticSoilProfile> transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles;
-            Assert.AreEqual(1, transformedStochasticSoilProfiles.Count);
+            PipingStochasticSoilProfile[] transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(1, transformedStochasticSoilProfiles.Length);
             const double expectedProbability = originalProfileOneProbability + originalProfileTwoProbability;
             Assert.AreEqual(expectedProbability, transformedStochasticSoilProfiles[0].Probability, 1e-6);
         }
@@ -359,17 +359,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             PipingStochasticSoilModel transformed = transformer.Transform(soilModel);
 
             // Assert
-            List<PipingStochasticSoilProfile> transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles;
-            Assert.AreEqual(2, transformedStochasticSoilProfiles.Count);
+            PipingStochasticSoilProfile[] transformedStochasticSoilProfiles = transformed.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(2, transformedStochasticSoilProfiles.Length);
             Assert.AreEqual(stochasticSoilProfile2D.Probability, transformedStochasticSoilProfiles[0].Probability, 1e-6);
             Assert.AreEqual(stochasticSoilProfile1D.Probability, transformedStochasticSoilProfiles[1].Probability, 1e-6);
         }
 
-        private static void AssertPipingStochasticSoilProfiles(IList<PipingStochasticSoilProfile> expected,
-                                                               IList<PipingStochasticSoilProfile> actual)
+        private static void AssertPipingStochasticSoilProfiles(PipingStochasticSoilProfile[] expected,
+                                                               PipingStochasticSoilProfile[] actual)
         {
-            Assert.AreEqual(expected.Count, actual.Count);
-            for (var i = 0; i < expected.Count; i++)
+            Assert.AreEqual(expected.Length, actual.Length);
+            for (var i = 0; i < expected.Length; i++)
             {
                 AssertPipingStochasticSoilProfile(expected[i], actual[i]);
             }

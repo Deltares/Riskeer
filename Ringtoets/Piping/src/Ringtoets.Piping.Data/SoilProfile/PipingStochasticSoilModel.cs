@@ -37,16 +37,19 @@ namespace Ringtoets.Piping.Data.SoilProfile
     /// </summary>
     public class PipingStochasticSoilModel : Observable, IMechanismStochasticSoilModel
     {
+        private readonly List<PipingStochasticSoilProfile> stochasticSoilProfiles = new List<PipingStochasticSoilProfile>();
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
         /// <param name="name">Name of the segment soil model.</param>
-        /// <param name="geometry"></param>
+        /// <param name="geometry">The geometry of the stochastic soil model.</param>
+        /// <param name="stochasticSoilProfiles">The stochastic soil profiles of the model.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is 
         /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/>
-        /// is empty.</exception>
-        public PipingStochasticSoilModel(string name, IEnumerable<Point2D> geometry)
+        /// or <paramref name="stochasticSoilProfiles"/> is empty.</exception>
+        public PipingStochasticSoilModel(string name, IEnumerable<Point2D> geometry, IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles)
         {
             if (name == null)
             {
@@ -56,6 +59,10 @@ namespace Ringtoets.Piping.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+            if (stochasticSoilProfiles == null)
+            {
+                throw new ArgumentNullException(nameof(stochasticSoilProfiles));
+            }
             if (!geometry.Any())
             {
                 string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
@@ -64,7 +71,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
 
             Name = name;
             Geometry = geometry;
-            StochasticSoilProfiles = new List<PipingStochasticSoilProfile>();
+            this.stochasticSoilProfiles.AddRange(stochasticSoilProfiles);
         }
 
         /// <summary>
@@ -78,9 +85,15 @@ namespace Ringtoets.Piping.Data.SoilProfile
         public IEnumerable<Point2D> Geometry { get; private set; }
 
         /// <summary>
-        /// Gets the list of <see cref="PipingStochasticSoilProfile"/>.
+        /// Gets the collection of <see cref="PipingStochasticSoilProfile"/>.
         /// </summary>
-        public List<PipingStochasticSoilProfile> StochasticSoilProfiles { get; }
+        public IEnumerable<PipingStochasticSoilProfile> StochasticSoilProfiles
+        {
+            get
+            {
+                return stochasticSoilProfiles;
+            }
+        }
 
         /// <summary>
         /// Updates the <see cref="PipingStochasticSoilModel"/> with the properties from <paramref name="fromModel"/>.
@@ -124,7 +137,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 }
                 else
                 {
-                    StochasticSoilProfiles.Add(fromProfile);
+                    stochasticSoilProfiles.Add(fromProfile);
                     addedProfiles.Add(fromProfile);
                 }
                 newSoilProfiles.Add(fromProfile.SoilProfile);
@@ -134,7 +147,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray();
             foreach (PipingStochasticSoilProfile profileToRemove in remainingProfiles)
             {
-                StochasticSoilProfiles.Remove(profileToRemove);
+                stochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);
             }
 

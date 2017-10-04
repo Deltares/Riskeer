@@ -117,12 +117,12 @@ namespace Ringtoets.Piping.Service.Test
         public void SyncStochasticSoilProfileWithStochasticSoilModel_MultipleStochasticSoilProfilesInStochasticSoilModel_DoesNotSetStochasticSoilProfile()
         {
             // Setup
-            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            soilModel.StochasticSoilProfiles.AddRange(new[]
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(new[]
             {
                 new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile()),
                 new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
             });
+
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 StochasticSoilModel = soilModel
@@ -140,9 +140,10 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var soilProfile = new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
-
-            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            soilModel.StochasticSoilProfiles.Add(soilProfile);
+            PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(new[]
+            {
+                soilProfile
+            });
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {

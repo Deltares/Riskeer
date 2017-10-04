@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 InputParameters =
                 {
                     StochasticSoilModel = existingModel,
-                    StochasticSoilProfile = existingModel.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = existingModel.StochasticSoilProfiles.First()
                 },
                 Output = new PipingOutput(new PipingOutput.ConstructionProperties())
             };

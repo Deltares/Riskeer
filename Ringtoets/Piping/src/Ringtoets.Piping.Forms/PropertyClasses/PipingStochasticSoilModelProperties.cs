@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.StochasticSoilProfiles.Count > 0
+                return data.StochasticSoilProfiles.Any()
                            ? data.StochasticSoilProfiles.Select(ssp => new PipingStochasticSoilProfileProperties(ssp)).ToArray()
                            : new PipingStochasticSoilProfileProperties[0];
             }

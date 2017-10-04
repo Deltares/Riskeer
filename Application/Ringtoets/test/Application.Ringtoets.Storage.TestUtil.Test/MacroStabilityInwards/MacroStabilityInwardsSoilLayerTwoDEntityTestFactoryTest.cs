@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Application.Ringtoets.Storage.TestUtil.Test.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayerTwoDEntityTestFactoryTest

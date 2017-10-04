@@ -1302,14 +1302,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         {
                             new Point2D(0.0, 0.0),
                             new Point2D(5.0, 0.0)
-                        })
+                        }, new[]
                         {
-                            StochasticSoilProfiles =
-                            {
-                                new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
-                                new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
-                            }
-                        }
+                            new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("A")),
+                            new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
+                        })
                     },
                     pipingFailureMechanism,
                     assessmentSection);

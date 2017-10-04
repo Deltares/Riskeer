@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -74,13 +75,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var stochasticSoilModel = new PipingStochasticSoilModel("Name", new[]
             {
                 new Point2D(1.0, 2.0)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
-                {
-                    new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                }
-            };
+                new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+            });
 
             // Call
             var properties = new PipingStochasticSoilModelProperties(stochasticSoilModel);
@@ -89,8 +87,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(stochasticSoilModel.Name, properties.Name);
             CollectionAssert.AreEqual(stochasticSoilModel.Geometry, properties.Geometry);
 
-            Assert.AreEqual(1, properties.StochasticSoilProfiles.Length);
-            Assert.AreSame(stochasticSoilModel.StochasticSoilProfiles[0], properties.StochasticSoilProfiles[0].Data);
+            PipingStochasticSoilProfile[] stochasticSoilProfiles = stochasticSoilModel.StochasticSoilProfiles.ToArray();
+            Assert.AreEqual(stochasticSoilProfiles.Length, properties.StochasticSoilProfiles.Length);
+            Assert.AreSame(stochasticSoilProfiles[0], properties.StochasticSoilProfiles[0].Data);
         }
 
         [Test]

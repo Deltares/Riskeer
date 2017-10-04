@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Service
         {
             if (pipingInput.StochasticSoilModel != null)
             {
-                if (pipingInput.StochasticSoilModel.StochasticSoilProfiles.Count == 1)
+                if (pipingInput.StochasticSoilModel.StochasticSoilProfiles.Count() == 1)
                 {
                     pipingInput.StochasticSoilProfile = pipingInput.StochasticSoilModel.StochasticSoilProfiles.First();
                     return;

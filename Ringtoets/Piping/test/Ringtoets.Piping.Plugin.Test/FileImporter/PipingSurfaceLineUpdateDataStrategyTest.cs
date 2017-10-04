@@ -662,24 +662,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     new Point2D(2, -1),
                     new Point2D(2, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                },
+                    new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                }),
                 new PipingStochasticSoilModel("C", new[]
                 {
                     new Point2D(-2, -1),
                     new Point2D(-2, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                }
+                    new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                })
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -728,35 +722,26 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     new Point2D(2, -1),
                     new Point2D(2, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                },
+                    new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                }),
                 new PipingStochasticSoilModel("C", new[]
                 {
                     new Point2D(-2, -1),
                     new Point2D(-2, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                },
+                    new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                }),
                 new PipingStochasticSoilModel("E", new[]
                 {
                     new Point2D(6, -1),
                     new Point2D(6, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                }
+                    new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                })
             };
 
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
@@ -813,13 +798,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 new Point2D(2, -1),
                 new Point2D(2, 1)
-            })
+            }, new[]
             {
-                StochasticSoilProfiles =
-                {
-                    new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                }
-            };
+                new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+            });
 
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
             var calculation = new PipingCalculation(new GeneralPipingInput())
@@ -828,7 +810,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = soilModel,
-                    StochasticSoilProfile = soilModel.StochasticSoilProfiles[0]
+                    StochasticSoilProfile = soilModel.StochasticSoilProfiles.First()
                 }
             };
 
@@ -858,7 +840,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, affectedObjects);
             Assert.IsNull(calculationInput.SurfaceLine);
             Assert.AreSame(soilModel, calculationInput.StochasticSoilModel);
-            Assert.AreSame(soilModel.StochasticSoilProfiles[0], calculationInput.StochasticSoilProfile);
+            Assert.AreSame(soilModel.StochasticSoilProfiles.First(), calculationInput.StochasticSoilProfile);
         }
 
         [Test]
@@ -951,24 +933,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     new Point2D(2, -1),
                     new Point2D(2, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                },
+                    new PipingStochasticSoilProfile(0.2, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                }),
                 new PipingStochasticSoilModel("C", new[]
                 {
                     new Point2D(-2, -1),
                     new Point2D(-2, 1)
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                }
+                    new PipingStochasticSoilProfile(0.3, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                })
             };
 
             var failureMechanism = new PipingFailureMechanism();

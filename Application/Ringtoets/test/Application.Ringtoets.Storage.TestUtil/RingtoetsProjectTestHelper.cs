@@ -883,14 +883,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                     referenceLineGeometryPoints[1],
                     referenceLineGeometryPoints[2],
                     referenceLineGeometryPoints[3]
-                })
+                }, new[]
                 {
-                    StochasticSoilProfiles =
-                    {
-                        new PipingStochasticSoilProfile(0.2, pipingSoilProfile),
-                        new PipingStochasticSoilProfile(0.8, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
-                    }
-                }
+                    new PipingStochasticSoilProfile(0.2, pipingSoilProfile),
+                    new PipingStochasticSoilProfile(0.8, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                })
             }, "some/path/to/stochasticSoilModelFile");
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
             {

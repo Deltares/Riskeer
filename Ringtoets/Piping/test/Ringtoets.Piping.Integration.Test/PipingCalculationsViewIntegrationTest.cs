@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Integration.Test
 
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_22");
                 pipingCalculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[0];
-                pipingCalculation1.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[0].StochasticSoilProfiles[0];
+                pipingCalculation1.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[0].StochasticSoilProfiles.First();
                 pipingCalculation1.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Integration.Test
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_19");
                 pipingCalculation2.InputParameters.SurfaceLine = assessmentSection.Piping.SurfaceLines.First(sl => sl.Name == "PK001_0002");
                 pipingCalculation2.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[1];
-                pipingCalculation2.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[1].StochasticSoilProfiles[0];
+                pipingCalculation2.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[1].StochasticSoilProfiles.First();
                 pipingCalculation2.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0002_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Integration.Test
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_16");
                 pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.Piping.SurfaceLines.First(sl => sl.Name == "PK001_0003");
                 pipingCalculation3.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[2];
-                pipingCalculation3.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[2].StochasticSoilProfiles[0];
+                pipingCalculation3.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[2].StochasticSoilProfiles.First();
                 pipingCalculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0003_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Integration.Test
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_8");
                 pipingCalculation4.InputParameters.SurfaceLine = assessmentSection.Piping.SurfaceLines.First(sl => sl.Name == "PK001_0004");
                 pipingCalculation4.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[3];
-                pipingCalculation4.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[3].StochasticSoilProfiles[0];
+                pipingCalculation4.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[3].StochasticSoilProfiles.First();
                 pipingCalculation4.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0004_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
