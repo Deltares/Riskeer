@@ -142,5 +142,69 @@ namespace Core.Common.Utils.Test.Extensions
             // Assert
             Assert.IsTrue(hasNonDistinct);
         }
+
+        [Test]
+        public void HasMultipleUniqueValues_IteratorNull_ThrowArgumentNullException()
+        {
+            // Setup
+            IEnumerable<object> enumerable = null;
+
+            // Call
+            TestDelegate call = () => enumerable.HasMultipleUniqueValues<object, object>(e => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("source", exception.ParamName);
+        }
+
+        [Test]
+        public void HasMultipleUniqueValues_ActionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            IEnumerable<object> enumerable = Enumerable.Empty<object>();
+
+            // Call
+            TestDelegate call = () => enumerable.HasMultipleUniqueValues<object, object>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("keySelector", exception.ParamName);
+        }
+
+        [Test]
+        public void HasMultipleUniqueValues_WithUniqueItems_ReturnsFalse()
+        {
+            // Setup
+            var items = new List<int>
+            {
+                1,
+                1,
+                1
+            };
+
+            // Call
+            bool hasNonDistinct = items.HasMultipleUniqueValues(t => t);
+
+            // Assert
+            Assert.IsFalse(hasNonDistinct);
+        }
+
+        [Test]
+        public void HasMultipleUniqueValues_WithMultipleUniqueItems_ReturnsTrue()
+        {
+            // Setup
+            var items = new List<int>
+            {
+                1,
+                2,
+                3
+            };
+
+            // Call
+            bool hasNonDistinct = items.HasMultipleUniqueValues(t => t);
+
+            // Assert
+            Assert.IsTrue(hasNonDistinct);
+        }
     }
 }

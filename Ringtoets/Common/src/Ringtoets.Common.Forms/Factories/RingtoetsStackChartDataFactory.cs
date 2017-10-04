@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Utils.Extensions;
 using Core.Components.Stack.Data;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
@@ -70,7 +69,7 @@ namespace Ringtoets.Common.Forms.Factories
                 illustrationPointControlItems.Select(controlItem => Tuple.Create(controlItem.WindDirectionName,
                                                                                  controlItem.ClosingSituation));
 
-            bool showClosingSituation = !illustrationPointControlItems.HasDuplicates(item => item.ClosingSituation);
+            bool showClosingSituation = illustrationPointControlItems.HasMultipleUniqueValues(item => item.ClosingSituation);
 
             foreach (Tuple<string, string> label in labels)
             {

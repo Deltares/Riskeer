@@ -127,9 +127,9 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            string closingSituation = generalResult.TopLevelIllustrationPoints.HasDuplicates(p => p.ClosingSituation)
-                                          ? string.Empty
-                                          : topLevelFaultTreeIllustrationPoint.ClosingSituation;
+            string closingSituation = generalResult.TopLevelIllustrationPoints.HasMultipleUniqueValues(p => p.ClosingSituation)
+                                          ? topLevelFaultTreeIllustrationPoint.ClosingSituation
+                                          : string.Empty;
 
             var faultTreeIllustrationPoint = selection.Data as FaultTreeIllustrationPoint;
             if (faultTreeIllustrationPoint != null)

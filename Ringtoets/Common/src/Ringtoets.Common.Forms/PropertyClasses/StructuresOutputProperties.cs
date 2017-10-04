@@ -109,9 +109,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     return new TopLevelFaultTreeIllustrationPointProperties[0];
                 }
 
-                bool areClosingSituationsSame = data.GeneralResult
-                                                    .TopLevelIllustrationPoints
-                                                    .HasDuplicates(p => p.ClosingSituation);
+                bool areClosingSituationsSame = !data.GeneralResult
+                                                     .TopLevelIllustrationPoints
+                                                     .HasMultipleUniqueValues(p => p.ClosingSituation);
 
                 return data.GeneralResult
                            .TopLevelIllustrationPoints

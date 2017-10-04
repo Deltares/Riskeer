@@ -48,6 +48,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.GuiServices;
@@ -110,7 +111,6 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
-using Ringtoets.Common.Data.IllustrationPoints;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -844,6 +844,16 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        #region PropertyInfos
+
+        private static TopLevelFaultTreeIllustrationPointProperties CreateTopLevelFaultTreeIllustrationPointProperties(SelectedTopLevelFaultTreeIllustrationPoint point)
+        {
+            return new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
+                                                                    !point.ClosingSituations.HasMultipleUniqueValues(cs => cs));
+        }
+
+        #endregion
+
         private class FailureMechanismContextAssociation
         {
             private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
@@ -865,16 +875,6 @@ namespace Ringtoets.Integration.Plugin
                 return createFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
-
-        #region PropertyInfos
-
-        private static TopLevelFaultTreeIllustrationPointProperties CreateTopLevelFaultTreeIllustrationPointProperties(SelectedTopLevelFaultTreeIllustrationPoint point)
-        {
-            return new TopLevelFaultTreeIllustrationPointProperties(point.TopLevelFaultTreeIllustrationPoint,
-                                                                    point.ClosingSituations.HasDuplicates(cs => cs));
-        }
-
-        #endregion
 
         #region ViewInfos
 

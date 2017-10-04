@@ -77,5 +77,28 @@ namespace Core.Common.Utils.Extensions
             }
             return source.Select(keySelector).Count() != source.Select(keySelector).Distinct().Count();
         }
+
+        /// <summary>
+        /// Checks whether the elements from <paramref name="source"/> have more than one unique 
+        /// value using the <paramref name="keySelector"/>.
+        /// </summary>
+        /// <typeparam name="T">The element type of the sequence.</typeparam>
+        /// <typeparam name="TKey">The type for the key.</typeparam>
+        /// <param name="source">A sequence that contains elements to be acted upon.</param>
+        /// <param name="keySelector">The key selector to validate uniqueness.</param>
+        /// <returns><c>true</c> when there is more than one unique value in <see cref="source"/>; <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public static bool HasMultipleUniqueValues<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (keySelector == null)
+            {
+                throw new ArgumentNullException(nameof(keySelector));
+            }
+            return source.Select(keySelector).Distinct().Count() > 1;
+        }
     }
 }
