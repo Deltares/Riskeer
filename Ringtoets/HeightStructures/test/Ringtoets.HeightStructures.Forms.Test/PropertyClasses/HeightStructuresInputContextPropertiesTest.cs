@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -112,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithDataAndHandler_ExpectedValues()
+        public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -130,11 +131,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
-            Assert.IsInstanceOf<StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>>(properties);
+            Assert.IsInstanceOf<StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, StructuresCalculation<HeightStructuresInput>,
+                HeightStructuresFailureMechanism>>(properties);
             Assert.AreSame(inputContext, properties.Data);
 
             HeightStructuresInput input = calculation.InputParameters;
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
+
+            TestHelper.AssertTypeConverter<HeightStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(HeightStructuresInputContextProperties.FailureProbabilityStructureWithErosion));
 
             mockRepository.VerifyAll();
         }

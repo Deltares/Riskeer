@@ -36,6 +36,8 @@ namespace Ringtoets.Common.Forms.TypeConverters
     /// </summary>
     public class NoProbabilityValueDoubleConverter : TypeConverter
     {
+        private const string returnPeriodNotation = "1/";
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var doubleValue = (double) value;
@@ -71,7 +73,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
 
                 try
                 {
-                    if (text.StartsWith("1/"))
+                    if (text.StartsWith(returnPeriodNotation))
                     {
                         return 1 / Convert.ToDouble(text.Substring(2));
                     }

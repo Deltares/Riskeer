@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -150,6 +151,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreSame(input.BankWidth, properties.BankWidth.Data);
             Assert.AreEqual(input.EvaluationLevel, properties.EvaluationLevel);
             Assert.AreEqual(input.VerticalDistance, properties.VerticalDistance);
+
+            TestHelper.AssertTypeConverter<StabilityPointStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(StabilityPointStructuresInputContextProperties.FailureProbabilityStructureWithErosion));
+
+            TestHelper.AssertTypeConverter<StabilityPointStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(StabilityPointStructuresInputContextProperties.FailureProbabilityRepairClosure));
+
+            TestHelper.AssertTypeConverter<StabilityPointStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(StabilityPointStructuresInputContextProperties.ProbabilityCollisionSecondaryStructure));
 
             mockRepository.VerifyAll();
         }

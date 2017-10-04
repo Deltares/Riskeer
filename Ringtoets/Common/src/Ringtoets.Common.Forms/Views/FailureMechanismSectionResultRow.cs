@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Views
 {

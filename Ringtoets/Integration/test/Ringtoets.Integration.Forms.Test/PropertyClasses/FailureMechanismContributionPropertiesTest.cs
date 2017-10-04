@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -139,7 +140,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithValidParameters_DataSet()
+        public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -161,6 +162,33 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismContribution>>(properties);
             Assert.AreSame(failureMechanismContribution, properties.Data);
 
+            TestHelper.AssertTypeConverter<FailureMechanismContributionProperties, NoProbabilityValueDoubleConverter>(
+                nameof(FailureMechanismContributionProperties.SignalingNorm));
+
+            TestHelper.AssertTypeConverter<FailureMechanismContributionProperties, NoProbabilityValueDoubleConverter>(
+                nameof(FailureMechanismContributionProperties.LowerLimitNorm));
+        }
+
+        [Test]
+        public void Constructor_WithValidParameters_DataSet()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mockRepository.ReplayAll();
+
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            // Call
+            var properties = new FailureMechanismContributionProperties(
+                failureMechanismContribution,
+                assessmentSection,
+                failureMechanismChangeHandler,
+                assessmentSectionChangeHandler);
+
+            // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
             Assert.AreEqual(4, dynamicProperties.Count);

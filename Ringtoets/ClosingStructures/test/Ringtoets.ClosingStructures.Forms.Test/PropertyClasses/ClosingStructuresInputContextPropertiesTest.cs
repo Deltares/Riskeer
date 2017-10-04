@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -101,7 +102,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithDataAndHandler_ExpectedValues()
+        public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -143,6 +144,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(input.FailureProbabilityReparation, properties.FailureProbabilityReparation);
             Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
             Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
+
+            TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(ClosingStructuresInputContextProperties.FailureProbabilityStructureWithErosion));
+
+            TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(ClosingStructuresInputContextProperties.FailureProbabilityOpenStructure));
+
+            TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(ClosingStructuresInputContextProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding));
+
+            TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
+                nameof(ClosingStructuresInputContextProperties.FailureProbabilityReparation));
 
             mockRepository.VerifyAll();
         }
