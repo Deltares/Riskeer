@@ -100,6 +100,28 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
+        public void Transform_StochasticSoilModelWithoutStochasticSoilProfiles_ThrowsImportedDataException()
+        {
+            // Setup
+            var stochasticSoilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry("name",
+                                                                                                           FailureMechanismType.Stability,
+                                                                                                           Enumerable.Empty<StochasticSoilProfile>());
+
+            var transformer = new MacroStabilityInwardsStochasticSoilModelTransformer();
+
+            // Call
+            TestDelegate test = () => transformer.Transform(stochasticSoilModel);
+
+            // Assert
+            var exception = Assert.Throws<ImportedDataTransformException>(test);
+
+            Exception innerException = exception.InnerException;
+            Assert.IsNotNull(innerException);
+            Assert.IsInstanceOf<ArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
+        }
+
+        [Test]
         public void Transform_ValidStochasticSoilModelWithSoilProfile1D_ReturnsExpectedMacroStabilityInwardsStochasticSoilModel()
         {
             // Setup

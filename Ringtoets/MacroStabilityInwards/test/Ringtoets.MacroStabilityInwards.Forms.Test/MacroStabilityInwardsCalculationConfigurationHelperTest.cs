@@ -154,38 +154,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
         }
 
         [Test]
-        public void GetStochasticSoilModelsForSurfaceLine_NoSoilProfiles_ReturnEmpty()
-        {
-            // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }, Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
-
-            var availableSoilModels = new[]
-            {
-                soilModel
-            };
-
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-
-            // Call
-            IEnumerable<MacroStabilityInwardsStochasticSoilModel> result = MacroStabilityInwardsCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                surfaceLine,
-                availableSoilModels);
-
-            // Assert
-            CollectionAssert.IsEmpty(result);
-        }
-
-        [Test]
         public void GetStochasticSoilModelsForSurfaceLine_SoilModelGeometryNotIntersecting_ReturnEmpty()
         {
             // Setup
@@ -436,52 +404,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
             MacroStabilityInwardsInput calculationInput2 = calculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
-        }
-
-        [Test]
-        public void GenerateCalculationItemsStructure_NoSoilProfiles_LogWarning()
-        {
-            // Setup
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }, Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>());
-
-            var availableSoilModels = new[]
-            {
-                soilModel
-            };
-
-            const string testName = "testName";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(testName);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-
-            MacroStabilityInwardsSurfaceLine[] surfaceLines =
-            {
-                surfaceLine
-            };
-
-            IEnumerable<ICalculationBase> result = null;
-            // Call
-            Action call = () =>
-            {
-                result = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines,
-                    availableSoilModels).ToArray();
-            };
-
-            // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
-                $"Geen ondergrondschematisaties gevonden voor profielschematisatie '{testName}'. De profielschematisatie is overgeslagen.",
-                LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
-            CollectionAssert.IsEmpty(result);
         }
 
         [Test]

@@ -19,38 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Geometry;
+using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Application.Ringtoets.Storage.TestUtil.Test
 {
-    /// <summary>
-    /// Factory for creating a <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/> that can 
-    /// be used for testing.
-    /// </summary>
-    public static class MacroStabilityInwardsSoilLayerTwoDEntityTestFactory
+    [TestFixture]
+    public class MacroStabilityInwardsSoilLayerTwoDEntityTestFactoryTest
     {
-        /// <summary>
-        /// Creates a valid <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/>.
-        /// </summary>
-        /// <returns>The created <see cref="MacroStabilityInwardsSoilLayerTwoDEntity"/>.</returns>
-        public static MacroStabilityInwardsSoilLayerTwoDEntity CreateMacroStabilityInwardsSoilLayerTwoDEntity()
+        [Test]
+        public void CreateMacroStabilityInwardsSoilLayerTwoDEntity_ReturnsMacroStabilityInwardsSoilLayerTwoDEntity()
         {
-            var random = new Random(31);
-            var outerRing = new Ring(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+            // Call
+            MacroStabilityInwardsSoilLayerTwoDEntity entity = MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity();
 
-            return new MacroStabilityInwardsSoilLayerTwoDEntity
-            {
-                OuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points),
-                HolesXml = new RingXmlSerializer().ToXml(new Ring[0])
-            };
+            // Assert
+            Point2D[] outerRing = new Point2DXmlSerializer().FromXml(entity.OuterRingXml);
+            Assert.AreEqual(2, outerRing.Length);
+
+            Ring[] holes = new RingXmlSerializer().FromXml(entity.HolesXml);
+            Assert.AreEqual(0, holes.Length);
         }
     }
 }

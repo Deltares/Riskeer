@@ -420,6 +420,10 @@
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Application.Ringtoets.Storage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Application.Ringtoets.Storage.TestUtil.Test\Application.Ringtoets.Storage.TestUtil.Test.csproj">
+      <Project>{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}</Project>
+      <Name>Application.Ringtoets.Storage.TestUtil.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
       <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
       <Name>Application.Ringtoets.Storage.TestUtil</Name>

@@ -20,28 +20,30 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
-using Core.Common.Base.Geometry;
+using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Application.Ringtoets.Storage.TestUtil.Test.MacroStabilityInwards
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilLayerTwoDEntityTestFactoryTest
+    public class MacroStabilityInwardsStochasticSoilProfileEntityTestFactoryTest
     {
         [Test]
-        public void CreateMacroStabilityInwardsSoilLayerTwoDEntity_ReturnsMacroStabilityInwardsSoilLayerTwoDEntity()
+        public void CreateStochasticSoilProfileEntity_Always_SetsExpectedParameters()
         {
             // Call
-            MacroStabilityInwardsSoilLayerTwoDEntity entity = MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.CreateMacroStabilityInwardsSoilLayerTwoDEntity();
+            MacroStabilityInwardsStochasticSoilProfileEntity entity = MacroStabilityInwardsStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity();
 
             // Assert
-            Point2D[] outerRing = new Point2DXmlSerializer().FromXml(entity.OuterRingXml);
-            Assert.AreEqual(2, outerRing.Length);
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(typeof(MacroStabilityInwardsStochasticSoilProfileEntity), entity.GetType());
 
-            Ring[] holes = new RingXmlSerializer().FromXml(entity.HolesXml);
-            Assert.AreEqual(0, holes.Length);
+            Assert.AreEqual(0.34, entity.Probability);
+
+            MacroStabilityInwardsSoilProfileOneDEntity soilProfileEntity = entity.MacroStabilityInwardsSoilProfileOneDEntity;
+            Assert.IsNotNull(soilProfileEntity);
+            Assert.AreEqual("Profile Name", soilProfileEntity.Name);
+            CollectionAssert.IsNotEmpty(soilProfileEntity.MacroStabilityInwardsSoilLayerOneDEntities);
         }
     }
 }

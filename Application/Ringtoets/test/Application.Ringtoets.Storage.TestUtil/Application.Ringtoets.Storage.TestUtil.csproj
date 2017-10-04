@@ -55,7 +55,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="IllustrationPoints\GeneralResultEntityTestHelper.cs" />
-    <Compile Include="MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.cs" />
+    <Compile Include="MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityTestFactory.cs" />
+    <Compile Include="MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityTestFactory.cs" />
     <Compile Include="RingtoetsProjectMigrationTestHelper.cs" />
     <Compile Include="RingtoetsProjectTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
