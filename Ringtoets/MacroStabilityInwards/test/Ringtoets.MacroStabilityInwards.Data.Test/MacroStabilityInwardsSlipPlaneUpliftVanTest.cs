@@ -22,8 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {

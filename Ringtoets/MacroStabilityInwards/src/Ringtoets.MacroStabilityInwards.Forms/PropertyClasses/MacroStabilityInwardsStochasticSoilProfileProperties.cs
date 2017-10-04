@@ -30,7 +30,6 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -156,10 +155,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PreconsolidationStresses_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PreconsolidationStresses_Description))]
-        public MacroStabilityInwardsPreconsolidationStressProperties[] PreconsolidationStresses {
+        public MacroStabilityInwardsPreconsolidationStressProperties[] PreconsolidationStresses
+        {
             get
             {
-                IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = 
+                IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses =
                     (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.PreconsolidationStresses;
                 return preconsolidationStresses?.Select(stress => new MacroStabilityInwardsPreconsolidationStressProperties(stress)).ToArray() ??
                        new MacroStabilityInwardsPreconsolidationStressProperties[0];
@@ -169,13 +169,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName.Equals(nameof(Bottom)) 
+            if (propertyName.Equals(nameof(Bottom))
                 || propertyName.Equals(nameof(Layers1D)))
             {
                 return data.SoilProfile is MacroStabilityInwardsSoilProfile1D;
             }
 
-            if (propertyName.Equals(nameof(Layers2D)) 
+            if (propertyName.Equals(nameof(Layers2D))
                 || propertyName.Equals(nameof(PreconsolidationStresses)))
             {
                 return data.SoilProfile is MacroStabilityInwardsSoilProfile2D;

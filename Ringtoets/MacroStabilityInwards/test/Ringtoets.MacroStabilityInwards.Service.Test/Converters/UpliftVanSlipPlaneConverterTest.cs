@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
@@ -112,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             // Assert
             Assert.IsFalse(slipPlane.GridAutomaticDetermined);
             AssertGrid(input.LeftGrid, slipPlane.LeftGrid);
-            AssertGrid(input.RightGrid, slipPlane.RightGrid);            
+            AssertGrid(input.RightGrid, slipPlane.RightGrid);
             Assert.IsTrue(slipPlane.TangentLinesAutomaticAtBoundaries);
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
@@ -157,12 +156,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             // Assert
             Assert.IsFalse(slipPlane.GridAutomaticDetermined);
             AssertGrid(input.LeftGrid, slipPlane.LeftGrid);
-            AssertGrid(input.RightGrid, slipPlane.RightGrid);            
+            AssertGrid(input.RightGrid, slipPlane.RightGrid);
             Assert.IsFalse(slipPlane.TangentLinesAutomaticAtBoundaries);
-            Assert.AreEqual(input.TangentLineZTop ,slipPlane.TangentZTop);
-            Assert.AreEqual(input.TangentLineZBottom ,slipPlane.TangentZBottom);
-            Assert.AreEqual(1 ,slipPlane.TangentLineNumber);
-            Assert.AreEqual(10 ,slipPlane.MaxSpacingBetweenBoundaries);
+            Assert.AreEqual(input.TangentLineZTop, slipPlane.TangentZTop);
+            Assert.AreEqual(input.TangentLineZBottom, slipPlane.TangentZBottom);
+            Assert.AreEqual(1, slipPlane.TangentLineNumber);
+            Assert.AreEqual(10, slipPlane.MaxSpacingBetweenBoundaries);
         }
 
         private void AssertGrid(MacroStabilityInwardsGrid expectedGrid, UpliftVanGrid actualGrid)

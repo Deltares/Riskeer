@@ -32,7 +32,6 @@ using Ringtoets.Integration.TestUtils;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil;
 using Ringtoets.MacroStabilityInwards.Service;
 
 namespace Ringtoets.MacroStabilityInwards.Integration.Test

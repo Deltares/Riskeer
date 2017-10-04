@@ -50,6 +50,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="MacroStabilityInwardsGridTestFactory.cs" />
     <Compile Include="MacroStabilityInwardsInputFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioFactory.cs" />
     <Compile Include="MacroStabilityInwardsStochasticSoilModelTestFactory.cs" />
@@ -87,10 +88,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
       <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj">
-      <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

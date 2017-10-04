@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
-
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>

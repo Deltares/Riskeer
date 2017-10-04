@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
     public class MacroStabilityInwardsGridTest

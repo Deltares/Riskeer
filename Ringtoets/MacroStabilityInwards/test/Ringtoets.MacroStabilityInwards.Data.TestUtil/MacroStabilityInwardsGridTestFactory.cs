@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
     /// Factory to create simple <see cref="MacroStabilityInwardsGrid"/>

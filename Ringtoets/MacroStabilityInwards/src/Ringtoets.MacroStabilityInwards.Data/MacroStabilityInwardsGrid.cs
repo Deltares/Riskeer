@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
     /// A grid used in the macro stability calculation.

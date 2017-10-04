@@ -50,6 +50,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="MacroStabilityInwardsCalculationScenarioFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsGridTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsInputFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsStochasticSoilModelTestFactoryTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStressTestFactoryTest.cs" />

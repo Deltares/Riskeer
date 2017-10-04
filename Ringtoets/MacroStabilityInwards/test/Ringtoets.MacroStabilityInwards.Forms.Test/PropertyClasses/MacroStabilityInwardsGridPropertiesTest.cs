@@ -32,7 +32,6 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
@@ -313,7 +312,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var properties = new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), changeHandler, isReadOnly);
-            
+
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod(string.Empty);
 

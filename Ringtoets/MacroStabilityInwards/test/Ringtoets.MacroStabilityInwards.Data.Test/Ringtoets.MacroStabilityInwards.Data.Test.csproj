@@ -62,6 +62,7 @@
     <Compile Include="MacroStabilityInwardsCalculationScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationTypeTest.cs" />
+    <Compile Include="MacroStabilityInwardsGridTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsSliceTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircleTest.cs" />
@@ -125,10 +126,6 @@
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj">
-      <Project>{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Primitives.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

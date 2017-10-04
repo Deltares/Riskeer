@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter

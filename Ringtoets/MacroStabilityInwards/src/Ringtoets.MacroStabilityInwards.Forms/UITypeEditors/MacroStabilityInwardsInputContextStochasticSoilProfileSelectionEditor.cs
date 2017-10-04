@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.UITypeEditors
 {

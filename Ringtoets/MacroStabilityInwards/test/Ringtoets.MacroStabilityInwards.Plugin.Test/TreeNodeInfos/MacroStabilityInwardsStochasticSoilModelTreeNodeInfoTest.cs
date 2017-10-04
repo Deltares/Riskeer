@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
