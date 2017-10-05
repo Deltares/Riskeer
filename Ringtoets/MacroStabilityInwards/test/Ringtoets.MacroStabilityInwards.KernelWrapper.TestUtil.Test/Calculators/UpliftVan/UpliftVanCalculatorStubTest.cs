@@ -42,6 +42,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
             Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.Output);
+            Assert.IsFalse(calculator.ReturnValidationWarning);
+            Assert.IsFalse(calculator.ReturnValidationError);
         }
 
         [Test]
@@ -95,12 +97,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
         }
 
         [Test]
-        public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
+        public void Validate_ReturnValidationErrorAndWarningTrue_ReturnsValidationResults()
         {
             // Setup
             var calculator = new UpliftVanCalculatorStub
             {
-                ReturnValidationResults = true
+                ReturnValidationError = true,
+                ReturnValidationWarning = true
             };
 
             // Call
@@ -108,10 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             Assert.AreEqual(2, results.Count);
-            Assert.AreEqual("Validation Warning", results.ElementAt(0).Message);
-            Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(0).ResultType);
-            Assert.AreEqual("Validation Error", results.ElementAt(1).Message);
-            Assert.AreEqual(UpliftVanValidationResultType.Error, results.ElementAt(1).ResultType);
+            Assert.AreEqual("Validation Error", results.ElementAt(0).Message);
+            Assert.AreEqual(UpliftVanValidationResultType.Error, results.ElementAt(0).ResultType);
+            Assert.AreEqual("Validation Warning", results.ElementAt(1).Message);
+            Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(1).ResultType);
         }
     }
 }

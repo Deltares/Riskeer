@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Validate_KernelReturnsValidationResults_LogsErrorAndReturnsFalse()
+        public void Validate_KernelReturnsValidationError_LogsErrorAndReturnsFalse()
         {
             // Setup
             const string name = "<very nice name>";
@@ -264,7 +264,65 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
-                ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance).LastCreatedUpliftVanCalculator.ReturnValidationResults = true;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("Validatie mislukt: Validation Error", msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                });
+                Assert.IsFalse(isValid);
+            }
+        }
+
+        [Test]
+        public void Validate_KernelReturnsValidationWarning_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            testCalculation.Name = name;
+
+            var isValid = false;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("Validatie waarschuwing: Validation Warning", msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                });
+                Assert.IsTrue(isValid);
+            }
+        }
+
+        [Test]
+        public void Validate_KernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsTrue()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            testCalculation.Name = name;
+
+            var isValid = false;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>

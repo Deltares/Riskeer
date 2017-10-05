@@ -39,7 +39,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
 
         public bool ThrowExceptionOnCalculate { get; set; }
 
-        public bool ReturnValidationResults { get; set; }
+        public bool ReturnValidationError { get; set; }
+
+        public bool ReturnValidationWarning { get; set; }
 
         public UpliftVanCalculatorResult Calculate()
         {
@@ -52,11 +54,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
 
         public List<UpliftVanValidationResult> Validate()
         {
-            return ReturnValidationResults ? new List<UpliftVanValidationResult>
+            var validationResults = new List<UpliftVanValidationResult>();
+            if (ReturnValidationError)
             {
-                new UpliftVanValidationResult(UpliftVanValidationResultType.Warning, "Validation Warning"),
-                new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error")
-            } : new List<UpliftVanValidationResult>();
+                validationResults.Add(new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error"));
+            }
+            if (ReturnValidationWarning)
+            {
+                validationResults.Add(new UpliftVanValidationResult(UpliftVanValidationResultType.Warning, "Validation Warning"));
+            }
+            return validationResults;
         }
 
         private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult()
