@@ -108,7 +108,36 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void HasDuplicates_WithUniqueItems_ReturnsFalse()
+        public void HasDuplicates_WithoutItems_ReturnsFalse()
+        {
+            // Setup
+            var items = new List<int>();
+
+            // Call
+            bool hasDuplicates = items.HasDuplicates(t => t);
+
+            // Assert
+            Assert.IsFalse(hasDuplicates);
+        }
+
+        [Test]
+        public void HasDuplicates_WithSingleItem_ReturnsFalse()
+        {
+            // Setup
+            var items = new List<int>
+            {
+                1
+            };
+
+            // Call
+            bool hasDuplicates = items.HasDuplicates(t => t);
+
+            // Assert
+            Assert.IsFalse(hasDuplicates);
+        }
+
+        [Test]
+        public void HasDuplicates_WithMultipleItemsAllUnique_ReturnsFalse()
         {
             // Setup
             var items = new List<int>
@@ -126,7 +155,7 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void HasDuplicates_WithDuplicateItems_ReturnsTrue()
+        public void HasDuplicates_WithMultipleItemsContainingSingleDuplicate_ReturnsTrue()
         {
             // Setup
             var items = new List<int>
@@ -172,7 +201,20 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void HasMultipleUniqueValues_WithSingleUniqueItem_ReturnsFalse()
+        public void HasMultipleUniqueValues_WithoutItems_ReturnsFalse()
+        {
+            // Setup
+            var items = new List<int>();
+
+            // Call
+            bool hasMultipleUniqueValues = items.HasMultipleUniqueValues(t => t);
+
+            // Assert
+            Assert.IsFalse(hasMultipleUniqueValues);
+        }
+
+        [Test]
+        public void HasMultipleUniqueValues_WithSingleItem_ReturnsFalse()
         {
             // Setup
             var items = new List<int>
@@ -188,7 +230,7 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void HasMultipleUniqueValues_WithMultipleItemsOneUnique_ReturnsFalse()
+        public void HasMultipleUniqueValues_WithMultipleItemsAllDuplicate_ReturnsFalse()
         {
             // Setup
             var items = new List<int>
@@ -199,29 +241,28 @@ namespace Core.Common.Utils.Test.Extensions
             };
 
             // Call
-            bool hasNonDistinct = items.HasMultipleUniqueValues(t => t);
+            bool hasMultipleUniqueValues = items.HasMultipleUniqueValues(t => t);
 
             // Assert
-            Assert.IsFalse(hasNonDistinct);
+            Assert.IsFalse(hasMultipleUniqueValues);
         }
 
         [Test]
-        public void HasMultipleUniqueValues_WithMultipleUniqueItems_ReturnsTrue()
+        public void HasMultipleUniqueValues_WithMultipleItemsContainingSingleNonDuplicate_ReturnsTrue()
         {
             // Setup
             var items = new List<int>
             {
                 1,
                 2,
-                2,
-                3
+                2
             };
 
             // Call
-            bool hasNonDistinct = items.HasMultipleUniqueValues(t => t);
+            bool hasMultipleUniqueValues = items.HasMultipleUniqueValues(t => t);
 
             // Assert
-            Assert.IsTrue(hasNonDistinct);
+            Assert.IsTrue(hasMultipleUniqueValues);
         }
     }
 }

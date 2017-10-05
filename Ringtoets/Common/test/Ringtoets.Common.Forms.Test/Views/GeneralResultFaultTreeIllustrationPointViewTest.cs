@@ -282,7 +282,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                          });
         }
 
-        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithTwoTopLevelIllustrationPointsWithChildren(bool sameClosingSituations)
+        private static GeneralResult<TopLevelFaultTreeIllustrationPoint> GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(bool sameClosingSituations)
         {
             var faultTreeNodeRootWithChildren = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
             faultTreeNodeRootWithChildren.SetChildren(new[]
@@ -303,13 +303,20 @@ namespace Ringtoets.Common.Forms.Test.Views
                     sameClosingSituations ? "same closing situation" : "second closing situation",
                     new IllustrationPointNode(new TestSubMechanismIllustrationPoint()));
 
+            var topLevelFaultTreeIllustrationPoint3 =
+                new TopLevelFaultTreeIllustrationPoint(
+                    new WindDirection("Wind direction 3", 3.0),
+                    sameClosingSituations ? "same closing situation" : "second closing situation",
+                    new IllustrationPointNode(new TestSubMechanismIllustrationPoint()));
+
             var generalResultFunc = new GeneralResult<TopLevelFaultTreeIllustrationPoint>(
                 WindDirectionTestFactory.CreateTestWindDirection(),
                 Enumerable.Empty<Stochast>(),
                 new[]
                 {
                     topLevelFaultTreeIllustrationPoint1,
-                    topLevelFaultTreeIllustrationPoint2
+                    topLevelFaultTreeIllustrationPoint2,
+                    topLevelFaultTreeIllustrationPoint3
                 });
             return generalResultFunc;
         }
@@ -472,7 +479,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTwoTopLevelIllustrationPointsWithChildren(sameClosingSituations);
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResultFunc)
             {
                 Data = data
@@ -520,7 +527,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithTwoTopLevelIllustrationPointsWithChildren(sameClosingSituations);
+            GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResultFunc = GetGeneralResultWithThreeTopLevelIllustrationPointsWithChildren(sameClosingSituations);
             using (var view = new GeneralResultFaultTreeIllustrationPointView(() => generalResultFunc)
             {
                 Data = data

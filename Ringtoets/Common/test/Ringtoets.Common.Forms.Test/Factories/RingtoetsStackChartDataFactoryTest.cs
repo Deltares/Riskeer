@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateColumns_SingleClosingSituationsSingleIllustrationPoint_ColumnsAddedToStackChartData()
+        public void CreateColumns_SingleClosingSituationSingleIllustrationPoint_ColumnsAddedToStackChartData()
         {
             // Setup
             var stackChartData = new StackChartData();
