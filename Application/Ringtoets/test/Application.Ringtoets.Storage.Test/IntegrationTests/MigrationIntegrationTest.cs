@@ -122,9 +122,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             yield return '+';
             yield return ';';
             yield return ',';
-            yield return '两';
-            yield return '​'; // zero width space
-            yield return 'Ⓚ';
         }
 
         private class FileToMigrate
