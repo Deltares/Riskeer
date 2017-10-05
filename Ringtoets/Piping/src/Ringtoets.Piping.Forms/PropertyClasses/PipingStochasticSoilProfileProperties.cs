@@ -28,6 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -111,13 +112,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Type_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Type_Description))]
-        public string Type
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public SoilProfileType Type
         {
             get
             {
-                return data.SoilProfile.SoilProfileSourceType == SoilProfileType.SoilProfile1D
-                           ? RingtoetsCommonFormsResources.StochasticSoilProfile_Type_1D
-                           : RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;
+                return data.SoilProfile.SoilProfileSourceType;
             }
         }
 

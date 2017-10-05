@@ -51,14 +51,17 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollectorAndLayers_ReturnsPipingSoilProfileEntityWithPropertiesAndPipingSoilLayerEntitiesSet()
         {
             // Setup
+            var random = new Random(21);
+
             const string testName = "testName";
-            double bottom = new Random(21).NextDouble();
+            double bottom = random.NextDouble();
             var layers = new[]
             {
                 new PipingSoilLayer(bottom + 1),
                 new PipingSoilLayer(bottom + 2)
             };
-            var soilProfile = new PipingSoilProfile(testName, bottom, layers, SoilProfileType.SoilProfile1D);
+            var soilProfileType = random.NextEnumValue<SoilProfileType>();
+            var soilProfile = new PipingSoilProfile(testName, bottom, layers, soilProfileType);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -67,6 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(bottom, entity.Bottom);
+            Assert.AreEqual(Convert.ToByte(soilProfileType), entity.SourceType);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(2, entity.PipingSoilLayerEntities.Count);
         }
@@ -75,13 +79,14 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
+            var random = new Random(21);
             const string testName = "testName";
             var layers = new[]
             {
                 new PipingSoilLayer(1),
                 new PipingSoilLayer(2)
             };
-            var soilProfile = new PipingSoilProfile(testName, 0, layers, SoilProfileType.SoilProfile1D);
+            var soilProfile = new PipingSoilProfile(testName, 0, layers, random.NextEnumValue<SoilProfileType>());
             var registry = new PersistenceRegistry();
 
             // Call

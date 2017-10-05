@@ -54,7 +54,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new PipingSoilProfileEntity
             {
                 Name = profile.Name.DeepClone(),
-                Bottom = profile.Bottom.ToNaNAsNull()
+                Bottom = profile.Bottom.ToNaNAsNull(),
+                SourceType = Convert.ToByte(profile.SoilProfileSourceType)
             };
 
             AddEntitiesForPipingSoilLayers(profile, entity);

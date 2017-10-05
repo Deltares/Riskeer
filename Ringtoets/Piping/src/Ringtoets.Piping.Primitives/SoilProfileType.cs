@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Attributes;
+using Ringtoets.Piping.Primitives.Properties;
+
 namespace Ringtoets.Piping.Primitives
 {
     /// <summary>
@@ -29,11 +32,13 @@ namespace Ringtoets.Piping.Primitives
         /// <summary>
         /// One dimensional soil profile.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilProfileType_SoilProfile1D_DisplayName))]
         SoilProfile1D = 1,
 
         /// <summary>
         /// Two dimensional soil profile.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilProfileType_SoilProfile2D_DisplayName))]
         SoilProfile2D = 2
     }
 }

@@ -98,5 +98,23 @@ namespace Ringtoets.Piping.Primitives.Properties {
                 return ResourceManager.GetString("PipingSoilProfile_Layers_Layer_top_below_profile_bottom", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1D Profiel.
+        /// </summary>
+        public static string SoilProfileType_SoilProfile1D_DisplayName {
+            get {
+                return ResourceManager.GetString("SoilProfileType_SoilProfile1D_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2D Profiel.
+        /// </summary>
+        public static string SoilProfileType_SoilProfile2D_DisplayName {
+            get {
+                return ResourceManager.GetString("SoilProfileType_SoilProfile2D_DisplayName", resourceCulture);
+            }
+        }
     }
 }
