@@ -49,25 +49,14 @@ namespace Core.Common.Controls.Test.PresentationObjects
         }
 
         [Test]
-        public void Observers_WhenAttachingObserver_ContainsExpectedObserver()
+        public void Observers_ValidWrappedObjectInstance_ReturnsObserversOfWrappedObject()
         {
             // Setup
-            var mocks = new MockRepository();
             var sourceObject = new SimpleObservable(new object());
             var context = new SimpleObservableWrappedObjectContext(sourceObject);
 
-            var observer = mocks.Stub<IObserver>();
-            context.Attach(observer);
-
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<IObserver> observers = context.Observers;
-
-            // Assert
-            Assert.AreSame(observer, observers.Single());
-
-            mocks.VerifyAll();
+            // Call & Assert
+            Assert.AreSame(sourceObject.Observers, context.Observers);
         }
 
         [Test]

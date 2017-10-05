@@ -246,7 +246,7 @@ namespace Core.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void AreEnumerationClones_ObservableObjectDifferentObservers_DoesNotThrow()
+        public void AreEnumerationClones_ObservableListDifferentObservers_DoesNotThrow()
         {
             // Setup
             var cloneableObservableList = new CloneableObservableList<object>();
@@ -263,17 +263,17 @@ namespace Core.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void AreEnumerationClones_ObservableObjectSameObservers_ThrowsAssertionException()
+        public void AreEnumerationClones_ObservableListSameObservers_ThrowsAssertionException()
         {
             // Setup
-            var cloneableObservableList = new TestCloneableObservableList<object>();
-            var clonedCloneableObservableList = (TestCloneableObservableList<object>) cloneableObservableList.Clone();
+            var observableList = new TestObservableList<object>();
+            var clonedObservableList = (TestObservableList<object>) observableList.Clone();
 
             // Precondition
-            Assert.IsTrue(ReferenceEquals(cloneableObservableList.Observers, clonedCloneableObservableList.Observers));
+            Assert.IsTrue(ReferenceEquals(observableList.Observers, clonedObservableList.Observers));
 
             // Call
-            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(cloneableObservableList, clonedCloneableObservableList, (original, clone) => {});
+            TestDelegate test = () => CoreCloneAssert.AreEnumerationClones(observableList, clonedObservableList, (original, clone) => {});
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -287,9 +287,9 @@ namespace Core.Common.Data.TestUtil.Test
             }
         }
 
-        private class TestCloneableObservableList<T> : CloneableObservableList<T>
+        private class TestObservableList<T> : ObservableList<T>, ICloneable
         {
-            public new object Clone()
+            public object Clone()
             {
                 return MemberwiseClone();
             }
