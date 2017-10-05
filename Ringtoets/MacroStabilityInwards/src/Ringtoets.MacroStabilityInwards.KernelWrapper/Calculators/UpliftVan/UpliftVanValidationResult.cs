@@ -19,35 +19,38 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using System;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
-    /// Interface representing an Uplift Van calculator.
+    /// The validation result of an Uplift Van calculation.
     /// </summary>
-    /// <remarks>
-    /// This interface is introduced for being able to test the conversion of:
-    /// <list type="bullet">
-    /// <item>Ringtoets macro stability inwards input into calculator input;</item>
-    /// <item>calculator output into Ringtoets macro stability inwards output.</item>
-    /// </list>
-    /// </remarks>
-    public interface IUpliftVanCalculator
+    public class UpliftVanValidationResult
     {
         /// <summary>
-        /// Performs the calculation.
+        /// Creates a new instance of <see cref="UpliftVanValidationResult"/>.
         /// </summary>
-        /// <returns>A <see cref="UpliftVanCalculatorResult"/>.</returns>
-        /// <exception cref="UpliftVanCalculatorException">Thrown when an error
-        /// occurs during the calculation.</exception>
-        UpliftVanCalculatorResult Calculate();
+        /// <param name="type">The result type of the validation result</param>
+        /// <param name="message">The message of the validation result</param>
+        public UpliftVanValidationResult(UpliftVanValidationResultType type, string message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+            ResultType = type;
+            Message = message;
+        }
 
         /// <summary>
-        /// Performs the validation.
+        /// Gets the type of the validation result message.
         /// </summary>
-        /// <returns>A list of validation messages.</returns>
-        List<UpliftVanValidationResult> Validate();
+        public UpliftVanValidationResultType ResultType { get; }
+
+        /// <summary>
+        /// Gets the message of the validation result.
+        /// </summary>
+        public string Message { get; }
     }
 }

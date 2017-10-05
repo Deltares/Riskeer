@@ -57,6 +57,8 @@
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayer.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilProfile.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorException.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResult.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultType.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreator.cs" />
     <Compile Include="Creators\Input\SoilProfileCreator.cs" />
     <Compile Include="Creators\Input\StabilityLocationCreator.cs" />

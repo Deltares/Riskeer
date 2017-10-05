@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -69,12 +70,18 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters);
             IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
-            List<string> validationResults = calculator.Validate();
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
+            List<UpliftVanValidationResult> validationResults = calculator.Validate();
+
+            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0,
+                                                        validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Error)
+                                                                         .Select(msg => msg.Message).ToArray());
+            CalculationServiceHelper.LogMessagesAsWarning(validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Warning)
+                                                                           .Select(msg => string.Format(RingtoetsCommonServiceResources.Warning_in_validation_0,
+                                                                                                        msg.Message)).ToArray());
             CalculationServiceHelper.LogValidationEnd();
 
-            return validationResults.Count == 0;
+            return !validationResults.Select(r => r.ResultType == UpliftVanValidationResultType.Error).Any();
         }
 
         /// <summary>

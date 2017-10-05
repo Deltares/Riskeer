@@ -272,8 +272,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie mislukt: Validation Error 1", msgs[1]);
-                    Assert.AreEqual("Validatie mislukt: Validation Error 2", msgs[2]);
+                    Assert.AreEqual("Validatie mislukt: Validation Error", msgs[1]);
+                    Assert.AreEqual("Validatie waarschuwing: Validation Warning", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                 });
                 Assert.IsFalse(isValid);

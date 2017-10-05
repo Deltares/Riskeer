@@ -203,10 +203,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            List<string> validationResult = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
+            List<UpliftVanValidationResult> validationResult = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
 
             // Assert
             CollectionAssert.IsEmpty(validationResult);
+        }
+
+        [Test]
+        public void Validate_KernelReturnsValidationResults_ReturnsListWithOnlyErrorsAndWarnings()
+        {
+            // Setup
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            upliftVanKernel.ReturnValidationResults = true;
+
+            // Call
+            List<UpliftVanValidationResult> results = new UpliftVanCalculator(CreateValidCalculatorInput(), testMacroStabilityInwardsKernelFactory).Validate();
+
+            // Assert
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual("Validation Warning", results.ElementAt(0).Message);
+            Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(0).ResultType);
+            Assert.AreEqual("Validation Error", results.ElementAt(1).Message);
+            Assert.AreEqual(UpliftVanValidationResultType.Error, results.ElementAt(1).ResultType);
         }
 
         [Test]

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Deltares.WTIStability.Data.Standard;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
@@ -78,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
         }
 
         [Test]
-        public void Validate_ThrowExceptionOnValidateFalse_SetValidatedTrue()
+        public void Validate_ThrowExceptionOnValidateAndReturnValidationResultsFalse_SetValidatedTrue()
         {
             // Setup
             var kernel = new UpliftVanKernelStub();
@@ -91,6 +93,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
 
             // Assert
             Assert.IsTrue(kernel.Validated);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
+        {
+            // Setup
+            var calculator = new UpliftVanKernelStub
+            {
+                ReturnValidationResults = true
+            };
+
+            // Call
+            List<Tuple<ValidationResultType, string>> results = calculator.Validate();
+
+            // Assert
+            Assert.IsFalse(calculator.Validated);
+            CollectionAssert.AreEqual(new List<Tuple<ValidationResultType, string>>
+            {
+                new Tuple<ValidationResultType, string>(ValidationResultType.Warning, "Validation Warning"),
+                new Tuple<ValidationResultType, string>(ValidationResultType.Error, "Validation Error"),
+                new Tuple<ValidationResultType, string>(ValidationResultType.Info, "Validation Info"),
+                new Tuple<ValidationResultType, string>(ValidationResultType.Debug, "Validation Debug")
+            }, results);
         }
 
         [Test]

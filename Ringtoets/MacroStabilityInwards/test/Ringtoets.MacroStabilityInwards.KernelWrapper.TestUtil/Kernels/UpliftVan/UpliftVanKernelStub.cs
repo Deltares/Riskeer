@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
@@ -51,6 +52,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// Indicator whether an exception must be thrown when performing the validation.
         /// </summary>
         public bool ThrowExceptionOnValidate { get; set; }
+
+        /// <summary>
+        /// Indicator whether a validation result must be returned when performing the validation.
+        /// </summary>
+        public bool ReturnValidationResults { get; set; }
 
         public SoilModel SoilModel { get; set; }
 
@@ -98,15 +104,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Calculated = true;
         }
 
-        public List<string> Validate()
+        public List<Tuple<ValidationResultType, string>> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
                 throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
             }
 
+            if (ReturnValidationResults)
+            {
+                return new List<Tuple<ValidationResultType, string>>
+                {
+                    new Tuple<ValidationResultType, string>(ValidationResultType.Warning, "Validation Warning"),
+                    new Tuple<ValidationResultType, string>(ValidationResultType.Error, "Validation Error"),
+                    new Tuple<ValidationResultType, string>(ValidationResultType.Info, "Validation Info"),
+                    new Tuple<ValidationResultType, string>(ValidationResultType.Debug, "Validation Debug")
+                };
+            }
+
             Validated = true;
-            return new List<string>();
+            return new List<Tuple<ValidationResultType, string>>();
         }
     }
 }

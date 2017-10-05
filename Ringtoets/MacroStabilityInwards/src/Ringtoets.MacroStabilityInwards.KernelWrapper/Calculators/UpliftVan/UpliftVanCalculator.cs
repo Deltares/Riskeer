@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -61,6 +62,37 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             this.factory = factory;
         }
 
+        public List<UpliftVanValidationResult> Validate()
+        {
+            try
+            {
+                IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
+                List<Tuple<ValidationResultType, string>> results = upliftVanKernel.Validate();
+                var upliftValidationResults = new List<UpliftVanValidationResult>();
+                foreach (Tuple<ValidationResultType, string> result in results)
+                {
+                    UpliftVanValidationResultType type;
+                    switch (result.Item1)
+                    {
+                        case ValidationResultType.Error:
+                            type = UpliftVanValidationResultType.Error;
+                            break;
+                        case ValidationResultType.Warning:
+                            type = UpliftVanValidationResultType.Warning;
+                            break;
+                        default:
+                            continue;
+                    }
+                    upliftValidationResults.Add(new UpliftVanValidationResult(type, result.Item2));
+                }
+                return upliftValidationResults;
+            }
+            catch (UpliftVanKernelWrapperException e)
+            {
+                throw new UpliftVanCalculatorException(e.Message, e);
+            }
+        }
+
         public UpliftVanCalculatorResult Calculate()
         {
             IUpliftVanKernel upliftVanKernel = CalculateUpliftVan();
@@ -75,19 +107,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
                     ForbiddenZonesXEntryMin = upliftVanKernel.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax
                 });
-        }
-
-        public List<string> Validate()
-        {
-            try
-            {
-                IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
-                return upliftVanKernel.Validate();
-            }
-            catch (UpliftVanKernelWrapperException e)
-            {
-                throw new UpliftVanCalculatorException(e.Message, e);
-            }
         }
 
         private IUpliftVanKernel CalculateUpliftVan()

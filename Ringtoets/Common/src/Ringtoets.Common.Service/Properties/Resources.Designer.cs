@@ -346,6 +346,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validatie waarschuwing: {0}.
+        /// </summary>
+        public static string Warning_in_validation_0 {
+            get {
+                return ResourceManager.GetString("Warning_in_validation_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         public static string WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged {

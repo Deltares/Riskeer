@@ -50,13 +50,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             return Output ?? (Output = CreateUpliftVanCalculatorResult());
         }
 
-        public List<string> Validate()
+        public List<UpliftVanValidationResult> Validate()
         {
-            return ReturnValidationResults ? new List<string>
+            return ReturnValidationResults ? new List<UpliftVanValidationResult>
             {
-                "Validation Error 1",
-                "Validation Error 2"
-            } : new List<string>();
+                new UpliftVanValidationResult(UpliftVanValidationResultType.Warning, "Validation Warning"),
+                new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error")
+            } : new List<UpliftVanValidationResult>();
         }
 
         private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult()

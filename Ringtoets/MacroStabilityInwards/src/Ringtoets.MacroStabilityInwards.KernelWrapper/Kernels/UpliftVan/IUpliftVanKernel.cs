@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -141,7 +143,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Validates the input for the Uplift Van calculation.
         /// </summary>
-        /// <returns>A list of validation strings, or an empty list if there are no validation errors.</returns>
-        List<string> Validate();
+        /// <returns>A list of tuples containing the validation result type and message, 
+        /// or an empty list if there are no validation results.</returns>
+        List<Tuple<ValidationResultType, string>> Validate();
     }
 }
