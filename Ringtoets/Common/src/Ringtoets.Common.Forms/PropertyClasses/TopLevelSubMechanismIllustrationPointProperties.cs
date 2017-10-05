@@ -29,6 +29,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -207,7 +208,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         private bool AreClosingSituationsSame()
         {
-            return closingSituations.Distinct().Count() < 2;
+            return !closingSituations.HasMultipleUniqueValues(c => c);
         }
     }
 }

@@ -108,6 +108,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 new[]
                 {
                     closingSituation,
+                    closingSituation,
                     "Different situation"
                 });
 
@@ -136,7 +137,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Call
             var properties = new TopLevelSubMechanismIllustrationPointProperties(
                 context,
-                Enumerable.Empty<string>());
+                new[]
+                {
+                    closingSituation,
+                    closingSituation
+                });
 
             // Assert
             string expectedStringValue = $"{windDirection.Name}";
@@ -199,11 +204,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                  submechanismIllustrationPoint);
 
             // Call
-            var properties = new TopLevelSubMechanismIllustrationPointProperties(data, new[]
-            {
-                closingSituation,
-                "Different closing situation"
-            });
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(
+                data,
+                new[]
+                {
+                    closingSituation,
+                    closingSituation,
+                    "Different closing situation"
+                });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -284,9 +292,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var context = new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
                                                                     "closingSituation",
                                                                     new TestSubMechanismIllustrationPoint());
+            const string closingSituation = "Closing Situation";
 
             // Call
-            var properties = new TopLevelSubMechanismIllustrationPointProperties(context, Enumerable.Empty<string>());
+            var properties = new TopLevelSubMechanismIllustrationPointProperties(
+                context,
+                new[]
+                {
+                    closingSituation,
+                    closingSituation
+                });
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
