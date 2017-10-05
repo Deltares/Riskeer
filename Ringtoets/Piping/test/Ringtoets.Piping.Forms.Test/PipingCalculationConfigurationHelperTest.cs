@@ -171,38 +171,6 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GetStochasticSoilModelsForSurfaceLine_NoSoilProfiles_ReturnEmpty()
-        {
-            // Setup
-            var soilModel = new PipingStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }, Enumerable.Empty<PipingStochasticSoilProfile>());
-
-            var availableSoilModels = new[]
-            {
-                soilModel
-            };
-
-            var surfaceLine = new PipingSurfaceLine("surface line");
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-
-            // Call
-            IEnumerable<PipingStochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                surfaceLine,
-                availableSoilModels);
-
-            // Assert
-            CollectionAssert.IsEmpty(result);
-        }
-
-        [Test]
         public void GetStochasticSoilModelsForSurfaceLine_SoilModelGeometryNotIntersecting_ReturnEmpty()
         {
             // Setup
@@ -478,54 +446,6 @@ namespace Ringtoets.Piping.Forms.Test
             PipingInput calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
-        }
-
-        [Test]
-        public void GenerateCalculationItemsStructure_NoSoilProfiles_LogWarning()
-        {
-            // Setup
-            var soilModel = new PipingStochasticSoilModel("A", new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }, Enumerable.Empty<PipingStochasticSoilProfile>());
-
-            var availableSoilModels = new[]
-            {
-                soilModel
-            };
-
-            const string testName = "testName";
-            var surfaceLine = new PipingSurfaceLine(testName);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-
-            PipingSurfaceLine[] surfaceLines =
-            {
-                surfaceLine
-            };
-
-            IEnumerable<ICalculationBase> result = null;
-            // Call
-            Action call = () =>
-            {
-                result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                    surfaceLines,
-                    availableSoilModels,
-                    new GeneralPipingInput()).ToArray();
-            };
-
-            // Assert
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
-                string.Format("Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
-                              testName),
-                LogLevelConstant.Warn);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
-            CollectionAssert.IsEmpty(result);
         }
 
         [Test]

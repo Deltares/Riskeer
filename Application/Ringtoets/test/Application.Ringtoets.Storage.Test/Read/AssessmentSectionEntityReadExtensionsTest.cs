@@ -25,6 +25,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -286,12 +287,20 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new StochasticSoilModelEntity
                     {
                         Name = "modelA",
-                        StochasticSoilModelSegmentPointXml = segmentPointXml
+                        StochasticSoilModelSegmentPointXml = segmentPointXml,
+                        PipingStochasticSoilProfileEntities =
+                        {
+                            PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
+                        }
                     },
                     new StochasticSoilModelEntity
                     {
                         Name = "modelB",
-                        StochasticSoilModelSegmentPointXml = segmentPointXml
+                        StochasticSoilModelSegmentPointXml = segmentPointXml,
+                        PipingStochasticSoilProfileEntities =
+                        {
+                            PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
+                        }
                     }
                 },
                 PipingFailureMechanismMetaEntities =

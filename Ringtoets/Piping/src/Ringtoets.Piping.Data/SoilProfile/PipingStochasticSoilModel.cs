@@ -45,8 +45,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
         /// <param name="name">Name of the segment soil model.</param>
         /// <param name="geometry">The geometry of the stochastic soil model.</param>
         /// <param name="stochasticSoilProfiles">The stochastic soil profiles of the model.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is 
-        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/>
         /// or <paramref name="stochasticSoilProfiles"/> is empty.</exception>
         public PipingStochasticSoilModel(string name, IEnumerable<Point2D> geometry, IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles)
@@ -66,6 +65,11 @@ namespace Ringtoets.Piping.Data.SoilProfile
             if (!geometry.Any())
             {
                 string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
+                throw new ArgumentException(message);
+            }
+            if (!stochasticSoilProfiles.Any())
+            {
+                string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_No_stochasticSoilProfiles_found_for_StochasticSoilModelName_0, name);
                 throw new ArgumentException(message);
             }
 

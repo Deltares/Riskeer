@@ -131,6 +131,27 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
         }
 
         [Test]
+        public void Constructor_StochasticSoilProfilesEmpty_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            const string name = "name";
+            var geometry = new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
+
+            // Call
+            TestDelegate call = () => new PipingStochasticSoilModel(name,
+                                                                    geometry,
+                                                                    Enumerable.Empty<PipingStochasticSoilProfile>());
+
+            // Assert
+            string expectedMessage = $"Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{name}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
         public void Update_WithNullModel_ThrowsArgumentNullException()
         {
             // Setup
