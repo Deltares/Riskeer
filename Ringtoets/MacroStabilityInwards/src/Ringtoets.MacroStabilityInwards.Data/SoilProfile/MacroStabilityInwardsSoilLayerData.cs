@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         public MacroStabilityInwardsShearStrengthModel ShearStrengthModel { get; set; }
 
         /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the layer above the phreatic level.
+        /// Gets or sets the volumic weight of the layer above the phreatic level.
         /// [kN/m³]
         /// </summary>
         public VariationCoefficientLogNormalDistribution AbovePhreaticLevel
@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets or sets the distribution for the volumic weight of the layer below the phreatic level.
+        /// Gets or sets the volumic weight of the layer below the phreatic level.
         /// [kN/m³]
         /// </summary>
         public VariationCoefficientLogNormalDistribution BelowPhreaticLevel
@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets or sets the distribution for the cohesion.
+        /// Gets or sets the cohesion.
         /// [kN/m³]
         /// </summary>
         public VariationCoefficientLogNormalDistribution Cohesion
@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets or sets the Pop.
+        /// Gets or sets the pop.
         /// [kN/m²]
         /// </summary>
         public VariationCoefficientLogNormalDistribution Pop

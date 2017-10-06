@@ -141,19 +141,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 Mean = (RoundedDouble) frictionAngleMean,
                 CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
             }, data.FrictionAngle);
-            
+
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) shearStrengthRatioMean,
                 CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
             }, data.ShearStrengthRatio);
-            
+
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) strengthIncreaseExponentMean,
                 CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
             }, data.StrengthIncreaseExponent);
-            
+
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) popMean,
@@ -412,20 +412,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)shearStrengthRatioMean,
-                CoefficientOfVariation = (RoundedDouble)shearStrengthRatioCoefficientOfVariation
+                Mean = (RoundedDouble) shearStrengthRatioMean,
+                CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
             }, data.ShearStrengthRatio);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)strengthIncreaseExponentMean,
-                CoefficientOfVariation = (RoundedDouble)strengthIncreaseExponentCoefficientOfVariation
+                Mean = (RoundedDouble) strengthIncreaseExponentMean,
+                CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
             }, data.StrengthIncreaseExponent);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)popMean,
-                CoefficientOfVariation = (RoundedDouble)popCoefficientOfVariation
+                Mean = (RoundedDouble) popMean,
+                CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
             }, data.Pop);
 
             AssertRings(layer, soilLayer2D);

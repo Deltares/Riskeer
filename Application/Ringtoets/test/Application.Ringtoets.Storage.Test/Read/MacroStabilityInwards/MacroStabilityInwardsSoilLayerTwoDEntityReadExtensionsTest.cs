@@ -55,12 +55,12 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var random = new Random(31);
             int color = Color.FromKnownColor(random.NextEnumValue<KnownColor>()).ToArgb();
             bool isAquifer = random.NextBoolean();
-            double belowPhreaticLevelMean = random.NextDouble();
-            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
-            double belowPhreaticLevelShift = random.NextDouble();
             const double abovePhreaticLevelMean = 0.3;
             const double abovePhreaticLevelCoefficientOfVariation = 0.2;
             const double abovePhreaticLevelShift = 0.1;
+            const double belowPhreaticLevelMean = 0.6;
+            const double belowPhreaticLevelCoefficientOfVariation = 0.5;
+            const double belowPhreaticLevelShift = 0.4;
             double cohesionMean = random.NextDouble();
             double cohesionCoefficientOfVariation = random.NextDouble();
             double frictionAngleMean = random.NextDouble();
