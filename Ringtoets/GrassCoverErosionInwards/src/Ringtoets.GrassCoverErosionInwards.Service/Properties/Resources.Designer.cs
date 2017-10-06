@@ -123,6 +123,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (HBN): {1} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1 {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_" +
+                        "illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet): {1} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1 {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_" +
+                        "illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overloop en overslag): {1} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1 {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_" +
+                        "illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De {0} berekening voor grasbekleding erosie kruin en binnentalud &apos;{1}&apos; is niet geconvergeerd..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationService_Calculation_of_type_0_for_calculation_with_name_1_not_converged {
@@ -156,33 +186,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         internal static string GrassCoverErosionInwardsCalculationService_OvertoppingRate {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_OvertoppingRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (HBN):.
-        /// </summary>
-        internal static string SetGeneralResult_Error_while_converting_generalresult_dike_height {
-            get {
-                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult_dike_height", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overloop en overslag):.
-        /// </summary>
-        internal static string SetGeneralResult_Error_while_converting_generalresult_overtopping {
-            get {
-                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult_overtopping", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet):.
-        /// </summary>
-        internal static string SetGeneralResult_Error_while_converting_generalresult_overtopping_rate {
-            get {
-                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult_overtopping_rate", resourceCulture);
             }
         }
     }

@@ -555,7 +555,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_child_names {
             get {
@@ -564,7 +564,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_closing_situations_or_wind_direction {
             get {
@@ -573,7 +573,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere uitvoer variabelen hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to Een of meerdere uitvoer variabelen hebben dezelfde naam..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_results {
             get {
@@ -582,7 +582,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere stochasten hebben dezelfde naam. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to Een of meerdere stochasten hebben dezelfde naam..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_stochasts {
             get {
@@ -591,7 +591,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. Het uitlezen van illustratiepunten wordt overgeslagen..
+        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten..
         /// </summary>
         public static string GeneralResult_Imported_with_incorrect_stochasts_in_children {
             get {

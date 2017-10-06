@@ -39,7 +39,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <param name="beta">The beta value that was realized.</param>
         /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
         /// <param name="illustrationPointResults">The output variables.</param>
-        /// <exception cref="ArgumentException">Thrown when the names of the <paramref name="stochasts"/> are not unique.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any of: 
         /// <list type="bullet">
         /// <item><paramref name="name"/></item>
@@ -47,6 +46,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <item><paramref name="illustrationPointResults"/></item>
         /// </list>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the names of the <paramref name="stochasts"/> are not unique.</exception>
         public SubMechanismIllustrationPoint(string name,
                                              double beta,
                                              IEnumerable<SubMechanismIllustrationPointStochast> stochasts,
@@ -91,8 +91,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateResults(IEnumerable<IllustrationPointResult> illustrationPointResults)
         {
-            bool nonDistinct = illustrationPointResults.HasDuplicates(i => i.Description);
-            if (nonDistinct)
+            bool hasDuplicateResults = illustrationPointResults.HasDuplicates(i => i.Description);
+            if (hasDuplicateResults)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_results));
             }
@@ -100,8 +100,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
-            bool hasNonDistinctStochasts = stochasts.HasDuplicates(s => s.Name);
-            if (hasNonDistinctStochasts)
+            bool hasDuplicateStochasts = stochasts.HasDuplicates(s => s.Name);
+            if (hasDuplicateStochasts)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
             }

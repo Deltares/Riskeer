@@ -277,7 +277,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping, calculation.Name) + " " + e.Message);
+                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1,
+                                       calculation.Name,
+                                       e.Message));
             }
 
             var overtoppingOutput = new OvertoppingOutput(overtoppingCalculator.WaveHeight,
@@ -676,7 +678,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_dike_height, calculationName) + " " + e.Message);
+                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1,
+                                       calculationName,
+                                       e.Message));
             }
 
             return new DikeHeightOutput(dikeHeight, targetProbability,
@@ -726,7 +730,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult_overtopping_rate, calculationName) + " " + e.Message);
+                log.Warn(string.Format(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1,
+                                       calculationName,
+                                       e.Message));
             }
 
             return new OvertoppingRateOutput(overtoppingRate, targetProbability,

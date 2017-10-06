@@ -34,10 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
         /// <returns>A <see cref="GeneralResult"/> with duplicate stochasts.</returns>
         public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
         {
+            var stochast = new Stochast("Stochast A", 0, 0);
             var stochasts = new[]
             {
-                new Stochast("Stochast A", 0, 0),
-                new Stochast("Stochast A", 0, 0)
+                stochast,
+                stochast
             };
             var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
             return new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints);
@@ -56,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
                 new Stochast("Stochast B", 0, 0)
             };
 
-            var faultTreeNode1 = new IllustrationPointTreeNode(new FaultTreeIllustrationPoint("Point A", 0.0, new[]
+            var faultTreeNode = new IllustrationPointTreeNode(new FaultTreeIllustrationPoint("Point A", 0.0, new[]
             {
                 new Stochast("Stochast C", 0, 0)
             }, CombinationType.And));
@@ -65,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
             {
                 {
                     new WindDirectionClosingSituation(new TestWindDirection(), "closing A"),
-                    faultTreeNode1
+                    faultTreeNode
                 }
             };
             return new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints);
@@ -84,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
                 new Stochast("Stochast B", 0, 0)
             };
 
-            var faultTreeNode1 = new IllustrationPointTreeNode(new SubMechanismIllustrationPoint("Point A", new[]
+            var faultTreeNode = new IllustrationPointTreeNode(new SubMechanismIllustrationPoint("Point A", new[]
             {
                 new SubMechanismIllustrationPointStochast("Stochast C", 0, 0, 0)
             }, Enumerable.Empty<IllustrationPointResult>(), 0.0));
@@ -93,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
             {
                 {
                     new WindDirectionClosingSituation(new TestWindDirection(), "closing A"),
-                    faultTreeNode1
+                    faultTreeNode
                 }
             };
             return new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints);
@@ -107,15 +108,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
         /// in a fault tree illustration point in the tree.</returns>
         public static GeneralResult CreateGeneralResultWithIncorrectStochastsInChildren()
         {
+            var stochastA = new Stochast("Stochast A", 0, 0);
             var stochasts = new[]
             {
-                new Stochast("Stochast A", 0, 0),
+                stochastA,
                 new Stochast("Stochast D", 0, 0)
             };
 
             var illustrationPointNode = new IllustrationPointTreeNode(new FaultTreeIllustrationPoint("Point A", 0.0, new[]
             {
-                new Stochast("Stochast A", 0, 0)
+                stochastA
             }, CombinationType.And));
 
             illustrationPointNode.SetChildren(new[]
@@ -165,15 +167,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
         /// <returns>A <see cref="GeneralResult"/> with duplicate illustration points.</returns>
         public static GeneralResult CreateGeneralResultSubMechanismWithDuplicateIllustrationPoints()
         {
+            var testSubMechanismIllustrationPoint = new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint());
             var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
             {
                 {
                     new WindDirectionClosingSituation(new WindDirection("N", 0.0), "closing A"),
-                    new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint())
+                    testSubMechanismIllustrationPoint
                 },
                 {
                     new WindDirectionClosingSituation(new WindDirection("S", 0.0), "closing A"),
-                    new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint())
+                    testSubMechanismIllustrationPoint
                 }
             };
             return new GeneralResult(0.5, new TestWindDirection(), Enumerable.Empty<Stochast>(), illustrationPoints);
@@ -249,10 +252,11 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
                                                                                                      0.5,
                                                                                                      Enumerable.Empty<Stochast>(),
                                                                                                      CombinationType.And));
+            var testSubMechanismIllustrationPoint = new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint("Point B"));
             illustrationPointNode.SetChildren(new[]
             {
-                new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint("Point B")),
-                new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint("Point B"))
+                testSubMechanismIllustrationPoint,
+                testSubMechanismIllustrationPoint
             });
             var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>
             {

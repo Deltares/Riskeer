@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                      12.3,
                                                                      Enumerable.Empty<Stochast>(),
                                                                      CombinationType.And);
-            ;
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("name", exception.ParamName);
@@ -86,17 +86,17 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_StochastNotUnique_ThrowArgumentException()
+        public void Constructor_StochastNamesNotUnique_ThrowArgumentException()
         {
             // Setup
             var random = new Random(21);
             var stochasts = new[]
             {
                 new Stochast("unique", 0, 0),
-                new Stochast("non-unique", 0, 0),
-                new Stochast("non-unique", 0, 0),
-                new Stochast("nonunique", 0, 0),
-                new Stochast("nonunique", 0, 0)
+                new Stochast("non-unique", 2, 1),
+                new Stochast("non-unique", 4, 8),
+                new Stochast("nonunique", 23, 7),
+                new Stochast("nonunique", 4, 2)
             };
 
             // Call
@@ -106,10 +106,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                      CombinationType.And);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

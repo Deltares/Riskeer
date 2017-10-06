@@ -292,6 +292,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string SetGeneralResult_Calculating_illustration_points_skipped {
+            get {
+                return ResourceManager.GetString("SetGeneralResult_Calculating_illustration_points_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het uitlezen van illustratiepunten is mislukt..
         /// </summary>
         public static string SetGeneralResult_Converting_IllustrationPointResult_Failed {

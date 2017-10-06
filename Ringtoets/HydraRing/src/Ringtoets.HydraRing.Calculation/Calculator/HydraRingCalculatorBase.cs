@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
-using log4net;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;

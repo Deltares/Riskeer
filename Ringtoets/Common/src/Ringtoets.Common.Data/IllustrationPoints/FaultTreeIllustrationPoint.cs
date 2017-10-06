@@ -43,8 +43,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// tree node element in the fault tree.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
         /// <paramref name="stochasts"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when one of the input parameters
-        /// is invalid (duplicate items, missing items)</exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="stochasts"/> aren't unique.</exception>
         public FaultTreeIllustrationPoint(string name,
                                           double beta,
                                           IEnumerable<Stochast> stochasts,
@@ -83,8 +82,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
-            bool hasNonDistinctStochasts = stochasts.HasDuplicates(s => s.Name);
-            if (hasNonDistinctStochasts)
+            bool hasDuplicates = stochasts.HasDuplicates(s => s.Name);
+            if (hasDuplicates)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
             }

@@ -126,10 +126,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             TestDelegate test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -158,10 +156,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             TestDelegate test = () => illustrationPointNode.SetChildren(childrenToBeAdded);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

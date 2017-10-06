@@ -44,8 +44,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// for every combination of wind directions and closing situations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input
         /// parameters is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when one of the input parameters
-        /// is invalid (duplicate items, missing items).</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>the stochasts in child nodes don't equal the general result's stochasts;</item>
+        /// <item>the general result's stochasts contains duplicates;</item>
+        /// <item>the top level illustration points have a duplicate 
+        /// combination of closing situation and wind direction.</item>
+        /// </list></exception>
         public GeneralResult(WindDirection governingWindDirection,
                              IEnumerable<Stochast> stochasts,
                              IEnumerable<T> topLevelIllustrationPoints)
@@ -63,9 +68,9 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(topLevelIllustrationPoints));
             }
 
-            ValidateStochastInChildren(topLevelIllustrationPoints, stochasts);
             ValidateStochasts(stochasts);
             ValidateTopLevelIllustrationPoints(topLevelIllustrationPoints);
+            ValidateStochastInChildren(topLevelIllustrationPoints, stochasts);
 
             GoverningWindDirection = governingWindDirection;
             Stochasts = stochasts;
@@ -107,16 +112,14 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 var topLevelFaultTreeIllustrationPoint = topLevelIllustrationPoint as TopLevelFaultTreeIllustrationPoint;
                 if (topLevelFaultTreeIllustrationPoint != null)
                 {
-                    IllustrationPointNode nodeRoot = topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot;
-                    childStochastNames.AddRange(GetStochastNamesFromChildren(nodeRoot));
+                    childStochastNames.AddRange(GetStochastNamesFromChildren(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot));
                     continue;
                 }
 
                 var topLevelSubMechanismIllustrationPoint = topLevelIllustrationPoint as TopLevelSubMechanismIllustrationPoint;
                 if (topLevelSubMechanismIllustrationPoint != null)
                 {
-                    SubMechanismIllustrationPoint nodeRoot = topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint;
-                    childStochastNames.AddRange(nodeRoot.Stochasts.Select(s => s.Name));
+                    childStochastNames.AddRange(topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts.Select(s => s.Name));
                 }
             }
             childStochastNames = childStochastNames.Distinct().ToList();
@@ -151,9 +154,9 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)
         {
-            bool hasNonDistinctIllustrationPointsPerWindDirection =
+            bool hasDuplicateIllustrationPointsPerWindDirection =
                 topLevelIllustrationPoints.HasDuplicates(t => $"{t.ClosingSituation} {t.WindDirection.Angle}");
-            if (hasNonDistinctIllustrationPointsPerWindDirection)
+            if (hasDuplicateIllustrationPointsPerWindDirection)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_closing_situations_or_wind_direction));
             }
@@ -161,8 +164,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
-            bool hasNonDistinctStochasts = stochasts.HasDuplicates(s => s.Name);
-            if (hasNonDistinctStochasts)
+            bool hasDuplicateStochasts = stochasts.HasDuplicates(s => s.Name);
+            if (hasDuplicateStochasts)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
             }

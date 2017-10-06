@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -103,17 +104,17 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_StochastNotUnique_ThrowArgumentException()
+        public void Constructor_StochastNamesNotUnique_ThrowArgumentException()
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var stochasts = new[]
             {
-                new Stochast("unique", 0, 0),
-                new Stochast("non-unique", 0, 0),
-                new Stochast("non-unique", 0, 0),
-                new Stochast("nonunique", 0, 0),
-                new Stochast("nonunique", 0, 0)
+                new Stochast("unique", 1, 4),
+                new Stochast("non-unique", 2, 0),
+                new Stochast("non-unique", 3, 2),
+                new Stochast("nonunique", 4, 0),
+                new Stochast("nonunique", 5, 1)
             };
             IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints =
                 Enumerable.Empty<TopLevelIllustrationPointBase>();
@@ -124,22 +125,21 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                                        topLevelIllustrationPoints);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        public void Constructor_TopLevelIllustrationPointsNotUnique_ThrowArgumentException()
+        public void Constructor_TopLevelIllustrationPointsWindDirectionClosingSituationCombinationNotUnique_ThrowArgumentException()
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             IEnumerable<Stochast> stochasts = Enumerable.Empty<Stochast>();
+            var topLevelIllustrationPoint = new TestTopLevelIllustrationPoint("not unique");
             IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints = new[]
             {
-                new TopLevelIllustrationPoint(new WindDirection("N", 0.5), "not unique"),
-                new TopLevelIllustrationPoint(new WindDirection("N", 0.5), "not unique")
+                topLevelIllustrationPoint,
+                topLevelIllustrationPoint
             };
 
             // Call
@@ -148,34 +148,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                                        topLevelIllustrationPoints);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
-        }
-
-        [Test]
-        public void Constructor_StochastsNotUnique_ThrowArgumentException()
-        {
-            // Setup
-            WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            IEnumerable<Stochast> stochasts = new[]
-            {
-                new Stochast("Stochast 1", 0, 0),
-                new Stochast("Stochast 1", 0, 0)
-            };
-            IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints = new List<TopLevelIllustrationPointBase>();
-
-            // Call
-            TestDelegate test = () => new GeneralResult<TopLevelIllustrationPointBase>(windDirection,
-                                                                                       stochasts,
-                                                                                       topLevelIllustrationPoints);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -183,18 +157,20 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
-            IEnumerable<Stochast> stochasts = new[]
-            {
-                new Stochast("Stochast 1", 0, 0)
-            };
-            var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("A", 0.0, new []
+
+            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint(new[]
             {
                 new Stochast("Stochast 2", 0, 0)
-            }, CombinationType.And));
+            }));
 
             IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints = new List<TopLevelIllustrationPointBase>
             {
-                new TopLevelFaultTreeIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(), "closing", illustrationPointNode)
+                new TopLevelFaultTreeIllustrationPoint(windDirection, "closing", illustrationPointNode)
+            };
+
+            IEnumerable<Stochast> stochasts = new[]
+            {
+                new Stochast("Stochast 1", 0, 0)
             };
 
             // Call
@@ -203,10 +179,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                                        topLevelIllustrationPoints);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -235,12 +209,6 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
-        }
-
-        private class TopLevelIllustrationPoint : TopLevelIllustrationPointBase
-        {
-            public TopLevelIllustrationPoint(WindDirection windDirection, string closingSituation)
-                : base(windDirection, closingSituation) {}
         }
     }
 }

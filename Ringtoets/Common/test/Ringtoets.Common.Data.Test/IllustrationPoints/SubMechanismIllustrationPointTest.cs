@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
@@ -112,7 +113,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_StochastNotUnique_ThrowArgumentException()
+        public void Constructor_StochastNamesNotUnique_ThrowArgumentException()
         {
             // Setup
             var random = new Random(21);
@@ -132,14 +133,12 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                         Enumerable.Empty<IllustrationPointResult>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere stochasten hebben dezelfde naam. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        public void Constructor_IllustrationPointResultsNotUnique_ThrowArgumentException()
+        public void Constructor_IllustrationPointResultDescriptionsNotUnique_ThrowArgumentException()
         {
             // Setup
             var random = new Random(21);
@@ -157,10 +156,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                         results);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("Een of meerdere uitvoer variabelen hebben dezelfde naam. " +
-                            "Het uitlezen van illustratiepunten wordt overgeslagen.",
-                            exception.Message);
+            const string expectedMessage = "Een of meerdere uitvoer variabelen hebben dezelfde naam.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

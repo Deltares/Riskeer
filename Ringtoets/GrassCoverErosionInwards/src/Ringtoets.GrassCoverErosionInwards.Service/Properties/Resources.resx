@@ -142,13 +142,13 @@
   <data name="GrassCoverErosionInwardsCalculationService_OvertoppingRate" xml:space="preserve">
     <value>overslagdebiet</value>
   </data>
-  <data name="SetGeneralResult_Error_while_converting_generalresult_dike_height" xml:space="preserve">
-    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (HBN):</value>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_dike_height_with_ErrorMessage_1" xml:space="preserve">
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (HBN): {1} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
-  <data name="SetGeneralResult_Error_while_converting_generalresult_overtopping" xml:space="preserve">
-    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overloop en overslag):</value>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1" xml:space="preserve">
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overloop en overslag): {1} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
-  <data name="SetGeneralResult_Error_while_converting_generalresult_overtopping_rate" xml:space="preserve">
-    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet):</value>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1" xml:space="preserve">
+    <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet): {1} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
 </root>

@@ -283,7 +283,9 @@ namespace Ringtoets.Common.Service.Structures
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, calculation.Name) + " " + e.Message);
+                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, calculation.Name) +
+                         " " + e.Message +
+                         " " + Resources.SetGeneralResult_Calculating_illustration_points_skipped);
             }
 
             calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);

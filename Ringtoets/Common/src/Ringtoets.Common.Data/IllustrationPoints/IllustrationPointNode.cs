@@ -66,7 +66,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// </summary>
         /// <param name="children">The children that are attached to this node.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="children"/>
-        /// does not contain 0 or 2 elements or when the children are invalid (duplicates, missing items).</exception>
+        /// does not contain 0 or 2 elements or when the children have duplicate names or
+        /// when they have different stochasts than the node itself.</exception>
         public void SetChildren(IllustrationPointNode[] children)
         {
             if (children == null)
@@ -84,7 +85,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             var faultTreeData = Data as FaultTreeIllustrationPoint;
             if (faultTreeData != null)
             {
-                ValidateChildren(faultTreeData, children);
+                ValidateChildNames(faultTreeData, children);
+                ValidateChildStochasts(faultTreeData, children);
             }
 
             Children = children;
@@ -100,18 +102,18 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             return clone;
         }
 
-        private static void ValidateChildren(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
+        private static void ValidateChildNames(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
         {
-            // Validate child names
-            IEnumerable<IllustrationPointNode> illustrationPointNodes = children as IList<IllustrationPointNode> ?? children.ToList();
-            if (illustrationPointNodes.HasDuplicates(c => c.Data.Name))
+            if (children.HasDuplicates(c => c.Data.Name))
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_child_names));
             }
+        }
 
-            // Validate child stochasts
+        private static void ValidateChildStochasts(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
+        {
             var stochastNames = new List<string>();
-            foreach (IllustrationPointNode illustrationPointNode in illustrationPointNodes)
+            foreach (IllustrationPointNode illustrationPointNode in children)
             {
                 var faultTreeData = illustrationPointNode.Data as FaultTreeIllustrationPoint;
                 if (faultTreeData != null)
