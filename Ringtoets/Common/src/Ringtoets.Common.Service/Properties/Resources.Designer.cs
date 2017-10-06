@@ -100,6 +100,16 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0}: {1} Het uitlezen van illustratiepunten wordt overgeslagen..
+        /// </summary>
+        public static string CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1 {
+            get {
+                return ResourceManager.GetString("CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with" +
+                        "_ErrorMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen dijkprofiel geselecteerd..
         /// </summary>
         public static string CalculationService_ValidateInput_No_dike_profile_selected {
@@ -292,29 +302,11 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het uitlezen van illustratiepunten wordt overgeslagen..
-        /// </summary>
-        public static string SetGeneralResult_Calculating_illustration_points_skipped {
-            get {
-                return ResourceManager.GetString("SetGeneralResult_Calculating_illustration_points_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het uitlezen van illustratiepunten is mislukt..
         /// </summary>
         public static string SetGeneralResult_Converting_IllustrationPointResult_Failed {
             get {
                 return ResourceManager.GetString("SetGeneralResult_Converting_IllustrationPointResult_Failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0}:.
-        /// </summary>
-        public static string SetGeneralResult_Error_while_converting_generalresult {
-            get {
-                return ResourceManager.GetString("SetGeneralResult_Error_while_converting_generalresult", resourceCulture);
             }
         }
         

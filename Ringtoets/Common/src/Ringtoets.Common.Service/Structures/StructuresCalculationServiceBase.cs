@@ -53,8 +53,9 @@ namespace Ringtoets.Common.Service.Structures
     /// <typeparam name="TStructure">The structure type.</typeparam>
     /// <typeparam name="TGeneralInput">The general input type.</typeparam>
     /// <typeparam name="TCalculationInput">The calculation input type.</typeparam>
-    public abstract class StructuresCalculationServiceBase<TStructureValidationRules, TStructureInput,
-                                                           TStructure, TGeneralInput, TCalculationInput>
+    public abstract class StructuresCalculationServiceBase
+    <TStructureValidationRules, TStructureInput,
+     TStructure, TGeneralInput, TCalculationInput>
         where TStructureValidationRules : IStructuresValidationRulesRegistry<TStructureInput, TStructure>, new()
         where TStructureInput : StructuresInputBase<TStructure>, new()
         where TStructure : StructureBase
@@ -283,9 +284,9 @@ namespace Ringtoets.Common.Service.Structures
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.SetGeneralResult_Error_while_converting_generalresult, calculation.Name) +
-                         " " + e.Message +
-                         " " + Resources.SetGeneralResult_Calculating_illustration_points_skipped);
+                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                                       calculation.Name,
+                                       e.Message));
             }
 
             calculation.Output = new StructuresOutput(probabilityAssessmentOutput, generalResult);
