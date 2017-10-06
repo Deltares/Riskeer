@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationCoefficientLogNormalDistribution"/> class,
-        /// initialized as a log normal distribution (mean=1 and coefficient of variation, CV=1) and with 
+        /// initialized as a log normal distribution (mean=1, CV=1, theta=0) and with 
         /// the amount of decimal places equal to <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>.
         /// </summary>
         public VariationCoefficientLogNormalDistribution() : this(RoundedDouble.MaximumNumberOfDecimalPlaces) {}
@@ -82,7 +82,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// <summary>
         /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Expected value is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is less than or
+        /// equal to 0 or less than <see cref="Shift"/>.</exception>
         /// <remarks>As <see cref="CoefficientOfVariation"/> cannot be negative, the absolute
         /// value of the mean is used when the standard deviation needs to be calculated.</remarks>
         public RoundedDouble Mean
@@ -98,6 +99,10 @@ namespace Ringtoets.Common.Data.Probabilistics
                 if (roundedValue <= 0)
                 {
                     throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
+                }
+                if (Shift > roundedValue)
+                {
+                    throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
                 }
 
                 mean = roundedValue;

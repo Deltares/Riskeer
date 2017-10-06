@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(75, 1.2345, 0.95, 76.83967484)]
         [TestCase(123.45, 70, 0.95, 137.6805705)]
         [TestCase(1.2345, 70, 0.95, 4.541272847)]
-        public void GetDesignVariable_ValidLogNormalDistribution_ReturnExpectedValue(
+        public void GetDesignValue_ValidLogNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)
         {
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
         /// <param name="variance">VARIANCE.</param>
-        /// <param name="shift">SHIFT</param>
+        /// <param name="shift">SHIFT.</param>
         /// <param name="percentile">Percentile.</param>
         /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(75, 123.45, 10, 0.95, 225.9596)]
         [TestCase(75, 1.2345, 10, 0.95, 200.0482)]
         [TestCase(123.45, 70, 10, 0.95, 411.83019)]
-        public void GetDesignVariable_ValidLogNormalDistributionWithNonZeroShift_ReturnExpectedValue(
+        public void GetDesignValue_ValidLogNormalDistributionWithNonZeroShift_ReturnExpectedValue(
             double expectedValue, double variance, double shift, double percentile,
             double expectedResult)
         {
@@ -112,9 +112,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             const int numberOfDecimalPlaces = 4;
             var logNormalDistribution = new VariationCoefficientLogNormalDistribution(numberOfDecimalPlaces)
             {
-                Mean = (RoundedDouble)expectedValue,
-                CoefficientOfVariation = (RoundedDouble)Math.Sqrt(variance),
-                Shift = (RoundedDouble)shift
+                Mean = (RoundedDouble) expectedValue,
+                CoefficientOfVariation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) shift
             };
 
             var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution)
@@ -126,44 +126,6 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             RoundedDouble result = designVariable.GetDesignValue();
 
             // Assert
-            Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(75, 70, 0.5)]
-        [TestCase(75, 70, 0.95)]
-        [TestCase(75, 70, 0.05)]
-        [TestCase(75, 123.45, 0.95)]
-        [TestCase(75, 1.2345, 0.95)]
-        [TestCase(123.45, 70, 0.95)]
-        [TestCase(1.2345, 70, 0.95)]
-        public void GetDesignVariable_ShiftIsZero_ReturnIdenticalValueAsLogNormalDistributionDesignVariable(
-            double expectedValue, double variance, double percentile)
-        {
-            // Setup
-            const int numberOfDecimalPlaces = 6;
-            var logNormalDistribution = new VariationCoefficientLogNormalDistribution(numberOfDecimalPlaces)
-            {
-                Mean = (RoundedDouble)expectedValue,
-                CoefficientOfVariation = (RoundedDouble)Math.Sqrt(variance),
-                Shift = (RoundedDouble)0.0
-            };
-
-            var designVariable = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution)
-            {
-                Percentile = percentile
-            };
-
-            // Call
-            RoundedDouble result = designVariable.GetDesignValue();
-
-            // Assert
-            RoundedDouble expectedResult = new VariationCoefficientLogNormalDistributionDesignVariable(logNormalDistribution)
-            {
-                Percentile = percentile
-            }.GetDesignValue();
-
             Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }

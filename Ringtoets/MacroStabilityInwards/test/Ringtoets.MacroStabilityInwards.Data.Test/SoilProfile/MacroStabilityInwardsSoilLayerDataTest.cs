@@ -278,7 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 {
                     Mean = (RoundedDouble) 11,
                     CoefficientOfVariation = (RoundedDouble) 0.6,
-                    Shift = (RoundedDouble) 3
+                    Shift = (RoundedDouble) 1
                 },
                 Cohesion = new VariationCoefficientLogNormalDistribution
                 {

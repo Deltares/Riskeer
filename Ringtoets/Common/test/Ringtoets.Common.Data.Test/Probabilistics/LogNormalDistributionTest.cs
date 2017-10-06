@@ -148,6 +148,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [Test]
+        public void Mean_SettingToLessThanShift_ThrowArgumentOutOfRangeException()
+        {
+            // Setup
+            var distribution = new LogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 20),
+                Shift = new RoundedDouble(2, 10)
+            };
+
+            // Call
+            TestDelegate test = () => distribution.Mean = (RoundedDouble) 5;
+
+            // Assert
+            const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
         [TestCase(1.23456789)]
         [TestCase(0 - 1e-3, Description = "Valid standard deviation due to rounding to 0.0")]
         public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(double standardDeviation)
@@ -185,7 +203,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(3, 5.647)]
         [TestCase(4, 5.6473)]
         [TestCase(15, 5.647300000000000)]
-        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedShift)
         {
             // Setup
             var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
@@ -198,7 +216,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedStandardDeviation, distribution.Shift.Value);
+            Assert.AreEqual(expectedShift, distribution.Shift.Value);
         }
 
         [Test]

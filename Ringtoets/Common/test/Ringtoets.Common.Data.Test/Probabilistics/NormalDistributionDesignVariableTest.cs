@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(75, 1.2345, 0.95, 76.82756488)]
         [TestCase(123.45, 70, 0.95, 137.2118328)]
         [TestCase(1.2345, 70, 0.95, 14.99633279)]
-        public void GetDesignVariable_ValidNormalDistribution_ReturnExpectedValue(
+        public void GetDesignValue_ValidNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)
         {

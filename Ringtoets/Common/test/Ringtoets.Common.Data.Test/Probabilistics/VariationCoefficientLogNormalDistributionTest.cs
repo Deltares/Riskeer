@@ -144,6 +144,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         }
 
         [Test]
+        public void Mean_SettingToLessThanShift_ThrowArgumentOutOfRangeException()
+        {
+            // Setup
+            var distribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 20),
+                Shift = new RoundedDouble(2, 10)
+            };
+
+            // Call
+            TestDelegate test = () => distribution.Mean = (RoundedDouble)5;
+
+            // Assert
+            const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
         [TestCase(-0.004, 0.0)]
         [TestCase(0.0, 0.0)]
         [TestCase(34.56789, 34.57)]
@@ -181,7 +199,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(3, 5.647)]
         [TestCase(4, 5.6473)]
         [TestCase(15, 5.647300000000000)]
-        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedShift)
         {
             // Setup
             var distribution = new VariationCoefficientLogNormalDistribution(numberOfDecimalPlaces)
@@ -194,7 +212,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedStandardDeviation, distribution.Shift.Value);
+            Assert.AreEqual(expectedShift, distribution.Shift.Value);
         }
 
         [Test]
@@ -223,7 +241,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var original = new VariationCoefficientLogNormalDistribution(random.Next(1, 16))
             {
                 Mean = random.NextRoundedDouble(),
-                CoefficientOfVariation = random.NextRoundedDouble()
+                CoefficientOfVariation = random.NextRoundedDouble(),
+                Shift = random.NextRoundedDouble()
             };
 
             // Call
