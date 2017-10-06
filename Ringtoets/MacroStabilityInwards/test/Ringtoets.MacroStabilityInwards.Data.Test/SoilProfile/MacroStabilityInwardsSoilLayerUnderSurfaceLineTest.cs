@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsSoilLayerUnderSurfaceLineTest
     {
         [Test]
-        public void Constructor_WithoutOuterRingWithHolesAndProperties_ThrowsArgumentNullException()
+        public void Constructor_WithoutOuterRingWithHolesAndData_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithoutHolesWithOuterRingAndProperties_ThrowsArgumentNullException()
+        public void Constructor_WithoutHolesWithOuterRingAndData_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithoutPropertiesWithOuterRingAndHoles_ThrowsArgumentNullException()
+        public void Constructor_WithoutDataWithOuterRingAndHoles_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new Point2D[0], Enumerable.Empty<Point2D[]>(), null);
@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithoutOuterRingWithProperties_ThrowsArgumentNullException()
+        public void Constructor_WithoutOuterRingWithData_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithoutPropertiesWithOuterRing_ThrowsArgumentNullException()
+        public void Constructor_WithoutDataWithOuterRing_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new Point2D[0], null);
@@ -91,36 +91,36 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithOuterRingAndHolesAndProperties_NewInstanceWithPropertiesSet()
+        public void Constructor_WithOuterRingAndHolesAndData_NewInstanceWithDataSet()
         {
             // Call
             var outerRing = new Point2D[0];
             IEnumerable<Point2D[]> holes = Enumerable.Empty<Point2D[]>();
-            var properties = new MacroStabilityInwardsSoilLayerData();
+            var data = new MacroStabilityInwardsSoilLayerData();
 
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, holes, properties);
+            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, holes, data);
 
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreSame(holes, layer.Holes);
-            Assert.AreSame(properties, layer.Data);
+            Assert.AreSame(data, layer.Data);
         }
 
         [Test]
-        public void Constructor_WithOuterRingAndProperties_NewInstanceWithPropertiesSet()
+        public void Constructor_WithOuterRingAndData_NewInstanceWithDataSet()
         {
             // Call
             var outerRing = new Point2D[0];
-            var properties = new MacroStabilityInwardsSoilLayerData();
+            var data = new MacroStabilityInwardsSoilLayerData();
 
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, properties);
+            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, data);
 
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.IsEmpty(layer.Holes);
-            Assert.AreSame(properties, layer.Data);
+            Assert.AreSame(data, layer.Data);
         }
     }
 }
