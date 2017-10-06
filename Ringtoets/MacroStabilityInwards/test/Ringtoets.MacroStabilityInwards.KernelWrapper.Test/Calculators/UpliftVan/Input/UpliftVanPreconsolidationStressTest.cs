@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         {
             // Setup
             var random = new Random(11);
-            var coordinate = new Point2D(random.Next(), random.NextDouble());
+            var coordinate = new Point2D(random.NextDouble(), random.NextDouble());
             double stress = random.NextDouble();
 
             // Call

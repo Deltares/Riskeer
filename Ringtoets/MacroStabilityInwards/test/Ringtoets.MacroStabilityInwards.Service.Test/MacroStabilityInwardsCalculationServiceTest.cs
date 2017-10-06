@@ -546,7 +546,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
         {
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
-            UpliftVanSoilProfileHelper.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
+            UpliftVanCalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
             AssertPhreaticLineOffsets(originalInput, actualInput.PhreaticLineOffsets);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
