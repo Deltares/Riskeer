@@ -19,28 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
-    public static class GeneralResultTestFactory
+    /// <summary>
+    /// This class contains validations methods for <see cref="Stochast"/> collections.
+    /// </summary>
+    public static class StochastValidator
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/>
-        /// with duplicate stochasts.
+        /// Validates a collection of <see cref="Stochast"/> objects by checking for duplicate names.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with duplicate stochasts.</returns>
-        public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
+        /// <param name="stochasts">The collection of <see cref="Stochast"/> objects to be validated.</param>
+        public static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
-            var stochast = new Stochast("Stochast A", 0, 0);
-            var stochasts = new[]
+            if (stochasts == null)
             {
-                stochast,
-                stochast
-            };
-            var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
-            return new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints);
+                throw new ArgumentNullException(nameof(stochasts));
+            }
+
+            bool hasDuplicates = stochasts.HasDuplicates(s => s.Name);
+            if (hasDuplicates)
+            {
+                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
+            }
         }
     }
 }

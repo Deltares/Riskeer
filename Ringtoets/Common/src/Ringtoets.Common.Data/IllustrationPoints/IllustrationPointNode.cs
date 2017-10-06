@@ -112,22 +112,9 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         private static void ValidateChildStochasts(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
         {
-            var stochastNames = new List<string>();
-            foreach (IllustrationPointNode illustrationPointNode in children)
-            {
-                var faultTreeData = illustrationPointNode.Data as FaultTreeIllustrationPoint;
-                if (faultTreeData != null)
-                {
-                    stochastNames.AddRange(faultTreeData.Stochasts.Select(s => s.Name));
-                    continue;
-                }
-                var subMechanismData = illustrationPointNode.Data as SubMechanismIllustrationPoint;
-                if (subMechanismData != null)
-                {
-                    stochastNames.AddRange(subMechanismData.Stochasts.Select(s => s.Name));
-                }
-            }
-            if (data.Stochasts.Select(s => s.Name).Intersect(stochastNames).Count() != stochastNames.Distinct().Count())
+            List<string> stochastNames = children.SelectMany(c => c.GetStochastNames()).ToList();
+
+            if (data.GetStochastNames().Intersect(stochastNames).Count() != stochastNames.Distinct().Count())
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_stochasts_in_children));
             }

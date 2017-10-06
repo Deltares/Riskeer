@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(topLevelIllustrationPoints));
             }
 
-            ValidateStochasts(stochasts);
+            StochastValidator.ValidateStochasts(stochasts);
             ValidateTopLevelIllustrationPoints(topLevelIllustrationPoints);
             ValidateStochastInChildren(topLevelIllustrationPoints, stochasts);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             return clone;
         }
 
-        private void ValidateStochastInChildren(IEnumerable<T> topLevelillustrationPoints, IEnumerable<Stochast> stochasts)
+        private static void ValidateStochastInChildren(IEnumerable<T> topLevelillustrationPoints, IEnumerable<Stochast> stochasts)
         {
             var childStochastNames = new List<string>();
 
@@ -112,16 +112,17 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 var topLevelFaultTreeIllustrationPoint = topLevelIllustrationPoint as TopLevelFaultTreeIllustrationPoint;
                 if (topLevelFaultTreeIllustrationPoint != null)
                 {
-                    childStochastNames.AddRange(GetStochastNamesFromChildren(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot));
+                    childStochastNames.AddRange(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.GetStochastNamesFromChildren());
                     continue;
                 }
 
                 var topLevelSubMechanismIllustrationPoint = topLevelIllustrationPoint as TopLevelSubMechanismIllustrationPoint;
                 if (topLevelSubMechanismIllustrationPoint != null)
                 {
-                    childStochastNames.AddRange(topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.Stochasts.Select(s => s.Name));
+                    childStochastNames.AddRange(topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.GetStochastNames());
                 }
             }
+
             childStochastNames = childStochastNames.Distinct().ToList();
             IEnumerable<string> topLevelStochastNames = stochasts.Select(s => s.Name);
 
@@ -131,27 +132,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             }
         }
 
-        private IEnumerable<string> GetStochastNamesFromChildren(IllustrationPointNode nodeRoot)
-        {
-            var stochastNames = new List<string>();
-            var faultTreeData = nodeRoot.Data as FaultTreeIllustrationPoint;
-            if (faultTreeData != null)
-            {
-                stochastNames.AddRange(faultTreeData.Stochasts.Select(s => s.Name));
-                foreach (IllustrationPointNode illustrationPointNode in nodeRoot.Children)
-                {
-                    stochastNames.AddRange(GetStochastNamesFromChildren(illustrationPointNode));
-                }
-                return stochastNames;
-            }
-            var subMechanismData = nodeRoot.Data as SubMechanismIllustrationPoint;
-            if (subMechanismData != null)
-            {
-                stochastNames.AddRange(subMechanismData.Stochasts.Select(s => s.Name));
-            }
-            return stochastNames;
-        }
-
         private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)
         {
             bool hasDuplicateIllustrationPointsPerWindDirection =
@@ -159,15 +139,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             if (hasDuplicateIllustrationPointsPerWindDirection)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_closing_situations_or_wind_direction));
-            }
-        }
-
-        private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
-        {
-            bool hasDuplicateStochasts = stochasts.HasDuplicates(s => s.Name);
-            if (hasDuplicateStochasts)
-            {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
             }
         }
     }

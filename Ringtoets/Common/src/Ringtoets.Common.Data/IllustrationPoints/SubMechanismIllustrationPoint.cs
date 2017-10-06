@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(illustrationPointResults));
             }
 
-            ValidateStochasts(stochasts);
+            StochastValidator.ValidateStochasts(stochasts);
             ValidateResults(illustrationPointResults);
 
             Stochasts = stochasts;
@@ -89,21 +89,16 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             return clone;
         }
 
+        /// <summary>
+        /// Validates a collection of <see cref="illustrationPointResults"/> objects by checking for duplicate descriptions.
+        /// </summary>
+        /// <param name="illustrationPointResults">The collection of <see cref="illustrationPointResults"/> objects to be validated.</param>
         private static void ValidateResults(IEnumerable<IllustrationPointResult> illustrationPointResults)
         {
             bool hasDuplicateResults = illustrationPointResults.HasDuplicates(i => i.Description);
             if (hasDuplicateResults)
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_results));
-            }
-        }
-
-        private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
-        {
-            bool hasDuplicateStochasts = stochasts.HasDuplicates(s => s.Name);
-            if (hasDuplicateStochasts)
-            {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
             }
         }
     }

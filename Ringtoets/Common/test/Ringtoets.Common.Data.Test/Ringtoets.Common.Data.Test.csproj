@@ -82,11 +82,15 @@
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationOutputTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationTest.cs" />
+    <Compile Include="IllustrationPoints\IllustrationPointNodeExtensionsTest.cs" />
+    <Compile Include="IllustrationPoints\SubMechanismIllustrationPointExtensionsTest.cs" />
+    <Compile Include="IllustrationPoints\FaultTreeIllustrationPointExtensionsTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNodeTest.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\GeneralResultTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointBaseTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointResultTest.cs" />
+    <Compile Include="IllustrationPoints\StochastValidatorTest.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointStochastTest.cs" />
     <Compile Include="IllustrationPoints\StochastTest.cs" />

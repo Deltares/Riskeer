@@ -22,8 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Utils.Extensions;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
@@ -55,7 +53,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(stochasts));
             }
 
-            ValidateStochasts(stochasts);
+            StochastValidator.ValidateStochasts(stochasts);
 
             CombinationType = combinationType;
             Stochasts = stochasts;
@@ -78,15 +76,6 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             clone.Stochasts = Stochasts.Select(s => (Stochast) s.Clone()).ToArray();
 
             return clone;
-        }
-
-        private static void ValidateStochasts(IEnumerable<Stochast> stochasts)
-        {
-            bool hasDuplicates = stochasts.HasDuplicates(s => s.Name);
-            if (hasDuplicates)
-            {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
-            }
         }
     }
 }

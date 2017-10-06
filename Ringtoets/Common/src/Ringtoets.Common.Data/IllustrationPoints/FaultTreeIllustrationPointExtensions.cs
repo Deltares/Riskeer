@@ -19,28 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-using Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints;
+using System.Linq;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
+namespace Ringtoets.Common.Data.IllustrationPoints
 {
-    public static class GeneralResultTestFactory
+    /// <summary>
+    /// Defines extension methods dealing with <see cref="FaultTreeIllustrationPoint"/> objects.
+    /// </summary>
+    public static class FaultTreeIllustrationPointExtensions
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/>
-        /// with duplicate stochasts.
+        /// Returns a list of all the stochast names present in the <paramref name="faultTreeIllustrationPoint"/>.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with duplicate stochasts.</returns>
-        public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
+        /// <param name="faultTreeIllustrationPoint">The fault tree illustration point
+        /// to retrieve stochast names from.</param>
+        /// <returns>Returns all stochast names as an enumerable result.</returns>
+        public static IEnumerable<string> GetStochastNames(this FaultTreeIllustrationPoint faultTreeIllustrationPoint)
         {
-            var stochast = new Stochast("Stochast A", 0, 0);
-            var stochasts = new[]
+            if (faultTreeIllustrationPoint == null)
             {
-                stochast,
-                stochast
-            };
-            var illustrationPoints = new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>();
-            return new GeneralResult(0.5, new TestWindDirection(), stochasts, illustrationPoints);
+                throw new ArgumentNullException(nameof(faultTreeIllustrationPoint));
+            }
+
+            return faultTreeIllustrationPoint.Stochasts.Select(s => s.Name);
         }
     }
 }
