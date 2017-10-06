@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void SetChildren_ChildContainsDifferentStochasts_ThrowArgumentException()
+        public void SetChildren_ParentDoesNotContainSameStochastsAsChild_ThrowArgumentException()
         {
             // Setup
             var illustrationPointNode = new IllustrationPointNode(new FaultTreeIllustrationPoint("Top",
@@ -143,12 +143,10 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
                                                                                                  CombinationType.And));
             var childrenToBeAdded = new[]
             {
-                new IllustrationPointNode(new FaultTreeIllustrationPoint("A",
-                                                                         0.0,
-                                                                         new[]
-                                                                         {
-                                                                             new Stochast("Stochast B", 0, 0)
-                                                                         }, CombinationType.Or)),
+                new IllustrationPointNode(new TestFaultTreeIllustrationPoint(new[]
+                {
+                    new Stochast("Stochast B", 0, 0)
+                })),
                 new IllustrationPointNode(new TestFaultTreeIllustrationPoint("B"))
             };
 

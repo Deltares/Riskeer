@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Common.Data.Test.IllustrationPoints
 {
@@ -127,10 +128,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             };
 
             // Call
-            TestDelegate test = () => new SubMechanismIllustrationPoint("Point A",
-                                                                        random.NextDouble(),
-                                                                        stochasts,
-                                                                        Enumerable.Empty<IllustrationPointResult>());
+            TestDelegate test = () => new TestSubMechanismIllustrationPoint(stochasts);
 
             // Assert
             const string expectedMessage = "Een of meerdere stochasten hebben dezelfde naam.";
