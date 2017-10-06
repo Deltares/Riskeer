@@ -133,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public double ShearStrengthRatio { get; }
 
         /// <summary>
-        /// Gets the Pop.
+        /// Gets the POP.
         /// </summary>
         public double Pop { get; }
 
@@ -147,6 +147,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// </summary>
         public UpliftVanWaterPressureInterpolationModel WaterPressureInterpolationModel { get; }
 
+        /// <summary>
+        /// The construction properties of the uplift Van soil layer.
+        /// </summary>
         public class ConstructionProperties
         {
             /// <summary>
@@ -218,7 +221,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public double ShearStrengthRatio { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the Pop.
+            /// Gets or sets the POP.
             /// </summary>
             public double Pop { internal get; set; }
 

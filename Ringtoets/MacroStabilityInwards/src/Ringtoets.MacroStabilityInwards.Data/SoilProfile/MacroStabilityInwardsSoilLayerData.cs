@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets or sets the pop.
+        /// Gets or sets the POP.
         /// [kN/m²]
         /// </summary>
         public VariationCoefficientLogNormalDistribution Pop

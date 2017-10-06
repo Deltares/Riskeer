@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var layer = new UpliftVanSoilLayer(outerRing, holes, new UpliftVanSoilLayer.ConstructionProperties());
 
             // Assert
-            CollectionAssert.AreEqual(outerRing, layer.OuterRing);
+            Assert.AreSame(outerRing, layer.OuterRing);
             CollectionAssert.AreEqual(holes, layer.Holes);
         }
 
