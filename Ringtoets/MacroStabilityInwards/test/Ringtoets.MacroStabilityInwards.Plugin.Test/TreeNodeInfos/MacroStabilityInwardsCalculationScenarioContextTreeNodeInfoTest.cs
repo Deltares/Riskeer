@@ -590,6 +590,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 calculation.Attach(observer);
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // When
                     Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();

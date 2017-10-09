@@ -250,7 +250,32 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     PhreaticLineOffsetBelowDikeToeAtPolder = new RoundedDouble(5, 1.0),
                     PhreaticLineOffsetBelowDikeTopAtPolder = new RoundedDouble(5, 1.0),
                     PhreaticLineOffsetBelowDikeTopAtRiver = new RoundedDouble(5, 1.0),
-                    PhreaticLineOffsetBelowShoulderBaseInside = new RoundedDouble(5, 1.0)
+                    PhreaticLineOffsetBelowShoulderBaseInside = new RoundedDouble(5, 1.0),
+                    DrainageConstructionPresent = true,
+                    XCoordinateDrainageConstruction = new RoundedDouble(5, 1.0),
+                    ZCoordinateDrainageConstruction = new RoundedDouble(5, 1.0),
+                    GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
+                    TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
+                    TangentLineZTop = new RoundedDouble(5, 1.0),
+                    TangentLineZBottom = new RoundedDouble(5, 1.0),
+                    LeftGrid =
+                    {
+                        XLeft = new RoundedDouble(5, 1.0),
+                        XRight = new RoundedDouble(5, 1.0),
+                        ZTop = new RoundedDouble(5, 1.0),
+                        ZBottom = new RoundedDouble(5, 1.0),
+                        NumberOfVerticalPoints = 1,
+                        NumberOfHorizontalPoints = 1
+                    },
+                    RightGrid =
+                    {
+                        XLeft = new RoundedDouble(5, 1.0),
+                        XRight = new RoundedDouble(5, 1.0),
+                        ZTop = new RoundedDouble(5, 1.0),
+                        ZBottom = new RoundedDouble(5, 1.0),
+                        NumberOfVerticalPoints = 1,
+                        NumberOfHorizontalPoints = 1
+                    }
                 }
             };
         }

@@ -36,6 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             var profile = new TestUpliftVanSoilProfile();
 
             // Assert
+            Assert.IsInstanceOf<UpliftVanSoilProfile>(profile);
             Assert.AreEqual(1, profile.Layers.Count());
             UpliftVanSoilLayer layer = profile.Layers.First();
             CollectionAssert.IsEmpty(layer.OuterRing);

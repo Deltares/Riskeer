@@ -640,14 +640,24 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
         private static void AssertSlipPlaneInput(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlane actualInput)
         {
-            Assert.AreEqual(originalInput.GridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic, actualInput.GridAutomaticDetermined);
-            Assert.IsNull(actualInput.LeftGrid);
-            Assert.IsNull(actualInput.RightGrid);
-            Assert.IsTrue(actualInput.TangentLinesAutomaticAtBoundaries);
-            Assert.IsNaN(actualInput.TangentZTop);
-            Assert.IsNaN(actualInput.TangentZBottom);
-            Assert.AreEqual(0, actualInput.TangentLineNumber);
-            Assert.IsNaN(actualInput.MaxSpacingBetweenBoundaries);
+            Assert.IsFalse(actualInput.GridAutomaticDetermined);
+            Assert.AreEqual(originalInput.LeftGrid.XLeft, actualInput.LeftGrid.XLeft);
+            Assert.AreEqual(originalInput.LeftGrid.XRight, actualInput.LeftGrid.XRight);
+            Assert.AreEqual(originalInput.LeftGrid.ZTop, actualInput.LeftGrid.ZTop);
+            Assert.AreEqual(originalInput.LeftGrid.ZBottom, actualInput.LeftGrid.ZBottom);
+            Assert.AreEqual(originalInput.LeftGrid.NumberOfHorizontalPoints, actualInput.LeftGrid.NumberOfHorizontalPoints);
+            Assert.AreEqual(originalInput.LeftGrid.NumberOfVerticalPoints, actualInput.LeftGrid.NumberOfVerticalPoints);
+            Assert.AreEqual(originalInput.RightGrid.XLeft, actualInput.RightGrid.XLeft);
+            Assert.AreEqual(originalInput.RightGrid.XRight, actualInput.RightGrid.XRight);
+            Assert.AreEqual(originalInput.RightGrid.ZTop, actualInput.RightGrid.ZTop);
+            Assert.AreEqual(originalInput.RightGrid.ZBottom, actualInput.RightGrid.ZBottom);
+            Assert.AreEqual(originalInput.RightGrid.NumberOfHorizontalPoints, actualInput.RightGrid.NumberOfHorizontalPoints);
+            Assert.AreEqual(originalInput.RightGrid.NumberOfVerticalPoints, actualInput.RightGrid.NumberOfVerticalPoints);
+            Assert.IsFalse(actualInput.TangentLinesAutomaticAtBoundaries);
+            Assert.AreEqual(originalInput.TangentLineZTop, actualInput.TangentZTop);
+            Assert.AreEqual(originalInput.TangentLineZBottom, actualInput.TangentZBottom);
+            Assert.AreEqual(1, actualInput.TangentLineNumber);
+            Assert.AreEqual(10, actualInput.MaxSpacingBetweenBoundaries);
         }
 
         private static void AssertOutput(UpliftVanCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)

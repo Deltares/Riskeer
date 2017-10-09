@@ -46,6 +46,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -815,6 +816,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
                     Action call = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
