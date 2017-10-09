@@ -456,7 +456,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
         }
 
-        private IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetSoilProfilesForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
+        private static IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetSoilProfilesForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
         {
             if (macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel == null)
             {

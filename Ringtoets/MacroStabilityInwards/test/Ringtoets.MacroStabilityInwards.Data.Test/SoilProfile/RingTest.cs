@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             TestHelper.AssertAreEqualButNotSame(points, ringPoints);
         }
 
-        private Ring CreateRing()
+        private static Ring CreateRing()
         {
             var points = new[]
             {

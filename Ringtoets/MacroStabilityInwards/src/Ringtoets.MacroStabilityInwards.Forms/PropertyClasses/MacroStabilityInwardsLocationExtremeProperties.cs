@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -45,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsLocationExtremeProperties(MacroStabilityInwardsLocationInputExtreme data, IObservablePropertyChangeHandler handler) 
+        public MacroStabilityInwardsLocationExtremeProperties(MacroStabilityInwardsLocationInputExtreme data, IObservablePropertyChangeHandler handler)
             : base(data, handler) {}
 
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaterLevelPolder_Extreme_Description))]

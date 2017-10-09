@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Service;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -80,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(3, properties.MacroStabilityInwardsFactorOfStability.NumberOfDecimalPlaces);
             Assert.AreEqual(macroStabilityInwardsFactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
-                                       properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
+                            properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
 
             const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(string.Format(probabilityFormat, 1.0 / requiredProbability), properties.RequiredProbability);
@@ -150,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(6, dynamicProperties.Count);
 
             const string macroStabilityInwardsCategory = "Macrostabiliteit binnenwaarts";
-            
+
             PropertyDescriptor stabilityFactorProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stabilityFactorProperty,
                                                                             macroStabilityInwardsCategory,

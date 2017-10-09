@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             string type = null;
 
-            //Call
+            // Call
             TestDelegate call = () => type = properties.Type;
 
             // Assert

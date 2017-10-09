@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        private void AssertColumnValueEqual(object expectedValue, object actualValue)
+        private static void AssertColumnValueEqual(object expectedValue, object actualValue)
         {
             if (expectedValue is string || expectedValue is Color)
             {

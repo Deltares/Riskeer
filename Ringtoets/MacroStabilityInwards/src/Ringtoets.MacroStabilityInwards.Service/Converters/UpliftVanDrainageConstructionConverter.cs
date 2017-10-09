@@ -46,9 +46,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return input.DrainageConstructionPresent 
-                ? new UpliftVanDrainageConstruction(input.XCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction) 
-                : new UpliftVanDrainageConstruction();
+            return input.DrainageConstructionPresent
+                       ? new UpliftVanDrainageConstruction(input.XCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction)
+                       : new UpliftVanDrainageConstruction();
         }
     }
 }

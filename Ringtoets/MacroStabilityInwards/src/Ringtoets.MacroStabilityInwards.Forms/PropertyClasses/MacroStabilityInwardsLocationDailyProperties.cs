@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;

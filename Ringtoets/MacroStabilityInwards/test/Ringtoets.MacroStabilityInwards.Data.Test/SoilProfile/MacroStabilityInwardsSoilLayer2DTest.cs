@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.NotNull(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
-            TestHelper.AssertCollectionsAreEqual<Ring>(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
+            TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.NotNull(layer.Data);
         }
 
