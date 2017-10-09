@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
-    /// The grid result of an Uplift Van calculation.
+    /// The grid of an Uplift Van calculation.
     /// </summary>
     public class UpliftVanGrid
     {

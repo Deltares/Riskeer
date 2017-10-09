@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
 {
     /// <summary>
-    /// The uplift Van slip plane that is used to perform a calculation.
+    /// The Uplift Van slip plane that is used to perform a calculation.
     /// </summary>
     public class UpliftVanSlipPlane
     {
@@ -52,7 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanSlipPlane"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="leftGrid"/>
+        /// or <paramref name="rightGrid"/> is <c>null</c>.</exception>
         /// <remarks>The following values are set:
         /// <list type="bullet">
         /// <item><see cref="GridAutomaticDetermined"/> is set to <c>false</c>;</item>
@@ -112,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public UpliftVanGrid RightGrid { get; private set; }
 
         /// <summary>
-        /// Gets whether the tangent line boundaries should be defined automatically.
+        /// Gets whether the tangent line boundaries should be determined automatically.
         /// </summary>
         public bool TangentLinesAutomaticAtBoundaries { get; }
 

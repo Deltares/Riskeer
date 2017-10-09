@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
     public class UpliftVanGridTestFactoryTest
     {
         [Test]
-        public void Create_Always_ReturnUpliftVanGridResult()
+        public void Create_Always_ReturnUpliftVanGrid()
         {
             // Call
             UpliftVanGrid grid = UpliftVanGridTestFactory.Create();

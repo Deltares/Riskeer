@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void ConstructorWithGrid_ExpectedValues()
+        public void ConstructorWithGrids_ExpectedValues()
         {
             // Setup
             UpliftVanGrid leftGrid = UpliftVanGridTestFactory.Create();
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void ConstructorWithGridAndTangent_LeftGridNull_ThrowsArgumentNullException()
+        public void ConstructorWithGridsAndTangent_LeftGridNull_ThrowsArgumentNullException()
         {
             // Setup
             UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void ConstructorWithGridAndTangent_RightGridNull_ThrowsArgumentNullException()
+        public void ConstructorWithGridsAndTangent_RightGridNull_ThrowsArgumentNullException()
         {
             // Setup
             UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void ConstructorWithGridAndTangent_ExpectedValues()
+        public void ConstructorWithGridsAndTangent_ExpectedValues()
         {
             // Setup
             var random = new Random(11);

@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
             for (var i = 0; i < original.Length; i++)
             {
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(original[i]).GetDesignValue(), actual[i].Stress);
-                Assert.AreEqual(original[i].Location, actual[i].Coordinate);
+                Assert.AreSame(original[i].Location, actual[i].Coordinate);
             }
         }
 
