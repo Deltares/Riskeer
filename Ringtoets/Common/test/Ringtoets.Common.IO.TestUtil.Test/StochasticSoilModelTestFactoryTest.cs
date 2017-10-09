@@ -33,7 +33,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
     public class StochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreateStochasticSoilModelWithGeometry_WithValidParameters_ReturnsStochasticSoilModelWithGeometry()
+        public void CreateStochasticSoilModelWithGeometry_WithNameAndFailureMechanismTypeAndStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Setup
             const string soilModelName = "some name";
@@ -64,6 +64,38 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 new Point2D(1, 2),
                 new Point2D(3, 4)
             }, model.Geometry);
+        }
+
+        [Test]
+        public void CreateStochasticSoilModelWithGeometry_WithSoilProfilesAndFailureMechanismType_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        {
+            // Setup 
+            var random = new Random(21);
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<ISoilProfile>();
+            mocks.ReplayAll();
+
+            var stochasticSoilProfiles = new[]
+            {
+                new StochasticSoilProfile(random.NextDouble(), soilProfile)
+            };
+
+            // Call
+            StochasticSoilModel model = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(failureMechanismType,
+                                                                                                             stochasticSoilProfiles);
+
+            // Assert
+            Assert.AreEqual("Stochastic Soil Model", model.Name);
+            Assert.AreEqual(failureMechanismType, model.FailureMechanismType);
+            CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            }, model.Geometry);
+
         }
     }
 }

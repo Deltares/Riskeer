@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.SoilProfile;
@@ -39,6 +40,8 @@ namespace Ringtoets.Common.IO.TestUtil
         /// <param name="failureMechanismType">The failure mechanism type of the stochastic soil model.</param>
         /// <param name="stochasticSoilProfiles">The stochastic soil profiles belonging to the soil model.</param>
         /// <returns>A configured <see cref="StochasticSoilModel"/> with a predefined geometry.</returns>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="soilModelName"/> or 
+        /// <paramref name="stochasticSoilProfiles"/> is <c>null</c>.</exception>
         public static StochasticSoilModel CreateStochasticSoilModelWithGeometry(string soilModelName,
                                                                                 FailureMechanismType failureMechanismType,
                                                                                 IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
@@ -54,6 +57,19 @@ namespace Ringtoets.Common.IO.TestUtil
             model.StochasticSoilProfiles.AddRange(stochasticSoilProfiles);
 
             return model;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StochasticSoilModel"/> with a predefined geometry.
+        /// </summary>
+        /// <param name="failureMechanismType">The failure mechanism type of the stochastic soil model.</param>
+        /// <param name="stochasticSoilProfiles">The stochastic soil profiles belonging to the soil model.</param>
+        /// <returns>A configured <see cref="StochasticSoilModel"/> with a predefined geometry.</returns>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="stochasticSoilProfiles"/> is <c>null</c>.</exception>
+        public static StochasticSoilModel CreateStochasticSoilModelWithGeometry(FailureMechanismType failureMechanismType,
+                                                                                IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
+        {
+            return CreateStochasticSoilModelWithGeometry("Stochastic Soil Model", failureMechanismType, stochasticSoilProfiles);
         }
     }
 }
