@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_SoilProfileWithoutLayers_ThrowsImportedDataTransformException()
+        public void Transform_SoilProfile1DWithoutLayers_ThrowsImportedDataTransformException()
         {
             // Setup
             const string profileName = "SomeProfile";

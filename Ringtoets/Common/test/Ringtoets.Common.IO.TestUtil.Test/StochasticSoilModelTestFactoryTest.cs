@@ -36,9 +36,9 @@ namespace Ringtoets.Common.IO.TestUtil.Test
         public void CreateStochasticSoilModelWithGeometry_WithValidParameters_ReturnsStochasticSoilModelWithGeometry()
         {
             // Setup
-            var random = new Random(21);
-
             const string soilModelName = "some name";
+
+            var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
             var mocks = new MockRepository();

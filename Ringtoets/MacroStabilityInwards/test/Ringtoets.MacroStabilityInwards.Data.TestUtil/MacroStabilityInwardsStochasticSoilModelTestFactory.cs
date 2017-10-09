@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
-    /// Factory which creates valid <see cref="MacroStabilityInwardsStochasticSoilModel"/> which 
+    /// Factory that creates valid <see cref="MacroStabilityInwardsStochasticSoilModel"/> which 
     /// can be used for testing purposes.
     /// </summary>
     public static class MacroStabilityInwardsStochasticSoilModelTestFactory
@@ -43,8 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/> with 
-        /// a specified name.
+        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="soilModelName">The name of the soil model.</param>
         /// <returns>A valid configured <see cref="MacroStabilityInwardsStochasticSoilModel"/> with the 
@@ -61,8 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
-        /// with a specified name and geometry.
+        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="soilModelName">The name of the soil model.</param>
         /// <param name="geometry">The geometry of the soil model.</param>
@@ -90,8 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/> 
-        /// with a specified name and stochastic soil profiles.
+        /// Creates an instance of <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="soilModelName">The name of the soil model.</param>
         /// <param name="stochasticSoilProfiles">The geometry of the soil model.</param>

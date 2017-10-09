@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
     public class PipingStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreatePipingStochasticSoilModel_ExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Call
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithName_ExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithName_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Setup
             const string name = "some name";
@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochastSoilModel_WithNameAndGeometry_ExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithNameAndGeometry_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Setup
             var random = new Random(21);
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithNameAndStochasticSoilProfiles_ExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithNameAndStochasticSoilProfiles_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Setup
             var random = new Random(21);
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithStochasticSoilProfiles_ExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithStochasticSoilProfiles_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Setup
             var random = new Random(21);

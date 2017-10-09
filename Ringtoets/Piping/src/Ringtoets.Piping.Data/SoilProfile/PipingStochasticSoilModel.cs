@@ -37,12 +37,12 @@ namespace Ringtoets.Piping.Data.SoilProfile
     /// </summary>
     public class PipingStochasticSoilModel : Observable, IMechanismStochasticSoilModel
     {
-        private readonly List<PipingStochasticSoilProfile> stochasticSoilProfiles = new List<PipingStochasticSoilProfile>();
+        private readonly List<PipingStochasticSoilProfile> stochasticSoilProfiles;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingStochasticSoilModel"/>.
         /// </summary>
-        /// <param name="name">Name of the segment soil model.</param>
+        /// <param name="name">The name of the segment soil model.</param>
         /// <param name="geometry">The geometry of the stochastic soil model.</param>
         /// <param name="stochasticSoilProfiles">The stochastic soil profiles of the model.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
 
             Name = name;
             Geometry = geometry;
-            this.stochasticSoilProfiles.AddRange(stochasticSoilProfiles);
+            this.stochasticSoilProfiles = new List<PipingStochasticSoilProfile>(stochasticSoilProfiles);
         }
 
         /// <summary>

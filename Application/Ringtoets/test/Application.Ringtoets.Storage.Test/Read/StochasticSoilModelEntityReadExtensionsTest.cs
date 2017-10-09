@@ -83,42 +83,16 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingStochasticSoilModel_WithMinimumEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
+        public void ReadAsPipingStochasticSoilModel_WithValidEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup
             var random = new Random(21);
             var geometry = new[]
             {
+                new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
-            var entity = new StochasticSoilModelEntity
-            {
-                Name = "testName",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
-                PipingStochasticSoilProfileEntities =
-                {
-                    PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
 
-            // Call
-            PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
-
-            // Assert
-            Assert.IsNotNull(model);
-            Assert.AreEqual(entity.Name, model.Name);
-        }
-
-        [Test]
-        public void ReadAsPipingStochasticSoilModel_WithStochasticSoilProfiles_ReturnsNewPipingStochasticSoilModelWithStochasticSoilProfiles()
-        {
-            // Setup
-            var random = new Random(21);
-            var geometry = new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            };
             var entity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
@@ -157,40 +131,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
 
             // Assert
+            Assert.IsNotNull(model);
+            Assert.AreEqual(entity.Name, model.Name);
+            CollectionAssert.AreEqual(geometry, model.Geometry);
+
             Assert.AreEqual(entity.PipingStochasticSoilProfileEntities.Count, model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEqual(new[]
             {
                 "B",
                 "A"
             }, model.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile.Name));
-        }
-
-        [Test]
-        public void ReadAsPipingStochasticSoilModel_WithStochasticSoilModelSegmentPointXml_ReturnsNewStochasticSoilModelWithGeometryPoints()
-        {
-            // Setup
-            var segmentPoints = new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
-
-            var entity = new StochasticSoilModelEntity
-            {
-                Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(segmentPoints),
-                PipingStochasticSoilProfileEntities =
-                {
-                    PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            PipingStochasticSoilModel model = entity.ReadAsPipingStochasticSoilModel(collector);
-
-            // Assert
-            CollectionAssert.AreEqual(segmentPoints, model.Geometry);
         }
 
         [Test]
@@ -269,47 +219,20 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithMinimumEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
+        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithValidEntity_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup
             var random = new Random(21);
             var geometry = new[]
             {
+                new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
+
             var entity = new StochasticSoilModelEntity
             {
                 Name = "testName",
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
-                MacroStabilityInwardsStochasticSoilProfileEntities =
-                {
-                    MacroStabilityInwardsStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            MacroStabilityInwardsStochasticSoilModel model = entity.ReadAsMacroStabilityInwardsStochasticSoilModel(collector);
-
-            // Assert
-            Assert.IsNotNull(model);
-            Assert.AreEqual(entity.Name, model.Name);
-        }
-
-        [Test]
-        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithStochasticSoilProfiles_ReturnsNewMacroStabilityInwardsStochasticSoilModelWithStochasticSoilProfiles()
-        {
-            // Setup
-            var random = new Random(21);
-            string segmentPointsXml = new Point2DXmlSerializer().ToXml(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
-
-            var entity = new StochasticSoilModelEntity
-            {
-                Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = segmentPointsXml,
                 MacroStabilityInwardsStochasticSoilProfileEntities =
                 {
                     new MacroStabilityInwardsStochasticSoilProfileEntity
@@ -344,6 +267,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             MacroStabilityInwardsStochasticSoilModel model = entity.ReadAsMacroStabilityInwardsStochasticSoilModel(collector);
 
             // Assert
+            Assert.IsNotNull(model);
+            Assert.AreEqual(entity.Name, model.Name);
+            CollectionAssert.AreEqual(geometry, model.Geometry);
+
             Assert.AreEqual(entity.MacroStabilityInwardsStochasticSoilProfileEntities.Count,
                             model.StochasticSoilProfiles.Count());
             CollectionAssert.AreEqual(new[]
@@ -351,34 +278,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 "B",
                 "A"
             }, model.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile.Name));
-        }
-
-        [Test]
-        public void ReadAsMacroStabilityInwardsStochasticSoilModel_WithStochasticSoilModelSegmentPointXml_ReturnsNewStochasticSoilModelWithGeometryPoints()
-        {
-            // Setup
-            var segmentPoints = new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
-
-            var entity = new StochasticSoilModelEntity
-            {
-                Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(segmentPoints),
-                MacroStabilityInwardsStochasticSoilProfileEntities =
-                {
-                    MacroStabilityInwardsStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
-
-            // Call
-            MacroStabilityInwardsStochasticSoilModel model = entity.ReadAsMacroStabilityInwardsStochasticSoilModel(collector);
-
-            // Assert
-            CollectionAssert.AreEqual(segmentPoints, model.Geometry);
         }
 
         [Test]
