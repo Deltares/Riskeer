@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanDrainageConstruction"/>
+        /// Creates a new instance of <see cref="UpliftVanDrainageConstruction"/>.
         /// </summary>
         /// <param name="xCoordinate">The x coordinate of the drainage construction.</param>
         /// <param name="zCoordinate">The z coordinate of the drainage construction.</param>

@@ -198,7 +198,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_WithInput_ReturnStabilityLocation()
+        [Combinatorial]
+        public void Create_WithInput_ReturnStabilityLocation([Values(true, false)] bool drainageConstructionPresent,
+            [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
@@ -222,8 +224,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double piezometricHeadPhreaticLine2Inwards = random.Next();
             double penetrationLength = random.Next();
 
-            var drainageConstruction = new UpliftVanDrainageConstruction(xCoordinateDrainageConstruction, zCoordinateDrainageConstruction);
-            var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets(phreaticLineOffsetBelowDikeTopAtRiver, phreaticLineOffsetBelowDikeTopAtPolder,
+            UpliftVanDrainageConstruction drainageConstruction = drainageConstructionPresent
+                                                                     ? new UpliftVanDrainageConstruction(
+                                                                         xCoordinateDrainageConstruction, zCoordinateDrainageConstruction)
+                                                                     : new UpliftVanDrainageConstruction();
+            UpliftVanPhreaticLineOffsets phreaticLineOffsets = useDefaultOffsets
+                                                                   ? new UpliftVanPhreaticLineOffsets()
+                                                                   : new UpliftVanPhreaticLineOffsets(
+                                                                       phreaticLineOffsetBelowDikeTopAtRiver, phreaticLineOffsetBelowDikeTopAtPolder,
                                                                        phreaticLineOffsetBelowDikeToeAtPolder, phreaticLineOffsetBelowShoulderBaseInside);
 
             var input = new UpliftVanCalculatorInput(
@@ -232,7 +240,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
+                    DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
                     AssessmentLevel = assessmentLevel,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolder = waterLevelPolder,
@@ -254,7 +262,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             StabilityLocation location = StabilityLocationCreator.Create(input);
 
             // Assert
-            Assert.AreEqual(DikeSoilScenario.ClayDikeOnClay, location.DikeSoilScenario);
+            Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, location.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
             Assert.AreEqual(assessmentLevel, location.WaterLevelRiver);
@@ -262,15 +270,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
             Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolder, location.WaterLevelPolder);
-            Assert.AreEqual(xCoordinateDrainageConstruction, location.XCoordMiddleDrainageConstruction);
-            Assert.AreEqual(zCoordinateDrainageConstruction, location.ZCoordMiddleDrainageConstruction);
+            Assert.AreEqual(drainageConstruction.IsPresent, location.DrainageConstructionPresent);
+            Assert.AreEqual(drainageConstruction.XCoordinate, location.XCoordMiddleDrainageConstruction);
+            Assert.AreEqual(drainageConstruction.ZCoordinate, location.ZCoordMiddleDrainageConstruction);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, location.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.IsFalse(location.UseDefaultOffsets);
-            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
-            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(phreaticLineOffsets.UseDefaults, location.UseDefaultOffsets);
+            Assert.AreEqual(phreaticLineOffsets.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
+            Assert.AreEqual(phreaticLineOffsets.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(phreaticLineOffsets.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(phreaticLineOffsets.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
             Assert.AreEqual(adjustPhreaticLine3And4ForUplift, location.AdjustPl3And4ForUplift);
             Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, location.LeakageLengthOutwardsPl3);
             Assert.AreEqual(leakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);

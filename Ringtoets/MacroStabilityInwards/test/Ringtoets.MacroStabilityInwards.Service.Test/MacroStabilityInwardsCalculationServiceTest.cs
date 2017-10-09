@@ -477,11 +477,49 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                     .LastCreatedUpliftVanCalculator.Input;
-                Assert.IsFalse(actualInput.DrainageConstruction.IsPresent);
+                Assert.IsTrue(actualInput.PhreaticLineOffsets.UseDefaults);
                 Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowDikeToeAtPolder);
                 Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowDikeTopAtPolder);
                 Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowDikeTopAtRiver);
                 Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowShoulderBaseInside);
+            }
+        }
+
+        [Test]
+        public void Calculate_GridDeterminationTypeAutomatic_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
+            inputParameters.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
+            inputParameters.TangentLineZTop = random.NextRoundedDouble();
+            inputParameters.TangentLineZBottom = random.NextRoundedDouble();
+            inputParameters.LeftGrid.XLeft = random.NextRoundedDouble();
+            inputParameters.LeftGrid.XRight = random.NextRoundedDouble();
+            inputParameters.LeftGrid.ZTop = random.NextRoundedDouble();
+            inputParameters.LeftGrid.ZBottom = random.NextRoundedDouble();
+            inputParameters.LeftGrid.NumberOfHorizontalPoints = random.Next();
+            inputParameters.LeftGrid.NumberOfVerticalPoints = random.Next();
+            inputParameters.RightGrid.XLeft = random.NextRoundedDouble();
+            inputParameters.RightGrid.XRight = random.NextRoundedDouble();
+            inputParameters.RightGrid.ZTop = random.NextRoundedDouble();
+            inputParameters.RightGrid.ZBottom = random.NextRoundedDouble();
+            inputParameters.RightGrid.NumberOfHorizontalPoints = random.Next();
+            inputParameters.RightGrid.NumberOfVerticalPoints = random.Next();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+
+                // Assert
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance)
+                    .LastCreatedUpliftVanCalculator.Input;
+                Assert.IsTrue(actualInput.SlipPlane.GridAutomaticDetermined);
+                Assert.IsNaN(actualInput.SlipPlane.TangentZTop);
+                Assert.IsNaN(actualInput.SlipPlane.TangentZBottom);
+                Assert.IsNull(actualInput.SlipPlane.LeftGrid);
+                Assert.IsNull(actualInput.SlipPlane.RightGrid);
             }
         }
 
