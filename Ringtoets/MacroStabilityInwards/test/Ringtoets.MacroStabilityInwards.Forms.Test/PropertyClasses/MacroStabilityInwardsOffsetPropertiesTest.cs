@@ -53,13 +53,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsLocationInputExtreme();
 
             // Call
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsLocationInput>>(properties);
             Assert.AreSame(input, properties.Data);
             mocks.VerifyAll();
         }
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOffsetProperties(new MacroStabilityInwardsInput(),
+            TestDelegate call = () => new MacroStabilityInwardsOffsetProperties(new MacroStabilityInwardsLocationInputExtreme(),
                                                                                 null);
 
             // Assert
@@ -103,7 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsLocationInputExtreme
             {
                 UseDefaultOffsets = useDefaultOffsets
             };
@@ -168,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsLocationInputExtreme();
 
             // Call
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
@@ -187,7 +187,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Given
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            MacroStabilityInwardsInput input = calculationItem.InputParameters;
+            MacroStabilityInwardsLocationInput input = calculationItem.InputParameters.LocationInputExtreme;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
             var properties = new MacroStabilityInwardsOffsetProperties(input, handler);
@@ -278,7 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsLocationInputExtreme
             {
                 UseDefaultOffsets = useDefaultOffsets
             };
@@ -300,7 +300,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsLocationInputExtreme();
             var properties = new MacroStabilityInwardsOffsetProperties(input, changeHandler);
 
             // Call
@@ -319,7 +319,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            MacroStabilityInwardsInput input = calculation.InputParameters;
+            MacroStabilityInwardsLocationInput input = calculation.InputParameters.LocationInputExtreme;
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {

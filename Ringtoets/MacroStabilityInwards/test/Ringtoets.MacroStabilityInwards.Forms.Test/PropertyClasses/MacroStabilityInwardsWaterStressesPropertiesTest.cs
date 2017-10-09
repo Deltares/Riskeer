@@ -244,11 +244,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
-            Assert.AreEqual(input.WaterLevelPolder, properties.WaterLevelPolder);
+            Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, properties.WaterLevelPolder);
             Assert.AreSame(input, properties.Drainage.Data);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, properties.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, properties.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreSame(input, properties.Offsets.Data);
+            Assert.AreSame(input.LocationInputExtreme, properties.Offsets.Data);
             Assert.AreEqual(input.AdjustPhreaticLine3And4ForUplift, properties.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine3, properties.LeakageLengthOutwardsPhreaticLine3);
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine3, properties.LeakageLengthInwardsPhreaticLine3);
@@ -256,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, properties.LeakageLengthInwardsPhreaticLine4);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, properties.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, properties.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(input.PenetrationLength, properties.PenetrationLength);
+            Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, properties.PenetrationLength);
             mocks.VerifyAll();
         }
 
@@ -301,8 +301,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Then
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage,
                             input.WaterLevelRiverAverage.GetAccuracy());
-            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder,
-                            input.WaterLevelPolder.GetAccuracy());
+            Assert.AreEqual(waterLevelPolder, input.LocationInputExtreme.WaterLevelPolder,
+                            input.LocationInputExtreme.WaterLevelPolder.GetAccuracy());
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver,
                             input.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder,
@@ -320,8 +320,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                             input.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
             Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, input.PiezometricHeadPhreaticLine2Inwards,
                             input.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
-            Assert.AreEqual(penetrationLength, input.PenetrationLength,
-                            input.PenetrationLength.GetAccuracy());
+            Assert.AreEqual(penetrationLength, input.LocationInputExtreme.PenetrationLength,
+                            input.LocationInputExtreme.PenetrationLength.GetAccuracy());
         }
 
         [Test]

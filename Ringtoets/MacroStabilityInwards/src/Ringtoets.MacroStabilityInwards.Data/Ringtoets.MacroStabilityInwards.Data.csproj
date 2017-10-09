@@ -49,6 +49,8 @@
     <Compile Include="MacroStabilityInwardsFailureMechanismSection2aAssessmentResultExtensions.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResult.cs" />
     <Compile Include="MacroStabilityInwardsInput.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInputExtreme.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInputDaily.cs" />
     <Compile Include="MacroStabilityInwardsOutput.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticOutput.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="MacroStabilityInwardsSlidingCurve.cs" />
     <Compile Include="MacroStabilityInwardsSlipPlaneUpliftVan.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDeterminationType.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInput.cs" />
     <Compile Include="MacroStabilityInwardsZoningBoundariesDeterminationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

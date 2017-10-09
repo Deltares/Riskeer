@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsLocationInputExtreme
             {
                 UseDefaultOffsets = true,
                 PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsLocationInputExtreme
             {
                 UseDefaultOffsets = false,
                 PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),

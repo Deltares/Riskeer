@@ -463,11 +463,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             var random = new Random(11);
             MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
-            inputParameters.UseDefaultOffsets = true;
-            inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
-            inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
-            inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
-            inputParameters.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
+            inputParameters.LocationInputExtreme.UseDefaultOffsets = true;
+            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -513,7 +513,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 MacroStabilityInwardsCalculationService.Calculate(testCalculation);
 
                 // Assert
-                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance)
+                UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                     .LastCreatedUpliftVanCalculator.Input;
                 Assert.IsTrue(actualInput.SlipPlane.GridAutomaticDetermined);
                 Assert.IsNaN(actualInput.SlipPlane.TangentZTop);
@@ -586,7 +586,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
             UpliftVanCalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
-            AssertPhreaticLineOffsets(originalInput, actualInput.PhreaticLineOffsets);
+            AssertPhreaticLineOffsets(originalInput.LocationInputExtreme, actualInput.PhreaticLineOffsets);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
             Assert.AreEqual(UpliftVanWaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(UpliftVanPlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
@@ -595,24 +595,19 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
-            Assert.AreEqual(originalInput.WaterLevelPolder, actualInput.WaterLevelPolder);
+            Assert.AreEqual(originalInput.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
             Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.DrainageConstruction.IsPresent);
             Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.DrainageConstruction.XCoordinate);
             Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.DrainageConstruction.ZCoordinate);
             Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(originalInput.UseDefaultOffsets, actualInput.PhreaticLineOffsets.UseDefaults);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtRiver, actualInput.PhreaticLineOffsets.BelowDikeTopAtRiver);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtPolder, actualInput.PhreaticLineOffsets.BelowDikeTopAtPolder);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowShoulderBaseInside, actualInput.PhreaticLineOffsets.BelowShoulderBaseInside);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeToeAtPolder, actualInput.PhreaticLineOffsets.BelowDikeToeAtPolder);
             Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);
             Assert.AreEqual(originalInput.LeakageLengthInwardsPhreaticLine3, actualInput.LeakageLengthInwardsPhreaticLine3);
             Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
             Assert.AreEqual(originalInput.LeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
             Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Outwards, actualInput.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Inwards, actualInput.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(originalInput.PenetrationLength, actualInput.PenetrationLength);
+            Assert.AreEqual(originalInput.LocationInputExtreme.PenetrationLength, actualInput.PenetrationLength);
             Assert.AreEqual(originalInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(originalInput.MoveGrid, actualInput.MoveGrid);
             Assert.AreEqual(originalInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
@@ -629,13 +624,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinate);
         }
 
-        private static void AssertPhreaticLineOffsets(MacroStabilityInwardsInput originalInput, UpliftVanPhreaticLineOffsets actualInput)
+        private static void AssertPhreaticLineOffsets(MacroStabilityInwardsLocationInput expected, UpliftVanPhreaticLineOffsets actual)
         {
-            Assert.AreEqual(originalInput.UseDefaultOffsets, actualInput.UseDefaults);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtRiver, actualInput.BelowDikeTopAtRiver);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeTopAtPolder, actualInput.BelowDikeTopAtPolder);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowDikeToeAtPolder, actualInput.BelowDikeToeAtPolder);
-            Assert.AreEqual(originalInput.PhreaticLineOffsetBelowShoulderBaseInside, actualInput.BelowShoulderBaseInside);
+            Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaults);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtRiver, actual.BelowDikeTopAtRiver);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtPolder, actual.BelowDikeTopAtPolder);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeToeAtPolder, actual.BelowDikeToeAtPolder);
+            Assert.AreEqual(expected.PhreaticLineOffsetBelowShoulderBaseInside, actual.BelowShoulderBaseInside);
         }
 
         private static void AssertSlipPlaneInput(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlane actualInput)

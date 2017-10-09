@@ -63,6 +63,9 @@
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationTypeTest.cs" />
     <Compile Include="MacroStabilityInwardsGridTest.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInputDailyTest.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInputExtremeTest.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInputTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsSliceTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircleTest.cs" />

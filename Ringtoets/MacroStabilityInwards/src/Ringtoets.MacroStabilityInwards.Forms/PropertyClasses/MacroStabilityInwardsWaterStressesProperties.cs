@@ -99,11 +99,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WaterLevelPolder;
+                return data.LocationInputExtreme.WaterLevelPolder;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WaterLevelPolder = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LocationInputExtreme.WaterLevelPolder = value, propertyChangeHandler);
             }
         }
 
@@ -161,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsOffsetProperties(data, propertyChangeHandler);
+                return new MacroStabilityInwardsOffsetProperties(data.LocationInputExtreme, propertyChangeHandler);
             }
         }
 
@@ -285,11 +285,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.PenetrationLength;
+                return data.LocationInputExtreme.PenetrationLength;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.PenetrationLength = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LocationInputExtreme.PenetrationLength = value, propertyChangeHandler);
             }
         }
 

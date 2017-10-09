@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of offset properties in <see cref="MacroStabilityInwardsInputContext"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsOffsetProperties : ObjectProperties<MacroStabilityInwardsInput>
+    public class MacroStabilityInwardsOffsetProperties : ObjectProperties<MacroStabilityInwardsLocationInput>
     {
         private const int useDefaultOffsetsPropertyIndex = 1;
         private const int phreaticLineOffsetBelowDikeTopAtRiverPropertyIndex = 2;
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsOffsetProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
+        public MacroStabilityInwardsOffsetProperties(MacroStabilityInwardsLocationInput data, IObservablePropertyChangeHandler handler)
         {
             if (data == null)
             {

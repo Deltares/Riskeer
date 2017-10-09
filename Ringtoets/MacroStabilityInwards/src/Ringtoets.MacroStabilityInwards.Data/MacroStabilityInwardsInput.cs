@@ -41,22 +41,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble slipPlaneMinimumLength;
         private RoundedDouble maximumSliceWidth;
         private RoundedDouble waterLevelRiverAverage;
-        private RoundedDouble waterLevelPolder;
         private RoundedDouble xCoordinateDrainageConstruction;
         private RoundedDouble zCoordinateDrainageConstruction;
         private RoundedDouble minimumLevelPhreaticLineAtDikeTopRiver;
         private RoundedDouble minimumLevelPhreaticLineAtDikeTopPolder;
-        private RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
-        private RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder;
-        private RoundedDouble phreaticLineOffsetBelowShoulderBaseInside;
-        private RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder;
         private RoundedDouble leakageLengthOutwardsPhreaticLine3;
         private RoundedDouble leakageLengthInwardsPhreaticLine3;
         private RoundedDouble leakageLengthOutwardsPhreaticLine4;
         private RoundedDouble leakageLengthInwardsPhreaticLine4;
         private RoundedDouble piezometricHeadPhreaticLine2Outwards;
         private RoundedDouble piezometricHeadPhreaticLine2Inwards;
-        private RoundedDouble penetrationLength;
         private RoundedDouble tangentLineZTop;
         private RoundedDouble tangentLineZBottom;
         private MacroStabilityInwardsSurfaceLine surfaceLine;
@@ -78,7 +72,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
 
             waterLevelRiverAverage = new RoundedDouble(2, double.NaN);
-            waterLevelPolder = new RoundedDouble(2, double.NaN);
 
             xCoordinateDrainageConstruction = new RoundedDouble(2, double.NaN);
             zCoordinateDrainageConstruction = new RoundedDouble(2, double.NaN);
@@ -86,12 +79,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             minimumLevelPhreaticLineAtDikeTopRiver = new RoundedDouble(2, double.NaN);
             minimumLevelPhreaticLineAtDikeTopPolder = new RoundedDouble(2, double.NaN);
 
-            UseDefaultOffsets = true;
-
-            phreaticLineOffsetBelowDikeTopAtRiver = new RoundedDouble(2, double.NaN);
-            phreaticLineOffsetBelowDikeTopAtPolder = new RoundedDouble(2, double.NaN);
-            phreaticLineOffsetBelowShoulderBaseInside = new RoundedDouble(2, double.NaN);
-            phreaticLineOffsetBelowDikeToeAtPolder = new RoundedDouble(2, double.NaN);
+            LocationInputExtreme = new MacroStabilityInwardsLocationInputExtreme();
+            LocationInputDaily = new MacroStabilityInwardsLocationInputDaily();
 
             AdjustPhreaticLine3And4ForUplift = true;
 
@@ -101,7 +90,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             leakageLengthInwardsPhreaticLine4 = new RoundedDouble(2, double.NaN);
             piezometricHeadPhreaticLine2Outwards = new RoundedDouble(2, double.NaN);
             piezometricHeadPhreaticLine2Inwards = new RoundedDouble(2, double.NaN);
-            penetrationLength = new RoundedDouble(2, double.NaN);
 
             GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
             TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated;
@@ -354,22 +342,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the polder water level.
-        /// [m+NAP]
-        /// </summary>
-        public RoundedDouble WaterLevelPolder
-        {
-            get
-            {
-                return waterLevelPolder;
-            }
-            set
-            {
-                waterLevelPolder = value.ToPrecision(waterLevelPolder.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets whether a drainage construction is present.
         /// </summary>
         public bool DrainageConstructionPresent { get; set; }
@@ -435,75 +407,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             set
             {
                 minimumLevelPhreaticLineAtDikeTopPolder = value.ToPrecision(minimumLevelPhreaticLineAtDikeTopPolder.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether the default offsets should be used.
-        /// </summary>
-        public bool UseDefaultOffsets { get; set; }
-
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike top at river.
-        /// [m]
-        /// </summary>
-        public RoundedDouble PhreaticLineOffsetBelowDikeTopAtRiver
-        {
-            get
-            {
-                return phreaticLineOffsetBelowDikeTopAtRiver;
-            }
-            set
-            {
-                phreaticLineOffsetBelowDikeTopAtRiver = value.ToPrecision(phreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike top at polder.
-        /// [m]
-        /// </summary>
-        public RoundedDouble PhreaticLineOffsetBelowDikeTopAtPolder
-        {
-            get
-            {
-                return phreaticLineOffsetBelowDikeTopAtPolder;
-            }
-            set
-            {
-                phreaticLineOffsetBelowDikeTopAtPolder = value.ToPrecision(phreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below shoulder base inside.
-        /// [m]
-        /// </summary>
-        public RoundedDouble PhreaticLineOffsetBelowShoulderBaseInside
-        {
-            get
-            {
-                return phreaticLineOffsetBelowShoulderBaseInside;
-            }
-            set
-            {
-                phreaticLineOffsetBelowShoulderBaseInside = value.ToPrecision(phreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike toe at polder.
-        /// [m]
-        /// </summary>
-        public RoundedDouble PhreaticLineOffsetBelowDikeToeAtPolder
-        {
-            get
-            {
-                return phreaticLineOffsetBelowDikeToeAtPolder;
-            }
-            set
-            {
-                phreaticLineOffsetBelowDikeToeAtPolder = value.ToPrecision(phreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
             }
         }
 
@@ -609,20 +512,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the penetration length.
-        /// [m]
+        /// Gets the locations input values for extreme conditions.
         /// </summary>
-        public RoundedDouble PenetrationLength
-        {
-            get
-            {
-                return penetrationLength;
-            }
-            set
-            {
-                penetrationLength = value.ToPrecision(penetrationLength.NumberOfDecimalPlaces);
-            }
-        }
+        public MacroStabilityInwardsLocationInputExtreme LocationInputExtreme { get; }
+
+        /// <summary>
+        /// Gets the locations input values for daily conditions.
+        /// </summary>
+        public MacroStabilityInwardsLocationInputDaily LocationInputDaily { get; }
 
         /// <summary>
         /// Gets or sets whether zones should be created.

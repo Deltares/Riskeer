@@ -72,8 +72,45 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.WaterLevelRiverAverage);
             Assert.AreEqual(2, inputParameters.WaterLevelRiverAverage.NumberOfDecimalPlaces);
 
-            Assert.IsNaN(inputParameters.WaterLevelPolder);
-            Assert.AreEqual(2, inputParameters.WaterLevelPolder.NumberOfDecimalPlaces);
+            Assert.IsNaN(inputParameters.LocationInputExtreme.WaterLevelPolder);
+            Assert.AreEqual(2, inputParameters.LocationInputExtreme.WaterLevelPolder.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PenetrationLength);
+            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PenetrationLength.NumberOfDecimalPlaces);
+
+            Assert.IsTrue(inputParameters.LocationInputExtreme.UseDefaultOffsets);
+
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputDaily.WaterLevelPolder);
+            Assert.AreEqual(2, inputParameters.LocationInputDaily.WaterLevelPolder.NumberOfDecimalPlaces);
+
+            Assert.AreEqual(0.0, inputParameters.LocationInputDaily.PenetrationLength);
+            Assert.AreEqual(2, inputParameters.LocationInputDaily.PenetrationLength.NumberOfDecimalPlaces);
+
+            Assert.IsTrue(inputParameters.LocationInputDaily.UseDefaultOffsets);
+
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
+
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
 
             Assert.IsFalse(inputParameters.DrainageConstructionPresent);
 
@@ -88,20 +125,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(2, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.NumberOfDecimalPlaces);
-
-            Assert.IsTrue(inputParameters.UseDefaultOffsets);
-
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(2, inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
 
             Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
 
@@ -122,9 +145,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsNaN(inputParameters.PiezometricHeadPhreaticLine2Inwards);
             Assert.AreEqual(2, inputParameters.PiezometricHeadPhreaticLine2Inwards.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.PenetrationLength);
-            Assert.AreEqual(2, inputParameters.PenetrationLength.NumberOfDecimalPlaces);
 
             Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Automatic, inputParameters.GridDeterminationType);
             Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, inputParameters.TangentLineDeterminationType);
@@ -151,22 +171,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double slipPlaneMinimumLength = random.Next();
             double maximumSliceWidth = random.Next();
             double waterLevelRiverAverage = random.Next();
-            double waterLevelPolder = random.Next();
             double xCoordinateDrainageConstruction = random.Next();
             double zCoordinateDrainageConstruction = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
-            double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
-            double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
-            double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
-            double phreaticLineOffsetBelowDikeToeAtPolder = random.Next();
             double leakageLengthOutwardsPhreaticLine3 = random.Next();
             double leakageLengthInwardsPhreaticLine3 = random.Next();
             double leakageLengthOutwardsPhreaticLine4 = random.Next();
             double leakageLengthInwardsPhreaticLine4 = random.Next();
             double piezometricHeadPhreaticLine2Outwards = random.Next();
             double piezometricHeadPhreaticLine2Inwards = random.Next();
-            double penetrationLength = random.Next();
             double tangentLineZTop = random.Next();
             double tangentLineZBottom = random.Next();
 
@@ -177,22 +191,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 SlipPlaneMinimumLength = (RoundedDouble) slipPlaneMinimumLength,
                 MaximumSliceWidth = (RoundedDouble) maximumSliceWidth,
                 WaterLevelRiverAverage = (RoundedDouble) waterLevelRiverAverage,
-                WaterLevelPolder = (RoundedDouble) waterLevelPolder,
                 XCoordinateDrainageConstruction = (RoundedDouble) xCoordinateDrainageConstruction,
                 ZCoordinateDrainageConstruction = (RoundedDouble) zCoordinateDrainageConstruction,
                 MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopPolder,
-                PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtRiver,
-                PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtPolder,
-                PhreaticLineOffsetBelowShoulderBaseInside = (RoundedDouble) phreaticLineOffsetBelowShoulderBaseInside,
-                PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeToeAtPolder,
                 LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) leakageLengthOutwardsPhreaticLine3,
                 LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) leakageLengthInwardsPhreaticLine3,
                 LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) leakageLengthOutwardsPhreaticLine4,
                 LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) leakageLengthInwardsPhreaticLine4,
                 PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) piezometricHeadPhreaticLine2Outwards,
                 PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) piezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = (RoundedDouble) penetrationLength,
                 TangentLineZTop = (RoundedDouble) tangentLineZTop,
                 TangentLineZBottom = (RoundedDouble) tangentLineZBottom
             };
@@ -202,22 +210,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(new RoundedDouble(2, slipPlaneMinimumLength), input.SlipPlaneMinimumLength);
             Assert.AreEqual(new RoundedDouble(2, maximumSliceWidth), input.MaximumSliceWidth);
             Assert.AreEqual(new RoundedDouble(2, waterLevelRiverAverage), input.WaterLevelRiverAverage);
-            Assert.AreEqual(new RoundedDouble(2, waterLevelPolder), input.WaterLevelPolder);
             Assert.AreEqual(new RoundedDouble(2, xCoordinateDrainageConstruction), input.XCoordinateDrainageConstruction);
             Assert.AreEqual(new RoundedDouble(2, zCoordinateDrainageConstruction), input.ZCoordinateDrainageConstruction);
             Assert.AreEqual(new RoundedDouble(2, minimumLevelPhreaticLineAtDikeTopRiver), input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(new RoundedDouble(2, minimumLevelPhreaticLineAtDikeTopPolder), input.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeTopAtRiver), input.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeTopAtPolder), input.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowShoulderBaseInside), input.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeToeAtPolder), input.PhreaticLineOffsetBelowDikeToeAtPolder);
             Assert.AreEqual(new RoundedDouble(2, leakageLengthOutwardsPhreaticLine3), input.LeakageLengthOutwardsPhreaticLine3);
             Assert.AreEqual(new RoundedDouble(2, leakageLengthInwardsPhreaticLine3), input.LeakageLengthInwardsPhreaticLine3);
             Assert.AreEqual(new RoundedDouble(2, leakageLengthOutwardsPhreaticLine4), input.LeakageLengthOutwardsPhreaticLine4);
             Assert.AreEqual(new RoundedDouble(2, leakageLengthInwardsPhreaticLine4), input.LeakageLengthInwardsPhreaticLine4);
             Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Outwards), input.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Inwards), input.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(new RoundedDouble(2, penetrationLength), input.PenetrationLength);
             Assert.AreEqual(new RoundedDouble(2, tangentLineZTop), input.TangentLineZTop);
             Assert.AreEqual(new RoundedDouble(2, tangentLineZBottom), input.TangentLineZBottom);
         }

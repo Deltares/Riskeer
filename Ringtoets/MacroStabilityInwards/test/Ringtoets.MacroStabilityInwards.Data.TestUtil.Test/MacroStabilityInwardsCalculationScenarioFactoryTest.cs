@@ -168,7 +168,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, inputParameters.DikeSoilScenario);
 
             Assert.IsNaN(inputParameters.WaterLevelRiverAverage);
-            Assert.IsNaN(inputParameters.WaterLevelPolder);
 
             Assert.IsFalse(inputParameters.DrainageConstructionPresent);
 
@@ -176,11 +175,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(inputParameters.ZCoordinateDrainageConstruction);
             Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNaN(inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.IsTrue(inputParameters.UseDefaultOffsets);
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.IsNaN(inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder);
+
+            Assert.IsNaN(inputParameters.LocationInputExtreme.WaterLevelPolder);
+            Assert.IsTrue(inputParameters.LocationInputExtreme.UseDefaultOffsets);
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.IsNaN(inputParameters.LocationInputExtreme.PenetrationLength);
+
+            Assert.IsNaN(inputParameters.LocationInputDaily.WaterLevelPolder);
+            Assert.IsTrue(inputParameters.LocationInputDaily.UseDefaultOffsets);
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength, inputParameters.LocationInputDaily.PenetrationLength.GetAccuracy());
+
             Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
             Assert.IsNaN(inputParameters.LeakageLengthOutwardsPhreaticLine3);
             Assert.IsNaN(inputParameters.LeakageLengthInwardsPhreaticLine3);
@@ -188,7 +199,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNaN(inputParameters.LeakageLengthInwardsPhreaticLine4);
             Assert.IsNaN(inputParameters.PiezometricHeadPhreaticLine2Outwards);
             Assert.IsNaN(inputParameters.PiezometricHeadPhreaticLine2Inwards);
-            Assert.IsNaN(inputParameters.PenetrationLength);
             Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Automatic, inputParameters.GridDeterminationType);
             Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, inputParameters.TangentLineDeterminationType);
             Assert.IsNaN(inputParameters.TangentLineZTop);
@@ -208,24 +218,34 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             // Assert
             MacroStabilityInwardsInput inputParameters = scenario.InputParameters;
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, inputParameters.DikeSoilScenario);
-            Assert.AreEqual(0.5, inputParameters.WaterLevelPolder);
             Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Outwards.Value);
             Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Inwards.Value);
             Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
-            Assert.IsFalse(inputParameters.UseDefaultOffsets);
             Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine3.Value);
             Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine3.Value);
             Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine4.Value);
             Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine4.Value);
-            Assert.AreEqual(1, inputParameters.PenetrationLength.Value);
             Assert.AreEqual(1, inputParameters.SlipPlaneMinimumDepth.Value);
             Assert.AreEqual(1, inputParameters.SlipPlaneMinimumLength.Value);
             Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
             Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
-            Assert.AreEqual(1, inputParameters.PhreaticLineOffsetBelowDikeTopAtRiver.Value);
-            Assert.AreEqual(1, inputParameters.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
-            Assert.AreEqual(1, inputParameters.PhreaticLineOffsetBelowDikeTopAtPolder.Value);
-            Assert.AreEqual(1, inputParameters.PhreaticLineOffsetBelowShoulderBaseInside.Value);
+
+            Assert.AreEqual(0.5, inputParameters.LocationInputExtreme.WaterLevelPolder);
+            Assert.IsFalse(inputParameters.LocationInputExtreme.UseDefaultOffsets);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PenetrationLength.Value);
+
+            Assert.AreEqual(0.5, inputParameters.LocationInputDaily.WaterLevelPolder);
+            Assert.IsFalse(inputParameters.LocationInputDaily.UseDefaultOffsets);
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.Value);
+            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength.Value);
+
             Assert.IsTrue(inputParameters.DrainageConstructionPresent);
             Assert.AreEqual(1, inputParameters.XCoordinateDrainageConstruction.Value);
             Assert.AreEqual(1, inputParameters.ZCoordinateDrainageConstruction.Value);
