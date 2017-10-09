@@ -189,7 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsLocationInput input = calculationItem.InputParameters.LocationInputExtreme;
 
-            var handler = new ObservablePropertyChangeHandler(calculationItem, input);
+            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new MacroStabilityInwardsOffsetProperties(input, handler);
 
             var random = new Random();

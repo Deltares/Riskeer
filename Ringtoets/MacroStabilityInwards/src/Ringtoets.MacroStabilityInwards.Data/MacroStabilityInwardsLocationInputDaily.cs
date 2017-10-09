@@ -30,15 +30,17 @@ namespace Ringtoets.MacroStabilityInwards.Data
     public class MacroStabilityInwardsLocationInputDaily : MacroStabilityInwardsLocationInput
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInputDaily"/> class.
+        /// </summary>
+        public MacroStabilityInwardsLocationInputDaily()
+        {
+            PenetrationLength = new RoundedDouble(2);
+        }
+
+        /// <summary>
         /// Gets the penetration length.
         /// [m]
         /// </summary>
-        public RoundedDouble PenetrationLength
-        {
-            get
-            {
-                return new RoundedDouble(2);
-            }
-        }
+        public RoundedDouble PenetrationLength { get; }
     }
 }

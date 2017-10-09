@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -29,14 +27,17 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Base class that holds all locations input for either daily or 
     /// extreme conditions for the macro stability inwards calculation.
     /// </summary>
-    public abstract class MacroStabilityInwardsLocationInput : Observable, ICalculationInput
+    public abstract class MacroStabilityInwardsLocationInput
     {
-        protected RoundedDouble waterLevelPolder;
-        protected RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
-        protected RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder;
-        protected RoundedDouble phreaticLineOffsetBelowShoulderBaseInside;
-        protected RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder;
+        private RoundedDouble waterLevelPolder;
+        private RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
+        private RoundedDouble phreaticLineOffsetBelowDikeTopAtPolder;
+        private RoundedDouble phreaticLineOffsetBelowShoulderBaseInside;
+        private RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInput"/> class.
+        /// </summary>
         protected MacroStabilityInwardsLocationInput()
         {
             waterLevelPolder = new RoundedDouble(2, double.NaN);
