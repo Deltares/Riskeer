@@ -154,7 +154,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             };
 
             // Call
-            TestDelegate test = () => distribution.Mean = (RoundedDouble)5;
+            TestDelegate test = () => distribution.Mean = (RoundedDouble) 5;
 
             // Assert
             const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";

@@ -39,59 +39,59 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void DefaultConstructor_DefaultValuesSet()
         {
             // Call
-            var properties = new MacroStabilityInwardsSoilLayerData();
+            var data = new MacroStabilityInwardsSoilLayerData();
 
             // Assert
-            Assert.IsFalse(properties.IsAquifer);
-            Assert.IsEmpty(properties.MaterialName);
-            Assert.AreEqual(Color.Empty, properties.Color);
+            Assert.IsFalse(data.IsAquifer);
+            Assert.IsEmpty(data.MaterialName);
+            Assert.AreEqual(Color.Empty, data.Color);
 
-            Assert.IsFalse(properties.UsePop);
-            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.CPhi, properties.ShearStrengthModel);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = RoundedDouble.NaN,
-                CoefficientOfVariation = RoundedDouble.NaN,
-                Shift = RoundedDouble.NaN
-            }, properties.AbovePhreaticLevel);
+            Assert.IsFalse(data.UsePop);
+            Assert.AreEqual(MacroStabilityInwardsShearStrengthModel.CPhi, data.ShearStrengthModel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN,
                 Shift = RoundedDouble.NaN
-            }, properties.BelowPhreaticLevel);
+            }, data.AbovePhreaticLevel);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN,
+                Shift = RoundedDouble.NaN
+            }, data.BelowPhreaticLevel);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.Cohesion);
+            }, data.Cohesion);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.FrictionAngle);
+            }, data.FrictionAngle);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.ShearStrengthRatio);
+            }, data.ShearStrengthRatio);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.StrengthIncreaseExponent);
+            }, data.StrengthIncreaseExponent);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = RoundedDouble.NaN
-            }, properties.Pop);
+            }, data.Pop);
         }
 
         [Test]
@@ -233,27 +233,27 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 new TestCaseData(dataA, dataA, true)
                 {
-                    TestName = "Equals_LayerALayerA_True"
+                    TestName = "Equals_DataADataA_True"
                 },
                 new TestCaseData(dataA, dataB, true)
                 {
-                    TestName = "Equals_LayerALayerB_True"
+                    TestName = "Equals_DataADataB_True"
                 },
                 new TestCaseData(dataB, dataD, true)
                 {
-                    TestName = "Equals_LayerBLayerD_True"
+                    TestName = "Equals_DataBDataD_True"
                 },
                 new TestCaseData(dataA, dataD, true)
                 {
-                    TestName = "Equals_LayerALayerD_True"
+                    TestName = "Equals_DataADataD_True"
                 },
                 new TestCaseData(dataB, dataC, false)
                 {
-                    TestName = "Equals_LayerBLayerC_False"
+                    TestName = "Equals_DataBDataC_False"
                 },
                 new TestCaseData(dataA, dataC, false)
                 {
-                    TestName = "Equals_LayerALayerC_False"
+                    TestName = "Equals_DataADataC_False"
                 }
             };
         }

@@ -68,8 +68,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var profile = new UpliftVanSoilProfile(layers, preconsolidationStresses);
 
             // Assert
-            CollectionAssert.AreEqual(layers, profile.Layers);
-            CollectionAssert.AreEqual(preconsolidationStresses, profile.PreconsolidationStresses);
+            Assert.AreSame(layers, profile.Layers);
+            Assert.AreSame(preconsolidationStresses, profile.PreconsolidationStresses);
         }
     }
 }
