@@ -47,7 +47,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -70,10 +69,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.IO.TestUtil\Ringtoets.Common.IO.TestUtil.csproj">
-      <Project>{33508d7c-1602-4c0d-8503-73aae98c19e5}</Project>
-      <Name>Ringtoets.Common.IO.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.IO.TestUtil\Ringtoets.MacroStabilityInwards.IO.TestUtil.csproj">
       <Project>{c83b2091-339a-4f35-a874-a4c807f55cae}</Project>

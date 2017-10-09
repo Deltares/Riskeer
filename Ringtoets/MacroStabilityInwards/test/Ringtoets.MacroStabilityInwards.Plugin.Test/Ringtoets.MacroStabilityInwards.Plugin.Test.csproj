@@ -174,10 +174,6 @@
       <Project>{0943dda8-8fab-4d0b-8e9c-8a1a9b3273b4}</Project>
       <Name>Ringtoets.MacroStabilityInwards.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.KernelWrapper\Ringtoets.MacroStabilityInwards.KernelWrapper.csproj">
-      <Project>{3C0D3B38-A9F7-4B22-9705-513DA26AE2CC}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Plugin\Ringtoets.MacroStabilityInwards.Plugin.csproj">
       <Project>{b6b27968-6b39-48df-b2e5-cbabf362808c}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Plugin</Name>
