@@ -21,25 +21,23 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 
-namespace Ringtoets.Common.IO.TestUtil.Test
+namespace Ringtoets.MacroStabilityInwards.IO.TestUtil.Test
 {
     [TestFixture]
-    public class StochasticSoilModelTestFactoryTest
+    public class MacroStabilityInwardsStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreateStochasticSoilModelWithGeometry_WithNameAndFailureMechanismTypeAndStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateMacroStabilityInwardsStochasticSoilModelWithGeometry_WithNameAndStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
         {
             // Setup
             const string soilModelName = "some name";
 
             var random = new Random(21);
-            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
             var mocks = new MockRepository();
             var soilProfile = mocks.Stub<ISoilProfile>();
@@ -51,13 +49,43 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             };
 
             // Call
-            StochasticSoilModel model = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
-                                                                                                             failureMechanismType,
-                                                                                                             stochasticSoilProfiles);
+            StochasticSoilModel model =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateMacroStabilityInwardsStochasticSoilModelWithGeometry(soilModelName,
+                                                                                                                               stochasticSoilProfiles);
 
             // Assert
             Assert.AreEqual(soilModelName, model.Name);
-            Assert.AreEqual(failureMechanismType, model.FailureMechanismType);
+            Assert.AreEqual(FailureMechanismType.Stability, model.FailureMechanismType);
+            CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            }, model.Geometry);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsStochasticSoilModelWithGeometry_WithStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        {
+            // Setup 
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var soilProfile = mocks.Stub<ISoilProfile>();
+            mocks.ReplayAll();
+
+            var stochasticSoilProfiles = new[]
+            {
+                new StochasticSoilProfile(random.NextDouble(), soilProfile)
+            };
+
+            // Call
+            StochasticSoilModel model =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateMacroStabilityInwardsStochasticSoilModelWithGeometry(stochasticSoilProfiles);
+
+            // Assert
+            Assert.AreEqual("Macro Stability Inwards Stochastic Soil Model", model.Name);
+            Assert.AreEqual(FailureMechanismType.Stability, model.FailureMechanismType);
             CollectionAssert.AreEqual(stochasticSoilProfiles, model.StochasticSoilProfiles);
             CollectionAssert.AreEqual(new[]
             {

@@ -21,42 +21,43 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
+using Ringtoets.Common.IO.TestUtil;
 
-namespace Ringtoets.Common.IO.TestUtil
+namespace Ringtoets.MacroStabilityInwards.IO.TestUtil
 {
     /// <summary>
-    /// Factory which creates instances of <see cref="StochasticSoilModel"/> which
-    /// can be used for testing purposes.
+    /// Factory which creates instances of <see cref="StochasticSoilModel"/> configured
+    /// for macro stability inwards failure mechanism which can be used for testing purposes.
     /// </summary>
-    public static class StochasticSoilModelTestFactory
+    public static class MacroStabilityInwardsStochasticSoilModelTestFactory
     {
         /// <summary>
         /// Creates a <see cref="StochasticSoilModel"/> with a predefined geometry.
         /// </summary>
+        /// <param name="stochasticSoilProfiles">The stochastic soil profiles belonging to the soil model.</param>
+        /// <returns>A configured <see cref="StochasticSoilModel"/> with a predefined geometry.</returns>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="stochasticSoilProfiles"/> is <c>null</c>.</exception>
+        public static StochasticSoilModel CreateMacroStabilityInwardsStochasticSoilModelWithGeometry(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
+        {
+            return CreateMacroStabilityInwardsStochasticSoilModelWithGeometry("Macro Stability Inwards Stochastic Soil Model", stochasticSoilProfiles);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StochasticSoilModel"/> with a predefined geometry.
+        /// </summary>
         /// <param name="soilModelName">The name of the stochastic soil model.</param>
-        /// <param name="failureMechanismType">The failure mechanism type of the stochastic soil model.</param>
         /// <param name="stochasticSoilProfiles">The stochastic soil profiles belonging to the soil model.</param>
         /// <returns>A configured <see cref="StochasticSoilModel"/> with a predefined geometry.</returns>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="soilModelName"/> or 
         /// <paramref name="stochasticSoilProfiles"/> is <c>null</c>.</exception>
-        public static StochasticSoilModel CreateStochasticSoilModelWithGeometry(string soilModelName,
-                                                                                FailureMechanismType failureMechanismType,
-                                                                                IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
+        public static StochasticSoilModel CreateMacroStabilityInwardsStochasticSoilModelWithGeometry(string soilModelName,
+                                                                                                     IEnumerable<StochasticSoilProfile> stochasticSoilProfiles)
         {
-            var model = new StochasticSoilModel(soilModelName, failureMechanismType)
-            {
-                Geometry =
-                {
-                    new Point2D(1, 2),
-                    new Point2D(3, 4)
-                }
-            };
-            model.StochasticSoilProfiles.AddRange(stochasticSoilProfiles);
-
-            return model;
+            return StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName,
+                                                                                        FailureMechanismType.Stability,
+                                                                                        stochasticSoilProfiles);
         }
     }
 }

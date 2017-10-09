@@ -31,6 +31,7 @@ using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.IO.SoilProfiles;
+using Ringtoets.Piping.IO.TestUtil;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfiles
 {
@@ -83,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             var transformer = new PipingStochasticSoilModelTransformer();
-            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(new[]
             {
                 StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(new TestSoilProfile())
             });
@@ -104,7 +105,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Setup
             const string name = "name";
             var transformer = new PipingStochasticSoilModelTransformer();
-            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(name, FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(name, new[]
             {
                 StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(new SoilProfile2D(0, name, new[]
                 {
@@ -145,8 +146,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void Transform_StochasticSoilModelWithoutStochasticSoilProfiles_ThrowsImportedDataException()
         {
             // Setup
-            StochasticSoilModel stochasticSoilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping,
-                                                                                                                           Enumerable.Empty<StochasticSoilProfile>());
+            StochasticSoilModel stochasticSoilModel =
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(Enumerable.Empty<StochasticSoilProfile>());
 
             var transformer = new PipingStochasticSoilModelTransformer();
 
@@ -225,12 +226,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             };
 
             var transformer = new PipingStochasticSoilModelTransformer();
-            StochasticSoilModel soilModel1 = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(new[]
             {
                 StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(profile)
             });
 
-            StochasticSoilModel soilModel2 = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(new[]
             {
                 StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(profile)
             });
@@ -269,7 +270,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             const double originalProfileOneProbability = 0.2;
             const double originalProfileTwoProbability = 0.7;
-            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(soilModelName, FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(soilModelName, new[]
             {
                 new StochasticSoilProfile(originalProfileOneProbability, profile),
                 new StochasticSoilProfile(originalProfileTwoProbability, profile)
@@ -298,7 +299,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void Transform_ValidStochasticSoilModelWithStochasticProfileInvalidProbability_ThrowsImportedDataException(StochasticSoilProfile profile)
         {
             // Setup
-            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(new[]
             {
                 profile
             });
@@ -321,7 +322,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void Transform_ValidStochasticSoilModelWithSameProfileProbabilityExceedingValidRange_ThrowsImportedDataException(ISoilProfile profile)
         {
             // Setup
-            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(new[]
             {
                 new StochasticSoilProfile(0.9, profile),
                 new StochasticSoilProfile(0.9, profile)
@@ -364,7 +365,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             var stochasticSoilProfile1D = new StochasticSoilProfile(random.NextDouble(), soilProfile1D);
 
             var transformer = new PipingStochasticSoilModelTransformer();
-            StochasticSoilModel soilModel = StochasticSoilModelTestFactory.CreateStochasticSoilModelWithGeometry(FailureMechanismType.Piping, new[]
+            StochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(new[]
             {
                 stochasticSoilProfile2D,
                 stochasticSoilProfile1D
