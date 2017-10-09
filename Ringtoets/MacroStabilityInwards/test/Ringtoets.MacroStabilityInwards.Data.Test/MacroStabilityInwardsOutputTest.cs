@@ -83,26 +83,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_WithParameters_ExpectedValues()
-        {
-            // Setup
-            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
-
-            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new double[0]);
-
-            // Call
-            var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
-
-            // Assert
-            Assert.AreSame(slidingCurve, output.SlidingCurve);
-            Assert.AreSame(slipPlane, output.SlipPlane);
-        }
-
-        [Test]
         public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
         {
             // Setup
@@ -156,6 +136,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
+
+            Assert.AreSame(slidingCurve, output.SlidingCurve);
+            Assert.AreSame(slipPlane, output.SlipPlane);
 
             Assert.AreEqual(factorOfStability, output.FactorOfStability);
             Assert.AreEqual(zValue, output.ZValue);

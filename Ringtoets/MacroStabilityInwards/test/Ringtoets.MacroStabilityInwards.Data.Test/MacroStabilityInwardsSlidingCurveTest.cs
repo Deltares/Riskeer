@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var slices = new[]
             {
                 new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                                     new MacroStabilityInwardsSlice.ConstructionProperties())
+                                               new MacroStabilityInwardsSlice.ConstructionProperties())
             };
 
             double nonIteratedHorizontalForce = random.NextDouble();
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreSame(rightCircle, curve.RightCircle);
             Assert.AreEqual(nonIteratedHorizontalForce, curve.NonIteratedHorizontalForce);
             Assert.AreEqual(iteratedHorizontalForce, curve.IteratedHorizontalForce);
-            CollectionAssert.AreEqual(slices, curve.Slices);
+            Assert.AreSame(slices, curve.Slices);
         }
     }
 }

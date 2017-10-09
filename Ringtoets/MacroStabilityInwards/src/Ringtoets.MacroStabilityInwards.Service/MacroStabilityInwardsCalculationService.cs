@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters);
             IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            List<UpliftVanValidationResult> validationResults = calculator.Validate();
+            UpliftVanValidationResult[] validationResults = calculator.Validate().ToArray();
 
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0,
                                                         validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Error)
@@ -92,6 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
+        /// <exception cref="UpliftVanCalculatorException">Thrown when an error occurred during the calculation.</exception>
         public static void Calculate(MacroStabilityInwardsCalculation calculation)
         {
             if (calculation == null)
@@ -103,7 +104,9 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             try
             {
-                IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(CreateInputFromData(calculation.InputParameters), MacroStabilityInwardsKernelWrapperFactory.Instance);
+                IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(
+                    CreateInputFromData(calculation.InputParameters),
+                    MacroStabilityInwardsKernelWrapperFactory.Instance);
                 UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
                 calculation.Output = new MacroStabilityInwardsOutput(

@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             this.factory = factory;
         }
 
-        public List<UpliftVanValidationResult> Validate()
+        public IEnumerable<UpliftVanValidationResult> Validate()
         {
             try
             {

@@ -48,6 +48,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         /// Performs the validation.
         /// </summary>
         /// <returns>A list of validation messages.</returns>
-        List<UpliftVanValidationResult> Validate();
+        IEnumerable<UpliftVanValidationResult> Validate();
     }
 }

@@ -381,24 +381,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidCalculationNoOutput_ShouldSetOutput()
-        {
-            // Setup
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            {
-                // Precondition
-                Assert.IsNull(testCalculation.Output);
-                Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation));
-
-                // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation);
-
-                // Assert
-                Assert.IsNotNull(testCalculation.Output);
-            }
-        }
-
-        [Test]
         public void Calculate_ValidCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
@@ -578,6 +560,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
                 });
                 Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
             }
         }
 

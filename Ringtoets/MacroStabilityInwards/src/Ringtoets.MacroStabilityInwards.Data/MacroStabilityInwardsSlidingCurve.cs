@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// The sliding curve result of a macro stability calculation.
+    /// The macro stability inwards sliding curve.
     /// </summary>
     public class MacroStabilityInwardsSlidingCurve
     {
@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         public MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircle leftCircle, MacroStabilityInwardsSlidingCircle rightCircle,
-                                                       IEnumerable<MacroStabilityInwardsSlice> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
+                                                 IEnumerable<MacroStabilityInwardsSlice> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
         {
             if (leftCircle == null)
             {

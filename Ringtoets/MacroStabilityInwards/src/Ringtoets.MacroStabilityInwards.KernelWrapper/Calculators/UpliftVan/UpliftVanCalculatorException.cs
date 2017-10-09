@@ -25,7 +25,7 @@ using System.Runtime.Serialization;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
-    /// The exception that is thrown when an error occurs while performing a calculation.
+    /// The exception that is thrown when an error occurs while performing an Uplift Van calculation.
     /// </summary>
     [Serializable]
     public class UpliftVanCalculatorException : Exception

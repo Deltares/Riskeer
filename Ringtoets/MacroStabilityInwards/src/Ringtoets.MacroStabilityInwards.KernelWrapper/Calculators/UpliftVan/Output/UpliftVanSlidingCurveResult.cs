@@ -39,8 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// force of the curve.</param>
         /// <param name="iteratedHorizontalForce">The iterated horizontal force
         /// of the curve.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="leftCircle"/>,
+        /// <paramref name="rightCircle" /> or <paramref name="slices"/> is <c>null</c>.</exception>
         internal UpliftVanSlidingCurveResult(UpliftVanSlidingCircleResult leftCircle, UpliftVanSlidingCircleResult rightCircle,
                                              IEnumerable<UpliftVanSliceResult> slices, double nonIteratedHorizontalForce, double iteratedHorizontalForce)
         {

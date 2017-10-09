@@ -50,6 +50,67 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
+        public void Constructor_CompleteInput_InputCorrectlySetToWrappedKernel()
+        {
+            // Setup
+            var random = new Random(21);
+            var soilModel = new SoilModel();
+            var soilProfile2D = new SoilProfile2D();
+            var stabilityLocation = new StabilityLocation();
+            var surfaceLine = new SurfaceLine2();
+            double maximumSliceWidth = random.NextDouble();
+            var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
+            bool moveGrid = random.NextBoolean();
+            bool gridAutomaticDetermined = random.NextBoolean();
+            bool createZones = random.NextBoolean();
+            bool automaticForbiddenZones = random.NextBoolean();
+            double slipPlaneMinimumDepth = random.NextDouble();
+            double slipPlaneMinimumLength = random.NextDouble();
+
+            // Call
+            var kernel = new UpliftVanKernelWrapper
+            {
+                SoilModel = soilModel,
+                SoilProfile = soilProfile2D,
+                Location = stabilityLocation,
+                SurfaceLine = surfaceLine,
+                MaximumSliceWidth = maximumSliceWidth,
+                SlipPlaneUpliftVan = slipPlaneUpliftVan,
+                MoveGrid = moveGrid,
+                GridAutomaticDetermined = gridAutomaticDetermined,
+                CreateZones = createZones,
+                AutomaticForbiddenZones = automaticForbiddenZones,
+                SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
+                SlipPlaneMinimumLength = slipPlaneMinimumLength
+            };
+
+            // Assert
+            var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
+
+            Assert.IsNull(stabilityModel.LocationDaily);
+            Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
+            Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
+            Assert.IsNotNull(stabilityModel.SlipCircle);
+            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
+            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
+            Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
+            Assert.AreSame(stabilityLocation, stabilityModel.Location);
+            Assert.AreSame(soilModel, stabilityModel.SoilModel);
+            Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
+            Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
+            Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
+            Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
+            Assert.AreEqual(gridAutomaticDetermined, stabilityModel.SlipCircle.Auto);
+            Assert.AreEqual(createZones, stabilityModel.SlipPlaneConstraints.CreateZones);
+            Assert.AreEqual(automaticForbiddenZones, stabilityModel.SlipPlaneConstraints.AutomaticForbiddenZones);
+            Assert.AreEqual(slipPlaneMinimumDepth, stabilityModel.SlipPlaneConstraints.SlipPlaneMinDepth);
+            Assert.AreEqual(slipPlaneMinimumLength, stabilityModel.SlipPlaneConstraints.SlipPlaneMinLength);
+
+            AssertIrrelevantValues(stabilityModel);
+            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+        }
+
+        [Test]
         public void Calculate_ExceptionInWrappedKernel_ThrowsUpliftVanKernelWrapperException()
         {
             // Setup
@@ -158,64 +219,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
-        public void Constructor_CompleteInput_InputCorrectlySetToWrappedKernel()
+        public void Calculate_ExceptionDuringCalculation_OutputPropertiesNotSet()
         {
             // Setup
-            var random = new Random(21);
-            var soilModel = new SoilModel();
-            var soilProfile2D = new SoilProfile2D();
-            var stabilityLocation = new StabilityLocation();
-            var surfaceLine = new SurfaceLine2();
-            double maximumSliceWidth = random.NextDouble();
-            var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
-            bool moveGrid = random.NextBoolean();
-            bool gridAutomaticDetermined = random.NextBoolean();
-            bool createZones = random.NextBoolean();
-            bool automaticForbiddenZones = random.NextBoolean();
-            double slipPlaneMinimumDepth = random.NextDouble();
-            double slipPlaneMinimumLength = random.NextDouble();
+            var kernel = new UpliftVanKernelWrapper();
 
             // Call
-            var kernel = new UpliftVanKernelWrapper
-            {
-                SoilModel = soilModel,
-                SoilProfile = soilProfile2D,
-                Location = stabilityLocation,
-                SurfaceLine = surfaceLine,
-                MaximumSliceWidth = maximumSliceWidth,
-                SlipPlaneUpliftVan = slipPlaneUpliftVan,
-                MoveGrid = moveGrid,
-                GridAutomaticDetermined = gridAutomaticDetermined,
-                CreateZones = createZones,
-                AutomaticForbiddenZones = automaticForbiddenZones,
-                SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
-                SlipPlaneMinimumLength = slipPlaneMinimumLength
-            };
+            TestDelegate test = () => kernel.Calculate();
 
             // Assert
-            var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
-
-            Assert.IsNull(stabilityModel.LocationDaily);
-            Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
-            Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
-            Assert.IsNotNull(stabilityModel.SlipCircle);
-            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(stabilityLocation, stabilityModel.Location);
-            Assert.AreSame(soilModel, stabilityModel.SoilModel);
-            Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
-            Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
-            Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
-            Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
-            Assert.AreEqual(gridAutomaticDetermined, stabilityModel.SlipCircle.Auto);
-            Assert.AreEqual(createZones, stabilityModel.SlipPlaneConstraints.CreateZones);
-            Assert.AreEqual(automaticForbiddenZones, stabilityModel.SlipPlaneConstraints.AutomaticForbiddenZones);
-            Assert.AreEqual(slipPlaneMinimumDepth, stabilityModel.SlipPlaneConstraints.SlipPlaneMinDepth);
-            Assert.AreEqual(slipPlaneMinimumLength, stabilityModel.SlipPlaneConstraints.SlipPlaneMinLength);
-
-            AssertIrrelevantValues(stabilityModel);
-            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+            Assert.Throws<UpliftVanKernelWrapperException>(test);
+            Assert.IsNaN(kernel.FactorOfStability);
+            Assert.IsNaN(kernel.ZValue);
+            Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
+            Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
+            Assert.IsNull(kernel.SlidingCurveResult);
+            Assert.IsNull(kernel.SlipPlaneResult);
         }
 
         [Test]

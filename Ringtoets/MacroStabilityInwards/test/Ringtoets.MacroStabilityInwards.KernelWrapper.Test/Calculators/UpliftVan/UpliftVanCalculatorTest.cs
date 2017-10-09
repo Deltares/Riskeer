@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
-            SetCompleteKernelOutput(upliftVanKernel);
+//            SetCompleteKernelOutput(upliftVanKernel);
             upliftVanKernel.ThrowExceptionOnCalculate = true;
 
             // Call
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            List<UpliftVanValidationResult> validationResult = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
+            IEnumerable<UpliftVanValidationResult> validationResult = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
 
             // Assert
             CollectionAssert.IsEmpty(validationResult);
@@ -218,10 +218,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             upliftVanKernel.ReturnValidationResults = true;
 
             // Call
-            List<UpliftVanValidationResult> results = new UpliftVanCalculator(CreateValidCalculatorInput(), testMacroStabilityInwardsKernelFactory).Validate();
+            IEnumerable<UpliftVanValidationResult> results = new UpliftVanCalculator(CreateValidCalculatorInput(), testMacroStabilityInwardsKernelFactory).Validate();
 
             // Assert
-            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(2, results.Count());
             Assert.AreEqual("Validation Warning", results.ElementAt(0).Message);
             Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(0).ResultType);
             Assert.AreEqual("Validation Error", results.ElementAt(1).Message);
@@ -373,8 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             upliftVanKernel.ZValue = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
-            upliftVanKernel.SlidingCurveResult = CreateSlidingDualCircle();
-            upliftVanKernel.SlipPlaneResult = CreateSlipPlaneUpliftVan();
+            SetValidKernelOutput(upliftVanKernel);
         }
 
         private static SlipPlaneUpliftVan CreateSlipPlaneUpliftVan()

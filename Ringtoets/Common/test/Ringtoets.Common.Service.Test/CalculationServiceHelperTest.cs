@@ -232,9 +232,10 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string message = "Message";
+            var exception = new Exception();
 
             // Call
-            Action call = () => CalculationServiceHelper.LogExceptionAsError(message, new Exception());
+            Action call = () => CalculationServiceHelper.LogExceptionAsError(message, exception);
 
             // Assert
             TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
@@ -242,7 +243,7 @@ namespace Ringtoets.Common.Service.Test
                 Tuple<string, Level, Exception> tuple = tuples.Single();
                 Assert.AreEqual(message, tuple.Item1);
                 Assert.AreEqual(Level.Error, tuple.Item2);
-                Assert.IsInstanceOf<Exception>(tuple.Item3);
+                Assert.AreSame(exception, tuple.Item3);
             });
         }
     }

@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// Performs the Uplift Van calculation.
         /// </summary>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when
-        /// an unexpected error occurs when performing the calculation.</exception>
+        /// an error occurs when performing the calculation.</exception>
         void Calculate();
 
         /// <summary>

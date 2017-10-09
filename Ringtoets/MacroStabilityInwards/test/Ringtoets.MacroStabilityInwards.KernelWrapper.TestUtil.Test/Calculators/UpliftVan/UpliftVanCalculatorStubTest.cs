@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             var calculator = new UpliftVanCalculatorStub();
 
             // Call
-            List<UpliftVanValidationResult> result = calculator.Validate();
+            IEnumerable<UpliftVanValidationResult> result = calculator.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -107,10 +107,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             };
 
             // Call
-            List<UpliftVanValidationResult> results = calculator.Validate();
+            IEnumerable<UpliftVanValidationResult> results = calculator.Validate();
 
             // Assert
-            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(2, results.Count());
             Assert.AreEqual("Validation Error", results.ElementAt(0).Message);
             Assert.AreEqual(UpliftVanValidationResultType.Error, results.ElementAt(0).ResultType);
             Assert.AreEqual("Validation Warning", results.ElementAt(1).Message);

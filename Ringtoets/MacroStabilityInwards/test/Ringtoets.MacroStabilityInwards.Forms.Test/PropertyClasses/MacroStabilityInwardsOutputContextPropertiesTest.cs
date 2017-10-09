@@ -77,8 +77,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 Data = new MacroStabilityInwardsOutputContext(output, semiProbabilisticOutput)
             };
 
-            // Call & Assert
-            Assert.AreEqual(new RoundedDouble(3, macroStabilityInwardsFactorOfStability), properties.MacroStabilityInwardsFactorOfStability);
+            // Assert
+            Assert.AreEqual(3, properties.MacroStabilityInwardsFactorOfStability.NumberOfDecimalPlaces);
+            Assert.AreEqual(macroStabilityInwardsFactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
+                                       properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
 
             const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(string.Format(probabilityFormat, 1.0 / requiredProbability), properties.RequiredProbability);

@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// The sliding circle result of a macro stability calculation.
+    /// The macro stability inwards sliding circle.
     /// </summary>
     public class MacroStabilityInwardsSlidingCircle
     {
@@ -65,6 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         /// <summary>
         /// Gets the radius of the circle.
+        /// [m]
         /// </summary>
         public double Radius { get; }
 

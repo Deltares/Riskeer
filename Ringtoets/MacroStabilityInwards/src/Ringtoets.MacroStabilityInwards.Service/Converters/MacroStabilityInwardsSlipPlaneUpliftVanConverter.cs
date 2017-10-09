@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="UpliftVanCalculationGridResult"/>
-    /// into <see cref="MacroStabilityInwardsSlipPlaneUpliftVanConverter"/>.
+    /// into <see cref="MacroStabilityInwardsSlipPlaneUpliftVan"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSlipPlaneUpliftVanConverter
     {

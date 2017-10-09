@@ -200,6 +200,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
+        /// <summary>
+        /// Reads the calculation result.
+        /// </summary>
+        /// <param name="result">The result to read.</param>
+        /// <exception cref="UpliftVanKernelWrapperException">Thrown when the
+        /// calculation result contains error messages.</exception>
         private void ReadResult(string result)
         {
             StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);

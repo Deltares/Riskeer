@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             return Output ?? (Output = CreateUpliftVanCalculatorResult());
         }
 
-        public List<UpliftVanValidationResult> Validate()
+        public IEnumerable<UpliftVanValidationResult> Validate()
         {
             var validationResults = new List<UpliftVanValidationResult>();
             if (ReturnValidationError)

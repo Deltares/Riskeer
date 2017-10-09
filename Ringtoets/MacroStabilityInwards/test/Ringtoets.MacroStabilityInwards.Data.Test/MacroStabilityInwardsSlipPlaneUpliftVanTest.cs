@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.AreSame(leftGrid, result.LeftGrid);
             Assert.AreSame(rightGrid, result.RightGrid);
-            CollectionAssert.AreEqual(tangentLines, result.TangentLines);
+            Assert.AreSame(tangentLines, result.TangentLines);
         }
     }
 }

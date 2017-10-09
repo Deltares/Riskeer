@@ -66,6 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
         /// <summary>
         /// Gets the radius of the circle.
+        /// [m]
         /// </summary>
         public double Radius { get; }
 

@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// The slice result of a macro stability calculation.
+    /// A slice of a macro stability inwards sliding curve.
     /// </summary>
     public class MacroStabilityInwardsSlice
     {
@@ -40,8 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// of the new <see cref="MacroStabilityInwardsSlice"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSlice(Point2D topLeftPoint, Point2D topRightPoint,
-                                                Point2D bottomLeftPoint, Point2D bottomRightPoint,
-                                                ConstructionProperties properties)
+                                          Point2D bottomLeftPoint, Point2D bottomRightPoint,
+                                          ConstructionProperties properties)
         {
             if (topLeftPoint == null)
             {

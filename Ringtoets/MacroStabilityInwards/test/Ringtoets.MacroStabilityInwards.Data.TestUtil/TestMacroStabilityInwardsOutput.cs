@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
@@ -27,22 +29,29 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     /// <seealso cref="MacroStabilityInwardsOutput" />
     public class TestMacroStabilityInwardsOutput : MacroStabilityInwardsOutput
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsOutput"/>.
+        /// </summary>
         public TestMacroStabilityInwardsOutput()
             : this(new ConstructionProperties
-                   {
-                       FactorOfStability = 1.1
-                   }) {}
+            {
+                FactorOfStability = 1.1
+            }) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsOutput"/>.
+        /// </summary>
+        /// <param name="properties">The container of the properties for the
+        /// <see cref="TestMacroStabilityInwardsOutput"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
+        /// is <c>null</c>.</exception>
         public TestMacroStabilityInwardsOutput(ConstructionProperties properties)
-            : base (new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+            : base(new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                          MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                          new MacroStabilityInwardsSlice[0], 0, 0),
                    new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                MacroStabilityInwardsGridTestFactory.Create(),
                                                                new double[0]),
-                   properties)
-        {
-            
-        }
+                   properties) {}
     }
 }
