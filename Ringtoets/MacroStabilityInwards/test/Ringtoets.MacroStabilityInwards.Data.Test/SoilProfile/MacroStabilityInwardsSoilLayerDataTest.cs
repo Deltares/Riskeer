@@ -98,10 +98,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void MaterialName_Null_ThrowsArgumentNullException()
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayerData();
+            var data = new MacroStabilityInwardsSoilLayerData();
 
             // Call
-            TestDelegate test = () => layer.MaterialName = null;
+            TestDelegate test = () => data.MaterialName = null;
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -114,21 +114,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void MaterialName_NotNullValue_ValueSet(string materialName)
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayerData();
+            var data = new MacroStabilityInwardsSoilLayerData();
 
             // Call
-            layer.MaterialName = materialName;
+            data.MaterialName = materialName;
 
             // Assert
-            Assert.AreEqual(materialName, layer.MaterialName);
+            Assert.AreEqual(materialName, data.MaterialName);
         }
 
         [Test]
         public void GetHashCode_EqualProperties_AreEqual()
         {
             // Setup
-            MacroStabilityInwardsSoilLayerData dataA = CreateRandomProperties(21);
-            MacroStabilityInwardsSoilLayerData dataB = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerData dataA = CreateRandomData(21);
+            MacroStabilityInwardsSoilLayerData dataB = CreateRandomData(21);
 
             // Precondition
             Assert.AreEqual(dataA, dataB);
@@ -143,10 +143,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
-            MacroStabilityInwardsSoilLayerData layer = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerData data = CreateRandomData(21);
 
             // Call
-            bool areEqual = layer.Equals(new object());
+            bool areEqual = data.Equals(new object());
 
             // Assert
             Assert.IsFalse(areEqual);
@@ -156,28 +156,28 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            MacroStabilityInwardsSoilLayerData layer = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerData data = CreateRandomData(21);
 
             // Call
-            bool areEqual = layer.Equals(null);
+            bool areEqual = data.Equals(null);
 
             // Assert
             Assert.IsFalse(areEqual);
         }
 
         [Test]
-        [TestCaseSource(nameof(ChangeSingleProperties))]
+        [TestCaseSource(nameof(ChangeSingleDataProperties))]
         public void Equals_ChangeSingleProperty_ReturnsFalse(Action<MacroStabilityInwardsSoilLayerData> changeProperty)
         {
             // Setup
-            MacroStabilityInwardsSoilLayerData layer = CreateRandomProperties(21);
-            MacroStabilityInwardsSoilLayerData layerToChange = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerData data = CreateRandomData(21);
+            MacroStabilityInwardsSoilLayerData dataToChange = CreateRandomData(21);
 
-            changeProperty(layerToChange);
+            changeProperty(dataToChange);
 
             // Call
-            bool areEqualOne = layer.Equals(layerToChange);
-            bool areEqualTwo = layerToChange.Equals(layer);
+            bool areEqualOne = data.Equals(dataToChange);
+            bool areEqualTwo = dataToChange.Equals(data);
 
             // Assert
             Assert.IsFalse(areEqualOne);
@@ -185,19 +185,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        [TestCaseSource(nameof(PropertiesCombinations))]
-        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayerData layer, MacroStabilityInwardsSoilLayerData otherLayer, bool expectedEqual)
+        [TestCaseSource(nameof(DataPropertiesCombinations))]
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(MacroStabilityInwardsSoilLayerData data, MacroStabilityInwardsSoilLayerData otherData, bool expectedEqual)
         {
             // Call
-            bool areEqualOne = layer.Equals(otherLayer);
-            bool areEqualTwo = otherLayer.Equals(layer);
+            bool areEqualOne = data.Equals(otherData);
+            bool areEqualTwo = otherData.Equals(data);
 
             // Assert
             Assert.AreEqual(expectedEqual, areEqualOne);
             Assert.AreEqual(expectedEqual, areEqualTwo);
         }
 
-        private static IEnumerable<TestCaseData> ChangeSingleProperties()
+        private static IEnumerable<TestCaseData> ChangeSingleDataProperties()
         {
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerData>(lp => lp.ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 9));
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerData>(lp => lp.MaterialName = "interesting"));
@@ -222,12 +222,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             yield return new TestCaseData(new Action<MacroStabilityInwardsSoilLayerData>(lp => lp.Pop.CoefficientOfVariation = (RoundedDouble) (1.0 - lp.Pop.CoefficientOfVariation)));
         }
 
-        private static TestCaseData[] PropertiesCombinations()
+        private static TestCaseData[] DataPropertiesCombinations()
         {
-            MacroStabilityInwardsSoilLayerData dataA = CreateRandomProperties(21);
-            MacroStabilityInwardsSoilLayerData dataB = CreateRandomProperties(21);
-            MacroStabilityInwardsSoilLayerData dataC = CreateRandomProperties(73);
-            MacroStabilityInwardsSoilLayerData dataD = CreateRandomProperties(21);
+            MacroStabilityInwardsSoilLayerData dataA = CreateRandomData(21);
+            MacroStabilityInwardsSoilLayerData dataB = CreateRandomData(21);
+            MacroStabilityInwardsSoilLayerData dataC = CreateRandomData(73);
+            MacroStabilityInwardsSoilLayerData dataD = CreateRandomData(21);
 
             return new[]
             {
@@ -258,7 +258,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             };
         }
 
-        private static MacroStabilityInwardsSoilLayerData CreateRandomProperties(int randomSeed)
+        private static MacroStabilityInwardsSoilLayerData CreateRandomData(int randomSeed)
         {
             var random = new Random(randomSeed);
             return new MacroStabilityInwardsSoilLayerData

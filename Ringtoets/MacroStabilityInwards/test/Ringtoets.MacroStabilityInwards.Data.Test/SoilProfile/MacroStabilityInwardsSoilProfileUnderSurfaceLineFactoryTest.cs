@@ -326,7 +326,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void SoilProfile1DCreate_WithProperties_ReturnsProperties()
+        public void SoilProfile1DCreate_WithData_ReturnsData()
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -489,7 +489,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void SoilProfile2DCreate_WithProperties_ReturnsProperties()
+        public void SoilProfile2DCreate_WithData_ReturnsData()
         {
             // Setup
             const string material = "Clay";

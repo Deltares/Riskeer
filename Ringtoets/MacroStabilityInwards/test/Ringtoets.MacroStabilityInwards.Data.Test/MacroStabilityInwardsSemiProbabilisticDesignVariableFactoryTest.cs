@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetAbovePhreaticLevel_ValidSoilLayerData_CreateDesignVariableForAbovePhreaticLevel()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 AbovePhreaticLevel =
                 {
@@ -59,10 +59,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> abovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> abovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.AbovePhreaticLevel, abovePhreaticLevel.Distribution);
+            DistributionAssert.AreEqual(data.AbovePhreaticLevel, abovePhreaticLevel.Distribution);
             AssertPercentile(0.5, abovePhreaticLevel);
         }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetBelowPhreaticLevel_ValidSoilLayerData_CreateDesignVariableForBelowPhreaticLevel()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 BelowPhreaticLevel =
                 {
@@ -81,10 +81,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.BelowPhreaticLevel, belowPhreaticLevel.Distribution);
+            DistributionAssert.AreEqual(data.BelowPhreaticLevel, belowPhreaticLevel.Distribution);
             AssertPercentile(0.5, belowPhreaticLevel);
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCohesion_ValidSoilLayerData_CreateDesignVariableForCohesion()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 Cohesion =
                 {
@@ -102,10 +102,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.Cohesion, cohesion.Distribution);
+            DistributionAssert.AreEqual(data.Cohesion, cohesion.Distribution);
             AssertPercentile(0.05, cohesion);
         }
 
@@ -113,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetFrictionAngle_ValidSoilLayerData_CreateDesignVariableForFrictionAngle()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 FrictionAngle =
                 {
@@ -123,10 +123,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> frictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> frictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.FrictionAngle, frictionAngle.Distribution);
+            DistributionAssert.AreEqual(data.FrictionAngle, frictionAngle.Distribution);
             AssertPercentile(0.05, frictionAngle);
         }
 
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetShearStrengthRatio_ValidSoilLayerData_CreateDesignVariableForShearStrengthRatio()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 ShearStrengthRatio =
                 {
@@ -144,10 +144,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> shearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> shearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.ShearStrengthRatio, shearStrengthRatio.Distribution);
+            DistributionAssert.AreEqual(data.ShearStrengthRatio, shearStrengthRatio.Distribution);
             AssertPercentile(0.05, shearStrengthRatio);
         }
 
@@ -155,7 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetStrengthIncreaseExponent_ValidSoilLayerData_CreateDesignVariableForStrengthIncreaseExponent()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 StrengthIncreaseExponent =
                 {
@@ -165,10 +165,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> strengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> strengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.StrengthIncreaseExponent, strengthIncreaseExponent.Distribution);
+            DistributionAssert.AreEqual(data.StrengthIncreaseExponent, strengthIncreaseExponent.Distribution);
             AssertPercentile(0.05, strengthIncreaseExponent);
         }
 
@@ -176,7 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetPop_ValidSoilLayerData_CreateDesignVariableForPop()
         {
             // Setup
-            var properties = new MacroStabilityInwardsSoilLayerData
+            var data = new MacroStabilityInwardsSoilLayerData
             {
                 Pop =
                 {
@@ -186,10 +186,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(properties);
+            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data);
 
             // Assert
-            DistributionAssert.AreEqual(properties.Pop, pop.Distribution);
+            DistributionAssert.AreEqual(data.Pop, pop.Distribution);
             AssertPercentile(0.05, pop);
         }
 

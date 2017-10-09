@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// Sets the properties of the <see cref="MacroStabilityInwardsSoilLayerData"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to get the data from.</param>
-        /// <param name="data">The data to set the data upon.</param>
+        /// <param name="data">The data to set the properties upon.</param>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
         private static void SetProperties(SoilLayerBase soilLayer, MacroStabilityInwardsSoilLayerData data)
