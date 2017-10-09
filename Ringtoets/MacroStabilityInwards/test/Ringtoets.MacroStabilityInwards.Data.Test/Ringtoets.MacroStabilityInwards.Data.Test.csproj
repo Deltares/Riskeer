@@ -57,7 +57,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="GeneralMacroStabilityInwardsInputTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />
@@ -67,6 +66,7 @@
     <Compile Include="MacroStabilityInwardsLocationInputExtremeTest.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsShearStrengthModelTest.cs" />
     <Compile Include="MacroStabilityInwardsSliceTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircleTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCurveTest.cs" />

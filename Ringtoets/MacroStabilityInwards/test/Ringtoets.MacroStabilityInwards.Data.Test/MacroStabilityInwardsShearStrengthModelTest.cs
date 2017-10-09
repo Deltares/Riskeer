@@ -19,10 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class GeneralMacroStabilityInwardsInputTest {}
+    public class MacroStabilityInwardsShearStrengthModelTest
+    {
+        [Test]
+        public void Values_ExpectedValues()
+        {
+            // Assert
+            Assert.AreEqual(3, Enum.GetValues(typeof(MacroStabilityInwardsShearStrengthModel)).Length);
+            Assert.AreEqual(1, (int) MacroStabilityInwardsShearStrengthModel.SuCalculated);
+            Assert.AreEqual(2, (int) MacroStabilityInwardsShearStrengthModel.CPhi);
+            Assert.AreEqual(3, (int) MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated);
+        }
+    }
 }
