@@ -265,7 +265,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// </summary>
         /// <param name="soilLayer">The soil layer to validate.</param>
         /// <exception cref="ImportedDataTransformException">Thrown when any of the distributions of the
-        /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
+        /// stochastic parameters is not defined as log normal or is shifted when it should not be.</exception>
         private static void ValidateStochasticParameters(SoilLayerBase soilLayer)
         {
             DistributionHelper.ValidateIsLogNormal(soilLayer.AbovePhreaticLevelDistributionType,

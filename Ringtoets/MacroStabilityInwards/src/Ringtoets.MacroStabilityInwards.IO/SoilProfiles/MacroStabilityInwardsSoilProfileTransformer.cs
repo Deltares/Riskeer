@@ -74,8 +74,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
         /// <returns>A <see cref="MacroStabilityInwardsSoilProfile1D"/> based on the given data.</returns>
-        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
-        /// in a valid transformed instance.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would cannot be
+        /// transformed in a <see cref="MacroStabilityInwardsSoilProfile1D"/>.</exception>
         private static MacroStabilityInwardsSoilProfile1D Transform(SoilProfile1D soilProfile)
         {
             try
@@ -98,8 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
         /// <returns>A <see cref="MacroStabilityInwardsSoilProfile2D"/> based on the given data.</returns>
-        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
-        /// in a valid transformed instance.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation cannot be 
+        /// transformed in a <see cref="MacroStabilityInwardsSoilProfile2D"/>.</exception>
         private static MacroStabilityInwardsSoilProfile2D Transform(SoilProfile2D soilProfile)
         {
             try

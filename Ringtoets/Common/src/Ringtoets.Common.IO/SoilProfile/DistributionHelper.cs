@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parameterName"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when the parameter is not a 
-        /// log-normal distribution.</exception>
+        /// log normal distribution.</exception>
         public static void ValidateIsLogNormal(long? distributionType, string parameterName)
         {
             if (parameterName == null)

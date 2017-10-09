@@ -119,8 +119,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// to filter.</param>
         /// <param name="soilModelName">The name of the soil model.</param>
         /// <returns>A collection of unique <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</returns>
-        /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="StochasticSoilProfile"/>
-        /// is invalid.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when summing the probabilities of  
+        /// <see cref="MacroStabilityInwardsStochasticSoilProfile"/> with the same <see cref="MacroStabilityInwardsStochasticSoilProfile.SoilProfile"/>
+        /// results in an invalid probability.</exception>
         private static IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetUniqueStochasticSoilProfiles(
             IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles,
             string soilModelName)

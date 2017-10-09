@@ -41,8 +41,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <param name="soilProfile">The transformed soil profile.</param>
         /// <returns>A new <paramref name="soilProfile"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ImportedDataTransformException">Thrown when <see cref="StochasticSoilProfile"/>
-        /// could not be transformed.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when transforming a <see cref="StochasticSoilProfile"/>
+        /// failed due to an invalid probability.</exception>
         public static MacroStabilityInwardsStochasticSoilProfile Transform(StochasticSoilProfile stochasticSoilProfile,
                                                                            IMacroStabilityInwardsSoilProfile soilProfile)
         {

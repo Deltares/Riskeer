@@ -114,8 +114,9 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// to filter.</param>
         /// <param name="soilModelName">The name of the soil model.</param>
         /// <returns>A collection of unique <see cref="PipingStochasticSoilProfile"/>.</returns>
-        /// <exception cref="ImportedDataTransformException">Thrown when a <see cref="StochasticSoilProfile"/>
-        /// is invalid.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when summing the probabilities of 
+        /// <see cref="PipingStochasticSoilProfile"/> with the same <see cref="PipingStochasticSoilProfile.SoilProfile"/>
+        /// results in an invalid probability.</exception>
         private static IEnumerable<PipingStochasticSoilProfile> GetUniqueStochasticSoilProfiles(
             IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles,
             string soilModelName)
