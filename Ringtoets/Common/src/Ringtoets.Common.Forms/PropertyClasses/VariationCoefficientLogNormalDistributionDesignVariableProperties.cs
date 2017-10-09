@@ -23,12 +23,12 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DesignVariable{TDistributionType}"/> of <see cref="LogNormalDistribution"/> for properties panel.
+    /// ViewModel of <see cref="DesignVariable{T}"/> of <see cref="LogNormalDistribution"/> for properties panel.
     /// </summary>
     public class VariationCoefficientLogNormalDistributionDesignVariableProperties
         : VariationCoefficientDesignVariableProperties<VariationCoefficientLogNormalDistribution>
@@ -56,9 +56,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                    designVariable,
                    handler) {}
 
-        public override string DistributionType { get; } = RingtoetsCommonFormsResources.DistributionType_LogNormal;
+        public override string DistributionType
+        {
+            get
+            {
+                return Resources.DistributionType_LogNormal;
+            }
+        }
 
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.LogNormalDistribution_Mean_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LogNormalDistribution_Mean_Description))]
         public override RoundedDouble Mean
         {
             get
@@ -71,7 +77,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.LogNormalDistribution_VariationCoefficient_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LogNormalDistribution_VariationCoefficient_Description))]
         public override RoundedDouble CoefficientOfVariation
         {
             get
