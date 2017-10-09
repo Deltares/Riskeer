@@ -71,8 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 AutomaticAtBoundaries = slipPlane.TangentLinesAutomaticAtBoundaries,
                 TangentLineZTop = slipPlane.TangentZTop,
                 TangentLineZBottom = slipPlane.TangentZBottom,
-                TangentLineNumber = slipPlane.TangentLineNumber,
-                MaxSpacingBetweenBoundaries = slipPlane.MaxSpacingBetweenBoundaries
+                TangentLineNumber = slipPlane.TangentLineNumber
             };
         }
 

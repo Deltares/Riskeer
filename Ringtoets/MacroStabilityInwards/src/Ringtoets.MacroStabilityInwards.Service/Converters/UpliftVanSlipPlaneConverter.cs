@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             UpliftVanGrid rightGrid = ConvertGrid(input.RightGrid);
 
             return input.TangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.Specified
-                       ? new UpliftVanSlipPlane(leftGrid, rightGrid, input.TangentLineZTop, input.TangentLineZBottom, 1, 10)
+                       ? new UpliftVanSlipPlane(leftGrid, rightGrid, input.TangentLineZTop, input.TangentLineZBottom, 1)
                        : new UpliftVanSlipPlane(leftGrid, rightGrid);
         }
 

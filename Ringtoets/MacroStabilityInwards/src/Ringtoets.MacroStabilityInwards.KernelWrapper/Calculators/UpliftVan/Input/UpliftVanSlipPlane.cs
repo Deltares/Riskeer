@@ -39,11 +39,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <item><see cref="TangentLinesAutomaticAtBoundaries"/> is set to <c>true</c>;</item>
         /// <item><see cref="TangentZTop"/> is set to <see cref="double.NaN"/>;</item>
         /// <item><see cref="TangentZBottom"/> is set to <see cref="double.NaN"/>;</item>
-        /// <item><see cref="TangentLineNumber"/> is set to <c>0</c>;</item>
-        /// <item><see cref="MaxSpacingBetweenBoundaries"/> is set to <see cref="double.NaN"/>.</item>
+        /// <item><see cref="TangentLineNumber"/> is set to <c>0</c>.</item>
         /// </list>
         /// </remarks>
-        public UpliftVanSlipPlane() : this(double.NaN, double.NaN, 0, double.NaN)
+        public UpliftVanSlipPlane() : this(double.NaN, double.NaN, 0)
         {
             GridAutomaticDetermined = true;
             TangentLinesAutomaticAtBoundaries = true;
@@ -60,12 +59,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <item><see cref="TangentLinesAutomaticAtBoundaries"/> is set to <c>true</c>;</item>
         /// <item><see cref="TangentZTop"/> is set to <see cref="double.NaN"/>;</item>
         /// <item><see cref="TangentZBottom"/> is set to <see cref="double.NaN"/>;</item>
-        /// <item><see cref="TangentLineNumber"/> is set to <c>0</c>;</item>
-        /// <item><see cref="MaxSpacingBetweenBoundaries"/> is set to <see cref="double.NaN"/>.</item>
+        /// <item><see cref="TangentLineNumber"/> is set to <c>0</c>.</item>
         /// </list>
         /// </remarks>
         public UpliftVanSlipPlane(UpliftVanGrid leftGrid, UpliftVanGrid rightGrid)
-            : this(double.NaN, double.NaN, 0, double.NaN)
+            : this(double.NaN, double.NaN, 0)
         {
             SetGrids(leftGrid, rightGrid);
             TangentLinesAutomaticAtBoundaries = true;
@@ -83,18 +81,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// </list>
         /// </remarks>
         public UpliftVanSlipPlane(UpliftVanGrid leftGrid, UpliftVanGrid rightGrid, double tangentZTop,
-                                  double tangentZBottom, int tangentLineNumber, double maxSpacingBetweenBoundaries)
-            : this(tangentZTop, tangentZBottom, tangentLineNumber, maxSpacingBetweenBoundaries)
+                                  double tangentZBottom, int tangentLineNumber)
+            : this(tangentZTop, tangentZBottom, tangentLineNumber)
         {
             SetGrids(leftGrid, rightGrid);
         }
 
-        private UpliftVanSlipPlane(double tangentZTop, double tangentZBottom, int tangentLineNumber, double maxSpacingBetweenBoundaries)
+        private UpliftVanSlipPlane(double tangentZTop, double tangentZBottom, int tangentLineNumber)
         {
             TangentZTop = tangentZTop;
             TangentZBottom = tangentZBottom;
             TangentLineNumber = tangentLineNumber;
-            MaxSpacingBetweenBoundaries = maxSpacingBetweenBoundaries;
         }
 
         /// <summary>
@@ -133,11 +130,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// Gets the number of tangent lines.
         /// </summary>
         public int TangentLineNumber { get; }
-
-        /// <summary>
-        /// Gets the max spacing between boundaries.
-        /// </summary>
-        public double MaxSpacingBetweenBoundaries { get; }
 
         private void SetGrids(UpliftVanGrid leftGrid, UpliftVanGrid rightGrid)
         {

@@ -71,7 +71,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
             Assert.AreEqual(0, slipPlane.TangentLineNumber);
-            Assert.IsNaN(slipPlane.MaxSpacingBetweenBoundaries);
         }
 
         [Test]
@@ -116,7 +115,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.IsNaN(slipPlane.TangentZTop);
             Assert.IsNaN(slipPlane.TangentZBottom);
             Assert.AreEqual(0, slipPlane.TangentLineNumber);
-            Assert.IsNaN(slipPlane.MaxSpacingBetweenBoundaries);
         }
 
         [Test]
@@ -161,7 +159,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.AreEqual(input.TangentLineZTop, slipPlane.TangentZTop);
             Assert.AreEqual(input.TangentLineZBottom, slipPlane.TangentZBottom);
             Assert.AreEqual(1, slipPlane.TangentLineNumber);
-            Assert.AreEqual(10, slipPlane.MaxSpacingBetweenBoundaries);
         }
 
         private static void AssertGrid(MacroStabilityInwardsGrid expectedGrid, UpliftVanGrid actualGrid)

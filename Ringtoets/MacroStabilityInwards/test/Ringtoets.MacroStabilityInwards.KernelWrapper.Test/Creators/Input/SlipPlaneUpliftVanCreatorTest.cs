@@ -63,11 +63,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double tangentLineZTop = random.NextDouble();
             double tangentLineZBottom = random.NextDouble();
             int tangentLineNumber = random.Next();
-            double maxSpacingBetweenBoundaries = random.NextDouble();
 
             var leftGrid = new UpliftVanGrid(leftGridXLeft, leftGridXRight, leftGridZTop, leftGridZBottom, leftGridXNumber, leftGridZNumber);
             var rightGrid = new UpliftVanGrid(rightGridXLeft, rightGridXRight, rightGridZTop, rightGridZBottom, rightGridXNumber, rightGridZNumber);
-            var slipPlane = new UpliftVanSlipPlane(leftGrid, rightGrid, tangentLineZTop, tangentLineZBottom, tangentLineNumber, maxSpacingBetweenBoundaries);
+            var slipPlane = new UpliftVanSlipPlane(leftGrid, rightGrid, tangentLineZTop, tangentLineZBottom, tangentLineNumber);
 
             // Call
             SlipPlaneUpliftVan slipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(slipPlane);
@@ -92,8 +91,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(tangentLineZTop, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(tangentLineNumber, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
-            Assert.AreEqual(maxSpacingBetweenBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
+            Assert.AreEqual(10, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries); // Only used in case of auto grid determination combined with specified tangent lines (unsupported by calculator)
         }
 
         [Test]
