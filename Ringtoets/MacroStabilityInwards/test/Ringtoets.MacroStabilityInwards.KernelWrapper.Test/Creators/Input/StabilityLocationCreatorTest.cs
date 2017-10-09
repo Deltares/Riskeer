@@ -207,14 +207,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double assessmentLevel = random.Next();
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolder = random.Next();
-            double xCoordinateDrainageConstruction = random.Next();
-            double zCoordinateDrainageConstruction = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
-            double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
-            double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
-            double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
-            double phreaticLineOffsetBelowDikeToeAtPolder = random.Next();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
             double leakageLengthOutwardsPhreaticLine3 = random.Next();
             double leakageLengthInwardsPhreaticLine3 = random.Next();
@@ -225,14 +219,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double penetrationLength = random.Next();
 
             UpliftVanDrainageConstruction drainageConstruction = drainageConstructionPresent
-                                                                     ? new UpliftVanDrainageConstruction(
-                                                                         xCoordinateDrainageConstruction, zCoordinateDrainageConstruction)
+                                                                     ? new UpliftVanDrainageConstruction(random.Next(), random.Next())
                                                                      : new UpliftVanDrainageConstruction();
             UpliftVanPhreaticLineOffsets phreaticLineOffsets = useDefaultOffsets
                                                                    ? new UpliftVanPhreaticLineOffsets()
-                                                                   : new UpliftVanPhreaticLineOffsets(
-                                                                       phreaticLineOffsetBelowDikeTopAtRiver, phreaticLineOffsetBelowDikeTopAtPolder,
-                                                                       phreaticLineOffsetBelowDikeToeAtPolder, phreaticLineOffsetBelowShoulderBaseInside);
+                                                                   : new UpliftVanPhreaticLineOffsets(random.Next(), random.Next(),
+                                                                                                      random.Next(), random.Next());
 
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties

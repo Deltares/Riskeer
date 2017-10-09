@@ -498,10 +498,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                     .LastCreatedUpliftVanCalculator.Input;
                 Assert.IsTrue(actualInput.SlipPlane.GridAutomaticDetermined);
-                Assert.IsNaN(actualInput.SlipPlane.TangentZTop);
-                Assert.IsNaN(actualInput.SlipPlane.TangentZBottom);
                 Assert.IsNull(actualInput.SlipPlane.LeftGrid);
                 Assert.IsNull(actualInput.SlipPlane.RightGrid);
+                Assert.IsTrue(actualInput.SlipPlane.TangentLinesAutomaticAtBoundaries);
+                Assert.IsNaN(actualInput.SlipPlane.TangentZTop);
+                Assert.IsNaN(actualInput.SlipPlane.TangentZBottom);
             }
         }
 
@@ -676,6 +677,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             for (var i = 0; i < expectedSlices.Length; i++)
             {
+                Assert.AreSame(expectedSlices[i].TopLeftPoint, actualSlices[i].TopLeftPoint);
+                Assert.AreSame(expectedSlices[i].TopRightPoint, actualSlices[i].TopRightPoint);
+                Assert.AreSame(expectedSlices[i].BottomLeftPoint, actualSlices[i].BottomLeftPoint);
+                Assert.AreSame(expectedSlices[i].BottomRightPoint, actualSlices[i].BottomRightPoint);
                 Assert.AreEqual(expectedSlices[i].Cohesion, actualSlices[i].Cohesion);
                 Assert.AreEqual(expectedSlices[i].FrictionAngle, actualSlices[i].FrictionAngle);
                 Assert.AreEqual(expectedSlices[i].CriticalPressure, actualSlices[i].CriticalPressure);

@@ -162,8 +162,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.Length, actual.Length);
 
             for (var i = 0; i < expected.Length; i++)
-            {PreConsolidationStress
-                 expectedPreconsolidationStress = expected[i];
+            {
+                PreConsolidationStress expectedPreconsolidationStress = expected[i];
                 PreConsolidationStress actualPreconsolidationStress = actual[i];
 
                 Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
