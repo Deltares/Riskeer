@@ -144,4 +144,13 @@
   <data name="Specified_DisplayName" xml:space="preserve">
     <value>Gespecificeerd</value>
   </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' voor de grensspanning moet een concreet getal zijn.</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName" xml:space="preserve">
+    <value>X-coördinaat</value>
+  </data>
+  <data name="MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName" xml:space="preserve">
+    <value>Z-coördinaat</value>
+  </data>
 </root>

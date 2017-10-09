@@ -1238,4 +1238,10 @@ Pf = {1}</value>
   <data name="CharacteristicPoint_DikeTopAtRiver_Description" xml:space="preserve">
     <value>De kruin van het talud wanneer de dijk van buiten de polder wordt benaderd.</value>
   </data>
+  <data name="DesignVariableProperties_DesignValue_Description" xml:space="preserve">
+    <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
+  </data>
+  <data name="DesignVariableProperties_DesignValue_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde</value>
+  </data>
 </root>

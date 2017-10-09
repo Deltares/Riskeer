@@ -23,10 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="DesignVariable{TDistributionType}"/> of <see cref="LogNormalDistribution"/> for properties panel.
@@ -35,7 +34,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         : VariationCoefficientDesignVariableProperties<VariationCoefficientLogNormalDistribution>
     {
         /// <summary>
-        /// Creates a new read-only <see cref="LogNormalDistributionDesignVariableProperties"/>.
+        /// Creates a new read-only <see cref="VariationCoefficientLogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>.</exception>
@@ -43,7 +42,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             : this(VariationCoefficientDistributionPropertiesReadOnly.All, designVariable, null) {}
 
         /// <summary>
-        /// Creates a new <see cref="LogNormalDistributionDesignVariableProperties"/>.
+        /// Creates a new <see cref="VariationCoefficientLogNormalDistributionDesignVariableProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The <see cref="DesignVariable{T}"/> to create the properties for.</param>

@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Primitives.Properties;
+using Ringtoets.MacroStabilityInwards.Data.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {

@@ -24,37 +24,33 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel base of <see cref="DesignVariable{TDistributionType}"/> for properties panel.
+    /// ViewModel base of <see cref="DesignVariable{T}"/> for properties panel.
     /// </summary>
     /// <typeparam name="TDistribution">The type of the distribution.</typeparam>
-    public abstract class DesignVariableProperties<TDistribution>
-        : DistributionPropertiesBase<TDistribution>
-        where TDistribution : IDistribution
+    public abstract class VariationCoefficientDesignVariableProperties<TDistribution>
+        : VariationCoefficientDistributionPropertiesBase<TDistribution>
+        where TDistribution : IVariationCoefficientDistribution
     {
         /// <summary>
-        /// Creates a new <see cref="DesignVariableProperties{TDistribution}"/>.
+        /// Creates a new <see cref="VariationCoefficientDesignVariableProperties{TDistribution}"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be marked as read-only.</param>
         /// <param name="designVariable">The data of the <see cref="TDistribution"/> to create the properties for.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/> is <c>null</c>
         /// or when any number of properties in this class is editable and any other parameter is <c>null</c>.</exception>
-        protected DesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
-                                           DesignVariable<TDistribution> designVariable,
-                                           IObservablePropertyChangeHandler handler)
+        protected VariationCoefficientDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+                                                               VariationCoefficientDesignVariable<TDistribution> designVariable,
+                                                               IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly, GetDistribution(designVariable), handler)
         {
             DesignVariable = designVariable;
         }
-
-        public abstract override string DistributionType { get; }
 
         [PropertyOrder(5)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignVariableProperties_DesignValue_DisplayName))]
@@ -69,14 +65,14 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{DesignValue} ({RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
-                   $"{RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation})";
+            return $"{DesignValue} ({Resources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
+                   $"{Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
         }
 
         /// <summary>
         /// Gets the design variable.
         /// </summary>
-        protected DesignVariable<TDistribution> DesignVariable { get; }
+        protected VariationCoefficientDesignVariable<TDistribution> DesignVariable { get; }
 
         /// <summary>
         /// Gets the <see cref="TDistribution"/> of the <see cref="DesignVariable{T}"/>.
@@ -85,7 +81,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <returns>The distribution of the design variable.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designVariable"/>
         /// is <c>null</c>.</exception>
-        private static TDistribution GetDistribution(DesignVariable<TDistribution> designVariable)
+        private static TDistribution GetDistribution(VariationCoefficientDesignVariable<TDistribution> designVariable)
         {
             if (designVariable == null)
             {

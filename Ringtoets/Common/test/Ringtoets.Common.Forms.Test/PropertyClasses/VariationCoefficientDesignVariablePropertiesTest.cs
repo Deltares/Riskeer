@@ -25,12 +25,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DesignVariablePropertiesTest
+    public class VariationCoefficientDesignVariablePropertiesTest
     {
         [Test]
         public void Constructor_DesignVariableNull_ThrowArgumentNullException()
@@ -41,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            TestDelegate test = () => new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
                                                                          null,
                                                                          handler);
 
@@ -57,18 +56,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mockRepository = new MockRepository();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var distribution = mockRepository.Stub<IVariationCoefficientDistribution>();
             mockRepository.ReplayAll();
 
-            var distribution = new LogNormalDistribution();
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            var designVariable = new SimpleVariationCoefficientDesignVariableProperties(distribution, RoundedDouble.NaN);
 
             // Call
-            var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.All,
+            var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.All,
                                                                 designVariable,
                                                                 handler);
 
             // Assert
-            Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
+            Assert.IsInstanceOf<VariationCoefficientDistributionPropertiesBase<IVariationCoefficientDistribution>>(properties);
             Assert.AreEqual(designVariable.GetDesignValue(), properties.DesignValue);
             mockRepository.VerifyAll();
         }
@@ -80,17 +79,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mockRepository = new MockRepository();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var distribution = mockRepository.Stub<IVariationCoefficientDistribution>();
             mockRepository.ReplayAll();
 
-            var distribution = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 2
-            };
-            var designVariable = new LogNormalDistributionDesignVariable(distribution);
+            const int numberOfDecimalPlaces = 2;
+            distribution.Mean = new RoundedDouble(numberOfDecimalPlaces, 1);
+            distribution.CoefficientOfVariation = new RoundedDouble(numberOfDecimalPlaces, 2);
+
+            var designVariable = new SimpleVariationCoefficientDesignVariableProperties(distribution, new RoundedDouble(numberOfDecimalPlaces, 0.45));
 
             // Call
-            var properties = new SimpleDesignVariableProperties(DistributionPropertiesReadOnly.None,
+            var properties = new SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly.None,
                                                                 designVariable,
                                                                 handler);
 
@@ -98,17 +97,35 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             string propertyName = properties.ToString();
 
             // Assert
-            Assert.AreEqual("0,45 (Verwachtingswaarde = 1,00, Standaardafwijking = 2,00)", propertyName);
+            Assert.AreEqual("0,45 (Verwachtingswaarde = 1,00, Variatiecoëfficiënt = 2,00)", propertyName);
         }
 
-        private class SimpleDesignVariableProperties : DesignVariableProperties<LogNormalDistribution>
+        private class SimpleDesignVariableProperties : VariationCoefficientDesignVariableProperties<IVariationCoefficientDistribution>
         {
-            public SimpleDesignVariableProperties(DistributionPropertiesReadOnly propertiesReadOnly,
-                                                  DesignVariable<LogNormalDistribution> designVariable,
+            public SimpleDesignVariableProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly,
+                                                  VariationCoefficientDesignVariable<IVariationCoefficientDistribution> designVariable,
                                                   IObservablePropertyChangeHandler handler)
                 : base(propertiesReadOnly, designVariable, handler) {}
 
             public override string DistributionType { get; }
+        }
+
+        private class SimpleVariationCoefficientDesignVariableProperties : VariationCoefficientDesignVariable<IVariationCoefficientDistribution>
+        {
+            private readonly RoundedDouble designValue;
+
+            public SimpleVariationCoefficientDesignVariableProperties(
+                IVariationCoefficientDistribution variationCoefficientLogNormalDistribution,
+                RoundedDouble designValue)
+                : base(variationCoefficientLogNormalDistribution)
+            {
+                this.designValue = designValue;
+            }
+
+            public override RoundedDouble GetDesignValue()
+            {
+                return designValue;
+            }
         }
     }
 }

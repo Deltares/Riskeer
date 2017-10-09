@@ -277,12 +277,6 @@
   <data name="Categories_Sellmeijer" xml:space="preserve">
     <value>Terugschrijdende erosie (Sellmeijer)</value>
   </data>
-  <data name="DesignVariableProperties_DesignValue_Description" xml:space="preserve">
-    <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
-  </data>
-  <data name="DesignVariableProperties_DesignValue_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde</value>
-  </data>
   <data name="PipingInput_EntryPointL_Description" xml:space="preserve">
     <value>De positie in het dwarsprofiel van het intredepunt.</value>
   </data>

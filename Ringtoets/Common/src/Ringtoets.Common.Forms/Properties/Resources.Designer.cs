@@ -1011,6 +1011,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De representatieve waarde die gebruikt wordt door de berekening..
+        /// </summary>
+        public static string DesignVariableProperties_DesignValue_Description {
+            get {
+                return ResourceManager.GetString("DesignVariableProperties_DesignValue_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde.
+        /// </summary>
+        public static string DesignVariableProperties_DesignValue_DisplayName {
+            get {
+                return ResourceManager.GetString("DesignVariableProperties_DesignValue_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetspeil.
         /// </summary>
         public static string DesignWaterLevel_DisplayName {

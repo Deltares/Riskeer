@@ -27,9 +27,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.PropertyClasses;
 
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class VariationCoefficientLogNormalDistributionDesignVariablePropertiesTest

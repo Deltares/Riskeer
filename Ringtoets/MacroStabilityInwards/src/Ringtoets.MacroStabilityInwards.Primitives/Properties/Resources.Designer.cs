@@ -109,50 +109,12 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to variatiecoëfficient.
-        /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVa" +
-                        "riation_ParameterName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to gemiddelde.
-        /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterN" +
-                        "ame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; voor de grensspanning moet een concreet getal zijn..
         /// </summary>
         public static string MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_Parame" +
                         "terName_0_must_be_a_concrete_value", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X-coördinaat.
-        /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Z-coördinaat.
-        /// </summary>
-        public static string MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName", resourceCulture);
             }
         }
         

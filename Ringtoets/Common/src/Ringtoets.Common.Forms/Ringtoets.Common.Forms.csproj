@@ -90,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\FaultTreeIllustrationPointProperties.cs" />
@@ -97,7 +98,9 @@
     <Compile Include="PropertyClasses\ForeshoreProfileCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StructureCollectionProperties.cs" />
     <Compile Include="PropertyClasses\StructuresOutputProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBase.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionDesignVariableProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\IObservablePropertyChangeHandler.cs" />
     <Compile Include="PropertyClasses\IFailureMechanismPropertyChangeHandler.cs" />
