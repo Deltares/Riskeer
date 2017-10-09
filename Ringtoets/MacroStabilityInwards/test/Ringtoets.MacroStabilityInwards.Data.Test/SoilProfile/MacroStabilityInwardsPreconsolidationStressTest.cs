@@ -42,10 +42,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             var distribution = new VariationCoefficientLogNormalDistribution
             {
-                Mean = (RoundedDouble)0.005,
+                Mean = (RoundedDouble) 0.005,
                 CoefficientOfVariation = random.NextRoundedDouble()
             };
-            
+
             // Call
             TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(null, distribution);
 
@@ -97,23 +97,42 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        [TestCaseSource(nameof(GetConstructorArgumentsNaN))]
-        public void Constructor_ArgumentsNaN_ThrowsArgumentException(double xCoordinate,
-                                                                     double zCoordinate,
-                                                                     double stressMean,
-                                                                     double stressCoefficientOfVariation,
-                                                                     string parameterName)
+        public void Constructor_DistributionArgumentsNaN_ReturnsExpectedValues()
         {
             // Setup
-            var location = new Point2D(xCoordinate, zCoordinate);
-            var stressDistribution = new VariationCoefficientLogNormalDistribution
+            var random = new Random(21);
+
+            var location = new Point2D(random.NextDouble(), random.NextDouble());
+            var distribution = new VariationCoefficientLogNormalDistribution
             {
-                Mean = (RoundedDouble) stressMean,
-                CoefficientOfVariation = (RoundedDouble) stressCoefficientOfVariation
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
             };
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(location, stressDistribution);
+            var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
+
+            // Assert
+            Assert.AreEqual(location, stress.Location);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = RoundedDouble.NaN,
+                CoefficientOfVariation = RoundedDouble.NaN
+            }, stress.Stress);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetConstructorArgumentsNaN))]
+        public void Constructor_CoordinateArgumentsNaN_ThrowsArgumentException(double xCoordinate,
+                                                                               double zCoordinate,
+                                                                               string parameterName)
+        {
+            // Setup
+            var location = new Point2D(xCoordinate, zCoordinate);
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(location, new VariationCoefficientLogNormalDistribution(2));
 
             // Assert
             string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
@@ -350,13 +369,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             double xCoordinate = random.NextDouble();
             double zCoordinate = random.NextDouble();
-            const double stressMean = 0.005;
-            double stressCoefficientOfVariation = random.NextDouble();
 
-            yield return new TestCaseData(double.NaN, zCoordinate, stressMean, stressCoefficientOfVariation, "X-coördinaat").SetName("Invalid XCoordinate");
-            yield return new TestCaseData(xCoordinate, double.NaN, stressMean, stressCoefficientOfVariation, "Z-coördinaat").SetName("Invalid ZCoordinate");
-            yield return new TestCaseData(xCoordinate, zCoordinate, double.NaN, stressCoefficientOfVariation, "gemiddelde").SetName("Invalid Mean");
-            yield return new TestCaseData(xCoordinate, zCoordinate, stressMean, double.NaN, "variatiecoëfficient").SetName("Invalid Coefficient of Variation");
+            yield return new TestCaseData(double.NaN, zCoordinate, "X-coördinaat").SetName("Invalid XCoordinate");
+            yield return new TestCaseData(xCoordinate, double.NaN, "Z-coördinaat").SetName("Invalid ZCoordinate");
         }
 
         private class DerivedMacroStabilityInwardsPreconsolidationStress : MacroStabilityInwardsPreconsolidationStress

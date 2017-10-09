@@ -178,20 +178,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                 StressMean = preconsolidationStressMean,
                 StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
             }, "Z-coördinaat").SetName("ZCoordinate NaN");
-            yield return new TestCaseData(new PreconsolidationStress
-            {
-                XCoordinate = xCoordinate,
-                ZCoordinate = zCoordinate,
-                StressMean = double.NaN,
-                StressCoefficientOfVariation = preconsolidationStressCoefficientOfVariation
-            }, "gemiddelde").SetName("Mean NaN");
-            yield return new TestCaseData(new PreconsolidationStress
-            {
-                XCoordinate = xCoordinate,
-                ZCoordinate = zCoordinate,
-                StressMean = preconsolidationStressMean,
-                StressCoefficientOfVariation = double.NaN
-            }, "variatiecoëfficient").SetName("Coefficient of Variation NaN");
         }
     }
 }

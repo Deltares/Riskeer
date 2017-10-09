@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="location">The location of the preconsolidation stress.</param>
         /// <param name="stressDistribution">The stress distribution belonging to the preconsolidation stress.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when any of the parameters are <see cref="double.NaN"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when parameters of <paramref name="location"/> are <see cref="double.NaN"/>.</exception>
         public MacroStabilityInwardsPreconsolidationStress(Point2D location, VariationCoefficientLogNormalDistribution stressDistribution)
         {
             if (location == null)
@@ -52,9 +52,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
             ValidateParameterNaN(location.X, Resources.MacroStabilityInwardsPreconsolidationStress_XCoordinate_ParameterName);
             ValidateParameterNaN(location.Y, Resources.MacroStabilityInwardsPreconsolidationStress_ZCoordinate_ParameterName);
-            ValidateParameterNaN(stressDistribution.Mean, Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressMean_ParameterName);
-            ValidateParameterNaN(stressDistribution.CoefficientOfVariation,
-                                 Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStressCoefficientOfVariation_ParameterName);
 
             Location = location;
 
