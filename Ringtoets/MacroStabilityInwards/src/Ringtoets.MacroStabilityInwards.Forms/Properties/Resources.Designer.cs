@@ -361,6 +361,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dagelijkse omstandigheden.
+        /// </summary>
+        public static string LocationDaily_DisplayName {
+            get {
+                return ResourceManager.GetString("LocationDaily_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extreme omstandigheden.
+        /// </summary>
+        public static string LocationExtreme_DisplayName {
+            get {
+                return ResourceManager.GetString("LocationExtreme_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string MacroStabilityInwardsCalculation_Name_DisplayName {
@@ -875,9 +893,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag..
         /// </summary>
-        public static string PenetrationLength_Description {
+        public static string PenetrationLength_Daily_Description {
             get {
-                return ResourceManager.GetString("PenetrationLength_Description", resourceCulture);
+                return ResourceManager.GetString("PenetrationLength_Daily_Description", resourceCulture);
             }
         }
         
@@ -887,6 +905,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string PenetrationLength_DisplayName {
             get {
                 return ResourceManager.GetString("PenetrationLength_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag onder extreme omstandigheden..
+        /// </summary>
+        public static string PenetrationLength_Extreme_Description {
+            get {
+                return ResourceManager.GetString("PenetrationLength_Extreme_Description", resourceCulture);
             }
         }
         
@@ -1227,11 +1254,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het niveau van het oppervlaktewater binnen een beheersgebied..
+        ///   Looks up a localized string similar to Het niveau van het oppervlaktewater binnen een beheersgebied onder dagelijkse omstandigheden..
         /// </summary>
-        public static string WaterLevelPolder_Description {
+        public static string WaterLevelPolder_Daily_Description {
             get {
-                return ResourceManager.GetString("WaterLevelPolder_Description", resourceCulture);
+                return ResourceManager.GetString("WaterLevelPolder_Daily_Description", resourceCulture);
             }
         }
         
@@ -1241,6 +1268,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string WaterLevelPolder_DisplayName {
             get {
                 return ResourceManager.GetString("WaterLevelPolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het niveau van het oppervlaktewater binnen een beheersgebied onder extreme omstandigheden..
+        /// </summary>
+        public static string WaterLevelPolder_Extreme_Description {
+            get {
+                return ResourceManager.GetString("WaterLevelPolder_Extreme_Description", resourceCulture);
             }
         }
         

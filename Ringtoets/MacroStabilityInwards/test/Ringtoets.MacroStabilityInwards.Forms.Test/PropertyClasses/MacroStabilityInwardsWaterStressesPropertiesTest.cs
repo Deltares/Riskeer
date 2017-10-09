@@ -40,19 +40,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     public class MacroStabilityInwardsWaterStressesPropertiesTest
     {
         private const int expectedWaterLevelRiverAveragePropertyIndex = 0;
-        private const int expectedwaterLevelPolderPropertyIndex = 1;
-        private const int expectedDrainagePropertyIndex = 2;
-        private const int expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 3;
-        private const int expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 4;
-        private const int expecteOffsetPropertyIndex = 5;
-        private const int expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex = 6;
-        private const int expectedLeakageLengthOutwardsPhreaticLine3PropertyIndex = 7;
-        private const int expectedLeakageLengthInwardsPhreaticLine3PropertyIndex = 8;
-        private const int expectedLeakageLengthOutwardsPhreaticLine4PropertyIndex = 9;
-        private const int expectedLeakageLengthInwardsPhreaticLine4PropertyIndex = 10;
-        private const int expectedPiezometricHeadPhreaticLine2OutwardsPropertyIndex = 11;
-        private const int expectedPiezometricHeadPhreaticLine2InwardsPropertyIndex = 12;
-        private const int expectedPenetrationLengthPropertyIndex = 13;
+        private const int expectedDrainagePropertyIndex = 1;
+        private const int expectedMinimumLevelPhreaticLineAtDikeTopRiverPropertyIndex = 2;
+        private const int expectedMinimumLevelPhreaticLineAtDikeTopPolderPropertyIndex = 3;
+        private const int expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex = 4;
+        private const int expectedLeakageLengthOutwardsPhreaticLine3PropertyIndex = 5;
+        private const int expectedLeakageLengthInwardsPhreaticLine3PropertyIndex = 6;
+        private const int expectedLeakageLengthOutwardsPhreaticLine4PropertyIndex = 7;
+        private const int expectedLeakageLengthInwardsPhreaticLine4PropertyIndex = 8;
+        private const int expectedPiezometricHeadPhreaticLine2OutwardsPropertyIndex = 9;
+        private const int expectedPiezometricHeadPhreaticLine2InwardsPropertyIndex = 10;
+        private const int locationExtremePropertyIndex = 11;
+        private const int locationDailyPropertyIndex = 12;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -70,6 +69,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
             Assert.AreSame(input, properties.Data);
+
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsWaterStressesProperties.Drainage));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsWaterStressesProperties.LocationDaily));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsWaterStressesProperties.LocationExtreme));
+
             mocks.VerifyAll();
         }
 
@@ -118,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(14, dynamicProperties.Count);
+            Assert.AreEqual(13, dynamicProperties.Count);
 
             const string waterStressesCategory = "Waterspanningen";
 
@@ -129,16 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Gemiddeld hoog water (GHW) [m+NAP]",
                 "Gemiddeld hoog water.");
 
-            PropertyDescriptor waterLevelPolderProperty = dynamicProperties[expectedwaterLevelPolderPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                waterLevelPolderProperty,
-                waterStressesCategory,
-                "Polderpeil [m+NAP]",
-                "Het niveau van het oppervlaktewater binnen een beheersgebied.");
-
             PropertyDescriptor drainageProperty = dynamicProperties[expectedDrainagePropertyIndex];
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
-                nameof(MacroStabilityInwardsWaterStressesProperties.Drainage));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 drainageProperty,
                 waterStressesCategory,
@@ -159,16 +157,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 waterStressesCategory,
                 "PL 1 initiële hoogte onder binnenkruin [m+NAP]",
                 "Minimale hoogte van de freatische lijn onder kruin binnentalud.");
-
-            PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
-                nameof(MacroStabilityInwardsWaterStressesProperties.Offsets));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                offsetProperty,
-                waterStressesCategory,
-                "Offsets PL 1",
-                "Eigenschappen van offsets PL 1.",
-                true);
 
             PropertyDescriptor adjustPhreaticLine3And4ForUpliftProperty = dynamicProperties[expecteAdjustPhreaticLine3And4ForUpliftPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -219,12 +207,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Stijghoogte PL 2 binnenwaarts [m+NAP]",
                 "Stijghoogte in de indringingslaag binnenwaarts.");
 
-            PropertyDescriptor penetrationLengthProperty = dynamicProperties[expectedPenetrationLengthPropertyIndex];
+            PropertyDescriptor locationExtremeProperty = dynamicProperties[locationExtremePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                penetrationLengthProperty,
+                locationExtremeProperty,
                 waterStressesCategory,
-                "Indringingslengte [m]",
-                "De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.");
+                "Extreme omstandigheden",
+                "",
+                true);
+
+            PropertyDescriptor locationDailyProperty = dynamicProperties[locationDailyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                locationDailyProperty,
+                waterStressesCategory,
+                "Dagelijkse omstandigheden",
+                "",
+                true);
 
             mocks.VerifyAll();
         }
@@ -244,11 +241,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
-            Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, properties.WaterLevelPolder);
+            Assert.AreEqual(input.LocationInputExtreme, properties.LocationExtreme.Data);
+            Assert.AreEqual(input.LocationInputDaily, properties.LocationDaily.Data);
             Assert.AreSame(input, properties.Drainage.Data);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, properties.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, properties.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreSame(input.LocationInputExtreme, properties.Offsets.Data);
             Assert.AreEqual(input.AdjustPhreaticLine3And4ForUplift, properties.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine3, properties.LeakageLengthOutwardsPhreaticLine3);
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine3, properties.LeakageLengthInwardsPhreaticLine3);
@@ -256,7 +253,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, properties.LeakageLengthInwardsPhreaticLine4);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, properties.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, properties.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, properties.PenetrationLength);
             mocks.VerifyAll();
         }
 
@@ -272,7 +268,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var random = new Random();
             double waterLevelRiverAverage = random.Next();
-            double waterLevelPolder = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
@@ -282,11 +277,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             double leakageLengthInwardsPhreaticLine4 = random.Next();
             double piezometricHeadPhreaticLine2Outwards = random.Next();
             double piezometricHeadPhreaticLine2Inwards = random.Next();
-            double penetrationLength = random.Next();
 
             // When
             properties.WaterLevelRiverAverage = (RoundedDouble) waterLevelRiverAverage;
-            properties.WaterLevelPolder = (RoundedDouble) waterLevelPolder;
             properties.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopRiver;
             properties.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) minimumLevelPhreaticLineAtDikeTopPolder;
             properties.AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift;
@@ -296,13 +289,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) leakageLengthInwardsPhreaticLine4;
             properties.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) piezometricHeadPhreaticLine2Outwards;
             properties.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) piezometricHeadPhreaticLine2Inwards;
-            properties.PenetrationLength = (RoundedDouble) penetrationLength;
 
             // Then
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage,
                             input.WaterLevelRiverAverage.GetAccuracy());
-            Assert.AreEqual(waterLevelPolder, input.LocationInputExtreme.WaterLevelPolder,
-                            input.LocationInputExtreme.WaterLevelPolder.GetAccuracy());
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver,
                             input.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder,
@@ -320,8 +310,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                             input.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
             Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, input.PiezometricHeadPhreaticLine2Inwards,
                             input.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
-            Assert.AreEqual(penetrationLength, input.LocationInputExtreme.PenetrationLength,
-                            input.LocationInputExtreme.PenetrationLength.GetAccuracy());
         }
 
         [Test]
@@ -332,16 +320,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelRiverAverage = (RoundedDouble) 1, calculation);
-        }
-
-        [Test]
-        public void WaterLevelPolder_SetValidValue_SetsValueAndUpdatesObservers()
-        {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-
-            // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelPolder = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -432,16 +410,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call & Assert
             SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 1, calculation);
-        }
-
-        [Test]
-        public void PenetrationLength_SetValidValue_SetsValueAndUpdatesObservers()
-        {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-
-            // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PenetrationLength = (RoundedDouble) 1, calculation);
         }
 
         [Test]
