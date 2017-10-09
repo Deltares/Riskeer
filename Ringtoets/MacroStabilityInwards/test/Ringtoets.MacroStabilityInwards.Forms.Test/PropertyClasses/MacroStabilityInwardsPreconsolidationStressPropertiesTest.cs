@@ -65,8 +65,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.ZCoordinate.NumberOfDecimalPlaces);
             Assert.AreEqual(preconsolidationStress.Location.Y, properties.ZCoordinate, properties.ZCoordinate.GetAccuracy());
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.PreconsolidationStress);
-            Assert.AreSame(preconsolidationStress.Stress, properties.PreconsolidationStress.Data);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.PreconsolidationStress);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsPreconsolidationStressProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsPreconsolidationStressProperties.PreconsolidationStress));
+            Assert.AreEqual(preconsolidationStress.Stress.Mean, properties.PreconsolidationStress.Mean);
+            Assert.AreEqual(preconsolidationStress.Stress.CoefficientOfVariation, properties.PreconsolidationStress.CoefficientOfVariation);
         }
 
         [Test]

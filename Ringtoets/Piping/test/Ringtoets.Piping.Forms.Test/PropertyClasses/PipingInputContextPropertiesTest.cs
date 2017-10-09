@@ -140,6 +140,43 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<PipingInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.AreSame(context, properties.Data);
+
+            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.DampingFactorExit);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.DampingFactorExit));
+
+            Assert.IsInstanceOf<NormalDistributionDesignVariableProperties>(properties.PhreaticLevelExit);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.PhreaticLevelExit));
+
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.SeepageLength);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.SeepageLength));
+
+            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.ThicknessCoverageLayer);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.ThicknessCoverageLayer));
+
+            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.EffectiveThicknessCoverageLayer);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.EffectiveThicknessCoverageLayer));
+
+            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.ThicknessAquiferLayer);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.ThicknessAquiferLayer));
+
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.DarcyPermeability);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.DarcyPermeability));
+
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.Diameter70);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.Diameter70));
+
+            Assert.IsInstanceOf<ShiftedLogNormalDistributionDesignVariableProperties>(properties.SaturatedVolumicWeightOfCoverageLayer);
+            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(PipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayer));
+
             mocks.VerifyAll();
         }
 

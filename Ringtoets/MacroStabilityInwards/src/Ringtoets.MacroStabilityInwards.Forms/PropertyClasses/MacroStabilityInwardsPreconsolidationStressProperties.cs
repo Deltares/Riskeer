@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -76,14 +77,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsPreconsolidationStress_PreconsolidationStress_Description))]
-        public VariationCoefficientLogNormalDistributionProperties PreconsolidationStress
+        public VariationCoefficientLogNormalDistributionDesignVariableProperties PreconsolidationStress
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionProperties(data.Stress);
+                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
+                    MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(data));
             }
         }
 
