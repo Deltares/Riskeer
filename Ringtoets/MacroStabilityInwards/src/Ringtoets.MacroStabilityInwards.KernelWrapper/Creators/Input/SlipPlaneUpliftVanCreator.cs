@@ -48,8 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             var kernelSlipPlane = new SlipPlaneUpliftVan
             {
-                ActiveSide = ActiveSideType.Left,
-                SlipPlaneTangentLine = CreateTangentline(slipPlane)
+                ActiveSide = ActiveSideType.Left
             };
 
             if (!slipPlane.GridAutomaticDetermined)

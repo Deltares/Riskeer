@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         }
 
         [Test]
-        public void Convert_MacroStabilityInwardsGridDeterminationTypeManualAdnTangentLineDeterminationTypeLayerSeparated_ReturnUpliftVanSlipPlane()
+        public void Convert_MacroStabilityInwardsGridDeterminationTypeManualAndTangentLineDeterminationTypeLayerSeparated_ReturnUpliftVanSlipPlane()
         {
             // Setup
             var random = new Random(11);
@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         }
 
         [Test]
-        public void Convert_MacroStabilityInwardsGridDeterminationTypeManualAdnTangentLineDeterminationTypeSpecified_ReturnUpliftVanSlipPlane()
+        public void Convert_MacroStabilityInwardsGridDeterminationTypeManualAndTangentLineDeterminationTypeSpecified_ReturnUpliftVanSlipPlane()
         {
             // Setup
             var random = new Random(11);
@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.AreEqual(10, slipPlane.MaxSpacingBetweenBoundaries);
         }
 
-        private void AssertGrid(MacroStabilityInwardsGrid expectedGrid, UpliftVanGrid actualGrid)
+        private static void AssertGrid(MacroStabilityInwardsGrid expectedGrid, UpliftVanGrid actualGrid)
         {
             Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
             Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);

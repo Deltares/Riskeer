@@ -95,5 +95,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(maxSpacingBetweenBoundaries, slipPlaneUpliftVan.SlipPlaneTangentLine.MaxSpacingBetweenBoundaries);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
         }
+
+        [Test]
+        public void Create_SlipPlaneGridsAutomatic_ReturnSlipPlaneUpliftVan()
+        {
+            // Setup
+            var slipPlane = new UpliftVanSlipPlane();
+
+            // Call
+            SlipPlaneUpliftVan slipPlaneUpliftVan = SlipPlaneUpliftVanCreator.Create(slipPlane);
+
+            // Assert
+            Assert.AreEqual(ActiveSideType.Left, slipPlaneUpliftVan.ActiveSide);
+            Assert.IsNotNull(slipPlaneUpliftVan.SlipPlaneLeftGrid);
+            Assert.IsNotNull(slipPlaneUpliftVan.SlipPlaneRightGrid);
+            Assert.IsNotNull(slipPlaneUpliftVan.SlipPlaneTangentLine);
+        }
     }
 }

@@ -35,6 +35,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <param name="properties">The object containing the values for the properties 
         /// of the new <see cref="UpliftVanCalculatorInput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when one of the following properties is <c>null</c>:
+        /// <list type="bullet">
+        /// <item><see cref="ConstructionProperties.SurfaceLine"/>;</item>
+        /// <item><see cref="ConstructionProperties.SoilProfile"/>;</item>
+        /// <item><see cref="ConstructionProperties.DrainageConstruction"/>;</item>
+        /// <item><see cref="ConstructionProperties.PhreaticLineOffsets"/>;</item>
+        /// <item><see cref="ConstructionProperties.SlipPlane"/>.</item>
+        /// </list>
+        /// </exception>
         public UpliftVanCalculatorInput(ConstructionProperties properties)
         {
             if (properties == null)
