@@ -121,7 +121,7 @@ namespace Core.Components.Gis.Test.Data
         [TestCase(null)]
         [TestCase("")]
         [TestCase("    ")]
-        public void SingleParameterdConstructor_NameInvalid_ThrowArgumentException(string invalidName)
+        public void SingleParameteredConstructor_NameInvalid_ThrowArgumentException(string invalidName)
         {
             // Call
             TestDelegate call = () => new WmtsMapData(invalidName);

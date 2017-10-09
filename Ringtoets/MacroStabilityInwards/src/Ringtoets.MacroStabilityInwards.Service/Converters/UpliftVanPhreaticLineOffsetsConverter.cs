@@ -26,13 +26,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
-    /// Converter to convert <see cref="MacroStabilityInwardsInput"/> phreatic line offsets properties
+    /// Converter to convert <see cref="MacroStabilityInwardsInput"/> phreatic line offset properties
     /// into <see cref="UpliftVanPhreaticLineOffsets"/>.
     /// </summary>
     internal static class UpliftVanPhreaticLineOffsetsConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsInput"/> phreatic line offsets properties
+        /// Converts <see cref="MacroStabilityInwardsInput"/> phreatic line offset properties
         /// into <see cref="UpliftVanPhreaticLineOffsets"/>.
         /// </summary>
         /// <param name="input">The input to get the properties from.</param>

@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void ParameterdConstructor_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var random = new Random(11);

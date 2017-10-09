@@ -64,11 +64,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.IsNaN(offsets.BelowDikeTopAtRiver);
             Assert.IsNaN(offsets.BelowDikeTopAtPolder);
             Assert.IsNaN(offsets.BelowDikeToeAtPolder);
-            Assert.IsNaN(offsets.BelowShoulderBaseInside);            
+            Assert.IsNaN(offsets.BelowShoulderBaseInside);
         }
 
         [Test]
-        public void Convert_UseDefaultOffsetsFalses_ReturnUpliftVanPhreaticLineOffsets()
+        public void Convert_UseDefaultOffsetsFalse_ReturnUpliftVanPhreaticLineOffsets()
         {
             // Setup
             var random = new Random(11);
