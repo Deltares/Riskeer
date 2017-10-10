@@ -69,10 +69,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(1.1)]
-        [TestCase(-0.1)]
-        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException(double probability)
+        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -81,7 +78,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
+            var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
 
             // Call
             TestDelegate call = () => PipingStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, pipingSoilProfile);

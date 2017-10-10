@@ -70,10 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(1.1)]
-        [TestCase(-0.1)]
-        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException(double probability)
+        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -81,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
             mocks.ReplayAll();
 
-            var stochasticSoilProfile = new StochasticSoilProfile(probability, soilProfile);
+            var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(stochasticSoilProfile, macroStabilityInwardsSoilProfile);

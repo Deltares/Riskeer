@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_SoilProfile2DWithoutLayers_ThrowsImportedDataTransformException()
+        public void Transform_MinimumSoilProfile2D_ThrowsImportedDataTransformException()
         {
             // Setup
             var random = new Random(21);
@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_SoilProfile1DWithoutLayers_ThrowsImportedDataTransformException()
+        public void Transform_MinimumSoilProfile1D_ThrowsImportedDataTransformException()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -383,34 +383,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                             profileName,
                                             bottom,
                                             Enumerable.Empty<SoilLayer1D>());
-
-            // Call
-            TestDelegate call = () => PipingSoilProfileTransformer.Transform(profile);
-
-            // Assert
-            var exception = Assert.Throws<ImportedDataTransformException>(call);
-
-            Exception innerException = exception.InnerException;
-            Assert.IsInstanceOf<ArgumentException>(innerException);
-            Assert.AreEqual(innerException.Message, exception.Message);
-        }
-
-        [Test]
-        public void Transform_SoilProfileBottomAboveTop_ThrowsImportedDataTransformException()
-        {
-            // Setup
-            const string profileName = "SomeProfile";
-            const double bottom = 10;
-            const double top = -10;
-            const long pipingSoilProfileId = 1234L;
-
-            var profile = new SoilProfile1D(pipingSoilProfileId,
-                                            profileName,
-                                            bottom,
-                                            new[]
-                                            {
-                                                SoilLayer1DTestFactory.CreateSoilLayer1DWithValidAquifer(top)
-                                            });
 
             // Call
             TestDelegate call = () => PipingSoilProfileTransformer.Transform(profile);

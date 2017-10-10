@@ -385,9 +385,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             // Setup
             const string modelsName = "same model";
 
-            MacroStabilityInwardsStochasticSoilModel model =
+            MacroStabilityInwardsStochasticSoilModel existingModel =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(modelsName, CreateStochasticSoilProfiles());
-            MacroStabilityInwardsStochasticSoilModel existingModel = model;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             MacroStabilityInwardsStochasticSoilModelCollection targetCollection = failureMechanism.StochasticSoilModels;
