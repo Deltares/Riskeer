@@ -155,6 +155,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.TangentLineZBottom);
             Assert.AreEqual(2, inputParameters.TangentLineZBottom.NumberOfDecimalPlaces);
 
+            Assert.AreEqual(1, inputParameters.TangentLineNumber);
+
             Assert.IsNotNull(inputParameters.LeftGrid);
             Assert.IsNotNull(inputParameters.RightGrid);
 
@@ -167,22 +169,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random();
-            double slipPlaneMinimumDepth = random.Next();
-            double slipPlaneMinimumLength = random.Next();
-            double maximumSliceWidth = random.Next();
-            double waterLevelRiverAverage = random.Next();
-            double xCoordinateDrainageConstruction = random.Next();
-            double zCoordinateDrainageConstruction = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
-            double leakageLengthOutwardsPhreaticLine3 = random.Next();
-            double leakageLengthInwardsPhreaticLine3 = random.Next();
-            double leakageLengthOutwardsPhreaticLine4 = random.Next();
-            double leakageLengthInwardsPhreaticLine4 = random.Next();
-            double piezometricHeadPhreaticLine2Outwards = random.Next();
-            double piezometricHeadPhreaticLine2Inwards = random.Next();
-            double tangentLineZTop = random.Next();
-            double tangentLineZBottom = random.Next();
+            double slipPlaneMinimumDepth = random.NextDouble();
+            double slipPlaneMinimumLength = random.NextDouble();
+            double maximumSliceWidth = random.NextDouble();
+            double waterLevelRiverAverage = random.NextDouble();
+            double xCoordinateDrainageConstruction = random.NextDouble();
+            double zCoordinateDrainageConstruction = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine4 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
+            double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
+            double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
+            double tangentLineZTop = random.NextDouble();
+            double tangentLineZBottom = random.NextDouble();
+            int tangentLineNumber = random.Next();
 
             // Call
             var input = new MacroStabilityInwardsInput
@@ -202,7 +205,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) piezometricHeadPhreaticLine2Outwards,
                 PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) piezometricHeadPhreaticLine2Inwards,
                 TangentLineZTop = (RoundedDouble) tangentLineZTop,
-                TangentLineZBottom = (RoundedDouble) tangentLineZBottom
+                TangentLineZBottom = (RoundedDouble) tangentLineZBottom,
+                TangentLineNumber = tangentLineNumber
             };
 
             // Assert
@@ -222,6 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Inwards), input.PiezometricHeadPhreaticLine2Inwards);
             Assert.AreEqual(new RoundedDouble(2, tangentLineZTop), input.TangentLineZTop);
             Assert.AreEqual(new RoundedDouble(2, tangentLineZBottom), input.TangentLineZBottom);
+            Assert.AreEqual(tangentLineNumber, input.TangentLineNumber);
         }
 
         [Test]

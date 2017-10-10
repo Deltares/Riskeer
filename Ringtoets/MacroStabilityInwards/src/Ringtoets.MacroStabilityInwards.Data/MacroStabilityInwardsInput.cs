@@ -96,6 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             tangentLineZTop = new RoundedDouble(2, double.NaN);
             tangentLineZBottom = new RoundedDouble(2, double.NaN);
+            TangentLineNumber = 1;
 
             LeftGrid = new MacroStabilityInwardsGrid();
             RightGrid = new MacroStabilityInwardsGrid();
@@ -305,6 +306,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 tangentLineZBottom = value.ToPrecision(tangentLineZBottom.NumberOfDecimalPlaces);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the number of tangent lines.
+        /// </summary>
+        public int TangentLineNumber { get; set; }
 
         /// <summary>
         /// Gets the left grid.
