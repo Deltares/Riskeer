@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? MacroStabilityInwardsProbability { get; set; }
         public double? MacroStabilityInwardsReliability { get; set; }
         public double? MacroStabilityInwardsFactorOfSafety { get; set; }
+        public double? MacroStabilityInwardsFactorOfStability { get; set; }
 
         public virtual MacroStabilityInwardsCalculationEntity MacroStabilityInwardsCalculationEntity { get; set; }
     }
