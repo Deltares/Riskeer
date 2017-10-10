@@ -44,7 +44,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>A collection of unique <see cref="StochasticSoilProfile"/> to transform.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<StochasticSoilProfile> GetUniqueStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
-                                                                                                       string soilModelName)
+                                                                                         string soilModelName)
         {
             if (stochasticSoilProfiles == null)
             {
