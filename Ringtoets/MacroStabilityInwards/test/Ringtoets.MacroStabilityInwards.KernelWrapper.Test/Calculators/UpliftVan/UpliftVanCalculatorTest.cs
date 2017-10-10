@@ -184,7 +184,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
-//            SetCompleteKernelOutput(upliftVanKernel);
             upliftVanKernel.ThrowExceptionOnCalculate = true;
 
             // Call

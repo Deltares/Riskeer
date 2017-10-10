@@ -354,7 +354,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                             SurfaceLine = surfaceLine2
                         },
                         SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                            0.1,
+                            double.NaN,
                             double.NaN,
                             double.NaN,
                             1.5e-3,

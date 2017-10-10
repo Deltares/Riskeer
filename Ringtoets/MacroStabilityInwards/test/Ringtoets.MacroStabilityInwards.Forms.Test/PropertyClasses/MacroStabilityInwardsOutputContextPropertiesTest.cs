@@ -89,13 +89,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
-            // Setup
-            var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(0, 0, 0, 0, 0, 0);
-
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
             {
-                Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(), semiProbabilisticOutput)
+                Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(),
+                                                              new TestMacroStabilityInwardsSemiProbabilisticOutput())
             };
 
             // Assert
@@ -107,21 +105,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var random = new Random(22);
-
-            var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble());
-
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
             {
-                Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(), semiProbabilisticOutput)
+                Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(),
+                                                              new TestMacroStabilityInwardsSemiProbabilisticOutput())
             };
 
             // Assert

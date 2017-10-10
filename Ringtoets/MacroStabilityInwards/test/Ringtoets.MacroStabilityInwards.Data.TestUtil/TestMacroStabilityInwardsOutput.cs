@@ -33,10 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// Creates a new instance of <see cref="TestMacroStabilityInwardsOutput"/>.
         /// </summary>
         public TestMacroStabilityInwardsOutput()
-            : this(new ConstructionProperties
-            {
-                FactorOfStability = 1.1
-            }) {}
+            : this(new ConstructionProperties()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestMacroStabilityInwardsOutput"/>.

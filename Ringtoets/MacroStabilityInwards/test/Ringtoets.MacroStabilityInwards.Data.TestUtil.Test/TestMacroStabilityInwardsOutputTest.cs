@@ -35,7 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsOutput>(output);
-            Assert.AreEqual(1.1, output.FactorOfStability);
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
         }
@@ -67,6 +66,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(zValue, output.ZValue);
             Assert.AreEqual(forbiddenZonesXEntryMax, output.ForbiddenZonesXEntryMax);
             Assert.AreEqual(forbiddenZonesXEntryMin, output.ForbiddenZonesXEntryMin);
+            Assert.IsNotNull(output.SlidingCurve);
+            Assert.IsNotNull(output.SlipPlane);
         }
     }
 }

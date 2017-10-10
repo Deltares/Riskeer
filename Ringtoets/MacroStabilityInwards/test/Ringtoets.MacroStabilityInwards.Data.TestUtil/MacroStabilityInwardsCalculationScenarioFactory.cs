@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble(),
-                (RoundedDouble) probability,
+                probability,
                 random.NextDouble(),
                 random.NextDouble());
 
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
         public static MacroStabilityInwardsCalculationScenario CreateFailedMacroStabilityInwardsCalculationScenario(FailureMechanismSection section)
         {
-            return CreateMacroStabilityInwardsCalculationScenario(RoundedDouble.NaN, section);
+            return CreateMacroStabilityInwardsCalculationScenario(double.NaN, section);
         }
 
         /// <summary>
