@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\WTI\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -665,6 +665,122 @@
           <Property Name="Value" Type="real" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MacroStabilityInwardsCalculationEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="integer" />
+          <Property Name="MacroStabilityInwardsStochasticSoilProfileEntityId" Type="integer" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="real" />
+          <Property Name="AssessmentLevel" Type="real" />
+          <Property Name="UseAssessmentLevelManualInput" Type="tinyint" Nullable="false" />
+          <Property Name="SlipPlaneMinimumDepth" Type="real" />
+          <Property Name="SlipPlaneMinimumLength" Type="real" />
+          <Property Name="MaximumSliceWidth" Type="real" />
+          <Property Name="MoveGrid" Type="tinyint" Nullable="false" />
+          <Property Name="GridDeterminationType" Type="tinyint" Nullable="false" />
+          <Property Name="TangentLineDeterminationType" Type="tinyint" Nullable="false" />
+          <Property Name="TangentLineZTop" Type="real" />
+          <Property Name="TangentLineZBottom" Type="real" />
+          <Property Name="LeftGridXLeft" Type="real" />
+          <Property Name="LeftGridXRight" Type="real" />
+          <Property Name="LeftGridNrOfHorizontalPoints" Type="int" Nullable="false" />
+          <Property Name="LeftGridZTop" Type="real" />
+          <Property Name="LeftGridZBottom" Type="real" />
+          <Property Name="LeftGridNrOfVerticalPoints" Type="int" Nullable="false" />
+          <Property Name="RightGridXLeft" Type="real" />
+          <Property Name="RightGridXRight" Type="real" />
+          <Property Name="RightGridNrOfHorizontalPoints" Type="int" Nullable="false" />
+          <Property Name="RightGridZTop" Type="real" />
+          <Property Name="RightGridZBottom" Type="real" />
+          <Property Name="RightGridNrOfVerticalPoints" Type="int" Nullable="false" />
+          <Property Name="DikeSoilScenarioType" Type="tinyint" Nullable="false" />
+          <Property Name="WaterLevelRiverAverage" Type="real" />
+          <Property Name="WaterLevelPolder" Type="real" />
+          <Property Name="DrainageConstructionPresent" Type="tinyint" Nullable="false" />
+          <Property Name="DrainageConstructionCoordinateX" Type="real" />
+          <Property Name="DrainageConstructionCoordinateZ" Type="real" />
+          <Property Name="MinimumLevelPhreaticLineAtDikeTopRiver" Type="real" />
+          <Property Name="MinimumLevelPhreaticLineAtDikeTopPolder" Type="real" />
+          <Property Name="UseDefaultOffsets" Type="tinyint" Nullable="false" />
+          <Property Name="PhreaticLineOffsetBelowDikeTopAtRiver" Type="real" />
+          <Property Name="PhreaticLineOffsetBelowDikeTopAtPolder" Type="real" />
+          <Property Name="PhreaticLineOffsetBelowShoulderBaseInside" Type="real" />
+          <Property Name="PhreaticLineOffsetBelowDikeToeAtPolder" Type="real" />
+          <Property Name="AdjustPhreaticLine3And4ForUplift" Type="tinyint" Nullable="false" />
+          <Property Name="LeakageLengthOutwardsPhreaticLine3" Type="real" />
+          <Property Name="LeakageLengthInwardsPhreaticLine3" Type="real" />
+          <Property Name="LeakageLengthOutwardsPhreaticLine4" Type="real" />
+          <Property Name="LeakageLengthInwardsPhreaticLine4" Type="real" />
+          <Property Name="PiezometricHeadPhreaticLine2Outwards" Type="real" />
+          <Property Name="PiezometricHeadPhreaticLine2Inwards" Type="real" />
+          <Property Name="LocationInputExtremeWaterLevelPolder" Type="real" />
+          <Property Name="LocationInputExtremeUseDefaultOffsets" Type="tinyint" Nullable="false" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver" Type="real" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder" Type="real" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside" Type="real" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetDikeToeAtPolder" Type="real" />
+          <Property Name="LocationInputExtremePenetrationLength" Type="real" />
+          <Property Name="LocationInputDailyWaterLevelPolder" Type="real" />
+          <Property Name="LocationInputDailyUseDefaultOffsets" Type="tinyint" Nullable="false" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver" Type="real" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder" Type="real" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside" Type="real" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetDikeToeAtPolder" Type="real" />
+          <Property Name="CreateZones" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsCalculationOutputEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsCalculationOutputEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsCalculationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="FactorOfStability" Type="real" />
+          <Property Name="ZValue" Type="real" />
+          <Property Name="ForbiddenZonesXEntryMin" Type="real" />
+          <Property Name="ForbiddenZonesXEntryMax" Type="real" />
+          <Property Name="ForbiddenZonesAutomaticallyCalculated" Type="tinyint" Nullable="false" />
+          <Property Name="GridAutomaticallyCalculated" Type="tinyint" Nullable="false" />
+          <Property Name="SlidingCurveLeftSlidingCircleCenterX" Type="real" />
+          <Property Name="SlidingCurveLeftSlidingCircleCenterY" Type="real" />
+          <Property Name="SlidingCurveLeftSlidingCircleRadius" Type="real" />
+          <Property Name="SlidingCurveLeftSlidingCircleIsActive" Type="tinyint" Nullable="false" />
+          <Property Name="SlidingCurveLeftSlidingCircleNonIteratedForce" Type="real" />
+          <Property Name="SlidingCurveLeftSlidingCircleIteratedForce" Type="real" />
+          <Property Name="SlidingCurveLeftSlidingCircleDrivingMoment" Type="real" />
+          <Property Name="SlidingCurveLeftSlidingCircleResistingMoment" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleCenterX" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleCenterY" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleRadius" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleIsActive" Type="tinyint" Nullable="false" />
+          <Property Name="SlidingCurveRightSlidingCircleNonIteratedForce" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleIteratedForce" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleDrivingMoment" Type="real" />
+          <Property Name="SlidingCurveRightSlidingCircleResistingMoment" Type="real" />
+          <Property Name="SlidingCurveNonIteratedHorizontalForce" Type="real" />
+          <Property Name="SlidingCurveIteratedHorizontalForce" Type="real" />
+          <Property Name="SlidingCurveSliceXML" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SlipPlaneLeftGridXLeft" Type="real" />
+          <Property Name="SlipPlaneLeftGridXRight" Type="real" />
+          <Property Name="SlipPlaneLeftGridNrOfHorizontalPoints" Type="int" Nullable="false" />
+          <Property Name="SlipPlaneLeftGridZTop" Type="real" />
+          <Property Name="SlipPlaneLeftGridZBottom" Type="real" />
+          <Property Name="SlipPlaneLeftGridNrOfVerticalPoints" Type="int" Nullable="false" />
+          <Property Name="SlipPlaneRightGridXLeft" Type="real" />
+          <Property Name="SlipPlaneRightGridXRight" Type="real" />
+          <Property Name="SlipPlaneRightGridNrOfHorizontalPoints" Type="int" Nullable="false" />
+          <Property Name="SlipPlaneRightGridZTop" Type="real" />
+          <Property Name="SlipPlaneRightGridZBottom" Type="real" />
+          <Property Name="SlipPlaneRightGridNrOfVerticalPoints" Type="int" Nullable="false" />
+          <Property Name="TangentLinesXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="MacroStabilityInwardsCharacteristicPointEntity">
           <Key>
             <PropertyRef Name="MacroStabilityInwardsCharacteristicPointEntityId" />
@@ -706,6 +822,18 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSemiProbabilisticOutputEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="RequiredProbability" Type="real" />
+          <Property Name="RequiredReliability" Type="real" />
+          <Property Name="MacroStabilityInwardsProbability" Type="real" />
+          <Property Name="MacroStabilityInwardsReliability" Type="real" />
+          <Property Name="MacroStabilityInwardsFactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
           <Key>
@@ -2180,6 +2308,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_0_0">
+          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="0..1" />
+          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_1_0">
+          <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" Type="Self.MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="0..1" />
+          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_2_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_3_0">
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationOutputEntity_0_0">
+          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsCalculationOutputEntity" Type="Self.MacroStabilityInwardsCalculationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationOutputEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
           <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="1" />
           <End Role="MacroStabilityInwardsCharacteristicPointEntity" Type="Self.MacroStabilityInwardsCharacteristicPointEntity" Multiplicity="*" />
@@ -2225,6 +2413,18 @@
             </Principal>
             <Dependent Role="MacroStabilityInwardsSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
+          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="1" />
+          <End Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" Type="Self.MacroStabilityInwardsSemiProbabilisticOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsSemiProbabilisticOutputEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2899,10 +3099,13 @@
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="IllustrationPointResultEntity" EntityType="Self.IllustrationPointResultEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsCalculationEntity" EntityType="Self.MacroStabilityInwardsCalculationEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsCalculationOutputEntity" EntityType="Self.MacroStabilityInwardsCalculationOutputEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsCharacteristicPointEntity" EntityType="Self.MacroStabilityInwardsCharacteristicPointEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsFailureMechanismMetaEntity" EntityType="Self.MacroStabilityInwardsFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsPreconsolidationStressEntity" EntityType="Self.MacroStabilityInwardsPreconsolidationStressEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSectionResultEntity" EntityType="Self.MacroStabilityInwardsSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="MacroStabilityInwardsSemiProbabilisticOutputEntity" EntityType="Self.MacroStabilityInwardsSemiProbabilisticOutputEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerOneDEntity" EntityType="Self.MacroStabilityInwardsSoilLayerOneDEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerTwoDEntity" EntityType="Self.MacroStabilityInwardsSoilLayerTwoDEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileOneDEntity" EntityType="Self.MacroStabilityInwardsSoilProfileOneDEntity" store:Type="Tables" />
@@ -3221,6 +3424,26 @@
             <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntity" />
             <End Role="IllustrationPointResultEntity" EntitySet="IllustrationPointResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_0_0" Association="Self.FK_MacroStabilityInwardsCalculationEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_1_0" Association="Self.FK_MacroStabilityInwardsCalculationEntity_1_0">
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntity" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_2_0" Association="Self.FK_MacroStabilityInwardsCalculationEntity_2_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_3_0" Association="Self.FK_MacroStabilityInwardsCalculationEntity_3_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationOutputEntity_0_0" Association="Self.FK_MacroStabilityInwardsCalculationOutputEntity_0_0">
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
+            <End Role="MacroStabilityInwardsCalculationOutputEntity" EntitySet="MacroStabilityInwardsCalculationOutputEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" Association="Self.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
             <End Role="MacroStabilityInwardsCharacteristicPointEntity" EntitySet="MacroStabilityInwardsCharacteristicPointEntity" />
@@ -3236,6 +3459,10 @@
           <AssociationSet Name="FK_MacroStabilityInwardsSectionResultEntity_0_0" Association="Self.FK_MacroStabilityInwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="MacroStabilityInwardsSectionResultEntity" EntitySet="MacroStabilityInwardsSectionResultEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" Association="Self.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
+            <End Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" EntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsSoilLayerOneDEntity_0_0" Association="Self.FK_MacroStabilityInwardsSoilLayerOneDEntity_0_0">
             <End Role="MacroStabilityInwardsSoilProfileOneDEntity" EntitySet="MacroStabilityInwardsSoilProfileOneDEntity" />
@@ -3493,10 +3720,13 @@
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="IllustrationPointResultEntities" EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" />
+          <EntitySet Name="MacroStabilityInwardsCalculationEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" />
+          <EntitySet Name="MacroStabilityInwardsCalculationOutputEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" />
           <EntitySet Name="MacroStabilityInwardsCharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" />
           <EntitySet Name="MacroStabilityInwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" />
           <EntitySet Name="MacroStabilityInwardsPreconsolidationStressEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" />
           <EntitySet Name="MacroStabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" />
+          <EntitySet Name="MacroStabilityInwardsSemiProbabilisticOutputEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerOneDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerTwoDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileOneDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" />
@@ -3582,6 +3812,10 @@
           <AssociationSet Name="FK_HeightStructuresCalculationEntity_3_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
             <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_3_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_3_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_3_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
@@ -3899,6 +4133,10 @@
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
@@ -3918,6 +4156,22 @@
           <AssociationSet Name="FK_IllustrationPointResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_IllustrationPointResultEntity_0_0">
             <End Role="SubMechanismIllustrationPointEntity" EntitySet="SubMechanismIllustrationPointEntities" />
             <End Role="IllustrationPointResultEntity" EntitySet="IllustrationPointResultEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_1_0">
+            <End Role="MacroStabilityInwardsStochasticSoilProfileEntity" EntitySet="MacroStabilityInwardsStochasticSoilProfileEntities" />
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsCalculationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationOutputEntity_0_0">
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
+            <End Role="MacroStabilityInwardsCalculationOutputEntity" EntitySet="MacroStabilityInwardsCalculationOutputEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
+            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
+            <End Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" EntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
@@ -4084,6 +4338,7 @@
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="HeightStructuresCalculationEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="StabilityPointStructuresCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
@@ -4777,6 +5032,7 @@
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HeightStructuresCalculationEntity" />
           <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationOutputEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="HydraulicLocationEntity" ToRole="StabilityPointStructuresCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
@@ -4809,6 +5065,129 @@
           <Property Name="Value" Type="Double" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SubMechanismIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_IllustrationPointResultEntity_0_0" FromRole="IllustrationPointResultEntity" ToRole="SubMechanismIllustrationPointEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsCalculationEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="Int64" />
+          <Property Name="MacroStabilityInwardsStochasticSoilProfileEntityId" Type="Int64" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="Double" />
+          <Property Name="AssessmentLevel" Type="Double" />
+          <Property Name="UseAssessmentLevelManualInput" Type="Byte" Nullable="false" />
+          <Property Name="SlipPlaneMinimumDepth" Type="Double" />
+          <Property Name="SlipPlaneMinimumLength" Type="Double" />
+          <Property Name="MaximumSliceWidth" Type="Double" />
+          <Property Name="MoveGrid" Type="Byte" Nullable="false" />
+          <Property Name="GridDeterminationType" Type="Byte" Nullable="false" />
+          <Property Name="TangentLineDeterminationType" Type="Byte" Nullable="false" />
+          <Property Name="TangentLineZTop" Type="Double" />
+          <Property Name="TangentLineZBottom" Type="Double" />
+          <Property Name="LeftGridXLeft" Type="Double" />
+          <Property Name="LeftGridXRight" Type="Double" />
+          <Property Name="LeftGridNrOfHorizontalPoints" Type="Int32" Nullable="false" />
+          <Property Name="LeftGridZTop" Type="Double" />
+          <Property Name="LeftGridZBottom" Type="Double" />
+          <Property Name="LeftGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
+          <Property Name="RightGridXLeft" Type="Double" />
+          <Property Name="RightGridXRight" Type="Double" />
+          <Property Name="RightGridNrOfHorizontalPoints" Type="Int32" Nullable="false" />
+          <Property Name="RightGridZTop" Type="Double" />
+          <Property Name="RightGridZBottom" Type="Double" />
+          <Property Name="RightGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
+          <Property Name="DikeSoilScenarioType" Type="Byte" Nullable="false" />
+          <Property Name="WaterLevelRiverAverage" Type="Double" />
+          <Property Name="WaterLevelPolder" Type="Double" />
+          <Property Name="DrainageConstructionPresent" Type="Byte" Nullable="false" />
+          <Property Name="DrainageConstructionCoordinateX" Type="Double" />
+          <Property Name="DrainageConstructionCoordinateZ" Type="Double" />
+          <Property Name="MinimumLevelPhreaticLineAtDikeTopRiver" Type="Double" />
+          <Property Name="MinimumLevelPhreaticLineAtDikeTopPolder" Type="Double" />
+          <Property Name="UseDefaultOffsets" Type="Byte" Nullable="false" />
+          <Property Name="PhreaticLineOffsetBelowDikeTopAtRiver" Type="Double" />
+          <Property Name="PhreaticLineOffsetBelowDikeTopAtPolder" Type="Double" />
+          <Property Name="PhreaticLineOffsetBelowShoulderBaseInside" Type="Double" />
+          <Property Name="PhreaticLineOffsetBelowDikeToeAtPolder" Type="Double" />
+          <Property Name="AdjustPhreaticLine3And4ForUplift" Type="Byte" Nullable="false" />
+          <Property Name="LeakageLengthOutwardsPhreaticLine3" Type="Double" />
+          <Property Name="LeakageLengthInwardsPhreaticLine3" Type="Double" />
+          <Property Name="LeakageLengthOutwardsPhreaticLine4" Type="Double" />
+          <Property Name="LeakageLengthInwardsPhreaticLine4" Type="Double" />
+          <Property Name="PiezometricHeadPhreaticLine2Outwards" Type="Double" />
+          <Property Name="PiezometricHeadPhreaticLine2Inwards" Type="Double" />
+          <Property Name="LocationInputExtremeWaterLevelPolder" Type="Double" />
+          <Property Name="LocationInputExtremeUseDefaultOffsets" Type="Byte" Nullable="false" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver" Type="Double" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder" Type="Double" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside" Type="Double" />
+          <Property Name="LocationInputExtremePhreaticLineOffsetDikeToeAtPolder" Type="Double" />
+          <Property Name="LocationInputExtremePenetrationLength" Type="Double" />
+          <Property Name="LocationInputDailyWaterLevelPolder" Type="Double" />
+          <Property Name="LocationInputDailyUseDefaultOffsets" Type="Byte" Nullable="false" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver" Type="Double" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder" Type="Double" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside" Type="Double" />
+          <Property Name="LocationInputDailyPhreaticLineOffsetDikeToeAtPolder" Type="Double" />
+          <Property Name="CreateZones" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_3_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_0_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="SurfaceLineEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsStochasticSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_1_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="MacroStabilityInwardsStochasticSoilProfileEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationOutputEntity_0_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="MacroStabilityInwardsCalculationOutputEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsSemiProbabilisticOutputEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="MacroStabilityInwardsSemiProbabilisticOutputEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsCalculationOutputEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsCalculationOutputEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsCalculationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="FactorOfStability" Type="Double" />
+          <Property Name="ZValue" Type="Double" />
+          <Property Name="ForbiddenZonesXEntryMin" Type="Double" />
+          <Property Name="ForbiddenZonesXEntryMax" Type="Double" />
+          <Property Name="ForbiddenZonesAutomaticallyCalculated" Type="Byte" Nullable="false" />
+          <Property Name="GridAutomaticallyCalculated" Type="Byte" Nullable="false" />
+          <Property Name="SlidingCurveLeftSlidingCircleCenterX" Type="Double" />
+          <Property Name="SlidingCurveLeftSlidingCircleCenterY" Type="Double" />
+          <Property Name="SlidingCurveLeftSlidingCircleRadius" Type="Double" />
+          <Property Name="SlidingCurveLeftSlidingCircleIsActive" Type="Byte" Nullable="false" />
+          <Property Name="SlidingCurveLeftSlidingCircleNonIteratedForce" Type="Double" />
+          <Property Name="SlidingCurveLeftSlidingCircleIteratedForce" Type="Double" />
+          <Property Name="SlidingCurveLeftSlidingCircleDrivingMoment" Type="Double" />
+          <Property Name="SlidingCurveLeftSlidingCircleResistingMoment" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleCenterX" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleCenterY" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleRadius" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleIsActive" Type="Byte" Nullable="false" />
+          <Property Name="SlidingCurveRightSlidingCircleNonIteratedForce" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleIteratedForce" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleDrivingMoment" Type="Double" />
+          <Property Name="SlidingCurveRightSlidingCircleResistingMoment" Type="Double" />
+          <Property Name="SlidingCurveNonIteratedHorizontalForce" Type="Double" />
+          <Property Name="SlidingCurveIteratedHorizontalForce" Type="Double" />
+          <Property Name="SlidingCurveSliceXML" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SlipPlaneLeftGridXLeft" Type="Double" />
+          <Property Name="SlipPlaneLeftGridXRight" Type="Double" />
+          <Property Name="SlipPlaneLeftGridNrOfHorizontalPoints" Type="Int32" Nullable="false" />
+          <Property Name="SlipPlaneLeftGridZTop" Type="Double" />
+          <Property Name="SlipPlaneLeftGridZBottom" Type="Double" />
+          <Property Name="SlipPlaneLeftGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
+          <Property Name="SlipPlaneRightGridXLeft" Type="Double" />
+          <Property Name="SlipPlaneRightGridXRight" Type="Double" />
+          <Property Name="SlipPlaneRightGridNrOfHorizontalPoints" Type="Int32" Nullable="false" />
+          <Property Name="SlipPlaneRightGridZTop" Type="Double" />
+          <Property Name="SlipPlaneRightGridZBottom" Type="Double" />
+          <Property Name="SlipPlaneRightGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
+          <Property Name="TangentLinesXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationOutputEntity_0_0" FromRole="MacroStabilityInwardsCalculationOutputEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsCharacteristicPointEntity">
           <Key>
@@ -4855,6 +5234,19 @@
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="MacroStabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityInwardsSemiProbabilisticOutputEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
+          </Key>
+          <Property Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="RequiredProbability" Type="Double" />
+          <Property Name="RequiredReliability" Type="Double" />
+          <Property Name="MacroStabilityInwardsProbability" Type="Double" />
+          <Property Name="MacroStabilityInwardsReliability" Type="Double" />
+          <Property Name="MacroStabilityInwardsFactorOfSafety" Type="Double" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" FromRole="MacroStabilityInwardsSemiProbabilisticOutputEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
           <Key>
@@ -4949,6 +5341,7 @@
           <Property Name="MacroStabilityInwardsSoilProfileTwoDEntityId" Type="Int64" />
           <Property Name="Probability" Type="Double" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_1_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileOneDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_2_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsSoilProfileOneDEntity" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
@@ -5455,6 +5848,7 @@
           <Property Name="PointsXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="MacroStabilityInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_0_0" FromRole="SurfaceLineEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
           <NavigationProperty Name="MacroStabilityInwardsCharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="MacroStabilityInwardsCharacteristicPointEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="PipingCharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCharacteristicPointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCharacteristicPointEntity" />
@@ -5709,6 +6103,18 @@
               <PropertyRef Name="CalculationGroupEntityId" />
             </Principal>
             <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_3_0">
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
               <PropertyRef Name="CalculationGroupEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -6661,6 +7067,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingCalculationEntity_2_0">
           <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
@@ -6718,6 +7136,54 @@
             </Principal>
             <Dependent Role="IllustrationPointResultEntity">
               <PropertyRef Name="SubMechanismIllustrationPointEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Role="MacroStabilityInwardsStochasticSoilProfileEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsStochasticSoilProfileEntity">
+              <PropertyRef Name="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsCalculationOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Role="MacroStabilityInwardsCalculationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsCalculationOutputEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity" Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MacroStabilityInwardsCalculationEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
+            </Principal>
+            <Dependent Role="MacroStabilityInwardsSemiProbabilisticOutputEntity">
+              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7677,6 +8143,124 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsCalculationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsCalculationEntity">
+                <ScalarProperty Name="CreateZones" ColumnName="CreateZones" />
+                <ScalarProperty Name="LocationInputDailyPhreaticLineOffsetDikeToeAtPolder" ColumnName="LocationInputDailyPhreaticLineOffsetDikeToeAtPolder" />
+                <ScalarProperty Name="LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside" ColumnName="LocationInputDailyPhreaticLineOffsetBelowShoulderBaseInside" />
+                <ScalarProperty Name="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder" ColumnName="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtPolder" />
+                <ScalarProperty Name="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver" ColumnName="LocationInputDailyPhreaticLineOffsetBelowDikeTopAtRiver" />
+                <ScalarProperty Name="LocationInputDailyUseDefaultOffsets" ColumnName="LocationInputDailyUseDefaultOffsets" />
+                <ScalarProperty Name="LocationInputDailyWaterLevelPolder" ColumnName="LocationInputDailyWaterLevelPolder" />
+                <ScalarProperty Name="LocationInputExtremePenetrationLength" ColumnName="LocationInputExtremePenetrationLength" />
+                <ScalarProperty Name="LocationInputExtremePhreaticLineOffsetDikeToeAtPolder" ColumnName="LocationInputExtremePhreaticLineOffsetDikeToeAtPolder" />
+                <ScalarProperty Name="LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside" ColumnName="LocationInputExtremePhreaticLineOffsetBelowShoulderBaseInside" />
+                <ScalarProperty Name="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder" ColumnName="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtPolder" />
+                <ScalarProperty Name="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver" ColumnName="LocationInputExtremePhreaticLineOffsetBelowDikeTopAtRiver" />
+                <ScalarProperty Name="LocationInputExtremeUseDefaultOffsets" ColumnName="LocationInputExtremeUseDefaultOffsets" />
+                <ScalarProperty Name="LocationInputExtremeWaterLevelPolder" ColumnName="LocationInputExtremeWaterLevelPolder" />
+                <ScalarProperty Name="PiezometricHeadPhreaticLine2Inwards" ColumnName="PiezometricHeadPhreaticLine2Inwards" />
+                <ScalarProperty Name="PiezometricHeadPhreaticLine2Outwards" ColumnName="PiezometricHeadPhreaticLine2Outwards" />
+                <ScalarProperty Name="LeakageLengthInwardsPhreaticLine4" ColumnName="LeakageLengthInwardsPhreaticLine4" />
+                <ScalarProperty Name="LeakageLengthOutwardsPhreaticLine4" ColumnName="LeakageLengthOutwardsPhreaticLine4" />
+                <ScalarProperty Name="LeakageLengthInwardsPhreaticLine3" ColumnName="LeakageLengthInwardsPhreaticLine3" />
+                <ScalarProperty Name="LeakageLengthOutwardsPhreaticLine3" ColumnName="LeakageLengthOutwardsPhreaticLine3" />
+                <ScalarProperty Name="AdjustPhreaticLine3And4ForUplift" ColumnName="AdjustPhreaticLine3And4ForUplift" />
+                <ScalarProperty Name="PhreaticLineOffsetBelowDikeToeAtPolder" ColumnName="PhreaticLineOffsetBelowDikeToeAtPolder" />
+                <ScalarProperty Name="PhreaticLineOffsetBelowShoulderBaseInside" ColumnName="PhreaticLineOffsetBelowShoulderBaseInside" />
+                <ScalarProperty Name="PhreaticLineOffsetBelowDikeTopAtPolder" ColumnName="PhreaticLineOffsetBelowDikeTopAtPolder" />
+                <ScalarProperty Name="PhreaticLineOffsetBelowDikeTopAtRiver" ColumnName="PhreaticLineOffsetBelowDikeTopAtRiver" />
+                <ScalarProperty Name="UseDefaultOffsets" ColumnName="UseDefaultOffsets" />
+                <ScalarProperty Name="MinimumLevelPhreaticLineAtDikeTopPolder" ColumnName="MinimumLevelPhreaticLineAtDikeTopPolder" />
+                <ScalarProperty Name="MinimumLevelPhreaticLineAtDikeTopRiver" ColumnName="MinimumLevelPhreaticLineAtDikeTopRiver" />
+                <ScalarProperty Name="DrainageConstructionCoordinateZ" ColumnName="DrainageConstructionCoordinateZ" />
+                <ScalarProperty Name="DrainageConstructionCoordinateX" ColumnName="DrainageConstructionCoordinateX" />
+                <ScalarProperty Name="DrainageConstructionPresent" ColumnName="DrainageConstructionPresent" />
+                <ScalarProperty Name="WaterLevelPolder" ColumnName="WaterLevelPolder" />
+                <ScalarProperty Name="WaterLevelRiverAverage" ColumnName="WaterLevelRiverAverage" />
+                <ScalarProperty Name="DikeSoilScenarioType" ColumnName="DikeSoilScenarioType" />
+                <ScalarProperty Name="RightGridNrOfVerticalPoints" ColumnName="RightGridNrOfVerticalPoints" />
+                <ScalarProperty Name="RightGridZBottom" ColumnName="RightGridZBottom" />
+                <ScalarProperty Name="RightGridZTop" ColumnName="RightGridZTop" />
+                <ScalarProperty Name="RightGridNrOfHorizontalPoints" ColumnName="RightGridNrOfHorizontalPoints" />
+                <ScalarProperty Name="RightGridXRight" ColumnName="RightGridXRight" />
+                <ScalarProperty Name="RightGridXLeft" ColumnName="RightGridXLeft" />
+                <ScalarProperty Name="LeftGridNrOfVerticalPoints" ColumnName="LeftGridNrOfVerticalPoints" />
+                <ScalarProperty Name="LeftGridZBottom" ColumnName="LeftGridZBottom" />
+                <ScalarProperty Name="LeftGridZTop" ColumnName="LeftGridZTop" />
+                <ScalarProperty Name="LeftGridNrOfHorizontalPoints" ColumnName="LeftGridNrOfHorizontalPoints" />
+                <ScalarProperty Name="LeftGridXRight" ColumnName="LeftGridXRight" />
+                <ScalarProperty Name="LeftGridXLeft" ColumnName="LeftGridXLeft" />
+                <ScalarProperty Name="TangentLineZBottom" ColumnName="TangentLineZBottom" />
+                <ScalarProperty Name="TangentLineZTop" ColumnName="TangentLineZTop" />
+                <ScalarProperty Name="TangentLineDeterminationType" ColumnName="TangentLineDeterminationType" />
+                <ScalarProperty Name="GridDeterminationType" ColumnName="GridDeterminationType" />
+                <ScalarProperty Name="MoveGrid" ColumnName="MoveGrid" />
+                <ScalarProperty Name="MaximumSliceWidth" ColumnName="MaximumSliceWidth" />
+                <ScalarProperty Name="SlipPlaneMinimumLength" ColumnName="SlipPlaneMinimumLength" />
+                <ScalarProperty Name="SlipPlaneMinimumDepth" ColumnName="SlipPlaneMinimumDepth" />
+                <ScalarProperty Name="UseAssessmentLevelManualInput" ColumnName="UseAssessmentLevelManualInput" />
+                <ScalarProperty Name="AssessmentLevel" ColumnName="AssessmentLevel" />
+                <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
+                <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsStochasticSoilProfileEntityId" ColumnName="MacroStabilityInwardsStochasticSoilProfileEntityId" />
+                <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsCalculationEntityId" ColumnName="MacroStabilityInwardsCalculationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsCalculationOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsCalculationOutputEntity">
+                <ScalarProperty Name="TangentLinesXml" ColumnName="TangentLinesXml" />
+                <ScalarProperty Name="SlipPlaneRightGridNrOfVerticalPoints" ColumnName="SlipPlaneRightGridNrOfVerticalPoints" />
+                <ScalarProperty Name="SlipPlaneRightGridZBottom" ColumnName="SlipPlaneRightGridZBottom" />
+                <ScalarProperty Name="SlipPlaneRightGridZTop" ColumnName="SlipPlaneRightGridZTop" />
+                <ScalarProperty Name="SlipPlaneRightGridNrOfHorizontalPoints" ColumnName="SlipPlaneRightGridNrOfHorizontalPoints" />
+                <ScalarProperty Name="SlipPlaneRightGridXRight" ColumnName="SlipPlaneRightGridXRight" />
+                <ScalarProperty Name="SlipPlaneRightGridXLeft" ColumnName="SlipPlaneRightGridXLeft" />
+                <ScalarProperty Name="SlipPlaneLeftGridNrOfVerticalPoints" ColumnName="SlipPlaneLeftGridNrOfVerticalPoints" />
+                <ScalarProperty Name="SlipPlaneLeftGridZBottom" ColumnName="SlipPlaneLeftGridZBottom" />
+                <ScalarProperty Name="SlipPlaneLeftGridZTop" ColumnName="SlipPlaneLeftGridZTop" />
+                <ScalarProperty Name="SlipPlaneLeftGridNrOfHorizontalPoints" ColumnName="SlipPlaneLeftGridNrOfHorizontalPoints" />
+                <ScalarProperty Name="SlipPlaneLeftGridXRight" ColumnName="SlipPlaneLeftGridXRight" />
+                <ScalarProperty Name="SlipPlaneLeftGridXLeft" ColumnName="SlipPlaneLeftGridXLeft" />
+                <ScalarProperty Name="SlidingCurveSliceXML" ColumnName="SlidingCurveSliceXML" />
+                <ScalarProperty Name="SlidingCurveIteratedHorizontalForce" ColumnName="SlidingCurveIteratedHorizontalForce" />
+                <ScalarProperty Name="SlidingCurveNonIteratedHorizontalForce" ColumnName="SlidingCurveNonIteratedHorizontalForce" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleResistingMoment" ColumnName="SlidingCurveRightSlidingCircleResistingMoment" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleDrivingMoment" ColumnName="SlidingCurveRightSlidingCircleDrivingMoment" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleIteratedForce" ColumnName="SlidingCurveRightSlidingCircleIteratedForce" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleNonIteratedForce" ColumnName="SlidingCurveRightSlidingCircleNonIteratedForce" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleIsActive" ColumnName="SlidingCurveRightSlidingCircleIsActive" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleRadius" ColumnName="SlidingCurveRightSlidingCircleRadius" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleCenterY" ColumnName="SlidingCurveRightSlidingCircleCenterY" />
+                <ScalarProperty Name="SlidingCurveRightSlidingCircleCenterX" ColumnName="SlidingCurveRightSlidingCircleCenterX" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleResistingMoment" ColumnName="SlidingCurveLeftSlidingCircleResistingMoment" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleDrivingMoment" ColumnName="SlidingCurveLeftSlidingCircleDrivingMoment" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleIteratedForce" ColumnName="SlidingCurveLeftSlidingCircleIteratedForce" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleNonIteratedForce" ColumnName="SlidingCurveLeftSlidingCircleNonIteratedForce" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleIsActive" ColumnName="SlidingCurveLeftSlidingCircleIsActive" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleRadius" ColumnName="SlidingCurveLeftSlidingCircleRadius" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleCenterY" ColumnName="SlidingCurveLeftSlidingCircleCenterY" />
+                <ScalarProperty Name="SlidingCurveLeftSlidingCircleCenterX" ColumnName="SlidingCurveLeftSlidingCircleCenterX" />
+                <ScalarProperty Name="GridAutomaticallyCalculated" ColumnName="GridAutomaticallyCalculated" />
+                <ScalarProperty Name="ForbiddenZonesAutomaticallyCalculated" ColumnName="ForbiddenZonesAutomaticallyCalculated" />
+                <ScalarProperty Name="ForbiddenZonesXEntryMax" ColumnName="ForbiddenZonesXEntryMax" />
+                <ScalarProperty Name="ForbiddenZonesXEntryMin" ColumnName="ForbiddenZonesXEntryMin" />
+                <ScalarProperty Name="ZValue" ColumnName="ZValue" />
+                <ScalarProperty Name="FactorOfStability" ColumnName="FactorOfStability" />
+                <ScalarProperty Name="MacroStabilityInwardsCalculationEntityId" ColumnName="MacroStabilityInwardsCalculationEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsCalculationOutputEntityId" ColumnName="MacroStabilityInwardsCalculationOutputEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MacroStabilityInwardsCharacteristicPointEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsCharacteristicPointEntity">
@@ -7720,6 +8304,19 @@
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsSectionResultEntityId" ColumnName="MacroStabilityInwardsSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityInwardsSemiProbabilisticOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntity">
+                <ScalarProperty Name="MacroStabilityInwardsFactorOfSafety" ColumnName="MacroStabilityInwardsFactorOfSafety" />
+                <ScalarProperty Name="MacroStabilityInwardsReliability" ColumnName="MacroStabilityInwardsReliability" />
+                <ScalarProperty Name="MacroStabilityInwardsProbability" ColumnName="MacroStabilityInwardsProbability" />
+                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
+                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="MacroStabilityInwardsCalculationEntityId" ColumnName="MacroStabilityInwardsCalculationEntityId" />
+                <ScalarProperty Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" ColumnName="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

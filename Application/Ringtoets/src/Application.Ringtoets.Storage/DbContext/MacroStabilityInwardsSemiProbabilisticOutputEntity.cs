@@ -28,31 +28,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class MacroStabilityInwardsStochasticSoilProfileEntity
+    public class MacroStabilityInwardsSemiProbabilisticOutputEntity
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MacroStabilityInwardsStochasticSoilProfileEntity()
-        {
-            MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
-        }
+        public long MacroStabilityInwardsSemiProbabilisticOutputEntityId { get; set; }
+        public long MacroStabilityInwardsCalculationEntityId { get; set; }
+        public double? RequiredProbability { get; set; }
+        public double? RequiredReliability { get; set; }
+        public double? MacroStabilityInwardsProbability { get; set; }
+        public double? MacroStabilityInwardsReliability { get; set; }
+        public double? MacroStabilityInwardsFactorOfSafety { get; set; }
 
-        public long MacroStabilityInwardsStochasticSoilProfileEntityId { get; set; }
-        public long StochasticSoilModelEntityId { get; set; }
-        public long? MacroStabilityInwardsSoilProfileOneDEntityId { get; set; }
-        public long? MacroStabilityInwardsSoilProfileTwoDEntityId { get; set; }
-        public double Probability { get; set; }
-        public int Order { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MacroStabilityInwardsCalculationEntity> MacroStabilityInwardsCalculationEntities { get; set; }
-
-        public virtual MacroStabilityInwardsSoilProfileOneDEntity MacroStabilityInwardsSoilProfileOneDEntity { get; set; }
-        public virtual MacroStabilityInwardsSoilProfileTwoDEntity MacroStabilityInwardsSoilProfileTwoDEntity { get; set; }
-        public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
+        public virtual MacroStabilityInwardsCalculationEntity MacroStabilityInwardsCalculationEntity { get; set; }
     }
 }
