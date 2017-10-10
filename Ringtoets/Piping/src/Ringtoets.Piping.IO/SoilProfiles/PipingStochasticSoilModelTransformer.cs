@@ -78,9 +78,8 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         {
             IEnumerable<StochasticSoilProfile> uniqueStochasticSoilProfiles = StochasticSoilProfileHelper.GetUniqueStochasticSoilProfiles(stochasticSoilProfiles,
                                                                                                                                           soilModelName);
-            return uniqueStochasticSoilProfiles.Select(ssp =>
-                                                           PipingStochasticSoilProfileTransformer.Transform(
-                                                               ssp, GetTransformedPipingSoilProfile(ssp.SoilProfile)))
+            return uniqueStochasticSoilProfiles.Select(ssp => PipingStochasticSoilProfileTransformer.Transform(
+                                                           ssp, GetTransformedPipingSoilProfile(ssp.SoilProfile)))
                                                .ToArray();
         }
 

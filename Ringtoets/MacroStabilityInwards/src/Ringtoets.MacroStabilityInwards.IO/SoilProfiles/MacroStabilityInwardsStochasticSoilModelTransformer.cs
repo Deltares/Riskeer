@@ -81,9 +81,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         {
             IEnumerable<StochasticSoilProfile> uniqueStochasticSoilProfiles = StochasticSoilProfileHelper.GetUniqueStochasticSoilProfiles(stochasticSoilProfiles,
                                                                                                                                           soilModelName);
-            return uniqueStochasticSoilProfiles.Select(ssp =>
-                                                           MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(
-                                                               ssp, GetTransformedSoilProfile(ssp.SoilProfile)))
+            return uniqueStochasticSoilProfiles.Select(ssp => MacroStabilityInwardsStochasticSoilProfileTransformer.Transform(
+                                                           ssp, GetTransformedSoilProfile(ssp.SoilProfile)))
                                                .ToArray();
         }
 
