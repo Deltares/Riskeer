@@ -271,11 +271,8 @@
   <data name="DrainageConstruction_DisplayName" xml:space="preserve">
     <value>Drainage</value>
   </data>
-  <data name="WaterLevelPolder_Daily_Description" xml:space="preserve">
-    <value>Het niveau van het oppervlaktewater binnen een beheersgebied onder dagelijkse omstandigheden.</value>
-  </data>
-  <data name="WaterLevelPolder_Extreme_Description" xml:space="preserve">
-    <value>Het niveau van het oppervlaktewater binnen een beheersgebied onder extreme omstandigheden.</value>
+  <data name="WaterLevelPolder_Description" xml:space="preserve">
+    <value>Het niveau van het oppervlaktewater binnen een beheersgebied.</value>
   </data>
   <data name="WaterLevelPolder_DisplayName" xml:space="preserve">
     <value>Polderpeil [m+NAP]</value>
@@ -325,8 +322,8 @@
   <data name="Offsets_DisplayName" xml:space="preserve">
     <value>Offsets PL 1</value>
   </data>
-  <data name="PenetrationLength_Extreme_Description" xml:space="preserve">
-    <value>De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag onder extreme omstandigheden.</value>
+  <data name="PenetrationLength_Description" xml:space="preserve">
+    <value>De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.</value>
   </data>
   <data name="PenetrationLength_DisplayName" xml:space="preserve">
     <value>Indringingslengte [m]</value>
@@ -564,8 +561,5 @@
   </data>
   <data name="LocationExtreme_DisplayName" xml:space="preserve">
     <value>Extreme omstandigheden</value>
-  </data>
-  <data name="PenetrationLength_Daily_Description" xml:space="preserve">
-    <value>De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.</value>
   </data>
 </root>

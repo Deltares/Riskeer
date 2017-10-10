@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 waterLevelPolderProperty,
                 waterStressesCategory,
                 "Polderpeil [m+NAP]",
-                "Het niveau van het oppervlaktewater binnen een beheersgebied onder extreme omstandigheden.");
+                "Het niveau van het oppervlaktewater binnen een beheersgebied.");
 
             PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -106,8 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 penetrationLengthProperty,
                 waterStressesCategory,
                 "Indringingslengte [m]",
-                "De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties " +
-                "in de watervoerende zandlaag onder extreme omstandigheden.");
+                "De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.");
 
             mocks.VerifyAll();
         }

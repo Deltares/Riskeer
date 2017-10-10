@@ -45,23 +45,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         public MacroStabilityInwardsLocationDailyProperties(MacroStabilityInwardsLocationInputDaily data, IObservablePropertyChangeHandler handler)
             : base(data, handler) {}
 
-        [ResourcesDescription(typeof(Resources), nameof(Resources.WaterLevelPolder_Daily_Description))]
-        public override RoundedDouble WaterLevelPolder
-        {
-            get
-            {
-                return base.WaterLevelPolder;
-            }
-            set
-            {
-                base.WaterLevelPolder = value;
-            }
-        }
-
         [PropertyOrder(penetrationLengthPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PenetrationLength_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PenetrationLength_Daily_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PenetrationLength_Description))]
         public RoundedDouble PenetrationLength
         {
             get

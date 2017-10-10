@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 waterLevelPolderProperty,
                 waterStressesCategory,
                 "Polderpeil [m+NAP]",
-                "");
+                "Het niveau van het oppervlaktewater binnen een beheersgebied.");
 
             PropertyDescriptor offsetProperty = dynamicProperties[expecteOffsetPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(

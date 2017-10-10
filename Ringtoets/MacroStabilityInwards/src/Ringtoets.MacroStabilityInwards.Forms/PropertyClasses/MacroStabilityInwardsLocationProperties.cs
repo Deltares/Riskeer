@@ -66,7 +66,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(waterLevelPolderPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaterLevelPolder_DisplayName))]
-        public virtual RoundedDouble WaterLevelPolder
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaterLevelPolder_Description))]
+        public RoundedDouble WaterLevelPolder
         {
             get
             {
