@@ -75,6 +75,8 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResult.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResult.cs" />
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperException.cs" />
+    <Compile Include="Kernels\Waternet\IWaternetKernel.cs" />
+    <Compile Include="Kernels\Waternet\WaternetKernelWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreator.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculationGridResult.cs" />

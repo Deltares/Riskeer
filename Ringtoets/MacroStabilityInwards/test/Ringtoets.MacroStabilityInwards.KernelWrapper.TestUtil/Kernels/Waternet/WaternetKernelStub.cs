@@ -19,26 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {
     /// <summary>
-    /// Factory responsible for creating kernels that can be used for performing a macro stability inwards calculation.
+    /// Waternet kernel stub for testing purposes.
     /// </summary>
-    public interface IMacroStabilityInwardsKernelFactory
-    {
-        /// <summary>
-        /// Creates an Uplift Van kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IUpliftVanKernel"/>.</returns>
-        IUpliftVanKernel CreateUpliftVanKernel();
-
-        /// <summary>
-        /// Creates a Waternet kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
-        IWaternetKernel CreateWaternetKernel();
-    }
+    public class WaternetKernelStub : IWaternetKernel {}
 }

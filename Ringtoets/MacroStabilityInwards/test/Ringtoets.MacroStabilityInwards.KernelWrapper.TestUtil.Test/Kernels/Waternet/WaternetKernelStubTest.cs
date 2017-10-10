@@ -19,26 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Waternet
 {
-    /// <summary>
-    /// Factory responsible for creating kernels that can be used for performing a macro stability inwards calculation.
-    /// </summary>
-    public interface IMacroStabilityInwardsKernelFactory
+    [TestFixture]
+    public class WaternetKernelStubTest
     {
-        /// <summary>
-        /// Creates an Uplift Van kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IUpliftVanKernel"/>.</returns>
-        IUpliftVanKernel CreateUpliftVanKernel();
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var kernel = new WaternetKernelStub();
 
-        /// <summary>
-        /// Creates a Waternet kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
-        IWaternetKernel CreateWaternetKernel();
+            // Assert
+            Assert.IsInstanceOf<IWaternetKernel>(kernel);
+        }
     }
 }

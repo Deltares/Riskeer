@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
@@ -38,6 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsKernelFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedUpliftVanKernel);
+            Assert.IsNotNull(factory.LastCreatedWaternetKernel);
         }
 
         [Test]
@@ -51,6 +53,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
 
             // Assert
             Assert.AreSame(factory.LastCreatedUpliftVanKernel, upliftVanKernel);
+        }
+
+        [Test]
+        public void CreateWaternetKernel_Always_ReturnLastCreatedWaternetKernel()
+        {
+            // Setup
+            var factory = new TestMacroStabilityInwardsKernelFactory();
+
+            // Call
+            IWaternetKernel waternetKernel = factory.CreateWaternetKernel();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
         }
     }
 }

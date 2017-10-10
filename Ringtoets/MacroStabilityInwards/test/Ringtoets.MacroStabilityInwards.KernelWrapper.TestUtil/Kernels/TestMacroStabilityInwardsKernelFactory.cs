@@ -21,7 +21,9 @@
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
 {
@@ -36,6 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         public TestMacroStabilityInwardsKernelFactory()
         {
             LastCreatedUpliftVanKernel = new UpliftVanKernelStub();
+            LastCreatedWaternetKernel = new WaternetKernelStub();
         }
 
         /// <summary>
@@ -43,9 +46,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public UpliftVanKernelStub LastCreatedUpliftVanKernel { get; }
 
+        /// <summary>
+        /// The last created Waternet kernel.
+        /// </summary>
+        public WaternetKernelStub LastCreatedWaternetKernel { get; }
+
         public IUpliftVanKernel CreateUpliftVanKernel()
         {
             return LastCreatedUpliftVanKernel;
+        }
+
+        public IWaternetKernel CreateWaternetKernel()
+        {
+            return LastCreatedWaternetKernel;
         }
     }
 }

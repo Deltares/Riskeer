@@ -38,6 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             var kernel = new UpliftVanKernelStub();
 
             // Assert
+            Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
             Assert.IsFalse(kernel.Calculated);
         }
 

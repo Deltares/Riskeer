@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
 {
@@ -50,6 +51,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
         public IUpliftVanKernel CreateUpliftVanKernel()
         {
             return new UpliftVanKernelWrapper();
+        }
+
+        public IWaternetKernel CreateWaternetKernel()
+        {
+            return new WaternetKernelWrapper();
         }
     }
 }

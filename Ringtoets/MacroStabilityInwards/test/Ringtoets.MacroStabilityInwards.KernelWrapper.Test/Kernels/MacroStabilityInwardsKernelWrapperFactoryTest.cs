@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels
@@ -78,6 +79,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels
 
             // Assert
             Assert.IsInstanceOf<UpliftVanKernelWrapper>(upliftVanKernel);
+        }
+
+        [Test]
+        public void CreateWaternetKernel_Always_ReturnsWaternetKernelWrapper()
+        {
+            // Setup
+            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
+
+            // Call
+            IWaternetKernel waternetKernel = factory.CreateWaternetKernel();
+
+            // Assert
+            Assert.IsInstanceOf<WaternetKernelWrapper>(waternetKernel);
         }
     }
 }
