@@ -98,19 +98,6 @@ namespace Ringtoets.Piping.Data.SoilProfile
             Probability = fromProfile.Probability;
         }
 
-        /// <summary>
-        /// Updates the probability of the <see cref="PipingStochasticSoilProfile"/> 
-        /// by adding <paramref name="probabilityToAdd"/>.
-        /// </summary>
-        /// <param name="probabilityToAdd">The amount to increase the <see cref="Probability"/>
-        /// with.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probabilityToAdd"/>
-        /// is outside the range [0, 1].</exception>
-        public void AddProbability(double probabilityToAdd)
-        {
-            Probability += probabilityToAdd;
-        }
-
         public override string ToString()
         {
             return SoilProfile.ToString();

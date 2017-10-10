@@ -100,19 +100,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             Probability = fromProfile.Probability;
         }
 
-        /// <summary>
-        /// Updates the probability of the <see cref="MacroStabilityInwardsStochasticSoilProfile"/> 
-        /// by adding <paramref name="probabilityToAdd"/>.
-        /// </summary>
-        /// <param name="probabilityToAdd">The amount to increase the <see cref="Probability"/>
-        /// with.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probabilityToAdd"/>
-        /// is outside the range [0, 1].</exception>
-        public void AddProbability(double probabilityToAdd)
-        {
-            Probability += probabilityToAdd;
-        }
-
         public override string ToString()
         {
             return SoilProfile?.ToString() ?? string.Empty;
