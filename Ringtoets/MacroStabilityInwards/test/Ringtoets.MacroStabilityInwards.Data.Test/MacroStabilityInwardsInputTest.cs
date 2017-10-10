@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
@@ -403,6 +404,40 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Then
             Assert.IsNotNull(inputParameters.SoilProfileUnderSurfaceLine);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0)]
+        [TestCase(51)]
+        public void TangentLineNumber_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(int tangentLineNumber)
+        {
+            // Setup
+            var inputParameters = new MacroStabilityInwardsInput();
+
+            // Call
+            TestDelegate call = () => inputParameters.TangentLineNumber = tangentLineNumber;
+
+            // Assert
+            const string message = "De waarde voor het aantal tangentlijnen moet in het bereik [1, 50] liggen.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
+            Assert.AreEqual("value", paramName);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(25)]
+        [TestCase(50)]
+        public void TangentLineNumber_SetValueInsideValidRange_GetNewlySetValue(int tangentLineNumber)
+        {
+            // Setup
+            var inputParameters = new MacroStabilityInwardsInput();
+
+            // Call
+            inputParameters.TangentLineNumber = tangentLineNumber;
+
+            // Assert
+            Assert.AreEqual(tangentLineNumber, inputParameters.TangentLineNumber);
         }
     }
 }

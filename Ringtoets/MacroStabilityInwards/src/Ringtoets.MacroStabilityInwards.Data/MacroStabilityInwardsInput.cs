@@ -315,7 +315,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the number of tangent lines.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/>
-        /// is not in the [1.0, 50.0] interval.</exception>
+        /// is not in the [1, 50] interval.</exception>
         public int TangentLineNumber
         {
             get

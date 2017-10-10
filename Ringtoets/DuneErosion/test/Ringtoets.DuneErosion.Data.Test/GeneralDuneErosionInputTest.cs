@@ -47,7 +47,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         [TestCase(20 + 1e-2)]
         [TestCase(5987.234)]
         [TestCase(double.NaN)]
-        public void N_SetOutsideValidRange_ThrowArgumentOutOfRageException(double lengthEffect)
+        public void N_SetOutsideValidRange_ThrowArgumentOutOfRangeException(double lengthEffect)
         {
             // Setup
             var generalInput = new GeneralDuneErosionInput();
