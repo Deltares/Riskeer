@@ -36,8 +36,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long MacroStabilityInwardsSoilProfileTwoDEntityId { get; set; }
         public double CoordinateX { get; set; }
         public double CoordinateZ { get; set; }
-        public double PreconsolidationStressMean { get; set; }
-        public double PreconsolidationStressCoefficientOfVariation { get; set; }
+        public double? PreconsolidationStressMean { get; set; }
+        public double? PreconsolidationStressCoefficientOfVariation { get; set; }
         public int Order { get; set; }
 
         public virtual MacroStabilityInwardsSoilProfileTwoDEntity MacroStabilityInwardsSoilProfileTwoDEntity { get; set; }

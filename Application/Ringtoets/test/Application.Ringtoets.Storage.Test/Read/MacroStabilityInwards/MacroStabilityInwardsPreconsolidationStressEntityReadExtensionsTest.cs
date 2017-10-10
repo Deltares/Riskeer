@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -65,10 +66,36 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.AreEqual(entity.CoordinateZ, stress.Location.Y);
 
             VariationCoefficientLogNormalDistribution preconsolidationStressDistribution = stress.Stress;
-            Assert.AreEqual(entity.PreconsolidationStressMean, preconsolidationStressDistribution.Mean,
-                            preconsolidationStressDistribution.GetAccuracy());
-            Assert.AreEqual(entity.PreconsolidationStressCoefficientOfVariation, preconsolidationStressDistribution.CoefficientOfVariation,
-                            preconsolidationStressDistribution.GetAccuracy());
+            AssertAreEqual(entity.PreconsolidationStressMean, preconsolidationStressDistribution.Mean);
+            AssertAreEqual(entity.PreconsolidationStressCoefficientOfVariation, preconsolidationStressDistribution.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Read_WithNullValues_ReturnsExpectedMacroStabilityInwardsPreconsolidationStress()
+        {
+            // Setup
+            var random = new Random(31);
+            var entity = new MacroStabilityInwardsPreconsolidationStressEntity
+            {
+                CoordinateX = random.NextDouble(),
+                CoordinateZ = random.NextDouble()
+            };
+
+            // Call
+            MacroStabilityInwardsPreconsolidationStress stress = entity.Read();
+
+            // Assert
+            Assert.IsNotNull(stress);
+
+            VariationCoefficientLogNormalDistribution preconsolidationStressDistribution = stress.Stress;
+            Assert.IsNaN(preconsolidationStressDistribution.Mean);
+            Assert.IsNaN(preconsolidationStressDistribution.CoefficientOfVariation);
+        }
+
+        private static void AssertAreEqual(double? expectedValue, RoundedDouble actualValue)
+        {
+            Assert.IsTrue(expectedValue.HasValue);
+            Assert.AreEqual(expectedValue.Value, actualValue, actualValue.GetAccuracy());
         }
     }
 }

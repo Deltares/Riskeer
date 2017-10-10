@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             var location = new Point2D(entity.CoordinateX, entity.CoordinateZ);
             var distribution = new VariationCoefficientLogNormalDistribution
             {
-                Mean = (RoundedDouble) entity.PreconsolidationStressMean,
-                CoefficientOfVariation = (RoundedDouble) entity.PreconsolidationStressCoefficientOfVariation
+                Mean = (RoundedDouble) entity.PreconsolidationStressMean.ToNullAsNaN(),
+                CoefficientOfVariation = (RoundedDouble) entity.PreconsolidationStressCoefficientOfVariation.ToNullAsNaN()
             };
 
             return new MacroStabilityInwardsPreconsolidationStress(location, distribution);

@@ -810,8 +810,8 @@
           <Property Name="MacroStabilityInwardsSoilProfileTwoDEntityId" Type="integer" Nullable="false" />
           <Property Name="CoordinateX" Type="real" Nullable="false" />
           <Property Name="CoordinateZ" Type="real" Nullable="false" />
-          <Property Name="PreconsolidationStressMean" Type="real" Nullable="false" />
-          <Property Name="PreconsolidationStressCoefficientOfVariation" Type="real" Nullable="false" />
+          <Property Name="PreconsolidationStressMean" Type="real" />
+          <Property Name="PreconsolidationStressCoefficientOfVariation" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSectionResultEntity">
@@ -5220,8 +5220,8 @@
           <Property Name="MacroStabilityInwardsSoilProfileTwoDEntityId" Type="Int64" Nullable="false" />
           <Property Name="CoordinateX" Type="Double" Nullable="false" />
           <Property Name="CoordinateZ" Type="Double" Nullable="false" />
-          <Property Name="PreconsolidationStressMean" Type="Double" Nullable="false" />
-          <Property Name="PreconsolidationStressCoefficientOfVariation" Type="Double" Nullable="false" />
+          <Property Name="PreconsolidationStressMean" Type="Double" />
+          <Property Name="PreconsolidationStressCoefficientOfVariation" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsPreconsolidationStressEntity_0_0" FromRole="MacroStabilityInwardsPreconsolidationStressEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
         </EntityType>

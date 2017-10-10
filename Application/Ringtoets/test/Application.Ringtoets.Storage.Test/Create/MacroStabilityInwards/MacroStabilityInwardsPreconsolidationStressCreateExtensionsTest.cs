@@ -75,5 +75,29 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                             preconsolidationStressDistribution.GetAccuracy());
             Assert.AreEqual(order, entity.Order);
         }
+
+        [Test]
+        public void Create_WithNaNValues_ReturnsEntityWithPropertiesSet()
+        {
+            // Setup
+            var random = new Random(31);
+
+            var stress = new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                         new VariationCoefficientLogNormalDistribution
+                                                                         {
+                                                                             Mean = RoundedDouble.NaN,
+                                                                             CoefficientOfVariation = RoundedDouble.NaN
+                                                                         });
+            int order = random.Next();
+
+            // Call
+            MacroStabilityInwardsPreconsolidationStressEntity entity = stress.Create(order);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.IsNull(entity.PreconsolidationStressMean);
+            Assert.IsNull(entity.PreconsolidationStressCoefficientOfVariation);
+            Assert.AreEqual(order, entity.Order);
+        }
     }
 }
