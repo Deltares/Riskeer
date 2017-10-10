@@ -33,6 +33,17 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingSemiProbabilisticOutputCreateExtensionsTest
     {
         [Test]
+        public void Create_SemiProbabilisticOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingSemiProbabilisticOutput) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("semiProbabilisticOutput", exception.ParamName);
+        }
+
+        [Test]
         public void Create_WithValidValues_ReturnEntity()
         {
             // Setup

@@ -99,6 +99,7 @@
     <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensionsTest.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer2DCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilLayer1DCreateExtensionsTest.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSoilProfile1DCreateExtensionsTest.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilLayerOneDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileTwoDEntityReadExtensionsTest.cs" />

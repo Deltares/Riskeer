@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
 using Core.Common.Base.Data;
@@ -31,6 +32,17 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     [TestFixture]
     public class PipingSemiProbabilisticOutputEntityReadExtensionsTest
     {
+        [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingSemiProbabilisticOutputEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
         [Test]
         public void Read_EntityWithValues_ReturnPipingSemiProbabilisticOutput()
         {

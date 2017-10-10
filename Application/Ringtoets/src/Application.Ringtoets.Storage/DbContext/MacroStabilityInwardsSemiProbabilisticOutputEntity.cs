@@ -34,12 +34,12 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long MacroStabilityInwardsSemiProbabilisticOutputEntityId { get; set; }
         public long MacroStabilityInwardsCalculationEntityId { get; set; }
+        public double? FactorOfStability { get; set; }
         public double? RequiredProbability { get; set; }
         public double? RequiredReliability { get; set; }
         public double? MacroStabilityInwardsProbability { get; set; }
         public double? MacroStabilityInwardsReliability { get; set; }
         public double? MacroStabilityInwardsFactorOfSafety { get; set; }
-        public double? MacroStabilityInwardsFactorOfStability { get; set; }
 
         public virtual MacroStabilityInwardsCalculationEntity MacroStabilityInwardsCalculationEntity { get; set; }
     }

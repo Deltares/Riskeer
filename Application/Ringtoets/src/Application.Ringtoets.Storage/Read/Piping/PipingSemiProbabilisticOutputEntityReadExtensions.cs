@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -37,8 +38,13 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="entity">The <see cref="PipingSemiProbabilisticOutputEntity"/> to
         /// create <see cref="PipingSemiProbabilisticOutput"/> for.</param>
         /// <returns>A new <see cref="PipingSemiProbabilisticOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static PipingSemiProbabilisticOutput Read(this PipingSemiProbabilisticOutputEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             return new PipingSemiProbabilisticOutput(
                 entity.UpliftFactorOfSafety.ToNullAsNaN(), entity.UpliftReliability.ToNullAsNaN(), entity.UpliftProbability.ToNullAsNaN(),
                 entity.HeaveFactorOfSafety.ToNullAsNaN(), entity.HeaveReliability.ToNullAsNaN(), entity.HeaveProbability.ToNullAsNaN(),

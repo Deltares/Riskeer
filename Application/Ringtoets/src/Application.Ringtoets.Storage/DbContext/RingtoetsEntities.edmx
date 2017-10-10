@@ -829,12 +829,12 @@
           </Key>
           <Property Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MacroStabilityInwardsCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="FactorOfStability" Type="real" />
           <Property Name="RequiredProbability" Type="real" />
           <Property Name="RequiredReliability" Type="real" />
           <Property Name="MacroStabilityInwardsProbability" Type="real" />
           <Property Name="MacroStabilityInwardsReliability" Type="real" />
           <Property Name="MacroStabilityInwardsFactorOfSafety" Type="real" />
-          <Property Name="MacroStabilityInwardsFactorOfStability" Type="real" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
           <Key>
@@ -5242,12 +5242,12 @@
           </Key>
           <Property Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MacroStabilityInwardsCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="FactorOfStability" Type="Double" />
           <Property Name="RequiredProbability" Type="Double" />
           <Property Name="RequiredReliability" Type="Double" />
           <Property Name="MacroStabilityInwardsProbability" Type="Double" />
           <Property Name="MacroStabilityInwardsReliability" Type="Double" />
           <Property Name="MacroStabilityInwardsFactorOfSafety" Type="Double" />
-          <Property Name="MacroStabilityInwardsFactorOfStability" Type="Double" />
           <NavigationProperty Name="MacroStabilityInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" FromRole="MacroStabilityInwardsSemiProbabilisticOutputEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
@@ -8312,12 +8312,12 @@
           <EntitySetMapping Name="MacroStabilityInwardsSemiProbabilisticOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntity">
-                <ScalarProperty Name="MacroStabilityInwardsFactorOfStability" ColumnName="MacroStabilityInwardsFactorOfStability" />
                 <ScalarProperty Name="MacroStabilityInwardsFactorOfSafety" ColumnName="MacroStabilityInwardsFactorOfSafety" />
                 <ScalarProperty Name="MacroStabilityInwardsReliability" ColumnName="MacroStabilityInwardsReliability" />
                 <ScalarProperty Name="MacroStabilityInwardsProbability" ColumnName="MacroStabilityInwardsProbability" />
                 <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
                 <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="FactorOfStability" ColumnName="FactorOfStability" />
                 <ScalarProperty Name="MacroStabilityInwardsCalculationEntityId" ColumnName="MacroStabilityInwardsCalculationEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" ColumnName="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
               </MappingFragment>
