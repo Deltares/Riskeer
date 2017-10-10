@@ -53,7 +53,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                 GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 TangentLineZTop = (RoundedDouble) 1,
-                TangentLineZBottom = (RoundedDouble) 0
+                TangentLineZBottom = (RoundedDouble) 0,
+                TangentLineNumber = 10
             };
 
             // Precondition
@@ -101,7 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated,
                 TangentLineZTop = (RoundedDouble) 1,
-                TangentLineZBottom = (RoundedDouble) 0
+                TangentLineZBottom = (RoundedDouble) 0,
+                TangentLineNumber = 10
             };
 
             // Call
@@ -145,7 +147,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 TangentLineZTop = random.NextRoundedDouble(),
-                TangentLineZBottom = random.NextRoundedDouble()
+                TangentLineZBottom = random.NextRoundedDouble(),
+                TangentLineNumber = random.Next()
             };
 
             // Call
@@ -158,7 +161,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             Assert.IsFalse(slipPlane.TangentLinesAutomaticAtBoundaries);
             Assert.AreEqual(input.TangentLineZTop, slipPlane.TangentZTop);
             Assert.AreEqual(input.TangentLineZBottom, slipPlane.TangentZBottom);
-            Assert.AreEqual(1, slipPlane.TangentLineNumber);
+            Assert.AreEqual(input.TangentLineNumber, slipPlane.TangentLineNumber);
         }
 
         private static void AssertGrid(MacroStabilityInwardsGrid expectedGrid, UpliftVanGrid actualGrid)
