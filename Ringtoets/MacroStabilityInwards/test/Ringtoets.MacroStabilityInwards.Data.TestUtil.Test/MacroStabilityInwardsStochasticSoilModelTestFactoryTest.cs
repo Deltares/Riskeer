@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
     public class MacroStabilityInwardsStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreateValidStochasticSoilModel_NoParameters_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateValidStochasticSoilModel_NoParameters_ReturnsStochasticSoilModel()
         {
             // Call
             MacroStabilityInwardsStochasticSoilModel model = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithNameParameter_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateValidStochasticSoilModel_WithNameParameter_ReturnsStochasticSoilModel()
         {
             // Setup
             const string soilModelName = "soil model name";
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithNameAndGeometryParameters_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateValidStochasticSoilModel_WithNameAndGeometryParameters_ReturnsStochasticSoilModel()
         {
             // Setup
             const string soilModelName = "soil model name";
@@ -114,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithNameAndSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateValidStochasticSoilModel_WithNameAndSoilProfiles_ReturnsStochasticSoilModel()
         {
             // Setup
             const string soilModelName = "soil model name";
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateValidStochasticSoilModel_WithSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateValidStochasticSoilModel_WithSoilProfiles_ReturnsStochasticSoilModel()
         {
             // Setup
             var stochasticSoilProfiles = new[]

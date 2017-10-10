@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil.Test
     public class MacroStabilityInwardsStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreateMacroStabilityInwardsStochasticSoilModelWithGeometry_WithNameAndStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateMacroStabilityInwardsStochasticSoilModelWithGeometry_WithNameAndStochasticSoilProfiles_ReturnsStochasticSoilModel()
         {
             // Setup
             const string soilModelName = "some name";
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateMacroStabilityInwardsStochasticSoilModelWithGeometry_WithStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreateMacroStabilityInwardsStochasticSoilModelWithGeometry_WithStochasticSoilProfiles_ReturnsStochasticSoilModel()
         {
             // Setup 
             var random = new Random(21);

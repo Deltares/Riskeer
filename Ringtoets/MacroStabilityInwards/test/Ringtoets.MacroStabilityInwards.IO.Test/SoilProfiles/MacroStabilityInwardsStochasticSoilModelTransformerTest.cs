@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_MinimumStochasticSoilModel_ThrowsImportedDataException()
+        public void Transform_InvalidStochasticSoilModel_ThrowsImportedDataTransformException()
         {
             // Setup
             var stochasticSoilModel = new StochasticSoilModel("name", FailureMechanismType.Stability);

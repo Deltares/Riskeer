@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.TestUtil.Test
     public class PipingStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreatePipingStochasticSoilModelWithGeometry_WithNameAndStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModelWithGeometry_WithNameAndStochasticSoilProfiles_ReturnsStochasticSoilModel()
         {
             // Setup
             const string soilModelName = "some name";
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.IO.TestUtil.Test
 
             // Call
             StochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModelWithGeometry(soilModelName,
-                                                                                                                   stochasticSoilProfiles);
+                                                                                                                         stochasticSoilProfiles);
 
             // Assert
             Assert.AreEqual(soilModelName, model.Name);
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModelWithGeometry_WithStochasticSoilProfiles_ReturnsStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModelWithGeometry_WithStochasticSoilProfiles_ReturnsStochasticSoilModel()
         {
             // Setup 
             var random = new Random(21);

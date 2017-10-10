@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_StochasticSoilProfileWithInvalidProbability_ThrowsImportedDataTransformException()
+        public void Transform_InvalidStochasticSoilProfile_ThrowsImportedDataTransformException()
         {
             // Setup
             var mocks = new MockRepository();

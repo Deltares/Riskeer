@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_MinimumSoilProfile1D_ThrowsImportedDataTransformException()
+        public void Transform_InvalidSoilProfile1D_ThrowsImportedDataTransformException()
         {
             // Setup
             var profile = new SoilProfile1D(1, "test", 3, Enumerable.Empty<SoilLayer1D>());
@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_MinimumSoilProfile2D_ThrowsImportedDataException()
+        public void Transform_InvalidSoilProfile2D_ThrowsImportedDataTransformException()
         {
             // Setup
             var profile = new SoilProfile2D(1, "test", Enumerable.Empty<SoilLayer2D>(), Enumerable.Empty<PreconsolidationStress>());

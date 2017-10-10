@@ -124,7 +124,7 @@
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.IO.TestUtils\Ringtoets.Piping.IO.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.IO.TestUtil\Ringtoets.Piping.IO.TestUtil.csproj">
       <Project>{58e2d4fd-9dfa-4a05-99c6-5a2e8adcf90a}</Project>
       <Name>Ringtoets.Piping.IO.TestUtil</Name>
     </ProjectReference>

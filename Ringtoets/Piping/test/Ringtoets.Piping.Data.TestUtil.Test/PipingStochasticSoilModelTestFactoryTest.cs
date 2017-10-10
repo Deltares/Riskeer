@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
     public class PipingStochasticSoilModelTestFactoryTest
     {
         [Test]
-        public void CreatePipingStochasticSoilModel_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_ReturnsPipingStochasticSoilModel()
         {
             // Call
             PipingStochasticSoilModel model = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithName_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithName_ReturnsPipingStochasticSoilModel()
         {
             // Setup
             const string name = "some name";
@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithNameAndGeometry_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithNameAndGeometry_ReturnsPipingStochasticSoilModel()
         {
             // Setup
             var random = new Random(21);
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithNameAndStochasticSoilProfiles_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithNameAndStochasticSoilProfiles_ReturnsPipingStochasticSoilModel()
         {
             // Setup
             var random = new Random(21);
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingStochasticSoilModel_WithStochasticSoilProfiles_ReturnsPipingStochasticSoilModelWithExpectedPropertiesSet()
+        public void CreatePipingStochasticSoilModel_WithStochasticSoilProfiles_ReturnsPipingStochasticSoilModel()
         {
             // Setup
             var random = new Random(21);

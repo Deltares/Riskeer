@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_MinimumSoilProfile2D_ThrowsImportedDataTransformException()
+        public void Transform_InvalidSoilProfile2D_ThrowsImportedDataTransformException()
         {
             // Setup
             var random = new Random(21);
@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_MinimumSoilProfile1D_ThrowsImportedDataTransformException()
+        public void Transform_InvalidSoilProfile1D_ThrowsImportedDataTransformException()
         {
             // Setup
             const string profileName = "SomeProfile";

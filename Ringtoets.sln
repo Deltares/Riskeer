@@ -1746,7 +1746,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.IO.TestUtils\Ringtoets.Piping.IO.TestUtil.csproj", "{58E2D4FD-9DFA-4A05-99C6-5A2E8ADCF90A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.IO.TestUtil\Ringtoets.Piping.IO.TestUtil.csproj", "{58E2D4FD-9DFA-4A05-99C6-5A2E8ADCF90A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
