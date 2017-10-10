@@ -390,16 +390,16 @@
   <data name="GeneralResult_Imported_non_unique_stochasts" xml:space="preserve">
     <value>Een of meerdere stochasten hebben dezelfde naam.</value>
   </data>
-  <data name="GeneralResult_Imported_non_unique_closing_situations_or_wind_direction" xml:space="preserve">
+  <data name="GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirection_not_unique" xml:space="preserve">
     <value>Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting.</value>
   </data>
-  <data name="GeneralResult_Imported_non_unique_results" xml:space="preserve">
+  <data name="SubMechanismIllustrationPoint_ValidateResults_Results_not_unique" xml:space="preserve">
     <value>Een of meerdere uitvoer variabelen hebben dezelfde naam.</value>
   </data>
-  <data name="GeneralResult_Imported_with_incorrect_stochasts_in_children" xml:space="preserve">
+  <data name="Child_stochasts_not_same_as_parent_stochasts" xml:space="preserve">
     <value>De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten.</value>
   </data>
-  <data name="GeneralResult_Imported_non_unique_child_names" xml:space="preserve">
+  <data name="IllustrationPointNode_ValidateChildNames_Child_names_not_unique" xml:space="preserve">
     <value>Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam.</value>
   </data>
   <data name="StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry" xml:space="preserve">

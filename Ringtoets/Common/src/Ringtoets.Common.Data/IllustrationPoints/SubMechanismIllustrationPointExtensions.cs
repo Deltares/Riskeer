@@ -31,11 +31,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     public static class SubMechanismIllustrationPointExtensions
     {
         /// <summary>
-        /// Returns a list of all the stochast names present in the <paramref name="subMechanismIllustrationPoint"/>.
+        /// Gets all the stochast names present in the <paramref name="subMechanismIllustrationPoint"/>.
         /// </summary>
         /// <param name="subMechanismIllustrationPoint">The sub mechanism illustration point
         /// to retrieve stochast names from.</param>
-        /// <returns>Returns all stochast names as an enumerable result.</returns>
+        /// <returns>A list of all stochast names.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPoint"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<string> GetStochastNames(this SubMechanismIllustrationPoint subMechanismIllustrationPoint)
         {
             if (subMechanismIllustrationPoint == null)

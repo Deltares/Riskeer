@@ -398,6 +398,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten..
+        /// </summary>
+        public static string Child_stochasts_not_same_as_parent_stochasts {
+            get {
+                return ResourceManager.GetString("Child_stochasts_not_same_as_parent_stochasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string CoefficientOfVariation_Should_be_greater_or_equal_to_zero {
@@ -555,33 +564,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam..
-        /// </summary>
-        public static string GeneralResult_Imported_non_unique_child_names {
-            get {
-                return ResourceManager.GetString("GeneralResult_Imported_non_unique_child_names", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting..
-        /// </summary>
-        public static string GeneralResult_Imported_non_unique_closing_situations_or_wind_direction {
-            get {
-                return ResourceManager.GetString("GeneralResult_Imported_non_unique_closing_situations_or_wind_direction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een of meerdere uitvoer variabelen hebben dezelfde naam..
-        /// </summary>
-        public static string GeneralResult_Imported_non_unique_results {
-            get {
-                return ResourceManager.GetString("GeneralResult_Imported_non_unique_results", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een of meerdere stochasten hebben dezelfde naam..
         /// </summary>
         public static string GeneralResult_Imported_non_unique_stochasts {
@@ -591,11 +573,12 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten..
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten hebben dezelfde combinatie van sluitscenario en windrichting..
         /// </summary>
-        public static string GeneralResult_Imported_with_incorrect_stochasts_in_children {
+        public static string GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirection_not_unique {
             get {
-                return ResourceManager.GetString("GeneralResult_Imported_with_incorrect_stochasts_in_children", resourceCulture);
+                return ResourceManager.GetString("GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirectio" +
+                        "n_not_unique", resourceCulture);
             }
         }
         
@@ -623,6 +606,15 @@ namespace Ringtoets.Common.Data.Properties {
         public static string IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes {
             get {
                 return ResourceManager.GetString("IllustrationPointNode_SetChildren_Node_must_have_zero_or_two_child_nodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een of meerdere illustratiepunten bevatten illustratiepunten met dezelfde naam..
+        /// </summary>
+        public static string IllustrationPointNode_ValidateChildNames_Child_names_not_unique {
+            get {
+                return ResourceManager.GetString("IllustrationPointNode_ValidateChildNames_Child_names_not_unique", resourceCulture);
             }
         }
         
@@ -942,6 +934,15 @@ namespace Ringtoets.Common.Data.Properties {
         public static string StructureInflowModelType_LowSill_DisplayName {
             get {
                 return ResourceManager.GetString("StructureInflowModelType_LowSill_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een of meerdere uitvoer variabelen hebben dezelfde naam..
+        /// </summary>
+        public static string SubMechanismIllustrationPoint_ValidateResults_Results_not_unique {
+            get {
+                return ResourceManager.GetString("SubMechanismIllustrationPoint_ValidateResults_Results_not_unique", resourceCulture);
             }
         }
         

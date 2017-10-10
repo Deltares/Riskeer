@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -40,32 +39,6 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("stochasts", exception.ParamName);
-        }
-
-        [Test]
-        public void ValidateStochasts_StochastsEmpty_DoesNotThrow()
-        {
-            // Call
-            TestDelegate test = () => StochastValidator.ValidateStochasts(Enumerable.Empty<Stochast>());
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        [Test]
-        public void ValidateStochasts_SingleStochast_DoesNotThrow()
-        {
-            // Setup
-            var stochasts = new List<Stochast>
-            {
-                new Stochast("Stochast A", 1, 2)
-            };
-
-            // Call
-            TestDelegate test = () => StochastValidator.ValidateStochasts(stochasts);
-
-            // Assert
-            Assert.DoesNotThrow(test);
         }
 
         [Test]

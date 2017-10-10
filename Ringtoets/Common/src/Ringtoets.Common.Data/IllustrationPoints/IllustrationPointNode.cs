@@ -65,9 +65,12 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Sets the children to this node.
         /// </summary>
         /// <param name="children">The children that are attached to this node.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="children"/>
-        /// does not contain 0 or 2 elements or when the children have duplicate names or
-        /// when they have different stochasts than the node itself.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="children"/> does not contain 0 or 2 elements;</item>
+        /// <item>the children have duplicate names;</item>
+        /// <item>they have different stochasts than the node itself.</item>
+        /// </list></exception>
         public void SetChildren(IllustrationPointNode[] children)
         {
             if (children == null)
@@ -102,21 +105,36 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             return clone;
         }
 
+        /// <summary>
+        /// Validates a <see cref="FaultTreeIllustrationPoint"/> by checking for duplicate names in child nodes.
+        /// </summary>
+        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> object to be validated.</param>
+        /// <param name="children">The collection of <see cref="IllustrationPointNode"/> objects to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="children"/> contains child nodes with
+        /// duplicate names.</exception>
         private static void ValidateChildNames(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
         {
             if (children.HasDuplicates(c => c.Data.Name))
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_child_names));
+                throw new ArgumentException(string.Format(Resources.IllustrationPointNode_ValidateChildNames_Child_names_not_unique));
             }
         }
 
+        /// <summary>
+        /// Validates a <see cref="FaultTreeIllustrationPoint"/> by comparing the stochasts in child nodes with its
+        /// own stochasts.
+        /// </summary>
+        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> object to be validated.</param>
+        /// <param name="children">The collection of <see cref="IllustrationPointNode"/> objects to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="children"/> contains stochasts that 
+        /// are not in <paramref name="data"/>'s stochasts.</exception>
         private static void ValidateChildStochasts(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
         {
             List<string> stochastNames = children.SelectMany(c => c.GetStochastNames()).ToList();
 
             if (data.GetStochastNames().Intersect(stochastNames).Count() != stochastNames.Distinct().Count())
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_stochasts_in_children));
+                throw new ArgumentException(string.Format(Resources.Child_stochasts_not_same_as_parent_stochasts));
             }
         }
     }

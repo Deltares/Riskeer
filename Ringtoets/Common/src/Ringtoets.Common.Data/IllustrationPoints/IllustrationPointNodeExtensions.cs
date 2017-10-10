@@ -31,11 +31,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     public static class IllustrationPointNodeExtensions
     {
         /// <summary>
-        /// Returns a list of all the stochast names present in the <paramref name="illustrationPointNode"/>.
+        /// Gets all the stochast names present in the <paramref name="illustrationPointNode"/>.
         /// </summary>
         /// <param name="illustrationPointNode">The illustration point node
         /// to retrieve stochast names from.</param>
-        /// <returns>Returns all stochast names as an enumerable result.</returns>
+        /// <returns>A list of all stochast names.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointNode"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<string> GetStochastNames(this IllustrationPointNode illustrationPointNode)
         {
             if (illustrationPointNode == null)
@@ -58,19 +60,21 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         }
 
         /// <summary>
-        /// Returns a list of all the stochast names present in the <paramref name="illustrationPointNode"/> and its children.
+        /// Gets all the stochast names present in the <paramref name="illustrationPointNode"/> and its children.
         /// </summary>
         /// <param name="illustrationPointNode">The illustration point node
         /// to retrieve child stochast names from.</param>
-        /// <returns>Returns all stochast names as an enumerable result.</returns>
-        public static IEnumerable<string> GetStochastNamesFromChildren(this IllustrationPointNode illustrationPointNode)
+        /// <returns>A list of all stochast names.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="illustrationPointNode"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<string> GetStochastNamesRecursively(this IllustrationPointNode illustrationPointNode)
         {
             if (illustrationPointNode == null)
             {
                 throw new ArgumentNullException(nameof(illustrationPointNode));
             }
 
-            List<string> stochastNames = illustrationPointNode.Children.SelectMany(GetStochastNamesFromChildren).ToList();
+            List<string> stochastNames = illustrationPointNode.Children.SelectMany(GetStochastNamesRecursively).ToList();
             stochastNames.AddRange(illustrationPointNode.GetStochastNames());
 
             return stochastNames;

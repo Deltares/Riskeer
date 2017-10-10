@@ -295,7 +295,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_CalculationRanErrorInSettingIllustrationPoints_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);

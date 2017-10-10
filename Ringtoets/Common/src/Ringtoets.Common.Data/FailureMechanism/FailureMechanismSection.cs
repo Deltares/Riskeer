@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <item><paramref name="name"/> is <c>null</c>.</item>
         /// <item><paramref name="geometryPoints"/> is <c>null</c>.</item> </list></exception>
         /// <exception cref="ArgumentException">Thrown when:<list type="bullet">
-        /// <item>One ore more <paramref name="geometryPoints"/> elements are <c>null</c>.</item>
+        /// <item>One or more <paramref name="geometryPoints"/> elements are <c>null</c>.</item>
         /// <item><paramref name="geometryPoints"/> does not have at lease one geometry point.</item>
         /// </list></exception>
         public FailureMechanismSection(string name, IEnumerable<Point2D> geometryPoints)

@@ -107,14 +107,15 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         public void Constructor_StochastNamesNotUnique_ThrowArgumentException()
         {
             // Setup
+            var random = new Random(21);
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();
             var stochasts = new[]
             {
-                new Stochast("unique", 1, 4),
-                new Stochast("non-unique", 2, 0),
-                new Stochast("non-unique", 3, 2),
-                new Stochast("nonunique", 4, 0),
-                new Stochast("nonunique", 5, 1)
+                new Stochast("unique", random.NextDouble(), random.NextDouble()),
+                new Stochast("non-unique", random.NextDouble(), random.NextDouble()),
+                new Stochast("non-unique", random.NextDouble(), random.NextDouble()),
+                new Stochast("nonunique", random.NextDouble(), random.NextDouble()),
+                new Stochast("nonunique", random.NextDouble(), random.NextDouble())
             };
             IEnumerable<TopLevelIllustrationPointBase> topLevelIllustrationPoints =
                 Enumerable.Empty<TopLevelIllustrationPointBase>();
@@ -153,7 +154,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void Constructor_ChildStochastsNotInStochasts_ThrowArgumentException()
+        public void Constructor_ChildStochastsNotEqualToTopLevelIllustrationPointStochasts_ThrowArgumentException()
         {
             // Setup
             WindDirection windDirection = WindDirectionTestFactory.CreateTestWindDirection();

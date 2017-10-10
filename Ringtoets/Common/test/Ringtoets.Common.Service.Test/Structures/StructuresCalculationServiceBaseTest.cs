@@ -597,7 +597,7 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Calculate_CalculationRanErrorInSettingIllustrationPoints_GeneralResultNotSetAndLogsWarning()
+        public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
             var mocks = new MockRepository();

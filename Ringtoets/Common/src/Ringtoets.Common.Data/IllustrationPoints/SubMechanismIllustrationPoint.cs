@@ -39,14 +39,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <param name="beta">The beta value that was realized.</param>
         /// <param name="stochasts">The stochasts for the sub mechanism illustration point.</param>
         /// <param name="illustrationPointResults">The output variables.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of: 
+        /// <exception cref="ArgumentNullException">Thrown when any of the following parameters is <c>null</c>:
         /// <list type="bullet">
-        /// <item><paramref name="name"/></item>
-        /// <item><paramref name="stochasts"/></item>
-        /// <item><paramref name="illustrationPointResults"/></item>
-        /// </list>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the names of the <paramref name="stochasts"/> are not unique.</exception>
+        /// <item><paramref name="name"/>;</item>
+        /// <item><paramref name="stochasts"/>;</item>
+        /// <item><paramref name="illustrationPointResults"/>.</item>
+        /// </list></exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="stochasts"/> aren't unique.</exception>
         public SubMechanismIllustrationPoint(string name,
                                              double beta,
                                              IEnumerable<SubMechanismIllustrationPointStochast> stochasts,
@@ -90,15 +89,18 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         }
 
         /// <summary>
-        /// Validates a collection of <see cref="illustrationPointResults"/> objects by checking for duplicate descriptions.
+        /// Validates a collection of <see cref="illustrationPointResults"/> objects
+        /// by checking for duplicate descriptions.
         /// </summary>
-        /// <param name="illustrationPointResults">The collection of <see cref="illustrationPointResults"/> objects to be validated.</param>
+        /// <param name="illustrationPointResults">The collection of <paramref name="illustrationPointResults"/>
+        /// objects to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointResults"/> 
+        /// contains results with duplicate descriptions.</exception>
         private static void ValidateResults(IEnumerable<IllustrationPointResult> illustrationPointResults)
         {
-            bool hasDuplicateResults = illustrationPointResults.HasDuplicates(i => i.Description);
-            if (hasDuplicateResults)
+            if (illustrationPointResults.HasDuplicates(i => i.Description))
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_results));
+                throw new ArgumentException(string.Format(Resources.SubMechanismIllustrationPoint_ValidateResults_Results_not_unique));
             }
         }
     }

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -45,73 +44,67 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void GetStochastNames_IllustrationPointNodeWithSubMechanismIllustrationPointWithoutStochast_ReturnsEmptyList()
+        public void GetStochastNames_IllustrationPointNodeWithSubMechanismIllustrationPointWithStochast_ReturnStochastNames()
         {
             // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint());
-
-            // Call
-            IEnumerable<string> names = illustrationPointNode.GetStochastNames();
-
-            // Assert
-            CollectionAssert.IsEmpty(names);
-        }
-
-        [Test]
-        public void GetStochastNames_IllustrationPointNodeWithFaultTreeIllustrationPointWithoutStochast_ReturnsEmptyList()
-        {
-            // Setup
-            var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint());
-
-            // Call
-            IEnumerable<string> names = illustrationPointNode.GetStochastNames();
-
-            // Assert
-            CollectionAssert.IsEmpty(names);
-        }
-
-        [Test]
-        public void GetStochastNames_IllustrationPointNodeWithSubMechanismIllustrationPointWithStochast_ReturnsExpectedName()
-        {
-            // Setup
-            const string stochastName = "Stochast A";
+            var random = new Random(21);
+            const string stochastNameA = "Stochast A";
+            const string stochastNameB = "Stochast B";
             var illustrationPointNode = new IllustrationPointNode(new TestSubMechanismIllustrationPoint(new[]
             {
-                new SubMechanismIllustrationPointStochast(stochastName, 2, 5, 3)
+                new SubMechanismIllustrationPointStochast(stochastNameA,
+                                                          random.NextDouble(),
+                                                          random.NextDouble(),
+                                                          random.NextDouble()),
+                new SubMechanismIllustrationPointStochast(stochastNameB,
+                                                          random.NextDouble(),
+                                                          random.NextDouble(),
+                                                          random.NextDouble())
             }));
 
             // Call
             IEnumerable<string> names = illustrationPointNode.GetStochastNames();
 
             // Assert
-            Assert.AreEqual(stochastName, names.Single());
+            CollectionAssert.AreEqual(new[]
+            {
+                stochastNameA,
+                stochastNameB
+            }, names);
         }
 
         [Test]
-        public void GetStochastNames_IllustrationPointNodeWithFaultTreeIllustrationPointWithStochast_ReturnsExpectedName()
+        public void GetStochastNames_IllustrationPointNodeWithFaultTreeIllustrationPointWithStochast_ReturnStochastNames()
         {
             // Setup
-            const string stochastName = "Stochast A";
+            var random = new Random(21);
+            const string stochastNameA = "Stochast A";
+            const string stochastNameB = "Stochast B";
             var illustrationPointNode = new IllustrationPointNode(new TestFaultTreeIllustrationPoint(new[]
             {
-                new Stochast(stochastName, 2, 4)
+                new Stochast(stochastNameA, random.NextDouble(), random.NextDouble()),
+                new Stochast(stochastNameB, random.NextDouble(), random.NextDouble())
             }));
 
             // Call
             IEnumerable<string> names = illustrationPointNode.GetStochastNames();
 
             // Assert
-            Assert.AreEqual(stochastName, names.Single());
+            CollectionAssert.AreEqual(new[]
+            {
+                stochastNameA,
+                stochastNameB
+            }, names);
         }
 
         [Test]
-        public void GetStochastNamesFromChildren_IllustrationPointNodeNull_ThrowsArgumentNullException()
+        public void GetStochastNamesRecursively_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
             // Setup
             IllustrationPointNode illustrationPointNode = null;
 
             // Call
-            TestDelegate test = () => illustrationPointNode.GetStochastNamesFromChildren();
+            TestDelegate test = () => illustrationPointNode.GetStochastNamesRecursively();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -119,7 +112,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void GetStochastNamesFromChildren_IllustrationPointNodeWithFaultTreeIllustrationPointAndChildrenContainingStochasts_ReturnsExpectedNames()
+        public void GetStochastNamesRecursively_IllustrationPointNodeWithFaultTreeIllustrationPointAndChildrenContainingStochasts_ReturnStochastNames()
         {
             // Setup
             const string stochastNameA = "Stochast A";
@@ -142,7 +135,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             });
 
             // Call
-            IEnumerable<string> names = illustrationPointNode.GetStochastNamesFromChildren();
+            IEnumerable<string> names = illustrationPointNode.GetStochastNamesRecursively();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -155,7 +148,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void GetStochastNamesFromChildren_IllustrationPointNodeWithSubMechanismIllustrationPointAndNoChildren_ReturnsExpectedNames()
+        public void GetStochastNamesRecursively_IllustrationPointNodeWithSubMechanismIllustrationPointAndNoChildren_ReturnStochastNames()
         {
             // Setup
             const string stochastNameA = "Stochast A";
@@ -167,7 +160,7 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             }));
 
             // Call
-            IEnumerable<string> names = illustrationPointNode.GetStochastNamesFromChildren();
+            IEnumerable<string> names = illustrationPointNode.GetStochastNamesRecursively();
 
             // Assert
             CollectionAssert.AreEqual(new[]

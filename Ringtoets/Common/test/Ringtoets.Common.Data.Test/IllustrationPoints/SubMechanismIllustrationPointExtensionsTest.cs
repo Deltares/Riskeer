@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -45,33 +44,33 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void GetStochastNames_SubMechanismIllustrationPointWithoutStochast_ReturnsEmptyList()
+        public void GetStochastNames_SubMechanismIllustrationPointWithStochast_ReturnStochastNames()
         {
             // Setup
-            var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint();
-
-            // Call
-            IEnumerable<string> names = subMechanismIllustrationPoint.GetStochastNames();
-
-            // Assert
-            CollectionAssert.IsEmpty(names);
-        }
-
-        [Test]
-        public void GetStochastNames_SubMechanismIllustrationPointWithStochast_ReturnsExpectedName()
-        {
-            // Setup
-            const string stochastName = "Stochast A";
+            var random = new Random(21);
+            const string stochastNameA = "Stochast A";
+            const string stochastNameB = "Stochast B";
             var subMechanismIllustrationPoint = new TestSubMechanismIllustrationPoint(new[]
             {
-                new SubMechanismIllustrationPointStochast(stochastName, 2, 5, 3)
+                new SubMechanismIllustrationPointStochast(stochastNameA,
+                                                          random.NextDouble(),
+                                                          random.NextDouble(),
+                                                          random.NextDouble()),
+                new SubMechanismIllustrationPointStochast(stochastNameB,
+                                                          random.NextDouble(),
+                                                          random.NextDouble(),
+                                                          random.NextDouble())
             });
 
             // Call
             IEnumerable<string> names = subMechanismIllustrationPoint.GetStochastNames();
 
             // Assert
-            Assert.AreEqual(stochastName, names.Single());
+            CollectionAssert.AreEqual(new[]
+            {
+                stochastNameA,
+                stochastNameB
+            }, names);
         }
     }
 }

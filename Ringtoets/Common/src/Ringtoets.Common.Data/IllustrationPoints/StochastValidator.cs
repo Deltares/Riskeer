@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Validates a collection of <see cref="Stochast"/> objects by checking for duplicate names.
         /// </summary>
         /// <param name="stochasts">The collection of <see cref="Stochast"/> objects to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="stochasts"/> contains duplicate stochasts.</exception>
         public static void ValidateStochasts(IEnumerable<Stochast> stochasts)
         {
             if (stochasts == null)
@@ -42,8 +43,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 throw new ArgumentNullException(nameof(stochasts));
             }
 
-            bool hasDuplicates = stochasts.HasDuplicates(s => s.Name);
-            if (hasDuplicates)
+            if (stochasts.HasDuplicates(s => s.Name))
             {
                 throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_stochasts));
             }

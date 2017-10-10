@@ -31,11 +31,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
     public static class FaultTreeIllustrationPointExtensions
     {
         /// <summary>
-        /// Returns a list of all the stochast names present in the <paramref name="faultTreeIllustrationPoint"/>.
+        /// Gets all the stochast names present in the <paramref name="faultTreeIllustrationPoint"/>.
         /// </summary>
         /// <param name="faultTreeIllustrationPoint">The fault tree illustration point
         /// to retrieve stochast names from.</param>
-        /// <returns>Returns all stochast names as an enumerable result.</returns>
+        /// <returns>A list of all stochast names.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="faultTreeIllustrationPoint"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<string> GetStochastNames(this FaultTreeIllustrationPoint faultTreeIllustrationPoint)
         {
             if (faultTreeIllustrationPoint == null)

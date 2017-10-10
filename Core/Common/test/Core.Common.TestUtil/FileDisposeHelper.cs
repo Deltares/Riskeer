@@ -188,7 +188,7 @@ namespace Core.Common.TestUtil
         /// Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260
         /// characters.</item>
         /// <item>The specified path is invalid (for example, it is on an unmapped drive).</item>
-        /// <item> An I/O error occurred while creating the file.</item>
+        /// <item>An I/O error occurred while creating the file.</item>
         /// </list>
         /// </exception>
         private static void CreateFile(string filePath)

@@ -92,11 +92,11 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
             var random = new Random(21);
             var stochasts = new[]
             {
-                new Stochast("unique", 0, 0),
-                new Stochast("non-unique", 2, 1),
-                new Stochast("non-unique", 4, 8),
-                new Stochast("nonunique", 23, 7),
-                new Stochast("nonunique", 4, 2)
+                new Stochast("unique", random.NextDouble(), random.NextDouble()),
+                new Stochast("non-unique", random.NextDouble(), random.NextDouble()),
+                new Stochast("non-unique", random.NextDouble(), random.NextDouble()),
+                new Stochast("nonunique", random.NextDouble(), random.NextDouble()),
+                new Stochast("nonunique", random.NextDouble(), random.NextDouble())
             };
 
             // Call

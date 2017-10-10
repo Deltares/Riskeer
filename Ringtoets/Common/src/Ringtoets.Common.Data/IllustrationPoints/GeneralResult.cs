@@ -46,11 +46,12 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// parameters is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>the stochasts in child nodes don't equal the general result's stochasts;</item>
+        /// <item>the stochasts in child nodes are not equal to the general result's stochasts;</item>
         /// <item>the general result's stochasts contains duplicates;</item>
         /// <item>the top level illustration points have a duplicate 
         /// combination of closing situation and wind direction.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public GeneralResult(WindDirection governingWindDirection,
                              IEnumerable<Stochast> stochasts,
                              IEnumerable<T> topLevelIllustrationPoints)
@@ -103,6 +104,16 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             return clone;
         }
 
+        /// <summary>
+        /// Validates a collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects by comparing the stochasts of child nodes
+        /// with its own stochasts.
+        /// </summary>
+        /// <param name="topLevelillustrationPoints">The collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects to be validated.</param>
+        /// <param name="stochasts">The collection of <see cref="Stochast"/> objects to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when the content <paramref name="stochasts"/> does not equal
+        /// the child stochasts.</exception>
         private static void ValidateStochastInChildren(IEnumerable<T> topLevelillustrationPoints, IEnumerable<Stochast> stochasts)
         {
             var childStochastNames = new List<string>();
@@ -112,7 +123,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 var topLevelFaultTreeIllustrationPoint = topLevelIllustrationPoint as TopLevelFaultTreeIllustrationPoint;
                 if (topLevelFaultTreeIllustrationPoint != null)
                 {
-                    childStochastNames.AddRange(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.GetStochastNamesFromChildren());
+                    childStochastNames.AddRange(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.GetStochastNamesRecursively());
                     continue;
                 }
 
@@ -128,17 +139,24 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
             if (childStochastNames.Except(topLevelStochastNames).Any())
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_with_incorrect_stochasts_in_children));
+                throw new ArgumentException(string.Format(Resources.Child_stochasts_not_same_as_parent_stochasts));
             }
         }
 
+        /// <summary>
+        /// Validates a collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects by checking for duplicate combinations
+        /// of closing situation and wind direction.
+        /// </summary>
+        /// <param name="topLevelIllustrationPoints">The collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="topLevelIllustrationPoints"/> contains a duplicate
+        /// combination of closing situation and wind direction.</exception>
         private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)
         {
-            bool hasDuplicateIllustrationPointsPerWindDirection =
-                topLevelIllustrationPoints.HasDuplicates(t => $"{t.ClosingSituation} {t.WindDirection.Angle}");
-            if (hasDuplicateIllustrationPointsPerWindDirection)
+            if (topLevelIllustrationPoints.HasDuplicates(t => $"{t.ClosingSituation} {t.WindDirection.Angle}"))
             {
-                throw new ArgumentException(string.Format(Resources.GeneralResult_Imported_non_unique_closing_situations_or_wind_direction));
+                throw new ArgumentException(string.Format(Resources.GeneralResult_ValidateTopLevelIllustrationPoints_ClosingSituation_or_windDirection_not_unique));
             }
         }
     }
