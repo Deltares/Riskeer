@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
@@ -37,7 +36,6 @@ namespace Ringtoets.Piping.IO.SoilProfiles
     /// </summary>
     public class PipingStochasticSoilModelTransformer : IStochasticSoilModelTransformer<PipingStochasticSoilModel>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PipingStochasticSoilModel));
         private readonly Dictionary<ISoilProfile, PipingSoilProfile> soilProfiles = new Dictionary<ISoilProfile, PipingSoilProfile>();
 
         public PipingStochasticSoilModel Transform(StochasticSoilModel stochasticSoilModel)
@@ -78,10 +76,12 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         private IEnumerable<PipingStochasticSoilProfile> TransformStochasticSoilProfiles(IEnumerable<StochasticSoilProfile> stochasticSoilProfiles,
                                                                                          string soilModelName)
         {
-            PipingStochasticSoilProfile[] transformedProfiles = stochasticSoilProfiles.Select(ssp => PipingStochasticSoilProfileTransformer.Transform(
-                                                                                                  ssp,
-                                                                                                  GetTransformedPipingSoilProfile(ssp.SoilProfile))).ToArray();
-            return GetUniqueStochasticSoilProfiles(transformedProfiles, soilModelName);
+            IEnumerable<StochasticSoilProfile> uniqueStochasticSoilProfiles = StochasticSoilProfileHelper.GetUniqueStochasticSoilProfiles(stochasticSoilProfiles,
+                                                                                                                                          soilModelName);
+            return uniqueStochasticSoilProfiles.Select(ssp =>
+                                                           PipingStochasticSoilProfileTransformer.Transform(
+                                                               ssp, GetTransformedPipingSoilProfile(ssp.SoilProfile)))
+                                               .ToArray();
         }
 
         /// <summary>
@@ -104,49 +104,6 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 soilProfiles.Add(soilProfile, pipingSoilProfile);
             }
             return pipingSoilProfile;
-        }
-
-        /// <summary>
-        /// Filters a collection of <see cref="PipingStochasticSoilProfile"/> to determine which items
-        /// are unique.
-        /// </summary>
-        /// <param name="stochasticSoilProfiles">The collection of <see cref="PipingStochasticSoilProfile"/>
-        /// to filter.</param>
-        /// <param name="soilModelName">The name of the soil model.</param>
-        /// <returns>A collection of unique <see cref="PipingStochasticSoilProfile"/>.</returns>
-        /// <exception cref="ImportedDataTransformException">Thrown when summing the probabilities of 
-        /// <see cref="PipingStochasticSoilProfile"/> with the same <see cref="PipingStochasticSoilProfile.SoilProfile"/>
-        /// results in an invalid probability.</exception>
-        private static IEnumerable<PipingStochasticSoilProfile> GetUniqueStochasticSoilProfiles(
-            IEnumerable<PipingStochasticSoilProfile> stochasticSoilProfiles,
-            string soilModelName)
-        {
-            List<PipingStochasticSoilProfile> uniqueStochasticSoilProfiles = stochasticSoilProfiles.ToList();
-            PipingStochasticSoilProfile[] allStochasticSoilProfiles = uniqueStochasticSoilProfiles.ToArray();
-
-            try
-            {
-                for (var i = 1; i < allStochasticSoilProfiles.Length; i++)
-                {
-                    PipingStochasticSoilProfile previousProfile = allStochasticSoilProfiles[i - 1];
-                    PipingStochasticSoilProfile currentProfile = allStochasticSoilProfiles[i];
-                    if (ReferenceEquals(currentProfile.SoilProfile, previousProfile.SoilProfile))
-                    {
-                        log.Warn(string.Format(RingtoetsCommonIOResources.SoilModelTransformer_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed,
-                                               previousProfile.SoilProfile.Name,
-                                               soilModelName));
-
-                        previousProfile.AddProbability(currentProfile.Probability);
-                        uniqueStochasticSoilProfiles.Remove(currentProfile);
-                    }
-                }
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                throw new ImportedDataTransformException(e.Message, e);
-            }
-
-            return uniqueStochasticSoilProfiles;
         }
     }
 }

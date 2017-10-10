@@ -889,7 +889,7 @@ Het bestand wordt overgeslagen.</value>
   <data name="PreconsolidationStressReader_Failed_to_read_database" xml:space="preserve">
     <value>Kon geen grensspanningen verkrijgen uit de database.</value>
   </data>
-  <data name="SoilModelTransformer_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed" xml:space="preserve">
+  <data name="StochasticSoilProfileHelper_GetUniqueStochasticSoilProfiles_StochasticSoilProfile_0_has_multiple_occurences_in_SoilModel_1_Probability_Summed" xml:space="preserve">
     <value>Ondergrondschematisatie '{0}' is meerdere keren gevonden in ondergrondmodel '{1}'. Kansen van voorkomen worden opgeteld.</value>
   </data>
 </root>
