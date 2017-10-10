@@ -40,7 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <item><see cref="ConstructionProperties.SurfaceLine"/>;</item>
         /// <item><see cref="ConstructionProperties.SoilProfile"/>;</item>
         /// <item><see cref="ConstructionProperties.DrainageConstruction"/>;</item>
-        /// <item><see cref="ConstructionProperties.PhreaticLineOffsets"/>;</item>
+        /// <item><see cref="ConstructionProperties.PhreaticLineOffsetsExtreme"/>;</item>
+        /// <item><see cref="ConstructionProperties.PhreaticLineOffsetsDaily"/>;</item>
         /// <item><see cref="ConstructionProperties.SlipPlane"/>.</item>
         /// </list>
         /// </exception>
@@ -63,9 +64,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             {
                 throw new ArgumentException("DrainageConstruction must be set.");
             }
-            if (properties.PhreaticLineOffsets == null)
+            if (properties.PhreaticLineOffsetsExtreme == null)
             {
-                throw new ArgumentException("PhreaticLineOffsets must be set.");
+                throw new ArgumentException("PhreaticLineOffsetsExtreme must be set.");
+            }
+            if (properties.PhreaticLineOffsetsDaily == null)
+            {
+                throw new ArgumentException("PhreaticLineOffsetsDaily must be set.");
             }
             if (properties.SlipPlane == null)
             {
@@ -79,10 +84,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
             DrainageConstruction = properties.DrainageConstruction;
-            PhreaticLineOffsets = properties.PhreaticLineOffsets;
+            PhreaticLineOffsetsExtreme = properties.PhreaticLineOffsetsExtreme;
+            PhreaticLineOffsetsDaily = properties.PhreaticLineOffsetsDaily;
             SlipPlane = properties.SlipPlane;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
-            WaterLevelPolder = properties.WaterLevelPolder;
+            WaterLevelPolderExtreme = properties.WaterLevelPolderExtreme;
+            WaterLevelPolderDaily = properties.WaterLevelPolderDaily;
             MinimumLevelPhreaticLineAtDikeTopRiver = properties.MinimumLevelPhreaticLineAtDikeTopRiver;
             MinimumLevelPhreaticLineAtDikeTopPolder = properties.MinimumLevelPhreaticLineAtDikeTopPolder;
             LeakageLengthOutwardsPhreaticLine3 = properties.LeakageLengthOutwardsPhreaticLine3;
@@ -117,7 +124,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 AssessmentLevel = double.NaN;
                 LandwardDirection = UpliftVanLandwardDirection.PositiveX;
                 WaterLevelRiverAverage = double.NaN;
-                WaterLevelPolder = double.NaN;
+                WaterLevelPolderExtreme = double.NaN;
+                WaterLevelPolderDaily = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopRiver = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopPolder = double.NaN;
                 LeakageLengthOutwardsPhreaticLine3 = double.NaN;
@@ -172,9 +180,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public UpliftVanDrainageConstruction DrainageConstruction { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the phreatic line offsets.
+            /// Gets or sets the phreatic line offsets under extreme circumstances.
             /// </summary>
-            public UpliftVanPhreaticLineOffsets PhreaticLineOffsets { internal get; set; }
+            public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsExtreme { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the phreatic line offsets under daily circumstances.
+            /// </summary>
+            public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsDaily { internal get; set; }
 
             /// <summary>
             /// Gets or sets the slip plane.
@@ -193,10 +206,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public double WaterLevelRiverAverage { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the polder water level.
+            /// Gets or sets the polder water level under extreme circumstances.
             /// [m+NAP]
             /// </summary>
-            public double WaterLevelPolder { internal get; set; }
+            public double WaterLevelPolderExtreme { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the polder water level under daily circumstances.
+            /// [m+NAP]
+            /// </summary>
+            public double WaterLevelPolderDaily { internal get; set; }
 
             /// <summary>
             /// Gets or sets the minimum level phreatic line at dike top river.
@@ -332,9 +351,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public UpliftVanDrainageConstruction DrainageConstruction { get; }
 
         /// <summary>
-        /// Gets the phreatic line offsets.
+        /// Gets the phreatic line offsets under extreme circumstances.
         /// </summary>
-        public UpliftVanPhreaticLineOffsets PhreaticLineOffsets { get; }
+        public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsExtreme { get; }
+
+        /// <summary>
+        /// Gets the phreatic line offsets under daily circumstances.
+        /// </summary>
+        public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsDaily { get; }
 
         /// <summary>
         /// Gets the slip plane.
@@ -353,10 +377,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public double WaterLevelRiverAverage { get; }
 
         /// <summary>
-        /// Gets the polder water level.
+        /// Gets the polder water level under extreme circumstances.
         /// [m+NAP]
         /// </summary>
-        public double WaterLevelPolder { get; }
+        public double WaterLevelPolderExtreme { get; }
+
+        /// <summary>
+        /// Gets the polder water level under daily circumstances.
+        /// [m+NAP]
+        /// </summary>
+        public double WaterLevelPolderDaily { get; }
 
         /// <summary>
         /// Gets the minimum level phreatic line at dike top river.

@@ -451,6 +451,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
             inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
 
+            inputParameters.LocationInputDaily.UseDefaultOffsets = true;
+            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
+
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
@@ -459,11 +465,17 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                     .LastCreatedUpliftVanCalculator.Input;
-                Assert.IsTrue(actualInput.PhreaticLineOffsets.UseDefaults);
-                Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowDikeToeAtPolder);
-                Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowDikeTopAtPolder);
-                Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowDikeTopAtRiver);
-                Assert.IsNaN(actualInput.PhreaticLineOffsets.BelowShoulderBaseInside);
+                Assert.IsTrue(actualInput.PhreaticLineOffsetsExtreme.UseDefaults);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside);
+
+                Assert.IsTrue(actualInput.PhreaticLineOffsetsDaily.UseDefaults);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver);
+                Assert.IsNaN(actualInput.PhreaticLineOffsetsDaily.BelowShoulderBaseInside);
             }
         }
 
@@ -570,7 +582,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
             UpliftVanCalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
-            AssertPhreaticLineOffsets(originalInput.LocationInputExtreme, actualInput.PhreaticLineOffsets);
+            AssertPhreaticLineOffsets(originalInput.LocationInputExtreme, actualInput.PhreaticLineOffsetsExtreme);
+            AssertPhreaticLineOffsets(originalInput.LocationInputDaily, actualInput.PhreaticLineOffsetsDaily);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
             Assert.AreEqual(UpliftVanWaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(UpliftVanPlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
@@ -579,7 +592,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
-            Assert.AreEqual(originalInput.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
+            Assert.AreEqual(originalInput.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolderExtreme);
+            Assert.AreEqual(originalInput.LocationInputDaily.WaterLevelPolder, actualInput.WaterLevelPolderDaily);
             Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.DrainageConstruction.IsPresent);
             Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.DrainageConstruction.XCoordinate);
             Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.DrainageConstruction.ZCoordinate);

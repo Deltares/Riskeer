@@ -51,9 +51,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         SoilProfile2D SoilProfile { set; }
 
         /// <summary>
-        /// Sets the location.
+        /// Sets the location under extreme conditions.
         /// </summary>
-        StabilityLocation Location { set; }
+        StabilityLocation LocationExtreme { set; }
+
+        /// <summary>
+        /// Sets the location under daily circumstances.
+        /// </summary>
+        StabilityLocation LocationDaily { set; }
 
         /// <summary>
         /// Sets the surface line.

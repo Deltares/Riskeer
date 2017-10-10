@@ -139,7 +139,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             UpliftVanKernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
             UpliftVanKernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
-            UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.Create(input), upliftVanKernel.Location);
+            UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.CreateExtreme(input), upliftVanKernel.LocationExtreme);
+            UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.CreateDaily(input), upliftVanKernel.LocationDaily);
             UpliftVanKernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), upliftVanKernel.SurfaceLine);
             UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
 
@@ -256,7 +257,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 DrainageConstruction = new UpliftVanDrainageConstruction(),
-                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane()
             });
         }
@@ -273,10 +275,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 DrainageConstruction = new UpliftVanDrainageConstruction(),
-                PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
                 WaterLevelRiverAverage = random.Next(),
-                WaterLevelPolder = random.Next(),
+                WaterLevelPolderExtreme = random.Next(),
+                WaterLevelPolderDaily = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
                 LeakageLengthOutwardsPhreaticLine3 = random.Next(),

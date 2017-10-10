@@ -56,7 +56,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var random = new Random(21);
             var soilModel = new SoilModel();
             var soilProfile2D = new SoilProfile2D();
-            var stabilityLocation = new StabilityLocation();
+            var stabilityLocationExtreme = new StabilityLocation();
+            var stabilityLocationDaily = new StabilityLocation();
             var surfaceLine = new SurfaceLine2();
             double maximumSliceWidth = random.NextDouble();
             var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
@@ -72,7 +73,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 SoilModel = soilModel,
                 SoilProfile = soilProfile2D,
-                Location = stabilityLocation,
+                LocationExtreme = stabilityLocationExtreme,
+                LocationDaily = stabilityLocationDaily,
                 SurfaceLine = surfaceLine,
                 MaximumSliceWidth = maximumSliceWidth,
                 SlipPlaneUpliftVan = slipPlaneUpliftVan,
@@ -94,7 +96,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
-            Assert.AreSame(stabilityLocation, stabilityModel.Location);
+            Assert.AreSame(stabilityLocationExtreme, stabilityModel.Location);
+            Assert.AreSame(stabilityLocationDaily, stabilityModel.LocationDaily);
             Assert.AreSame(soilModel, stabilityModel.SoilModel);
             Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
@@ -155,7 +158,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernel = new UpliftVanKernelWrapper
             {
                 SurfaceLine = new SurfaceLine2(),
-                Location = new StabilityLocation(),
+                LocationExtreme = new StabilityLocation(),
+                LocationDaily = new StabilityLocation(),
                 SoilProfile = new SoilProfile2D
                 {
                     Geometry = new GeometryData
@@ -277,7 +281,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernel = new UpliftVanKernelWrapper
             {
                 SurfaceLine = new SurfaceLine2(),
-                Location = new StabilityLocation(),
+                LocationExtreme = new StabilityLocation(),
+                LocationDaily = new StabilityLocation(),
                 SoilProfile = new SoilProfile2D
                 {
                     Geometry = new GeometryData

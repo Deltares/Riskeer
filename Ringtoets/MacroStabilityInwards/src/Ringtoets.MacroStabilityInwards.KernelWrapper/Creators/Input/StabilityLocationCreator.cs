@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
     internal static class StabilityLocationCreator
     {
         /// <summary>
-        /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/>,
+        /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/> under extreme circumstances,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value but unsupported.</exception>
-        public static StabilityLocation Create(UpliftVanCalculatorInput input)
+        public static StabilityLocation CreateExtreme(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
@@ -61,17 +61,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 PlLineCreationMethod = ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiver = input.AssessmentLevel,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
-                WaterLevelPolder = input.WaterLevelPolder,
+                WaterLevelPolder = input.WaterLevelPolderExtreme,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
                 XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,
                 ZCoordMiddleDrainageConstruction = input.DrainageConstruction.ZCoordinate,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
-                UseDefaultOffsets = input.PhreaticLineOffsets.UseDefaults,
-                PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsets.BelowDikeTopAtRiver,
-                PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsets.BelowDikeTopAtPolder,
-                PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsets.BelowShoulderBaseInside,
-                PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsets.BelowDikeToeAtPolder,
+                UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults,
+                PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver,
+                PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder,
+                PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside,
+                PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder,
                 AdjustPl3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
                 LeakageLengthOutwardsPl3 = input.LeakageLengthOutwardsPhreaticLine3,
                 LeakageLengthInwardsPl3 = input.LeakageLengthInwardsPhreaticLine3,
@@ -80,6 +80,55 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
                 PenetrationLength = input.PenetrationLength
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/> under daily circumstances,
+        /// which can be used by <see cref="IUpliftVanKernel"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
+        /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
+        /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
+        /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
+        /// is a valid value but unsupported.</exception>
+        public static StabilityLocation CreateDaily(UpliftVanCalculatorInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            return new StabilityLocation
+            {
+                DikeSoilScenario = ConvertDikeSoilScenario(input.DikeSoilScenario),
+                WaternetCreationMode = ConvertWaternetCreationMode(input.WaternetCreationMode),
+                PlLineCreationMethod = ConvertPlLineCreationMethod(input.PlLineCreationMethod),
+                WaterLevelRiver = input.WaterLevelRiverAverage,
+                WaterLevelRiverAverage = input.WaterLevelRiverAverage,
+                WaterLevelPolder = input.WaterLevelPolderDaily,
+                DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
+                XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,
+                ZCoordMiddleDrainageConstruction = input.DrainageConstruction.ZCoordinate,
+                MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
+                MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
+                UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults,
+                PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver,
+                PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder,
+                PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside,
+                PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder,
+                AdjustPl3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
+                LeakageLengthOutwardsPl3 = input.LeakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPl3 = input.LeakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPl4 = input.LeakageLengthOutwardsPhreaticLine4,
+                LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
+                HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
+                HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
+                PenetrationLength = 0.0
             };
         }
 

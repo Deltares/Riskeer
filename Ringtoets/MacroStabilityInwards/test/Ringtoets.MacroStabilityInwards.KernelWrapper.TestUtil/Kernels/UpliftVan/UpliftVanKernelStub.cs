@@ -62,7 +62,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
         public SoilProfile2D SoilProfile { get; set; }
 
-        public StabilityLocation Location { get; set; }
+        public StabilityLocation LocationExtreme { get; set; }
+
+        public StabilityLocation LocationDaily { get; set; }
 
         public bool MoveGrid { get; set; }
 

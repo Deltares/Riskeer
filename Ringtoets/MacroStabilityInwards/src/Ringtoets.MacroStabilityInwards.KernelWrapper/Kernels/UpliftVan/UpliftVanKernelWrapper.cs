@@ -44,7 +44,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             stabilityModel = new StabilityModel
             {
-                LocationDaily = null,
                 SlipPlaneConstraints = new SlipPlaneConstraints(),
                 GridOrientation = GridOrientation.Inwards,
                 SlipCircle = new SlipCircle(),
@@ -74,11 +73,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
-        public StabilityLocation Location
+        public StabilityLocation LocationExtreme
         {
             set
             {
                 stabilityModel.Location = value;
+            }
+        }
+
+        public StabilityLocation LocationDaily
+        {
+            set
+            {
+                stabilityModel.LocationDaily = value;
             }
         }
 

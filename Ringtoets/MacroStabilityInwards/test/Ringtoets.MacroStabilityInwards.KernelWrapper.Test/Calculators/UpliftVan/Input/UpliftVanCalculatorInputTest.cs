@@ -59,7 +59,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var plLineCreationMethod = random.NextEnumValue<UpliftVanPlLineCreationMethod>();
             var landwardDirection = random.NextEnumValue<UpliftVanLandwardDirection>();
             double waterLevelRiverAverage = random.Next();
-            double waterLevelPolder = random.Next();
+            double waterLevelPolderExtreme = random.Next();
+            double waterLevelPolderDaily = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
             double leakageLengthOutwardsPhreaticLine3 = random.Next();
@@ -89,10 +90,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
-                    PhreaticLineOffsets = phreaticLineOffsets,
+                    PhreaticLineOffsetsExtreme = phreaticLineOffsets,
+                    PhreaticLineOffsetsDaily = phreaticLineOffsets,
                     SlipPlane = slipPlane,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
-                    WaterLevelPolder = waterLevelPolder,
+                    WaterLevelPolderExtreme = waterLevelPolderExtreme,
+                    WaterLevelPolderDaily = waterLevelPolderDaily,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                     LeakageLengthOutwardsPhreaticLine3 = leakageLengthOutwardsPhreaticLine3,
@@ -120,11 +123,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(landwardDirection, input.LandwardDirection);
             Assert.AreSame(soilProfile, input.SoilProfile);
             Assert.AreSame(drainageConstruction, input.DrainageConstruction);
-            Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsets);
+            Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsetsDaily);
+            Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsetsExtreme);
             Assert.AreSame(slipPlane, input.SlipPlane);
 
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage);
-            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder);
+            Assert.AreEqual(waterLevelPolderExtreme, input.WaterLevelPolderExtreme);
+            Assert.AreEqual(waterLevelPolderDaily, input.WaterLevelPolderDaily);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, input.LeakageLengthOutwardsPhreaticLine3);
@@ -162,14 +167,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
-                    PhreaticLineOffsets = phreaticLineOffsets,
+                    PhreaticLineOffsetsExtreme = phreaticLineOffsets,
+                    PhreaticLineOffsetsDaily = phreaticLineOffsets,
                     SlipPlane = slipPlane
                 });
 
             // Assert
             Assert.IsNaN(input.AssessmentLevel);
             Assert.IsNaN(input.WaterLevelRiverAverage);
-            Assert.IsNaN(input.WaterLevelPolder);
+            Assert.IsNaN(input.WaterLevelPolderExtreme);
+            Assert.IsNaN(input.WaterLevelPolderDaily);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNaN(input.LeakageLengthOutwardsPhreaticLine3);
@@ -202,7 +209,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     SoilProfile = new TestUpliftVanSoilProfile(),
-                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane()
                 });
@@ -219,7 +227,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane()
                 });
@@ -237,7 +246,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
                     SlipPlane = new UpliftVanSlipPlane()
                 });
 
@@ -246,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Constructor_PhreaticLineOffsetsNull_ThrowsArgumentException()
+        public void Constructor_PhreaticLineOffsetsExtremeNull_ThrowsArgumentException()
         {
             // Call
             TestDelegate test = () => new UpliftVanCalculatorInput(
@@ -255,11 +265,30 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane()
+                    SlipPlane = new UpliftVanSlipPlane(),
+                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets()
                 });
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsets must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsetsExtreme must be set.");
+        }
+
+        [Test]
+        public void Constructor_PhreaticLineOffsetsDailyNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new UpliftVanCalculatorInput(
+                new UpliftVanCalculatorInput.ConstructionProperties
+                {
+                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    SlipPlane = new UpliftVanSlipPlane(),
+                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets()
+                });
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsetsDaily must be set.");
         }
 
         [Test]
@@ -272,7 +301,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                     SoilProfile = new TestUpliftVanSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsets = new UpliftVanPhreaticLineOffsets()
+                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets()
                 });
 
             // Assert
