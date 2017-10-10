@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.MacroStabilityInwards.Data.Properties;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -35,6 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsInput : Observable, ICalculationInput
     {
+        private static readonly Range<int> tangentLineNumberValidityRange = new Range<int>(1, 50);
+
         private RoundedDouble assessmentLevel;
         private bool useAssessmentLevelManualInput;
         private RoundedDouble slipPlaneMinimumDepth;
@@ -53,6 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble piezometricHeadPhreaticLine2Inwards;
         private RoundedDouble tangentLineZTop;
         private RoundedDouble tangentLineZBottom;
+        private int tangentLineNumber;
         private MacroStabilityInwardsSurfaceLine surfaceLine;
         private MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile;
 
@@ -96,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             tangentLineZTop = new RoundedDouble(2, double.NaN);
             tangentLineZBottom = new RoundedDouble(2, double.NaN);
-            TangentLineNumber = 1;
+            tangentLineNumber = 1;
 
             LeftGrid = new MacroStabilityInwardsGrid();
             RightGrid = new MacroStabilityInwardsGrid();
@@ -310,7 +314,25 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets the number of tangent lines.
         /// </summary>
-        public int TangentLineNumber { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/>
+        /// is not in the [1.0, 50.0] interval.</exception>
+        public int TangentLineNumber
+        {
+            get
+            {
+                return tangentLineNumber;
+            }
+            set
+            {
+                if (!tangentLineNumberValidityRange.InRange(value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(Resources.TangentLineNumber_Value_needs_to_be_in_Range_0_,
+                                                                                       tangentLineNumberValidityRange));
+                }
+
+                tangentLineNumber = value;
+            }
+        }
 
         /// <summary>
         /// Gets the left grid.

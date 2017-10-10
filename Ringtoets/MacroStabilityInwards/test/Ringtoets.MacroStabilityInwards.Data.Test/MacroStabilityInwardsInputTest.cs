@@ -185,7 +185,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
             double tangentLineZTop = random.NextDouble();
             double tangentLineZBottom = random.NextDouble();
-            int tangentLineNumber = random.Next();
+            int tangentLineNumber = random.Next(1, 51);
 
             // Call
             var input = new MacroStabilityInwardsInput
