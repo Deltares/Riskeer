@@ -56,6 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble(),
+                random.NextDouble(),
                 random.NextDouble());
 
             // Call

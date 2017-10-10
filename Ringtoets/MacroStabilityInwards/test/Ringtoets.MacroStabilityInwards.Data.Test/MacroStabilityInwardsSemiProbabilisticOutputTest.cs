@@ -34,6 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
+            double factorOfStability = random.NextDouble();
             double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
             double macroStabilityInwardsProbability = random.NextDouble();
@@ -42,6 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+                factorOfStability,
                 requiredProbability,
                 requiredReliability,
                 macroStabilityInwardsProbability,
@@ -49,6 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 macroStabilityInwardsFactorOfSafety);
 
             // Assert
+            Assert.AreEqual(factorOfStability, output.FactorOfStability, output.FactorOfStability.GetAccuracy());
+            Assert.AreEqual(3, output.FactorOfStability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
             Assert.AreEqual(5, output.RequiredReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredReliability, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
@@ -68,6 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
+            double factorOfStability = random.NextDouble();
             double requiredReliability = random.NextDouble();
             double macroStabilityInwardsProbability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
@@ -75,6 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+                factorOfStability,
                 requiredProbability,
                 requiredReliability,
                 macroStabilityInwardsProbability,
@@ -97,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
+            double factorOfStability = random.NextDouble();
             double requiredReliability = random.NextDouble();
             double macroStabilityInwardsProbability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
@@ -104,6 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSemiProbabilisticOutput(
+                factorOfStability,
                 requiredProbability,
                 requiredReliability,
                 macroStabilityInwardsProbability,
@@ -124,6 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
+            double factorOfStability = random.NextDouble();
             double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
@@ -131,6 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+                factorOfStability,
                 requiredProbability,
                 requiredReliability,
                 macroStabilityInwardsProbability,
@@ -153,6 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
+            double factorOfStability = random.NextDouble();
             double requiredProbability = random.NextDouble();
             double requiredReliability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
@@ -160,6 +171,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsSemiProbabilisticOutput(
+                factorOfStability,
                 requiredProbability,
                 requiredReliability,
                 macroStabilityInwardsProbability,

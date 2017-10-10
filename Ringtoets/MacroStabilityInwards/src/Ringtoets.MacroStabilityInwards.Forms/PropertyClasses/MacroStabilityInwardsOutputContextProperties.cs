@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(3, data.WrappedData.FactorOfStability);
+                return data.SemiProbabilisticOutput.FactorOfStability;
             }
         }
 

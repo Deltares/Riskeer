@@ -37,6 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
         /// </summary>
+        /// <param name="factorOfStability">The calculated factor of stability of the macro stability inwards failure mechanism.</param>
         /// <param name="requiredProbability">The required (maximum allowed) probability of failure due to macro stability inwards.</param>
         /// <param name="requiredReliability">The required (maximum allowed) reliability of the macro stability inwards failure mechanism</param>
         /// <param name="macroStabilityInwardsProbability">The calculated probability of failing due to macro stability inwards.</param>
@@ -44,15 +45,22 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="macroStabilityInwardsFactorOfSafety">The factor of safety for the macro stability inwards failure mechanism.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
-        public MacroStabilityInwardsSemiProbabilisticOutput(double requiredProbability, double requiredReliability,
-                                                            double macroStabilityInwardsProbability, double macroStabilityInwardsReliability, double macroStabilityInwardsFactorOfSafety)
+        public MacroStabilityInwardsSemiProbabilisticOutput(double factorOfStability, double requiredProbability, double requiredReliability,
+                                                            double macroStabilityInwardsProbability, double macroStabilityInwardsReliability,
+                                                            double macroStabilityInwardsFactorOfSafety)
         {
+            FactorOfStability = new RoundedDouble(3, factorOfStability);
             RequiredProbability = requiredProbability;
             RequiredReliability = new RoundedDouble(5, requiredReliability);
             MacroStabilityInwardsProbability = macroStabilityInwardsProbability;
             MacroStabilityInwardsReliability = new RoundedDouble(5, macroStabilityInwardsReliability);
             MacroStabilityInwardsFactorOfSafety = new RoundedDouble(3, macroStabilityInwardsFactorOfSafety);
         }
+
+        /// <summary>
+        /// Gets the factor of stability of the macro stability inwards failure mechanism.
+        /// </summary>
+        public RoundedDouble FactorOfStability { get; }
 
         /// <summary>
         /// Gets the required probability of the macro stability inwards failure mechanism,

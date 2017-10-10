@@ -52,6 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             scenario.SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
                 random.NextDouble(),
                 random.NextDouble(),
+                random.NextDouble(),
                 (RoundedDouble) probability,
                 random.NextDouble(),
                 random.NextDouble());

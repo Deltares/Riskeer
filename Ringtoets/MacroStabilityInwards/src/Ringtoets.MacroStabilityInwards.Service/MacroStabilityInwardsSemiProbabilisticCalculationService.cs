@@ -104,6 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             calculator.Calculate();
 
             calculation.SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
+                calculation.Output.FactorOfStability,
                 calculator.requiredProbability,
                 calculator.requiredReliability,
                 calculator.macroStabilityInwardsProbability,

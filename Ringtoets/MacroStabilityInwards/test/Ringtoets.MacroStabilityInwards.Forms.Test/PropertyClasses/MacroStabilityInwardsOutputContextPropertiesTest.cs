@@ -59,16 +59,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             double macroStabilityInwardsFactorOfStability = random.NextDouble();
 
             var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
+                macroStabilityInwardsFactorOfStability,
                 requiredProbability,
                 requiredReliability,
                 macroStabilityInwardsProbability,
                 macroStabilityInwardsReliability,
                 macroStabilityInwardsFactorOfSafety);
 
-            var output = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties
-            {
-                FactorOfStability = macroStabilityInwardsFactorOfStability
-            });
+            var output = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
@@ -77,7 +75,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(3, properties.MacroStabilityInwardsFactorOfStability.NumberOfDecimalPlaces);
             Assert.AreEqual(macroStabilityInwardsFactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
                             properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
 
@@ -93,28 +90,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
             // Setup
-            var random = new Random(22);
-            double requiredReliability = random.NextDouble();
-            double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
-
-            const double requiredProbability = 0;
-            const double macroStabilityInwardsProbability = 0;
+            var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(0, 0, 0, 0, 0, 0);
 
             // Call
-            var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                requiredProbability,
-                requiredReliability,
-                macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
-
             var properties = new MacroStabilityInwardsOutputContextProperties
             {
                 Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(), semiProbabilisticOutput)
             };
 
-            // Call & Assert
+            // Assert
             const string probability = "1/Oneindig";
             Assert.AreEqual(probability, properties.RequiredProbability);
             Assert.AreEqual(probability, properties.MacroStabilityInwardsProbability);
@@ -125,18 +109,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(22);
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double macroStabilityInwardsProbability = random.NextDouble();
-            double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             var semiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(
-                requiredProbability,
-                requiredReliability,
-                macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble());
 
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
