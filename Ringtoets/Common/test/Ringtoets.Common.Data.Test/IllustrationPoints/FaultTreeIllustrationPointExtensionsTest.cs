@@ -45,33 +45,27 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         }
 
         [Test]
-        public void GetStochastNames_FaultTreeIllustrationPointWithoutStochast_ReturnsEmptyList()
-        {
-            // Setup
-            var faultTreeIllustrationPoint = new TestFaultTreeIllustrationPoint();
-
-            // Call
-            IEnumerable<string> names = faultTreeIllustrationPoint.GetStochastNames();
-
-            // Assert
-            CollectionAssert.IsEmpty(names);
-        }
-
-        [Test]
         public void GetStochastNames_FaultTreeIllustrationPointWithStochast_ReturnsExpectedName()
         {
             // Setup
-            const string stochastName = "Stochast A";
+            var random = new Random(21);
+            const string stochastNameA = "Stochast A";
+            const string stochastNameB = "Stochast B";
             var faultTreeIllustrationPoint = new TestFaultTreeIllustrationPoint(new[]
             {
-                new Stochast(stochastName, 2, 5)
+                new Stochast(stochastNameA, random.NextDouble(), random.NextDouble()),
+                new Stochast(stochastNameB, random.NextDouble(), random.NextDouble())
             });
 
             // Call
             IEnumerable<string> names = faultTreeIllustrationPoint.GetStochastNames();
 
             // Assert
-            Assert.AreEqual(stochastName, names.Single());
+            CollectionAssert.AreEqual(new[]
+            {
+                stochastNameA,
+                stochastNameB
+            }, names);
         }
     }
 }

@@ -21,31 +21,31 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="SubMechanismIllustrationPoint"/> objects.
+    /// Defines extension methods dealing with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects.
     /// </summary>
-    public static class SubMechanismIllustrationPointExtensions
+    public static class TopLevelFaultTreeIllustrationPointExtensions
     {
         /// <summary>
-        /// Gets all the stochast names present in the <paramref name="subMechanismIllustrationPoint"/>.
+        /// Gets all the stochast names present in the <paramref name="topLevelFaultTreeIllustrationPoint"/>
+        /// and its children.
         /// </summary>
-        /// <param name="subMechanismIllustrationPoint">The <see cref="SubMechanismIllustrationPoint"/>
+        /// <param name="topLevelFaultTreeIllustrationPoint">The <see cref="TopLevelFaultTreeIllustrationPoint"/>
         /// to retrieve stochast names from.</param>
         /// <returns>A list of all stochast names.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPoint"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="topLevelFaultTreeIllustrationPoint"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<string> GetStochastNames(this SubMechanismIllustrationPoint subMechanismIllustrationPoint)
+        public static IEnumerable<string> GetStochastNamesRecursively(this TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint)
         {
-            if (subMechanismIllustrationPoint == null)
+            if (topLevelFaultTreeIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(topLevelFaultTreeIllustrationPoint));
             }
 
-            return subMechanismIllustrationPoint.Stochasts.Select(s => s.Name);
+            return topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.GetStochastNamesRecursively();
         }
     }
 }

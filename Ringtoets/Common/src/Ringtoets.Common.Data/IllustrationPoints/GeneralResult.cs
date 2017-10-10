@@ -123,14 +123,14 @@ namespace Ringtoets.Common.Data.IllustrationPoints
                 var topLevelFaultTreeIllustrationPoint = topLevelIllustrationPoint as TopLevelFaultTreeIllustrationPoint;
                 if (topLevelFaultTreeIllustrationPoint != null)
                 {
-                    childStochastNames.AddRange(topLevelFaultTreeIllustrationPoint.FaultTreeNodeRoot.GetStochastNamesRecursively());
+                    childStochastNames.AddRange(topLevelFaultTreeIllustrationPoint.GetStochastNamesRecursively());
                     continue;
                 }
 
                 var topLevelSubMechanismIllustrationPoint = topLevelIllustrationPoint as TopLevelSubMechanismIllustrationPoint;
                 if (topLevelSubMechanismIllustrationPoint != null)
                 {
-                    childStochastNames.AddRange(topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.GetStochastNames());
+                    childStochastNames.AddRange(topLevelSubMechanismIllustrationPoint.GetStochastNames());
                 }
             }
 

@@ -73,6 +73,8 @@
     <Compile Include="IllustrationPoints\CombinationType.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPoint.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNodeExtensions.cs" />
+    <Compile Include="IllustrationPoints\TopLevelFaultTreeIllustrationPointExtensions.cs" />
+    <Compile Include="IllustrationPoints\TopLevelSubMechanismIllustrationPointExtensions.cs" />
     <Compile Include="IllustrationPoints\SubMechanismIllustrationPointExtensions.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointExtensions.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNode.cs" />

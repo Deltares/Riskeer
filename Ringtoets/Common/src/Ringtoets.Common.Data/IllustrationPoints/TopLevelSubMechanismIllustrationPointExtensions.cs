@@ -21,31 +21,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ringtoets.Common.Data.IllustrationPoints
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="SubMechanismIllustrationPoint"/> objects.
+    /// Defines extension methods dealing with <see cref="TopLevelSubMechanismIllustrationPoint"/> objects.
     /// </summary>
-    public static class SubMechanismIllustrationPointExtensions
+    public static class TopLevelSubMechanismIllustrationPointExtensions
     {
         /// <summary>
-        /// Gets all the stochast names present in the <paramref name="subMechanismIllustrationPoint"/>.
+        /// Gets all the stochast names present in the <paramref name="topLevelSubMechanismIllustrationPoint"/>.
         /// </summary>
-        /// <param name="subMechanismIllustrationPoint">The <see cref="SubMechanismIllustrationPoint"/>
+        /// <param name="topLevelSubMechanismIllustrationPoint">The <see cref="TopLevelSubMechanismIllustrationPoint"/>
         /// to retrieve stochast names from.</param>
         /// <returns>A list of all stochast names.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="subMechanismIllustrationPoint"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="topLevelSubMechanismIllustrationPoint"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<string> GetStochastNames(this SubMechanismIllustrationPoint subMechanismIllustrationPoint)
+        public static IEnumerable<string> GetStochastNames(this TopLevelSubMechanismIllustrationPoint topLevelSubMechanismIllustrationPoint)
         {
-            if (subMechanismIllustrationPoint == null)
+            if (topLevelSubMechanismIllustrationPoint == null)
             {
-                throw new ArgumentNullException(nameof(subMechanismIllustrationPoint));
+                throw new ArgumentNullException(nameof(topLevelSubMechanismIllustrationPoint));
             }
 
-            return subMechanismIllustrationPoint.Stochasts.Select(s => s.Name);
+            return topLevelSubMechanismIllustrationPoint.SubMechanismIllustrationPoint.GetStochastNames();
         }
     }
 }

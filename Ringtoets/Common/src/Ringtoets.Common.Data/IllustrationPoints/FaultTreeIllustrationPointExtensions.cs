@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Gets all the stochast names present in the <paramref name="faultTreeIllustrationPoint"/>.
         /// </summary>
-        /// <param name="faultTreeIllustrationPoint">The fault tree illustration point
+        /// <param name="faultTreeIllustrationPoint">The <see cref="FaultTreeIllustrationPoint"/>
         /// to retrieve stochast names from.</param>
         /// <returns>A list of all stochast names.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="faultTreeIllustrationPoint"/>
