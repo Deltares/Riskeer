@@ -58,6 +58,7 @@
     <Compile Include="Calculators\UpliftVan\UpliftVanGridTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactoryTest.cs" />
+    <Compile Include="Calculators\Waternet\WaternetCalculatorStubTest.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelFactoryConfigTest.cs" />
     <Compile Include="Kernels\Waternet\WaternetKernelStubTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

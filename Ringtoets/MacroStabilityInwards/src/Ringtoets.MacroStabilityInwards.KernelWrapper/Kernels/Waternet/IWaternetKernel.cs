@@ -21,7 +21,7 @@
 
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -31,8 +31,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item><see cref="UpliftVanCalculator"/> input into kernel input;</item>
-    /// <item>kernel output into <see cref="UpliftVanCalculator"/> output.</item>
+    /// <item><see cref="WaternetCalculator"/> input into kernel input;</item>
+    /// <item>kernel output into <see cref="WaternetCalculator"/> output.</item>
     /// </list>
     /// </remarks>
     public interface IWaternetKernel

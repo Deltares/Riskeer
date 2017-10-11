@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
@@ -92,6 +93,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
 
             // Assert
             Assert.IsInstanceOf<UpliftVanCalculator>(upliftVanCalculator);
+        }
+
+        [Test]
+        public void CreateWaternetCalculator_Always_ReturnsWaternetCalculator()
+        {
+            // Setup
+            IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
+
+            // Call
+            IWaternetCalculator waternetCalculator = factory.CreateWaternetCalculator(new TestMacroStabilityInwardsKernelFactory());
+
+            // Assert
+            Assert.IsInstanceOf<WaternetCalculator>(waternetCalculator);
         }
     }
 }

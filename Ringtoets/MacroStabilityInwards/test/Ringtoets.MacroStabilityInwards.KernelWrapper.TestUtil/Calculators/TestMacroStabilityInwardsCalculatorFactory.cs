@@ -22,8 +22,10 @@
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
 {
@@ -38,18 +40,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
         public TestMacroStabilityInwardsCalculatorFactory()
         {
             LastCreatedUpliftVanCalculator = new UpliftVanCalculatorStub();
+            LastCreatedWaternetCalculator = new WaternetCalculatorStub();
         }
 
         /// <summary>
         /// Gets the last created <see cref="UpliftVanCalculatorStub"/>.
         /// </summary>
         public UpliftVanCalculatorStub LastCreatedUpliftVanCalculator { get; }
+        
+        /// <summary>
+        /// Gets the last created <see cref="WaternetCalculatorStub"/>.
+        /// </summary>
+        public WaternetCalculatorStub LastCreatedWaternetCalculator { get; }
 
         public IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             LastCreatedUpliftVanCalculator.Input = input;
 
             return LastCreatedUpliftVanCalculator;
+        }
+
+        public IWaternetCalculator CreateWaternetCalculator(IMacroStabilityInwardsKernelFactory factory)
+        {
+            return LastCreatedWaternetCalculator;
         }
     }
 }

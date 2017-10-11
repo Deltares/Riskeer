@@ -21,10 +21,13 @@
 
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -43,6 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsInstanceOf<IMacroStabilityInwardsCalculatorFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedUpliftVanCalculator);
             Assert.IsNull(factory.LastCreatedUpliftVanCalculator.Input);
+            Assert.IsNotNull(factory.LastCreatedWaternetCalculator);
         }
 
         [Test]
@@ -65,6 +69,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             Assert.AreSame(input, calculator.Input);
+        }
+
+        [Test]
+        public void CreateWaternetCalculator_Always_ReturnStub()
+        {
+            // Setup
+            var factory = new TestMacroStabilityInwardsCalculatorFactory();
+            
+            // Call
+            IWaternetCalculator calculator = factory.CreateWaternetCalculator(new TestMacroStabilityInwardsKernelFactory());
+
+            // Assert
+            Assert.IsInstanceOf<WaternetCalculatorStub>(calculator);
         }
     }
 }

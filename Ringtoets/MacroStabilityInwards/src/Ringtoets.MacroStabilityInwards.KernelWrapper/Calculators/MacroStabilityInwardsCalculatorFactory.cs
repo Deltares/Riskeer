@@ -21,6 +21,7 @@
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
@@ -50,6 +51,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         public IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             return new UpliftVanCalculator(input, factory);
+        }
+
+        public IWaternetCalculator CreateWaternetCalculator(IMacroStabilityInwardsKernelFactory factory)
+        {
+            return new WaternetCalculator(factory);
         }
     }
 }
