@@ -38,8 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? ZValue { get; set; }
         public double? ForbiddenZonesXEntryMin { get; set; }
         public double? ForbiddenZonesXEntryMax { get; set; }
-        public byte ForbiddenZonesAutomaticallyCalculated { get; set; }
-        public byte GridAutomaticallyCalculated { get; set; }
         public double? SlidingCurveLeftSlidingCircleCenterX { get; set; }
         public double? SlidingCurveLeftSlidingCircleCenterY { get; set; }
         public double? SlidingCurveLeftSlidingCircleRadius { get; set; }
@@ -71,7 +69,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? SlipPlaneRightGridZTop { get; set; }
         public double? SlipPlaneRightGridZBottom { get; set; }
         public int SlipPlaneRightGridNrOfVerticalPoints { get; set; }
-        public string TangentLinesXml { get; set; }
+        public string SlipPlaneTangentLinesXml { get; set; }
 
         public virtual MacroStabilityInwardsCalculationEntity MacroStabilityInwardsCalculationEntity { get; set; }
     }

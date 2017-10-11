@@ -747,8 +747,6 @@
           <Property Name="ZValue" Type="real" />
           <Property Name="ForbiddenZonesXEntryMin" Type="real" />
           <Property Name="ForbiddenZonesXEntryMax" Type="real" />
-          <Property Name="ForbiddenZonesAutomaticallyCalculated" Type="tinyint" Nullable="false" />
-          <Property Name="GridAutomaticallyCalculated" Type="tinyint" Nullable="false" />
           <Property Name="SlidingCurveLeftSlidingCircleCenterX" Type="real" />
           <Property Name="SlidingCurveLeftSlidingCircleCenterY" Type="real" />
           <Property Name="SlidingCurveLeftSlidingCircleRadius" Type="real" />
@@ -780,7 +778,7 @@
           <Property Name="SlipPlaneRightGridZTop" Type="real" />
           <Property Name="SlipPlaneRightGridZBottom" Type="real" />
           <Property Name="SlipPlaneRightGridNrOfVerticalPoints" Type="int" Nullable="false" />
-          <Property Name="TangentLinesXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SlipPlaneTangentLinesXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsCharacteristicPointEntity">
           <Key>
@@ -5156,8 +5154,6 @@
           <Property Name="ZValue" Type="Double" />
           <Property Name="ForbiddenZonesXEntryMin" Type="Double" />
           <Property Name="ForbiddenZonesXEntryMax" Type="Double" />
-          <Property Name="ForbiddenZonesAutomaticallyCalculated" Type="Byte" Nullable="false" />
-          <Property Name="GridAutomaticallyCalculated" Type="Byte" Nullable="false" />
           <Property Name="SlidingCurveLeftSlidingCircleCenterX" Type="Double" />
           <Property Name="SlidingCurveLeftSlidingCircleCenterY" Type="Double" />
           <Property Name="SlidingCurveLeftSlidingCircleRadius" Type="Double" />
@@ -5189,7 +5185,7 @@
           <Property Name="SlipPlaneRightGridZTop" Type="Double" />
           <Property Name="SlipPlaneRightGridZBottom" Type="Double" />
           <Property Name="SlipPlaneRightGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
-          <Property Name="TangentLinesXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SlipPlaneTangentLinesXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MacroStabilityInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationOutputEntity_0_0" FromRole="MacroStabilityInwardsCalculationOutputEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsCharacteristicPointEntity">
@@ -8223,7 +8219,7 @@
           <EntitySetMapping Name="MacroStabilityInwardsCalculationOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsCalculationOutputEntity">
-                <ScalarProperty Name="TangentLinesXml" ColumnName="TangentLinesXml" />
+                <ScalarProperty Name="SlipPlaneTangentLinesXml" ColumnName="SlipPlaneTangentLinesXml" />
                 <ScalarProperty Name="SlipPlaneRightGridNrOfVerticalPoints" ColumnName="SlipPlaneRightGridNrOfVerticalPoints" />
                 <ScalarProperty Name="SlipPlaneRightGridZBottom" ColumnName="SlipPlaneRightGridZBottom" />
                 <ScalarProperty Name="SlipPlaneRightGridZTop" ColumnName="SlipPlaneRightGridZTop" />
@@ -8255,8 +8251,6 @@
                 <ScalarProperty Name="SlidingCurveLeftSlidingCircleRadius" ColumnName="SlidingCurveLeftSlidingCircleRadius" />
                 <ScalarProperty Name="SlidingCurveLeftSlidingCircleCenterY" ColumnName="SlidingCurveLeftSlidingCircleCenterY" />
                 <ScalarProperty Name="SlidingCurveLeftSlidingCircleCenterX" ColumnName="SlidingCurveLeftSlidingCircleCenterX" />
-                <ScalarProperty Name="GridAutomaticallyCalculated" ColumnName="GridAutomaticallyCalculated" />
-                <ScalarProperty Name="ForbiddenZonesAutomaticallyCalculated" ColumnName="ForbiddenZonesAutomaticallyCalculated" />
                 <ScalarProperty Name="ForbiddenZonesXEntryMax" ColumnName="ForbiddenZonesXEntryMax" />
                 <ScalarProperty Name="ForbiddenZonesXEntryMin" ColumnName="ForbiddenZonesXEntryMin" />
                 <ScalarProperty Name="ZValue" ColumnName="ZValue" />

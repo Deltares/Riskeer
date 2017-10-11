@@ -68,9 +68,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             AssertAreEqual(output.PipingProbability, entity.PipingProbability);
             AssertAreEqual(output.PipingReliability, entity.PipingReliability);
             AssertAreEqual(output.PipingFactorOfSafety, entity.PipingFactorOfSafety);
-
-            Assert.AreEqual(0, entity.PipingSemiProbabilisticOutputEntityId);
-            Assert.AreEqual(0, entity.PipingCalculationEntityId);
         }
 
         [Test]
@@ -100,9 +97,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNull(entity.PipingProbability);
             Assert.IsNull(entity.PipingReliability);
             Assert.IsNull(entity.PipingFactorOfSafety);
-
-            Assert.AreEqual(0, entity.PipingSemiProbabilisticOutputEntityId);
-            Assert.AreEqual(0, entity.PipingCalculationEntityId);
         }
 
         private static void AssertAreEqual(double expectedValue, double? actualValue)
