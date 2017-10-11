@@ -40,6 +40,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
         /// <list type="bullet">
         /// <item><see cref="ConstructionProperties.SurfaceLine"/>;</item>
         /// <item><see cref="ConstructionProperties.SoilProfile"/>;</item>
+        /// <item><see cref="ConstructionProperties.DrainageConstruction"/>;</item>
+        /// <item><see cref="ConstructionProperties.PhreaticLineOffsetsExtreme"/>;</item>
+        /// <item><see cref="ConstructionProperties.PhreaticLineOffsetsDaily"/>;</item>
         /// </list>
         /// </exception>
         public WaternetCalculatorInput(ConstructionProperties properties)
@@ -57,10 +60,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
             {
                 throw new ArgumentException("SoilProfile must be set.");
             }
+            if (properties.DrainageConstruction == null)
+            {
+                throw new ArgumentException("DrainageConstruction must be set.");
+            }
+            if (properties.PhreaticLineOffsetsExtreme == null)
+            {
+                throw new ArgumentException("PhreaticLineOffsetsExtreme must be set.");
+            }
+            if (properties.PhreaticLineOffsetsDaily == null)
+            {
+                throw new ArgumentException("PhreaticLineOffsetsDaily must be set.");
+            }
 
+            WaternetCreationMode = properties.WaternetCreationMode;
+            PlLineCreationMethod = properties.PlLineCreationMethod;
             AssessmentLevel = properties.AssessmentLevel;
+            LandwardDirection = properties.LandwardDirection;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
+            DrainageConstruction = properties.DrainageConstruction;
+            PhreaticLineOffsetsExtreme = properties.PhreaticLineOffsetsExtreme;
+            PhreaticLineOffsetsDaily = properties.PhreaticLineOffsetsDaily;
             WaterLevelRiverAverage = properties.WaterLevelRiverAverage;
             WaterLevelPolderExtreme = properties.WaterLevelPolderExtreme;
             WaterLevelPolderDaily = properties.WaterLevelPolderDaily;
@@ -87,7 +108,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
             /// </summary>
             public ConstructionProperties()
             {
+                WaternetCreationMode = WaternetCreationMode.CreateWaternet;
+                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017;
                 AssessmentLevel = double.NaN;
+                LandwardDirection = LandwardDirection.PositiveX;
                 WaterLevelRiverAverage = double.NaN;
                 WaterLevelPolderExtreme = double.NaN;
                 WaterLevelPolderDaily = double.NaN;
@@ -106,10 +130,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
             #region Properties
 
             /// <summary>
+            /// Gets or sets the waternet creation mode.
+            /// </summary>
+            public WaternetCreationMode WaternetCreationMode { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the pl line creation method.
+            /// </summary>
+            public PlLineCreationMethod PlLineCreationMethod { internal get; set; }
+
+            /// <summary>
             /// Gets or sets the outside high water level.
             /// [m+NAP]
             /// </summary>
             public double AssessmentLevel { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the landward direction of <see cref="SurfaceLine"/>.
+            /// </summary>
+            public LandwardDirection LandwardDirection { internal get; set; }
 
             /// <summary>
             /// Gets or sets the surface line.
@@ -120,6 +159,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
             /// Gets or sets the profile which contains a definition of soil layers with properties.
             /// </summary>
             public SoilProfile SoilProfile { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the drainage construction.
+            /// </summary>
+            public DrainageConstruction DrainageConstruction { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the phreatic line offsets under extreme circumstances.
+            /// </summary>
+            public PhreaticLineOffsets PhreaticLineOffsetsExtreme { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the phreatic line offsets under daily circumstances.
+            /// </summary>
+            public PhreaticLineOffsets PhreaticLineOffsetsDaily { internal get; set; }
 
             /// <summary>
             /// Gets or sets the dike soil scenario.
@@ -209,10 +263,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
         #region Properties
 
         /// <summary>
+        /// Gets the waternet creation mode.
+        /// </summary>
+        public WaternetCreationMode WaternetCreationMode { get; }
+
+        /// <summary>
+        /// Gets the pl line creation method.
+        /// </summary>
+        public PlLineCreationMethod PlLineCreationMethod { get; }
+
+        /// <summary>
         /// Gets the outside high water level.
         /// [m+NAP]
         /// </summary>
         public double AssessmentLevel { get; }
+
+        /// <summary>
+        /// Gets the landward direction of <see cref="SurfaceLine"/>.
+        /// </summary>
+        public LandwardDirection LandwardDirection { get; }
+
         /// <summary>
         /// Gets the surface line.
         /// </summary>
@@ -222,6 +292,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
         /// Gets the profile which contains a definition of soil layers with properties.
         /// </summary>
         public SoilProfile SoilProfile { get; }
+
+        /// <summary>
+        /// Gets the drainage construction.
+        /// </summary>
+        public DrainageConstruction DrainageConstruction { get; }
+
+        /// <summary>
+        /// Gets the phreatic line offsets under extreme circumstances.
+        /// </summary>
+        public PhreaticLineOffsets PhreaticLineOffsetsExtreme { get; }
+
+        /// <summary>
+        /// Gets the phreatic line offsets under daily circumstances.
+        /// </summary>
+        public PhreaticLineOffsets PhreaticLineOffsetsDaily { get; }
 
         /// <summary>
         /// Gets the dike soil scenario.
