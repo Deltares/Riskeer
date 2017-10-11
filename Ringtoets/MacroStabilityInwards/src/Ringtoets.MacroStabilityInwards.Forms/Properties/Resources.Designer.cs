@@ -1191,7 +1191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aantal tangentlijnen dat bepaald moet worden..
+        ///   Looks up a localized string similar to Het aantal raaklijnen dat bepaald moet worden..
         /// </summary>
         public static string TangentLineNumber_Description {
             get {

@@ -419,7 +419,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate call = () => inputParameters.TangentLineNumber = tangentLineNumber;
 
             // Assert
-            const string message = "De waarde voor het aantal tangentlijnen moet in het bereik [1, 50] liggen.";
+            const string message = "De waarde voor het aantal raaklijnen moet in het bereik [1, 50] liggen.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("value", paramName);
         }

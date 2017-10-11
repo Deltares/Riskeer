@@ -182,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor het aantal tangentlijnen moet in het bereik {0} liggen..
+        ///   Looks up a localized string similar to De waarde voor het aantal raaklijnen moet in het bereik {0} liggen..
         /// </summary>
         public static string TangentLineNumber_Value_needs_to_be_in_Range_0_ {
             get {

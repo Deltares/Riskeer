@@ -467,7 +467,7 @@
     <value>Tangentlijn Z-boven [m+NAP]</value>
   </data>
   <data name="TangentLineNumber_Description" xml:space="preserve">
-    <value>Het aantal tangentlijnen dat bepaald moet worden.</value>
+    <value>Het aantal raaklijnen dat bepaald moet worden.</value>
   </data>
   <data name="TangentLineNumber_DisplayName" xml:space="preserve">
     <value>Aantal tangentlijnen</value>

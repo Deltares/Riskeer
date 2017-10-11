@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 tangentLineNumberProperty,
                 calculationGridsCategory,
                 "Aantal tangentlijnen",
-                "Het aantal tangentlijnen dat bepaald moet worden.",
+                "Het aantal raaklijnen dat bepaald moet worden.",
                 true);
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
