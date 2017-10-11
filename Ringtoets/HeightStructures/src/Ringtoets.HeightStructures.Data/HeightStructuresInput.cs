@@ -34,8 +34,8 @@ namespace Ringtoets.HeightStructures.Data
     {
         private const int deviationWaveDirectionNumberOfDecimals = 2;
 
-        private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRage = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
-                                                                                                                   new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
+        private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRange = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
+                                                                                                                    new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
 
         private NormalDistribution levelCrestStructure;
         private RoundedDouble deviationWaveDirection;
@@ -66,10 +66,10 @@ namespace Ringtoets.HeightStructures.Data
             set
             {
                 RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
-                if (!double.IsNaN(newDeviationWaveDirection) && !deviationWaveDirectionValidityRage.InRange(newDeviationWaveDirection))
+                if (!double.IsNaN(newDeviationWaveDirection) && !deviationWaveDirectionValidityRange.InRange(newDeviationWaveDirection))
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
-                                                                                       deviationWaveDirectionValidityRage));
+                                                                                       deviationWaveDirectionValidityRange));
                 }
                 deviationWaveDirection = newDeviationWaveDirection;
             }
