@@ -49,8 +49,8 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            MacroStabilityInwardsSlipPlaneUpliftVan slipPlane = CreateSlipPlane(entity);
-            MacroStabilityInwardsSlidingCurve slidingCurve = CreateSlidingCurve(entity);
+            MacroStabilityInwardsSlipPlaneUpliftVan slipPlane = ReadSlipPlane(entity);
+            MacroStabilityInwardsSlidingCurve slidingCurve = ReadSlidingCurve(entity);
 
             return new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties
             {
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             });
         }
 
-        private static MacroStabilityInwardsSlipPlaneUpliftVan CreateSlipPlane(MacroStabilityInwardsCalculationOutputEntity entity)
+        private static MacroStabilityInwardsSlipPlaneUpliftVan ReadSlipPlane(MacroStabilityInwardsCalculationOutputEntity entity)
         {
             var leftGrid = new MacroStabilityInwardsGrid
             {
@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, tangentLines);
         }
 
-        private static MacroStabilityInwardsSlidingCurve CreateSlidingCurve(MacroStabilityInwardsCalculationOutputEntity entity)
+        private static MacroStabilityInwardsSlidingCurve ReadSlidingCurve(MacroStabilityInwardsCalculationOutputEntity entity)
         {
             var leftCircle = new MacroStabilityInwardsSlidingCircle(new Point2D(entity.SlidingCurveLeftSlidingCircleCenterX.ToNullAsNaN(),
                                                                                 entity.SlidingCurveLeftSlidingCircleCenterY.ToNullAsNaN()),
