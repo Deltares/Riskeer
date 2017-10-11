@@ -271,6 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
                     TangentLineZTop = new RoundedDouble(5, 1.0),
                     TangentLineZBottom = new RoundedDouble(5, 1.0),
+                    TangentLineNumber = 10,
                     LeftGrid =
                     {
                         XLeft = new RoundedDouble(5, 1.0),

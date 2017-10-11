@@ -202,6 +202,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated, inputParameters.TangentLineDeterminationType);
             Assert.IsNaN(inputParameters.TangentLineZTop);
             Assert.IsNaN(inputParameters.TangentLineZBottom);
+            Assert.AreEqual(1, inputParameters.TangentLineNumber);
             Assert.IsNotNull(inputParameters.LeftGrid);
             Assert.IsNotNull(inputParameters.RightGrid);
             Assert.IsTrue(inputParameters.CreateZones);
@@ -252,6 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.Specified, inputParameters.TangentLineDeterminationType);
             Assert.AreEqual(1, inputParameters.TangentLineZTop.Value);
             Assert.AreEqual(1, inputParameters.TangentLineZBottom.Value);
+            Assert.AreEqual(10, inputParameters.TangentLineNumber);
             Assert.AreEqual(1, inputParameters.LeftGrid.XLeft.Value);
             Assert.AreEqual(1, inputParameters.LeftGrid.XRight.Value);
             Assert.AreEqual(1, inputParameters.LeftGrid.ZTop.Value);

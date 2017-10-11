@@ -488,6 +488,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             inputParameters.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
             inputParameters.TangentLineZTop = random.NextRoundedDouble();
             inputParameters.TangentLineZBottom = random.NextRoundedDouble();
+            inputParameters.TangentLineNumber = random.Next(1, 51);
             inputParameters.LeftGrid.XLeft = random.NextRoundedDouble();
             inputParameters.LeftGrid.XRight = random.NextRoundedDouble();
             inputParameters.LeftGrid.ZTop = random.NextRoundedDouble();
@@ -515,6 +516,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 Assert.IsTrue(actualInput.SlipPlane.TangentLinesAutomaticAtBoundaries);
                 Assert.IsNaN(actualInput.SlipPlane.TangentZTop);
                 Assert.IsNaN(actualInput.SlipPlane.TangentZBottom);
+                Assert.AreEqual(0, actualInput.SlipPlane.TangentLineNumber);
             }
         }
 
@@ -649,7 +651,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.IsFalse(actualInput.TangentLinesAutomaticAtBoundaries);
             Assert.AreEqual(originalInput.TangentLineZTop, actualInput.TangentZTop);
             Assert.AreEqual(originalInput.TangentLineZBottom, actualInput.TangentZBottom);
-            Assert.AreEqual(1, actualInput.TangentLineNumber);
+            Assert.AreEqual(10, actualInput.TangentLineNumber);
         }
 
         private static void AssertOutput(UpliftVanCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)
