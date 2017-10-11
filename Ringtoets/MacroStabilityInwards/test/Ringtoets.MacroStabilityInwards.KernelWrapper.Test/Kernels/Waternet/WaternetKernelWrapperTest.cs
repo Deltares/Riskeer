@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Reflection;
+using Deltares.WTIStability;
+using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
@@ -35,6 +38,73 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
+        }
+
+        [Test]
+        public void Constructor_CompleteInput_InputCorrectlySetToWrappedKernel()
+        {
+            // Setup
+            var stabilityLocation = new StabilityLocation();
+            var soilModel = new SoilModel();
+            var soilProfile2D = new SoilProfile2D();
+            var surfaceLine = new SurfaceLine2();
+
+            // Call
+            var kernel = new WaternetKernelWrapper
+            {
+                Location = stabilityLocation,
+                SoilModel = soilModel,
+                SoilProfile = soilProfile2D,
+                SurfaceLine = surfaceLine
+            };
+
+            // Assert
+            var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
+
+            Assert.AreSame(stabilityLocation, stabilityModel.Location);
+            Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
+            Assert.AreSame(soilModel, stabilityModel.SoilModel);
+            Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
+
+            AssertIrrelevantValues(stabilityModel);
+            AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+        }
+
+        private static void AssertIrrelevantValues(StabilityModel stabilityModel)
+        {
+            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Set during calculation
+            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Set during calculation
+            Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // No multiplication factors CPhi for WBI
+            Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
+            Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization
+            Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
+            Assert.IsFalse(stabilityModel.OnlyMinimumSafetyCurve); // Only for Bishop
+            Assert.IsFalse(stabilityModel.AutoGenerateGeneticSpencer); // Only for Spencer
+            Assert.AreEqual(SlipPlanePosition.High, stabilityModel.SlipPlanePosition); // Only for Spencer
+            Assert.AreEqual(0.8, stabilityModel.RequiredForcePointsInSlices); // Only for Spencer
+            Assert.AreEqual(60.0, stabilityModel.MaxAllowedAngleBetweenSlices); // Only for Spencer
+            Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Only for genetic search algorithm
+            Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
+            Assert.AreEqual(ShearStrengthModel.CPhi, stabilityModel.DefaultShearStrengthModel); // Unused property
+            Assert.AreEqual(50.0, stabilityModel.NumberOfGridMoves); // Only for Bishop
+            Assert.IsEmpty(stabilityModel.ConsolidationMatrix.ConsolidationValues); // No consolidation for WBI
+            Assert.IsNotNull(stabilityModel.ConsolidationLoad); // No consolidation for WBI
+            Assert.AreEqual(ModelOptions.Bishop, stabilityModel.ModelOption); // Not applicable for Waternet calculation
+            Assert.AreEqual(ModelOptions.Bishop, stabilityModel.SoilModel.ModelOption); // Not applicable for Waternet calculation
+            Assert.IsNotNull(stabilityModel.SlipPlaneUpliftVan); // Not applicable for Waternet calculation
+            Assert.IsNotNull(stabilityModel.SlipCircle); // Not applicable for Waternet calculation
+        }
+
+        private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
+        {
+            Assert.AreSame(stabilityModel, stabilityModel.Location.StabilityModel);
+            Assert.IsTrue(stabilityModel.Location.Inwards);
+            Assert.AreSame(soilProfile2D, stabilityModel.Location.SoilProfile2D);
+            Assert.AreSame(surfaceLine, stabilityModel.Location.Surfaceline);
+            Assert.IsTrue(stabilityModel.Location.Inwards);
+            Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
+            Assert.IsNotNull(stabilityModel.GeotechnicsData);
+            Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
         }
     }
 }

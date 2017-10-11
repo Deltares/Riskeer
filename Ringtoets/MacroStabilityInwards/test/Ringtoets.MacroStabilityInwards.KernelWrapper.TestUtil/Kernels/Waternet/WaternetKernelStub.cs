@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.WTIStability;
+using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
@@ -26,5 +28,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waterne
     /// <summary>
     /// Waternet kernel stub for testing purposes.
     /// </summary>
-    public class WaternetKernelStub : IWaternetKernel {}
+    public class WaternetKernelStub : IWaternetKernel
+    {
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
+        public StabilityLocation Location { get; set; }
+
+        public SoilModel SoilModel { get; set; }
+
+        public SoilProfile2D SoilProfile { get; set; }
+
+        public SurfaceLine2 SurfaceLine { get; set; }
+
+        public void Calculate()
+        {
+            Calculated = true;
+        }
+    }
 }

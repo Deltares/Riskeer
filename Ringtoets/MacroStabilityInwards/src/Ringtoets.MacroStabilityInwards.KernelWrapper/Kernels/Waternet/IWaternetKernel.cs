@@ -19,6 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.WTIStability;
+using Deltares.WTIStability.Data.Geo;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
     /// <summary>
@@ -33,6 +37,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </remarks>
     public interface IWaternetKernel
     {
-        
+        /// <summary>
+        /// Sets the location.
+        /// </summary>
+        StabilityLocation Location { set; }
+
+        /// <summary>
+        /// Sets the soil model.
+        /// </summary>
+        SoilModel SoilModel { set; }
+
+        /// <summary>
+        /// Sets the soil profile.
+        /// </summary>
+        SoilProfile2D SoilProfile { set; }
+
+        /// <summary>
+        /// Sets the surface line.
+        /// </summary>
+        SurfaceLine2 SurfaceLine { set; }
+
+        /// <summary>
+        /// Performs the Waternet calculation.
+        /// </summary>
+        void Calculate();
     }
 }

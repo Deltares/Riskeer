@@ -19,12 +19,66 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
+using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.IO;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing a Waternet calculation.
     /// </summary>
-    internal class WaternetKernelWrapper : IWaternetKernel {}
+    internal class WaternetKernelWrapper : IWaternetKernel
+    {
+        private readonly StabilityModel stabilityModel;
+
+        public WaternetKernelWrapper()
+        {
+            stabilityModel = new StabilityModel();
+        }
+
+        public StabilityLocation Location
+        {
+            set
+            {
+                stabilityModel.Location = value;
+            }
+        }
+
+        public SoilModel SoilModel
+        {
+            set
+            {
+                stabilityModel.SoilModel = value;
+            }
+        }
+
+        public SoilProfile2D SoilProfile
+        {
+            set
+            {
+                stabilityModel.SoilProfile = value;
+            }
+        }
+
+        public SurfaceLine2 SurfaceLine
+        {
+            set
+            {
+                stabilityModel.SurfaceLine2 = value;
+            }
+        }
+
+        public void Calculate()
+        {
+            var waternetCalculation = new WTIStabilityCalculation();
+            waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
+
+            string s = waternetCalculation.CreateWaternet(false);
+
+            Console.WriteLine(s);
+        }
+    }
 }

@@ -36,6 +36,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wa
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
+            Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void Calculate_Always_SetCalculatedTrue()
+        {
+            // Setup
+            var kernel = new WaternetKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            kernel.Calculate();
+
+            // Assert
+            Assert.IsTrue(kernel.Calculated);
         }
     }
 }
