@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -101,54 +102,52 @@ namespace Application.Ringtoets.Storage.Test.Serializers
             MacroStabilityInwardsSlice[] roundtripResult = serializer.FromXml(xml);
 
             // Then
-            CollectionAssert.AreEqual(original, roundtripResult, new MacroStabilityInwardsSliceComparer());
+            TestHelper.AssertCollectionsAreEqual(original, roundtripResult, new MacroStabilityInwardsSliceComparer());
         }
 
-        private class MacroStabilityInwardsSliceComparer : IComparer
+        private class MacroStabilityInwardsSliceComparer : IEqualityComparer<MacroStabilityInwardsSlice>
         {
-            public int Compare(object x, object y)
+            public bool Equals(MacroStabilityInwardsSlice x, MacroStabilityInwardsSlice y)
             {
-                var x1 = (MacroStabilityInwardsSlice) x;
-                var y1 = (MacroStabilityInwardsSlice) y;
-                if (x1.TopLeftPoint.Equals(y1.TopLeftPoint)
-                    && x1.TopRightPoint.Equals(y1.TopRightPoint)
-                    && x1.BottomLeftPoint.Equals(y1.BottomLeftPoint)
-                    && x1.BottomRightPoint.Equals(y1.BottomRightPoint)
-                    && x1.Cohesion.Equals(y1.Cohesion)
-                    && x1.FrictionAngle.Equals(y1.FrictionAngle)
-                    && x1.CriticalPressure.Equals(y1.CriticalPressure)
-                    && x1.OverConsolidationRatio.Equals(y1.OverConsolidationRatio)
-                    && x1.Pop.Equals(y1.Pop)
-                    && x1.DegreeOfConsolidationPorePressureSoil.Equals(y1.DegreeOfConsolidationPorePressureSoil)
-                    && x1.DegreeOfConsolidationPorePressureLoad.Equals(y1.DegreeOfConsolidationPorePressureLoad)
-                    && x1.Dilatancy.Equals(y1.Dilatancy)
-                    && x1.ExternalLoad.Equals(y1.ExternalLoad)
-                    && x1.HydrostaticPorePressure.Equals(y1.HydrostaticPorePressure)
-                    && x1.LeftForce.Equals(y1.LeftForce)
-                    && x1.LeftForceAngle.Equals(y1.LeftForceAngle)
-                    && x1.LeftForceY.Equals(y1.LeftForceY)
-                    && x1.RightForce.Equals(y1.RightForce)
-                    && x1.RightForceAngle.Equals(y1.RightForceAngle)
-                    && x1.RightForceY.Equals(y1.RightForceY)
-                    && x1.LoadStress.Equals(y1.LoadStress)
-                    && x1.NormalStress.Equals(y1.NormalStress)
-                    && x1.PorePressure.Equals(y1.PorePressure)
-                    && x1.HorizontalPorePressure.Equals(y1.HorizontalPorePressure)
-                    && x1.VerticalPorePressure.Equals(y1.VerticalPorePressure)
-                    && x1.PiezometricPorePressure.Equals(y1.PiezometricPorePressure)
-                    && x1.EffectiveStress.Equals(y1.EffectiveStress)
-                    && x1.EffectiveStressDaily.Equals(y1.EffectiveStressDaily)
-                    && x1.ExcessPorePressure.Equals(y1.ExcessPorePressure)
-                    && x1.ShearStress.Equals(y1.ShearStress)
-                    && x1.SoilStress.Equals(y1.SoilStress)
-                    && x1.TotalPorePressure.Equals(y1.TotalPorePressure)
-                    && x1.TotalStress.Equals(y1.TotalStress)
-                    && x1.Weight.Equals(y1.Weight)
-                )
-                {
-                    return 0;
-                }
-                return 1;
+                return x.TopLeftPoint.Equals(y.TopLeftPoint)
+                       && x.TopRightPoint.Equals(y.TopRightPoint)
+                       && x.BottomLeftPoint.Equals(y.BottomLeftPoint)
+                       && x.BottomRightPoint.Equals(y.BottomRightPoint)
+                       && x.Cohesion.Equals(y.Cohesion)
+                       && x.FrictionAngle.Equals(y.FrictionAngle)
+                       && x.CriticalPressure.Equals(y.CriticalPressure)
+                       && x.OverConsolidationRatio.Equals(y.OverConsolidationRatio)
+                       && x.Pop.Equals(y.Pop)
+                       && x.DegreeOfConsolidationPorePressureSoil.Equals(y.DegreeOfConsolidationPorePressureSoil)
+                       && x.DegreeOfConsolidationPorePressureLoad.Equals(y.DegreeOfConsolidationPorePressureLoad)
+                       && x.Dilatancy.Equals(y.Dilatancy)
+                       && x.ExternalLoad.Equals(y.ExternalLoad)
+                       && x.HydrostaticPorePressure.Equals(y.HydrostaticPorePressure)
+                       && x.LeftForce.Equals(y.LeftForce)
+                       && x.LeftForceAngle.Equals(y.LeftForceAngle)
+                       && x.LeftForceY.Equals(y.LeftForceY)
+                       && x.RightForce.Equals(y.RightForce)
+                       && x.RightForceAngle.Equals(y.RightForceAngle)
+                       && x.RightForceY.Equals(y.RightForceY)
+                       && x.LoadStress.Equals(y.LoadStress)
+                       && x.NormalStress.Equals(y.NormalStress)
+                       && x.PorePressure.Equals(y.PorePressure)
+                       && x.HorizontalPorePressure.Equals(y.HorizontalPorePressure)
+                       && x.VerticalPorePressure.Equals(y.VerticalPorePressure)
+                       && x.PiezometricPorePressure.Equals(y.PiezometricPorePressure)
+                       && x.EffectiveStress.Equals(y.EffectiveStress)
+                       && x.EffectiveStressDaily.Equals(y.EffectiveStressDaily)
+                       && x.ExcessPorePressure.Equals(y.ExcessPorePressure)
+                       && x.ShearStress.Equals(y.ShearStress)
+                       && x.SoilStress.Equals(y.SoilStress)
+                       && x.TotalPorePressure.Equals(y.TotalPorePressure)
+                       && x.TotalStress.Equals(y.TotalStress)
+                       && x.Weight.Equals(y.Weight);
+            }
+
+            public int GetHashCode(MacroStabilityInwardsSlice obj)
+            {
+                throw new NotImplementedException();
             }
         }
     }

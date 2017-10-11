@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -29,6 +30,17 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     [TestFixture]
     public class PipingOutputCreateExtensionsTest
     {
+        [Test]
+        public void Create_OutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingOutput) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
         [Test]
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
@@ -63,9 +75,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(pipingOutput.SellmeijerCreepCoefficient.Value, entity.SellmeijerCreepCoefficient);
             Assert.AreEqual(pipingOutput.SellmeijerCriticalFall.Value, entity.SellmeijerCriticalFall);
             Assert.AreEqual(pipingOutput.SellmeijerReducedFall.Value, entity.SellmeijerReducedFall);
-
-            Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
-            Assert.AreEqual(0, entity.PipingCalculationEntityId);
         }
 
         [Test]
@@ -89,9 +98,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNull(entity.SellmeijerCreepCoefficient);
             Assert.IsNull(entity.SellmeijerCriticalFall);
             Assert.IsNull(entity.SellmeijerReducedFall);
-
-            Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
-            Assert.AreEqual(0, entity.PipingCalculationEntityId);
         }
     }
 }

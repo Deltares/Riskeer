@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -31,14 +32,20 @@ namespace Application.Ringtoets.Storage.Read.Piping
     internal static class PipingCalculationOutputEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="AssessmentSectionEntity"/> and use the information to
+        /// Read the <see cref="PipingCalculationOutputEntity"/> and use the information to
         /// construct a <see cref="PipingOutput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingCalculationOutputEntity"/> to create
         /// <see cref="PipingOutput"/> for.</param>
         /// <returns>A new <see cref="PipingOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
+        /// is <c>null</c>.</exception>
         internal static PipingOutput Read(this PipingCalculationOutputEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
             return new PipingOutput(new PipingOutput.ConstructionProperties
             {
                 UpliftZValue = entity.UpliftZValue.ToNullAsNaN(),
