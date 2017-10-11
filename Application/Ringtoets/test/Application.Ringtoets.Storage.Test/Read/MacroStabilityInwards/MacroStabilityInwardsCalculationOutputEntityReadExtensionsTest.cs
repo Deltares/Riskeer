@@ -22,13 +22,13 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
@@ -51,7 +51,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<MacroStabilityInwardsSlice> slices = CreateMacroStabilityInwardsSlices();
+            IEnumerable<MacroStabilityInwardsSlice> slices = new[]
+            {
+                MacroStabilityInwardsSliceTestFactory.CreateSlice()
+            };
             IEnumerable<double> tangentLines = new[]
             {
                 random.NextDouble()
@@ -132,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             };
 
             // Call
-            TestDelegate call = ()=> entity.Read();
+            TestDelegate call = () => entity.Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -150,55 +153,11 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             };
 
             // Call
-            TestDelegate call = ()=> entity.Read();
+            TestDelegate call = () => entity.Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("xml", exception.ParamName);
-        }
-
-        private static IEnumerable<MacroStabilityInwardsSlice> CreateMacroStabilityInwardsSlices()
-        {
-            var random = new Random(21);
-            return new[]
-            {
-                new MacroStabilityInwardsSlice(new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new MacroStabilityInwardsSlice.ConstructionProperties
-                                               {
-                                                   Cohesion = random.NextDouble(),
-                                                   FrictionAngle = random.NextDouble(),
-                                                   CriticalPressure = random.NextDouble(),
-                                                   OverConsolidationRatio = random.NextDouble(),
-                                                   DegreeOfConsolidationPorePressureSoil = random.NextDouble(),
-                                                   DegreeOfConsolidationPorePressureLoad = random.NextDouble(),
-                                                   Pop = random.NextDouble(),
-                                                   Dilatancy = random.NextDouble(),
-                                                   ExternalLoad = random.NextDouble(),
-                                                   HydrostaticPorePressure = random.NextDouble(),
-                                                   LeftForce = random.NextDouble(),
-                                                   LeftForceAngle = random.NextDouble(),
-                                                   LeftForceY = random.NextDouble(),
-                                                   RightForce = random.NextDouble(),
-                                                   RightForceAngle = random.NextDouble(),
-                                                   RightForceY = random.NextDouble(),
-                                                   LoadStress = random.NextDouble(),
-                                                   NormalStress = random.NextDouble(),
-                                                   PorePressure = random.NextDouble(),
-                                                   HorizontalPorePressure = random.NextDouble(),
-                                                   VerticalPorePressure = random.NextDouble(),
-                                                   PiezometricPorePressure = random.NextDouble(),
-                                                   EffectiveStress = random.NextDouble(),
-                                                   EffectiveStressDaily = random.NextDouble(),
-                                                   ExcessPorePressure = random.NextDouble(),
-                                                   ShearStress = random.NextDouble(),
-                                                   SoilStress = random.NextDouble(),
-                                                   TotalPorePressure = random.NextDouble(),
-                                                   TotalStress = random.NextDouble()
-                                               })
-            };
         }
     }
 }

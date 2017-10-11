@@ -23,13 +23,12 @@ using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -55,7 +54,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             MacroStabilityInwardsSlidingCircle leftCircle = CreateSlidingCircle(13);
             MacroStabilityInwardsSlidingCircle rightCircle = CreateSlidingCircle(34);
-            IEnumerable<MacroStabilityInwardsSlice> slices = CreateMacroStabilityInwardsSlices();
+            IEnumerable<MacroStabilityInwardsSlice> slices = new[]
+            {
+                MacroStabilityInwardsSliceTestFactory.CreateSlice()
+            };
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(leftCircle,
                                                                      rightCircle,
                                                                      slices,
@@ -75,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 FactorOfStability = random.NextDouble(),
                 ForbiddenZonesXEntryMax = random.NextDouble(),
                 ForbiddenZonesXEntryMin = random.NextDouble(),
-                ZValue = random.NextDouble(),
+                ZValue = random.NextDouble()
             });
 
             // Call
@@ -91,19 +93,15 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             MacroStabilityInwardsSlidingCircle leftCircle = CreateSlidingCircleWithNaNValues();
             MacroStabilityInwardsSlidingCircle rightCircle = CreateSlidingCircleWithNaNValues();
-            IEnumerable<MacroStabilityInwardsSlice> slices = CreateMacroStabilityInwardsSlices();
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(leftCircle,
                                                                      rightCircle,
-                                                                     slices,
+                                                                     new MacroStabilityInwardsSlice[0],
                                                                      double.NaN,
                                                                      double.NaN);
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(new MacroStabilityInwardsGrid(),
                                                                         new MacroStabilityInwardsGrid(),
-                                                                        new[]
-                                                                        {
-                                                                            double.NaN
-                                                                        });
+                                                                        new double[0]);
 
             var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
 
@@ -157,51 +155,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                                                           double.NaN,
                                                           double.NaN);
         }
-
-        private static IEnumerable<MacroStabilityInwardsSlice> CreateMacroStabilityInwardsSlices()
-        {
-            var random = new Random(21);
-            return new[]
-            {
-                new MacroStabilityInwardsSlice(new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new Point2D(random.NextDouble(), random.NextDouble()),
-                                               new MacroStabilityInwardsSlice.ConstructionProperties
-                                               {
-                                                   Cohesion = random.NextDouble(),
-                                                   FrictionAngle = random.NextDouble(),
-                                                   CriticalPressure = random.NextDouble(),
-                                                   OverConsolidationRatio = random.NextDouble(),
-                                                   DegreeOfConsolidationPorePressureSoil = random.NextDouble(),
-                                                   DegreeOfConsolidationPorePressureLoad = random.NextDouble(),
-                                                   Pop = random.NextDouble(),
-                                                   Dilatancy = random.NextDouble(),
-                                                   ExternalLoad = random.NextDouble(),
-                                                   HydrostaticPorePressure = random.NextDouble(),
-                                                   LeftForce = random.NextDouble(),
-                                                   LeftForceAngle = random.NextDouble(),
-                                                   LeftForceY = random.NextDouble(),
-                                                   RightForce = random.NextDouble(),
-                                                   RightForceAngle = random.NextDouble(),
-                                                   RightForceY = random.NextDouble(),
-                                                   LoadStress = random.NextDouble(),
-                                                   NormalStress = random.NextDouble(),
-                                                   PorePressure = random.NextDouble(),
-                                                   HorizontalPorePressure = random.NextDouble(),
-                                                   VerticalPorePressure = random.NextDouble(),
-                                                   PiezometricPorePressure = random.NextDouble(),
-                                                   EffectiveStress = random.NextDouble(),
-                                                   EffectiveStressDaily = random.NextDouble(),
-                                                   ExcessPorePressure = random.NextDouble(),
-                                                   ShearStress = random.NextDouble(),
-                                                   SoilStress = random.NextDouble(),
-                                                   TotalPorePressure = random.NextDouble(),
-                                                   TotalStress = random.NextDouble()
-                                               })
-            };
-        }
-
         #endregion
     }
 }

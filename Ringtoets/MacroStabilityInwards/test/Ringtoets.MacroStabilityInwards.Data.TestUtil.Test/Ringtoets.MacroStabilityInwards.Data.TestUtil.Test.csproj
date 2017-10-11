@@ -52,6 +52,7 @@
     <Compile Include="MacroStabilityInwardsCalculationScenarioFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsGridTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsInputFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsSliceTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsStochasticSoilModelTestFactoryTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStressTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircleTestFactoryTest.cs" />
