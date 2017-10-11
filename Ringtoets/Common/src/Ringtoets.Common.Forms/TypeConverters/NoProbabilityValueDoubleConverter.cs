@@ -75,7 +75,12 @@ namespace Ringtoets.Common.Forms.TypeConverters
                 {
                     if (text.StartsWith(returnPeriodNotation))
                     {
-                        return 1 / Convert.ToDouble(text.Substring(2));
+                        string returnPeriodValue = text.Substring(2).ToLower();
+                        if (returnPeriodValue == CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower())
+                        {
+                            return 0.0;
+                        }
+                        return 1 / Convert.ToDouble(returnPeriodValue);
                     }
 
                     return Convert.ToDouble(text);
