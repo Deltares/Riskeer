@@ -263,11 +263,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                if (DikeHeightCalculationType == DikeHeightCalculationType.NoCalculation)
-                {
-                    return false;
-                }
-
                 return data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
             }
             set
@@ -302,11 +297,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                if (OvertoppingRateCalculationType == OvertoppingRateCalculationType.NoCalculation)
-                {
-                    return false;
-                }
-
                 return data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
             }
             set

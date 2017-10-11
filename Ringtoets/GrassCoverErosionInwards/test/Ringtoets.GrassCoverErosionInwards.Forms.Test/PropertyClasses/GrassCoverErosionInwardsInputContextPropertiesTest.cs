@@ -254,58 +254,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ShouldDikeHeightIllustrationPointsBeCalculated_DikeHeightNotCalculated_PropertyReturnsFalse()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
-            var inputParameters = new GrassCoverErosionInwardsInput
-            {
-                ShouldDikeHeightIllustrationPointsBeCalculated = true,
-                DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation
-            };
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsInputContext(inputParameters,
-                                                                   calculationItem,
-                                                                   failureMechanism,
-                                                                   assessmentSection);
-
-            // Call
-            var properties = new GrassCoverErosionInwardsInputContextProperties(context, handler);
-
-            // Assert
-            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.IsTrue(inputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
-        }
-
-        [Test]
-        public void ShouldOvertoppingRateIllustrationPointsBeCalculated_OvertoppingRateNotCalculated_PropertyReturnsFalse()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculationItem = new GrassCoverErosionInwardsCalculation();
-            var inputParameters = new GrassCoverErosionInwardsInput
-            {
-                ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
-                OvertoppingRateCalculationType = OvertoppingRateCalculationType.NoCalculation
-            };
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsInputContext(inputParameters,
-                                                                   calculationItem,
-                                                                   failureMechanism,
-                                                                   assessmentSection);
-
-            // Call
-            var properties = new GrassCoverErosionInwardsInputContextProperties(context, handler);
-
-            // Assert
-            Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            Assert.IsTrue(inputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-        }
-
-        [Test]
         public void DikeProfile_Always_InputChangedAndObservablesNotified()
         {
             var dikeProfile = new TestDikeProfile();
