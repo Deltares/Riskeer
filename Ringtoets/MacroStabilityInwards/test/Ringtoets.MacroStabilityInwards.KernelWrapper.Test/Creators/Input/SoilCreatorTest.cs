@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.StrengthIncreaseExponent), soils.Select(s => s.StrengthIncreaseExponent));
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.Pop), soils.Select(s => s.PoP));
 
-            Assert.IsTrue(soils.All(s => double.IsNaN(s.Ocr)));
+            Assert.IsTrue(soils.All(s => double.IsNaN(s.Ocr))); // OCR is only used as output
             Assert.IsTrue(soils.All(s => double.IsNaN(s.CuBottom))); // Only for CuMeasured
             Assert.IsTrue(soils.All(s => double.IsNaN(s.CuTop))); // Only for CuMeasured
         }

@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
@@ -46,7 +47,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return input.DrainageConstructionPresent
+            bool isClayDike = input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay
+                              || input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand;
+
+            return !isClayDike && input.DrainageConstructionPresent
                        ? new UpliftVanDrainageConstruction(input.XCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction)
                        : new UpliftVanDrainageConstruction();
         }
