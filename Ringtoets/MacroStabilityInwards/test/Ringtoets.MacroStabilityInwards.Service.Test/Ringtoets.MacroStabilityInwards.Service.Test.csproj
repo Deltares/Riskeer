@@ -65,7 +65,7 @@
     <Compile Include="Converters\UpliftVanDrainageConstructionConverterTest.cs" />
     <Compile Include="Converters\UpliftVanPhreaticLineOffsetsConverterTest.cs" />
     <Compile Include="Converters\UpliftVanSlipPlaneConverterTest.cs" />
-    <Compile Include="Converters\UpliftVanSoilProfileConverterTest.cs" />
+    <Compile Include="Converters\SoilProfileConverterTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivityTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationServiceTest.cs" />
     <Compile Include="MacroStabilityInwardsDataSynchronizationServiceTest.cs" />

@@ -19,22 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
-    /// Simple soil profile that can be used in tests.
+    /// All shear strength model types.
     /// </summary>
-    public class TestUpliftVanSoilProfile : UpliftVanSoilProfile
+    public enum ShearStrengthModel
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestUpliftVanSoilProfile"/>.
-        /// </summary>
-        public TestUpliftVanSoilProfile() : base(new[]
-        {
-            new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties())
-        }, new UpliftVanPreconsolidationStress[0]) {}
+        SuCalculated = 1,
+        CPhi = 2,
+        CPhiOrSuCalculated = 3
     }
 }

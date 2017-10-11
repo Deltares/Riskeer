@@ -30,6 +30,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
@@ -128,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<UpliftVanSoilLayer, Soil> layersWithSoils =
+            Dictionary<SoilLayer, Soil> layersWithSoils =
                 input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {

@@ -22,21 +22,21 @@
 using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A preconsolidation stress for which its properties have been adapted to perform a calculation.
     /// </summary>
-    public class UpliftVanPreconsolidationStress
+    public class PreconsolidationStress
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanPreconsolidationStress"/>.
+        /// Creates a new instance of <see cref="PreconsolidationStress"/>.
         /// </summary>
         /// <param name="coordinate">The coordinate of the stress.</param>
         /// <param name="stress">The value of the stress.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="coordinate"/>
         /// is <c>null</c>.</exception>
-        public UpliftVanPreconsolidationStress(Point2D coordinate, double stress)
+        public PreconsolidationStress(Point2D coordinate, double stress)
         {
             if (coordinate == null)
             {

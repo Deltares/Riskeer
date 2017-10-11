@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
@@ -172,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets the profile which contains a definition of soil layers with properties.
             /// </summary>
-            public UpliftVanSoilProfile SoilProfile { internal get; set; }
+            public SoilProfile SoilProfile { internal get; set; }
 
             /// <summary>
             /// Gets or sets the drainage construction.
@@ -343,7 +344,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the profile which contains a definition of soil layers with properties.
         /// </summary>
-        public UpliftVanSoilProfile SoilProfile { get; }
+        public SoilProfile SoilProfile { get; }
 
         /// <summary>
         /// Gets the drainage construction.

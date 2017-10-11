@@ -25,9 +25,15 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
+using DilatancyType = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using ShearStrengthModel = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using WTIStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
+using WTIStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -51,19 +57,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Setup
             var random = new Random(11);
 
-            var profile = new UpliftVanSoilProfile(new[]
+            var profile = new SoilProfile(new[]
             {
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     }, Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties
+                    new SoilLayer.ConstructionProperties
                     {
                         UsePop = true,
                         IsAquifer = false,
-                        ShearStrengthModel = UpliftVanShearStrengthModel.CPhi,
+                        ShearStrengthModel = ShearStrengthModel.CPhi,
                         MaterialName = "Sand",
                         AbovePhreaticLevel = random.NextDouble(),
                         BelowPhreaticLevel = random.NextDouble(),
@@ -72,19 +78,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                         ShearStrengthRatio = random.NextDouble(),
                         StrengthIncreaseExponent = random.NextDouble(),
                         Pop = random.NextDouble(),
-                        DilatancyType = UpliftVanDilatancyType.Phi
+                        DilatancyType = DilatancyType.Phi
                     }),
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     }, Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties
+                    new SoilLayer.ConstructionProperties
                     {
                         UsePop = true,
                         IsAquifer = true,
-                        ShearStrengthModel = UpliftVanShearStrengthModel.CPhiOrSuCalculated,
+                        ShearStrengthModel = ShearStrengthModel.CPhiOrSuCalculated,
                         MaterialName = "Clay",
                         AbovePhreaticLevel = random.NextDouble(),
                         BelowPhreaticLevel = random.NextDouble(),
@@ -93,19 +99,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                         ShearStrengthRatio = random.NextDouble(),
                         StrengthIncreaseExponent = random.NextDouble(),
                         Pop = random.NextDouble(),
-                        DilatancyType = UpliftVanDilatancyType.Zero
+                        DilatancyType = DilatancyType.Zero
                     }),
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     }, Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties
+                    new SoilLayer.ConstructionProperties
                     {
                         UsePop = false,
                         IsAquifer = true,
-                        ShearStrengthModel = UpliftVanShearStrengthModel.SuCalculated,
+                        ShearStrengthModel = ShearStrengthModel.SuCalculated,
                         MaterialName = "Grass",
                         AbovePhreaticLevel = random.NextDouble(),
                         BelowPhreaticLevel = random.NextDouble(),
@@ -114,9 +120,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                         ShearStrengthRatio = random.NextDouble(),
                         StrengthIncreaseExponent = random.NextDouble(),
                         Pop = random.NextDouble(),
-                        DilatancyType = UpliftVanDilatancyType.MinusPhi
+                        DilatancyType = DilatancyType.MinusPhi
                     })
-            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             Soil[] soils = SoilCreator.Create(profile);
@@ -128,15 +134,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.MaterialName), soils.Select(s => s.Name));
             CollectionAssert.AreEqual(new[]
             {
-                ShearStrengthModel.CPhi,
-                ShearStrengthModel.CPhiOrCuCalculated,
-                ShearStrengthModel.CuCalculated
+                WTIStabilityShearStrengthModel.CPhi,
+                WTIStabilityShearStrengthModel.CPhiOrCuCalculated,
+                WTIStabilityShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
             CollectionAssert.AreEqual(new[]
             {
-                DilatancyType.Phi,
-                DilatancyType.Zero,
-                DilatancyType.MinusPhi
+                WTIStabilityDilatancyType.Phi,
+                WTIStabilityDilatancyType.Zero,
+                WTIStabilityDilatancyType.MinusPhi
             }, soils.Select(s => s.DilatancyType));
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.AbovePhreaticLevel), soils.Select(s => s.AbovePhreaticLevel));
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.BelowPhreaticLevel), soils.Select(s => s.BelowPhreaticLevel));
@@ -155,25 +161,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InvalidShearStrengthModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var profile = new UpliftVanSoilProfile(new[]
+            var profile = new SoilProfile(new[]
             {
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     }, Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties
+                    new SoilLayer.ConstructionProperties
                     {
-                        ShearStrengthModel = (UpliftVanShearStrengthModel) 99
+                        ShearStrengthModel = (ShearStrengthModel) 99
                     })
-            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             TestDelegate test = () => SoilCreator.Create(profile);
 
             // Assert
-            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(UpliftVanShearStrengthModel).Name}'.";
+            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(ShearStrengthModel).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
@@ -181,25 +187,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InvalidDilatancyType_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var profile = new UpliftVanSoilProfile(new[]
+            var profile = new SoilProfile(new[]
             {
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
                     }, Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties
+                    new SoilLayer.ConstructionProperties
                     {
-                        DilatancyType = (UpliftVanDilatancyType) 99
+                        DilatancyType = (DilatancyType) 99
                     })
-            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             TestDelegate test = () => SoilCreator.Create(profile);
 
             // Assert
-            string message = $"The value of argument 'dilatancyType' ({99}) is invalid for Enum type '{typeof(UpliftVanDilatancyType).Name}'.";
+            string message = $"The value of argument 'dilatancyType' ({99}) is invalid for Enum type '{typeof(DilatancyType).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
     }

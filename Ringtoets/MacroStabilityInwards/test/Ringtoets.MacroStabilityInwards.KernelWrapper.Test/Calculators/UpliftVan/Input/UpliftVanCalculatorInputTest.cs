@@ -23,7 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             double hRiverValue = random.NextDouble();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            var soilProfile = new TestUpliftVanSoilProfile();
+            var soilProfile = new TestSoilProfile();
             var drainageConstruction = new UpliftVanDrainageConstruction();
             var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
             var slipPlane = new UpliftVanSlipPlane();
@@ -155,7 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            var soilProfile = new TestUpliftVanSoilProfile();
+            var soilProfile = new TestSoilProfile();
             var drainageConstruction = new UpliftVanDrainageConstruction();
             var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
             var slipPlane = new UpliftVanSlipPlane();
@@ -208,7 +208,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate test = () => new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SoilProfile = new TestSoilProfile(),
                     PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
                     PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
@@ -244,7 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate test = () => new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                     PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
@@ -262,7 +262,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate test = () => new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
@@ -280,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate test = () => new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
@@ -298,7 +298,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             TestDelegate test = () => new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    SoilProfile = new TestUpliftVanSoilProfile(),
+                    SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     DrainageConstruction = new UpliftVanDrainageConstruction(),
                     PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),

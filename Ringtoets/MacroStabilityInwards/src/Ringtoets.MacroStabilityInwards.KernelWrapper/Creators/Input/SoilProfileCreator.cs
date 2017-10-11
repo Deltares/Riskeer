@@ -25,15 +25,18 @@ using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WTIStabilitySoilProfile = Deltares.WTIStability.Data.Geo.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SoilProfile"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="WTIStabilitySoilProfile"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SoilProfileCreator
     {
@@ -45,12 +48,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>
         /// <returns>A new <see cref="SoilProfile2D"/> with the <paramref name="layersWithSoils"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanSoilLayer.WaterPressureInterpolationModel"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SoilLayer.WaterPressureInterpolationModel"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanSoilLayer.WaterPressureInterpolationModel"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="SoilLayer.WaterPressureInterpolationModel"/>
         /// is a valid value but unsupported.</exception>
-        public static SoilProfile2D Create(UpliftVanSoilProfile soilProfile,
-                                           IDictionary<UpliftVanSoilLayer, Soil> layersWithSoils)
+        public static SoilProfile2D Create(SoilProfile soilProfile,
+                                           IDictionary<SoilLayer, Soil> layersWithSoils)
         {
             if (soilProfile == null)
             {
@@ -64,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             var profile = new SoilProfile2D();
             profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
 
-            foreach (KeyValuePair<UpliftVanSoilLayer, Soil> layerWithSoil in layersWithSoils)
+            foreach (KeyValuePair<SoilLayer, Soil> layerWithSoil in layersWithSoils)
             {
                 profile.Surfaces.Add(new SoilLayer2D
                 {
@@ -80,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return profile;
         }
 
-        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(UpliftVanSoilProfile soilProfile)
+        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(SoilProfile soilProfile)
         {
             return soilProfile.PreconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
             {
@@ -90,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             }).ToArray();
         }
 
-        private static GeometrySurface CreateGeometrySurface(UpliftVanSoilLayer layer)
+        private static GeometrySurface CreateGeometrySurface(SoilLayer layer)
         {
             var surface = new GeometrySurface
             {
@@ -170,28 +173,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanWaterPressureInterpolationModel"/> into a <see cref="WaterpressureInterpolationModel"/>.
+        /// Converts a <see cref="WaterPressureInterpolationModel"/> into a <see cref="WaterpressureInterpolationModel"/>.
         /// </summary>
-        /// <param name="waterPressureInterpolationModel">The <see cref="UpliftVanWaterPressureInterpolationModel"/> to convert.</param>
+        /// <param name="waterPressureInterpolationModel">The <see cref="WaterPressureInterpolationModel"/> to convert.</param>
         /// <returns>A <see cref="WaterpressureInterpolationModel"/> based on <paramref name="waterPressureInterpolationModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waterPressureInterpolationModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="waterPressureInterpolationModel"/>
         /// is a valid value but unsupported.</exception>
-        private static WaterpressureInterpolationModel ConvertWaterPressureInterpolationModel(UpliftVanWaterPressureInterpolationModel waterPressureInterpolationModel)
+        private static WaterpressureInterpolationModel ConvertWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel)
         {
-            if (!Enum.IsDefined(typeof(UpliftVanWaterPressureInterpolationModel), waterPressureInterpolationModel))
+            if (!Enum.IsDefined(typeof(WaterPressureInterpolationModel), waterPressureInterpolationModel))
             {
                 throw new InvalidEnumArgumentException(nameof(waterPressureInterpolationModel),
                                                        (int) waterPressureInterpolationModel,
-                                                       typeof(UpliftVanWaterPressureInterpolationModel));
+                                                       typeof(WaterPressureInterpolationModel));
             }
 
             switch (waterPressureInterpolationModel)
             {
-                case UpliftVanWaterPressureInterpolationModel.Automatic:
+                case WaterPressureInterpolationModel.Automatic:
                     return WaterpressureInterpolationModel.Automatic;
-                case UpliftVanWaterPressureInterpolationModel.Hydrostatic:
+                case WaterPressureInterpolationModel.Hydrostatic:
                     return WaterpressureInterpolationModel.Hydrostatic;
                 default:
                     throw new NotSupportedException();

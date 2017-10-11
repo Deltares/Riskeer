@@ -19,29 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class TestUpliftVanSoilProfileTest
+    public class ShearStrengthModelTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Values_ExpectedValues()
         {
-            // Call
-            var profile = new TestUpliftVanSoilProfile();
-
             // Assert
-            Assert.IsInstanceOf<UpliftVanSoilProfile>(profile);
-            Assert.AreEqual(1, profile.Layers.Count());
-            UpliftVanSoilLayer layer = profile.Layers.First();
-            CollectionAssert.IsEmpty(layer.OuterRing);
-            CollectionAssert.IsEmpty(layer.Holes);
-            CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
+            Assert.AreEqual(3, Enum.GetValues(typeof(ShearStrengthModel)).Length);
+            Assert.AreEqual(1, (int) ShearStrengthModel.SuCalculated);
+            Assert.AreEqual(2, (int) ShearStrengthModel.CPhi);
+            Assert.AreEqual(3, (int) ShearStrengthModel.CPhiOrSuCalculated);
         }
     }
 }

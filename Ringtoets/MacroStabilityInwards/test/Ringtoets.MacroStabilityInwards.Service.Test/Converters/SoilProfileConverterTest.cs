@@ -30,20 +30,20 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
 {
     [TestFixture]
-    public class UpliftVanSoilProfileConverterTest
+    public class SoilProfileConverterTest
     {
         [Test]
         public void Convert_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanSoilProfileConverter.Convert(null);
+            TestDelegate call = () => SoilProfileConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -116,10 +116,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             });
 
             // Call
-            UpliftVanSoilProfile upliftVanSoilProfile = UpliftVanSoilProfileConverter.Convert(profile);
+            SoilProfile soilProfile = SoilProfileConverter.Convert(profile);
 
             // Assert
-            UpliftVanCalculatorInputAssert.AssertSoilProfile(profile, upliftVanSoilProfile);
+            UpliftVanCalculatorInputAssert.AssertSoilProfile(profile, soilProfile);
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
-            TestDelegate test = () => UpliftVanSoilProfileConverter.Convert(profile);
+            TestDelegate test = () => SoilProfileConverter.Convert(profile);
 
             // Assert
             const string message = "The value of argument 'shearStrengthModel' (99) is invalid for Enum type 'MacroStabilityInwardsShearStrengthModel'.";
@@ -144,11 +144,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         }
 
         [Test]
-        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhi, UpliftVanShearStrengthModel.CPhi)]
-        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, UpliftVanShearStrengthModel.CPhiOrSuCalculated)]
-        [TestCase(MacroStabilityInwardsShearStrengthModel.SuCalculated, UpliftVanShearStrengthModel.SuCalculated)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhi, ShearStrengthModel.CPhi)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, ShearStrengthModel.CPhiOrSuCalculated)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.SuCalculated, ShearStrengthModel.SuCalculated)]
         public void Convert_ValidShearStrengthModel_ReturnExpectedUpliftVanShearStrengthModel(MacroStabilityInwardsShearStrengthModel originalShearStrengthModel,
-                                                                                              UpliftVanShearStrengthModel expectedShearStrengthModel)
+                                                                                              ShearStrengthModel expectedShearStrengthModel)
         {
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
@@ -161,10 +161,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
-            UpliftVanSoilProfile upliftVanSoilProfile = UpliftVanSoilProfileConverter.Convert(profile);
+            SoilProfile soilProfile = SoilProfileConverter.Convert(profile);
 
             // Assert
-            Assert.AreEqual(expectedShearStrengthModel, upliftVanSoilProfile.Layers.First().ShearStrengthModel);
+            Assert.AreEqual(expectedShearStrengthModel, soilProfile.Layers.First().ShearStrengthModel);
         }
 
         private static Point2D[] CreateRing(int seed)

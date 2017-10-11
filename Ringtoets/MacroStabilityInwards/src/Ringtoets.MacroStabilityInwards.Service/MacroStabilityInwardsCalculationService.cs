@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     AssessmentLevel = inputParameters.AssessmentLevel,
                     LandwardDirection = UpliftVanLandwardDirection.PositiveX,
                     SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = UpliftVanSoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
+                    SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
                     DrainageConstruction = UpliftVanDrainageConstructionConverter.Convert(inputParameters),
                     PhreaticLineOffsetsExtreme = UpliftVanPhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputExtreme),
                     PhreaticLineOffsetsDaily = UpliftVanPhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputDaily),

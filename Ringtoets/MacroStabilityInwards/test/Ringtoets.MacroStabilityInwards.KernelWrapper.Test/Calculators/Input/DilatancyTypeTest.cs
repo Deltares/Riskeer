@@ -19,15 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+using System;
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
-    /// <summary>
-    /// All dilatancy types.
-    /// </summary>
-    public enum UpliftVanDilatancyType
+    [TestFixture]
+    public class DilatancyTypeTest
     {
-        Phi = 1,
-        Zero = 2,
-        MinusPhi = 3
+        [Test]
+        public void Values_ExpectedValues()
+        {
+            // Assert
+            Assert.AreEqual(3, Enum.GetValues(typeof(DilatancyType)).Length);
+            Assert.AreEqual(1, (int) DilatancyType.Phi);
+            Assert.AreEqual(2, (int) DilatancyType.Zero);
+            Assert.AreEqual(3, (int) DilatancyType.MinusPhi);
+        }
     }
 }

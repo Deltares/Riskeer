@@ -22,20 +22,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A soil profile for which its properties have been adapted to perform a calculation.
     /// </summary>
-    public class UpliftVanSoilProfile
+    public class SoilProfile
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanSoilProfile"/>.
+        /// Creates a new instance of <see cref="SoilProfile"/>.
         /// </summary>
         /// <param name="layers">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses in the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public UpliftVanSoilProfile(IEnumerable<UpliftVanSoilLayer> layers, IEnumerable<UpliftVanPreconsolidationStress> preconsolidationStresses)
+        public SoilProfile(IEnumerable<SoilLayer> layers, IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
             if (layers == null)
             {
@@ -53,11 +53,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the layers in the profile.
         /// </summary>
-        public IEnumerable<UpliftVanSoilLayer> Layers { get; }
+        public IEnumerable<SoilLayer> Layers { get; }
 
         /// <summary>
         /// Gets the preconsolidation stresses in the profile.
         /// </summary>
-        public IEnumerable<UpliftVanPreconsolidationStress> PreconsolidationStresses { get; }
+        public IEnumerable<PreconsolidationStress> PreconsolidationStresses { get; }
     }
 }

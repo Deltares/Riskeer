@@ -23,18 +23,19 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class UpliftVanSoilLayerTest
+    public class SoilLayerTest
     {
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], null);
+            TestDelegate call = () => new SoilLayer(new Point2D[0], new Point2D[0][], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_OuterRingNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSoilLayer(null, new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties());
+            TestDelegate call = () => new SoilLayer(null, new Point2D[0][], new SoilLayer.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -56,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_HolesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSoilLayer(new Point2D[0], null, new UpliftVanSoilLayer.ConstructionProperties());
+            TestDelegate call = () => new SoilLayer(new Point2D[0], null, new SoilLayer.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             };
 
             // Call
-            var layer = new UpliftVanSoilLayer(outerRing, holes, new UpliftVanSoilLayer.ConstructionProperties());
+            var layer = new SoilLayer(outerRing, holes, new SoilLayer.ConstructionProperties());
 
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
@@ -93,13 +94,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_EmptyConstructionProperties_ExpectedValues()
         {
             // Call
-            var layer = new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties());
+            var layer = new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties());
 
             // Assert
             Assert.IsFalse(layer.IsAquifer);
             Assert.IsFalse(layer.UsePop);
             Assert.IsEmpty(layer.MaterialName);
-            Assert.AreEqual(UpliftVanShearStrengthModel.CPhi, layer.ShearStrengthModel);
+            Assert.AreEqual(ShearStrengthModel.CPhi, layer.ShearStrengthModel);
             Assert.IsNaN(layer.AbovePhreaticLevel);
             Assert.IsNaN(layer.BelowPhreaticLevel);
             Assert.IsNaN(layer.Cohesion);
@@ -107,8 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsNaN(layer.ShearStrengthRatio);
             Assert.IsNaN(layer.StrengthIncreaseExponent);
             Assert.IsNaN(layer.Pop);
-            Assert.AreEqual(UpliftVanDilatancyType.Zero, layer.DilatancyType);
-            Assert.AreEqual(UpliftVanWaterPressureInterpolationModel.Automatic, layer.WaterPressureInterpolationModel);
+            Assert.AreEqual(DilatancyType.Zero, layer.DilatancyType);
+            Assert.AreEqual(WaterPressureInterpolationModel.Automatic, layer.WaterPressureInterpolationModel);
         }
 
         [Test]
@@ -119,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var random = new Random(11);
             bool isAquifer = random.NextBoolean();
             bool usePop = random.NextBoolean();
-            var shearStrengthModel = random.NextEnumValue<UpliftVanShearStrengthModel>();
+            var shearStrengthModel = random.NextEnumValue<ShearStrengthModel>();
             double abovePhreaticLevel = random.NextDouble();
             double belowPhreaticLevel = random.NextDouble();
             double cohesion = random.NextDouble();
@@ -127,11 +128,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double shearStrengthRatio = random.NextDouble();
             double strengthIncreaseExponent = random.NextDouble();
             double pop = random.NextDouble();
-            var dilatancyType = random.NextEnumValue<UpliftVanDilatancyType>();
-            var waterPressureInterpolationModel = random.NextEnumValue<UpliftVanWaterPressureInterpolationModel>();
+            var dilatancyType = random.NextEnumValue<DilatancyType>();
+            var waterPressureInterpolationModel = random.NextEnumValue<WaterPressureInterpolationModel>();
 
             // Call
-            var layer = new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties
+            var layer = new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties
             {
                 MaterialName = materialName,
                 IsAquifer = isAquifer,

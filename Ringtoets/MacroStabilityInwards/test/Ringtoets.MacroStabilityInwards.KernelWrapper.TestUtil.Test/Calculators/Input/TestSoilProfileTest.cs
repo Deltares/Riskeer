@@ -19,41 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Geometry;
+using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.Input
 {
     [TestFixture]
-    public class UpliftVanPreconsolidationStressTest
+    public class TestSoilProfileTest
     {
-        [Test]
-        public void Constructor_CoordinateNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new UpliftVanPreconsolidationStress(null, 0);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("coordinate", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var random = new Random(11);
-            var coordinate = new Point2D(random.NextDouble(), random.NextDouble());
-            double stress = random.NextDouble();
-
             // Call
-            var preconsolidationStress = new UpliftVanPreconsolidationStress(coordinate, stress);
+            var profile = new TestSoilProfile();
 
             // Assert
-            Assert.AreSame(coordinate, preconsolidationStress.Coordinate);
-            Assert.AreEqual(stress, preconsolidationStress.Stress);
+            Assert.IsInstanceOf<SoilProfile>(profile);
+            Assert.AreEqual(1, profile.Layers.Count());
+            SoilLayer layer = profile.Layers.First();
+            CollectionAssert.IsEmpty(layer.OuterRing);
+            CollectionAssert.IsEmpty(layer.Holes);
+            CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
         }
     }
 }

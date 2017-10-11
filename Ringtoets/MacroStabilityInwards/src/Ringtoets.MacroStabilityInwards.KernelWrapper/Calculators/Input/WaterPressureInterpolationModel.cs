@@ -19,15 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
-    /// All shear strength model types.
+    /// All water pressure interpolation model types.
     /// </summary>
-    public enum UpliftVanShearStrengthModel
+    public enum WaterPressureInterpolationModel
     {
-        SuCalculated = 1,
-        CPhi = 2,
-        CPhiOrSuCalculated = 3
+        Automatic = 1,
+        Hydrostatic = 2
     }
 }

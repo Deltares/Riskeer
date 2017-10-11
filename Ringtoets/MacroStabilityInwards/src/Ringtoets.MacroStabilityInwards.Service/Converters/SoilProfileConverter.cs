@@ -25,22 +25,22 @@ using System.ComponentModel;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
-    /// into <see cref="UpliftVanSoilProfile"/>.
+    /// into <see cref="SoilProfile"/>.
     /// </summary>
-    internal static class UpliftVanSoilProfileConverter
+    internal static class SoilProfileConverter
     {
         /// <summary>
         /// Converts <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
-        /// into <see cref="UpliftVanSoilProfile"/>.
+        /// into <see cref="SoilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to convert.</param>
-        /// <returns>The converted <see cref="UpliftVanSoilProfile"/>.</returns>
+        /// <returns>The converted <see cref="SoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
@@ -49,37 +49,37 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         /// <exception cref="NotSupportedException">Thrown when 
         /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        public static UpliftVanSoilProfile Convert(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        public static SoilProfile Convert(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
         {
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            IEnumerable<UpliftVanSoilLayer> layers = ConvertLayers(soilProfile.Layers);
-            IEnumerable<UpliftVanPreconsolidationStress> preconsolidationStresses = ConvertPreconsolidationStresses(soilProfile.PreconsolidationStresses);
+            IEnumerable<SoilLayer> layers = ConvertLayers(soilProfile.Layers);
+            IEnumerable<PreconsolidationStress> preconsolidationStresses = ConvertPreconsolidationStresses(soilProfile.PreconsolidationStresses);
 
-            return new UpliftVanSoilProfile(layers, preconsolidationStresses);
+            return new SoilProfile(layers, preconsolidationStresses);
         }
 
         /// <summary>
         /// Converts <see cref="MacroStabilityInwardsSoilLayerData"/>
-        /// into <see cref="UpliftVanSoilLayer"/>.
+        /// into <see cref="SoilLayer"/>.
         /// </summary>
         /// <param name="layers">The layers to convert.</param>
-        /// <returns>The converted <see cref="UpliftVanSoilLayer"/>.</returns>
+        /// <returns>The converted <see cref="SoilLayer"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
         /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
         /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static IEnumerable<UpliftVanSoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
+        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
         {
             return layers.Select(l =>
             {
                 MacroStabilityInwardsSoilLayerData data = l.Data;
-                return new UpliftVanSoilLayer(l.OuterRing, l.Holes, new UpliftVanSoilLayer.ConstructionProperties
+                return new SoilLayer(l.OuterRing, l.Holes, new SoilLayer.ConstructionProperties
                 {
                     MaterialName = data.MaterialName,
                     UsePop = data.UsePop,
@@ -92,30 +92,30 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
                     ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data).GetDesignValue(),
                     StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data).GetDesignValue(),
                     Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue(),
-                    DilatancyType = UpliftVanDilatancyType.Zero,
-                    WaterPressureInterpolationModel = UpliftVanWaterPressureInterpolationModel.Automatic
+                    DilatancyType = DilatancyType.Zero,
+                    WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic
                 });
             }).ToArray();
         }
 
-        private static IEnumerable<UpliftVanPreconsolidationStress> ConvertPreconsolidationStresses(
+        private static IEnumerable<PreconsolidationStress> ConvertPreconsolidationStresses(
             IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
-            return preconsolidationStresses.Select(ps => new UpliftVanPreconsolidationStress(
+            return preconsolidationStresses.Select(ps => new PreconsolidationStress(
                                                        ps.Location,
                                                        MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(ps).GetDesignValue()));
         }
 
         /// <summary>
-        /// Converts a <see cref="MacroStabilityInwardsShearStrengthModel"/> to a <see cref="UpliftVanShearStrengthModel"/>.
+        /// Converts a <see cref="MacroStabilityInwardsShearStrengthModel"/> to a <see cref="ShearStrengthModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="MacroStabilityInwardsShearStrengthModel"/> to convert.</param>
-        /// <returns>A <see cref="UpliftVanShearStrengthModel"/> based on the information of <paramref name="shearStrengthModel"/>.</returns>
+        /// <returns>A <see cref="ShearStrengthModel"/> based on the information of <paramref name="shearStrengthModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static UpliftVanShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        private static ShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
         {
             if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))
             {
@@ -127,11 +127,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             switch (shearStrengthModel)
             {
                 case MacroStabilityInwardsShearStrengthModel.SuCalculated:
-                    return UpliftVanShearStrengthModel.SuCalculated;
+                    return ShearStrengthModel.SuCalculated;
                 case MacroStabilityInwardsShearStrengthModel.CPhi:
-                    return UpliftVanShearStrengthModel.CPhi;
+                    return ShearStrengthModel.CPhi;
                 case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
-                    return UpliftVanShearStrengthModel.CPhiOrSuCalculated;
+                    return ShearStrengthModel.CPhiOrSuCalculated;
                 default:
                     throw new NotSupportedException();
             }

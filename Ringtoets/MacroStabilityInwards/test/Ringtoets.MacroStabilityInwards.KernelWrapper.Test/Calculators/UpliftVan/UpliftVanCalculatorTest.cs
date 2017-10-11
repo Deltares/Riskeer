@@ -28,6 +28,7 @@ using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -41,6 +42,8 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
@@ -128,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<UpliftVanSoilLayer, Soil> layersWithSoils =
+            Dictionary<SoilLayer, Soil> layersWithSoils =
                 input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {
@@ -317,48 +320,48 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             });
         }
 
-        private static UpliftVanSoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
+        private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new UpliftVanSoilProfile(new[]
+            return new SoilProfile(new[]
             {
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
                     Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties()),
-                new UpliftVanSoilLayer(
+                    new SoilLayer.ConstructionProperties()),
+                new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
                     Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties
+                    new SoilLayer.ConstructionProperties
                     {
                         IsAquifer = true
                     }),
-                new UpliftVanSoilLayer(
+                new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
                     Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties()),
-                new UpliftVanSoilLayer(
+                    new SoilLayer.ConstructionProperties()),
+                new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
                     Enumerable.Empty<Point2D[]>(),
-                    new UpliftVanSoilLayer.ConstructionProperties())
+                    new SoilLayer.ConstructionProperties())
             }, new[]
             {
-                new UpliftVanPreconsolidationStress(new Point2D(0, 0), 1.1)
+                new PreconsolidationStress(new Point2D(0, 0), 1.1)
             });
         }
 

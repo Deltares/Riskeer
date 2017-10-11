@@ -21,12 +21,11 @@
 
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -57,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
             {
                 SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                SoilProfile = new TestUpliftVanSoilProfile(),
+                SoilProfile = new TestSoilProfile(),
                 PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
                 DrainageConstruction = new UpliftVanDrainageConstruction(),

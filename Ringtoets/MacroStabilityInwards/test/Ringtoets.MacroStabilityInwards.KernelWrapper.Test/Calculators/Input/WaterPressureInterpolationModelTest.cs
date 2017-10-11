@@ -19,14 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+using System;
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
-    /// <summary>
-    /// All water pressure interpolation model types.
-    /// </summary>
-    public enum UpliftVanWaterPressureInterpolationModel
+    [TestFixture]
+    public class WaterPressureInterpolationModelTest
     {
-        Automatic = 1,
-        Hydrostatic = 2
+        [Test]
+        public void Values_ExpectedValues()
+        {
+            // Assert
+            Assert.AreEqual(2, Enum.GetValues(typeof(WaterPressureInterpolationModel)).Length);
+            Assert.AreEqual(1, (int) WaterPressureInterpolationModel.Automatic);
+            Assert.AreEqual(2, (int) WaterPressureInterpolationModel.Hydrostatic);
+        }
     }
 }

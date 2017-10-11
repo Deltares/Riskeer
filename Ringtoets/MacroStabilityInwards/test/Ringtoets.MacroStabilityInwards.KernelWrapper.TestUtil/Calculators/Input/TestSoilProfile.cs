@@ -19,23 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Core.Common.Base.Geometry;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input
 {
-    [TestFixture]
-    public class UpliftVanDilatancyTypeTest
+    /// <summary>
+    /// Simple soil profile that can be used in tests.
+    /// </summary>
+    public class TestSoilProfile : SoilProfile
     {
-        [Test]
-        public void Values_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="TestSoilProfile"/>.
+        /// </summary>
+        public TestSoilProfile() : base(new[]
         {
-            // Assert
-            Assert.AreEqual(3, Enum.GetValues(typeof(UpliftVanDilatancyType)).Length);
-            Assert.AreEqual(1, (int) UpliftVanDilatancyType.Phi);
-            Assert.AreEqual(2, (int) UpliftVanDilatancyType.Zero);
-            Assert.AreEqual(3, (int) UpliftVanDilatancyType.MinusPhi);
-        }
+            new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties())
+        }, new PreconsolidationStress[0]) {}
     }
 }

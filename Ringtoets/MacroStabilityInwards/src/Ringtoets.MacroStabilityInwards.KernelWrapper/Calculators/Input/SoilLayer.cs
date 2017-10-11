@@ -23,23 +23,23 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A 2D soil layer that has been adapted to perform a calculation.
     /// </summary>
-    public class UpliftVanSoilLayer
+    public class SoilLayer
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanSoilLayer"/>.
+        /// Creates a new instance of <see cref="SoilLayer"/>.
         /// </summary>
         /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
         /// <param name="holes">The holes of the geometry of the soil layer.</param>
         /// <param name="properties">The object containing the values for
-        /// the properties of the new <see cref="UpliftVanSoilLayer"/>.</param>
+        /// the properties of the new <see cref="SoilLayer"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
         /// is <c>null</c>.</exception>
-        public UpliftVanSoilLayer(Point2D[] outerRing, IEnumerable<Point2D[]> holes, ConstructionProperties properties)
+        public SoilLayer(Point2D[] outerRing, IEnumerable<Point2D[]> holes, ConstructionProperties properties)
         {
             if (outerRing == null)
             {
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the shear strength model to use for the layer.
         /// </summary>
-        public UpliftVanShearStrengthModel ShearStrengthModel { get; }
+        public ShearStrengthModel ShearStrengthModel { get; }
 
         /// <summary>
         /// Gets the name of the material that was assigned to the layer.
@@ -140,15 +140,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the dilatancy type.
         /// </summary>
-        public UpliftVanDilatancyType DilatancyType { get; }
+        public DilatancyType DilatancyType { get; }
 
         /// <summary>
         /// Gets the water pressure interpolation model.
         /// </summary>
-        public UpliftVanWaterPressureInterpolationModel WaterPressureInterpolationModel { get; }
+        public WaterPressureInterpolationModel WaterPressureInterpolationModel { get; }
 
         /// <summary>
-        /// The construction properties of the uplift Van soil layer.
+        /// The construction properties of the soil layer.
         /// </summary>
         public class ConstructionProperties
         {
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// </summary>
             public ConstructionProperties()
             {
-                ShearStrengthModel = UpliftVanShearStrengthModel.CPhi;
+                ShearStrengthModel = Input.ShearStrengthModel.CPhi;
                 MaterialName = string.Empty;
                 AbovePhreaticLevel = double.NaN;
                 BelowPhreaticLevel = double.NaN;
@@ -166,8 +166,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 StrengthIncreaseExponent = double.NaN;
                 ShearStrengthRatio = double.NaN;
                 Pop = double.NaN;
-                DilatancyType = UpliftVanDilatancyType.Zero;
-                WaterPressureInterpolationModel = UpliftVanWaterPressureInterpolationModel.Automatic;
+                DilatancyType = Input.DilatancyType.Zero;
+                WaterPressureInterpolationModel = Input.WaterPressureInterpolationModel.Automatic;
             }
 
             /// <summary>
@@ -183,7 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets the shear strength model to use for the layer.
             /// </summary>
-            public UpliftVanShearStrengthModel ShearStrengthModel { internal get; set; }
+            public ShearStrengthModel ShearStrengthModel { internal get; set; }
 
             /// <summary>
             /// Gets or sets the name of the material that was assigned to the layer.
@@ -228,12 +228,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets the dilatancy type.
             /// </summary>
-            public UpliftVanDilatancyType DilatancyType { internal get; set; }
+            public DilatancyType DilatancyType { internal get; set; }
 
             /// <summary>
             /// Gets or sets the water pressure interpolation model.
             /// </summary>
-            public UpliftVanWaterPressureInterpolationModel WaterPressureInterpolationModel { internal get; set; }
+            public WaterPressureInterpolationModel WaterPressureInterpolationModel { internal get; set; }
         }
     }
 }

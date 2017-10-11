@@ -23,8 +23,12 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using DilatancyType = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
+using ShearStrengthModel = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
+using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using WTIStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
+using WTIStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -37,14 +41,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// Creates a <see cref="Soil"/> based on information contained in the profile <paramref name="profile"/>,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
-        /// <param name="profile">The <see cref="UpliftVanSoilProfile"/> from which to take the information.</param>
+        /// <param name="profile">The <see cref="SoilProfile"/> from which to take the information.</param>
         /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanSoilLayer.ShearStrengthModel"/>
-        /// or <see cref="UpliftVanSoilLayer.DilatancyType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanSoilLayer.ShearStrengthModel"/>
-        /// or <see cref="UpliftVanSoilLayer.DilatancyType"/> is a valid value but unsupported.</exception>
-        public static Soil[] Create(UpliftVanSoilProfile profile)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>
+        /// or <see cref="DilatancyType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>
+        /// or <see cref="DilatancyType"/> is a valid value but unsupported.</exception>
+        public static Soil[] Create(SoilProfile profile)
         {
             if (profile == null)
             {
@@ -67,62 +71,62 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanShearStrengthModel"/> into a <see cref="ShearStrengthModel"/>.
+        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="WTIStabilityShearStrengthModel"/>.
         /// </summary>
-        /// <param name="shearStrengthModel">The <see cref="UpliftVanShearStrengthModel"/> to convert.</param>
-        /// <returns>A <see cref="ShearStrengthModel"/> based on <paramref name="shearStrengthModel"/>.</returns>
+        /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
+        /// <returns>A <see cref="WTIStabilityShearStrengthModel"/> based on <paramref name="shearStrengthModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static ShearStrengthModel ConvertShearStrengthModel(UpliftVanShearStrengthModel shearStrengthModel)
+        private static WTIStabilityShearStrengthModel ConvertShearStrengthModel(ShearStrengthModel shearStrengthModel)
         {
-            if (!Enum.IsDefined(typeof(UpliftVanShearStrengthModel), shearStrengthModel))
+            if (!Enum.IsDefined(typeof(ShearStrengthModel), shearStrengthModel))
             {
                 throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
                                                        (int) shearStrengthModel,
-                                                       typeof(UpliftVanShearStrengthModel));
+                                                       typeof(ShearStrengthModel));
             }
 
             switch (shearStrengthModel)
             {
-                case UpliftVanShearStrengthModel.SuCalculated:
-                    return ShearStrengthModel.CuCalculated;
-                case UpliftVanShearStrengthModel.CPhi:
-                    return ShearStrengthModel.CPhi;
-                case UpliftVanShearStrengthModel.CPhiOrSuCalculated:
-                    return ShearStrengthModel.CPhiOrCuCalculated;
+                case ShearStrengthModel.SuCalculated:
+                    return WTIStabilityShearStrengthModel.CuCalculated;
+                case ShearStrengthModel.CPhi:
+                    return WTIStabilityShearStrengthModel.CPhi;
+                case ShearStrengthModel.CPhiOrSuCalculated:
+                    return WTIStabilityShearStrengthModel.CPhiOrCuCalculated;
                 default:
                     throw new NotSupportedException();
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanDilatancyType"/> into a <see cref="DilatancyType"/>.
+        /// Converts a <see cref="DilatancyType"/> into a <see cref="WTIStabilityDilatancyType"/>.
         /// </summary>
-        /// <param name="dilatancyType">The <see cref="UpliftVanDilatancyType"/> to convert.</param>
-        /// <returns>A <see cref="DilatancyType"/> based on <paramref name="dilatancyType"/>.</returns>
+        /// <param name="dilatancyType">The <see cref="DilatancyType"/> to convert.</param>
+        /// <returns>A <see cref="WTIStabilityDilatancyType"/> based on <paramref name="dilatancyType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dilatancyType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="dilatancyType"/>
         /// is a valid value but unsupported.</exception>
-        private static DilatancyType ConvertDilatancyType(UpliftVanDilatancyType dilatancyType)
+        private static WTIStabilityDilatancyType ConvertDilatancyType(DilatancyType dilatancyType)
         {
-            if (!Enum.IsDefined(typeof(UpliftVanDilatancyType), dilatancyType))
+            if (!Enum.IsDefined(typeof(DilatancyType), dilatancyType))
             {
                 throw new InvalidEnumArgumentException(nameof(dilatancyType),
                                                        (int) dilatancyType,
-                                                       typeof(UpliftVanDilatancyType));
+                                                       typeof(DilatancyType));
             }
 
             switch (dilatancyType)
             {
-                case UpliftVanDilatancyType.Phi:
-                    return DilatancyType.Phi;
-                case UpliftVanDilatancyType.Zero:
-                    return DilatancyType.Zero;
-                case UpliftVanDilatancyType.MinusPhi:
-                    return DilatancyType.MinusPhi;
+                case DilatancyType.Phi:
+                    return WTIStabilityDilatancyType.Phi;
+                case DilatancyType.Zero:
+                    return WTIStabilityDilatancyType.Zero;
+                case DilatancyType.MinusPhi:
+                    return WTIStabilityDilatancyType.MinusPhi;
                 default:
                     throw new NotSupportedException();
             }

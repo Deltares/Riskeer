@@ -22,18 +22,19 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class UpliftVanSoilProfileTest
+    public class SoilProfileTest
     {
         [Test]
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSoilProfile(null, new UpliftVanPreconsolidationStress[0]);
+            TestDelegate call = () => new SoilProfile(null, new PreconsolidationStress[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -44,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanSoilProfile(new UpliftVanSoilLayer[0], null);
+            TestDelegate call = () => new SoilProfile(new SoilLayer[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,15 +58,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Setup
             var layers = new[]
             {
-                new UpliftVanSoilLayer(new Point2D[0], new Point2D[0][], new UpliftVanSoilLayer.ConstructionProperties())
+                new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties())
             };
             var preconsolidationStresses = new[]
             {
-                new UpliftVanPreconsolidationStress(new Point2D(0, 0), 0)
+                new PreconsolidationStress(new Point2D(0, 0), 0)
             };
 
             // Call
-            var profile = new UpliftVanSoilProfile(layers, preconsolidationStresses);
+            var profile = new SoilProfile(layers, preconsolidationStresses);
 
             // Assert
             Assert.AreSame(layers, profile.Layers);

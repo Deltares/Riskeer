@@ -53,7 +53,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryConfigTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\TestUpliftVanSoilProfileTest.cs" />
+    <Compile Include="Calculators\Input\TestSoilProfileTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorStubTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanGridTestFactoryTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTestFactoryTest.cs" />

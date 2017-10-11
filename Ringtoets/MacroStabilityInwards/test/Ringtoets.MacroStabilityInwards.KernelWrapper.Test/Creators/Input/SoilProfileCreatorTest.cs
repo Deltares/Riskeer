@@ -27,10 +27,12 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
@@ -42,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null, new Dictionary<UpliftVanSoilLayer, Soil>());
+            TestDelegate call = () => SoilProfileCreator.Create(null, new Dictionary<SoilLayer, Soil>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,9 +55,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilDictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(new UpliftVanSoilProfile(
-                                                                    Enumerable.Empty<UpliftVanSoilLayer>(),
-                                                                    Enumerable.Empty<UpliftVanPreconsolidationStress>()),
+            TestDelegate call = () => SoilProfileCreator.Create(new SoilProfile(
+                                                                    Enumerable.Empty<SoilLayer>(),
+                                                                    Enumerable.Empty<PreconsolidationStress>()),
                                                                 null);
 
             // Assert
@@ -67,24 +69,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InvalidWaterPressureInterpolationModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var layer = new UpliftVanSoilLayer(
+            var layer = new SoilLayer(
                 new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
                 }, Enumerable.Empty<Point2D[]>(),
-                new UpliftVanSoilLayer.ConstructionProperties
+                new SoilLayer.ConstructionProperties
                 {
-                    WaterPressureInterpolationModel = (UpliftVanWaterPressureInterpolationModel) 99
+                    WaterPressureInterpolationModel = (WaterPressureInterpolationModel) 99
                 });
 
-            var soilProfile = new UpliftVanSoilProfile(new[]
+            var soilProfile = new SoilProfile(new[]
             {
                 layer
-            }, Enumerable.Empty<UpliftVanPreconsolidationStress>());
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => SoilProfileCreator.Create(soilProfile, new Dictionary<UpliftVanSoilLayer, Soil>
+            TestDelegate test = () => SoilProfileCreator.Create(soilProfile, new Dictionary<SoilLayer, Soil>
             {
                 {
                     layer, new Soil()
@@ -92,13 +94,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Assert
-            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{typeof(UpliftVanWaterPressureInterpolationModel).Name}'.";
+            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{typeof(WaterPressureInterpolationModel).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
-        [TestCase(UpliftVanWaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
-        [TestCase(UpliftVanWaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
-        public void Create_WithAllData_ReturnSoilProfile2D(UpliftVanWaterPressureInterpolationModel upliftVanWaterPressureInterpolationModel, WaterpressureInterpolationModel waterpressureInterpolationModel)
+        [TestCase(WaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
+        [TestCase(WaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
+        public void Create_WithAllData_ReturnSoilProfile2D(WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel waterpressureInterpolationModel)
         {
             // Setup
             var random = new Random(11);
@@ -128,26 +130,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 }
             };
 
-            var layer = new UpliftVanSoilLayer(
+            var layer = new SoilLayer(
                 outerRing, holes,
-                new UpliftVanSoilLayer.ConstructionProperties
+                new SoilLayer.ConstructionProperties
                 {
                     IsAquifer = true,
-                    WaterPressureInterpolationModel = upliftVanWaterPressureInterpolationModel
+                    WaterPressureInterpolationModel = waterPressureInterpolationModel
                 });
 
             var soil = new Soil();
 
-            var soilProfile = new UpliftVanSoilProfile(new[]
+            var soilProfile = new SoilProfile(new[]
             {
                 layer
             }, new[]
             {
-                new UpliftVanPreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
+                new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
             });
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<UpliftVanSoilLayer, Soil>
+            SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<SoilLayer, Soil>
             {
                 {
                     layer, soil
