@@ -24,7 +24,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
@@ -266,6 +268,103 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1, inputParameters.RightGrid.ZBottom.Value);
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfVerticalPoints);
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
+
+            Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
+            Assert.AreEqual(string.Empty, inputParameters.StochasticSoilProfile.SoilProfile.Name);
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(inputParameters.StochasticSoilProfile.SoilProfile);
+            var soilProfile1D = (MacroStabilityInwardsSoilProfile1D) inputParameters.StochasticSoilProfile.SoilProfile;
+            Assert.AreEqual(0, soilProfile1D.Bottom);
+            CollectionAssert.AreEqual(new[]
+            {
+                new MacroStabilityInwardsSoilLayer1D(10.56)
+                {
+                    Data =
+                    {
+                        IsAquifer = false,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                },
+                new MacroStabilityInwardsSoilLayer1D(6.0)
+                {
+                    Data =
+                    {
+                        IsAquifer = true,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                },
+                new MacroStabilityInwardsSoilLayer1D(0.1)
+                {
+                    Data =
+                    {
+                        IsAquifer = false,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                }
+            }, soilProfile1D.Layers);
+
+            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 2);
+            var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 2);
+            var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 3);
+            var fourthCharacteristicPointLocation = new Point3D(0.4, 0.0, 3);
+            var fifthCharacteristicPointLocation = new Point3D(0.5, 0.0, 1);
+            var sixthCharacteristicPointLocation = new Point3D(0.6, 0.0, 1);
+
+            expectedSurfaceLine.SetGeometry(new[]
+            {
+                firstCharacteristicPointLocation,
+                secondCharacteristicPointLocation,
+                thirdCharacteristicPointLocation,
+                fourthCharacteristicPointLocation,
+                fifthCharacteristicPointLocation,
+                sixthCharacteristicPointLocation
+            });
+            expectedSurfaceLine.SetSurfaceLevelOutsideAt(firstCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeToeAtRiverAt(secondCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeTopAtRiverAt(thirdCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
+            expectedSurfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
+            Assert.AreEqual(expectedSurfaceLine, inputParameters.SurfaceLine);
         }
 
         private static FailureMechanismSection CreateSection()

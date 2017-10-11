@@ -42,6 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
             Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.Output);
+            Assert.IsFalse(calculator.ThrowExceptionOnCalculate);
             Assert.IsFalse(calculator.ReturnValidationWarning);
             Assert.IsFalse(calculator.ReturnValidationError);
         }
@@ -84,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
         }
 
         [Test]
-        public void Validate_ReturnValidationResultsFalse_ReturnsEmptyValidationResult()
+        public void Validate_ReturnValidationErrorAndWarningFalse_ReturnsEmptyEnumerable()
         {
             // Setup
             var calculator = new UpliftVanCalculatorStub();

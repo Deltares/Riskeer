@@ -196,7 +196,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Validate_CalculatorWithValidInput_ReturnEmptyList()
+        public void Validate_CalculatorWithValidInputAndKernelWithValidOutput_KernelValidateMethodCalled()
+        {
+            // Setup
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            SetValidKernelOutput(upliftVanKernel);
+
+            // Call
+            new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
+
+            // Assert
+            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Validated);
+        }
+
+        [Test]
+        public void Validate_CalculatorWithValidInput_ReturnEmptyEnumerable()
         {
             // Setup
             UpliftVanCalculatorInput input = CreateValidCalculatorInput();
@@ -210,7 +227,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Validate_KernelReturnsValidationResults_ReturnsListWithOnlyErrorsAndWarnings()
+        public void Validate_KernelReturnsValidationResults_ReturnsEnumerableWithOnlyErrorsAndWarnings()
         {
             // Setup
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();

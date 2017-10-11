@@ -190,7 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
-        public List<Tuple<ValidationResultType, string>> Validate()
+        public IEnumerable<ValidationResult> Validate()
         {
             try
             {
@@ -199,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
                 string result = wtiStabilityCalculation.Validate();
                 ValidationResult[] deserializedResult = WTIDeserializer.DeserializeValidation(result);
-                return deserializedResult.Select(r => new Tuple<ValidationResultType, string>(r.MessageType, r.Text)).ToList();
+                return deserializedResult;
             }
             catch (Exception e)
             {

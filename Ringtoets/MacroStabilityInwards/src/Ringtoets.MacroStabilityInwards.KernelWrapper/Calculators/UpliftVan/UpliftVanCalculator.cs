@@ -67,12 +67,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             try
             {
                 IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
-                List<Tuple<ValidationResultType, string>> results = upliftVanKernel.Validate();
-                var upliftValidationResults = new List<UpliftVanValidationResult>();
-                foreach (Tuple<ValidationResultType, string> result in results)
+                IEnumerable<ValidationResult> results = upliftVanKernel.Validate();
+                var upliftVanValidationResults = new List<UpliftVanValidationResult>();
+                foreach (ValidationResult result in results)
                 {
                     UpliftVanValidationResultType type;
-                    switch (result.Item1)
+                    switch (result.MessageType)
                     {
                         case ValidationResultType.Error:
                             type = UpliftVanValidationResultType.Error;
@@ -83,9 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
                         default:
                             continue;
                     }
-                    upliftValidationResults.Add(new UpliftVanValidationResult(type, result.Item2));
+                    upliftVanValidationResults.Add(new UpliftVanValidationResult(type, result.Text));
                 }
-                return upliftValidationResults;
+                return upliftVanValidationResults;
             }
             catch (UpliftVanKernelWrapperException e)
             {

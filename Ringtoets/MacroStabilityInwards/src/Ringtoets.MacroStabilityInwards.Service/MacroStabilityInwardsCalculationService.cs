@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                                                                                                         msg.Message)).ToArray());
             CalculationServiceHelper.LogValidationEnd();
 
-            return validationResults.Count(r => r.ResultType == UpliftVanValidationResultType.Error) == 0;
+            return validationResults.All(r => r.ResultType != UpliftVanValidationResultType.Error);
         }
 
         /// <summary>

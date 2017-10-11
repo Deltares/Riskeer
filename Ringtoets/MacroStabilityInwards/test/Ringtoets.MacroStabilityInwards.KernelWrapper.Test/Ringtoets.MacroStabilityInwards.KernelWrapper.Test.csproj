@@ -75,6 +75,7 @@
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilLayerTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSoilProfileTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorExceptionTest.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultTypeTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultTest.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />

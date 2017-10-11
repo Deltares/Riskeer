@@ -47,7 +47,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         /// <summary>
         /// Performs the validation.
         /// </summary>
-        /// <returns>A list of validation messages.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="UpliftVanValidationResult"/>.</returns>
+        /// <exception cref="UpliftVanCalculatorException">Thrown when an error 
+        /// occurs during the validation.</exception>
         IEnumerable<UpliftVanValidationResult> Validate();
     }
 }

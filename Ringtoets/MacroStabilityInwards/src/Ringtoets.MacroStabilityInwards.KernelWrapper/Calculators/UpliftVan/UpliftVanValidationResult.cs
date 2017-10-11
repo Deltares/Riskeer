@@ -24,15 +24,17 @@ using System;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
-    /// The validation result of an Uplift Van calculation.
+    /// Class representing a validation result of an Uplift Van calculation.
     /// </summary>
     public class UpliftVanValidationResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanValidationResult"/>.
         /// </summary>
-        /// <param name="type">The result type of the validation result</param>
-        /// <param name="message">The message of the validation result</param>
+        /// <param name="type">The type of the validation result.</param>
+        /// <param name="message">The message of the validation result.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="message"/>
+        /// is <c>null</c>.</exception>
         public UpliftVanValidationResult(UpliftVanValidationResultType type, string message)
         {
             if (message == null)
@@ -44,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         }
 
         /// <summary>
-        /// Gets the type of the validation result message.
+        /// Gets the type of the validation result.
         /// </summary>
         public UpliftVanValidationResultType ResultType { get; }
 

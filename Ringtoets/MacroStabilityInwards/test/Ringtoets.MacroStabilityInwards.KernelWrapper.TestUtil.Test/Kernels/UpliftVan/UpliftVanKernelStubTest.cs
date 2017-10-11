@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Deltares.WTIStability.Data.Standard;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -78,10 +79,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
+            Assert.IsFalse(kernel.Validated);
+            Assert.IsTrue(kernel.ThrowExceptionOnCalculate);
+            Assert.IsFalse(kernel.ThrowExceptionOnValidate);
+            Assert.IsFalse(kernel.ReturnValidationResults);
         }
 
         [Test]
-        public void Validate_ThrowExceptionOnValidateAndReturnValidationResultsFalse_SetValidatedTrue()
+        public void Validate_ThrowExceptionOnValidateFalse_SetValidatedTrue()
         {
             // Setup
             var kernel = new UpliftVanKernelStub();
@@ -90,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             Assert.IsFalse(kernel.Validated);
 
             // Call
-            kernel.Validate();
+            kernel.Validate().ToList();
 
             // Assert
             Assert.IsTrue(kernel.Validated);
@@ -106,17 +111,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             };
 
             // Call
-            List<Tuple<ValidationResultType, string>> results = calculator.Validate();
+            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
 
             // Assert
-            Assert.IsFalse(calculator.Validated);
-            CollectionAssert.AreEqual(new List<Tuple<ValidationResultType, string>>
-            {
-                new Tuple<ValidationResultType, string>(ValidationResultType.Warning, "Validation Warning"),
-                new Tuple<ValidationResultType, string>(ValidationResultType.Error, "Validation Error"),
-                new Tuple<ValidationResultType, string>(ValidationResultType.Info, "Validation Info"),
-                new Tuple<ValidationResultType, string>(ValidationResultType.Debug, "Validation Debug")
-            }, results);
+            Assert.IsTrue(calculator.Validated);
+            Assert.AreEqual(4, results.Count());
+            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results.ElementAt(0));
+            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results.ElementAt(1));
+            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results.ElementAt(2));
+            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results.ElementAt(3));
         }
 
         [Test]
@@ -132,13 +135,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             Assert.IsFalse(kernel.Validated);
 
             // Call
-            TestDelegate test = () => kernel.Validate();
+            TestDelegate test = () => kernel.Validate().ToList();
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Validated);
+        }
+
+        private void AssertValidationResult(IValidationResult expected, IValidationResult actual)
+        {
+            Assert.AreEqual(expected.MessageType, actual.MessageType);
+            Assert.AreEqual(expected.Text, actual.Text);
         }
     }
 }

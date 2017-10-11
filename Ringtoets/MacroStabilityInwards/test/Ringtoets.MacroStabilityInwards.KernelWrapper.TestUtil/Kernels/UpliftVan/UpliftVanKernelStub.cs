@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Calculated = true;
         }
 
-        public List<Tuple<ValidationResultType, string>> Validate()
+        public IEnumerable<ValidationResult> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
@@ -115,17 +115,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
             if (ReturnValidationResults)
             {
-                return new List<Tuple<ValidationResultType, string>>
-                {
-                    new Tuple<ValidationResultType, string>(ValidationResultType.Warning, "Validation Warning"),
-                    new Tuple<ValidationResultType, string>(ValidationResultType.Error, "Validation Error"),
-                    new Tuple<ValidationResultType, string>(ValidationResultType.Info, "Validation Info"),
-                    new Tuple<ValidationResultType, string>(ValidationResultType.Debug, "Validation Debug")
-                };
+                yield return new ValidationResult(ValidationResultType.Warning, "Validation Warning");
+                yield return new ValidationResult(ValidationResultType.Error, "Validation Error");
+                yield return new ValidationResult(ValidationResultType.Info, "Validation Info");
+                yield return new ValidationResult(ValidationResultType.Debug, "Validation Debug");
             }
 
             Validated = true;
-            return new List<Tuple<ValidationResultType, string>>();
         }
     }
 }

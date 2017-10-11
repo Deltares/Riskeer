@@ -33,14 +33,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
     /// </summary>
     public class UpliftVanCalculatorStub : IUpliftVanCalculator
     {
+        /// <summary>
+        /// Gets or sets the Uplift Van calculator input.
+        /// </summary>
         public UpliftVanCalculatorInput Input { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Uplift Van calculator output.
+        /// </summary>
         public UpliftVanCalculatorResult Output { get; private set; }
 
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
+        /// <summary>
+        /// Indicator whether an error message must be returned when performing the validation.
+        /// </summary>
         public bool ReturnValidationError { get; set; }
 
+        /// <summary>
+        /// Indicator whether a warning message must be returned when performing the validation.
+        /// </summary>
         public bool ReturnValidationWarning { get; set; }
 
         public UpliftVanCalculatorResult Calculate()
@@ -54,16 +69,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
 
         public IEnumerable<UpliftVanValidationResult> Validate()
         {
-            var validationResults = new List<UpliftVanValidationResult>();
             if (ReturnValidationError)
             {
-                validationResults.Add(new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error"));
+                yield return new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error");
             }
             if (ReturnValidationWarning)
             {
-                validationResults.Add(new UpliftVanValidationResult(UpliftVanValidationResultType.Warning, "Validation Warning"));
+                yield return new UpliftVanValidationResult(UpliftVanValidationResultType.Warning, "Validation Warning");
             }
-            return validationResults;
         }
 
         private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult()
