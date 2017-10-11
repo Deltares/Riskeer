@@ -466,6 +466,12 @@
   <data name="TangentLineZTop_DisplayName" xml:space="preserve">
     <value>Tangentlijn Z-boven [m+NAP]</value>
   </data>
+  <data name="TangentLineNumber_Description" xml:space="preserve">
+    <value>Het aantal tangentlijnen dat bepaald moet worden.</value>
+  </data>
+  <data name="TangentLineNumber_DisplayName" xml:space="preserve">
+    <value>Aantal tangentlijnen</value>
+  </data>
   <data name="XLeft_Description" xml:space="preserve">
     <value>Horizontale coördinaat van de linker kant van het rekengrid.</value>
   </data>

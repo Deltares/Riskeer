@@ -45,8 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedTangentLineDeterminationTypePropertyIndex = 2;
         private const int expectedTangentLineZTopPropertyIndex = 3;
         private const int expectedTangentLineZBottomPropertyIndex = 4;
-        private const int expectedLeftGridPropertyIndex = 5;
-        private const int expectedRightGridPropertyIndex = 6;
+        private const int expectedTangentLineNumberPropertyIndex = 5;
+        private const int expectedLeftGridPropertyIndex = 6;
+        private const int expectedRightGridPropertyIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -112,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string calculationGridsCategory = "Rekengrids";
 
@@ -154,6 +155,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 calculationGridsCategory,
                 "Tangentlijn Z-onder [m+NAP]",
                 "Verticale coördinaat van de onderste raaklijn.",
+                true);
+
+            PropertyDescriptor tangentLineNumberProperty = dynamicProperties[expectedTangentLineNumberPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                tangentLineNumberProperty,
+                calculationGridsCategory,
+                "Aantal tangentlijnen",
+                "Het aantal tangentlijnen dat bepaald moet worden.",
                 true);
 
             PropertyDescriptor leftGridProperty = dynamicProperties[expectedLeftGridPropertyIndex];
@@ -202,6 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.TangentLineDeterminationType, properties.TangentLineDeterminationType);
             Assert.AreEqual(input.TangentLineZTop, properties.TangentLineZTop);
             Assert.AreEqual(input.TangentLineZBottom, properties.TangentLineZBottom);
+            Assert.AreEqual(input.TangentLineNumber, properties.TangentLineNumber);
 
             bool gridIsReadOnly = gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic;
             Assert.AreSame(input.LeftGrid, properties.LeftGrid.Data);
@@ -225,8 +235,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool moveGrid = random.NextBoolean();
             var gridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>();
             var tangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>();
-            double tangentLineZTop = random.Next();
-            double tangentLineZBottom = random.Next();
+            double tangentLineZTop = random.NextDouble();
+            double tangentLineZBottom = random.NextDouble();
+            int tangentLineNumber = random.Next(1, 51);
 
             // When
             properties.MoveGrid = moveGrid;
@@ -234,6 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             properties.TangentLineDeterminationType = tangentLineDeterminationType;
             properties.TangentLineZTop = (RoundedDouble) tangentLineZTop;
             properties.TangentLineZBottom = (RoundedDouble) tangentLineZBottom;
+            properties.TangentLineNumber = tangentLineNumber;
 
             // Then
             Assert.AreEqual(moveGrid, input.MoveGrid);
@@ -241,6 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(tangentLineDeterminationType, input.TangentLineDeterminationType);
             Assert.AreEqual(tangentLineZTop, input.TangentLineZTop, input.TangentLineZTop.GetAccuracy());
             Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom, input.TangentLineZBottom.GetAccuracy());
+            Assert.AreEqual(tangentLineNumber, input.TangentLineNumber);
         }
 
         [Test]
@@ -294,6 +307,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void TangentLineNumber_SetValidValue_SetsValueAndUpdatesObservers()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineNumber = 10, calculation);
+        }
+
+        [Test]
         public void ToString_Always_ReturnEmptyString()
         {
             // Setup
@@ -324,8 +347,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput
             {
                 GridDeterminationType = isGridDeterminationTypeAutomatic
-                                        ? MacroStabilityInwardsGridDeterminationType.Automatic
-                                        : MacroStabilityInwardsGridDeterminationType.Manual
+                                            ? MacroStabilityInwardsGridDeterminationType.Automatic
+                                            : MacroStabilityInwardsGridDeterminationType.Manual
             };
 
             var properties = new MacroStabilityInwardsGridSettingsProperties(input, changeHandler);
@@ -343,7 +366,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             [Values(true, false)] bool isTangentlineDeterminationTypeLayerSeparated,
             [Values(true, false)] bool isGridDeterminationTypeAutomatic,
             [Values(nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZTop),
-                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZBottom))] string propertyName)
+                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZBottom),
+                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineNumber))] string propertyName)
         {
             // Setup
             var mocks = new MockRepository();

@@ -44,8 +44,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int tangentLineDeterminationTypePropertyIndex = 3;
         private const int tangentLineZTopPropertyIndex = 4;
         private const int tangentLineZBottomPropertyIndex = 5;
-        private const int leftGridPropertyIndex = 6;
-        private const int rightGridPropertyIndex = 7;
+        private const int tangentLineNumberPropertyIndex = 6;
+        private const int leftGridPropertyIndex = 7;
+        private const int rightGridPropertyIndex = 8;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -154,6 +155,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(tangentLineNumberPropertyIndex)]
+        [DynamicReadOnly]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TangentLineNumber_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TangentLineNumber_Description))]
+        public int TangentLineNumber
+        {
+            get
+            {
+                return data.TangentLineNumber;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.TangentLineNumber = value, propertyChangeHandler);
+            }
+        }
+
         [PropertyOrder(leftGridPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.GridSettings_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LeftGrid_DisplayName))]
@@ -183,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(TangentLineZTop) || propertyName == nameof(TangentLineZBottom))
+            if (propertyName == nameof(TangentLineZTop) || propertyName == nameof(TangentLineZBottom) || propertyName == nameof(TangentLineNumber))
             {
                 return data.TangentLineDeterminationType == MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated
                        || AreGridSettingsReadOnly();

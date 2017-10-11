@@ -1191,6 +1191,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het aantal tangentlijnen dat bepaald moet worden..
+        /// </summary>
+        public static string TangentLineNumber_Description {
+            get {
+                return ResourceManager.GetString("TangentLineNumber_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal tangentlijnen.
+        /// </summary>
+        public static string TangentLineNumber_DisplayName {
+            get {
+                return ResourceManager.GetString("TangentLineNumber_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verticale coördinaat van de onderste raaklijn..
         /// </summary>
         public static string TangentLineZBottom_Description {
