@@ -25,6 +25,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
@@ -103,7 +104,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
 
             // Call
-            IWaternetCalculator waternetCalculator = factory.CreateWaternetCalculator(new TestMacroStabilityInwardsKernelFactory());
+            IWaternetCalculator waternetCalculator = factory.CreateWaternetCalculator(
+                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestSoilProfile(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                }), new TestMacroStabilityInwardsKernelFactory());
 
             // Assert
             Assert.IsInstanceOf<WaternetCalculator>(waternetCalculator);

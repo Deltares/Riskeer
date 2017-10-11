@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
@@ -29,19 +30,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
     /// </summary>
     public class WaternetCalculator : IWaternetCalculator
     {
+        private readonly WaternetCalculatorInput input;
         private readonly IMacroStabilityInwardsKernelFactory factory;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaternetCalculator"/>.
         /// </summary>
-        /// <param name="factory">The factory responsible for creating the Uplift Van kernel.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        public WaternetCalculator(IMacroStabilityInwardsKernelFactory factory)
+        /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values
+        /// required for performing the Waternet calculation.</param>
+        /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or 
+        /// <paramref name="factory"/> is <c>null</c>.</exception>
+        public WaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory));
             }
+            this.input = input;
             this.factory = factory;
         }
     }

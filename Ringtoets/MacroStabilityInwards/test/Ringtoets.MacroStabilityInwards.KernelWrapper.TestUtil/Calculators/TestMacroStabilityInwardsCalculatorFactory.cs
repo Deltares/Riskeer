@@ -23,6 +23,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
@@ -60,8 +61,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
             return LastCreatedUpliftVanCalculator;
         }
 
-        public IWaternetCalculator CreateWaternetCalculator(IMacroStabilityInwardsKernelFactory factory)
+        public IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
+            LastCreatedWaternetCalculator.Input = input;
+
             return LastCreatedWaternetCalculator;
         }
     }

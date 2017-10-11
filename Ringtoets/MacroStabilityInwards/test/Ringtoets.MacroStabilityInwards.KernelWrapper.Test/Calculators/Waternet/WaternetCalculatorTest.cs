@@ -20,10 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
@@ -31,10 +36,30 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
     public class WaternetCalculatorTest
     {
         [Test]
+        public void Constructor_InputNull_ArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new WaternetCalculator(null, factory);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_FactoryNull_ArgumentNullException()
         {
+            // Setup
+            WaternetCalculatorInput input = CreateValidCalculatorInput();
+
             // Call
-            TestDelegate call = () => new WaternetCalculator(null);
+            TestDelegate call = () => new WaternetCalculator(input, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,12 +74,92 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
+            WaternetCalculatorInput input = CreateValidCalculatorInput();
+
             // Call
-            var calculator = new WaternetCalculator(factory);
+            var calculator = new WaternetCalculator(input, factory);
 
             // Assert
             Assert.IsInstanceOf<IWaternetCalculator>(calculator);
             mocks.VerifyAll();
+        }
+
+        private WaternetCalculatorInput CreateValidCalculatorInput()
+        {
+            var random = new Random(21);
+
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
+            return new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+            {
+                AssessmentLevel = random.NextDouble(),
+                SurfaceLine = surfaceLine,
+                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                DrainageConstruction = new DrainageConstruction(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
+            });
+        }
+
+        private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return new SoilProfile(new[]
+            {
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties()),
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties
+                    {
+                        IsAquifer = true
+                    }),
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties()),
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties())
+            }, new[]
+            {
+                new PreconsolidationStress(new Point2D(0, 0), 1.1)
+            });
+        }
+
+        private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()
+        {
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var dikeToeAtRiver = new Point3D(1, 0, 8);
+
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 2),
+                dikeToeAtRiver,
+                new Point3D(2, 0, -1)
+            });
+
+            surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
+
+            return surfaceLine;
         }
     }
 }

@@ -22,6 +22,7 @@
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
@@ -43,8 +44,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         /// <summary>
         /// Creates a Waternet calculator.
         /// </summary>
+        /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values required
+        /// for performing a Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <returns>The Waternet calculator.</returns>
-        IWaternetCalculator CreateWaternetCalculator(IMacroStabilityInwardsKernelFactory factory);
+        IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
     }
 }

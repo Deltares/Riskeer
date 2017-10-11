@@ -70,8 +70,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         [Test]
         public void Constructor_FactoryNull_ArgumentNullException()
         {
-            // Call
+            // Setup
             UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+
+            // Call
             TestDelegate call = () => new UpliftVanCalculator(input, null);
 
             // Assert
@@ -94,6 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Assert
             Assert.IsInstanceOf<IUpliftVanCalculator>(calculator);
+            mocks.VerifyAll();
         }
 
         [Test]

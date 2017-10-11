@@ -20,11 +20,18 @@
 // All rights reserved.
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet
 {
     /// <summary>
     /// Waternet calculator stub for testing purposes.
     /// </summary>
-    public class WaternetCalculatorStub : IWaternetCalculator {}
+    public class WaternetCalculatorStub : IWaternetCalculator
+    {
+        /// <summary>
+        /// Gest or sets the Waternet calculator input.
+        /// </summary>
+        public WaternetCalculatorInput Input { get; set; }
+    }
 }

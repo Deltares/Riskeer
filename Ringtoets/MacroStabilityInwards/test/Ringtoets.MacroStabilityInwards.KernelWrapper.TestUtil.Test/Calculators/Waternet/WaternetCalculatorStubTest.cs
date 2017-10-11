@@ -36,6 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             Assert.IsInstanceOf<IWaternetCalculator>(calculator);
+            Assert.IsNull(calculator.Input);
         }
     }
 }

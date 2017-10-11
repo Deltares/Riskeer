@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
@@ -47,6 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsNotNull(factory.LastCreatedUpliftVanCalculator);
             Assert.IsNull(factory.LastCreatedUpliftVanCalculator.Input);
             Assert.IsNotNull(factory.LastCreatedWaternetCalculator);
+            Assert.IsNull(factory.LastCreatedWaternetCalculator.Input);
         }
 
         [Test]
@@ -72,16 +73,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
         }
 
         [Test]
-        public void CreateWaternetCalculator_Always_ReturnStub()
+        public void CreateWaternetCalculator_Always_ReturnStubWithInputSet()
         {
             // Setup
             var factory = new TestMacroStabilityInwardsCalculatorFactory();
-            
+            var input = new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+            {
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                SoilProfile = new TestSoilProfile(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                DrainageConstruction = new DrainageConstruction(),
+            });
+
             // Call
-            IWaternetCalculator calculator = factory.CreateWaternetCalculator(new TestMacroStabilityInwardsKernelFactory());
+            var calculator = (WaternetCalculatorStub) factory.CreateWaternetCalculator(input, new TestMacroStabilityInwardsKernelFactory());
 
             // Assert
             Assert.IsInstanceOf<WaternetCalculatorStub>(calculator);
+            Assert.AreSame(input, calculator.Input);
         }
     }
 }
