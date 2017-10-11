@@ -62,6 +62,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte TangentLineDeterminationType { get; set; }
         public double? TangentLineZTop { get; set; }
         public double? TangentLineZBottom { get; set; }
+        public int TangentLineNumber { get; set; }
         public double? LeftGridXLeft { get; set; }
         public double? LeftGridXRight { get; set; }
         public int LeftGridNrOfHorizontalPoints { get; set; }

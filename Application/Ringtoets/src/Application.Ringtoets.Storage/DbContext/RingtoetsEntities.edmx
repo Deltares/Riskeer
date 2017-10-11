@@ -689,6 +689,7 @@
           <Property Name="TangentLineDeterminationType" Type="tinyint" Nullable="false" />
           <Property Name="TangentLineZTop" Type="real" />
           <Property Name="TangentLineZBottom" Type="real" />
+          <Property Name="TangentLineNumber" Type="int" Nullable="false" />
           <Property Name="LeftGridXLeft" Type="real" />
           <Property Name="LeftGridXRight" Type="real" />
           <Property Name="LeftGridNrOfHorizontalPoints" Type="int" Nullable="false" />
@@ -5091,6 +5092,7 @@
           <Property Name="TangentLineDeterminationType" Type="Byte" Nullable="false" />
           <Property Name="TangentLineZTop" Type="Double" />
           <Property Name="TangentLineZBottom" Type="Double" />
+          <Property Name="TangentLineNumber" Type="Int32" Nullable="false" />
           <Property Name="LeftGridXLeft" Type="Double" />
           <Property Name="LeftGridXRight" Type="Double" />
           <Property Name="LeftGridNrOfHorizontalPoints" Type="Int32" Nullable="false" />
@@ -8194,6 +8196,7 @@
                 <ScalarProperty Name="LeftGridNrOfHorizontalPoints" ColumnName="LeftGridNrOfHorizontalPoints" />
                 <ScalarProperty Name="LeftGridXRight" ColumnName="LeftGridXRight" />
                 <ScalarProperty Name="LeftGridXLeft" ColumnName="LeftGridXLeft" />
+                <ScalarProperty Name="TangentLineNumber" ColumnName="TangentLineNumber" />
                 <ScalarProperty Name="TangentLineZBottom" ColumnName="TangentLineZBottom" />
                 <ScalarProperty Name="TangentLineZTop" ColumnName="TangentLineZTop" />
                 <ScalarProperty Name="TangentLineDeterminationType" ColumnName="TangentLineDeterminationType" />
