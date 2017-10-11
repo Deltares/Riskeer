@@ -73,12 +73,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
         public void Calculate()
         {
-            var waternetCalculation = new WTIStabilityCalculation();
-            waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
+            try
+            {
+                var waternetCalculation = new WTIStabilityCalculation();
+                waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
 
-            string s = waternetCalculation.CreateWaternet(false);
+                string s = waternetCalculation.CreateWaternet(false);
 
-            Console.WriteLine(s);
+                Console.WriteLine(s);
+            }
+            catch (Exception e)
+            {
+                throw new WaternetKernelWrapperException(e.Message, e);
+            }
         }
     }
 }

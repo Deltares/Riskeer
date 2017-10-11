@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -35,6 +36,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waterne
         /// </summary>
         public bool Calculated { get; private set; }
 
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { get; set; }
+
         public StabilityLocation Location { get; set; }
 
         public SoilModel SoilModel { get; set; }
@@ -45,6 +51,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waterne
 
         public void Calculate()
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new WaternetKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
+            }
+
             Calculated = true;
         }
     }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
@@ -40,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wa
         }
 
         [Test]
-        public void Calculate_Always_SetCalculatedTrue()
+        public void Calculate_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
         {
             // Setup
             var kernel = new WaternetKernelStub();
@@ -53,6 +54,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wa
 
             // Assert
             Assert.IsTrue(kernel.Calculated);
+        }
+
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsUpliftVanKernelWrapperException()
+        {
+            // Setup
+            var kernel = new WaternetKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WaternetKernelWrapperException>(test);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Calculated);
         }
     }
 }

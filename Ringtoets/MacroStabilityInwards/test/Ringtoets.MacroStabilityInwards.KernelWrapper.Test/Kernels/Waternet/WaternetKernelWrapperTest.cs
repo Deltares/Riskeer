@@ -70,10 +70,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
         }
 
+        [Test]
+        public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperException()
+        {
+            // Setup
+            var kernel = new WaternetKernelWrapper();
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WaternetKernelWrapperException>(test);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+        }
+
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
-            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Set during calculation
-            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Set during calculation
+            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Not applicable for Waternet calculation
+            Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMax); // Not applicable for Waternet calculation
             Assert.IsEmpty(stabilityModel.MultiplicationFactorsCPhiForUpliftList); // No multiplication factors CPhi for WBI
             Assert.IsEmpty(stabilityModel.UniformLoads); // No traffic load for WBI
             Assert.AreEqual(0.0, stabilityModel.FileVersionAsRead); // Set by XML serialization

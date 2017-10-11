@@ -60,6 +60,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Performs the Waternet calculation.
         /// </summary>
+        /// <exception cref="WaternetKernelWrapperException">Thrown when
+        /// an error occurs when performing the calculation.</exception>
         void Calculate();
     }
 }

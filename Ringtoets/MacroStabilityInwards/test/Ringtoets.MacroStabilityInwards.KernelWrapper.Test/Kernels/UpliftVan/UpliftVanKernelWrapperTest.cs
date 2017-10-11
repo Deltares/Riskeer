@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
-            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            Assert.IsNotNull(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
