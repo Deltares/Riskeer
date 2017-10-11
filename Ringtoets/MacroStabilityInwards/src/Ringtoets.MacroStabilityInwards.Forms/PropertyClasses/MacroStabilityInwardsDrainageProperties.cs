@@ -29,6 +29,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -63,6 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             propertyChangeHandler = handler;
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(drainageConstructionPresentPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.DrainageConstruction_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DrainageConstructionPresent_DisplayName))]
@@ -116,7 +118,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return !DrainageConstructionPresent;
+            if ((propertyName == nameof(XCoordinateDrainageConstruction) || propertyName == nameof(ZCoordinateDrainageConstruction))
+                && !DrainageConstructionPresent)
+            {
+                return true;
+            }
+
+            return data.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay
+                   || data.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand;
         }
 
         public override string ToString()

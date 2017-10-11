@@ -33,6 +33,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
@@ -92,19 +93,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues(bool drainageConstructionPresent)
+        public void Constructor_ValidData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput
-            {
-                DrainageConstructionPresent = drainageConstructionPresent
-            };
+            var input = new MacroStabilityInwardsInput();
 
             // Call
             var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
@@ -121,7 +117,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainagePresentProperty,
                 drainageCategory,
                 "Aanwezig",
-                "Is drainage aanwezig?");
+                "Is drainage aanwezig?",
+                true);
 
             PropertyDescriptor drainageXProperty = dynamicProperties[expectedXCoordinateDrainageConstructionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -129,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageCategory,
                 "X [m]",
                 "X-coördinaat van het middelpunt van de drainage (in lokale coördinaten).",
-                !drainageConstructionPresent);
+                true);
 
             PropertyDescriptor drainageZProperty = dynamicProperties[expectedZCoordinateDrainageConstructionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -137,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 drainageCategory,
                 "Z [m+NAP]",
                 "Z-coördinaat (hoogte) van het middelpunt van de drainage.",
-                !drainageConstructionPresent);
+                true);
 
             mocks.VerifyAll();
         }
@@ -221,9 +218,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicReadOnlyValidationMethod_Always_DependsDrainageConstructionPresent(bool drainageConstructionPresent)
+        public void DynamicReadOnlyValidationMethod_CoordinatesDrainageConstruction_DependsOnSoilScenarioAndDrainageConstructionPresent(
+            [Values(true, false)] bool drainageConstructionPresent,
+            [Values(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
+                MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
+                MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
+                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)] MacroStabilityInwardsDikeSoilScenario soilScenario,
+            [Values(nameof(MacroStabilityInwardsDrainageProperties.XCoordinateDrainageConstruction),
+                nameof(MacroStabilityInwardsDrainageProperties.ZCoordinateDrainageConstruction))] string propertyName)
         {
             // Setup
             var mocks = new MockRepository();
@@ -232,16 +234,51 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput
             {
-                DrainageConstructionPresent = drainageConstructionPresent
+                DrainageConstructionPresent = drainageConstructionPresent,
+                DikeSoilScenario = soilScenario
             };
 
             var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
 
             // Call
-            bool result = properties.DynamicReadOnlyValidationMethod("");
+            bool result = properties.DynamicReadOnlyValidationMethod(propertyName);
 
             // Assert
-            Assert.AreEqual(!drainageConstructionPresent, result);
+            bool isClayDike = input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay
+                              || input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand;
+
+            Assert.AreEqual(isClayDike || !drainageConstructionPresent, result);
+        }
+
+        [Test]
+        public void DynamicReadOnlyValidationMethod_DrainageConstructionPresent_DependsOnSoilScenario(
+            [Values(true, false)] bool drainageConstructionPresent,
+            [Values(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
+                MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
+                MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
+                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)] MacroStabilityInwardsDikeSoilScenario soilScenario)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var input = new MacroStabilityInwardsInput
+            {
+                DrainageConstructionPresent = drainageConstructionPresent,
+                DikeSoilScenario = soilScenario
+            };
+
+            var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.DrainageConstructionPresent));
+
+            // Assert
+            bool isClayDike = input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay
+                              || input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand;
+
+            Assert.AreEqual(isClayDike, result);
         }
 
         [Test]
