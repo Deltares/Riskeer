@@ -21,18 +21,18 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class UpliftVanPhreaticLineOffsetsTest
+    public class PhreaticLineOffsetsTest
     {
         [Test]
         public void ParameterlessConstructor_ExpectedValues()
         {
             // Call
-            var offsets = new UpliftVanPhreaticLineOffsets();
+            var offsets = new PhreaticLineOffsets();
 
             // Assert
             Assert.IsTrue(offsets.UseDefaults);
@@ -53,7 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double belowShoulderBaseInside = random.NextDouble();
 
             // Call
-            var offsets = new UpliftVanPhreaticLineOffsets(belowDikeTopAtRiver, belowDikeTopAtPolder, belowDikeToeAtPolder, belowShoulderBaseInside);
+            var offsets = new PhreaticLineOffsets(belowDikeTopAtRiver, belowDikeTopAtPolder, belowDikeToeAtPolder, belowShoulderBaseInside);
 
             // Assert
             Assert.IsFalse(offsets.UseDefaults);

@@ -41,8 +41,8 @@
     </Compile>
     <Compile Include="Converters\MacroStabilityInwardsSlidingCurveConverter.cs" />
     <Compile Include="Converters\MacroStabilityInwardsSlipPlaneUpliftVanConverter.cs" />
-    <Compile Include="Converters\UpliftVanDrainageConstructionConverter.cs" />
-    <Compile Include="Converters\UpliftVanPhreaticLineOffsetsConverter.cs" />
+    <Compile Include="Converters\DrainageConstructionConverter.cs" />
+    <Compile Include="Converters\PhreaticLineOffsetsConverter.cs" />
     <Compile Include="Converters\UpliftVanSlipPlaneConverter.cs" />
     <Compile Include="Converters\SoilProfileConverter.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivity.cs" />

@@ -26,9 +26,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
+using WTIStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -39,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SurfaceLineCreator.Create(null, UpliftVanLandwardDirection.PositiveX);
+            TestDelegate call = () => SurfaceLineCreator.Create(null, LandwardDirection.PositiveX);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -75,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -99,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -125,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -156,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -212,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             surfaceLine.SetDikeTopAtRiverAt(geometry[13]);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, UpliftVanLandwardDirection.PositiveX);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
 
             // Assert
             AssertGeneralValues(name, actual);
@@ -252,28 +253,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Call
-            TestDelegate test = () => SurfaceLineCreator.Create(surfaceLine, (UpliftVanLandwardDirection) 99);
+            TestDelegate test = () => SurfaceLineCreator.Create(surfaceLine, (LandwardDirection) 99);
 
             // Assert
-            string message = $"The value of argument 'landwardDirection' ({99}) is invalid for Enum type '{typeof(UpliftVanLandwardDirection).Name}'.";
+            string message = $"The value of argument 'landwardDirection' ({99}) is invalid for Enum type '{typeof(LandwardDirection).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
-        [TestCase(UpliftVanLandwardDirection.PositiveX, LandwardDirection.PositiveX)]
-        [TestCase(UpliftVanLandwardDirection.NegativeX, LandwardDirection.NegativeX)]
-        public void Create_ValidLandwardDirection_CreateSurfaceLineWithLandwardDirection(UpliftVanLandwardDirection upliftVanLandwardDirection,
-                                                                                         LandwardDirection landwardDirection)
+        [TestCase(LandwardDirection.PositiveX, WTIStabilityLandwardDirection.PositiveX)]
+        [TestCase(LandwardDirection.NegativeX, WTIStabilityLandwardDirection.NegativeX)]
+        public void Create_ValidLandwardDirection_CreateSurfaceLineWithLandwardDirection(LandwardDirection landwardDirection,
+                                                                                         WTIStabilityLandwardDirection expectedLandwardDirection)
         {
             // Setup
             const string name = "Surface line with landward direction";
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, upliftVanLandwardDirection);
+            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, landwardDirection);
 
             // Assert
             AssertGeneralValues(name, actual);
-            Assert.AreEqual(landwardDirection, actual.LandwardDirection);
+            Assert.AreEqual(expectedLandwardDirection, actual.LandwardDirection);
         }
 
         private static void AssertGeneralValues(string name, SurfaceLine2 actual)

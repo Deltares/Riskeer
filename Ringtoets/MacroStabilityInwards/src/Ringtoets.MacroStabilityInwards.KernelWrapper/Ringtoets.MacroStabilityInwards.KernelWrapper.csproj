@@ -43,13 +43,13 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanDrainageConstruction.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanLandwardDirection.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanPhreaticLineOffsets.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanPlLineCreationMethod.cs" />
+    <Compile Include="Calculators\Input\DrainageConstruction.cs" />
+    <Compile Include="Calculators\Input\LandwardDirection.cs" />
+    <Compile Include="Calculators\Input\PhreaticLineOffsets.cs" />
+    <Compile Include="Calculators\Input\PlLineCreationMethod.cs" />
     <Compile Include="Calculators\Input\PreconsolidationStress.cs" />
     <Compile Include="Calculators\Input\DilatancyType.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanWaternetCreationMode.cs" />
+    <Compile Include="Calculators\Input\WaternetCreationMode.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlane.cs" />
     <Compile Include="Calculators\Input\WaterPressureInterpolationModel.cs" />
     <Compile Include="Calculators\Input\ShearStrengthModel.cs" />

@@ -19,20 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// Phreatic line offset values that are used to perform a calculation.
     /// </summary>
-    public class UpliftVanPhreaticLineOffsets
+    public class PhreaticLineOffsets
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanPhreaticLineOffsets"/>.
+        /// Creates a new instance of <see cref="PhreaticLineOffsets"/>.
         /// </summary>
         /// <remarks><see cref="UseDefaults"/> is set to <c>true</c>; <see cref="BelowDikeTopAtRiver"/>,
         /// <see cref="BelowDikeTopAtPolder"/>, <see cref="BelowDikeToeAtPolder"/>
         /// and <see cref="BelowShoulderBaseInside"/> are set to <see cref="double.NaN"/>.</remarks>
-        public UpliftVanPhreaticLineOffsets()
+        public PhreaticLineOffsets()
         {
             UseDefaults = true;
             BelowDikeTopAtRiver = double.NaN;
@@ -42,15 +42,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanPhreaticLineOffsets"/>.
+        /// Creates a new instance of <see cref="PhreaticLineOffsets"/>.
         /// </summary>
         /// <param name="belowDikeTopAtRiver">The offset of the phreatic line below dike top at river.</param>
         /// <param name="belowDikeTopAtPolder">The offset of the phreatic line below dike top at polder.</param>
         /// <param name="belowDikeToeAtPolder">The offset of the phreatic line below dike toe at polder.</param>
         /// <param name="belowShoulderBaseInside">The offset of the phreatic line below shoulder base inside.</param>
         /// <remarks><see cref="UseDefaults"/> is set to <c>false</c>.</remarks>
-        public UpliftVanPhreaticLineOffsets(double belowDikeTopAtRiver, double belowDikeTopAtPolder,
-                                            double belowDikeToeAtPolder, double belowShoulderBaseInside)
+        public PhreaticLineOffsets(double belowDikeTopAtRiver, double belowDikeTopAtPolder,
+                                   double belowDikeToeAtPolder, double belowShoulderBaseInside)
         {
             UseDefaults = false;
             BelowDikeTopAtRiver = belowDikeTopAtRiver;

@@ -19,19 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// A drainage construction which its properties have been adapted to perform a calculation.
     /// </summary>
-    public class UpliftVanDrainageConstruction
+    public class DrainageConstruction
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanDrainageConstruction"/>.
+        /// Creates a new instance of <see cref="DrainageConstruction"/>.
         /// </summary>
         /// <remarks><see cref="IsPresent"/> is set to <c>false</c>; <see cref="XCoordinate"/> and <see cref="ZCoordinate"/>
         /// are set to <see cref="double.NaN"/>.</remarks>
-        public UpliftVanDrainageConstruction()
+        public DrainageConstruction()
         {
             IsPresent = false;
             XCoordinate = double.NaN;
@@ -39,12 +39,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanDrainageConstruction"/>.
+        /// Creates a new instance of <see cref="DrainageConstruction"/>.
         /// </summary>
         /// <param name="xCoordinate">The x coordinate of the drainage construction.</param>
         /// <param name="zCoordinate">The z coordinate of the drainage construction.</param>
         /// <remarks><see cref="IsPresent"/> is set to <c>true</c>.</remarks>
-        public UpliftVanDrainageConstruction(double xCoordinate, double zCoordinate)
+        public DrainageConstruction(double xCoordinate, double zCoordinate)
         {
             IsPresent = true;
             XCoordinate = xCoordinate;

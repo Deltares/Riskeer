@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -51,13 +52,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double hRiverValue = random.NextDouble();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             var soilProfile = new TestSoilProfile();
-            var drainageConstruction = new UpliftVanDrainageConstruction();
-            var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
+            var drainageConstruction = new DrainageConstruction();
+            var phreaticLineOffsets = new PhreaticLineOffsets();
             var slipPlane = new UpliftVanSlipPlane();
 
-            var waternetCreationMode = random.NextEnumValue<UpliftVanWaternetCreationMode>();
-            var plLineCreationMethod = random.NextEnumValue<UpliftVanPlLineCreationMethod>();
-            var landwardDirection = random.NextEnumValue<UpliftVanLandwardDirection>();
+            var waternetCreationMode = random.NextEnumValue<WaternetCreationMode>();
+            var plLineCreationMethod = random.NextEnumValue<PlLineCreationMethod>();
+            var landwardDirection = random.NextEnumValue<LandwardDirection>();
             double waterLevelRiverAverage = random.Next();
             double waterLevelPolderExtreme = random.Next();
             double waterLevelPolderDaily = random.Next();
@@ -156,8 +157,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
             var soilProfile = new TestSoilProfile();
-            var drainageConstruction = new UpliftVanDrainageConstruction();
-            var phreaticLineOffsets = new UpliftVanPhreaticLineOffsets();
+            var drainageConstruction = new DrainageConstruction();
+            var phreaticLineOffsets = new PhreaticLineOffsets();
             var slipPlane = new UpliftVanSlipPlane();
 
             // Call
@@ -195,9 +196,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.IsFalse(input.CreateZones);
             Assert.IsFalse(input.AutomaticForbiddenZones);
 
-            Assert.AreEqual(UpliftVanWaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
-            Assert.AreEqual(UpliftVanPlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
-            Assert.AreEqual(UpliftVanLandwardDirection.PositiveX, input.LandwardDirection);
+            Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
+            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
+            Assert.AreEqual(LandwardDirection.PositiveX, input.LandwardDirection);
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }
 
@@ -209,9 +210,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane()
                 });
 
@@ -227,9 +228,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane()
                 });
 
@@ -246,8 +247,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                     SlipPlane = new UpliftVanSlipPlane()
                 });
 
@@ -264,9 +265,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets()
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
                 });
 
             // Assert
@@ -282,9 +283,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets()
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets()
                 });
 
             // Assert
@@ -300,9 +301,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets()
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
                 });
 
             // Assert

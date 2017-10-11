@@ -26,6 +26,10 @@ using Deltares.WTIStability;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
+using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
+using WTIStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
+using WTIStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreationMode;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -166,68 +170,68 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanWaternetCreationMode"/> into a <see cref="WaternetCreationMode"/>.
+        /// Converts a <see cref="WaternetCreationMode"/> into a <see cref="WTIStabilityWaternetCreationMode"/>.
         /// </summary>
-        /// <param name="waternetCreationMode">The <see cref="UpliftVanWaternetCreationMode"/> to convert.</param>
-        /// <returns>A <see cref="WaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
+        /// <param name="waternetCreationMode">The <see cref="WaternetCreationMode"/> to convert.</param>
+        /// <returns>A <see cref="WTIStabilityWaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waternetCreationMode"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="waternetCreationMode"/>
         /// is a valid value but unsupported.</exception>
-        private static WaternetCreationMode ConvertWaternetCreationMode(UpliftVanWaternetCreationMode waternetCreationMode)
+        private static WTIStabilityWaternetCreationMode ConvertWaternetCreationMode(WaternetCreationMode waternetCreationMode)
         {
-            if (!Enum.IsDefined(typeof(UpliftVanWaternetCreationMode), waternetCreationMode))
+            if (!Enum.IsDefined(typeof(WaternetCreationMode), waternetCreationMode))
             {
                 throw new InvalidEnumArgumentException(nameof(waternetCreationMode),
                                                        (int) waternetCreationMode,
-                                                       typeof(UpliftVanWaternetCreationMode));
+                                                       typeof(WaternetCreationMode));
             }
 
             switch (waternetCreationMode)
             {
-                case UpliftVanWaternetCreationMode.CreateWaternet:
-                    return WaternetCreationMode.CreateWaternet;
-                case UpliftVanWaternetCreationMode.FillInWaternetValues:
-                    return WaternetCreationMode.FillInWaternetValues;
+                case WaternetCreationMode.CreateWaternet:
+                    return WTIStabilityWaternetCreationMode.CreateWaternet;
+                case WaternetCreationMode.FillInWaternetValues:
+                    return WTIStabilityWaternetCreationMode.FillInWaternetValues;
                 default:
                     throw new NotSupportedException();
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanPlLineCreationMethod"/> into a <see cref="PlLineCreationMethod"/>.
+        /// Converts a <see cref="PlLineCreationMethod"/> into a <see cref="WTIStabilityPlLineCreationMethod"/>.
         /// </summary>
-        /// <param name="plLineCreationMethod">The <see cref="UpliftVanPlLineCreationMethod"/> to convert.</param>
-        /// <returns>A <see cref="PlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
+        /// <param name="plLineCreationMethod">The <see cref="PlLineCreationMethod"/> to convert.</param>
+        /// <returns>A <see cref="WTIStabilityPlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="plLineCreationMethod"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="plLineCreationMethod"/>
         /// is a valid value but unsupported.</exception>
-        private static PlLineCreationMethod ConvertPlLineCreationMethod(UpliftVanPlLineCreationMethod plLineCreationMethod)
+        private static WTIStabilityPlLineCreationMethod ConvertPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod)
         {
-            if (!Enum.IsDefined(typeof(UpliftVanPlLineCreationMethod), plLineCreationMethod))
+            if (!Enum.IsDefined(typeof(PlLineCreationMethod), plLineCreationMethod))
             {
                 throw new InvalidEnumArgumentException(nameof(plLineCreationMethod),
                                                        (int) plLineCreationMethod,
-                                                       typeof(UpliftVanPlLineCreationMethod));
+                                                       typeof(PlLineCreationMethod));
             }
 
             switch (plLineCreationMethod)
             {
-                case UpliftVanPlLineCreationMethod.ExpertKnowledgeRrd:
-                    return PlLineCreationMethod.ExpertKnowledgeRrd;
-                case UpliftVanPlLineCreationMethod.ExpertKnowledgeLinearInDike:
-                    return PlLineCreationMethod.ExpertKnowledgeLinearInDike;
-                case UpliftVanPlLineCreationMethod.RingtoetsWti2017:
-                    return PlLineCreationMethod.RingtoetsWti2017;
-                case UpliftVanPlLineCreationMethod.DupuitStatic:
-                    return PlLineCreationMethod.DupuitStatic;
-                case UpliftVanPlLineCreationMethod.DupuitDynamic:
-                    return PlLineCreationMethod.DupuitDynamic;
-                case UpliftVanPlLineCreationMethod.Sensors:
-                    return PlLineCreationMethod.Sensors;
-                case UpliftVanPlLineCreationMethod.None:
-                    return PlLineCreationMethod.None;
+                case PlLineCreationMethod.ExpertKnowledgeRrd:
+                    return WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd;
+                case PlLineCreationMethod.ExpertKnowledgeLinearInDike:
+                    return WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike;
+                case PlLineCreationMethod.RingtoetsWti2017:
+                    return WTIStabilityPlLineCreationMethod.RingtoetsWti2017;
+                case PlLineCreationMethod.DupuitStatic:
+                    return WTIStabilityPlLineCreationMethod.DupuitStatic;
+                case PlLineCreationMethod.DupuitDynamic:
+                    return WTIStabilityPlLineCreationMethod.DupuitDynamic;
+                case PlLineCreationMethod.Sensors:
+                    return WTIStabilityPlLineCreationMethod.Sensors;
+                case PlLineCreationMethod.None:
+                    return WTIStabilityPlLineCreationMethod.None;
                 default:
                     throw new NotSupportedException();
             }

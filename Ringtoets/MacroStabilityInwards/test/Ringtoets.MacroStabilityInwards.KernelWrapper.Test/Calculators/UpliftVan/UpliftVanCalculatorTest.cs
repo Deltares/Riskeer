@@ -275,9 +275,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
-                DrainageConstruction = new UpliftVanDrainageConstruction(),
-                PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                DrainageConstruction = new DrainageConstruction(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane()
             });
         }
@@ -293,9 +293,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 AssessmentLevel = random.NextDouble(),
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
-                DrainageConstruction = new UpliftVanDrainageConstruction(),
-                PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                DrainageConstruction = new DrainageConstruction(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
                 WaterLevelRiverAverage = random.Next(),
                 WaterLevelPolderExtreme = random.Next(),

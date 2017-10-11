@@ -19,22 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
-    [TestFixture]
-    public class UpliftVanLandwardDirectionTest
+    /// <summary>
+    /// All landward direction types.
+    /// </summary>
+    public enum LandwardDirection
     {
-        [Test]
-        public void Values_ExpectedValues()
-        {
-            // Assert
-            Assert.AreEqual(2, Enum.GetValues(typeof(UpliftVanLandwardDirection)).Length);
-            Assert.AreEqual(1, (int) UpliftVanLandwardDirection.PositiveX);
-            Assert.AreEqual(2, (int) UpliftVanLandwardDirection.NegativeX);
-        }
+        PositiveX = 1,
+        NegativeX = 2
     }
 }

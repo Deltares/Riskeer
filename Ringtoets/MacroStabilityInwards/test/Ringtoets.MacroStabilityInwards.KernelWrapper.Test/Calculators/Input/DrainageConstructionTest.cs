@@ -21,18 +21,18 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class UpliftVanDrainageConstructionTest
+    public class DrainageConstructionTest
     {
         [Test]
         public void ParameterlessConstructor_ExpectedValues()
         {
             // Call
-            var drainageConstruction = new UpliftVanDrainageConstruction();
+            var drainageConstruction = new DrainageConstruction();
 
             // Assert
             Assert.IsFalse(drainageConstruction.IsPresent);
@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             double zCoordinate = random.NextDouble();
 
             // Call
-            var drainageConstruction = new UpliftVanDrainageConstruction(xCoordinate, zCoordinate);
+            var drainageConstruction = new DrainageConstruction(xCoordinate, zCoordinate);
 
             // Assert
             Assert.IsTrue(drainageConstruction.IsPresent);

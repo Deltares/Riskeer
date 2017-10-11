@@ -21,25 +21,25 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class UpliftVanPlLineCreationMethodTest
+    public class PlLineCreationMethodTest
     {
         [Test]
         public void Values_ExpectedValues()
         {
             // Assert
-            Assert.AreEqual(7, Enum.GetValues(typeof(UpliftVanPlLineCreationMethod)).Length);
-            Assert.AreEqual(1, (int) UpliftVanPlLineCreationMethod.ExpertKnowledgeRrd);
-            Assert.AreEqual(2, (int) UpliftVanPlLineCreationMethod.ExpertKnowledgeLinearInDike);
-            Assert.AreEqual(3, (int) UpliftVanPlLineCreationMethod.RingtoetsWti2017);
-            Assert.AreEqual(4, (int) UpliftVanPlLineCreationMethod.DupuitStatic);
-            Assert.AreEqual(5, (int) UpliftVanPlLineCreationMethod.DupuitDynamic);
-            Assert.AreEqual(6, (int) UpliftVanPlLineCreationMethod.Sensors);
-            Assert.AreEqual(7, (int) UpliftVanPlLineCreationMethod.None);
+            Assert.AreEqual(7, Enum.GetValues(typeof(PlLineCreationMethod)).Length);
+            Assert.AreEqual(1, (int) PlLineCreationMethod.ExpertKnowledgeRrd);
+            Assert.AreEqual(2, (int) PlLineCreationMethod.ExpertKnowledgeLinearInDike);
+            Assert.AreEqual(3, (int) PlLineCreationMethod.RingtoetsWti2017);
+            Assert.AreEqual(4, (int) PlLineCreationMethod.DupuitStatic);
+            Assert.AreEqual(5, (int) PlLineCreationMethod.DupuitDynamic);
+            Assert.AreEqual(6, (int) PlLineCreationMethod.Sensors);
+            Assert.AreEqual(7, (int) PlLineCreationMethod.None);
         }
     }
 }

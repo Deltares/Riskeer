@@ -19,14 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+using System;
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
-    /// <summary>
-    /// All waternet creation mode types.
-    /// </summary>
-    public enum UpliftVanWaternetCreationMode
+    [TestFixture]
+    public class LandwardDirectionTest
     {
-        CreateWaternet = 1,
-        FillInWaternetValues = 2
+        [Test]
+        public void Values_ExpectedValues()
+        {
+            // Assert
+            Assert.AreEqual(2, Enum.GetValues(typeof(LandwardDirection)).Length);
+            Assert.AreEqual(1, (int) LandwardDirection.PositiveX);
+            Assert.AreEqual(2, (int) LandwardDirection.NegativeX);
+        }
     }
 }

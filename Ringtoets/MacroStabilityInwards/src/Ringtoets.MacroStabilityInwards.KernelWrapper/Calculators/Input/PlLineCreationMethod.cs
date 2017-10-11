@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
 {
     /// <summary>
     /// All pl line creation method types.
     /// </summary>
-    public enum UpliftVanPlLineCreationMethod
+    public enum PlLineCreationMethod
     {
         ExpertKnowledgeRrd = 1,
         ExpertKnowledgeLinearInDike = 2,

@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -84,9 +85,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane()
                 }),
                 new TestMacroStabilityInwardsKernelFactory());

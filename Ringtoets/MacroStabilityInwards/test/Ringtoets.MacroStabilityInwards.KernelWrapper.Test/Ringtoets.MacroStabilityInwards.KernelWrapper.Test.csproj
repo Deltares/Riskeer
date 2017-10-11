@@ -62,13 +62,13 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Calculators\MacroStabilityInwardsCalculatorFactoryTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanDrainageConstructionTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanPhreaticLineOffsetsTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanLandwardDirectionTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanWaternetCreationModeTest.cs" />
+    <Compile Include="Calculators\Input\DrainageConstructionTest.cs" />
+    <Compile Include="Calculators\Input\PhreaticLineOffsetsTest.cs" />
+    <Compile Include="Calculators\Input\LandwardDirectionTest.cs" />
+    <Compile Include="Calculators\Input\WaternetCreationModeTest.cs" />
     <Compile Include="Calculators\Input\PreconsolidationStressTest.cs" />
     <Compile Include="Calculators\Input\DilatancyTypeTest.cs" />
-    <Compile Include="Calculators\UpliftVan\Input\UpliftVanPlLineCreationMethodTest.cs" />
+    <Compile Include="Calculators\Input\PlLineCreationMethodTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanSlipPlaneTest.cs" />
     <Compile Include="Calculators\Input\WaterPressureInterpolationModelTest.cs" />
     <Compile Include="Calculators\Input\ShearStrengthModelTest.cs" />

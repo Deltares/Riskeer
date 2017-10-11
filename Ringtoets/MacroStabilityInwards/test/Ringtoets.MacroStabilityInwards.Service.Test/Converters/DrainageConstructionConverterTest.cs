@@ -23,24 +23,47 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
 {
     [TestFixture]
-    public class UpliftVanDrainageConstructionConverterTest
+    public class DrainageConstructionConverterTest
     {
         [Test]
         public void Convert_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanDrainageConstructionConverter.Convert(null);
+            TestDelegate call = () => DrainageConstructionConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
+        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+        public void Convert_SandDikeAndDrainageConstructionPresentTrue_ReturnUpliftVanDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput
+            {
+                DrainageConstructionPresent = true,
+                XCoordinateDrainageConstruction = (RoundedDouble) 2,
+                ZCoordinateDrainageConstruction = (RoundedDouble) 4,
+                DikeSoilScenario = soilScenario
+            };
+
+            // Call
+            DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
+
+            // Assert
+            Assert.IsTrue(drainageConstruction.IsPresent);
+            Assert.AreEqual(input.XCoordinateDrainageConstruction, drainageConstruction.XCoordinate);
+            Assert.AreEqual(input.ZCoordinateDrainageConstruction, drainageConstruction.ZCoordinate);
         }
 
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
@@ -59,35 +82,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             };
 
             // Call
-            UpliftVanDrainageConstruction drainageConstruction = UpliftVanDrainageConstructionConverter.Convert(input);
+            DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
             Assert.IsFalse(drainageConstruction.IsPresent);
             Assert.IsNaN(drainageConstruction.XCoordinate);
             Assert.IsNaN(drainageConstruction.ZCoordinate);
-        }
-
-        [Test]
-        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
-        [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
-        public void Convert_SandDikeAndDrainageConstructionPresentTrue_ReturnUpliftVanDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
-        {
-            // Setup
-            var input = new MacroStabilityInwardsInput
-            {
-                DrainageConstructionPresent = true,
-                XCoordinateDrainageConstruction = (RoundedDouble) 2,
-                ZCoordinateDrainageConstruction = (RoundedDouble) 4,
-                DikeSoilScenario = soilScenario
-            };
-
-            // Call
-            UpliftVanDrainageConstruction drainageConstruction = UpliftVanDrainageConstructionConverter.Convert(input);
-
-            // Assert
-            Assert.IsTrue(drainageConstruction.IsPresent);
-            Assert.AreEqual(input.XCoordinateDrainageConstruction, drainageConstruction.XCoordinate);
-            Assert.AreEqual(input.ZCoordinateDrainageConstruction, drainageConstruction.ZCoordinate);
         }
 
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             };
 
             // Call
-            UpliftVanDrainageConstruction drainageConstruction = UpliftVanDrainageConstructionConverter.Convert(input);
+            DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
             Assert.IsFalse(drainageConstruction.IsPresent);

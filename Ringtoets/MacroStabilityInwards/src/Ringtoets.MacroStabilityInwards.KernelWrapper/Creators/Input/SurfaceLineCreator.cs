@@ -25,9 +25,10 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
+using WTIStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -49,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
         /// is a valid value but unsupported.</exception>
-        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine, UpliftVanLandwardDirection landwardDirection)
+        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine, LandwardDirection landwardDirection)
         {
             if (surfaceLine == null)
             {
@@ -80,29 +81,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="UpliftVanLandwardDirection"/> into a <see cref="LandwardDirection"/>.
+        /// Converts a <see cref="LandwardDirection"/> into a <see cref="WTIStabilityLandwardDirection"/>.
         /// </summary>
-        /// <param name="landwardDirection">The <see cref="UpliftVanLandwardDirection"/> to convert.</param>
-        /// <returns>A <see cref="LandwardDirection"/> based on <paramref name="landwardDirection"/>.</returns>
+        /// <param name="landwardDirection">The <see cref="LandwardDirection"/> to convert.</param>
+        /// <returns>A <see cref="WTIStabilityLandwardDirection"/> based on <paramref name="landwardDirection"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
         /// is a valid value but unsupported.</exception>
-        private static LandwardDirection ConvertLandwardDirection(UpliftVanLandwardDirection landwardDirection)
+        private static WTIStabilityLandwardDirection ConvertLandwardDirection(LandwardDirection landwardDirection)
         {
-            if (!Enum.IsDefined(typeof(UpliftVanLandwardDirection), landwardDirection))
+            if (!Enum.IsDefined(typeof(LandwardDirection), landwardDirection))
             {
                 throw new InvalidEnumArgumentException(nameof(landwardDirection),
                                                        (int) landwardDirection,
-                                                       typeof(UpliftVanLandwardDirection));
+                                                       typeof(LandwardDirection));
             }
 
             switch (landwardDirection)
             {
-                case UpliftVanLandwardDirection.PositiveX:
-                    return LandwardDirection.PositiveX;
-                case UpliftVanLandwardDirection.NegativeX:
-                    return LandwardDirection.NegativeX;
+                case LandwardDirection.PositiveX:
+                    return WTIStabilityLandwardDirection.PositiveX;
+                case LandwardDirection.NegativeX:
+                    return WTIStabilityLandwardDirection.NegativeX;
                 default:
                     throw new NotSupportedException();
             }

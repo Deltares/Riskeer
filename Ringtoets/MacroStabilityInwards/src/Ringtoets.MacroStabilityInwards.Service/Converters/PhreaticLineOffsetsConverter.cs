@@ -21,38 +21,37 @@
 
 using System;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
-    /// Converter to convert <see cref="MacroStabilityInwardsInput"/> drainage properties
-    /// into <see cref="UpliftVanDrainageConstruction"/>.
+    /// Converter to convert <see cref="MacroStabilityInwardsLocationInput"/> phreatic line offset properties
+    /// into <see cref="PhreaticLineOffsets"/>.
     /// </summary>
-    internal static class UpliftVanDrainageConstructionConverter
+    internal static class PhreaticLineOffsetsConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsInput"/> drainage properties
-        /// into <see cref="UpliftVanDrainageConstruction"/>.
+        /// Converts <see cref="MacroStabilityInwardsLocationInput"/> phreatic line offset properties
+        /// into <see cref="PhreaticLineOffsets"/>.
         /// </summary>
         /// <param name="input">The input to get the properties from.</param>
-        /// <returns>The converted <see cref="UpliftVanDrainageConstruction"/>.</returns>
+        /// <returns>The converted <see cref="PhreaticLineOffsets"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        public static UpliftVanDrainageConstruction Convert(MacroStabilityInwardsInput input)
+        public static PhreaticLineOffsets Convert(MacroStabilityInwardsLocationInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            bool isClayDike = input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay
-                              || input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand;
-
-            return !isClayDike && input.DrainageConstructionPresent
-                       ? new UpliftVanDrainageConstruction(input.XCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction)
-                       : new UpliftVanDrainageConstruction();
+            return input.UseDefaultOffsets
+                       ? new PhreaticLineOffsets()
+                       : new PhreaticLineOffsets(input.PhreaticLineOffsetBelowDikeTopAtRiver,
+                                                 input.PhreaticLineOffsetBelowDikeTopAtPolder,
+                                                 input.PhreaticLineOffsetBelowDikeToeAtPolder,
+                                                 input.PhreaticLineOffsetBelowShoulderBaseInside);
         }
     }
 }

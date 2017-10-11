@@ -25,10 +25,15 @@ using Core.Common.TestUtil;
 using Deltares.WaternetCreator;
 using Deltares.WTIStability;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
+using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
+using WTIStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
+using WTIStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -55,9 +60,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
                     DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99
                 });
@@ -82,9 +87,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
@@ -107,34 +112,34 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = (UpliftVanWaternetCreationMode) 99
+                    WaternetCreationMode = (WaternetCreationMode) 99
                 });
 
             // Call
             TestDelegate test = () => StabilityLocationCreator.CreateExtreme(input);
 
             // Assert
-            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(UpliftVanWaternetCreationMode).Name}'.";
+            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
         [Test]
-        [TestCase(UpliftVanWaternetCreationMode.CreateWaternet, WaternetCreationMode.CreateWaternet)]
-        [TestCase(UpliftVanWaternetCreationMode.FillInWaternetValues, WaternetCreationMode.FillInWaternetValues)]
-        public void CreateExtreme_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(UpliftVanWaternetCreationMode upliftVanWaternetCreationMode,
-                                                                                                            WaternetCreationMode waternetCreationMode)
+        [TestCase(WaternetCreationMode.CreateWaternet, WTIStabilityWaternetCreationMethod.CreateWaternet)]
+        [TestCase(WaternetCreationMode.FillInWaternetValues, WTIStabilityWaternetCreationMethod.FillInWaternetValues)]
+        public void CreateExtreme_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode upliftVanWaternetCreationMode,
+                                                                                                            WTIStabilityWaternetCreationMethod waternetCreationMode)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
@@ -157,39 +162,39 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = (UpliftVanPlLineCreationMethod) 99
+                    PlLineCreationMethod = (PlLineCreationMethod) 99
                 });
 
             // Call
             TestDelegate test = () => StabilityLocationCreator.CreateExtreme(input);
 
             // Assert
-            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(UpliftVanPlLineCreationMethod).Name}'.";
+            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
         [Test]
-        [TestCase(UpliftVanPlLineCreationMethod.ExpertKnowledgeRrd, PlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(UpliftVanPlLineCreationMethod.ExpertKnowledgeLinearInDike, PlLineCreationMethod.ExpertKnowledgeLinearInDike)]
-        [TestCase(UpliftVanPlLineCreationMethod.RingtoetsWti2017, PlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(UpliftVanPlLineCreationMethod.DupuitStatic, PlLineCreationMethod.DupuitStatic)]
-        [TestCase(UpliftVanPlLineCreationMethod.DupuitDynamic, PlLineCreationMethod.DupuitDynamic)]
-        [TestCase(UpliftVanPlLineCreationMethod.Sensors, PlLineCreationMethod.Sensors)]
-        [TestCase(UpliftVanPlLineCreationMethod.None, PlLineCreationMethod.None)]
-        public void CreateExtreme_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(UpliftVanPlLineCreationMethod upliftVanPlLineCreationMethod,
-                                                                                                            PlLineCreationMethod plLineCreationMethod)
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
+        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WTIStabilityPlLineCreationMethod.RingtoetsWti2017)]
+        [TestCase(PlLineCreationMethod.DupuitStatic, WTIStabilityPlLineCreationMethod.DupuitStatic)]
+        [TestCase(PlLineCreationMethod.DupuitDynamic, WTIStabilityPlLineCreationMethod.DupuitDynamic)]
+        [TestCase(PlLineCreationMethod.Sensors, WTIStabilityPlLineCreationMethod.Sensors)]
+        [TestCase(PlLineCreationMethod.None, WTIStabilityPlLineCreationMethod.None)]
+        public void CreateExtreme_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod upliftVanPlLineCreationMethod,
+                                                                                                            WTIStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
@@ -200,7 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
 
             // Assert
-            Assert.AreEqual(plLineCreationMethod, location.PlLineCreationMethod);
+            Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
         }
 
         [Test]
@@ -224,13 +229,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double piezometricHeadPhreaticLine2Inwards = random.Next();
             double penetrationLength = random.Next();
 
-            UpliftVanDrainageConstruction drainageConstruction = drainageConstructionPresent
-                                                                     ? new UpliftVanDrainageConstruction(random.Next(), random.Next())
-                                                                     : new UpliftVanDrainageConstruction();
-            UpliftVanPhreaticLineOffsets phreaticLineOffsets = useDefaultOffsets
-                                                                   ? new UpliftVanPhreaticLineOffsets()
-                                                                   : new UpliftVanPhreaticLineOffsets(random.Next(), random.Next(),
-                                                                                                      random.Next(), random.Next());
+            DrainageConstruction drainageConstruction = drainageConstructionPresent
+                                                            ? new DrainageConstruction(random.Next(), random.Next())
+                                                            : new DrainageConstruction();
+            PhreaticLineOffsets phreaticLineOffsets = useDefaultOffsets
+                                                          ? new PhreaticLineOffsets()
+                                                          : new PhreaticLineOffsets(random.Next(), random.Next(),
+                                                                                    random.Next(), random.Next());
 
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
@@ -244,7 +249,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     WaterLevelPolderExtreme = waterLevelPolderExtreme,
                     DrainageConstruction = drainageConstruction,
                     PhreaticLineOffsetsExtreme = phreaticLineOffsets,
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                     AdjustPhreaticLine3And4ForUplift = adjustPhreaticLine3And4ForUplift,
@@ -262,8 +267,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, location.WaternetCreationMode);
-            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
+            Assert.AreEqual(WTIStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
+            Assert.AreEqual(WTIStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
             Assert.AreEqual(assessmentLevel, location.WaterLevelRiver);
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine3);
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
@@ -311,9 +316,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
                     DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99
                 });
@@ -338,9 +343,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
@@ -363,45 +368,45 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = (UpliftVanWaternetCreationMode) 99
+                    WaternetCreationMode = (WaternetCreationMode) 99
                 });
 
             // Call
             TestDelegate test = () => StabilityLocationCreator.CreateDaily(input);
 
             // Assert
-            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(UpliftVanWaternetCreationMode).Name}'.";
+            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
         [Test]
-        [TestCase(UpliftVanWaternetCreationMode.CreateWaternet, WaternetCreationMode.CreateWaternet)]
-        [TestCase(UpliftVanWaternetCreationMode.FillInWaternetValues, WaternetCreationMode.FillInWaternetValues)]
-        public void CreateDaily_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(UpliftVanWaternetCreationMode upliftVanWaternetCreationMode,
-                                                                                                          WaternetCreationMode waternetCreationMode)
+        [TestCase(WaternetCreationMode.CreateWaternet, WTIStabilityWaternetCreationMethod.CreateWaternet)]
+        [TestCase(WaternetCreationMode.FillInWaternetValues, WTIStabilityWaternetCreationMethod.FillInWaternetValues)]
+        public void CreateDaily_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
+                                                                                                          WTIStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = upliftVanWaternetCreationMode
+                    WaternetCreationMode = waternetCreationMode
                 });
 
             // Call
             StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
 
             // Assert
-            Assert.AreEqual(waternetCreationMode, location.WaternetCreationMode);
+            Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
         }
 
         [Test]
@@ -413,50 +418,50 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = (UpliftVanPlLineCreationMethod) 99
+                    PlLineCreationMethod = (PlLineCreationMethod) 99
                 });
 
             // Call
             TestDelegate test = () => StabilityLocationCreator.CreateDaily(input);
 
             // Assert
-            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(UpliftVanPlLineCreationMethod).Name}'.";
+            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
         [Test]
-        [TestCase(UpliftVanPlLineCreationMethod.ExpertKnowledgeRrd, PlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(UpliftVanPlLineCreationMethod.ExpertKnowledgeLinearInDike, PlLineCreationMethod.ExpertKnowledgeLinearInDike)]
-        [TestCase(UpliftVanPlLineCreationMethod.RingtoetsWti2017, PlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(UpliftVanPlLineCreationMethod.DupuitStatic, PlLineCreationMethod.DupuitStatic)]
-        [TestCase(UpliftVanPlLineCreationMethod.DupuitDynamic, PlLineCreationMethod.DupuitDynamic)]
-        [TestCase(UpliftVanPlLineCreationMethod.Sensors, PlLineCreationMethod.Sensors)]
-        [TestCase(UpliftVanPlLineCreationMethod.None, PlLineCreationMethod.None)]
-        public void CreateDaily_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(UpliftVanPlLineCreationMethod upliftVanPlLineCreationMethod,
-                                                                                                          PlLineCreationMethod plLineCreationMethod)
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
+        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WTIStabilityPlLineCreationMethod.RingtoetsWti2017)]
+        [TestCase(PlLineCreationMethod.DupuitStatic, WTIStabilityPlLineCreationMethod.DupuitStatic)]
+        [TestCase(PlLineCreationMethod.DupuitDynamic, WTIStabilityPlLineCreationMethod.DupuitDynamic)]
+        [TestCase(PlLineCreationMethod.Sensors, WTIStabilityPlLineCreationMethod.Sensors)]
+        [TestCase(PlLineCreationMethod.None, WTIStabilityPlLineCreationMethod.None)]
+        public void CreateDaily_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
+                                                                                                          WTIStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    DrainageConstruction = new UpliftVanDrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new UpliftVanPhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = upliftVanPlLineCreationMethod
+                    PlLineCreationMethod = plLineCreationMethod
                 });
 
             // Call
             StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
 
             // Assert
-            Assert.AreEqual(plLineCreationMethod, location.PlLineCreationMethod);
+            Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
         }
 
         [Test]
@@ -479,13 +484,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double piezometricHeadPhreaticLine2Outwards = random.Next();
             double piezometricHeadPhreaticLine2Inwards = random.Next();
 
-            UpliftVanDrainageConstruction drainageConstruction = drainageConstructionPresent
-                                                                     ? new UpliftVanDrainageConstruction(random.Next(), random.Next())
-                                                                     : new UpliftVanDrainageConstruction();
-            UpliftVanPhreaticLineOffsets phreaticLineOffsets = useDefaultOffsets
-                                                                   ? new UpliftVanPhreaticLineOffsets()
-                                                                   : new UpliftVanPhreaticLineOffsets(random.Next(), random.Next(),
-                                                                                                      random.Next(), random.Next());
+            DrainageConstruction drainageConstruction = drainageConstructionPresent
+                                                            ? new DrainageConstruction(random.Next(), random.Next())
+                                                            : new DrainageConstruction();
+            PhreaticLineOffsets phreaticLineOffsets = useDefaultOffsets
+                                                          ? new PhreaticLineOffsets()
+                                                          : new PhreaticLineOffsets(random.Next(), random.Next(),
+                                                                                    random.Next(), random.Next());
 
             var input = new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
@@ -498,7 +503,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     WaterLevelRiverAverage = waterLevelRiverAverage,
                     WaterLevelPolderDaily = waterLevelPolderDaily,
                     DrainageConstruction = drainageConstruction,
-                    PhreaticLineOffsetsExtreme = new UpliftVanPhreaticLineOffsets(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                     PhreaticLineOffsetsDaily = phreaticLineOffsets,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
@@ -517,8 +522,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, location.WaternetCreationMode);
-            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
+            Assert.AreEqual(WTIStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
+            Assert.AreEqual(WTIStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
             Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiver);
             Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine3);
             Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine4);

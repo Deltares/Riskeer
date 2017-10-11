@@ -26,13 +26,13 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Service
@@ -194,15 +194,15 @@ namespace Ringtoets.MacroStabilityInwards.Service
             return new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    WaternetCreationMode = UpliftVanWaternetCreationMode.CreateWaternet,
-                    PlLineCreationMethod = UpliftVanPlLineCreationMethod.RingtoetsWti2017,
+                    WaternetCreationMode = WaternetCreationMode.CreateWaternet,
+                    PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = inputParameters.AssessmentLevel,
-                    LandwardDirection = UpliftVanLandwardDirection.PositiveX,
+                    LandwardDirection = LandwardDirection.PositiveX,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
-                    DrainageConstruction = UpliftVanDrainageConstructionConverter.Convert(inputParameters),
-                    PhreaticLineOffsetsExtreme = UpliftVanPhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputExtreme),
-                    PhreaticLineOffsetsDaily = UpliftVanPhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputDaily),
+                    DrainageConstruction = DrainageConstructionConverter.Convert(inputParameters),
+                    PhreaticLineOffsetsExtreme = PhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputExtreme),
+                    PhreaticLineOffsetsDaily = PhreaticLineOffsetsConverter.Convert(inputParameters.LocationInputDaily),
                     SlipPlane = UpliftVanSlipPlaneConverter.Convert(inputParameters),
                     DikeSoilScenario = inputParameters.DikeSoilScenario,
                     WaterLevelRiverAverage = inputParameters.WaterLevelRiverAverage,

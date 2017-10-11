@@ -23,19 +23,19 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
 {
     [TestFixture]
-    public class UpliftVanPhreaticLineOffsetsConverterTest
+    public class PhreaticLineOffsetsConverterTest
     {
         [Test]
         public void Convert_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanPhreaticLineOffsetsConverter.Convert(null);
+            TestDelegate call = () => PhreaticLineOffsetsConverter.Convert(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             };
 
             // Call
-            UpliftVanPhreaticLineOffsets offsets = UpliftVanPhreaticLineOffsetsConverter.Convert(input);
+            PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
 
             // Assert
             Assert.IsTrue(offsets.UseDefaults);
@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             };
 
             // Call
-            UpliftVanPhreaticLineOffsets offsets = UpliftVanPhreaticLineOffsetsConverter.Convert(input);
+            PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
 
             // Assert
             Assert.IsFalse(offsets.UseDefaults);

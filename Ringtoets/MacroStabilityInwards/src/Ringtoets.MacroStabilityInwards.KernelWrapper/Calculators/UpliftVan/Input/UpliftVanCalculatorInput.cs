@@ -120,10 +120,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// </summary>
             public ConstructionProperties()
             {
-                WaternetCreationMode = UpliftVanWaternetCreationMode.CreateWaternet;
-                PlLineCreationMethod = UpliftVanPlLineCreationMethod.RingtoetsWti2017;
+                WaternetCreationMode = WaternetCreationMode.CreateWaternet;
+                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017;
                 AssessmentLevel = double.NaN;
-                LandwardDirection = UpliftVanLandwardDirection.PositiveX;
+                LandwardDirection = LandwardDirection.PositiveX;
                 WaterLevelRiverAverage = double.NaN;
                 WaterLevelPolderExtreme = double.NaN;
                 WaterLevelPolderDaily = double.NaN;
@@ -147,12 +147,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets the waternet creation mode.
             /// </summary>
-            public UpliftVanWaternetCreationMode WaternetCreationMode { internal get; set; }
+            public WaternetCreationMode WaternetCreationMode { internal get; set; }
 
             /// <summary>
             /// Gets or sets the pl line creation method.
             /// </summary>
-            public UpliftVanPlLineCreationMethod PlLineCreationMethod { internal get; set; }
+            public PlLineCreationMethod PlLineCreationMethod { internal get; set; }
 
             /// <summary>
             /// Gets or sets the outside high water level.
@@ -163,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets the landward direction of <see cref="SurfaceLine"/>.
             /// </summary>
-            public UpliftVanLandwardDirection LandwardDirection { internal get; set; }
+            public LandwardDirection LandwardDirection { internal get; set; }
 
             /// <summary>
             /// Gets or sets the surface line.
@@ -178,17 +178,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             /// <summary>
             /// Gets or sets the drainage construction.
             /// </summary>
-            public UpliftVanDrainageConstruction DrainageConstruction { internal get; set; }
+            public DrainageConstruction DrainageConstruction { internal get; set; }
 
             /// <summary>
             /// Gets or sets the phreatic line offsets under extreme circumstances.
             /// </summary>
-            public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsExtreme { internal get; set; }
+            public PhreaticLineOffsets PhreaticLineOffsetsExtreme { internal get; set; }
 
             /// <summary>
             /// Gets or sets the phreatic line offsets under daily circumstances.
             /// </summary>
-            public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsDaily { internal get; set; }
+            public PhreaticLineOffsets PhreaticLineOffsetsDaily { internal get; set; }
 
             /// <summary>
             /// Gets or sets the slip plane.
@@ -318,12 +318,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the waternet creation mode.
         /// </summary>
-        public UpliftVanWaternetCreationMode WaternetCreationMode { get; }
+        public WaternetCreationMode WaternetCreationMode { get; }
 
         /// <summary>
         /// Gets the pl line creation method.
         /// </summary>
-        public UpliftVanPlLineCreationMethod PlLineCreationMethod { get; }
+        public PlLineCreationMethod PlLineCreationMethod { get; }
 
         /// <summary>
         /// Gets the outside high water level.
@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the landward direction of <see cref="SurfaceLine"/>.
         /// </summary>
-        public UpliftVanLandwardDirection LandwardDirection { get; }
+        public LandwardDirection LandwardDirection { get; }
 
         /// <summary>
         /// Gets the surface line.
@@ -349,17 +349,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         /// <summary>
         /// Gets the drainage construction.
         /// </summary>
-        public UpliftVanDrainageConstruction DrainageConstruction { get; }
+        public DrainageConstruction DrainageConstruction { get; }
 
         /// <summary>
         /// Gets the phreatic line offsets under extreme circumstances.
         /// </summary>
-        public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsExtreme { get; }
+        public PhreaticLineOffsets PhreaticLineOffsetsExtreme { get; }
 
         /// <summary>
         /// Gets the phreatic line offsets under daily circumstances.
         /// </summary>
-        public UpliftVanPhreaticLineOffsets PhreaticLineOffsetsDaily { get; }
+        public PhreaticLineOffsets PhreaticLineOffsetsDaily { get; }
 
         /// <summary>
         /// Gets the slip plane.
