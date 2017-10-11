@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     Assert.AreEqual(4, msgs.Length);
                     Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                    Assert.AreEqual($"Validatie mislukt: Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[2]);
+                    Assert.AreEqual($"Fout bij het lezen van bestand '{testFilePath}': het bestand bestaat niet.", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);

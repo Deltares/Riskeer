@@ -1044,7 +1044,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                         if (!validCalculation)
                         {
-                            Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
+                            Assert.AreEqual("Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
                         }
 
                         CalculationServiceTestHelper.AssertValidationEndMessage(messages.Last());

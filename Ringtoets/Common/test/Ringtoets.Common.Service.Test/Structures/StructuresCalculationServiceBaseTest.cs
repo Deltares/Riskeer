@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -232,7 +232,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen kunstwerk geselecteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -279,7 +279,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Error message", msgs[1]);
+                Assert.AreEqual("Error message", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);

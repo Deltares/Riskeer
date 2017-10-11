@@ -33,6 +33,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -46,7 +47,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -915,22 +915,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                     // Then
                     const int expectedValidationMessageCount = 5;
-                    TestHelper.AssertLogMessages(action, messages =>
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(action, messages =>
                     {
-                        IEnumerator<string> msgs = messages.GetEnumerator();
-                        Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
+                        Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                        string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                         for (var i = 0; i < expectedValidationMessageCount; i++)
                         {
-                            Assert.IsTrue(msgs.MoveNext());
-                            StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
+                            Assert.AreEqual(Level.Error, tupleArray[2 + i].Item2);
                         }
-                        Assert.IsTrue(msgs.MoveNext());
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
-                        Assert.IsTrue(msgs.MoveNext());
-                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs.Current);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[7]);
+                        Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[8]);
                     });
                     Assert.IsNull(calculation.Output);
                     Assert.IsNull(calculation.SemiProbabilisticOutput);

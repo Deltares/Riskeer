@@ -121,9 +121,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
-                Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
+                Assert.AreEqual("Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen profielschematisatie geselecteerd.", msgs[2]);
+                Assert.AreEqual("Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
             });
             Assert.IsFalse(isValid);
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                Assert.AreEqual("Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -178,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: De waarde voor 'toetspeil' moet een concreet getal zijn.", msgs[1]);
+                Assert.AreEqual("De waarde voor 'toetspeil' moet een concreet getal zijn.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen profielschematisatie geselecteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -228,7 +228,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen ondergrondschematisatie geselecteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -255,7 +255,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie mislukt: Validation Error", msgs[1]);
+                    Assert.AreEqual("Validation Error", msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                 });
                 Assert.IsFalse(isValid);
@@ -283,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie waarschuwing: Validation Warning", msgs[1]);
+                    Assert.AreEqual("Validation Warning", msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                 });
                 Assert.IsTrue(isValid);
@@ -291,7 +291,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Validate_KernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsTrue()
+        public void Validate_KernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
         {
             // Setup
             const string name = "<very nice name>";
@@ -312,8 +312,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie mislukt: Validation Error", msgs[1]);
-                    Assert.AreEqual("Validatie waarschuwing: Validation Warning", msgs[2]);
+                    Assert.AreEqual("Validation Error", msgs[1]);
+                    Assert.AreEqual("Validation Warning", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                 });
                 Assert.IsFalse(isValid);

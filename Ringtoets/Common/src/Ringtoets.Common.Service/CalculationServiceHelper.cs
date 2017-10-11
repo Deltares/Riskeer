@@ -33,13 +33,13 @@ namespace Ringtoets.Common.Service
         private static readonly ILog log = LogManager.GetLogger(typeof(CalculationServiceHelper));
 
         /// <summary>
-        /// Logs messages as errors.
+        /// Logs messages as errors with formatting.
         /// </summary>
         /// <param name="format">The format for the message.</param>
         /// <param name="errorMessages">The messages to log.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public static void LogMessagesAsError(string format, params string[] errorMessages)
+        public static void LogMessagesAsError(string format, string[] errorMessages)
         {
             if (format == null)
             {
@@ -56,12 +56,28 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
+        /// Logs messages as errors.
+        /// </summary>
+        /// <param name="errorMessages">The messages to log.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="errorMessages"/>
+        /// is <c>null</c>.</exception>
+        public static void LogMessagesAsError(string[] errorMessages)
+        {
+            if (errorMessages == null)
+            {
+                throw new ArgumentNullException(nameof(errorMessages));
+            }
+
+            LogMessagesAsError("{0}", errorMessages);
+        }
+
+        /// <summary>
         /// Logs messages as warnings.
         /// </summary>
         /// <param name="warningMessages">The messages to log.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="warningMessages"/>
         /// is <c>null</c>.</exception>
-        public static void LogMessagesAsWarning(params string[] warningMessages)
+        public static void LogMessagesAsWarning(string[] warningMessages)
         {
             if (warningMessages == null)
             {

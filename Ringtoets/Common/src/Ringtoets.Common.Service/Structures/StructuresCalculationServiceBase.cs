@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Service.Structures
 
             CalculationServiceHelper.LogValidationBegin();
             string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
-            CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_validation_0, messages);
+            CalculationServiceHelper.LogMessagesAsError(messages);
             CalculationServiceHelper.LogValidationEnd();
 
             return !messages.Any();

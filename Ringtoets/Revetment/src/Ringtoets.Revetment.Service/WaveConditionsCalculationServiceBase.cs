@@ -37,7 +37,6 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Revetment.Service
 {
@@ -94,7 +93,7 @@ namespace Ringtoets.Revetment.Service
 
             string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, waveConditionsInput, designWaterLevelName);
 
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
+            CalculationServiceHelper.LogMessagesAsError(messages);
 
             CalculationServiceHelper.LogValidationEnd();
 

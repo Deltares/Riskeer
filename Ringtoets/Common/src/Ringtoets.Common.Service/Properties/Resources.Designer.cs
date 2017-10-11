@@ -179,15 +179,6 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie mislukt: {0}.
-        /// </summary>
-        public static string Error_in_validation_0 {
-            get {
-                return ResourceManager.GetString("Error_in_validation_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}.
         /// </summary>
         public static string Hydraulic_boundary_database_connection_failed_0_ {
@@ -343,15 +334,6 @@ namespace Ringtoets.Common.Service.Properties {
         public static string Validation_started {
             get {
                 return ResourceManager.GetString("Validation_started", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Validatie waarschuwing: {0}.
-        /// </summary>
-        public static string Warning_in_validation_0 {
-            get {
-                return ResourceManager.GetString("Warning_in_validation_0", resourceCulture);
             }
         }
         

@@ -129,12 +129,6 @@
   <data name="Calculation_started" xml:space="preserve">
     <value>Berekening is gestart.</value>
   </data>
-  <data name="Error_in_validation_0" xml:space="preserve">
-    <value>Validatie mislukt: {0}</value>
-  </data>
-  <data name="Warning_in_validation_0" xml:space="preserve">
-    <value>Validatie waarschuwing: {0}</value>
-  </data>
   <data name="Validation_ended" xml:space="preserve">
     <value>Validatie is beëindigd.</value>
   </data>

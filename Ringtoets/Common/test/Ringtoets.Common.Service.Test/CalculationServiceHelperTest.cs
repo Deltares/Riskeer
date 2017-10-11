@@ -32,10 +32,10 @@ namespace Ringtoets.Common.Service.Test
     public class CalculationServiceHelperTest
     {
         [Test]
-        public void LogMessagesAsError_FormatNull_ThrowsArgumentNullException()
+        public void LogMessagesAsErrorWithFormat_FormatNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError(null);
+            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError(null, new string[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogMessagesAsError_ErrorMessagesNull_ThrowsArgumentNullException()
+        public void LogMessagesAsErrorWithFormat_ErrorMessagesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError("", null);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogMessagesAsError_WithFormatAndErrorMessages_LogsMessagesInGivenFormat()
+        public void LogMessagesAsErrorWithFormat_WithFormatAndErrorMessages_LogsMessagesInGivenFormat()
         {
             // Setup
             const string format = "Message: {0}";
@@ -68,10 +68,42 @@ namespace Ringtoets.Common.Service.Test
             Action call = () => CalculationServiceHelper.LogMessagesAsError(format, errorMessages);
 
             // Assert
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new []
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
             {
                 Tuple.Create(string.Format(format, errorMessages[0]), LogLevelConstant.Error),
                 Tuple.Create(string.Format(format, errorMessages[1]), LogLevelConstant.Error)
+            }, 2);
+        }
+
+        [Test]
+        public void LogMessagesAsErrorWithoutFormat_ErrorMessagesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => CalculationServiceHelper.LogMessagesAsError(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("errorMessages", exception.ParamName);
+        }
+
+        [Test]
+        public void LogMessagesAsErrorWithoutFormat_WithFormatAndErrorMessages_LogsMessagesInGivenFormat()
+        {
+            // Setup
+            var errorMessages = new[]
+            {
+                "Test 1",
+                "Test 2"
+            };
+
+            // Call
+            Action call = () => CalculationServiceHelper.LogMessagesAsError(errorMessages);
+
+            // Assert
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            {
+                Tuple.Create(errorMessages[0], LogLevelConstant.Error),
+                Tuple.Create(errorMessages[1], LogLevelConstant.Error)
             }, 2);
         }
 

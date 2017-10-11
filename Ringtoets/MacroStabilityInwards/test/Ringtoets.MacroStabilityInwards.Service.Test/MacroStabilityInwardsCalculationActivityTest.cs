@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Service.TestUtil;
@@ -94,15 +95,17 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
-                string[] msgs = messages.ToArray();
+                Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
                 Assert.AreEqual(6, msgs.Length);
                 Assert.AreEqual($"Uitvoeren van berekening '{invalidMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
-                StringAssert.StartsWith("Validatie mislukt: ", msgs[3]);
-                StringAssert.StartsWith("Validatie mislukt: ", msgs[4]);
+                Assert.AreEqual(Level.Error, tupleArray[2].Item2);
+                Assert.AreEqual(Level.Error, tupleArray[3].Item2);
+                Assert.AreEqual(Level.Error, tupleArray[4].Item2);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);

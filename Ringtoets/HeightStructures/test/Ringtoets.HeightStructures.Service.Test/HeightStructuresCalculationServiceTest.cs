@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            const string expectedValidationMessage = "Validatie mislukt: De waarde voor 'oriëntatie' moet een concreet getal zijn.";
+            const string expectedValidationMessage = "De waarde voor 'oriëntatie' moet een concreet getal zijn.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -119,7 +119,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = $"Validatie mislukt: De verwachtingswaarde voor '{parameterName}' moet een concreet getal zijn.";
+            string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een concreet getal zijn.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -165,7 +165,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = $"Validatie mislukt: De verwachtingswaarde voor '{parameterName}' moet een positief getal zijn.";
+            string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een positief getal zijn.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -214,7 +214,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = $"Validatie mislukt: De standaardafwijking voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
+            string expectedValidationMessage = $"De standaardafwijking voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -262,7 +262,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = $"Validatie mislukt: De variatiecoëfficiënt voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
+            string expectedValidationMessage = $"De variatiecoëfficiënt voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -331,7 +331,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Validatie mislukt: De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
+                Assert.AreEqual("De waarde voor 'hoogte' van de dam moet een concreet getal zijn.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);

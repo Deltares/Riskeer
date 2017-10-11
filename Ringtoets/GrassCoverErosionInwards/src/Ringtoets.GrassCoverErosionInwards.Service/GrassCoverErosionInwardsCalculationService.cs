@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             CalculationServiceHelper.LogValidationBegin();
 
             string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
+            CalculationServiceHelper.LogMessagesAsError(messages);
 
             CalculationServiceHelper.LogValidationEnd();
 

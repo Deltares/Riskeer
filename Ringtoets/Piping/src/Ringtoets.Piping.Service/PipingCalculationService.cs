@@ -30,7 +30,6 @@ using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service.Properties;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
@@ -62,13 +61,13 @@ namespace Ringtoets.Piping.Service
 
             if (inputValidationResults.Length > 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults);
+                CalculationServiceHelper.LogMessagesAsError(inputValidationResults);
                 CalculationServiceHelper.LogValidationEnd();
                 return false;
             }
 
             List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
+            CalculationServiceHelper.LogMessagesAsError(validationResults.ToArray());
 
             CalculationServiceHelper.LogValidationEnd();
 
@@ -94,7 +93,8 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Calculate();
+                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters),
+                                                                           PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
                 {
@@ -113,7 +113,10 @@ namespace Ringtoets.Piping.Service
             }
             catch (PipingCalculatorException e)
             {
-                CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_calculation_0, e.Message);
+                CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_calculation_0, new[]
+                {
+                    e.Message
+                });
             }
             finally
             {

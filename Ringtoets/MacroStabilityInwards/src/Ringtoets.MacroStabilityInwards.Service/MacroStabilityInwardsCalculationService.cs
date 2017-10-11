@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             if (inputValidationResults.Length > 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults);
+                CalculationServiceHelper.LogMessagesAsError(inputValidationResults);
                 CalculationServiceHelper.LogValidationEnd();
                 return false;
             }
@@ -73,12 +73,10 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             UpliftVanValidationResult[] validationResults = calculator.Validate().ToArray();
 
-            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0,
-                                                        validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Error)
+            CalculationServiceHelper.LogMessagesAsError(validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Error)
                                                                          .Select(msg => msg.Message).ToArray());
             CalculationServiceHelper.LogMessagesAsWarning(validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Warning)
-                                                                           .Select(msg => string.Format(RingtoetsCommonServiceResources.Warning_in_validation_0,
-                                                                                                        msg.Message)).ToArray());
+                                                                           .Select(msg => msg.Message).ToArray());
             CalculationServiceHelper.LogValidationEnd();
 
             return validationResults.All(r => r.ResultType != UpliftVanValidationResultType.Error);
