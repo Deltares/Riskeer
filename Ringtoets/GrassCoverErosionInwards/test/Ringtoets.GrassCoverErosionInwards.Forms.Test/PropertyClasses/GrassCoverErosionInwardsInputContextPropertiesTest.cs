@@ -753,6 +753,128 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
+        [TestCase(DikeHeightCalculationType.NoCalculation, true)]
+        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, false)]
+        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, false)]
+        public void DynamicReadOnly_ShouldDikeHeightIllustrationPointsBeCalculated_ReturnsExpectedResult(DikeHeightCalculationType dikeHeightCalculationType, bool expectedResult)
+        {
+            // Setup
+            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeHeightCalculationType = dikeHeightCalculationType
+            };
+
+            var context = new GrassCoverErosionInwardsInputContext(input,
+                                                                   calculationItem,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, changeHandler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldDikeHeightIllustrationPointsBeCalculated));
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [TestCase(OvertoppingRateCalculationType.NoCalculation, true)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, false)]
+        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, false)]
+        public void DynamicReadOnly_ShouldOvertoppingRateIllustrationPointsBeCalculated_ReturnsExpectedResult(OvertoppingRateCalculationType overtoppingRateCalculationType, bool expectedResult)
+        {
+            // Setup
+            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                OvertoppingRateCalculationType = overtoppingRateCalculationType
+            };
+
+            var context = new GrassCoverErosionInwardsInputContext(input,
+                                                                   calculationItem,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, changeHandler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated));
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnly_Orientation_ReturnsExpectedResult(bool hasDikeProfile)
+        {
+            // Setup
+            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = hasDikeProfile
+                                  ? new TestDikeProfile()
+                                  : null
+            };
+
+            var context = new GrassCoverErosionInwardsInputContext(input,
+                                                                   calculationItem,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, changeHandler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.Orientation));
+
+            // Assert
+            Assert.AreEqual(!hasDikeProfile, result);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnly_DikeHeight_ReturnsExpectedResult(bool hasDikeProfile)
+        {
+            // Setup
+            var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculationItem = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = hasDikeProfile
+                                  ? new TestDikeProfile()
+                                  : null
+            };
+
+            var context = new GrassCoverErosionInwardsInputContext(input,
+                                                                   calculationItem,
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+
+            var properties = new GrassCoverErosionInwardsInputContextProperties(context, changeHandler);
+
+            // Call
+            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.DikeHeight));
+
+            // Assert
+            Assert.AreEqual(!hasDikeProfile, result);
+        }
+
         private void SetPropertyAndVerifyNotifcationsAndOutput(Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
         {
             // Setup

@@ -329,8 +329,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName.Equals(nameof(Orientation)) ||
-                propertyName.Equals(nameof(DikeHeight)))
+            if (propertyName.Equals(nameof(Orientation)) || propertyName.Equals(nameof(DikeHeight)))
             {
                 return data.WrappedData.DikeProfile == null;
             }
