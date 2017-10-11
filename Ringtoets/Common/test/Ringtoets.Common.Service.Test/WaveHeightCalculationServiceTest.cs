@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidWaveHeightCalculationButIllustrationPointResultsWithDuplicateStochasts_IllustrationPointsNotSetAndLog()
+        public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLog()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);

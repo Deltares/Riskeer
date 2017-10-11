@@ -70,7 +70,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <item><paramref name="children"/> does not contain 0 or 2 elements;</item>
         /// <item>the children have duplicate names;</item>
         /// <item>they have different stochasts than the node itself.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public void SetChildren(IllustrationPointNode[] children)
         {
             if (children == null)
@@ -108,8 +109,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// <summary>
         /// Validates a <see cref="FaultTreeIllustrationPoint"/> by checking for duplicate names in child nodes.
         /// </summary>
-        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> object to be validated.</param>
-        /// <param name="children">The collection of <see cref="IllustrationPointNode"/> objects to be validated.</param>
+        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> to be validated.</param>
+        /// <param name="children">The collection of <see cref="IllustrationPointNode"/> to be validated.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="children"/> contains child nodes with
         /// duplicate names.</exception>
         private static void ValidateChildNames(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)
@@ -124,8 +125,8 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         /// Validates a <see cref="FaultTreeIllustrationPoint"/> by comparing the stochasts in child nodes with its
         /// own stochasts.
         /// </summary>
-        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> object to be validated.</param>
-        /// <param name="children">The collection of <see cref="IllustrationPointNode"/> objects to be validated.</param>
+        /// <param name="data">The <see cref="FaultTreeIllustrationPoint"/> to be validated.</param>
+        /// <param name="children">The collection of <see cref="IllustrationPointNode"/> to be validated.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="children"/> contains stochasts that 
         /// are not in <paramref name="data"/>'s stochasts.</exception>
         private static void ValidateChildStochasts(FaultTreeIllustrationPoint data, IEnumerable<IllustrationPointNode> children)

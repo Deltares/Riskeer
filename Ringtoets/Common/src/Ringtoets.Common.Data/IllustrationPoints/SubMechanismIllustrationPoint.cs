@@ -89,11 +89,11 @@ namespace Ringtoets.Common.Data.IllustrationPoints
         }
 
         /// <summary>
-        /// Validates a collection of <see cref="illustrationPointResults"/> objects
+        /// Validates a collection of <see cref="illustrationPointResults"/>
         /// by checking for duplicate descriptions.
         /// </summary>
         /// <param name="illustrationPointResults">The collection of <paramref name="illustrationPointResults"/>
-        /// objects to be validated.</param>
+        /// to be validated.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="illustrationPointResults"/> 
         /// contains results with duplicate descriptions.</exception>
         private static void ValidateResults(IEnumerable<IllustrationPointResult> illustrationPointResults)

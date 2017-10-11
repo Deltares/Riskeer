@@ -106,13 +106,13 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         /// <summary>
         /// Validates a collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
-        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects by comparing the stochasts of child nodes
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> by comparing the stochasts of child nodes
         /// with its own stochasts.
         /// </summary>
         /// <param name="topLevelillustrationPoints">The collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
-        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects to be validated.</param>
-        /// <param name="stochasts">The collection of <see cref="Stochast"/> objects to be validated.</param>
-        /// <exception cref="ArgumentException">Thrown when the content <paramref name="stochasts"/> does not equal
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> to be validated.</param>
+        /// <param name="stochasts">The collection of <see cref="Stochast"/> to be validated.</param>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="stochasts"/> does not equal
         /// the child stochasts.</exception>
         private static void ValidateStochastInChildren(IEnumerable<T> topLevelillustrationPoints, IEnumerable<Stochast> stochasts)
         {
@@ -145,11 +145,11 @@ namespace Ringtoets.Common.Data.IllustrationPoints
 
         /// <summary>
         /// Validates a collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
-        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects by checking for duplicate combinations
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> by checking for duplicate combinations
         /// of closing situation and wind direction.
         /// </summary>
         /// <param name="topLevelIllustrationPoints">The collection of <see cref="TopLevelFaultTreeIllustrationPoint"/>
-        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> objects to be validated.</param>
+        /// or <see cref="TopLevelSubMechanismIllustrationPoint"/> to be validated.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="topLevelIllustrationPoints"/> contains a duplicate
         /// combination of closing situation and wind direction.</exception>
         private static void ValidateTopLevelIllustrationPoints(IEnumerable<T> topLevelIllustrationPoints)
