@@ -113,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
-            Assert.IsTrue(testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel.Calculated);
+            Assert.IsTrue(upliftVanKernel.Calculated);
         }
 
         [Test]
@@ -143,11 +143,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                      })
                      .ToDictionary(x => x.layer, x => x.soil);
 
-            UpliftVanKernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
-            UpliftVanKernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
-            UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.CreateExtreme(input), upliftVanKernel.LocationExtreme);
-            UpliftVanKernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.CreateDaily(input), upliftVanKernel.LocationDaily);
-            UpliftVanKernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), upliftVanKernel.SurfaceLine);
+            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
+            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
+            KernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.CreateExtreme(input), upliftVanKernel.LocationExtreme);
+            KernelInputAssert.AssertStabilityLocations(StabilityLocationCreator.CreateDaily(input), upliftVanKernel.LocationDaily);
+            KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), upliftVanKernel.SurfaceLine);
             UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
 
             Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
