@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
         public void CreateExtreme_ValidDikeSoilScenario_ReturnStabilityLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                                    DikeSoilScenario dikeSoilScenario)
+                                                                                                    DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
 
             // Assert
-            Assert.AreEqual(dikeSoilScenario, location.DikeSoilScenario);
+            Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
         }
 
         [Test]
@@ -130,8 +130,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [TestCase(WaternetCreationMode.CreateWaternet, WTIStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WTIStabilityWaternetCreationMethod.FillInWaternetValues)]
-        public void CreateExtreme_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode upliftVanWaternetCreationMode,
-                                                                                                            WTIStabilityWaternetCreationMethod waternetCreationMode)
+        public void CreateExtreme_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
+                                                                                                            WTIStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -143,14 +143,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = upliftVanWaternetCreationMode
+                    WaternetCreationMode = waternetCreationMode
                 });
 
             // Call
             StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
 
             // Assert
-            Assert.AreEqual(waternetCreationMode, location.WaternetCreationMode);
+            Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
         }
 
         [Test]
@@ -185,7 +185,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(PlLineCreationMethod.DupuitDynamic, WTIStabilityPlLineCreationMethod.DupuitDynamic)]
         [TestCase(PlLineCreationMethod.Sensors, WTIStabilityPlLineCreationMethod.Sensors)]
         [TestCase(PlLineCreationMethod.None, WTIStabilityPlLineCreationMethod.None)]
-        public void CreateExtreme_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod upliftVanPlLineCreationMethod,
+        public void CreateExtreme_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
                                                                                                             WTIStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
@@ -198,7 +198,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = upliftVanPlLineCreationMethod
+                    PlLineCreationMethod = plLineCreationMethod
                 });
 
             // Call
@@ -337,7 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
         public void CreateDaily_ValidDikeSoilScenario_ReturnStabilityLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                                  DikeSoilScenario dikeSoilScenario)
+                                                                                                  DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -356,7 +356,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
 
             // Assert
-            Assert.AreEqual(dikeSoilScenario, location.DikeSoilScenario);
+            Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
         }
 
         [Test]

@@ -24,7 +24,9 @@ using System.ComponentModel;
 using Deltares.WaternetCreator;
 using Deltares.WTIStability;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
@@ -60,9 +62,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return new StabilityLocation
             {
-                DikeSoilScenario = ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = ConvertPlLineCreationMethod(input.PlLineCreationMethod),
+                DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
+                WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
+                PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiver = input.AssessmentLevel,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolderExtreme,
@@ -109,9 +111,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return new StabilityLocation
             {
-                DikeSoilScenario = ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = ConvertPlLineCreationMethod(input.PlLineCreationMethod),
+                DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
+                WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
+                PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiver = input.WaterLevelRiverAverage,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolderDaily,
@@ -134,107 +136,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
                 PenetrationLength = 0.0
             };
-        }
-
-        /// <summary>
-        /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> into a <see cref="DikeSoilScenario"/>.
-        /// </summary>
-        /// <param name="dikeSoilScenario">The <see cref="MacroStabilityInwardsDikeSoilScenario"/> to convert.</param>
-        /// <returns>A <see cref="DikeSoilScenario"/> based on <paramref name="dikeSoilScenario"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dikeSoilScenario"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="dikeSoilScenario"/>
-        /// is a valid value but unsupported.</exception>
-        private static DikeSoilScenario ConvertDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
-        {
-            if (!Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), dikeSoilScenario))
-            {
-                throw new InvalidEnumArgumentException(nameof(dikeSoilScenario),
-                                                       (int) dikeSoilScenario,
-                                                       typeof(MacroStabilityInwardsDikeSoilScenario));
-            }
-
-            switch (dikeSoilScenario)
-            {
-                case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay:
-                    return DikeSoilScenario.ClayDikeOnClay;
-                case MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay:
-                    return DikeSoilScenario.SandDikeOnClay;
-                case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand:
-                    return DikeSoilScenario.ClayDikeOnSand;
-                case MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand:
-                    return DikeSoilScenario.SandDikeOnSand;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="WaternetCreationMode"/> into a <see cref="WTIStabilityWaternetCreationMode"/>.
-        /// </summary>
-        /// <param name="waternetCreationMode">The <see cref="WaternetCreationMode"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityWaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waternetCreationMode"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="waternetCreationMode"/>
-        /// is a valid value but unsupported.</exception>
-        private static WTIStabilityWaternetCreationMode ConvertWaternetCreationMode(WaternetCreationMode waternetCreationMode)
-        {
-            if (!Enum.IsDefined(typeof(WaternetCreationMode), waternetCreationMode))
-            {
-                throw new InvalidEnumArgumentException(nameof(waternetCreationMode),
-                                                       (int) waternetCreationMode,
-                                                       typeof(WaternetCreationMode));
-            }
-
-            switch (waternetCreationMode)
-            {
-                case WaternetCreationMode.CreateWaternet:
-                    return WTIStabilityWaternetCreationMode.CreateWaternet;
-                case WaternetCreationMode.FillInWaternetValues:
-                    return WTIStabilityWaternetCreationMode.FillInWaternetValues;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="PlLineCreationMethod"/> into a <see cref="WTIStabilityPlLineCreationMethod"/>.
-        /// </summary>
-        /// <param name="plLineCreationMethod">The <see cref="PlLineCreationMethod"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityPlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="plLineCreationMethod"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="plLineCreationMethod"/>
-        /// is a valid value but unsupported.</exception>
-        private static WTIStabilityPlLineCreationMethod ConvertPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod)
-        {
-            if (!Enum.IsDefined(typeof(PlLineCreationMethod), plLineCreationMethod))
-            {
-                throw new InvalidEnumArgumentException(nameof(plLineCreationMethod),
-                                                       (int) plLineCreationMethod,
-                                                       typeof(PlLineCreationMethod));
-            }
-
-            switch (plLineCreationMethod)
-            {
-                case PlLineCreationMethod.ExpertKnowledgeRrd:
-                    return WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd;
-                case PlLineCreationMethod.ExpertKnowledgeLinearInDike:
-                    return WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike;
-                case PlLineCreationMethod.RingtoetsWti2017:
-                    return WTIStabilityPlLineCreationMethod.RingtoetsWti2017;
-                case PlLineCreationMethod.DupuitStatic:
-                    return WTIStabilityPlLineCreationMethod.DupuitStatic;
-                case PlLineCreationMethod.DupuitDynamic:
-                    return WTIStabilityPlLineCreationMethod.DupuitDynamic;
-                case PlLineCreationMethod.Sensors:
-                    return WTIStabilityPlLineCreationMethod.Sensors;
-                case PlLineCreationMethod.None:
-                    return WTIStabilityPlLineCreationMethod.None;
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }
