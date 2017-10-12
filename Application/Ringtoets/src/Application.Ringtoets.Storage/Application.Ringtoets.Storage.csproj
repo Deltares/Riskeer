@@ -79,6 +79,7 @@
     <Compile Include="Create\IllustrationPoints\SubMechanismIllustrationPointStochastCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\StochastCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelFaultTreeIllustrationPointCreateExtensions.cs" />
+    <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsCalculationScenarioCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsOutputCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSemiProbabilisticOutputCreateExtensions.cs" />
@@ -420,6 +421,7 @@
     <Compile Include="Read\IllustrationPoints\StochastEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelFaultTreeIllustrationPointEntityReadExtensions.cs" />
     <Compile Include="Read\IllustrationPoints\TopLevelSubMechanismIllustrationPointReadExtensions.cs" />
+    <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsCalculationOutputEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsPreconsolidationStressEntityReadExtensions.cs" />

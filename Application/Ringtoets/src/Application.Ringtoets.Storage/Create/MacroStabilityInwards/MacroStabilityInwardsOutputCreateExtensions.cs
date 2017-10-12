@@ -55,14 +55,14 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 ForbiddenZonesXEntryMax = output.ForbiddenZonesXEntryMax.ToNaNAsNull(),
                 ZValue = output.ZValue.ToNaNAsNull()
             };
-            SetSlidingCurveProperties(entity, output.SlidingCurve);
-            SetSlipPlaneProperties(entity, output.SlipPlane);
+            SetSlidingCurveParametersToEntity(entity, output.SlidingCurve);
+            SetSlipPlaneParametersToEntity(entity, output.SlipPlane);
 
             return entity;
         }
 
-        private static void SetSlidingCurveProperties(MacroStabilityInwardsCalculationOutputEntity entity,
-                                                      MacroStabilityInwardsSlidingCurve slidingCurve)
+        private static void SetSlidingCurveParametersToEntity(MacroStabilityInwardsCalculationOutputEntity entity,
+                                                              MacroStabilityInwardsSlidingCurve slidingCurve)
         {
             entity.SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(slidingCurve.Slices);
             entity.SlidingCurveNonIteratedHorizontalForce = slidingCurve.NonIteratedHorizontalForce.ToNaNAsNull();
@@ -89,15 +89,15 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             entity.SlidingCurveRightSlidingCircleResistingMoment = rightCircle.ResistingMoment.ToNaNAsNull();
         }
 
-        private static void SetSlipPlaneProperties(MacroStabilityInwardsCalculationOutputEntity entity,
-                                                   MacroStabilityInwardsSlipPlaneUpliftVan slipPlane)
+        private static void SetSlipPlaneParametersToEntity(MacroStabilityInwardsCalculationOutputEntity entity,
+                                                           MacroStabilityInwardsSlipPlaneUpliftVan slipPlane)
         {
             entity.SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(slipPlane.TangentLines);
 
             MacroStabilityInwardsGrid leftGrid = slipPlane.LeftGrid;
             entity.SlipPlaneLeftGridXLeft = leftGrid.XLeft.ToNaNAsNull();
             entity.SlipPlaneLeftGridXRight = leftGrid.XRight.ToNaNAsNull();
-            entity.SlipPlaneLeftGridNrOfHorizontalPoints= leftGrid.NumberOfHorizontalPoints;
+            entity.SlipPlaneLeftGridNrOfHorizontalPoints = leftGrid.NumberOfHorizontalPoints;
             entity.SlipPlaneLeftGridZTop = leftGrid.ZTop.ToNaNAsNull();
             entity.SlipPlaneLeftGridZBottom = leftGrid.ZBottom.ToNaNAsNull();
             entity.SlipPlaneLeftGridNrOfVerticalPoints = leftGrid.NumberOfVerticalPoints;

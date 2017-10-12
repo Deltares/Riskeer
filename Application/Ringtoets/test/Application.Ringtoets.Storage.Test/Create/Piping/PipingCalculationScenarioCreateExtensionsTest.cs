@@ -172,13 +172,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreNotSame(name, entity.Name,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(name, entity.Name);
-
-            Assert.AreNotSame(comments, entity.Comments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(comments, entity.Comments);
+            TestHelper.AssertAreEqualButNotSame(name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(comments, entity.Comments);
         }
 
         [Test]

@@ -69,20 +69,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 entity.SurfaceLineEntity = registry.Get(inputParameters.SurfaceLine);
             }
 
-            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
-            entity.UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput);
-            if (useAssessmentLevelManualInput)
-            {
-                entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
-            }
-            else
-            {
-                if (inputParameters.HydraulicBoundaryLocation != null)
-                {
-                    entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
-                }
-                entity.AssessmentLevel = null;
-            }
+            SetHydraulicBoundaryLocationInputToEntity(entity, inputParameters, registry);
 
             if (inputParameters.StochasticSoilProfile != null)
             {
@@ -97,6 +84,24 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             entity.DampingFactorExitMean = inputParameters.DampingFactorExit.Mean.ToNaNAsNull();
             entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.ToNaNAsNull();
+        }
+
+        private static void SetHydraulicBoundaryLocationInputToEntity(PipingCalculationEntity entity, PipingInput inputParameters, PersistenceRegistry registry)
+        {
+            bool useAssessmentLevelManualInput = inputParameters.UseAssessmentLevelManualInput;
+            entity.UseAssessmentLevelManualInput = Convert.ToByte(useAssessmentLevelManualInput);
+            if (useAssessmentLevelManualInput)
+            {
+                entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();
+            }
+            else
+            {
+                if (inputParameters.HydraulicBoundaryLocation != null)
+                {
+                    entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
+                }
+                entity.AssessmentLevel = null;
+            }
         }
 
         private static void AddEntityForPipingOutput(PipingCalculationEntity entity, PipingOutput output)

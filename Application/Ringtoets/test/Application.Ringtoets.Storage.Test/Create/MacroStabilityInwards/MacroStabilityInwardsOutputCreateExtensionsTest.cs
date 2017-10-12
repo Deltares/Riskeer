@@ -109,7 +109,39 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationOutputEntity entity = output.Create();
 
             // Assert
-            MacroStabilityInwardsCalculationOutputEntityTestHelper.AssertOutputPropertyValues(output, entity);
+            Assert.IsNull(entity.FactorOfStability);
+            Assert.IsNull(entity.ForbiddenZonesXEntryMin);
+            Assert.IsNull(entity.ForbiddenZonesXEntryMax);
+            Assert.IsNull(entity.ZValue);
+
+            Assert.IsNull(entity.SlipPlaneLeftGridXLeft);
+            Assert.IsNull(entity.SlipPlaneLeftGridXRight);
+            Assert.IsNull(entity.SlipPlaneLeftGridZTop);
+            Assert.IsNull(entity.SlipPlaneLeftGridZBottom);
+
+            Assert.IsNull(entity.SlipPlaneRightGridXRight);
+            Assert.IsNull(entity.SlipPlaneRightGridXRight);
+            Assert.IsNull(entity.SlipPlaneRightGridZTop);
+            Assert.IsNull(entity.SlipPlaneRightGridZBottom);
+
+            Assert.IsNull(entity.SlidingCurveIteratedHorizontalForce);
+            Assert.IsNull(entity.SlidingCurveNonIteratedHorizontalForce);
+
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleCenterX);
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleCenterY);
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleRadius);
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleIteratedForce);
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleNonIteratedForce);
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleDrivingMoment);
+            Assert.IsNull(entity.SlidingCurveLeftSlidingCircleResistingMoment);
+
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleCenterX);
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleCenterY);
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleRadius);
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleIteratedForce);
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleNonIteratedForce);
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleDrivingMoment);
+            Assert.IsNull(entity.SlidingCurveRightSlidingCircleResistingMoment);
         }
 
         #region Slip Plane Helpers
@@ -155,6 +187,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                                                           double.NaN,
                                                           double.NaN);
         }
+
         #endregion
     }
 }

@@ -45,7 +45,8 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
         /// <exception cref="AssertionException">Thrown when any of the values of the 
         /// <see cref="MacroStabilityInwardsOutput"/> and its nested elements do not match.
         /// </exception>
-        public static void AssertOutputPropertyValues(MacroStabilityInwardsOutput output, MacroStabilityInwardsCalculationOutputEntity entity)
+        public static void AssertOutputPropertyValues(MacroStabilityInwardsOutput output,
+                                                      MacroStabilityInwardsCalculationOutputEntity entity)
         {
             if (output == null)
             {
