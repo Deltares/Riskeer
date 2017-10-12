@@ -70,7 +70,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         {
             IWaternetKernel waternetKernel = CreateWaternetKernel();
 
-            waternetKernel.Calculate();
+            try
+            {
+                waternetKernel.Calculate();
+            }
+            catch (WaternetKernelWrapperException e)
+            {
+                throw new WaternetCalculatorException(e.Message, e);
+            }
 
             return waternetKernel;
         }

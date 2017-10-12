@@ -32,6 +32,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
@@ -137,6 +138,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), waternetKernel.SoilProfile);
             KernelInputAssert.AssertStabilityLocations(WaternetStabilityLocationCreator.CreateExtreme(input), waternetKernel.Location);
             KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), waternetKernel.SurfaceLine);
+        }
+
+        [Test]
+        public void Calculate_KernelThrowsWaternetKernelWrapperException_ThrowWaternetCalculatorException()
+        {
+            // Setup
+            WaternetCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
+            waternetKernel.ThrowExceptionOnCalculate = true;
+
+            // Call
+            TestDelegate test = () => new WaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WaternetCalculatorException>(test);
+            Assert.IsInstanceOf<WaternetKernelWrapperException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
         private static WaternetCalculatorInput CreateCompleteCalculatorInput()

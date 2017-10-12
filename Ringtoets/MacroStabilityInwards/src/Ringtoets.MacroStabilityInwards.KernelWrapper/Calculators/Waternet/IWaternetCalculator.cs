@@ -33,6 +33,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
     /// </remarks>
     public interface IWaternetCalculator
     {
+        /// <summary>
+        /// Performs the calculation.
+        /// </summary>
+        /// <returns>A <see cref="WaternetCalculatorResult"/>.</returns>
+        /// <exception cref="WaternetCalculatorException">Thrown when an error
+        /// occurs during the calculation.</exception>
         void Calculate();
     }
 }
