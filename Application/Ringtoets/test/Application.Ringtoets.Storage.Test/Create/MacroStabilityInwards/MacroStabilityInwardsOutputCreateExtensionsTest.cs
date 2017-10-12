@@ -84,6 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationOutputEntity entity = output.Create();
 
             // Assert
+            Assert.IsNotNull(entity);
             MacroStabilityInwardsCalculationOutputEntityTestHelper.AssertOutputPropertyValues(output, entity);
         }
 
@@ -109,6 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationOutputEntity entity = output.Create();
 
             // Assert
+            Assert.IsNotNull(entity);
             Assert.IsNull(entity.FactorOfStability);
             Assert.IsNull(entity.ForbiddenZonesXEntryMin);
             Assert.IsNull(entity.ForbiddenZonesXEntryMax);
