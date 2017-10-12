@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Out
         /// <param name="waternetLines">The waternet lines.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="phreaticLines"/>
         /// or <paramref name="waternetLines"/> is <c>null</c>.</exception>
-        internal WaternetCalculatorResult(WaternetPhreaticLineResult[] phreaticLines, WaternetLineResult[] waternetLines)
+        internal WaternetCalculatorResult(IEnumerable<WaternetPhreaticLineResult> phreaticLines, IEnumerable<WaternetLineResult> waternetLines)
         {
             if (phreaticLines == null)
             {

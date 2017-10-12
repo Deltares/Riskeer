@@ -101,6 +101,7 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTest.cs" />
     <Compile Include="Creators\Output\UpliftVanCalculationGridResultCreatorTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculationGridResultTest.cs" />
+    <Compile Include="Creators\Output\WaternetCalculatorResultCreatorTest.cs" />
     <Compile Include="Kernels\MacroStabilityInwardsKernelWrapperFactoryTest.cs" />
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperExceptionTest.cs" />
     <Compile Include="Kernels\Waternet\WaternetKernelWrapperExceptionTest.cs" />
