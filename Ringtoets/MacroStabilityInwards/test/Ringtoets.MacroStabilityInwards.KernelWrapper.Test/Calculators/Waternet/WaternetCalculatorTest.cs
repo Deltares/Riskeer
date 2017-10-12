@@ -20,15 +20,25 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
+using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Point2D = Core.Common.Base.Geometry.Point2D;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
@@ -84,7 +94,83 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             mocks.VerifyAll();
         }
 
-        private WaternetCalculatorInput CreateValidCalculatorInput()
+        [Test]
+        public void Calculate_CalculatorWithValidInput_KernelCalculateMethodCalled()
+        {
+            // Setup
+            WaternetCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
+
+            // Call
+            new WaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            Assert.IsTrue(waternetKernel.Calculated);
+        }
+
+        [Test]
+        public void Calculate_CalculatorWithCompleteInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            WaternetCalculatorInput input = CreateCompleteCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
+
+            // Call
+            new WaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            Soil[] soils = SoilCreator.Create(input.SoilProfile);
+            Dictionary<SoilLayer, Soil> layersWithSoils =
+                input.SoilProfile.Layers
+                     .Zip(soils, (layer, soil) => new
+                     {
+                         layer,
+                         soil
+                     })
+                     .ToDictionary(x => x.layer, x => x.soil);
+
+            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), waternetKernel.SoilModel);
+            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), waternetKernel.SoilProfile);
+            KernelInputAssert.AssertStabilityLocations(WaternetStabilityLocationCreator.CreateExtreme(input), waternetKernel.Location);
+            KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), waternetKernel.SurfaceLine);
+        }
+
+        private static WaternetCalculatorInput CreateCompleteCalculatorInput()
+        {
+            var random = new Random(21);
+
+            MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
+
+            return new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+            {
+                AssessmentLevel = random.NextDouble(),
+                SurfaceLine = surfaceLine,
+                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                DrainageConstruction = new DrainageConstruction(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                WaterLevelRiverAverage = random.Next(),
+                WaterLevelPolderExtreme = random.Next(),
+                WaterLevelPolderDaily = random.Next(),
+                MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
+                MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
+                LeakageLengthOutwardsPhreaticLine3 = random.Next(),
+                LeakageLengthInwardsPhreaticLine3 = random.Next(),
+                LeakageLengthOutwardsPhreaticLine4 = random.Next(),
+                LeakageLengthInwardsPhreaticLine4 = random.Next(),
+                PiezometricHeadPhreaticLine2Outwards = random.Next(),
+                PiezometricHeadPhreaticLine2Inwards = random.Next(),
+                PenetrationLength = random.Next(),
+                AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
+                DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>()
+            });
+        }
+
+        private static WaternetCalculatorInput CreateValidCalculatorInput()
         {
             var random = new Random(21);
 

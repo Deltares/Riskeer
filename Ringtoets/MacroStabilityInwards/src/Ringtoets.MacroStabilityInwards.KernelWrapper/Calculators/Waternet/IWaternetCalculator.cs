@@ -33,6 +33,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
     /// </remarks>
     public interface IWaternetCalculator
     {
-        
+        void Calculate();
     }
 }

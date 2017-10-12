@@ -33,5 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
         /// Gest or sets the Waternet calculator input.
         /// </summary>
         public WaternetCalculatorInput Input { get; set; }
+
+        public void Calculate() {}
     }
 }
