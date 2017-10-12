@@ -138,9 +138,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
-            CollectionAssert.AreEqual($"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}" +
-                                      $"Parameter name: index{Environment.NewLine}" +
-                                      "Fatale fout in Uplift-Van berekening", exception.Message);
+            Assert.AreEqual($"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}" +
+                            $"Parameter name: index{Environment.NewLine}" +
+                            "Fatale fout in Uplift-Van berekening", exception.Message);
         }
 
         [Test]

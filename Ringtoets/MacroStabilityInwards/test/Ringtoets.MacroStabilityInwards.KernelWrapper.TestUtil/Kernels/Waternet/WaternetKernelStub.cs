@@ -23,6 +23,7 @@ using System;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {
@@ -48,6 +49,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waterne
         public SoilProfile2D SoilProfile { get; set; }
 
         public SurfaceLine2 SurfaceLine { get; set; }
+
+        public WtiStabilityWaternet Waternet { get; set; }
 
         public void Calculate()
         {

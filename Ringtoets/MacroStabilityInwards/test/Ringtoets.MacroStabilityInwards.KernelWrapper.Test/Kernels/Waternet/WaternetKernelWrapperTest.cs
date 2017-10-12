@@ -85,6 +85,109 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
+        [Test]
+        public void Calculate_ExceptionDuringCalculation_OutputPropertiesNotSet()
+        {
+            // Setup
+            var kernel = new WaternetKernelWrapper();
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+            
+            // Assert
+            Assert.Throws<WaternetKernelWrapperException>(test);
+            Assert.IsNull(kernel.Waternet);
+        }
+
+        [Test]
+        public void Calculate_ValidationErrorInCalculation_ThrowsWaternetKernelWrapperException()
+        {
+            // Setup
+            WaternetKernelWrapper kernel = CreateInvalidKernel();
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WaternetKernelWrapperException>(test);
+            Assert.AreEqual("Waternet-Beoordeling: De punten in de hoogtegeometrie zijn niet oplopend. (x-waarde)", exception.Message);
+        }
+
+        private static WaternetKernelWrapper CreateInvalidKernel()
+        {
+            var point1 = new Point2D(0, 0);
+            var point2 = new Point2D(1, 1);
+            var point3 = new Point2D(2, 2);
+            var point4 = new Point2D(3, 3);
+            var curve1 = new GeometryCurve(point1, point2);
+            var curve2 = new GeometryCurve(point2, point3);
+            var curve3 = new GeometryCurve(point3, point4);
+            var curve4 = new GeometryCurve(point4, point1);
+            var loop = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve1,
+                    curve2,
+                    curve3,
+                    curve4
+                }
+            };
+            var geometrySurface = new GeometrySurface
+            {
+                OuterLoop = loop
+            };
+            var soil = new Soil();
+            return new WaternetKernelWrapper
+            {
+                SurfaceLine = new SurfaceLine2(),
+                Location = new StabilityLocation(),
+                SoilProfile = new SoilProfile2D
+                {
+                    Geometry = new GeometryData
+                    {
+                        Points =
+                        {
+                            point1,
+                            point2,
+                            point3,
+                            point4
+                        },
+                        Curves =
+                        {
+                            curve1,
+                            curve2,
+                            curve3,
+                            curve4
+                        },
+                        Loops =
+                        {
+                            loop
+                        },
+                        Surfaces =
+                        {
+                            geometrySurface
+                        }
+                    },
+                    Surfaces =
+                    {
+                        new SoilLayer2D
+                        {
+                            GeometrySurface = geometrySurface,
+                            Soil = soil
+                        }
+                    }
+                },
+                SoilModel = new SoilModel
+                {
+                    Soils =
+                    {
+                        soil
+                    }
+                }
+            };
+        }
+
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
             Assert.IsNaN(stabilityModel.SlipPlaneConstraints.XEntryMin); // Not applicable for Waternet calculation

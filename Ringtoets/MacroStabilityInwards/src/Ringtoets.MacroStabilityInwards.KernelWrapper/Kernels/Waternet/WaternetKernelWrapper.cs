@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
+using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -71,6 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             }
         }
 
+        public WtiStabilityWaternet Waternet { get; private set; }
+
         public void Calculate()
         {
             try
@@ -78,13 +84,39 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
                 var waternetCalculation = new WTIStabilityCalculation();
                 waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
 
-                string s = waternetCalculation.CreateWaternet(false);
-
-                Console.WriteLine(s);
+                string waternetXmlResult = waternetCalculation.CreateWaternet(false);
+                ReadValidationResult(waternetXmlResult);
+                ReadResult(waternetXmlResult);
             }
-            catch (Exception e)
+            catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
                 throw new WaternetKernelWrapperException(e.Message, e);
+            }
+        }
+
+        private void ReadResult(string waternetXmlResult)
+        {
+            Waternet = WTIDeserializer.DeserializeWaternetUsedDuringCalculation(waternetXmlResult, false);
+        }
+
+        /// <summary>
+        /// Reads the validation results of the calculation.
+        /// </summary>
+        /// <param name="waternetXmlResult">The result to read.</param>
+        /// <exception cref="WaternetKernelWrapperException">Thrown when there
+        /// are validation results of the type <see cref="ValidationResultType.Error"/>.</exception>
+        private static void ReadValidationResult(string waternetXmlResult)
+        {
+            List<ValidationResult> validationResults = WTIDeserializer.DeserializeValidationMessagesForWaternet(waternetXmlResult);
+            ValidationResult[] errorMessages = validationResults.Where(vr => vr.MessageType == ValidationResultType.Error).ToArray();
+
+            if (errorMessages.Any())
+            {
+                string message = errorMessages.Aggregate(string.Empty,
+                                                         (current, validationResult) => current + $"{validationResult.Text}{Environment.NewLine}")
+                                              .Trim();
+
+                throw new WaternetKernelWrapperException(message);
             }
         }
     }

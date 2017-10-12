@@ -22,6 +22,7 @@
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -56,6 +57,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// Sets the surface line.
         /// </summary>
         SurfaceLine2 SurfaceLine { set; }
+
+        /// <summary>
+        /// Gets the waternet result.
+        /// </summary>
+        WtiStabilityWaternet Waternet { get; }
 
         /// <summary>
         /// Performs the Waternet calculation.
