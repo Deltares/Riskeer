@@ -66,6 +66,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMacroStabilityInwardsFailureMechanism.cs" />
     <Compile Include="TestMacroStabilityInwardsOutput.cs" />
+    <Compile Include="TestMacroStabilityInwardsWaternetLine.cs" />
+    <Compile Include="TestMacroStabilityInwardsPhreaticLine.cs" />
     <Compile Include="TestMacroStabilityInwardsSemiProbabilisticOutput.cs" />
   </ItemGroup>
   <ItemGroup>

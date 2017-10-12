@@ -163,6 +163,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsTrue(inputParameters.CreateZones);
             Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, inputParameters.ZoningBoundariesDeterminationType);
+
+            Assert.IsNotNull(inputParameters.WaternetExtreme);
+            Assert.IsNotNull(inputParameters.WaternetDaily);
         }
 
         [Test]

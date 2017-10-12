@@ -205,6 +205,28 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfileUnderSurfaceLine { get; private set; }
 
+        /// <summary>
+        /// Gets the derived waternet calculation output under extreme circumstances.
+        /// </summary>
+        public MacroStabilityInwardsWaternet WaternetExtreme
+        {
+            get
+            {
+                return new DerivedMacroStabilityInwardsInput(this).WaternetExtreme;
+            }
+        }
+
+        /// <summary>
+        /// Gets the derived waternet calculation output under daily circumstances.
+        /// </summary>
+        public MacroStabilityInwardsWaternet WaternetDaily
+        {
+            get
+            {
+                return new DerivedMacroStabilityInwardsInput(this).WaternetDaily;
+            }
+        }
+
         private void SetSoilProfileUnderSurfaceLine()
         {
             SoilProfileUnderSurfaceLine = SurfaceLine != null && StochasticSoilProfile != null
