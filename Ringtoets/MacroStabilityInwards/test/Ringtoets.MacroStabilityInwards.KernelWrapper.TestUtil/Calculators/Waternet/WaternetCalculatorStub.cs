@@ -21,6 +21,7 @@
 
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet
 {
@@ -34,6 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
         /// </summary>
         public WaternetCalculatorInput Input { get; set; }
 
-        public void Calculate() {}
+        public WaternetCalculatorResult Calculate()
+        {
+            return null;
+        }
     }
 }

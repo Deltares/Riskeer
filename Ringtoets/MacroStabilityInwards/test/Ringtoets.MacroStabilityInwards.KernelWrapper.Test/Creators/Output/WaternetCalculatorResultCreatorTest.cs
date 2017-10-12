@@ -25,7 +25,7 @@ using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
-using Point2D = Core.Common.Base.Geometry.Point2D;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
@@ -93,44 +93,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             WaternetCalculatorResult result = WaternetCalculatorResultCreator.Create(waternet);
 
             // Assert
-            AssertPhreaticLines(new GeometryPointString[]
+            WaternetCalculatorOutputAssert.AssertPhreaticLines(new GeometryPointString[]
             {
                 phreaticLine,
                 headLine
             }, result.PhreaticLines.ToArray());
 
-            AssertWaternetLines(new[]
+            WaternetCalculatorOutputAssert.AssertWaternetLines(new[]
             {
                 waternetLine
             }, result.WaternetLines.ToArray());
-        }
-
-        private static void AssertWaternetLines(WaternetLine[] expectedLines, WaternetLineResult[] actualLines)
-        {
-            Assert.AreEqual(expectedLines.Length, actualLines.Length);
-
-            for (var i = 0; i < expectedLines.Length; i++)
-            {
-                Assert.AreEqual(expectedLines[i].Name, actualLines[i].Name);
-                CollectionAssert.AreEqual(expectedLines[i].Points.Select(p => new Point2D(p.X, p.Z)), actualLines[i].Geometry);
-                AssertPhreaticLine(expectedLines[i].HeadLine, actualLines[i].PhreaticLine);
-            }
-        }
-
-        private static void AssertPhreaticLines(GeometryPointString[] expectedLines, WaternetPhreaticLineResult[] actualLines)
-        {
-            Assert.AreEqual(expectedLines.Length, actualLines.Length);
-
-            for (var i = 0; i < expectedLines.Length; i++)
-            {
-                AssertPhreaticLine(expectedLines[i], actualLines[i]);
-            }
-        }
-
-        private static void AssertPhreaticLine(GeometryPointString expectedLine, WaternetPhreaticLineResult actualLine)
-        {
-            Assert.AreEqual(expectedLine.Name, actualLine.Name);
-            CollectionAssert.AreEqual(expectedLine.Points.Select(p => new Point2D(p.X, p.Z)), actualLine.Geometry);
         }
     }
 }

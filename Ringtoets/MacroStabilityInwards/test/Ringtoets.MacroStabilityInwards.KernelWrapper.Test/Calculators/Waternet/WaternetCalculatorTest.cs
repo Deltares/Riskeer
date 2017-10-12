@@ -30,9 +30,11 @@ using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
@@ -40,6 +42,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
@@ -103,6 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
+            SetCompleteKernelOutput(waternetKernel);
 
             // Call
             new WaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
@@ -119,6 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             WaternetKernelStub waternetKernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
+            SetCompleteKernelOutput(waternetKernel);
 
             // Call
             new WaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
@@ -157,6 +162,78 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             var exception = Assert.Throws<WaternetCalculatorException>(test);
             Assert.IsInstanceOf<WaternetKernelWrapperException>(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
+        }
+
+        [Test]
+        public void Calculate_KernelWithCompleteOutput_OutputCorrectlySetToCalculator()
+        {
+            WaternetCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            WaternetKernelStub kernel = testMacroStabilityInwardsKernelFactory.LastCreatedWaternetKernel;
+            SetCompleteKernelOutput(kernel);
+
+            // Call
+            WaternetCalculatorResult result = new WaternetCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            Assert.IsNotNull(result);
+            var expectedPhreaticLines = new List<GeometryPointString>
+            {
+                kernel.Waternet.PhreaticLine
+            };
+            expectedPhreaticLines.AddRange(kernel.Waternet.HeadLineList);
+
+            WaternetCalculatorOutputAssert.AssertPhreaticLines(expectedPhreaticLines.ToArray(), result.PhreaticLines.ToArray());
+            WaternetCalculatorOutputAssert.AssertWaternetLines(kernel.Waternet.WaternetLineList.ToArray(), result.WaternetLines.ToArray());
+        }
+
+        private static void SetCompleteKernelOutput(WaternetKernelStub kernel)
+        {
+            kernel.Waternet = CreateValidOutput();
+        }
+
+        private static WtiStabilityWaternet CreateValidOutput()
+        {
+            var headLine = new HeadLine
+            {
+                Name = "line 1",
+                Points =
+                {
+                    new GeometryPoint(0, 0),
+                    new GeometryPoint(1, 1)
+                }
+            };
+
+            return new WtiStabilityWaternet
+            {
+                HeadLineList =
+                {
+                    headLine
+                },
+                PhreaticLine = new PhreaticLine
+                {
+                    Name = "line 2",
+                    Points =
+                    {
+                        new GeometryPoint(2, 2),
+                        new GeometryPoint(3, 3)
+                    }
+                },
+                WaternetLineList =
+                {
+                    new WaternetLine
+                    {
+                        Name = "line 3",
+                        Points =
+                        {
+                            new GeometryPoint(4, 4),
+                            new GeometryPoint(5, 5)
+                        },
+                        HeadLine = headLine
+                    }
+                }
+            };
         }
 
         private static WaternetCalculatorInput CreateCompleteCalculatorInput()

@@ -41,6 +41,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <returns>A <see cref="WaternetCalculatorResult"/>.</returns>
         /// <exception cref="WaternetCalculatorException">Thrown when an error
         /// occurs during the calculation.</exception>
-        void Calculate();
+        WaternetCalculatorResult Calculate();
     }
 }
