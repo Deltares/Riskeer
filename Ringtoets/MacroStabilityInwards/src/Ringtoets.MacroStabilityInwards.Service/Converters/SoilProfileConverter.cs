@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
             IEnumerable<SoilLayer> layers = ConvertLayers(soilProfile.Layers);
             IEnumerable<PreconsolidationStress> preconsolidationStresses = ConvertPreconsolidationStresses(soilProfile.PreconsolidationStresses);
 
-            return new SoilProfile(layers, preconsolidationStresses);
+            return new SoilProfile(soilProfile.Name, layers, preconsolidationStresses);
         }
 
         /// <summary>

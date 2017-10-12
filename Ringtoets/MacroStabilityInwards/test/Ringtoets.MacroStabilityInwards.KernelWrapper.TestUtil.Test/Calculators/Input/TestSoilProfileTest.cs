@@ -39,6 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsInstanceOf<SoilProfile>(profile);
             Assert.AreEqual(1, profile.Layers.Count());
             SoilLayer layer = profile.Layers.First();
+            Assert.AreEqual(string.Empty, profile.Name);
             CollectionAssert.IsEmpty(layer.OuterRing);
             CollectionAssert.IsEmpty(layer.Holes);
             CollectionAssert.IsEmpty(profile.PreconsolidationStresses);

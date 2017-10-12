@@ -64,13 +64,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(layersWithSoils));
             }
 
-            var profile = new SoilProfile2D();
+            var profile = new SoilProfile2D
+            {
+                Name = soilProfile.Name
+            };
             profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
 
             foreach (KeyValuePair<SoilLayer, Soil> layerWithSoil in layersWithSoils)
             {
                 profile.Surfaces.Add(new SoilLayer2D
                 {
+                    Name = layerWithSoil.Key.MaterialName,
                     IsAquifer = layerWithSoil.Key.IsAquifer,
                     Soil = layerWithSoil.Value,
                     GeometrySurface = CreateGeometrySurface(layerWithSoil.Key),

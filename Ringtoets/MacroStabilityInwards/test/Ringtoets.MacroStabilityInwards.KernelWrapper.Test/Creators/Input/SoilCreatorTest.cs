@@ -56,8 +56,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(11);
+            const string name = "Profile Name";
 
-            var profile = new SoilProfile(new[]
+            var profile = new SoilProfile(name, new[]
             {
                 new SoilLayer(
                     new[]
@@ -128,6 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Soil[] soils = SoilCreator.Create(profile);
 
             // Assert
+            Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(3, soils.Length);
 
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.UsePop), soils.Select(s => s.UsePop));
@@ -161,7 +163,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InvalidShearStrengthModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var profile = new SoilProfile(new[]
+            var profile = new SoilProfile("name", new[]
             {
                 new SoilLayer(
                     new[]
@@ -187,7 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InvalidDilatancyType_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var profile = new SoilProfile(new[]
+            var profile = new SoilProfile("name", new[]
             {
                 new SoilLayer(
                     new[]

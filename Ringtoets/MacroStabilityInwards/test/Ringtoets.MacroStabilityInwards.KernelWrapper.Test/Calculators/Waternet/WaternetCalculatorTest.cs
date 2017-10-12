@@ -208,7 +208,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
 
         private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new SoilProfile(new[]
+            return new SoilProfile("Valid Profile", new[]
             {
                 new SoilLayer(
                     new[]

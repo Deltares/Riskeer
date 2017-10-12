@@ -27,6 +27,7 @@ using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
 using Deltares.WTIStability.IO;
+using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
@@ -48,7 +49,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 GridOrientation = GridOrientation.Inwards,
                 SlipCircle = new SlipCircle(),
                 SearchAlgorithm = SearchAlgorithm.Grid,
-                ModelOption = ModelOptions.UpliftVan
+                ModelOption = ModelOptions.UpliftVan,
+                GeotechnicsData =
+                {
+                    CurrentWaternetDaily = new WtiStabilityWaternet
+                    {
+                        Name = "WaternetDaily"
+                    }
+                }
             };
 
             FactorOfStability = double.NaN;
