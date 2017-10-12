@@ -78,6 +78,9 @@
     <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultTypeTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultTest.cs" />
     <Compile Include="Calculators\Waternet\Input\WaternetCalculatorInputTest.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetCalculatorResultTest.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetLineResultTest.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetPhreaticLineResultTest.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculatorTest.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />

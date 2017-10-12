@@ -60,6 +60,9 @@
     <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultType.cs" />
     <Compile Include="Calculators\Waternet\Input\WaternetCalculatorInput.cs" />
     <Compile Include="Calculators\Waternet\IWaternetCalculator.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetCalculatorResult.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetLineResult.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetPhreaticLineResult.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculator.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculatorException.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreator.cs" />
