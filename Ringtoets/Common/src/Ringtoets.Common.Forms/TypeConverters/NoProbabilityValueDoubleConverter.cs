@@ -73,17 +73,14 @@ namespace Ringtoets.Common.Forms.TypeConverters
 
                 try
                 {
-                    if (text.StartsWith(returnPeriodNotation))
+                    if (!text.StartsWith(returnPeriodNotation))
                     {
-                        string returnPeriodValue = text.Substring(2).ToLower();
-                        if (returnPeriodValue == CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower())
-                        {
-                            return 0.0;
-                        }
-                        return 1 / Convert.ToDouble(returnPeriodValue);
+                        return Convert.ToDouble(text);
                     }
-
-                    return Convert.ToDouble(text);
+                    string returnPeriodValue = text.Substring(2).ToLower();
+                    return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
+                               ? 1 / Convert.ToDouble(returnPeriodValue)
+                               : 0.0;
                 }
                 catch (FormatException exception)
                 {
