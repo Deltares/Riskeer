@@ -407,7 +407,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
         [TestCase(0)]
         [TestCase(51)]
         public void TangentLineNumber_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(int tangentLineNumber)

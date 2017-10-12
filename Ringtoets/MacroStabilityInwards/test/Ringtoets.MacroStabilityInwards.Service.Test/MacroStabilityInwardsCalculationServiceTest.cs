@@ -634,7 +634,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.IsFalse(actualInput.TangentLinesAutomaticAtBoundaries);
             Assert.AreEqual(originalInput.TangentLineZTop, actualInput.TangentZTop);
             Assert.AreEqual(originalInput.TangentLineZBottom, actualInput.TangentZBottom);
-            Assert.AreEqual(10, actualInput.TangentLineNumber);
+            Assert.AreEqual(originalInput.TangentLineNumber, actualInput.TangentLineNumber);
         }
 
         private static void AssertOutput(UpliftVanCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)
