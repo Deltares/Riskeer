@@ -82,7 +82,7 @@
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />
     <Compile Include="Creators\Input\StabilityLocationCreatorHelperTest.cs" />
-    <Compile Include="Creators\Input\StabilityLocationCreatorTest.cs" />
+    <Compile Include="Creators\Input\UpliftVanStabilityLocationCreatorTest.cs" />
     <Compile Include="Creators\Input\SurfaceLineCreatorTest.cs" />
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanCalculatorInputTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultTest.cs" />

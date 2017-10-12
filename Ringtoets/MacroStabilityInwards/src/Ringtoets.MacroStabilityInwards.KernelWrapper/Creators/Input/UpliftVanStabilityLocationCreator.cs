@@ -21,24 +21,16 @@
 
 using System;
 using System.ComponentModel;
-using Deltares.WaternetCreator;
 using Deltares.WTIStability;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using Ringtoets.MacroStabilityInwards.Primitives;
-using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
-using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WTIStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WTIStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreationMode;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
     /// Creates <see cref="StabilityLocation"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
-    internal static class StabilityLocationCreator
+    internal static class UpliftVanStabilityLocationCreator
     {
         /// <summary>
         /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/> under extreme circumstances,

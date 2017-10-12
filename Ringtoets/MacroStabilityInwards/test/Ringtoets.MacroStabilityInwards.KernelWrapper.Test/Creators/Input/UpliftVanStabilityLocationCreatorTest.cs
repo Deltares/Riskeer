@@ -38,13 +38,13 @@ using WTIStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCrea
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class StabilityLocationCreatorTest
+    public class UpliftVanStabilityLocationCreatorTest
     {
         [Test]
         public void CreateExtreme_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityLocationCreator.CreateExtreme(null);
+            TestDelegate call = () => UpliftVanStabilityLocationCreator.CreateExtreme(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => StabilityLocationCreator.CreateExtreme(input);
+            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => StabilityLocationCreator.CreateExtreme(input);
+            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -170,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => StabilityLocationCreator.CreateExtreme(input);
+            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
@@ -202,7 +202,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -263,7 +263,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateExtreme(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
@@ -300,7 +300,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void CreateDaily_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityLocationCreator.CreateDaily(null);
+            TestDelegate call = () => UpliftVanStabilityLocationCreator.CreateDaily(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -324,7 +324,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => StabilityLocationCreator.CreateDaily(input);
+            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
@@ -353,7 +353,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -376,7 +376,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => StabilityLocationCreator.CreateDaily(input);
+            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
@@ -403,7 +403,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -426,7 +426,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => StabilityLocationCreator.CreateDaily(input);
+            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
@@ -458,7 +458,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -518,7 +518,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = StabilityLocationCreator.CreateDaily(input);
+            StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
