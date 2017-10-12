@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
@@ -281,7 +282,20 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count);
+            PipingCalculationOutputEntity outputEntity = entity.PipingCalculationOutputEntities.FirstOrDefault();
+
+            Assert.IsNotNull(outputEntity);
+            Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety);
+            Assert.AreEqual(newOutput.HeaveZValue, outputEntity.HeaveZValue);
+            Assert.AreEqual(newOutput.SellmeijerFactorOfSafety, outputEntity.SellmeijerFactorOfSafety);
+            Assert.AreEqual(newOutput.SellmeijerZValue, outputEntity.SellmeijerZValue);
+            Assert.AreEqual(newOutput.UpliftFactorOfSafety, outputEntity.UpliftFactorOfSafety);
+            Assert.AreEqual(newOutput.UpliftZValue, outputEntity.UpliftZValue);
+            Assert.AreEqual(newOutput.UpliftEffectiveStress, outputEntity.UpliftEffectiveStress, newOutput.UpliftEffectiveStress.GetAccuracy());
+            Assert.AreEqual(newOutput.HeaveGradient, outputEntity.HeaveGradient, newOutput.HeaveGradient.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerCreepCoefficient, outputEntity.SellmeijerCreepCoefficient, newOutput.SellmeijerCreepCoefficient.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerCriticalFall, outputEntity.SellmeijerCriticalFall, newOutput.SellmeijerCriticalFall.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerReducedFall, outputEntity.SellmeijerReducedFall, newOutput.SellmeijerReducedFall.GetAccuracy());
         }
 
         [Test]
@@ -304,7 +318,23 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
+            PipingSemiProbabilisticOutputEntity outputEntity = entity.PipingSemiProbabilisticOutputEntities.FirstOrDefault();
+
+            Assert.IsNotNull(outputEntity);
+            Assert.AreEqual(newOutput.UpliftFactorOfSafety, outputEntity.UpliftFactorOfSafety, newOutput.UpliftFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(newOutput.UpliftReliability, outputEntity.UpliftReliability, newOutput.UpliftReliability.GetAccuracy());
+            Assert.AreEqual(newOutput.UpliftProbability, outputEntity.UpliftProbability);
+            Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety, newOutput.HeaveFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(newOutput.HeaveReliability, outputEntity.HeaveReliability, newOutput.HeaveReliability.GetAccuracy());
+            Assert.AreEqual(newOutput.HeaveProbability, outputEntity.HeaveProbability);
+            Assert.AreEqual(newOutput.SellmeijerFactorOfSafety, outputEntity.SellmeijerFactorOfSafety, newOutput.SellmeijerFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerReliability, outputEntity.SellmeijerReliability, newOutput.SellmeijerReliability.GetAccuracy());
+            Assert.AreEqual(newOutput.SellmeijerProbability, outputEntity.SellmeijerProbability);
+            Assert.AreEqual(newOutput.RequiredProbability, outputEntity.RequiredProbability);
+            Assert.AreEqual(newOutput.RequiredReliability, outputEntity.RequiredReliability, newOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(newOutput.PipingProbability, outputEntity.PipingProbability);
+            Assert.AreEqual(newOutput.PipingReliability, outputEntity.PipingReliability, newOutput.PipingReliability.GetAccuracy());
+            Assert.AreEqual(newOutput.PipingFactorOfSafety, outputEntity.PipingFactorOfSafety, newOutput.PipingFactorOfSafety.GetAccuracy());
         }
     }
 }

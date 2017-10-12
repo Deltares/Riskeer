@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read.ClosingStructures;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.HeightStructures;
+using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
@@ -77,6 +78,42 @@ namespace Application.Ringtoets.Storage.Read
                 if (childCalculationEntity != null)
                 {
                     group.Children.Add(childCalculationEntity.Read(collector, generalPipingInput));
+                }
+            }
+
+            return group;
+        }
+
+        /// <summary>
+        /// Read the <see cref="CalculationGroupEntity"/> and use the information to construct
+        /// a <see cref="CalculationGroup"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
+        /// <see cref="CalculationGroup"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <returns>A new <see cref="CalculationGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        internal static CalculationGroup ReadAsMacroStabilityInwardsCalculationGroup(this CalculationGroupEntity entity,
+                                                                                     ReadConversionCollector collector)
+        {
+            if (collector == null)
+            {
+                throw new ArgumentNullException(nameof(collector));
+            }
+
+            var group = new CalculationGroup(entity.Name, true);
+
+            foreach (object childEntity in GetChildEntitiesInOrder(entity))
+            {
+                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
+                if (childCalculationGroupEntity != null)
+                {
+                    group.Children.Add(childCalculationGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector));
+                }
+                var childCalculationEntity = childEntity as MacroStabilityInwardsCalculationEntity;
+                if (childCalculationEntity != null)
+                {
+                    group.Children.Add(childCalculationEntity.Read(collector));
                 }
             }
 
@@ -371,6 +408,10 @@ namespace Application.Ringtoets.Storage.Read
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculationEntity calculationEntity in entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntities)
+            {
+                sortedList.Add(calculationEntity.Order, calculationEntity);
+            }
+            foreach (MacroStabilityInwardsCalculationEntity calculationEntity in entity.MacroStabilityInwardsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }

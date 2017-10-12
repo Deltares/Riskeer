@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
@@ -70,11 +71,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(pipingOutput.SellmeijerZValue, entity.SellmeijerZValue);
             Assert.AreEqual(pipingOutput.UpliftFactorOfSafety, entity.UpliftFactorOfSafety);
             Assert.AreEqual(pipingOutput.UpliftZValue, entity.UpliftZValue);
-            Assert.AreEqual(pipingOutput.UpliftEffectiveStress.Value, entity.UpliftEffectiveStress);
-            Assert.AreEqual(pipingOutput.HeaveGradient.Value, entity.HeaveGradient);
-            Assert.AreEqual(pipingOutput.SellmeijerCreepCoefficient.Value, entity.SellmeijerCreepCoefficient);
-            Assert.AreEqual(pipingOutput.SellmeijerCriticalFall.Value, entity.SellmeijerCriticalFall);
-            Assert.AreEqual(pipingOutput.SellmeijerReducedFall.Value, entity.SellmeijerReducedFall);
+            Assert.AreEqual(pipingOutput.UpliftEffectiveStress, entity.UpliftEffectiveStress, pipingOutput.UpliftEffectiveStress.GetAccuracy());
+            Assert.AreEqual(pipingOutput.HeaveGradient, entity.HeaveGradient, pipingOutput.HeaveGradient.GetAccuracy());
+            Assert.AreEqual(pipingOutput.SellmeijerCreepCoefficient, entity.SellmeijerCreepCoefficient, pipingOutput.SellmeijerCreepCoefficient.GetAccuracy());
+            Assert.AreEqual(pipingOutput.SellmeijerCriticalFall, entity.SellmeijerCriticalFall, pipingOutput.SellmeijerCriticalFall.GetAccuracy());
+            Assert.AreEqual(pipingOutput.SellmeijerReducedFall, entity.SellmeijerReducedFall, pipingOutput.SellmeijerReducedFall.GetAccuracy());
         }
 
         [Test]

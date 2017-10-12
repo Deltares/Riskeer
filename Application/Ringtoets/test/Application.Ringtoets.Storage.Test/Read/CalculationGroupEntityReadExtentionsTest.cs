@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -250,6 +251,204 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual("group1", rootChildGroup1.Name);
 
             var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+
+            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
+            Assert.AreEqual("group2", rootChildGroup2.Name);
+        }
+
+        #endregion
+
+        #region Macro Stability Inwards
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsCalculationGroup_ReadConversionCollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new CalculationGroupEntity();
+
+            // Call
+            TestDelegate call = () => entity.ReadAsMacroStabilityInwardsCalculationGroup(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
+        }
+
+        [Test]
+        [TestCase("A")]
+        [TestCase("b")]
+        public void ReadAsMacroStabilityInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
+            string name)
+        {
+            // Setup
+            var entity = new CalculationGroupEntity
+            {
+                Name = name
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup group = entity.ReadAsMacroStabilityInwardsCalculationGroup(collector);
+
+            // Assert
+            Assert.AreEqual(name, group.Name);
+            CollectionAssert.IsEmpty(group.Children);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        Name = "AA",
+                        Order = 0
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Name = "AB",
+                        CalculationGroupEntity1 =
+                        {
+                            new CalculationGroupEntity
+                            {
+                                Name = "ABB",
+                                Order = 1
+                            },
+                            new CalculationGroupEntity
+                            {
+                                Name = "ABA",
+                                Order = 0
+                            }
+                        },
+                        Order = 1
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector);
+
+            // Assert
+            Assert.AreEqual("A", rootGroup.Name);
+
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            var rootChildGroup1 = (CalculationGroup) rootChildren[0];
+            Assert.AreEqual("AA", rootChildGroup1.Name);
+            CollectionAssert.IsEmpty(rootChildGroup1.Children);
+            var rootChildGroup2 = (CalculationGroup) rootChildren[1];
+            Assert.AreEqual("AB", rootChildGroup2.Name);
+
+            List<ICalculationBase> rootChildGroup2Children = rootChildGroup2.Children;
+            var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
+            Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
+            CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
+            var rootChildGroup1Child2 = (CalculationGroup) rootChildGroup2Children[1];
+            Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
+            CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsCalculationGroup_EntityWithChildMacroStabilityInwardsCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                MacroStabilityInwardsCalculationEntities =
+                {
+                    new MacroStabilityInwardsCalculationEntity
+                    {
+                        Order = 1,
+                        Name = "2",
+                        TangentLineNumber = 1
+                    },
+                    new MacroStabilityInwardsCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "1",
+                        TangentLineNumber = 1
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector);
+
+            // Assert
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(2, rootChildren.Count);
+
+            var rootChildCalculation1 = (MacroStabilityInwardsCalculationScenario) rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+
+            var rootChildCalculation2 = (MacroStabilityInwardsCalculationScenario) rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+        }
+
+        [Test]
+        public void ReadAsMacroStabilityInwardsCalculationGroup_EntityWithChildMacroStabilityInwardsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                MacroStabilityInwardsCalculationEntities =
+                {
+                    new MacroStabilityInwardsCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "calculation1",
+                        TangentLineNumber = 1
+                    },
+                    new MacroStabilityInwardsCalculationEntity
+                    {
+                        Order = 2,
+                        Name = "calculation2",
+                        TangentLineNumber = 2
+                    }
+                },
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        Order = 3,
+                        Name = "group2"
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Order = 1,
+                        Name = "group1"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector);
+
+            // Assert
+            List<ICalculationBase> rootChildren = rootGroup.Children;
+            Assert.AreEqual(4, rootChildren.Count);
+
+            var rootChildCalculation1 = (MacroStabilityInwardsCalculationScenario) rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+
+            var rootChildGroup1 = (CalculationGroup) rootChildren[1];
+            Assert.AreEqual("group1", rootChildGroup1.Name);
+
+            var rootChildCalculation2 = (MacroStabilityInwardsCalculationScenario) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildCalculation2.Name);
 
             var rootChildGroup2 = (CalculationGroup) rootChildren[3];

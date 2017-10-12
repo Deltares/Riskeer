@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
@@ -33,6 +34,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -85,6 +87,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childPipingCalculation != null)
                 {
                     entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
+                }
+                var childMacroStabilityInwardsCalculation = calculationBase as MacroStabilityInwardsCalculationScenario;
+                if (childMacroStabilityInwardsCalculation != null)
+                {
+                    entity.MacroStabilityInwardsCalculationEntities.Add(childMacroStabilityInwardsCalculation.Create(registry, i));
                 }
                 var childGrassCoverErosionInwardsCalculation = calculationBase as GrassCoverErosionInwardsCalculation;
                 if (childGrassCoverErosionInwardsCalculation != null)
