@@ -32,8 +32,8 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WTIStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WTIStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -125,10 +125,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(WaternetCreationMode.CreateWaternet, WTIStabilityWaternetCreationMethod.CreateWaternet)]
-        [TestCase(WaternetCreationMode.FillInWaternetValues, WTIStabilityWaternetCreationMethod.FillInWaternetValues)]
+        [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
+        [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void CreateExtreme_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                            WTIStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                                            WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -173,15 +173,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
-        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WTIStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.DupuitStatic, WTIStabilityPlLineCreationMethod.DupuitStatic)]
-        [TestCase(PlLineCreationMethod.DupuitDynamic, WTIStabilityPlLineCreationMethod.DupuitDynamic)]
-        [TestCase(PlLineCreationMethod.Sensors, WTIStabilityPlLineCreationMethod.Sensors)]
-        [TestCase(PlLineCreationMethod.None, WTIStabilityPlLineCreationMethod.None)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
+        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
+        [TestCase(PlLineCreationMethod.DupuitStatic, WtiStabilityPlLineCreationMethod.DupuitStatic)]
+        [TestCase(PlLineCreationMethod.DupuitDynamic, WtiStabilityPlLineCreationMethod.DupuitDynamic)]
+        [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
+        [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void CreateExtreme_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                            WTIStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                                            WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -260,8 +260,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
-            Assert.AreEqual(WTIStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
-            Assert.AreEqual(WTIStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
+            Assert.AreEqual(WtiStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
+            Assert.AreEqual(WtiStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
             Assert.AreEqual(assessmentLevel, location.WaterLevelRiver);
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine3);
             Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
@@ -374,10 +374,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(WaternetCreationMode.CreateWaternet, WTIStabilityWaternetCreationMethod.CreateWaternet)]
-        [TestCase(WaternetCreationMode.FillInWaternetValues, WTIStabilityWaternetCreationMethod.FillInWaternetValues)]
+        [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
+        [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void CreateDaily_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                          WTIStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                                          WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -422,15 +422,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
-        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WTIStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.DupuitStatic, WTIStabilityPlLineCreationMethod.DupuitStatic)]
-        [TestCase(PlLineCreationMethod.DupuitDynamic, WTIStabilityPlLineCreationMethod.DupuitDynamic)]
-        [TestCase(PlLineCreationMethod.Sensors, WTIStabilityPlLineCreationMethod.Sensors)]
-        [TestCase(PlLineCreationMethod.None, WTIStabilityPlLineCreationMethod.None)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
+        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
+        [TestCase(PlLineCreationMethod.DupuitStatic, WtiStabilityPlLineCreationMethod.DupuitStatic)]
+        [TestCase(PlLineCreationMethod.DupuitDynamic, WtiStabilityPlLineCreationMethod.DupuitDynamic)]
+        [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
+        [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void CreateDaily_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                          WTIStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                                          WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -508,8 +508,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
-            Assert.AreEqual(WTIStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
-            Assert.AreEqual(WTIStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
+            Assert.AreEqual(WtiStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
+            Assert.AreEqual(WtiStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
             Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiver);
             Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine3);
             Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine4);

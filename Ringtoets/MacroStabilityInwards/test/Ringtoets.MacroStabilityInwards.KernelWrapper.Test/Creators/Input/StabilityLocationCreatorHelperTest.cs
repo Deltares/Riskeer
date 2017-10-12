@@ -27,8 +27,8 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WTIStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WTIStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -73,13 +73,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(WaternetCreationMode.CreateWaternet, WTIStabilityWaternetCreationMethod.CreateWaternet)]
-        [TestCase(WaternetCreationMode.FillInWaternetValues, WTIStabilityWaternetCreationMethod.FillInWaternetValues)]
+        [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
+        [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void ConvertWaternetCreationMode_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                                          WTIStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                                                          WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Call
-            WTIStabilityWaternetCreationMethod convertedWaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
+            WtiStabilityWaternetCreationMethod convertedWaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, convertedWaternetCreationMode);
@@ -97,18 +97,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
-        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WTIStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.DupuitStatic, WTIStabilityPlLineCreationMethod.DupuitStatic)]
-        [TestCase(PlLineCreationMethod.DupuitDynamic, WTIStabilityPlLineCreationMethod.DupuitDynamic)]
-        [TestCase(PlLineCreationMethod.Sensors, WTIStabilityPlLineCreationMethod.Sensors)]
-        [TestCase(PlLineCreationMethod.None, WTIStabilityPlLineCreationMethod.None)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
+        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
+        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
+        [TestCase(PlLineCreationMethod.DupuitStatic, WtiStabilityPlLineCreationMethod.DupuitStatic)]
+        [TestCase(PlLineCreationMethod.DupuitDynamic, WtiStabilityPlLineCreationMethod.DupuitDynamic)]
+        [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
+        [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void ConvertPlLineCreationMethod_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                                          WTIStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                                                          WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Call
-            WTIStabilityPlLineCreationMethod actualPlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);
+            WtiStabilityPlLineCreationMethod actualPlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, actualPlLineCreationMethod);

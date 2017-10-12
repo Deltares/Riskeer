@@ -30,13 +30,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
-using WTIStabilitySoilProfile = Deltares.WTIStability.Data.Geo.SoilProfile;
+using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WtiStabilitySoilProfile = Deltares.WTIStability.Data.Geo.SoilProfile;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="WTIStabilitySoilProfile"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="WtiStabilitySoilProfile"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SoilProfileCreator
     {
@@ -117,14 +117,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         private static GeometryCurve[] CreateGeometryCurves(Point2D[] points)
         {
             var curves = new List<GeometryCurve>();
-            var firstPoint = new WTIStabilityPoint2D(points[0].X, points[0].Y);
-            WTIStabilityPoint2D lastPoint = null;
+            var firstPoint = new WtiStabilityPoint2D(points[0].X, points[0].Y);
+            WtiStabilityPoint2D lastPoint = null;
 
             for (var i = 0; i < points.Length - 1; i++)
             {
-                WTIStabilityPoint2D headPoint = i == 0 ? firstPoint : lastPoint;
+                WtiStabilityPoint2D headPoint = i == 0 ? firstPoint : lastPoint;
 
-                var endPoint = new WTIStabilityPoint2D(points[i + 1].X, points[i + 1].Y);
+                var endPoint = new WtiStabilityPoint2D(points[i + 1].X, points[i + 1].Y);
 
                 curves.Add(new GeometryCurve
                 {

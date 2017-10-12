@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
-using WTIStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
+using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -260,10 +260,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
-        [TestCase(LandwardDirection.PositiveX, WTIStabilityLandwardDirection.PositiveX)]
-        [TestCase(LandwardDirection.NegativeX, WTIStabilityLandwardDirection.NegativeX)]
+        [TestCase(LandwardDirection.PositiveX, WtiStabilityLandwardDirection.PositiveX)]
+        [TestCase(LandwardDirection.NegativeX, WtiStabilityLandwardDirection.NegativeX)]
         public void Create_ValidLandwardDirection_CreateSurfaceLineWithLandwardDirection(LandwardDirection landwardDirection,
-                                                                                         WTIStabilityLandwardDirection expectedLandwardDirection)
+                                                                                         WtiStabilityLandwardDirection expectedLandwardDirection)
         {
             // Setup
             const string name = "Surface line with landward direction";

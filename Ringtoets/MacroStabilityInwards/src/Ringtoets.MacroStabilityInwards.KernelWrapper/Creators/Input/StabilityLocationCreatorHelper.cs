@@ -25,8 +25,8 @@ using Deltares.WaternetCreator;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WTIStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WTIStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreationMode;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -70,15 +70,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="WaternetCreationMode"/> into a <see cref="WTIStabilityWaternetCreationMode"/>.
+        /// Converts a <see cref="WaternetCreationMode"/> into a <see cref="WtiStabilityWaternetCreationMode"/>.
         /// </summary>
         /// <param name="waternetCreationMode">The <see cref="WaternetCreationMode"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityWaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
+        /// <returns>A <see cref="WtiStabilityWaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waternetCreationMode"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="waternetCreationMode"/>
         /// is a valid value but unsupported.</exception>
-        public static WTIStabilityWaternetCreationMode ConvertWaternetCreationMode(WaternetCreationMode waternetCreationMode)
+        public static WtiStabilityWaternetCreationMode ConvertWaternetCreationMode(WaternetCreationMode waternetCreationMode)
         {
             if (!Enum.IsDefined(typeof(WaternetCreationMode), waternetCreationMode))
             {
@@ -90,24 +90,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (waternetCreationMode)
             {
                 case WaternetCreationMode.CreateWaternet:
-                    return WTIStabilityWaternetCreationMode.CreateWaternet;
+                    return WtiStabilityWaternetCreationMode.CreateWaternet;
                 case WaternetCreationMode.FillInWaternetValues:
-                    return WTIStabilityWaternetCreationMode.FillInWaternetValues;
+                    return WtiStabilityWaternetCreationMode.FillInWaternetValues;
                 default:
                     throw new NotSupportedException();
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="PlLineCreationMethod"/> into a <see cref="WTIStabilityPlLineCreationMethod"/>.
+        /// Converts a <see cref="PlLineCreationMethod"/> into a <see cref="WtiStabilityPlLineCreationMethod"/>.
         /// </summary>
         /// <param name="plLineCreationMethod">The <see cref="PlLineCreationMethod"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityPlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
+        /// <returns>A <see cref="WtiStabilityPlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="plLineCreationMethod"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="plLineCreationMethod"/>
         /// is a valid value but unsupported.</exception>
-        public static WTIStabilityPlLineCreationMethod ConvertPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod)
+        public static WtiStabilityPlLineCreationMethod ConvertPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod)
         {
             if (!Enum.IsDefined(typeof(PlLineCreationMethod), plLineCreationMethod))
             {
@@ -119,19 +119,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (plLineCreationMethod)
             {
                 case PlLineCreationMethod.ExpertKnowledgeRrd:
-                    return WTIStabilityPlLineCreationMethod.ExpertKnowledgeRrd;
+                    return WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd;
                 case PlLineCreationMethod.ExpertKnowledgeLinearInDike:
-                    return WTIStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike;
+                    return WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike;
                 case PlLineCreationMethod.RingtoetsWti2017:
-                    return WTIStabilityPlLineCreationMethod.RingtoetsWti2017;
+                    return WtiStabilityPlLineCreationMethod.RingtoetsWti2017;
                 case PlLineCreationMethod.DupuitStatic:
-                    return WTIStabilityPlLineCreationMethod.DupuitStatic;
+                    return WtiStabilityPlLineCreationMethod.DupuitStatic;
                 case PlLineCreationMethod.DupuitDynamic:
-                    return WTIStabilityPlLineCreationMethod.DupuitDynamic;
+                    return WtiStabilityPlLineCreationMethod.DupuitDynamic;
                 case PlLineCreationMethod.Sensors:
-                    return WTIStabilityPlLineCreationMethod.Sensors;
+                    return WtiStabilityPlLineCreationMethod.Sensors;
                 case PlLineCreationMethod.None:
-                    return WTIStabilityPlLineCreationMethod.None;
+                    return WtiStabilityPlLineCreationMethod.None;
                 default:
                     throw new NotSupportedException();
             }

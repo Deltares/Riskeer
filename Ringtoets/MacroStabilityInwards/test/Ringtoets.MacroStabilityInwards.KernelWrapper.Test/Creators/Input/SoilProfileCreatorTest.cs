@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.I
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WTIStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -172,15 +172,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(layer.IsAquifer, surface.IsAquifer);
             Assert.AreEqual(waterpressureInterpolationModel, surface.WaterpressureInterpolationModel);
 
-            var point1 = new WTIStabilityPoint2D(0, 0);
-            var point2 = new WTIStabilityPoint2D(10, 10);
-            var point3 = new WTIStabilityPoint2D(9, 9);
-            var point4 = new WTIStabilityPoint2D(2, 2);
-            var point5 = new WTIStabilityPoint2D(4, 4);
-            var point6 = new WTIStabilityPoint2D(2.5, 2.5);
-            var point7 = new WTIStabilityPoint2D(3, 3);
-            var point8 = new WTIStabilityPoint2D(5, 5);
-            var point9 = new WTIStabilityPoint2D(3, 3);
+            var point1 = new WtiStabilityPoint2D(0, 0);
+            var point2 = new WtiStabilityPoint2D(10, 10);
+            var point3 = new WtiStabilityPoint2D(9, 9);
+            var point4 = new WtiStabilityPoint2D(2, 2);
+            var point5 = new WtiStabilityPoint2D(4, 4);
+            var point6 = new WtiStabilityPoint2D(2.5, 2.5);
+            var point7 = new WtiStabilityPoint2D(3, 3);
+            var point8 = new WtiStabilityPoint2D(5, 5);
+            var point9 = new WtiStabilityPoint2D(3, 3);
             var outerLoopCurve1 = new GeometryCurve(point1, point2);
             var outerLoopCurve2 = new GeometryCurve(point2, point3);
             var outerLoopCurve3 = new GeometryCurve(point3, point1);

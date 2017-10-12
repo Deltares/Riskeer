@@ -32,8 +32,8 @@ using Point2D = Core.Common.Base.Geometry.Point2D;
 using ShearStrengthModel = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WTIStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
-using WTIStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
+using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
+using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -134,15 +134,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.MaterialName), soils.Select(s => s.Name));
             CollectionAssert.AreEqual(new[]
             {
-                WTIStabilityShearStrengthModel.CPhi,
-                WTIStabilityShearStrengthModel.CPhiOrCuCalculated,
-                WTIStabilityShearStrengthModel.CuCalculated
+                WtiStabilityShearStrengthModel.CPhi,
+                WtiStabilityShearStrengthModel.CPhiOrCuCalculated,
+                WtiStabilityShearStrengthModel.CuCalculated
             }, soils.Select(s => s.ShearStrengthModel));
             CollectionAssert.AreEqual(new[]
             {
-                WTIStabilityDilatancyType.Phi,
-                WTIStabilityDilatancyType.Zero,
-                WTIStabilityDilatancyType.MinusPhi
+                WtiStabilityDilatancyType.Phi,
+                WtiStabilityDilatancyType.Zero,
+                WtiStabilityDilatancyType.MinusPhi
             }, soils.Select(s => s.DilatancyType));
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.AbovePhreaticLevel), soils.Select(s => s.AbovePhreaticLevel));
             CollectionAssert.AreEqual(profile.Layers.Select(l => l.BelowPhreaticLevel), soils.Select(s => s.BelowPhreaticLevel));

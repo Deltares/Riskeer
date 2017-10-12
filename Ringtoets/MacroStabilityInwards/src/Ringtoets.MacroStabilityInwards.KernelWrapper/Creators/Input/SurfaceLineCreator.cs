@@ -28,7 +28,7 @@ using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
-using WTIStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
+using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -81,15 +81,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="LandwardDirection"/> into a <see cref="WTIStabilityLandwardDirection"/>.
+        /// Converts a <see cref="LandwardDirection"/> into a <see cref="WtiStabilityLandwardDirection"/>.
         /// </summary>
         /// <param name="landwardDirection">The <see cref="LandwardDirection"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityLandwardDirection"/> based on <paramref name="landwardDirection"/>.</returns>
+        /// <returns>A <see cref="WtiStabilityLandwardDirection"/> based on <paramref name="landwardDirection"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
         /// is a valid value but unsupported.</exception>
-        private static WTIStabilityLandwardDirection ConvertLandwardDirection(LandwardDirection landwardDirection)
+        private static WtiStabilityLandwardDirection ConvertLandwardDirection(LandwardDirection landwardDirection)
         {
             if (!Enum.IsDefined(typeof(LandwardDirection), landwardDirection))
             {
@@ -101,9 +101,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (landwardDirection)
             {
                 case LandwardDirection.PositiveX:
-                    return WTIStabilityLandwardDirection.PositiveX;
+                    return WtiStabilityLandwardDirection.PositiveX;
                 case LandwardDirection.NegativeX:
-                    return WTIStabilityLandwardDirection.NegativeX;
+                    return WtiStabilityLandwardDirection.NegativeX;
                 default:
                     throw new NotSupportedException();
             }

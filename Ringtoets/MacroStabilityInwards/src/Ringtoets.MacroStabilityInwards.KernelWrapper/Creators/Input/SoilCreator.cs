@@ -27,8 +27,8 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using DilatancyType = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
 using ShearStrengthModel = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WTIStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
-using WTIStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
+using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
+using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -71,15 +71,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="WTIStabilityShearStrengthModel"/>.
+        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="WtiStabilityShearStrengthModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityShearStrengthModel"/> based on <paramref name="shearStrengthModel"/>.</returns>
+        /// <returns>A <see cref="WtiStabilityShearStrengthModel"/> based on <paramref name="shearStrengthModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static WTIStabilityShearStrengthModel ConvertShearStrengthModel(ShearStrengthModel shearStrengthModel)
+        private static WtiStabilityShearStrengthModel ConvertShearStrengthModel(ShearStrengthModel shearStrengthModel)
         {
             if (!Enum.IsDefined(typeof(ShearStrengthModel), shearStrengthModel))
             {
@@ -91,26 +91,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (shearStrengthModel)
             {
                 case ShearStrengthModel.SuCalculated:
-                    return WTIStabilityShearStrengthModel.CuCalculated;
+                    return WtiStabilityShearStrengthModel.CuCalculated;
                 case ShearStrengthModel.CPhi:
-                    return WTIStabilityShearStrengthModel.CPhi;
+                    return WtiStabilityShearStrengthModel.CPhi;
                 case ShearStrengthModel.CPhiOrSuCalculated:
-                    return WTIStabilityShearStrengthModel.CPhiOrCuCalculated;
+                    return WtiStabilityShearStrengthModel.CPhiOrCuCalculated;
                 default:
                     throw new NotSupportedException();
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="DilatancyType"/> into a <see cref="WTIStabilityDilatancyType"/>.
+        /// Converts a <see cref="DilatancyType"/> into a <see cref="WtiStabilityDilatancyType"/>.
         /// </summary>
         /// <param name="dilatancyType">The <see cref="DilatancyType"/> to convert.</param>
-        /// <returns>A <see cref="WTIStabilityDilatancyType"/> based on <paramref name="dilatancyType"/>.</returns>
+        /// <returns>A <see cref="WtiStabilityDilatancyType"/> based on <paramref name="dilatancyType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="dilatancyType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="dilatancyType"/>
         /// is a valid value but unsupported.</exception>
-        private static WTIStabilityDilatancyType ConvertDilatancyType(DilatancyType dilatancyType)
+        private static WtiStabilityDilatancyType ConvertDilatancyType(DilatancyType dilatancyType)
         {
             if (!Enum.IsDefined(typeof(DilatancyType), dilatancyType))
             {
@@ -122,11 +122,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (dilatancyType)
             {
                 case DilatancyType.Phi:
-                    return WTIStabilityDilatancyType.Phi;
+                    return WtiStabilityDilatancyType.Phi;
                 case DilatancyType.Zero:
-                    return WTIStabilityDilatancyType.Zero;
+                    return WtiStabilityDilatancyType.Zero;
                 case DilatancyType.MinusPhi:
-                    return WTIStabilityDilatancyType.MinusPhi;
+                    return WtiStabilityDilatancyType.MinusPhi;
                 default:
                     throw new NotSupportedException();
             }
