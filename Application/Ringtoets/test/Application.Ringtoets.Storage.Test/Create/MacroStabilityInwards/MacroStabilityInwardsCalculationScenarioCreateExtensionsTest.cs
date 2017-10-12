@@ -74,8 +74,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
-
             Assert.IsNull(entity.AssessmentLevel);
             Assert.IsNull(entity.SlipPlaneMinimumDepth);
             Assert.IsNull(entity.SlipPlaneMinimumLength);
@@ -201,8 +199,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, order);
 
             // Assert
-            Assert.IsNotNull(entity);
-
             MacroStabilityInwardsCalculationEntityTestHelper.AssertCalculationScenarioPropertyValues(scenario, entity);
             Assert.IsNull(entity.SurfaceLineEntity);
             Assert.IsNull(entity.MacroStabilityInwardsStochasticSoilProfileEntity);
@@ -230,7 +226,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Then
-            Assert.IsNotNull(entity);
             Assert.IsNull(entity.AssessmentLevel);
         }
 
@@ -255,7 +250,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
             TestHelper.AssertAreEqualButNotSame(name, entity.Name);
             TestHelper.AssertAreEqualButNotSame(comment, entity.Comment);
         }
@@ -281,7 +275,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
             Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
         }
 
@@ -306,7 +299,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
             Assert.AreSame(surfaceLineEntity, entity.SurfaceLineEntity);
         }
 
@@ -333,7 +325,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
             MacroStabilityInwardsStochasticSoilProfileEntity expectedStochasticSoilProfileEntity = registry.Get(stochasticSoilProfile);
             Assert.AreSame(expectedStochasticSoilProfileEntity, entity.MacroStabilityInwardsStochasticSoilProfileEntity);
         }
@@ -353,7 +344,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
             MacroStabilityInwardsCalculationOutputEntity outputEntity = entity.MacroStabilityInwardsCalculationOutputEntities.FirstOrDefault();
             Assert.IsNotNull(outputEntity);
             MacroStabilityInwardsCalculationOutputEntityTestHelper.AssertOutputPropertyValues(scenario.Output, outputEntity);
@@ -374,7 +364,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             MacroStabilityInwardsCalculationEntity entity = scenario.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity);
             MacroStabilityInwardsSemiProbabilisticOutputEntity outputEntity = entity.MacroStabilityInwardsSemiProbabilisticOutputEntities.FirstOrDefault();
             Assert.IsNotNull(outputEntity);
 

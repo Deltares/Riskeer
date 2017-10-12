@@ -883,54 +883,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                             failureMechanism.Sections.Count());
         }
 
-        [Test]
-        public void ReadAsMacroStabilityInwardsFailureMechanism_WithCalculationsAndGroups_ReturnFailureMechanismWithCalculationAndGroups()
-        {
-            var entity = new FailureMechanismEntity
-            {
-                MacroStabilityInwardsFailureMechanismMetaEntities =
-                {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity()
-                },
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntity1 =
-                    {
-                        new CalculationGroupEntity
-                        {
-                            Name = "A",
-                            Order = 1
-                        }
-                    },
-                    MacroStabilityInwardsCalculationEntities =
-                    {
-                        new MacroStabilityInwardsCalculationEntity
-                        {
-                            Name = "B",
-                            TangentLineNumber = 1,
-                            Order = 0
-                        }
-                    }
-                }
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            // Call
-            entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-
-            ICalculationBase expectedCalculation = failureMechanism.CalculationsGroup.Children[0];
-            Assert.AreEqual("B", expectedCalculation.Name);
-            Assert.IsInstanceOf<MacroStabilityInwardsCalculationScenario>(expectedCalculation);
-
-            ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
-            Assert.AreEqual("A", expectedCalculationGroup.Name);
-            Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
-        }
-
         #endregion
 
         #region Grass Cover Erosion Inwards

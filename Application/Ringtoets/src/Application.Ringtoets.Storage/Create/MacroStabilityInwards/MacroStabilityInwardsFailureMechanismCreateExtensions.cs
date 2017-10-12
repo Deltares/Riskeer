@@ -51,8 +51,6 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-
             return entity;
         }
 

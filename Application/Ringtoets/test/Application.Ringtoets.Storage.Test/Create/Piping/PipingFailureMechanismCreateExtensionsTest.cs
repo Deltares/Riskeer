@@ -221,15 +221,14 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
         {
             // Setup
-            var calculationGroup = new CalculationGroup("A", true);
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("A", true));
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("B", true));
+
+            var registry = new PersistenceRegistry();
 
             // Call
-            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -239,18 +238,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
                                                                 .OrderBy(cge => cge.Order)
                                                                 .ToArray();
-            Assert.AreEqual(1, childGroupEntities.Length);
-            CalculationGroupEntity childGroupEntity = childGroupEntities[0];
-            Assert.AreEqual(calculationGroup.Name, childGroupEntity.Name);
-            Assert.AreEqual(0, childGroupEntity.Order);
-
-            PipingCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.PipingCalculationEntities
-                                                                  .OrderBy(ce => ce.Order)
-                                                                  .ToArray();
-            Assert.AreEqual(1, calculationEntities.Length);
-            PipingCalculationEntity calculationEntity = calculationEntities[0];
-            Assert.AreEqual(calculation.Name, calculationEntity.Name);
-            Assert.AreEqual(1, calculationEntity.Order);
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual("A", childGroupEntities[0].Name);
+            Assert.AreEqual(0, childGroupEntities[0].Order);
+            Assert.AreEqual("B", childGroupEntities[1].Name);
+            Assert.AreEqual(1, childGroupEntities[1].Order);
         }
 
         private static void AssertSurfaceLine(PipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
