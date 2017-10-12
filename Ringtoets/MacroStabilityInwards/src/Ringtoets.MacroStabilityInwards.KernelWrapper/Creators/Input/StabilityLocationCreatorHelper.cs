@@ -31,9 +31,10 @@ using WTIStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreati
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Helper class to convert properties needed in the <see cref="StabilityLocationCreator"/>.
+    /// Helper class to convert properties needed in the <see cref="UpliftVanStabilityLocationCreator"/>
+    /// and <see cref="WaternetStabilityLocationCreator"/>.
     /// </summary>
-    public static class StabilityLocationCreatorHelper
+    internal static class StabilityLocationCreatorHelper
     {
         /// <summary>
         /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> into a <see cref="DikeSoilScenario"/>.
@@ -49,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             if (!Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), dikeSoilScenario))
             {
                 throw new InvalidEnumArgumentException(nameof(dikeSoilScenario),
-                                                       (int)dikeSoilScenario,
+                                                       (int) dikeSoilScenario,
                                                        typeof(MacroStabilityInwardsDikeSoilScenario));
             }
 
@@ -82,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             if (!Enum.IsDefined(typeof(WaternetCreationMode), waternetCreationMode))
             {
                 throw new InvalidEnumArgumentException(nameof(waternetCreationMode),
-                                                       (int)waternetCreationMode,
+                                                       (int) waternetCreationMode,
                                                        typeof(WaternetCreationMode));
             }
 
@@ -111,7 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             if (!Enum.IsDefined(typeof(PlLineCreationMethod), plLineCreationMethod))
             {
                 throw new InvalidEnumArgumentException(nameof(plLineCreationMethod),
-                                                       (int)plLineCreationMethod,
+                                                       (int) plLineCreationMethod,
                                                        typeof(PlLineCreationMethod));
             }
 

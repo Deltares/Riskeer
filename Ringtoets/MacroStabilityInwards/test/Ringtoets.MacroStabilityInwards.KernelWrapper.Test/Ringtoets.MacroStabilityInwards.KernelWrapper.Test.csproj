@@ -92,6 +92,7 @@
     <Compile Include="Calculators\UpliftVan\UpliftVanGridTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResultTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTest.cs" />
+    <Compile Include="Creators\Input\WaternetStabilityLocationCreatorTest.cs" />
     <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreatorTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTest.cs" />
     <Compile Include="Creators\Output\UpliftVanCalculationGridResultCreatorTest.cs" />
