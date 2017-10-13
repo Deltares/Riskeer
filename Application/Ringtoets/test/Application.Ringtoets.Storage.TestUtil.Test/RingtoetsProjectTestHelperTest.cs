@@ -212,6 +212,21 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(surfaceLine.Points[3], surfaceLine.BottomDitchPolderSide);
             Assert.AreEqual(surfaceLine.Points[2], surfaceLine.DitchPolderSide);
             Assert.AreEqual(surfaceLine.Points[1], surfaceLine.SurfaceLevelInside);
+
+            Assert.NotNull(failureMechanism.CalculationsGroup);
+            Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
+
+            var firstCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+
+            var calculationWithOutput = (MacroStabilityInwardsCalculationScenario)firstCalculationGroup.Children[0];
+            Assert.IsTrue(calculationWithOutput.HasOutput);
+
+            var emptyCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
+
+            var calculationWithoutOutput = (MacroStabilityInwardsCalculationScenario)failureMechanism.CalculationsGroup.Children[2];
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanism(AssessmentSection assessmentSection)
