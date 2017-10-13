@@ -701,10 +701,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertCalculationGroup(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateMigratedTable =
-                    $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                    "SELECT COUNT() = (SELECT COUNT() + 1 FROM [SOURCEPROJECT].CalculationGroupEntity)" +
-                    "FROM CalculationGroupEntity;" +
-                    "DETACH SOURCEPROJECT;";
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() + 1 FROM [SOURCEPROJECT].CalculationGroupEntity)" +
+                "FROM CalculationGroupEntity;" +
+                "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMigratedTable);
         }
 
@@ -743,6 +743,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND FailureMechanismEntityId IN " +
                 "(SELECT FailureMechanismEntityId FROM FailureMechanismEntity WHERE FailureMechanismType = 2);";
             reader.AssertReturnedDataIsValid(validateFailureMechanisms);
+
+            const string validateMacroStabilityInwardsFailureMechanismCalculationGroup =
+                "SELECT COUNT() = 0 " +
+                "FROM FailureMechanismEntity " +
+                "WHERE FailureMechanismType = 2 " +
+                "AND CalculationGroupEntityId IS NULL";
+            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsFailureMechanismCalculationGroup);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
