@@ -65,6 +65,7 @@
     <Compile Include="Calculators\Waternet\Output\WaternetPhreaticLineResult.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculator.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculatorException.cs" />
+    <Compile Include="Calculators\Waternet\WaternetExtremeCalculator.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreator.cs" />
     <Compile Include="Creators\Input\SoilProfileCreator.cs" />
     <Compile Include="Creators\Input\UpliftVanStabilityLocationCreator.cs" />
