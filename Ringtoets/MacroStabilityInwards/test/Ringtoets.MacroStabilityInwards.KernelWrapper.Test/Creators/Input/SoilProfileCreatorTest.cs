@@ -55,9 +55,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilDictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(new SoilProfile(string.Empty,
-                                                                                Enumerable.Empty<SoilLayer>(),
-                                                                                Enumerable.Empty<PreconsolidationStress>()),
+            TestDelegate call = () => SoilProfileCreator.Create(new SoilProfile(
+                                                                    Enumerable.Empty<SoilLayer>(),
+                                                                    Enumerable.Empty<PreconsolidationStress>()),
                                                                 null);
 
             // Assert
@@ -80,11 +80,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     WaterPressureInterpolationModel = (WaterPressureInterpolationModel) 99
                 });
 
-            var soilProfile = new SoilProfile(string.Empty,
-                                              new[]
-                                              {
-                                                  layer
-                                              }, Enumerable.Empty<PreconsolidationStress>());
+            var soilProfile = new SoilProfile(new[]
+            {
+                layer
+            }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
             TestDelegate test = () => SoilProfileCreator.Create(soilProfile, new Dictionary<SoilLayer, Soil>
@@ -108,7 +107,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double preconsolidationStressXCoordinate = random.Next();
             double preconsolidationStressZCoordinate = random.Next();
             RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
-            const string name = "Profile Name Test";
 
             var outerRing = new[]
             {
@@ -136,17 +134,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 outerRing, holes,
                 new SoilLayer.ConstructionProperties
                 {
-                    MaterialName = "Sand",
                     IsAquifer = true,
                     WaterPressureInterpolationModel = waterPressureInterpolationModel
                 });
 
-            var soil = new Soil
-            {
-                Name = layer.MaterialName
-            };
+            var soil = new Soil();
 
-            var soilProfile = new SoilProfile(name, new[]
+            var soilProfile = new SoilProfile(new[]
             {
                 layer
             }, new[]
@@ -163,7 +157,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Assert
-            Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
             PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
 
@@ -175,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(1, profile.Surfaces.Count);
             SoilLayer2D surface = profile.Surfaces.First();
             Assert.AreSame(soil, surface.Soil);
-            Assert.AreEqual(layer.MaterialName, surface.Name);
+            Assert.IsFalse(string.IsNullOrEmpty(surface.Name)); // Unused property
             Assert.AreEqual(layer.IsAquifer, surface.IsAquifer);
             Assert.AreEqual(waterpressureInterpolationModel, surface.WaterpressureInterpolationModel);
 

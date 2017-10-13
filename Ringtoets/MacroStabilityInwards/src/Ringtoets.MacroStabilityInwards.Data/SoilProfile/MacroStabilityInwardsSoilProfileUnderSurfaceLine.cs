@@ -32,18 +32,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
-        /// <param name="name">The name of the profile.</param>
         /// <param name="layers">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses defined for the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(string name,
-                                                                IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers,
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers,
                                                                 IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
@@ -52,16 +46,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
-
-            Name = name;
             Layers = layers;
             PreconsolidationStresses = preconsolidationStresses;
         }
-
-        /// <summary>
-        /// Gets the name of the profile.
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         /// Gets the layers in the profile.

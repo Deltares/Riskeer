@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
@@ -30,21 +31,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
     public class SoilProfileTest
     {
         [Test]
-        public void Constructor_NameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SoilProfile(null, new SoilLayer[0], new PreconsolidationStress[0]);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("name", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilProfile("name", null, new PreconsolidationStress[0]);
+            TestDelegate call = () => new SoilProfile(null, new PreconsolidationStress[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilProfile("name", new SoilLayer[0], null);
+            TestDelegate call = () => new SoilProfile(new SoilLayer[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -66,7 +56,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string name = "Soil Profile Name";
             var layers = new[]
             {
                 new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties())
@@ -77,10 +66,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             };
 
             // Call
-            var profile = new SoilProfile(name, layers, preconsolidationStresses);
+            var profile = new SoilProfile(layers, preconsolidationStresses);
 
             // Assert
-            Assert.AreEqual(name, profile.Name);
             Assert.AreSame(layers, profile.Layers);
             Assert.AreSame(preconsolidationStresses, profile.PreconsolidationStresses);
         }

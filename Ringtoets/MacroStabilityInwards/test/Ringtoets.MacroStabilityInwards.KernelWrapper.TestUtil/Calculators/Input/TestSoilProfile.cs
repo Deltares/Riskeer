@@ -32,7 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Inp
         /// <summary>
         /// Creates a new instance of <see cref="TestSoilProfile"/>.
         /// </summary>
-        public TestSoilProfile() : base(string.Empty, new[]
+        public TestSoilProfile() : base(new[]
         {
             new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties())
         }, new PreconsolidationStress[0]) {}

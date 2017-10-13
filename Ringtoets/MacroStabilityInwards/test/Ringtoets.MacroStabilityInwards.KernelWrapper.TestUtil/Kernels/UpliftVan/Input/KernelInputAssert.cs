@@ -57,7 +57,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSoilProfiles(SoilProfile2D expected, SoilProfile2D actual)
         {
-            Assert.AreEqual(expected.Name, actual.Name);
             AssertSoilLayers(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
             AssertPreconsolidationStresses(expected.PreconsolidationStresses.ToArray(), actual.PreconsolidationStresses.ToArray());
             AssertGeometryDatas(expected.Geometry, actual.Geometry);
@@ -130,7 +129,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
                 SoilLayer2D expectedSurface = expected[i];
                 SoilLayer2D actualSurface = actual[i];
 
-                Assert.AreEqual(expectedSurface.Name, actualSurface.Name);
                 Assert.AreEqual(expectedSurface.IsAquifer, actualSurface.IsAquifer);
                 AssertGeometrySurfaces(expectedSurface.GeometrySurface, actualSurface.GeometrySurface);
                 AssertSoils(expectedSurface.Soil, actualSurface.Soil);

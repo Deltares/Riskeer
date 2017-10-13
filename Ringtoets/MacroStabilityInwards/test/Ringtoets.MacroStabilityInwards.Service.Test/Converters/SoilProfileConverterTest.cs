@@ -56,67 +56,64 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             // Setup
             var random = new Random(22);
 
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
-                "Profile Test",
-                new[]
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new List<Point2D[]>
                 {
-                    new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21),
-                                                                       new List<Point2D[]>
-                                                                       {
-                                                                           CreateRing(11),
-                                                                           CreateRing(22)
-                                                                       }, new MacroStabilityInwardsSoilLayerData
-                                                                       {
-                                                                           UsePop = random.NextBoolean(),
-                                                                           IsAquifer = random.NextBoolean(),
-                                                                           MaterialName = "Test",
-                                                                           AbovePhreaticLevel =
-                                                                           {
-                                                                               Mean = (RoundedDouble) 10,
-                                                                               CoefficientOfVariation = (RoundedDouble) 0.3,
-                                                                               Shift = (RoundedDouble) 0.1
-                                                                           },
-                                                                           BelowPhreaticLevel =
-                                                                           {
-                                                                               Mean = (RoundedDouble) 5,
-                                                                               CoefficientOfVariation = (RoundedDouble) 0.8,
-                                                                               Shift = (RoundedDouble) 0.3
-                                                                           },
-                                                                           Cohesion =
-                                                                           {
-                                                                               Mean = random.NextRoundedDouble(),
-                                                                               CoefficientOfVariation = random.NextRoundedDouble()
-                                                                           },
-                                                                           FrictionAngle =
-                                                                           {
-                                                                               Mean = random.NextRoundedDouble(),
-                                                                               CoefficientOfVariation = random.NextRoundedDouble()
-                                                                           },
-                                                                           StrengthIncreaseExponent =
-                                                                           {
-                                                                               Mean = random.NextRoundedDouble(),
-                                                                               CoefficientOfVariation = random.NextRoundedDouble()
-                                                                           },
-                                                                           ShearStrengthRatio =
-                                                                           {
-                                                                               Mean = random.NextRoundedDouble(),
-                                                                               CoefficientOfVariation = random.NextRoundedDouble()
-                                                                           },
-                                                                           Pop =
-                                                                           {
-                                                                               Mean = random.NextRoundedDouble(),
-                                                                               CoefficientOfVariation = random.NextRoundedDouble()
-                                                                           }
-                                                                       })
-                }, new[]
+                    CreateRing(11),
+                    CreateRing(22)
+                }, new MacroStabilityInwardsSoilLayerData
                 {
-                    new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
-                                                                    new VariationCoefficientLogNormalDistribution
-                                                                    {
-                                                                        Mean = (RoundedDouble) 0.05,
-                                                                        CoefficientOfVariation = random.NextRoundedDouble()
-                                                                    })
-                });
+                    UsePop = random.NextBoolean(),
+                    IsAquifer = random.NextBoolean(),
+                    MaterialName = "Test",
+                    AbovePhreaticLevel =
+                    {
+                        Mean = (RoundedDouble) 10,
+                        CoefficientOfVariation = (RoundedDouble) 0.3,
+                        Shift = (RoundedDouble) 0.1
+                    },
+                    BelowPhreaticLevel =
+                    {
+                        Mean = (RoundedDouble) 5,
+                        CoefficientOfVariation = (RoundedDouble) 0.8,
+                        Shift = (RoundedDouble) 0.3
+                    },
+                    Cohesion =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    FrictionAngle =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    StrengthIncreaseExponent =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    ShearStrengthRatio =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    },
+                    Pop =
+                    {
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
+                    }
+                })
+            }, new[]
+            {
+                new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                new VariationCoefficientLogNormalDistribution
+                                                                {
+                                                                    Mean = (RoundedDouble) 0.05,
+                                                                    CoefficientOfVariation = random.NextRoundedDouble()
+                                                                })
+            });
 
             // Call
             SoilProfile soilProfile = SoilProfileConverter.Convert(profile);
@@ -129,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         public void Convert_InvalidShearStrengthModel_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine("name", new[]
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new Point2D[0][],
                                                                    new MacroStabilityInwardsSoilLayerData
@@ -154,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                                                                                               ShearStrengthModel expectedShearStrengthModel)
         {
             // Setup
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine("name", new[]
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
                 new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new Point2D[0][],
                                                                    new MacroStabilityInwardsSoilLayerData

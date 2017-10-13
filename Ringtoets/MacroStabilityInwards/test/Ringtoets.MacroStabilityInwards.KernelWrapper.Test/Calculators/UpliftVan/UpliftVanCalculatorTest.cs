@@ -325,48 +325,47 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
         private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new SoilProfile("Valid 2D profile",
-                                   new[]
-                                   {
-                                       new SoilLayer(
-                                           new[]
-                                           {
-                                               surfaceLine.LocalGeometry.First(),
-                                               surfaceLine.LocalGeometry.Last()
-                                           },
-                                           Enumerable.Empty<Point2D[]>(),
-                                           new SoilLayer.ConstructionProperties()),
-                                       new SoilLayer(
-                                           new[]
-                                           {
-                                               surfaceLine.LocalGeometry.First(),
-                                               surfaceLine.LocalGeometry.Last()
-                                           },
-                                           Enumerable.Empty<Point2D[]>(),
-                                           new SoilLayer.ConstructionProperties
-                                           {
-                                               IsAquifer = true
-                                           }),
-                                       new SoilLayer(
-                                           new[]
-                                           {
-                                               surfaceLine.LocalGeometry.First(),
-                                               surfaceLine.LocalGeometry.Last()
-                                           },
-                                           Enumerable.Empty<Point2D[]>(),
-                                           new SoilLayer.ConstructionProperties()),
-                                       new SoilLayer(
-                                           new[]
-                                           {
-                                               surfaceLine.LocalGeometry.First(),
-                                               surfaceLine.LocalGeometry.Last()
-                                           },
-                                           Enumerable.Empty<Point2D[]>(),
-                                           new SoilLayer.ConstructionProperties())
-                                   }, new[]
-                                   {
-                                       new PreconsolidationStress(new Point2D(0, 0), 1.1)
-                                   });
+            return new SoilProfile(new[]
+            {
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties()),
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties
+                    {
+                        IsAquifer = true
+                    }),
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties()),
+                new SoilLayer(
+                    new[]
+                    {
+                        surfaceLine.LocalGeometry.First(),
+                        surfaceLine.LocalGeometry.Last()
+                    },
+                    Enumerable.Empty<Point2D[]>(),
+                    new SoilLayer.ConstructionProperties())
+            }, new[]
+            {
+                new PreconsolidationStress(new Point2D(0, 0), 1.1)
+            });
         }
 
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()

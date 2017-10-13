@@ -32,18 +32,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
         /// <summary>
         /// Creates a new instance of <see cref="SoilProfile"/>.
         /// </summary>
-        /// <param name="name">The name of the profile.</param>
         /// <param name="layers">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses in the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SoilProfile(string name,
-                           IEnumerable<SoilLayer> layers,
-                           IEnumerable<PreconsolidationStress> preconsolidationStresses)
+        public SoilProfile(IEnumerable<SoilLayer> layers, IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
@@ -53,15 +46,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
 
-            Name = name;
             Layers = layers;
             PreconsolidationStresses = preconsolidationStresses;
         }
-
-        /// <summary>
-        /// The name of the profile.
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         /// Gets the layers in the profile.
