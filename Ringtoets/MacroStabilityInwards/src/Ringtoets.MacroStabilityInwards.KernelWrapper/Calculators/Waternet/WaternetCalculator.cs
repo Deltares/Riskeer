@@ -88,7 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 
         private IWaternetKernel CreateWaternetKernel()
         {
-            IWaternetKernel waternetKernel = factory.CreateWaternetKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel();
 
             Soil[] soils = SoilCreator.Create(input.SoilProfile);
             Dictionary<SoilLayer, Soil> layersWithSoils =

@@ -36,9 +36,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
         IUpliftVanKernel CreateUpliftVanKernel();
 
         /// <summary>
-        /// Creates a Waternet kernel.
+        /// Creates a Waternet kernel for extreme circumstances.
         /// </summary>
         /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
-        IWaternetKernel CreateWaternetKernel();
+        IWaternetKernel CreateWaternetExtremeKernel();
+
+        /// <summary>
+        /// Creates Waternet kernel for daily circumstances.
+        /// </summary>
+        /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
+        IWaternetKernel CreateWaternetDailyKernel();
     }
 }

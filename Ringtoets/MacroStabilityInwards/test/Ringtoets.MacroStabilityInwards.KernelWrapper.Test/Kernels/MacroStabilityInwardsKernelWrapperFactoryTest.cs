@@ -82,16 +82,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateWaternetKernel_Always_ReturnsWaternetKernelWrapper()
+        public void CreateWaternetExtremeKernel_Always_ReturnsWaternetExtremeKernelWrapper()
         {
             // Setup
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel();
 
             // Assert
-            Assert.IsInstanceOf<WaternetKernelWrapper>(waternetKernel);
+            Assert.IsInstanceOf<WaternetExtremeKernelWrapper>(waternetKernel);
+        }
+
+        [Test]
+        public void CreateWaternetDailyKernel_Always_ReturnsWaternetDailyKernelWrapper()
+        {
+            // Setup
+            IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
+
+            // Call
+            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel();
+
+            // Assert
+            Assert.IsInstanceOf<WaternetDailyKernelWrapper>(waternetKernel);
         }
     }
 }

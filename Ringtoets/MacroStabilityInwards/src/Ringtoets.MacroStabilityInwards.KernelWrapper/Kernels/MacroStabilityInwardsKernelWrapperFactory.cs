@@ -53,9 +53,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels
             return new UpliftVanKernelWrapper();
         }
 
-        public IWaternetKernel CreateWaternetKernel()
+        public IWaternetKernel CreateWaternetExtremeKernel()
         {
-            return new WaternetKernelWrapper();
+            return new WaternetExtremeKernelWrapper();
+        }
+
+        public IWaternetKernel CreateWaternetDailyKernel()
+        {
+            return new WaternetDailyKernelWrapper();
         }
     }
 }

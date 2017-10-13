@@ -56,13 +56,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
         }
 
         [Test]
-        public void CreateWaternetKernel_Always_ReturnLastCreatedWaternetKernel()
+        public void CreateWaternetExtremeKernel_Always_ReturnLastCreatedWaternetKernel()
         {
             // Setup
             var factory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
+        }
+
+        [Test]
+        public void CreateWaternetDailyKernel_Always_ReturnLastCreatedWaternetKernel()
+        {
+            // Setup
+            var factory = new TestMacroStabilityInwardsKernelFactory();
+
+            // Call
+            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel();
 
             // Assert
             Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
