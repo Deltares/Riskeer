@@ -71,7 +71,17 @@ namespace Ringtoets.MacroStabilityInwards.Service
             UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters);
             IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            UpliftVanValidationResult[] validationResults = calculator.Validate().ToArray();
+            UpliftVanValidationResult[] validationResults;
+            try
+            {
+                validationResults = calculator.Validate().ToArray();
+            }
+            catch (UpliftVanCalculatorException e)
+            {
+                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_validation, e);
+                CalculationServiceHelper.LogValidationEnd();
+                return false;
+            }
 
             CalculationServiceHelper.LogMessagesAsError(validationResults.Where(msg => msg.ResultType == UpliftVanValidationResultType.Error)
                                                                          .Select(msg => msg.Message).ToArray());

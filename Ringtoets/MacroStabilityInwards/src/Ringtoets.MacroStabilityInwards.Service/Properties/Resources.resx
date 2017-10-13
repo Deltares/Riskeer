@@ -132,4 +132,7 @@
   <data name="MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation" xml:space="preserve">
     <value>Macrostabiliteit berekening mislukt.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_validation" xml:space="preserve">
+    <value>Macrostabiliteit validatie mislukt.</value>
+  </data>
 </root>

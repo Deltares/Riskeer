@@ -49,6 +49,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         public bool ThrowExceptionOnCalculate { get; set; }
 
         /// <summary>
+        /// Indicator whether an exception must be thrown when performing the validation.
+        /// </summary>
+        public bool ThrowExceptionOnValidate { get; set; }
+
+        /// <summary>
         /// Indicator whether an error message must be returned when performing the validation.
         /// </summary>
         public bool ReturnValidationError { get; set; }
@@ -69,6 +74,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
 
         public IEnumerable<UpliftVanValidationResult> Validate()
         {
+            if (ThrowExceptionOnValidate)
+            {
+                throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2");
+            }
+
             if (ReturnValidationError)
             {
                 yield return new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error");

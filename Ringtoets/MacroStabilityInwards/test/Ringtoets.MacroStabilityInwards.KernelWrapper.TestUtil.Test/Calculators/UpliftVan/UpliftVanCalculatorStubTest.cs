@@ -117,5 +117,23 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.AreEqual("Validation Warning", results.ElementAt(1).Message);
             Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(1).ResultType);
         }
+
+        [Test]
+        public void Validate_ThrowExceptionOnValidateTrue_ThrowUpliftVanCalculatorException()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub
+            {
+                ThrowExceptionOnValidate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.Validate().ToList();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanCalculatorException>(test);
+            Assert.IsNull(exception.InnerException);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+        }
     }
 }

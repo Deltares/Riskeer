@@ -322,6 +322,29 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
+        public void Validate_ErrorWhileValidating_LogErrorMessage()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnValidate = true;
+
+                // Call
+                Action call = () => { MacroStabilityInwardsCalculationService.Validate(testCalculation); };
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                {
+                    Tuple<string, Level, Exception> tuple = tuples.ElementAt(1);
+                    Assert.AreEqual("Macrostabiliteit validatie mislukt.", tuple.Item1);
+                    Assert.AreEqual(Level.Error, tuple.Item2);
+                    Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
+                });
+            }
+        }
+
+        [Test]
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
