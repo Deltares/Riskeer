@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             var calculator = new WaternetExtremeCalculator(input, factory);
 
             // Assert
-            Assert.IsInstanceOf<WaternetExtremeCalculator>(calculator);
+            Assert.IsInstanceOf<WaternetCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
 
         private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            return new SoilProfile("Valid Profile", new[]
+            return new SoilProfile(new[]
             {
                 new SoilLayer(
                     new[]
