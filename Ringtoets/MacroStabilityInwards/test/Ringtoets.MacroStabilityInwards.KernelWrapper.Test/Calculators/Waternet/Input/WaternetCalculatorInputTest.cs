@@ -59,8 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             var plLineCreationMethod = random.NextEnumValue<PlLineCreationMethod>();
             var landwardDirection = random.NextEnumValue<LandwardDirection>();
             double waterLevelRiverAverage = random.Next();
-            double waterLevelPolderExtreme = random.Next();
-            double waterLevelPolderDaily = random.Next();
+            double waterLevelPolder = random.Next();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
             double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
             double leakageLengthOutwardsPhreaticLine3 = random.Next();
@@ -84,11 +83,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
-                    PhreaticLineOffsetsExtreme = phreaticLineOffsets,
-                    PhreaticLineOffsetsDaily = phreaticLineOffsets,
+                    PhreaticLineOffsets = phreaticLineOffsets,
                     WaterLevelRiverAverage = waterLevelRiverAverage,
-                    WaterLevelPolderExtreme = waterLevelPolderExtreme,
-                    WaterLevelPolderDaily = waterLevelPolderDaily,
+                    WaterLevelPolder = waterLevelPolder,
                     MinimumLevelPhreaticLineAtDikeTopRiver = minimumLevelPhreaticLineAtDikeTopRiver,
                     MinimumLevelPhreaticLineAtDikeTopPolder = minimumLevelPhreaticLineAtDikeTopPolder,
                     LeakageLengthOutwardsPhreaticLine3 = leakageLengthOutwardsPhreaticLine3,
@@ -110,12 +107,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             Assert.AreEqual(landwardDirection, input.LandwardDirection);
             Assert.AreSame(soilProfile, input.SoilProfile);
             Assert.AreSame(drainageConstruction, input.DrainageConstruction);
-            Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsetsDaily);
-            Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsetsExtreme);
+            Assert.AreSame(phreaticLineOffsets, input.PhreaticLineOffsets);
 
             Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage);
-            Assert.AreEqual(waterLevelPolderExtreme, input.WaterLevelPolderExtreme);
-            Assert.AreEqual(waterLevelPolderDaily, input.WaterLevelPolderDaily);
+            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, input.LeakageLengthOutwardsPhreaticLine3);
@@ -146,15 +141,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     DrainageConstruction = drainageConstruction,
-                    PhreaticLineOffsetsExtreme = phreaticLineOffsets,
-                    PhreaticLineOffsetsDaily = phreaticLineOffsets
+                    PhreaticLineOffsets = phreaticLineOffsets
                 });
 
             // Assert
             Assert.IsNaN(input.AssessmentLevel);
             Assert.IsNaN(input.WaterLevelRiverAverage);
-            Assert.IsNaN(input.WaterLevelPolderExtreme);
-            Assert.IsNaN(input.WaterLevelPolderDaily);
+            Assert.IsNaN(input.WaterLevelPolder);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNaN(input.LeakageLengthOutwardsPhreaticLine3);
@@ -180,8 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                 new WaternetCalculatorInput.ConstructionProperties
                 {
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    PhreaticLineOffsets = new PhreaticLineOffsets(),
                     DrainageConstruction = new DrainageConstruction()
                 });
 
@@ -197,8 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                 new WaternetCalculatorInput.ConstructionProperties
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    PhreaticLineOffsets = new PhreaticLineOffsets(),
                     DrainageConstruction = new DrainageConstruction()
                 });
 
@@ -215,8 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets()
+                    PhreaticLineOffsets = new PhreaticLineOffsets(),
                 });
 
             // Assert
@@ -224,7 +214,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
         }
 
         [Test]
-        public void Constructor_PhreaticLineOffsetsExtremeNull_ThrowsArgumentException()
+        public void Constructor_PhreaticLineOffsetsNull_ThrowsArgumentException()
         {
             // Call
             TestDelegate test = () => new WaternetCalculatorInput(
@@ -233,28 +223,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
                 });
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsetsExtreme must be set.");
-        }
-
-        [Test]
-        public void Constructor_PhreaticLineOffsetsDailyNull_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => new WaternetCalculatorInput(
-                new WaternetCalculatorInput.ConstructionProperties
-                {
-                    SoilProfile = new TestSoilProfile(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets()
-                });
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsetsDaily must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsets must be set.");
         }
     }
 }

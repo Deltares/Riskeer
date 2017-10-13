@@ -46,11 +46,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 DrainageConstruction = new DrainageConstruction(),
-                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                PhreaticLineOffsets = new PhreaticLineOffsets(),
                 WaterLevelRiverAverage = random.Next(),
-                WaterLevelPolderExtreme = random.Next(),
-                WaterLevelPolderDaily = random.Next(),
+                WaterLevelPolder = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
                 MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
                 LeakageLengthOutwardsPhreaticLine3 = random.Next(),
@@ -73,8 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
                 SurfaceLine = surfaceLine,
                 SoilProfile = CreateValidSoilProfile(surfaceLine),
                 DrainageConstruction = new DrainageConstruction(),
-                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
+                PhreaticLineOffsets = new PhreaticLineOffsets()
             });
         }
 

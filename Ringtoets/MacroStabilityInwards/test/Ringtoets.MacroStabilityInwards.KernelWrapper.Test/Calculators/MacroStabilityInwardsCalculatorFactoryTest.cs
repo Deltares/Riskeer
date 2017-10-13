@@ -109,8 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    PhreaticLineOffsets = new PhreaticLineOffsets(),
                     DrainageConstruction = new DrainageConstruction(),
                 }), new TestMacroStabilityInwardsKernelFactory());
 
@@ -130,8 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    PhreaticLineOffsets = new PhreaticLineOffsets(),
                     DrainageConstruction = new DrainageConstruction(),
                 }), new TestMacroStabilityInwardsKernelFactory());
 

@@ -40,12 +40,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             Assert.IsNotNull(input.DrainageConstruction);
-            Assert.IsNotNull(input.PhreaticLineOffsetsExtreme);
-            Assert.IsNotNull(input.PhreaticLineOffsetsDaily);
+            Assert.IsNotNull(input.PhreaticLineOffsets);
             Assert.IsFalse(double.IsNaN(input.AssessmentLevel));
             Assert.IsFalse(double.IsNaN(input.WaterLevelRiverAverage));
-            Assert.IsFalse(double.IsNaN(input.WaterLevelPolderExtreme));
-            Assert.IsFalse(double.IsNaN(input.WaterLevelPolderDaily));
+            Assert.IsFalse(double.IsNaN(input.WaterLevelPolder));
             Assert.IsFalse(double.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver));
             Assert.IsFalse(double.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder));
             Assert.IsFalse(double.IsNaN(input.LeakageLengthOutwardsPhreaticLine3));
@@ -70,12 +68,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             Assert.IsNotNull(input.DrainageConstruction);
-            Assert.IsNotNull(input.PhreaticLineOffsetsExtreme);
-            Assert.IsNotNull(input.PhreaticLineOffsetsDaily);
+            Assert.IsNotNull(input.PhreaticLineOffsets);
             Assert.IsNaN(input.AssessmentLevel);
             Assert.IsNaN(input.WaterLevelRiverAverage);
-            Assert.IsNaN(input.WaterLevelPolderExtreme);
-            Assert.IsNaN(input.WaterLevelPolderDaily);
+            Assert.IsNaN(input.WaterLevelPolder);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.IsNaN(input.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.IsNaN(input.LeakageLengthOutwardsPhreaticLine3);
