@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNull(entity.SlipPlaneLeftGridZTop);
             Assert.IsNull(entity.SlipPlaneLeftGridZBottom);
 
-            Assert.IsNull(entity.SlipPlaneRightGridXRight);
+            Assert.IsNull(entity.SlipPlaneRightGridXLeft);
             Assert.IsNull(entity.SlipPlaneRightGridXRight);
             Assert.IsNull(entity.SlipPlaneRightGridZTop);
             Assert.IsNull(entity.SlipPlaneRightGridZBottom);

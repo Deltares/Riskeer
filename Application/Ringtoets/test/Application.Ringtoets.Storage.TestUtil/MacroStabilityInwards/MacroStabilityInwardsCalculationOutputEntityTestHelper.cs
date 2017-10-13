@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
             Assert.AreEqual(leftGrid.NumberOfVerticalPoints, entity.SlipPlaneLeftGridNrOfVerticalPoints);
 
             MacroStabilityInwardsGrid rightGrid = slipPlane.RightGrid;
-            AssertAreEqual(rightGrid.XRight, entity.SlipPlaneRightGridXRight);
+            AssertAreEqual(rightGrid.XLeft, entity.SlipPlaneRightGridXLeft);
             AssertAreEqual(rightGrid.XRight, entity.SlipPlaneRightGridXRight);
             Assert.AreEqual(rightGrid.NumberOfHorizontalPoints, entity.SlipPlaneRightGridNrOfHorizontalPoints);
             AssertAreEqual(rightGrid.ZTop, entity.SlipPlaneRightGridZTop);

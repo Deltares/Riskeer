@@ -91,15 +91,15 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNaN(output.MacroStabilityInwardsFactorOfSafety);
         }
 
-        private static void AssertAreEqual(double? expectedParamterValue, double actualParameterValue)
+        private static void AssertAreEqual(double? expectedParameterValue, double actualParameterValue)
         {
-            Assert.AreEqual(expectedParamterValue, actualParameterValue);
+            Assert.AreEqual(expectedParameterValue, actualParameterValue);
         }
 
-        private static void AssertAreEqual(double? expectedParamterValue, RoundedDouble actualParameterValue)
+        private static void AssertAreEqual(double? expectedParameterValue, RoundedDouble actualParameterValue)
         {
-            Assert.IsTrue(expectedParamterValue.HasValue);
-            Assert.AreEqual(expectedParamterValue.Value, actualParameterValue, actualParameterValue.GetAccuracy());
+            Assert.IsTrue(expectedParameterValue.HasValue);
+            Assert.AreEqual(expectedParameterValue.Value, actualParameterValue, actualParameterValue.GetAccuracy());
         }
     }
 }

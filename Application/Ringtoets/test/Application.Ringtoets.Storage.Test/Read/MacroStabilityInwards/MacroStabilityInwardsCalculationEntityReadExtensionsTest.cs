@@ -72,6 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 MoveGrid = Convert.ToByte(random.NextBoolean()),
                 DikeSoilScenarioType = Convert.ToByte(random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>()),
                 WaterLevelRiverAverage = random.NextDouble(),
+                DrainageConstructionPresent = Convert.ToByte(random.NextBoolean()),
                 DrainageConstructionCoordinateX = random.NextDouble(),
                 DrainageConstructionCoordinateZ = random.NextDouble(),
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble(),
@@ -112,7 +113,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 RightGridNrOfHorizontalPoints = random.Next(),
                 RightGridZTop = random.NextDouble(),
                 RightGridZBottom = random.NextDouble(),
-                RightGridNrOfVerticalPoints = random.Next()
+                RightGridNrOfVerticalPoints = random.Next(),
+                CreateZones = Convert.ToByte(random.NextBoolean())
             };
 
             var collector = new ReadConversionCollector();

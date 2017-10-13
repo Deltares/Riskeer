@@ -139,6 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     MoveGrid = random.NextBoolean(),
                     DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                     WaterLevelRiverAverage = random.NextRoundedDouble(),
+                    DrainageConstructionPresent = random.NextBoolean(),
                     XCoordinateDrainageConstruction = random.NextRoundedDouble(),
                     ZCoordinateDrainageConstruction = random.NextRoundedDouble(),
                     LocationInputExtreme =
@@ -379,12 +380,12 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(outputEntity);
 
             MacroStabilityInwardsSemiProbabilisticOutput expectedOutput = scenario.SemiProbabilisticOutput;
-            Assert.AreEqual(expectedOutput.FactorOfStability, outputEntity.FactorOfStability);
+            Assert.AreEqual(expectedOutput.FactorOfStability, outputEntity.FactorOfStability, expectedOutput.FactorOfStability.GetAccuracy());
             Assert.AreEqual(expectedOutput.MacroStabilityInwardsProbability, outputEntity.MacroStabilityInwardsProbability);
-            Assert.AreEqual(expectedOutput.MacroStabilityInwardsReliability, outputEntity.MacroStabilityInwardsReliability);
+            Assert.AreEqual(expectedOutput.MacroStabilityInwardsReliability, outputEntity.MacroStabilityInwardsReliability, expectedOutput.MacroStabilityInwardsReliability.GetAccuracy());
             Assert.AreEqual(expectedOutput.RequiredProbability, outputEntity.RequiredProbability);
-            Assert.AreEqual(expectedOutput.RequiredReliability, outputEntity.RequiredReliability);
-            Assert.AreEqual(expectedOutput.MacroStabilityInwardsFactorOfSafety, outputEntity.MacroStabilityInwardsFactorOfSafety);
+            Assert.AreEqual(expectedOutput.RequiredReliability, outputEntity.RequiredReliability, expectedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(expectedOutput.MacroStabilityInwardsFactorOfSafety, outputEntity.MacroStabilityInwardsFactorOfSafety, expectedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
         }
     }
 }

@@ -89,6 +89,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 
             entity.WaterLevelRiverAverage = inputParameters.WaterLevelRiverAverage.ToNaNAsNull();
 
+            entity.DrainageConstructionPresent = Convert.ToByte(inputParameters.DrainageConstructionPresent);
             entity.DrainageConstructionCoordinateX = inputParameters.XCoordinateDrainageConstruction.ToNaNAsNull();
             entity.DrainageConstructionCoordinateZ = inputParameters.ZCoordinateDrainageConstruction.ToNaNAsNull();
 

@@ -79,6 +79,7 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
             Assert.AreEqual(Convert.ToByte(input.MoveGrid), entity.MoveGrid);
             Assert.AreEqual(Convert.ToByte(input.DikeSoilScenario), entity.DikeSoilScenarioType);
             AssertAreEqual(input.WaterLevelRiverAverage, entity.WaterLevelRiverAverage);
+            Assert.AreEqual(Convert.ToByte(input.DrainageConstructionPresent), entity.DrainageConstructionPresent);
             AssertAreEqual(input.XCoordinateDrainageConstruction, entity.DrainageConstructionCoordinateX);
             AssertAreEqual(input.ZCoordinateDrainageConstruction, entity.DrainageConstructionCoordinateZ);
             AssertAreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, entity.MinimumLevelPhreaticLineAtDikeTopRiver);
@@ -117,7 +118,7 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
             AssertAreEqual(leftGrid.ZBottom, entity.LeftGridZBottom);
             Assert.AreEqual(leftGrid.NumberOfVerticalPoints, entity.LeftGridNrOfVerticalPoints);
 
-            AssertAreEqual(rightGrid.XRight, entity.RightGridXRight);
+            AssertAreEqual(rightGrid.XLeft, entity.RightGridXLeft);
             AssertAreEqual(rightGrid.XRight, entity.RightGridXRight);
             Assert.AreEqual(rightGrid.NumberOfHorizontalPoints, entity.RightGridNrOfHorizontalPoints);
             AssertAreEqual(rightGrid.ZTop, entity.RightGridZTop);
