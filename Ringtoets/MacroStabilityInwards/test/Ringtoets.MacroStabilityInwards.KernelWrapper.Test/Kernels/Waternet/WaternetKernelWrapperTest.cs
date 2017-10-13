@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Constructor_ExpectedValues()
         {
             // Call
-            var kernel = new WaternetKernelWrapper();
+            var kernel = new TestWaternetKernelWrapper();
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var surfaceLine = new SurfaceLine2();
 
             // Call
-            var kernel = new WaternetKernelWrapper
+            var kernel = new TestWaternetKernelWrapper
             {
                 Location = stabilityLocation,
                 SoilModel = soilModel,
@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperException()
         {
             // Setup
-            var kernel = new WaternetKernelWrapper();
+            var kernel = new TestWaternetKernelWrapper();
 
             // Call
             TestDelegate test = () => kernel.Calculate();
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Calculate_ExceptionDuringCalculation_OutputPropertiesNotSet()
         {
             // Setup
-            var kernel = new WaternetKernelWrapper();
+            var kernel = new TestWaternetKernelWrapper();
 
             // Call
             TestDelegate test = () => kernel.Calculate();
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
                 OuterLoop = loop
             };
             var soil = new Soil();
-            return new WaternetKernelWrapper
+            return new TestWaternetKernelWrapper
             {
                 SurfaceLine = new SurfaceLine2(),
                 Location = new StabilityLocation(),
@@ -223,6 +223,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeometryData);
             Assert.IsNotNull(stabilityModel.GeotechnicsData);
             Assert.AreSame(soilProfile2D.Geometry, stabilityModel.GeotechnicsData.Geometry);
+        }
+
+        private class TestWaternetKernelWrapper : WaternetKernelWrapper
+        {
+            public override StabilityLocation Location
+            {
+                set
+                {
+                    StabilityModel.Location = value;
+                }
+            }
         }
     }
 }

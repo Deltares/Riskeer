@@ -34,25 +34,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// <summary>
     /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing a Waternet calculation.
     /// </summary>
-    internal class WaternetKernelWrapper : IWaternetKernel
+    internal abstract class WaternetKernelWrapper : IWaternetKernel
     {
         private readonly StabilityModel stabilityModel;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
         /// </summary>
-        public WaternetKernelWrapper()
+        protected WaternetKernelWrapper()
         {
             stabilityModel = new StabilityModel();
         }
 
-        public virtual StabilityLocation Location
-        {
-            set
-            {
-                stabilityModel.Location = value;
-            }
-        }
+        public abstract StabilityLocation Location { set; }
 
         public SoilModel SoilModel
         {

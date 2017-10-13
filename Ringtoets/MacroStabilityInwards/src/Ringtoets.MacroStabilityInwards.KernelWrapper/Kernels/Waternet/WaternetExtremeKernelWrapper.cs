@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
@@ -29,5 +30,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetExtremeKernelWrapper : WaternetKernelWrapper
     {
+        public override StabilityLocation Location
+        {
+            set
+            {
+                StabilityModel.Location = value;
+            }
+        }
     }
 }
