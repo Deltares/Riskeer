@@ -361,6 +361,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geometrie.
+        /// </summary>
+        public static string Line_Geometry_DisplayName {
+            get {
+                return ResourceManager.GetString("Line_Geometry_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string Line_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("Line_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dagelijkse omstandigheden.
         /// </summary>
         public static string LocationDaily_DisplayName {
@@ -909,6 +927,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phreatische Lijn.
+        /// </summary>
+        public static string PhreaticLineName_DisplayName {
+            get {
+                return ResourceManager.GetString("PhreaticLineName_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstandsverschil tussen het maaiveld en de freatische lijn onder teen dijk binnenwaarts..
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeToeAtPolder_Description {
@@ -977,6 +1004,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string PhreaticLineOffsetBelowShoulderBaseInside_DisplayName {
             get {
                 return ResourceManager.GetString("PhreaticLineOffsetBelowShoulderBaseInside_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phreatische Lijnen.
+        /// </summary>
+        public static string PhreaticLines_DisplayName {
+            get {
+                return ResourceManager.GetString("PhreaticLines_DisplayName", resourceCulture);
             }
         }
         
@@ -1299,6 +1335,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zones.
+        /// </summary>
+        public static string WaternetLines_DisplayName {
+            get {
+                return ResourceManager.GetString("WaternetLines_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eigenschappen van de waterspanning..
         /// </summary>
         public static string Waterstresses_Description {
@@ -1313,6 +1358,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string Waterstresses_DisplayName {
             get {
                 return ResourceManager.GetString("Waterstresses_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterspanningslijnen.
+        /// </summary>
+        public static string WaterStressLines_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterStressLines_DisplayName", resourceCulture);
             }
         }
         

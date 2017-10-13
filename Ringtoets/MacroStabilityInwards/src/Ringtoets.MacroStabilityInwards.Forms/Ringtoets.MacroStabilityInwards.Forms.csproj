@@ -48,6 +48,10 @@
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationExtremeProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationDailyProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetLineProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsPhreaticLineProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressLinesProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsPreconsolidationStressProperties.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineSelectionDialog.cs">
       <SubType>Form</SubType>

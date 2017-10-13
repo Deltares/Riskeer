@@ -52,6 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int expectedPiezometricHeadPhreaticLine2InwardsPropertyIndex = 10;
         private const int locationExtremePropertyIndex = 11;
         private const int locationDailyPropertyIndex = 12;
+        private const int waterStressLinesPropertyIndex = 13;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -76,6 +77,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 nameof(MacroStabilityInwardsWaterStressesProperties.LocationDaily));
             TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
                 nameof(MacroStabilityInwardsWaterStressesProperties.LocationExtreme));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsWaterStressesProperties, ExpandableObjectConverter>(
+                nameof(MacroStabilityInwardsWaterStressesProperties.WaterStressLines));
 
             mocks.VerifyAll();
         }
@@ -125,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
 
             const string waterStressesCategory = "Waterspanningen";
 
@@ -223,6 +226,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "",
                 true);
 
+            PropertyDescriptor waterStressLinesProperty = dynamicProperties[waterStressLinesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                waterStressLinesProperty,
+                waterStressesCategory,
+                "Waterspanningslijnen",
+                "",
+                true);
+
             mocks.VerifyAll();
         }
 
@@ -243,6 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
             Assert.AreEqual(input.LocationInputExtreme, properties.LocationExtreme.Data);
             Assert.AreEqual(input.LocationInputDaily, properties.LocationDaily.Data);
+            Assert.AreEqual(input, properties.WaterStressLines.Data);
             Assert.AreSame(input, properties.Drainage.Data);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, properties.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, properties.MinimumLevelPhreaticLineAtDikeTopPolder);

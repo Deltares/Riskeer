@@ -51,6 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int piezometricHeadPhreaticLine2InwardsPropertyIndex = 11;
         private const int locationExtremePropertyIndex = 12;
         private const int locationDailyPropertyIndex = 13;
+        private const int waterStressLinesPropertyIndex = 14;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -268,6 +269,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return new MacroStabilityInwardsLocationDailyProperties(data.LocationInputDaily, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(waterStressLinesPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaterStressLines_DisplayName))]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public MacroStabilityInwardsWaterStressLinesProperties WaterStressLines
+        {
+            get
+            {
+                return new MacroStabilityInwardsWaterStressLinesProperties(data);
             }
         }
 
