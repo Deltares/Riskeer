@@ -54,9 +54,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
             return new UpliftVanCalculator(input, factory);
         }
 
-        public IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public IWaternetCalculator CreateWaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             return new WaternetExtremeCalculator(input, factory);
+        }
+
+        public IWaternetCalculator CreateWaternetDailyCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        {
+            return new WaternetDailyCalculator(input, factory);
         }
     }
 }

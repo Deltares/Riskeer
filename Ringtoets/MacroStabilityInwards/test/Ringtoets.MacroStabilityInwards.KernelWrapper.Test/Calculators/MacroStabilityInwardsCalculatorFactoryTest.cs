@@ -98,13 +98,13 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateWaternetCalculator_Always_ReturnsWaternetCalculator()
+        public void CreateWaternetExtremeCalculator_Always_ReturnsWaternetExtremeCalculator()
         {
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
 
             // Call
-            IWaternetCalculator waternetCalculator = factory.CreateWaternetCalculator(
+            IWaternetCalculator waternetCalculator = factory.CreateWaternetExtremeCalculator(
                 new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
@@ -115,7 +115,28 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                 }), new TestMacroStabilityInwardsKernelFactory());
 
             // Assert
-            Assert.IsInstanceOf<WaternetCalculator>(waternetCalculator);
+            Assert.IsInstanceOf<WaternetExtremeCalculator>(waternetCalculator);
+        }
+
+        [Test]
+        public void CreateWaternetDailyCalculator_Always_ReturnsWaternetDailyCalculator()
+        {
+            // Setup
+            IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
+
+            // Call
+            IWaternetCalculator waternetCalculator = factory.CreateWaternetDailyCalculator(
+                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+                {
+                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                    SoilProfile = new TestSoilProfile(),
+                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                    DrainageConstruction = new DrainageConstruction(),
+                }), new TestMacroStabilityInwardsKernelFactory());
+
+            // Assert
+            Assert.IsInstanceOf<WaternetDailyCalculator>(waternetCalculator);
         }
     }
 }

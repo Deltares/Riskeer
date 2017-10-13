@@ -42,12 +42,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
 
         /// <summary>
-        /// Creates a Waternet calculator.
+        /// Creates a Waternet calculator for the extreme circumstances.
         /// </summary>
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values required
         /// for performing a Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <returns>The Waternet calculator.</returns>
-        IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
+        IWaternetCalculator CreateWaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
+        
+        /// <summary>
+        /// Creates a Waternet calculator for the daily circumstances.
+        /// </summary>
+        /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values required
+        /// for performing a Waternet calculation.</param>
+        /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
+        /// <returns>The Waternet calculator.</returns>
+        IWaternetCalculator CreateWaternetDailyCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
     }
 }
