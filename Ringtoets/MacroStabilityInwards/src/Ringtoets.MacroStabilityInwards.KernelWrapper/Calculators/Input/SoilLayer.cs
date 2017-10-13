@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
             /// </summary>
             public ConstructionProperties()
             {
-                ShearStrengthModel = Input.ShearStrengthModel.CPhi;
+                ShearStrengthModel = ShearStrengthModel.CPhi;
                 MaterialName = string.Empty;
                 AbovePhreaticLevel = double.NaN;
                 BelowPhreaticLevel = double.NaN;
@@ -166,8 +166,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
                 StrengthIncreaseExponent = double.NaN;
                 ShearStrengthRatio = double.NaN;
                 Pop = double.NaN;
-                DilatancyType = Input.DilatancyType.Zero;
-                WaterPressureInterpolationModel = Input.WaterPressureInterpolationModel.Automatic;
+                DilatancyType = DilatancyType.Zero;
+                WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic;
             }
 
             /// <summary>
