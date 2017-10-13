@@ -67,13 +67,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             var profile = new SoilProfile2D();
             profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
 
+            var alreadyCreatedPoints = new List<WtiStabilityPoint2D>();
+            var alreadyCreatedCurves = new List<GeometryCurve>();
+
             foreach (KeyValuePair<SoilLayer, Soil> layerWithSoil in layersWithSoils)
             {
                 profile.Surfaces.Add(new SoilLayer2D
                 {
                     IsAquifer = layerWithSoil.Key.IsAquifer,
                     Soil = layerWithSoil.Value,
-                    GeometrySurface = CreateGeometrySurface(layerWithSoil.Key),
+                    GeometrySurface = CreateGeometrySurface(layerWithSoil.Key, alreadyCreatedPoints, alreadyCreatedCurves),
                     WaterpressureInterpolationModel = ConvertWaterPressureInterpolationModel(layerWithSoil.Key.WaterPressureInterpolationModel)
                 });
             }
@@ -93,58 +96,75 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             }).ToArray();
         }
 
-        private static GeometrySurface CreateGeometrySurface(SoilLayer layer)
+        private static GeometrySurface CreateGeometrySurface(SoilLayer layer, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
         {
             var surface = new GeometrySurface
             {
-                OuterLoop = CreateGeometryLoop(layer.OuterRing)
+                OuterLoop = CreateGeometryLoop(layer.OuterRing, alreadyCreatedPoints, alreadyCreatedCurves)
             };
 
-            surface.InnerLoops.AddRange(layer.Holes.Select(CreateGeometryLoop).ToArray());
+            surface.InnerLoops.AddRange(layer.Holes.Select(h => CreateGeometryLoop(h, alreadyCreatedPoints, alreadyCreatedCurves)).ToArray());
 
             return surface;
         }
 
-        private static GeometryLoop CreateGeometryLoop(Point2D[] points)
+        private static GeometryLoop CreateGeometryLoop(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
         {
             var loop = new GeometryLoop();
 
-            loop.CurveList.AddRange(CreateGeometryCurves(points));
+            loop.CurveList.AddRange(CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves));
 
             return loop;
         }
 
-        private static GeometryCurve[] CreateGeometryCurves(Point2D[] points)
+        private static GeometryCurve[] CreateGeometryCurves(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
         {
             var curves = new List<GeometryCurve>();
-            var firstPoint = new WtiStabilityPoint2D(points[0].X, points[0].Y);
-            WtiStabilityPoint2D lastPoint = null;
 
-            for (var i = 0; i < points.Length - 1; i++)
+            WtiStabilityPoint2D[] stabilityPoints = points.Select(p => GetPoint(p, alreadyCreatedPoints)).ToArray();
+            int stabilityPointsLength = stabilityPoints.Length;
+
+            for (var i = 0; i < stabilityPointsLength; i++)
             {
-                WtiStabilityPoint2D headPoint = i == 0 ? firstPoint : lastPoint;
-
-                var endPoint = new WtiStabilityPoint2D(points[i + 1].X, points[i + 1].Y);
-
-                curves.Add(new GeometryCurve
-                {
-                    HeadPoint = headPoint,
-                    EndPoint = endPoint
-                });
-
-                lastPoint = endPoint;
-            }
-
-            if (lastPoint != null && (Math.Abs(lastPoint.X - firstPoint.X) > 1e-6 || Math.Abs(lastPoint.Z - firstPoint.Z) > 1e-6))
-            {
-                curves.Add(new GeometryCurve
-                {
-                    HeadPoint = lastPoint,
-                    EndPoint = firstPoint
-                });
+                curves.Add(GetCurve(stabilityPoints[i],
+                                    i == stabilityPointsLength - 1
+                                        ? stabilityPoints[0]
+                                        : stabilityPoints[i + 1],
+                                    alreadyCreatedCurves));
             }
 
             return curves.ToArray();
+        }
+
+        private static WtiStabilityPoint2D GetPoint(Point2D point2D, List<WtiStabilityPoint2D> alreadyCreatedPoints)
+        {
+            WtiStabilityPoint2D stabilityPoint = alreadyCreatedPoints.FirstOrDefault(p => p.X.Equals(point2D.X) && p.Z.Equals(point2D.Y));
+            if (stabilityPoint == null)
+            {
+                stabilityPoint = new WtiStabilityPoint2D(point2D.X, point2D.Y);
+
+                alreadyCreatedPoints.Add(stabilityPoint);
+            }
+
+            return stabilityPoint;
+        }
+
+        private static GeometryCurve GetCurve(WtiStabilityPoint2D headPoint, WtiStabilityPoint2D endPoint, List<GeometryCurve> alreadyCreatedCurves)
+        {
+            GeometryCurve curve = alreadyCreatedCurves.FirstOrDefault(c => ReferenceEquals(c.HeadPoint, headPoint) && ReferenceEquals(c.EndPoint, endPoint)
+                                                                           || ReferenceEquals(c.HeadPoint, endPoint) && ReferenceEquals(c.EndPoint, headPoint));
+            if (curve == null)
+            {
+                curve = new GeometryCurve
+                {
+                    HeadPoint = headPoint,
+                    EndPoint = endPoint
+                };
+
+                alreadyCreatedCurves.Add(curve);
+            }
+
+            return curve;
         }
 
         private static GeometryData CreateGeometryData(SoilProfile2D profile)
@@ -159,7 +179,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                                                         gs.OuterLoop
                                                     }.Concat(gs.InnerLoops)));
             geometryData.Curves.AddRange(geometryData.Loops
-                                                     .SelectMany(l => l.CurveList));
+                                                     .SelectMany(l => l.CurveList)
+                                                     .Distinct());
             geometryData.Points.AddRange(geometryData.Curves
                                                      .SelectMany(c => new[]
                                                      {

@@ -55,9 +55,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilDictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(new SoilProfile(
-                                                                    Enumerable.Empty<SoilLayer>(),
-                                                                    Enumerable.Empty<PreconsolidationStress>()),
+            TestDelegate call = () => SoilProfileCreator.Create(new SoilProfile(Enumerable.Empty<SoilLayer>(),
+                                                                                Enumerable.Empty<PreconsolidationStress>()),
                                                                 null);
 
             // Assert
@@ -98,6 +97,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
         }
 
+        /// <remarks>
+        /// The soil profile used in this tests contains two layers (outer rings) and two holes (inner rings):
+        ///                                    
+        ///  11    # # # # # # # # # # #       
+        ///  10    #                   #       
+        ///   9    #   # # # # # # #   #       
+        ///   8    #   #           #   #       
+        ///   7    #   # # # # # # #   #       
+        ///   6    #   #           #   #       
+        ///   5    #   # # # # # # #   #       
+        ///   3    #                   #       
+        ///   3    # # # # # # # # # # #       
+        ///   2    #                   #       
+        ///   1    #                   #       
+        ///   0    # # # # # # # # # # #       
+        ///                                    
+        ///        0 1 2 3 4 5 6 7 8 9 10      
+        /// </remarks>>
         [TestCase(WaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
         [TestCase(WaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
         public void Create_WithAllData_ReturnSoilProfile2D(WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel waterpressureInterpolationModel)
@@ -108,41 +125,74 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             double preconsolidationStressZCoordinate = random.Next();
             RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
 
-            var outerRing = new[]
+            var layer1Points = new[]
             {
                 new Point2D(0, 0),
-                new Point2D(10, 10),
-                new Point2D(9, 9)
-            };
-            var holes = new[]
-            {
-                new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(4, 4),
-                    new Point2D(2.5, 2.5)
-                },
-                new[]
-                {
-                    new Point2D(3, 3),
-                    new Point2D(5, 5),
-                    new Point2D(3, 3)
-                }
+                new Point2D(0, 3),
+                new Point2D(10, 3),
+                new Point2D(10, 0)
             };
 
-            var layer = new SoilLayer(
-                outerRing, holes,
+            var layer2Points = new[]
+            {
+                new Point2D(0, 3),
+                new Point2D(0, 11),
+                new Point2D(10, 11),
+                new Point2D(10, 3)
+            };
+
+            var layer2Hole1Points = new[]
+            {
+                new Point2D(2, 5),
+                new Point2D(2, 7),
+                new Point2D(8, 7),
+                new Point2D(8, 5)
+            };
+
+            var layer2Hole2Points = new[]
+            {
+                new Point2D(2, 7),
+                new Point2D(2, 9),
+                new Point2D(8, 9),
+                new Point2D(8, 7)
+            };
+
+            var layer1 = new SoilLayer(
+                layer1Points, Enumerable.Empty<Point2D[]>(),
                 new SoilLayer.ConstructionProperties
                 {
+                    MaterialName = "Clay",
+                    IsAquifer = false,
+                    WaterPressureInterpolationModel = waterPressureInterpolationModel
+                });
+
+            var layer2 = new SoilLayer(
+                layer2Points, new[]
+                {
+                    layer2Hole1Points,
+                    layer2Hole2Points
+                },
+                new SoilLayer.ConstructionProperties
+                {
+                    MaterialName = "Sand",
                     IsAquifer = true,
                     WaterPressureInterpolationModel = waterPressureInterpolationModel
                 });
 
-            var soil = new Soil();
+            var soil1 = new Soil
+            {
+                Name = layer1.MaterialName
+            };
+
+            var soil2 = new Soil
+            {
+                Name = layer2.MaterialName
+            };
 
             var soilProfile = new SoilProfile(new[]
             {
-                layer
+                layer1,
+                layer2
             }, new[]
             {
                 new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
@@ -152,7 +202,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<SoilLayer, Soil>
             {
                 {
-                    layer, soil
+                    layer1, soil1
+                },
+                {
+                    layer2, soil2
                 }
             });
 
@@ -165,98 +218,127 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
             Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
 
-            Assert.AreEqual(1, profile.Surfaces.Count);
-            SoilLayer2D surface = profile.Surfaces.First();
-            Assert.AreSame(soil, surface.Soil);
-            Assert.IsFalse(string.IsNullOrEmpty(surface.Name)); // Unused property
-            Assert.AreEqual(layer.IsAquifer, surface.IsAquifer);
-            Assert.AreEqual(waterpressureInterpolationModel, surface.WaterpressureInterpolationModel);
+            Assert.AreEqual(2, profile.Surfaces.Count);
+            SoilLayer2D surface1 = profile.Surfaces.ElementAt(0);
+            Assert.AreSame(soil1, surface1.Soil);
+            Assert.AreEqual(layer1.MaterialName, surface1.Name);
+            Assert.AreEqual(layer1.IsAquifer, surface1.IsAquifer);
+            Assert.AreEqual(waterpressureInterpolationModel, surface1.WaterpressureInterpolationModel);
+            SoilLayer2D surface2 = profile.Surfaces.ElementAt(1);
+            Assert.AreSame(soil2, surface2.Soil);
+            Assert.AreEqual(layer2.MaterialName, surface2.Name);
+            Assert.AreEqual(layer2.IsAquifer, surface2.IsAquifer);
+            Assert.AreEqual(waterpressureInterpolationModel, surface2.WaterpressureInterpolationModel);
 
-            var point1 = new WtiStabilityPoint2D(0, 0);
-            var point2 = new WtiStabilityPoint2D(10, 10);
-            var point3 = new WtiStabilityPoint2D(9, 9);
-            var point4 = new WtiStabilityPoint2D(2, 2);
-            var point5 = new WtiStabilityPoint2D(4, 4);
-            var point6 = new WtiStabilityPoint2D(2.5, 2.5);
-            var point7 = new WtiStabilityPoint2D(3, 3);
-            var point8 = new WtiStabilityPoint2D(5, 5);
-            var point9 = new WtiStabilityPoint2D(3, 3);
-            var outerLoopCurve1 = new GeometryCurve(point1, point2);
-            var outerLoopCurve2 = new GeometryCurve(point2, point3);
-            var outerLoopCurve3 = new GeometryCurve(point3, point1);
-            var innerLoop1Curve1 = new GeometryCurve(point4, point5);
-            var innerLoop1Curve2 = new GeometryCurve(point5, point6);
-            var innerLoop1Curve3 = new GeometryCurve(point6, point4);
-            var innerLoop2Curve1 = new GeometryCurve(point7, point8);
-            var innerLoop2Curve2 = new GeometryCurve(point8, point9);
-            var expectedOuterLoop = new GeometryLoop
+            var outerLoopPoint1 = new WtiStabilityPoint2D(0, 0);
+            var outerLoopPoint2 = new WtiStabilityPoint2D(0, 3);
+            var outerLoopPoint3 = new WtiStabilityPoint2D(10, 3);
+            var outerLoopPoint4 = new WtiStabilityPoint2D(10, 0);
+            var outerLoopPoint5 = new WtiStabilityPoint2D(0, 11);
+            var outerLoopPoint6 = new WtiStabilityPoint2D(10, 11);
+            var outerLoopCurve1 = new GeometryCurve(outerLoopPoint1, outerLoopPoint2);
+            var outerLoopCurve2 = new GeometryCurve(outerLoopPoint2, outerLoopPoint3);
+            var outerLoopCurve3 = new GeometryCurve(outerLoopPoint3, outerLoopPoint4);
+            var outerLoopCurve4 = new GeometryCurve(outerLoopPoint4, outerLoopPoint1);
+            var outerLoopCurve5 = new GeometryCurve(outerLoopPoint2, outerLoopPoint5);
+            var outerLoopCurve6 = new GeometryCurve(outerLoopPoint5, outerLoopPoint6);
+            var outerLoopCurve7 = new GeometryCurve(outerLoopPoint6, outerLoopPoint3);
+            var outerLoop1 = new GeometryLoop
             {
                 CurveList =
                 {
                     outerLoopCurve1,
                     outerLoopCurve2,
-                    outerLoopCurve3
+                    outerLoopCurve3,
+                    outerLoopCurve4
                 }
             };
-            var expectedInnerLoop1 = new GeometryLoop
+            var outerLoop2 = new GeometryLoop
             {
                 CurveList =
                 {
-                    innerLoop1Curve1,
-                    innerLoop1Curve2,
-                    innerLoop1Curve3
+                    outerLoopCurve5,
+                    outerLoopCurve6,
+                    outerLoopCurve7,
+                    outerLoopCurve2
                 }
             };
-            var expectedInnerLoop2 = new GeometryLoop
+
+            var innerLoopPoint1 = new WtiStabilityPoint2D(2, 5);
+            var innerLoopPoint2 = new WtiStabilityPoint2D(2, 7);
+            var innerLoopPoint3 = new WtiStabilityPoint2D(8, 7);
+            var innerLoopPoint4 = new WtiStabilityPoint2D(8, 5);
+            var innerLoopPoint5 = new WtiStabilityPoint2D(2, 9);
+            var innerLoopPoint6 = new WtiStabilityPoint2D(8, 9);
+            var innerLoopCurve1 = new GeometryCurve(innerLoopPoint1, innerLoopPoint2);
+            var innerLoopCurve2 = new GeometryCurve(innerLoopPoint2, innerLoopPoint3);
+            var innerLoopCurve3 = new GeometryCurve(innerLoopPoint3, innerLoopPoint4);
+            var innerLoopCurve4 = new GeometryCurve(innerLoopPoint4, innerLoopPoint1);
+            var innerLoopCurve5 = new GeometryCurve(innerLoopPoint2, innerLoopPoint5);
+            var innerLoopCurve6 = new GeometryCurve(innerLoopPoint5, innerLoopPoint6);
+            var innerLoopCurve7 = new GeometryCurve(innerLoopPoint6, innerLoopPoint3);
+            var innerLoop1 = new GeometryLoop
             {
                 CurveList =
                 {
-                    innerLoop2Curve1,
-                    innerLoop2Curve2
+                    innerLoopCurve1,
+                    innerLoopCurve2,
+                    innerLoopCurve3,
+                    innerLoopCurve4
+                }
+            };
+            var innerLoop2 = new GeometryLoop
+            {
+                CurveList =
+                {
+                    innerLoopCurve5,
+                    innerLoopCurve6,
+                    innerLoopCurve7,
+                    innerLoopCurve2
                 }
             };
 
             CollectionAssert.AreEqual(new[]
             {
-                surface.GeometrySurface
-            }, profile.Geometry.Surfaces);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                point1,
-                point2,
-                point3,
-                point4,
-                point5,
-                point6,
-                point7,
-                point8,
-                point9
+                outerLoopPoint1,
+                outerLoopPoint2,
+                outerLoopPoint3,
+                outerLoopPoint4,
+                outerLoopPoint5,
+                outerLoopPoint6,
+                innerLoopPoint1,
+                innerLoopPoint2,
+                innerLoopPoint3,
+                innerLoopPoint4,
+                innerLoopPoint5,
+                innerLoopPoint6
             }, profile.Geometry.Points, new StabilityPointComparer());
+
             CollectionAssert.AreEqual(new[]
             {
                 outerLoopCurve1,
                 outerLoopCurve2,
                 outerLoopCurve3,
-                innerLoop1Curve1,
-                innerLoop1Curve2,
-                innerLoop1Curve3,
-                innerLoop2Curve1,
-                innerLoop2Curve2
+                outerLoopCurve4,
+                outerLoopCurve5,
+                outerLoopCurve6,
+                outerLoopCurve7,
+                innerLoopCurve1,
+                innerLoopCurve2,
+                innerLoopCurve3,
+                innerLoopCurve4,
+                innerLoopCurve5,
+                innerLoopCurve6,
+                innerLoopCurve7
             }, profile.Geometry.Curves, new GeometryCurveComparer());
-            CollectionAssert.AreEqual(new[]
-            {
-                expectedOuterLoop,
-                expectedInnerLoop1,
-                expectedInnerLoop2
-            }, profile.Geometry.Loops, new GeometryLoopComparer());
 
-            CollectionAssert.AreEqual(expectedOuterLoop.CurveList, surface.GeometrySurface.OuterLoop.CurveList, new GeometryCurveComparer());
             CollectionAssert.AreEqual(new[]
             {
-                expectedInnerLoop1,
-                expectedInnerLoop2
-            }, surface.GeometrySurface.InnerLoops, new GeometryLoopComparer());
+                outerLoop1,
+                outerLoop2,
+                innerLoop1,
+                innerLoop2
+            }, profile.Geometry.Loops, new GeometryLoopComparer());
 
             Assert.AreEqual(0, profile.Geometry.Left);
             Assert.AreEqual(0, profile.Geometry.Bottom);
