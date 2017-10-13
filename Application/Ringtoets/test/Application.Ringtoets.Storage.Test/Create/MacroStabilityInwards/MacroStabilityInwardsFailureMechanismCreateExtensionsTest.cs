@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -149,6 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
+            Assert.IsNotNull(entity);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
@@ -228,6 +230,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
+            Assert.IsNotNull(entity);
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
@@ -243,12 +246,49 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
 
             // Assert
+            Assert.IsNotNull(entity);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
 
             MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             MacroStabilityInwardsSectionResultEntity resultEntity = entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Single();
             Assert.AreEqual((byte) sectionResult.AssessmentLayerOne, resultEntity.LayerOne);
             Assert.IsNull(resultEntity.LayerThree);
+        }
+
+        [Test]
+        public void Create_WithCalculationGroup_ReturnFailureMechanismWithCalculationGroupEntities()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup("A", true);
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(failureMechanism.CalculationsGroup.Name, entity.CalculationGroupEntity.Name);
+            Assert.AreEqual(0, entity.CalculationGroupEntity.Order);
+
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
+                                                                .OrderBy(cge => cge.Order)
+                                                                .ToArray();
+            Assert.AreEqual(1, childGroupEntities.Length);
+            CalculationGroupEntity childGroupEntity = childGroupEntities[0];
+            Assert.AreEqual(calculationGroup.Name, childGroupEntity.Name);
+            Assert.AreEqual(0, childGroupEntity.Order);
+
+            MacroStabilityInwardsCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.MacroStabilityInwardsCalculationEntities
+                                                                                 .OrderBy(ce => ce.Order)
+                                                                                 .ToArray();
+            Assert.AreEqual(1, calculationEntities.Length);
+            MacroStabilityInwardsCalculationEntity calculationEntity = calculationEntities[0];
+            Assert.AreEqual(calculation.Name, calculationEntity.Name);
+            Assert.AreEqual(1, calculationEntity.Order);
         }
 
         private static void AssertSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine, SurfaceLineEntity entity)

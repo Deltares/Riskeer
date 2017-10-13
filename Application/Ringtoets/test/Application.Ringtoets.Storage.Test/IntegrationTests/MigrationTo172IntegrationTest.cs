@@ -64,6 +64,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 using (var reader = new MigratedDatabaseReader(targetFilePath))
                 {
                     AssertTablesContentMigrated(reader, sourceFilePath);
+                    AssertCalculationGroup(reader, sourceFilePath);
 
                     AssertMacroStabilityInwardsFailureMechanism(reader);
                     AssertGrassCoverErosionOutwardsFailureMechanism(reader);
@@ -640,7 +641,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var tables = new[]
             {
                 "AssessmentSectionEntity",
-                "CalculationGroupEntity",
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresSectionResultEntity",
@@ -696,6 +696,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
+        }
+
+        private static void AssertCalculationGroup(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMigratedTable =
+                    $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                    "SELECT COUNT() = (SELECT COUNT() + 1 FROM [SOURCEPROJECT].CalculationGroupEntity)" +
+                    "FROM CalculationGroupEntity;" +
+                    "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateMigratedTable);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader)

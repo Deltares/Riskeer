@@ -504,6 +504,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsMacroStabilityInwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                          MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                          ReadConversionCollector collector)
@@ -547,6 +548,7 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             entity.ReadMacroStabilityInwardsMechanismSectionResults(failureMechanism, collector);
+            ReadMacroStabilityInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadMacroStabilityInwardsMechanismSectionResults(this FailureMechanismEntity entity,
@@ -559,6 +561,17 @@ namespace Application.Ringtoets.Storage.Read
                 MacroStabilityInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
+            }
+        }
+
+        private static void ReadMacroStabilityInwardsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                                          CalculationGroup targetRootCalculationGroup,
+                                                                          ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector);
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
             }
         }
 

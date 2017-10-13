@@ -1616,6 +1616,17 @@ SELECT FailureMechanismEntityId,
 	0.033
 	FROM FailureMechanismEntity WHERE FailureMechanismType = 2;
 
+INSERT INTO CalculationGroupEntity (
+	[NAME],
+	[ORDER])
+SELECT 
+	"Berekeningen",
+	0;
+ 
+UPDATE FailureMechanismEntity
+SET CalculationGroupEntityId = last_insert_rowid()
+WHERE FailureMechanismType = 2;
+
 /* 
 Write migration logging 
 */
