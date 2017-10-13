@@ -28,7 +28,7 @@ using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Revetment.IO.Configurations.Helpers;
 using Ringtoets.Revetment.IO.Properties;
-using RingtoestCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -62,23 +62,23 @@ namespace Ringtoets.Revetment.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hydraulicBoundaryLocationSchemaName, RingtoestCommonIOResources.HrLocatieSchema
+                           hydraulicBoundaryLocationSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
                        },
                        {
-                           orientationSchemaName, RingtoestCommonIOResources.OrientatieSchema
+                           orientationSchemaName, RingtoetsCommonIOResources.OrientatieSchema
                        },
                        {
-                           foreshoreProfileSchemaName, RingtoestCommonIOResources.VoorlandProfielSchema
+                           foreshoreProfileSchemaName, RingtoetsCommonIOResources.VoorlandProfielSchema
                        },
                        {
-                           waveReductionSchemaName, RingtoestCommonIOResources.GolfReductieSchema
+                           waveReductionSchemaName, RingtoetsCommonIOResources.GolfReductieSchema
                        }
                    }) {}
 
         protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
             return new WaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
-            { 
+            {
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment),
                 LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment),
