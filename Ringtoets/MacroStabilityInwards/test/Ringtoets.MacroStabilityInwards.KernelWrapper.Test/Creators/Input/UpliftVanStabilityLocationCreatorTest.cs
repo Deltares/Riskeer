@@ -524,9 +524,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
             Assert.AreEqual(WtiStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
             Assert.AreEqual(WtiStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
-            Assert.AreEqual(assessmentLevel, location.WaterLevelRiver);
-            Assert.AreEqual(assessmentLevel, location.HeadInPlLine3);
-            Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
+            Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiver);
+            Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine3);
+            Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine4);
             Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolderDaily, location.WaterLevelPolder);
             Assert.AreEqual(drainageConstruction.IsPresent, location.DrainageConstructionPresent);

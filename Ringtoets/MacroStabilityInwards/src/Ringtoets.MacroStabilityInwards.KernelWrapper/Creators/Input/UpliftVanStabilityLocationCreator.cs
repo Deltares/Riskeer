@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
                 PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
-                WaterLevelRiver = input.AssessmentLevel,
+                WaterLevelRiver = input.WaterLevelRiverAverage,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolderDaily,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
