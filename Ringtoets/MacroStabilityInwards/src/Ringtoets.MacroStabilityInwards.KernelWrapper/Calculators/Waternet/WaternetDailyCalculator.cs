@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
@@ -34,46 +32,24 @@ using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Inpu
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
     /// <summary>
-    /// Class representing a Waternet calculator.
+    /// Class representing a Waternet calculator for daily circumstances.
     /// </summary>
-    public class WaternetCalculator : IWaternetCalculator
+    public class WaternetDailyCalculator : WaternetCalculator
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaternetCalculator"/>.
+        /// Creates a new instance of <see cref="WaternetDailyCalculator"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values
         /// required for performing the Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or 
         /// <paramref name="factory"/> is <c>null</c>.</exception>
-        public WaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        public WaternetDailyCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory) 
+            : base(input, factory) {}
+
+        protected override IWaternetKernel CreateWaternetKernel()
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-            if (factory == null)
-            {
-                throw new ArgumentNullException(nameof(factory));
-            }
-            Input = input;
-            Factory = factory;
-        }
-
-        public WaternetCalculatorResult Calculate()
-        {
-            IWaternetKernel waternetKernel = CalculateWaternet();
-
-            return WaternetCalculatorResultCreator.Create(waternetKernel.Waternet);
-        }
-
-        protected WaternetCalculatorInput Input { get; }
-
-        protected IMacroStabilityInwardsKernelFactory Factory { get; }
-
-        protected virtual IWaternetKernel CreateWaternetKernel()
-        {
-            IWaternetKernel waternetKernel = Factory.CreateWaternetExtremeKernel();
+            IWaternetKernel waternetKernel = Factory.CreateWaternetDailyKernel();
 
             Soil[] soils = SoilCreator.Create(Input.SoilProfile);
             Dictionary<SoilLayer, Soil> layersWithSoils =
@@ -87,24 +63,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 
             waternetKernel.SoilModel = SoilModelCreator.Create(soils);
             waternetKernel.SoilProfile = SoilProfileCreator.Create(Input.SoilProfile, layersWithSoils);
-            waternetKernel.Location = WaternetStabilityLocationCreator.CreateExtreme(Input);
+            waternetKernel.Location = WaternetStabilityLocationCreator.CreateDaily(Input);
             waternetKernel.SurfaceLine = SurfaceLineCreator.Create(Input.SurfaceLine, Input.LandwardDirection);
-
-            return waternetKernel;
-        }
-
-        private IWaternetKernel CalculateWaternet()
-        {
-            IWaternetKernel waternetKernel = CreateWaternetKernel();
-
-            try
-            {
-                waternetKernel.Calculate();
-            }
-            catch (WaternetKernelWrapperException e)
-            {
-                throw new WaternetCalculatorException(e.Message, e);
-            }
 
             return waternetKernel;
         }
