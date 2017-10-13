@@ -20,23 +20,18 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
     /// <summary>
     /// Class representing a Waternet calculator.
     /// </summary>
-    public class WaternetCalculator : IWaternetCalculator
+    public abstract class WaternetCalculator : IWaternetCalculator
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaternetCalculator"/>.
@@ -46,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or 
         /// <paramref name="factory"/> is <c>null</c>.</exception>
-        public WaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
+        protected WaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             if (input == null)
             {
@@ -67,31 +62,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
             return WaternetCalculatorResultCreator.Create(waternetKernel.Waternet);
         }
 
+        /// <summary>
+        /// Gets the input of the calculation.
+        /// </summary>
         protected WaternetCalculatorInput Input { get; }
 
+        /// <summary>
+        /// Gets the factory responsible for creating the Waternet kernel.
+        /// </summary>
         protected IMacroStabilityInwardsKernelFactory Factory { get; }
 
-        protected virtual IWaternetKernel CreateWaternetKernel()
-        {
-            IWaternetKernel waternetKernel = Factory.CreateWaternetExtremeKernel();
-
-            Soil[] soils = SoilCreator.Create(Input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
-                Input.SoilProfile.Layers
-                     .Zip(soils, (layer, soil) => new
-                     {
-                         layer,
-                         soil
-                     })
-                     .ToDictionary(x => x.layer, x => x.soil);
-
-            waternetKernel.SoilModel = SoilModelCreator.Create(soils);
-            waternetKernel.SoilProfile = SoilProfileCreator.Create(Input.SoilProfile, layersWithSoils);
-            waternetKernel.Location = WaternetStabilityLocationCreator.CreateExtreme(Input);
-            waternetKernel.SurfaceLine = SurfaceLineCreator.Create(Input.SurfaceLine, Input.LandwardDirection);
-
-            return waternetKernel;
-        }
+        /// <summary>
+        /// Creates a Waternet kernel.
+        /// </summary>
+        /// <returns>The created <see cref="IWaternetKernel"/>.</returns>
+        protected abstract IWaternetKernel CreateWaternetKernel();
 
         private IWaternetKernel CalculateWaternet()
         {

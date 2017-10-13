@@ -78,14 +78,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
         public WtiStabilityWaternet Waternet { get; private set; }
 
-        protected StabilityModel StabilityModel
-        {
-            get
-            {
-                return stabilityModel;
-            }
-        }
-
         public void Calculate()
         {
             try
@@ -100,6 +92,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
                 throw new WaternetKernelWrapperException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Gets the stability model of the kernel.
+        /// </summary>
+        protected StabilityModel StabilityModel
+        {
+            get
+            {
+                return stabilityModel;
             }
         }
 

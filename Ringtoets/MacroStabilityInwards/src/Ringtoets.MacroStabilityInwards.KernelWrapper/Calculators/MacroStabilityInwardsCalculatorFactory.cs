@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
 
         public IWaternetCalculator CreateWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
-            return new WaternetCalculator(input, factory);
+            return new WaternetExtremeCalculator(input, factory);
         }
     }
 }
