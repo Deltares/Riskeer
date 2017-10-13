@@ -38,6 +38,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             // Assert
             Assert.IsInstanceOf<WaternetKernelWrapper>(kernel);
+            var calculateDaily = TypeUtils.GetField<bool>(kernel, "calculateDaily");
+            Assert.IsTrue(calculateDaily);
         }
 
         [Test]
@@ -65,6 +67,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
             Assert.AreSame(soilModel, stabilityModel.SoilModel);
             Assert.AreSame(soilProfile2D, stabilityModel.SoilProfile);
+
+            Assert.IsNotNull(stabilityModel.GeotechnicsData.CurrentWaternetDaily);
+            Assert.AreEqual("WaternetDaily", stabilityModel.GeotechnicsData.CurrentWaternetDaily.Name);
 
             AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
         }

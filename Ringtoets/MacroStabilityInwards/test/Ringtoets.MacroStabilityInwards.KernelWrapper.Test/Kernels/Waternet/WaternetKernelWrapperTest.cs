@@ -227,6 +227,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
         private class TestWaternetKernelWrapper : WaternetKernelWrapper
         {
+            public TestWaternetKernelWrapper() : base(false) {}
+
             public override StabilityLocation Location
             {
                 set

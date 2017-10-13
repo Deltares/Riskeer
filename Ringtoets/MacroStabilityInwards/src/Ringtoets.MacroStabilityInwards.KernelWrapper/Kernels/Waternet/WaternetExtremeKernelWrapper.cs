@@ -30,6 +30,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetExtremeKernelWrapper : WaternetKernelWrapper
     {
+        public WaternetExtremeKernelWrapper()
+            : base(false) {}
+
         public override StabilityLocation Location
         {
             set

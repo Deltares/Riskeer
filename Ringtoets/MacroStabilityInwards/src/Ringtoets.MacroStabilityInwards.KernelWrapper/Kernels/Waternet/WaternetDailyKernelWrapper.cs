@@ -21,6 +21,7 @@
 
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
+using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -30,6 +31,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetDailyKernelWrapper : WaternetKernelWrapper
     {
+        public WaternetDailyKernelWrapper()
+            : base(true)
+        {
+            StabilityModel.GeotechnicsData.CurrentWaternetDaily = new WtiStabilityWaternet
+            {
+                Name = "WaternetDaily"
+            };
+        }
+
         public override StabilityLocation Location
         {
             set
