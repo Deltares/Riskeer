@@ -38,12 +38,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     {
         private readonly StabilityModel stabilityModel;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
+        /// </summary>
         public WaternetKernelWrapper()
         {
             stabilityModel = new StabilityModel();
         }
 
-        public StabilityLocation Location
+        public virtual StabilityLocation Location
         {
             set
             {
@@ -76,6 +79,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         }
 
         public WtiStabilityWaternet Waternet { get; private set; }
+
+        protected StabilityModel StabilityModel
+        {
+            get
+            {
+                return stabilityModel;
+            }
+        }
 
         public void Calculate()
         {

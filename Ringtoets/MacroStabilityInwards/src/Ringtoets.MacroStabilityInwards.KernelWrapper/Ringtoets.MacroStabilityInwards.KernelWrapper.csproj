@@ -86,6 +86,8 @@
     <Compile Include="Creators\Output\WaternetCalculatorResultCreator.cs" />
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperException.cs" />
     <Compile Include="Kernels\Waternet\IWaternetKernel.cs" />
+    <Compile Include="Kernels\Waternet\WaternetDailyKernelWrapper.cs" />
+    <Compile Include="Kernels\Waternet\WaternetExtremeKernelWrapper.cs" />
     <Compile Include="Kernels\Waternet\WaternetKernelWrapper.cs" />
     <Compile Include="Kernels\Waternet\WaternetKernelWrapperException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
