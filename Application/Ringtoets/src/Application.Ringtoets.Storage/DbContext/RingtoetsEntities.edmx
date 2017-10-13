@@ -704,17 +704,11 @@
           <Property Name="RightGridNrOfVerticalPoints" Type="int" Nullable="false" />
           <Property Name="DikeSoilScenarioType" Type="tinyint" Nullable="false" />
           <Property Name="WaterLevelRiverAverage" Type="real" />
-          <Property Name="WaterLevelPolder" Type="real" />
           <Property Name="DrainageConstructionPresent" Type="tinyint" Nullable="false" />
           <Property Name="DrainageConstructionCoordinateX" Type="real" />
           <Property Name="DrainageConstructionCoordinateZ" Type="real" />
           <Property Name="MinimumLevelPhreaticLineAtDikeTopRiver" Type="real" />
           <Property Name="MinimumLevelPhreaticLineAtDikeTopPolder" Type="real" />
-          <Property Name="UseDefaultOffsets" Type="tinyint" Nullable="false" />
-          <Property Name="PhreaticLineOffsetBelowDikeTopAtRiver" Type="real" />
-          <Property Name="PhreaticLineOffsetBelowDikeTopAtPolder" Type="real" />
-          <Property Name="PhreaticLineOffsetBelowShoulderBaseInside" Type="real" />
-          <Property Name="PhreaticLineOffsetBelowDikeToeAtPolder" Type="real" />
           <Property Name="AdjustPhreaticLine3And4ForUplift" Type="tinyint" Nullable="false" />
           <Property Name="LeakageLengthOutwardsPhreaticLine3" Type="real" />
           <Property Name="LeakageLengthInwardsPhreaticLine3" Type="real" />
@@ -5105,17 +5099,11 @@
           <Property Name="RightGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
           <Property Name="DikeSoilScenarioType" Type="Byte" Nullable="false" />
           <Property Name="WaterLevelRiverAverage" Type="Double" />
-          <Property Name="WaterLevelPolder" Type="Double" />
           <Property Name="DrainageConstructionPresent" Type="Byte" Nullable="false" />
           <Property Name="DrainageConstructionCoordinateX" Type="Double" />
           <Property Name="DrainageConstructionCoordinateZ" Type="Double" />
           <Property Name="MinimumLevelPhreaticLineAtDikeTopRiver" Type="Double" />
           <Property Name="MinimumLevelPhreaticLineAtDikeTopPolder" Type="Double" />
-          <Property Name="UseDefaultOffsets" Type="Byte" Nullable="false" />
-          <Property Name="PhreaticLineOffsetBelowDikeTopAtRiver" Type="Double" />
-          <Property Name="PhreaticLineOffsetBelowDikeTopAtPolder" Type="Double" />
-          <Property Name="PhreaticLineOffsetBelowShoulderBaseInside" Type="Double" />
-          <Property Name="PhreaticLineOffsetBelowDikeToeAtPolder" Type="Double" />
           <Property Name="AdjustPhreaticLine3And4ForUplift" Type="Byte" Nullable="false" />
           <Property Name="LeakageLengthOutwardsPhreaticLine3" Type="Double" />
           <Property Name="LeakageLengthInwardsPhreaticLine3" Type="Double" />
@@ -8167,17 +8155,11 @@
                 <ScalarProperty Name="LeakageLengthInwardsPhreaticLine3" ColumnName="LeakageLengthInwardsPhreaticLine3" />
                 <ScalarProperty Name="LeakageLengthOutwardsPhreaticLine3" ColumnName="LeakageLengthOutwardsPhreaticLine3" />
                 <ScalarProperty Name="AdjustPhreaticLine3And4ForUplift" ColumnName="AdjustPhreaticLine3And4ForUplift" />
-                <ScalarProperty Name="PhreaticLineOffsetBelowDikeToeAtPolder" ColumnName="PhreaticLineOffsetBelowDikeToeAtPolder" />
-                <ScalarProperty Name="PhreaticLineOffsetBelowShoulderBaseInside" ColumnName="PhreaticLineOffsetBelowShoulderBaseInside" />
-                <ScalarProperty Name="PhreaticLineOffsetBelowDikeTopAtPolder" ColumnName="PhreaticLineOffsetBelowDikeTopAtPolder" />
-                <ScalarProperty Name="PhreaticLineOffsetBelowDikeTopAtRiver" ColumnName="PhreaticLineOffsetBelowDikeTopAtRiver" />
-                <ScalarProperty Name="UseDefaultOffsets" ColumnName="UseDefaultOffsets" />
                 <ScalarProperty Name="MinimumLevelPhreaticLineAtDikeTopPolder" ColumnName="MinimumLevelPhreaticLineAtDikeTopPolder" />
                 <ScalarProperty Name="MinimumLevelPhreaticLineAtDikeTopRiver" ColumnName="MinimumLevelPhreaticLineAtDikeTopRiver" />
                 <ScalarProperty Name="DrainageConstructionCoordinateZ" ColumnName="DrainageConstructionCoordinateZ" />
                 <ScalarProperty Name="DrainageConstructionCoordinateX" ColumnName="DrainageConstructionCoordinateX" />
                 <ScalarProperty Name="DrainageConstructionPresent" ColumnName="DrainageConstructionPresent" />
-                <ScalarProperty Name="WaterLevelPolder" ColumnName="WaterLevelPolder" />
                 <ScalarProperty Name="WaterLevelRiverAverage" ColumnName="WaterLevelRiverAverage" />
                 <ScalarProperty Name="DikeSoilScenarioType" ColumnName="DikeSoilScenarioType" />
                 <ScalarProperty Name="RightGridNrOfVerticalPoints" ColumnName="RightGridNrOfVerticalPoints" />

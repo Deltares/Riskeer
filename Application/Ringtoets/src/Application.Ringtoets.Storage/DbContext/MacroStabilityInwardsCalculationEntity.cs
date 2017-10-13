@@ -77,17 +77,11 @@ namespace Application.Ringtoets.Storage.DbContext
         public int RightGridNrOfVerticalPoints { get; set; }
         public byte DikeSoilScenarioType { get; set; }
         public double? WaterLevelRiverAverage { get; set; }
-        public double? WaterLevelPolder { get; set; }
         public byte DrainageConstructionPresent { get; set; }
         public double? DrainageConstructionCoordinateX { get; set; }
         public double? DrainageConstructionCoordinateZ { get; set; }
         public double? MinimumLevelPhreaticLineAtDikeTopRiver { get; set; }
         public double? MinimumLevelPhreaticLineAtDikeTopPolder { get; set; }
-        public byte UseDefaultOffsets { get; set; }
-        public double? PhreaticLineOffsetBelowDikeTopAtRiver { get; set; }
-        public double? PhreaticLineOffsetBelowDikeTopAtPolder { get; set; }
-        public double? PhreaticLineOffsetBelowShoulderBaseInside { get; set; }
-        public double? PhreaticLineOffsetBelowDikeToeAtPolder { get; set; }
         public byte AdjustPhreaticLine3And4ForUplift { get; set; }
         public double? LeakageLengthOutwardsPhreaticLine3 { get; set; }
         public double? LeakageLengthInwardsPhreaticLine3 { get; set; }
