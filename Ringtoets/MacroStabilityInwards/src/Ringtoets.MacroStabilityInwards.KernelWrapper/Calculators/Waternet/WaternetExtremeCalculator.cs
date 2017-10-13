@@ -20,14 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
@@ -44,29 +39,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or 
         /// <paramref name="factory"/> is <c>null</c>.</exception>
-        public WaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory) 
+        public WaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
             : base(input, factory) {}
 
         protected override IWaternetKernel CreateWaternetKernel()
         {
-            IWaternetKernel waternetKernel = Factory.CreateWaternetExtremeKernel();
-
-            Soil[] soils = SoilCreator.Create(Input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
-                Input.SoilProfile.Layers
-                     .Zip(soils, (layer, soil) => new
-                     {
-                         layer,
-                         soil
-                     })
-                     .ToDictionary(x => x.layer, x => x.soil);
-
-            waternetKernel.SoilModel = SoilModelCreator.Create(soils);
-            waternetKernel.SoilProfile = SoilProfileCreator.Create(Input.SoilProfile, layersWithSoils);
-            waternetKernel.Location = WaternetStabilityLocationCreator.Create(Input);
-            waternetKernel.SurfaceLine = SurfaceLineCreator.Create(Input.SurfaceLine, Input.LandwardDirection);
-
-            return waternetKernel;
+            return Factory.CreateWaternetExtremeKernel();
         }
     }
 }
