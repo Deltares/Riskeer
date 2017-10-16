@@ -59,10 +59,12 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             {
                 return collector.Get(entity);
             }
-            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = entity.MacroStabilityInwardsSoilLayerTwoDEntities.OrderBy(sl => sl.Order)
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = entity.MacroStabilityInwardsSoilLayerTwoDEntities
+                                                                         .OrderBy(sl => sl.Order)
                                                                          .Select(sl => sl.Read())
                                                                          .ToArray();
             IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = entity.MacroStabilityInwardsPreconsolidationStressEntities
+                                                                                                      .OrderBy(stressEntity => stressEntity.Order)
                                                                                                       .Select(stressEntity => stressEntity.Read())
                                                                                                       .ToArray();
             var soilProfile = new MacroStabilityInwardsSoilProfile2D(entity.Name,

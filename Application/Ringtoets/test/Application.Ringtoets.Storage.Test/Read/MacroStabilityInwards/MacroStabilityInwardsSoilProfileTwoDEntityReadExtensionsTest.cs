@@ -26,8 +26,10 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
@@ -80,6 +82,15 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 new Point2D(random.NextDouble(), random.NextDouble())
             });
 
+            var preconsolidationStressEntity = new MacroStabilityInwardsPreconsolidationStressEntity
+            {
+                CoordinateX = random.NextDouble(),
+                CoordinateZ = random.NextDouble(),
+                PreconsolidationStressMean = random.NextDouble(),
+                PreconsolidationStressCoefficientOfVariation = random.NextDouble(),
+                Order = 1
+            };
+
             var point2DXmlSerializer = new Point2DXmlSerializer();
             var ringXmlSerializer = new RingXmlSerializer();
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
@@ -99,6 +110,14 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                         MaterialName = "B",
                         OuterRingXml = point2DXmlSerializer.ToXml(outerRingB.Points),
                         HolesXml = ringXmlSerializer.ToXml(new Ring[0]),
+                        Order = 0
+                    }
+                },
+                MacroStabilityInwardsPreconsolidationStressEntities =
+                {
+                    preconsolidationStressEntity,
+                    new MacroStabilityInwardsPreconsolidationStressEntity
+                    {
                         Order = 0
                     }
                 }
@@ -128,6 +147,23 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 new Ring[0],
                 new Ring[0]
             }, profile.Layers.Select(l => l.Holes));
+
+            CollectionAssert.AreEqual(new[]
+            {
+                new MacroStabilityInwardsPreconsolidationStress(new Point2D(0, 0),
+                                                                new VariationCoefficientLogNormalDistribution
+                                                                {
+                                                                    Mean = RoundedDouble.NaN,
+                                                                    CoefficientOfVariation = RoundedDouble.NaN
+                                                                }),
+                new MacroStabilityInwardsPreconsolidationStress(new Point2D(preconsolidationStressEntity.CoordinateX,
+                                                                            preconsolidationStressEntity.CoordinateZ),
+                                                                new VariationCoefficientLogNormalDistribution
+                                                                {
+                                                                    Mean = (RoundedDouble) preconsolidationStressEntity.PreconsolidationStressMean.ToNullAsNaN(),
+                                                                    CoefficientOfVariation = (RoundedDouble) preconsolidationStressEntity.PreconsolidationStressCoefficientOfVariation.ToNullAsNaN()
+                                                                })
+            }, profile.PreconsolidationStresses);
         }
 
         [Test]
