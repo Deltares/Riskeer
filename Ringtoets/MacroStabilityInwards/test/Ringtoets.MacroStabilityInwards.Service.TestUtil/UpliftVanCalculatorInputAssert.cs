@@ -22,7 +22,6 @@
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -36,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.</param>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.</param>
         /// <param name="actual">The actual <see cref="SoilProfile"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
@@ -55,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="MacroStabilityInwardsPreconsolidationStress"/> array.</param>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsPreconsolidationStress"/> array.</param>
         /// <param name="actual">The actual <see cref="PreconsolidationStress"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
@@ -73,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/> array.</param>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsSoilLayerUnderSurfaceLine"/> array.</param>
         /// <param name="actual">The actual <see cref="SoilLayer"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
