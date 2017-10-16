@@ -126,7 +126,7 @@
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismView.Designer.cs">
       <DependentUpon>MacroStabilityInwardsFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MacroStabilityInwardsSoilLayerTable.cs">
+    <Compile Include="Views\MacroStabilityInwardsSoilLayerDataTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Utils.Extensions;
@@ -26,6 +28,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -134,6 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                     chartControl.Data = chartDataCollection;
                     UpdateChartTitle();
                 }
+                UpdateTableData();
             }
         }
 
@@ -155,6 +159,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 components?.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void UpdateTableData()
+        {
+            var soilLayerData = new List<MacroStabilityInwardsSoilLayerData>();
+
+            var profile1D = data?.InputParameters.StochasticSoilProfile?.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            var profile2D = data?.InputParameters.StochasticSoilProfile?.SoilProfile as MacroStabilityInwardsSoilProfile2D;
+
+            if (profile1D != null)
+            {
+                soilLayerData.AddRange(profile1D.Layers.Select(l => l.Data));
+            }
+            else if (profile2D != null)
+            {
+                soilLayerData.AddRange(profile2D.Layers.Select(l => l.Data));
+            }
+
+            soilLayerDataTable.SetData(soilLayerData);
         }
 
         private void UpdateChartTitle()

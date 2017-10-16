@@ -229,17 +229,41 @@
   <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
     <value>Handmatig toetspeil invoeren</value>
   </data>
-  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_MaterialName" xml:space="preserve">
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_Color" xml:space="preserve">
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color" xml:space="preserve">
     <value>Kleur</value>
   </data>
-  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_Top" xml:space="preserve">
-    <value>Topniveau [m+NAP]</value>
-  </data>
-  <data name="MacroStabilityInwardsSoilLayerTable_ColumnHeader_IsAquifer" xml:space="preserve">
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_IsAquifer" xml:space="preserve">
     <value>Is aquifer</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_AbovePhreaticLevel" xml:space="preserve">
+    <value>Onverzadigd gewicht [kN/m³]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_BelowPhreaticLevel" xml:space="preserve">
+    <value>Verzadigd gewicht [kN/m³]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel" xml:space="preserve">
+    <value>Schuifsterkte model</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion" xml:space="preserve">
+    <value>Cohesie [kN/m³]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle" xml:space="preserve">
+    <value>Wrijvingshoek [°]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio" xml:space="preserve">
+    <value>Schuifsterkte ratio S [-]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent" xml:space="preserve">
+    <value>Sterkte toename exp (m) [-]</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop" xml:space="preserve">
+    <value>Gebruik POP</value>
+  </data>
+  <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop" xml:space="preserve">
+    <value>POP [kN/m³]</value>
   </data>
   <data name="MacroStabilityInwardsSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>

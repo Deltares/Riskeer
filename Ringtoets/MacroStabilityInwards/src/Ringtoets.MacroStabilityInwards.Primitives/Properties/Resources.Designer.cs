@@ -119,6 +119,33 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPhi.
+        /// </summary>
+        public static string MacroStabilityInwardsShearStrengthModel_CPhi_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsShearStrengthModel_CPhi_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CPhi of Su berekend.
+        /// </summary>
+        public static string MacroStabilityInwardsShearStrengthModel_CPhiOrSuCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsShearStrengthModel_CPhiOrSuCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Su berekend.
+        /// </summary>
+        public static string MacroStabilityInwardsShearStrengthModel_SuCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsShearStrengthModel_SuCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie..
         /// </summary>
         public static string MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom {

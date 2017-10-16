@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.chartControl = new Core.Components.OxyPlot.Forms.ChartControl();
-            this.soilLayerTable = new MacroStabilityInwardsSoilLayerTable();
+            this.soilLayerDataTable = new MacroStabilityInwardsSoilLayerDataTable();
             this.SuspendLayout();
             // 
             // chartControl
@@ -58,14 +58,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             // 
             // soilLayerTable
             // 
-            this.soilLayerTable.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.soilLayerTable.Location = new System.Drawing.Point(0, 202);
-            this.soilLayerTable.MinimumSize = new System.Drawing.Size(300, 150);
-            this.soilLayerTable.MultiSelect = true;
-            this.soilLayerTable.Name = "soilLayerTable";
-            this.soilLayerTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.soilLayerTable.Size = new System.Drawing.Size(333, 156);
-            this.soilLayerTable.TabIndex = 1;
+            this.soilLayerDataTable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.soilLayerDataTable.Location = new System.Drawing.Point(0, 202);
+            this.soilLayerDataTable.MinimumSize = new System.Drawing.Size(300, 150);
+            this.soilLayerDataTable.MultiSelect = true;
+            this.soilLayerDataTable.Name = "soilLayerDataTable";
+            this.soilLayerDataTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.soilLayerDataTable.Size = new System.Drawing.Size(333, 156);
+            this.soilLayerDataTable.TabIndex = 1;
             // 
             // MacroStabilityInwardsInputView
             // 
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.chartControl);
-            this.Controls.Add(this.soilLayerTable);
+            this.Controls.Add(this.soilLayerDataTable);
             this.MinimumSize = new System.Drawing.Size(200, 300);
             this.Name = "MacroStabilityInwardsInputView";
             this.Size = new System.Drawing.Size(333, 358);
@@ -84,6 +84,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         #endregion
 
         private Core.Components.OxyPlot.Forms.ChartControl chartControl;
-        private MacroStabilityInwardsSoilLayerTable soilLayerTable;
+        private MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable;
     }
 }

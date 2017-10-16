@@ -19,23 +19,52 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsShearStrengthModelTest
+    public class MacroStabilityInwardsShearStrengthModelTest : EnumTestFixture<MacroStabilityInwardsShearStrengthModel>
     {
-        [Test]
-        public void Values_ExpectedValues()
+        protected override IDictionary<MacroStabilityInwardsShearStrengthModel, string> ExpectedDisplayNameForEnumValues
         {
-            // Assert
-            Assert.AreEqual(3, Enum.GetValues(typeof(MacroStabilityInwardsShearStrengthModel)).Length);
-            Assert.AreEqual(1, (int) MacroStabilityInwardsShearStrengthModel.SuCalculated);
-            Assert.AreEqual(2, (int) MacroStabilityInwardsShearStrengthModel.CPhi);
-            Assert.AreEqual(3, (int) MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated);
+            get
+            {
+                return new Dictionary<MacroStabilityInwardsShearStrengthModel, string>
+                {
+                    {
+                        MacroStabilityInwardsShearStrengthModel.SuCalculated, "Su berekend"
+                    },
+                    {
+                        MacroStabilityInwardsShearStrengthModel.CPhi, "CPhi"
+                    },
+                    {
+                        MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, "CPhi of Su berekend"
+                    }
+                };
+            }
+        }
+
+        protected override IDictionary<MacroStabilityInwardsShearStrengthModel, byte> ExpectedValueForEnumValues
+        {
+            get
+            {
+                return new Dictionary<MacroStabilityInwardsShearStrengthModel, byte>
+                {
+                    {
+                        MacroStabilityInwardsShearStrengthModel.SuCalculated, 1
+                    },
+                    {
+                        MacroStabilityInwardsShearStrengthModel.CPhi, 2
+                    },
+                    {
+                        MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, 3
+                    }
+                };
+            }
         }
     }
 }

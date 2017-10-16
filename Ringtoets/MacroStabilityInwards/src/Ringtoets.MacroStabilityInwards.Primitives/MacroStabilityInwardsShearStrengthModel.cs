@@ -19,15 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
+using Ringtoets.MacroStabilityInwards.Primitives.Properties;
+
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// All shear strength model types.
     /// </summary>
+    [TypeConverter(typeof(EnumTypeConverter))]
     public enum MacroStabilityInwardsShearStrengthModel
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsShearStrengthModel_SuCalculated_DisplayName))]
         SuCalculated = 1,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsShearStrengthModel_CPhi_DisplayName))]
         CPhi = 2,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsShearStrengthModel_CPhiOrSuCalculated_DisplayName))]
         CPhiOrSuCalculated = 3
     }
 }

@@ -729,38 +729,110 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onverzadigd gewicht [kN/m³].
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_AbovePhreaticLevel {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_AbovePhreaticLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verzadigd gewicht [kN/m³].
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_BelowPhreaticLevel {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_BelowPhreaticLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cohesie [kN/m³].
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
-        public static string MacroStabilityInwardsSoilLayerTable_ColumnHeader_Color {
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTable_ColumnHeader_Color", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrijvingshoek [°].
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Is aquifer.
         /// </summary>
-        public static string MacroStabilityInwardsSoilLayerTable_ColumnHeader_IsAquifer {
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_IsAquifer {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTable_ColumnHeader_IsAquifer", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_IsAquifer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
-        public static string MacroStabilityInwardsSoilLayerTable_ColumnHeader_MaterialName {
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTable_ColumnHeader_MaterialName", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Topniveau [m+NAP].
+        ///   Looks up a localized string similar to POP [kN/m³].
         /// </summary>
-        public static string MacroStabilityInwardsSoilLayerTable_ColumnHeader_Top {
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerTable_ColumnHeader_Top", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schuifsterkte model.
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schuifsterkte ratio S [-].
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterkte toename exp (m) [-].
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik POP.
+        /// </summary>
+        public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop", resourceCulture);
             }
         }
         
