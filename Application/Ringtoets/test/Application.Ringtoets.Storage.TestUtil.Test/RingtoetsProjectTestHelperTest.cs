@@ -110,8 +110,10 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(2, stochasticSoilProfiles.Length);
             PipingStochasticSoilProfile stochasticSoilProfile1 = stochasticSoilProfiles[0];
             Assert.AreEqual(0.2, stochasticSoilProfile1.Probability);
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, stochasticSoilProfile1.SoilProfile.SoilProfileSourceType);
             PipingStochasticSoilProfile stochasticSoilProfile2 = stochasticSoilProfiles[1];
             Assert.AreEqual(0.8, stochasticSoilProfile2.Probability);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticSoilProfile2.SoilProfile.SoilProfileSourceType);
 
             Assert.AreEqual("some/path/to/surfaceLineFile", failureMechanism.SurfaceLines.SourcePath);
             Assert.AreEqual(1, failureMechanism.SurfaceLines.Count);
@@ -216,16 +218,16 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
-            var firstCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[0];
+            var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
 
-            var calculationWithOutput = (MacroStabilityInwardsCalculationScenario)firstCalculationGroup.Children[0];
+            var calculationWithOutput = (MacroStabilityInwardsCalculationScenario) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
 
-            var emptyCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[1];
+            var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
 
-            var calculationWithoutOutput = (MacroStabilityInwardsCalculationScenario)failureMechanism.CalculationsGroup.Children[2];
+            var calculationWithoutOutput = (MacroStabilityInwardsCalculationScenario) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 

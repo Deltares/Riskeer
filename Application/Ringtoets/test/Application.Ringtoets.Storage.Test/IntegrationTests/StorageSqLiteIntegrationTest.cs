@@ -1352,6 +1352,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedProfile.Bottom, actualProfile.Bottom);
             Assert.AreEqual(expectedProfile.Name, actualProfile.Name);
+            Assert.AreEqual(expectedProfile.SoilProfileSourceType, actualProfile.SoilProfileSourceType);
             AssertCollectionAndItems(expectedProfile.Layers, actualProfile.Layers,
                                      AssertPipingSoilLayer);
         }

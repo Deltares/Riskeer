@@ -865,7 +865,8 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             Point2D[] referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
-            PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
+            PipingSoilProfile pipingSoilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile("SoilProfile1D",
+                                                                                                       SoilProfileType.SoilProfile1D);
             PipingSoilLayer pipingSoilLayer = pipingSoilProfile.Layers.First();
             pipingSoilLayer.BelowPhreaticLevelMean = 2.2;
             pipingSoilLayer.BelowPhreaticLevelDeviation = 1.2;
@@ -887,7 +888,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }, new[]
                 {
                     new PipingStochasticSoilProfile(0.2, pipingSoilProfile),
-                    new PipingStochasticSoilProfile(0.8, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
+                    new PipingStochasticSoilProfile(0.8, PipingSoilProfileTestFactory.CreatePipingSoilProfile("SoilProfile2D",
+                                                                                                              SoilProfileType.SoilProfile2D))
                 })
             }, "some/path/to/stochasticSoilModelFile");
             pipingFailureMechanism.SurfaceLines.AddRange(new[]
