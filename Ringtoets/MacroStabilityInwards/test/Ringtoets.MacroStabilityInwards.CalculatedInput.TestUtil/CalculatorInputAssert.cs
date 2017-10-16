@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
     /// <summary>
     /// Class for asserting Uplift Van calculator input.
     /// </summary>
-    public static class UpliftVanCalculatorInputAssert
+    public static class CalculatorInputAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
@@ -48,6 +48,36 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
 
             AssertLayers(expectedLayers, actualLayers);
             AssertPreconsolidationStresses(expectedPreconsolidationStresses, actualPreconsolidationStresses);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="original"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsWaternetInput"/>.</param>
+        /// <param name="actual">The actual <see cref="DrainageConstruction"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        public static void AssertDrainageConstruction(IMacroStabilityInwardsWaternetInput original, DrainageConstruction actual)
+        {
+            Assert.AreEqual(original.DrainageConstructionPresent, actual.IsPresent);
+            Assert.AreEqual(original.XCoordinateDrainageConstruction, actual.XCoordinate);
+            Assert.AreEqual(original.ZCoordinateDrainageConstruction, actual.ZCoordinate);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="original"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsLocationInput"/>.</param>
+        /// <param name="actual">The actual <see cref="PhreaticLineOffsets"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        public static void AssertPhreaticLineOffsets(IMacroStabilityInwardsLocationInput original, PhreaticLineOffsets actual)
+        {
+            Assert.AreEqual(original.UseDefaultOffsets, actual.UseDefaults);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowDikeTopAtRiver, actual.BelowDikeTopAtRiver);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowDikeTopAtPolder, actual.BelowDikeTopAtPolder);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowDikeToeAtPolder, actual.BelowDikeToeAtPolder);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowShoulderBaseInside, actual.BelowShoulderBaseInside);
         }
 
         /// <summary>

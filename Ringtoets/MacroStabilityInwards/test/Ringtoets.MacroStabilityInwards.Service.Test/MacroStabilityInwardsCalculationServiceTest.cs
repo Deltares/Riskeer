@@ -589,10 +589,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
         {
             UpliftVanCalculatorInput actualInput = factory.LastCreatedUpliftVanCalculator.Input;
-            UpliftVanCalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
-            AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
-            AssertPhreaticLineOffsets(originalInput.LocationInputExtreme, actualInput.PhreaticLineOffsetsExtreme);
-            AssertPhreaticLineOffsets(originalInput.LocationInputDaily, actualInput.PhreaticLineOffsetsDaily);
+            CalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
+            CalculatorInputAssert.AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
+            CalculatorInputAssert.AssertPhreaticLineOffsets(originalInput.LocationInputExtreme, actualInput.PhreaticLineOffsetsExtreme);
+            CalculatorInputAssert.AssertPhreaticLineOffsets(originalInput.LocationInputDaily, actualInput.PhreaticLineOffsetsDaily);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
@@ -622,22 +622,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, actualInput.AutomaticForbiddenZones);
             Assert.AreEqual(originalInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
             Assert.AreEqual(originalInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
-        }
-
-        private static void AssertDrainageConstruction(MacroStabilityInwardsInput originalInput, DrainageConstruction actualInput)
-        {
-            Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.IsPresent);
-            Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.XCoordinate);
-            Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinate);
-        }
-
-        private static void AssertPhreaticLineOffsets(IMacroStabilityInwardsLocationInput expected, PhreaticLineOffsets actual)
-        {
-            Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaults);
-            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtRiver, actual.BelowDikeTopAtRiver);
-            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtPolder, actual.BelowDikeTopAtPolder);
-            Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeToeAtPolder, actual.BelowDikeToeAtPolder);
-            Assert.AreEqual(expected.PhreaticLineOffsetBelowShoulderBaseInside, actual.BelowShoulderBaseInside);
         }
 
         private static void AssertSlipPlaneInput(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlane actualInput)

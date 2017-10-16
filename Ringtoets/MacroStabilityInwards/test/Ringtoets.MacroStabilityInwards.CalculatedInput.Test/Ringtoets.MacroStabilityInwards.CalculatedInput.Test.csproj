@@ -98,6 +98,14 @@
       <Project>{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}</Project>
       <Name>Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+      <Project>{2B78CF04-4785-4F27-A6E5-45BDDBB7BF04}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
+      <Project>{3810D738-6412-47D1-8BC0-729D55BC951F}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

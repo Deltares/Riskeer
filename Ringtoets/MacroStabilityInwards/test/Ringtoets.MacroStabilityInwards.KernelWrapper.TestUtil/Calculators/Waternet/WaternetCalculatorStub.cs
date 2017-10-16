@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
@@ -31,13 +33,40 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
     public class WaternetCalculatorStub : IWaternetCalculator
     {
         /// <summary>
-        /// Gest or sets the Waternet calculator input.
+        /// Gets or sets the Waternet calculator input.
         /// </summary>
         public WaternetCalculatorInput Input { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Waternet calculator output.
+        /// </summary>
+        public WaternetCalculatorResult Output { get; set; }
+
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { get; set; }
+
         public WaternetCalculatorResult Calculate()
         {
-            return null;
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new WaternetCalculatorException($"Message 1{Environment.NewLine}Message 2");
+            }
+            return Output ?? (Output = CreateWaternetCalculatorResult());
+        }
+
+        private static WaternetCalculatorResult CreateWaternetCalculatorResult()
+        {
+            var phreaticLineResult = new WaternetPhreaticLineResult("line 1", new Point2D[0]);
+            return new WaternetCalculatorResult(
+                new[]
+                {
+                    phreaticLineResult
+                }, new[]
+                {
+                    new WaternetLineResult("line 2", new Point2D[0], phreaticLineResult)
+                });
         }
     }
 }

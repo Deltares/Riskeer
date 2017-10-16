@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.Waternet
@@ -37,6 +40,40 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             // Assert
             Assert.IsInstanceOf<IWaternetCalculator>(calculator);
             Assert.IsNull(calculator.Input);
+            Assert.IsNull(calculator.Output);
+        }
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateFalse_ReturnResult()
+        {
+            // Setup
+            var calculator = new WaternetCalculatorStub();
+
+            // Call
+            WaternetCalculatorResult result = calculator.Calculate();
+
+            // Assert
+            Assert.AreEqual(1, result.PhreaticLines.Count());
+            Assert.AreEqual(1, result.WaternetLines.Count());
+        }
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowWaternetCalculatorException()
+        {
+            // Setup
+            var calculator = new WaternetCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WaternetCalculatorException>(test);
+            Assert.IsNull(exception.InnerException);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsNull(calculator.Output);
         }
     }
 }

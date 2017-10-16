@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             SoilProfile soilProfile = SoilProfileConverter.Convert(profile);
 
             // Assert
-            UpliftVanCalculatorInputAssert.AssertSoilProfile(profile, soilProfile);
+            CalculatorInputAssert.AssertSoilProfile(profile, soilProfile);
         }
 
         [Test]

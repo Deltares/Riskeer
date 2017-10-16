@@ -19,10 +19,73 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.Primitives;
+
 namespace Ringtoets.MacroStabilityInwards.CalculatedInput
 {
     /// <summary>
-    /// This class can be used to calculate Waternet for a macro stability inwards calculation based on other input parameters.
+    /// This class can be used to calculate Waternet for a macro stability inwards
+    /// calculation based on other input parameters.
     /// </summary>
-    public static class WaternetCalculationService {}
+    public static class WaternetCalculationService
+    {
+        /// <summary>
+        /// Calculated the Waternet with extreme circumstances based on the values 
+        /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
+        /// </summary>
+        /// <param name="input">The input to get the values from.</param>
+        /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
+        /// or <c>null</c> when the Waternet could be calculated.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
+        /// is <c>null</c>.</exception>
+        public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            var calculatorInput = new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+            {
+                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
+                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
+                AssessmentLevel = input.AssessmentLevel,
+                LandwardDirection = LandwardDirection.PositiveX,
+                SurfaceLine = input.SurfaceLine,
+                SoilProfile = SoilProfileConverter.Convert(input.SoilProfileUnderSurfaceLine),
+                DrainageConstruction = DrainageConstructionConverter.Convert(input),
+                PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme),
+                DikeSoilScenario = input.DikeSoilScenario,
+                WaterLevelRiverAverage = input.WaterLevelRiverAverage,
+                WaterLevelPolder = input.LocationInputExtreme.WaterLevelPolder,
+                MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
+                MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
+                LeakageLengthOutwardsPhreaticLine3 = input.LeakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPhreaticLine3 = input.LeakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPhreaticLine4 = input.LeakageLengthOutwardsPhreaticLine4,
+                LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
+                PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
+                PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
+                PenetrationLength = input.LocationInputExtreme.PenetrationLength,
+                AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
+            });
+
+            IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
+                                                                                   .CreateWaternetExtremeCalculator(
+                                                                                       calculatorInput,
+                                                                                       MacroStabilityInwardsKernelWrapperFactory.Instance);
+
+            WaternetCalculatorResult result = calculator.Calculate();
+
+            return null;
+        }
+    }
 }
