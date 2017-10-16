@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -20,36 +20,19 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// Base class that holds all locations input for extreme conditions 
+    /// Interface that holds all locations input daily conditions 
     /// for the macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsLocationInputExtreme : MacroStabilityInwardsLocationInput, IMacroStabilityInwardsLocationInputExtreme
+    public interface IMacroStabilityInwardsLocationInputDaily : IMacroStabilityInwardsLocationInput
     {
-        private RoundedDouble penetrationLength;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInputExtreme"/> class.
+        /// Gets the penetration length.
+        /// [m]
         /// </summary>
-        public MacroStabilityInwardsLocationInputExtreme()
-        {
-            penetrationLength = new RoundedDouble(2, double.NaN);
-        }
-
-        public RoundedDouble PenetrationLength
-        {
-            get
-            {
-                return penetrationLength;
-            }
-            set
-            {
-                penetrationLength = value.ToPrecision(penetrationLength.NumberOfDecimalPlaces);
-            }
-        }
+        RoundedDouble PenetrationLength { get; }
     }
 }

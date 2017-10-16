@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
 {
@@ -40,12 +40,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
         /// <param name="actual">The actual <see cref="SoilProfile"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        public static void AssertSoilProfile(MacroStabilityInwardsSoilProfileUnderSurfaceLine original, SoilProfile actual)
+        public static void AssertSoilProfile(IMacroStabilityInwardsSoilProfileUnderSurfaceLine original, SoilProfile actual)
         {
-            MacroStabilityInwardsSoilLayerUnderSurfaceLine[] expectedLayers = original.Layers.ToArray();
+            IMacroStabilityInwardsSoilLayerUnderSurfaceLine[] expectedLayers = original.Layers.ToArray();
             SoilLayer[] actualLayers = actual.Layers.ToArray();
 
-            MacroStabilityInwardsPreconsolidationStress[] expectedPreconsolidationStresses = original.PreconsolidationStresses.ToArray();
+            IMacroStabilityInwardsPreconsolidationStress[] expectedPreconsolidationStresses = original.PreconsolidationStresses.ToArray();
             PreconsolidationStress[] actualPreconsolidationStresses = actual.PreconsolidationStresses.ToArray();
 
             AssertLayers(expectedLayers, actualLayers);
@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
         /// <param name="actual">The actual <see cref="PreconsolidationStress"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        private static void AssertPreconsolidationStresses(MacroStabilityInwardsPreconsolidationStress[] original,
+        private static void AssertPreconsolidationStresses(IMacroStabilityInwardsPreconsolidationStress[] original,
                                                            PreconsolidationStress[] actual)
         {
             Assert.AreEqual(original.Length, actual.Length);
@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
         /// <param name="actual">The actual <see cref="SoilLayer"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        private static void AssertLayers(MacroStabilityInwardsSoilLayerUnderSurfaceLine[] original, SoilLayer[] actual)
+        private static void AssertLayers(IMacroStabilityInwardsSoilLayerUnderSurfaceLine[] original, SoilLayer[] actual)
         {
             Assert.AreEqual(original.Length, actual.Length);
 
@@ -86,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
                 Assert.AreSame(original[i].OuterRing, actual[i].OuterRing);
                 Assert.AreSame(original[i].Holes, actual[i].Holes);
 
-                MacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
+                IMacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
                 Assert.AreEqual(expectedData.MaterialName, actual[i].MaterialName);
                 Assert.AreEqual(expectedData.UsePop, actual[i].UsePop);
                 Assert.AreEqual(expectedData.IsAquifer, actual[i].IsAquifer);

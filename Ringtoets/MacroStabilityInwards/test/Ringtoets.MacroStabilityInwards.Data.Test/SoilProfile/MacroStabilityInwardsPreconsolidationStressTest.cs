@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -87,6 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var stress = new MacroStabilityInwardsPreconsolidationStress(location, distribution);
 
             // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsPreconsolidationStress>(stress);
             Assert.AreEqual(location, stress.Location);
 
             DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)

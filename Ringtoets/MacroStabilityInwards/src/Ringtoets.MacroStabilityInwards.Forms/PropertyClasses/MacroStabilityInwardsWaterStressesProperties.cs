@@ -256,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsLocationExtremeProperties(data.LocationInputExtreme, propertyChangeHandler);
+                return new MacroStabilityInwardsLocationExtremeProperties((MacroStabilityInwardsLocationInputExtreme) data.LocationInputExtreme, propertyChangeHandler);
             }
         }
 
@@ -268,7 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsLocationDailyProperties(data.LocationInputDaily, propertyChangeHandler);
+                return new MacroStabilityInwardsLocationDailyProperties((MacroStabilityInwardsLocationInputDaily) data.LocationInputDaily, propertyChangeHandler);
             }
         }
 

@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
@@ -30,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// This class represents a preconsolidation stress definition that was imported
     /// from D-Soil model.
     /// </summary>
-    public class MacroStabilityInwardsPreconsolidationStress
+    public class MacroStabilityInwardsPreconsolidationStress : IMacroStabilityInwardsPreconsolidationStress
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
@@ -62,17 +63,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             };
         }
 
-        /// <summary>
-        /// Gets the distribution for the preconsolidation stress.
-        /// [kN/m²]
-        /// </summary>
         public VariationCoefficientLogNormalDistribution Stress { get; }
 
-        /// <summary>
-        /// Gets the location of the preconsolidation stress
-        /// [m]
-        /// </summary>
-        /// <remarks>The <see cref="Point2D.Y"/> has the unit [m+NAP]</remarks>
         public Point2D Location { get; }
 
         public override bool Equals(object obj)

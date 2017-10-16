@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -33,6 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsLocationInput>(locationInput);
+            Assert.IsInstanceOf<IMacroStabilityInwardsLocationInputDaily>(locationInput);
 
             Assert.IsTrue(locationInput.UseDefaultOffsets);
 

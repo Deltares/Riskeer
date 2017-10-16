@@ -46,6 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);
             Assert.IsInstanceOf<ICalculationInput>(inputParameters);
+            Assert.IsInstanceOf<IMacroStabilityInwardsWaternetInput>(inputParameters);
 
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.StochasticSoilModel);

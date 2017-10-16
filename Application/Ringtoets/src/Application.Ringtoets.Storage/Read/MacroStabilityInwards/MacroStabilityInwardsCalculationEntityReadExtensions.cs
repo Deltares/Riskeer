@@ -171,7 +171,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             }
         }
 
-        private static void SetLocationInputDailyToInput(MacroStabilityInwardsLocationInputDaily inputDaily,
+        private static void SetLocationInputDailyToInput(IMacroStabilityInwardsLocationInputDaily inputDaily,
                                                          MacroStabilityInwardsCalculationEntity entity)
         {
             inputDaily.WaterLevelPolder = (RoundedDouble) entity.LocationInputDailyWaterLevelPolder.ToNullAsNaN();
@@ -183,7 +183,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             inputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) entity.LocationInputDailyPhreaticLineOffsetDikeToeAtPolder.ToNullAsNaN();
         }
 
-        private static void SetLocationInputExtremeToInput(MacroStabilityInwardsLocationInputExtreme inputExtreme,
+        private static void SetLocationInputExtremeToInput(IMacroStabilityInwardsLocationInputExtreme inputExtreme,
                                                            MacroStabilityInwardsCalculationEntity entity)
         {
             inputExtreme.WaterLevelPolder = (RoundedDouble) entity.LocationInputExtremeWaterLevelPolder.ToNullAsNaN();

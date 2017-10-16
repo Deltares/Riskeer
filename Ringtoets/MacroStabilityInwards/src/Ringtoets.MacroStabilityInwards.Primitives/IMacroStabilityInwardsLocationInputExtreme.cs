@@ -20,36 +20,19 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// Base class that holds all locations input for extreme conditions 
+    /// Interface class that holds all locations input for extreme conditions 
     /// for the macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsLocationInputExtreme : MacroStabilityInwardsLocationInput, IMacroStabilityInwardsLocationInputExtreme
+    public interface IMacroStabilityInwardsLocationInputExtreme : IMacroStabilityInwardsLocationInput
     {
-        private RoundedDouble penetrationLength;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInputExtreme"/> class.
+        /// Gets or sets the penetration length.
+        /// [m]
         /// </summary>
-        public MacroStabilityInwardsLocationInputExtreme()
-        {
-            penetrationLength = new RoundedDouble(2, double.NaN);
-        }
-
-        public RoundedDouble PenetrationLength
-        {
-            get
-            {
-                return penetrationLength;
-            }
-            set
-            {
-                penetrationLength = value.ToPrecision(penetrationLength.NumberOfDecimalPlaces);
-            }
-        }
+        RoundedDouble PenetrationLength { get; set; }
     }
 }

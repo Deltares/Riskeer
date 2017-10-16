@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
@@ -139,7 +140,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         }
 
         private static void SetLocationInputDailyParametersToEntity(MacroStabilityInwardsCalculationEntity entity,
-                                                                    MacroStabilityInwardsLocationInputDaily inputParameters)
+                                                                    IMacroStabilityInwardsLocationInputDaily inputParameters)
         {
             entity.LocationInputDailyWaterLevelPolder = inputParameters.WaterLevelPolder.ToNaNAsNull();
             entity.LocationInputDailyUseDefaultOffsets = Convert.ToByte(inputParameters.UseDefaultOffsets);
@@ -151,7 +152,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         }
 
         private static void SetLocationInputExtremeParametersToEntity(MacroStabilityInwardsCalculationEntity entity,
-                                                                      MacroStabilityInwardsLocationInputExtreme inputParameters)
+                                                                      IMacroStabilityInwardsLocationInputExtreme inputParameters)
         {
             entity.LocationInputExtremeWaterLevelPolder = inputParameters.WaterLevelPolder.ToNaNAsNull();
             entity.LocationInputExtremeUseDefaultOffsets = Convert.ToByte(inputParameters.UseDefaultOffsets);

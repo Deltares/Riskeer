@@ -75,6 +75,10 @@
       <Project>{3c0d3b38-a9f7-4b22-9705-513da26ae2cc}</Project>
       <Name>Ringtoets.MacroStabilityInwards.KernelWrapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
+      <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

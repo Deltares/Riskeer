@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Class that holds all macro stability inwards calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class MacroStabilityInwardsInput : Observable, ICalculationInput
+    public class MacroStabilityInwardsInput : Observable, ICalculationInput, IMacroStabilityInwardsWaternetInput
     {
         private static readonly Range<int> tangentLineNumberValidityRange = new Range<int>(1, 50);
 
@@ -200,10 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets the profile which contains a 2 dimensional definition of soil layers with properties.
-        /// </summary>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfileUnderSurfaceLine { get; private set; }
+        public IMacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfileUnderSurfaceLine { get; private set; }
 
         /// <summary>
         /// Gets the derived waternet calculation output under extreme circumstances.
@@ -561,15 +558,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets the locations input values for extreme conditions.
-        /// </summary>
-        public MacroStabilityInwardsLocationInputExtreme LocationInputExtreme { get; }
+        public IMacroStabilityInwardsLocationInputExtreme LocationInputExtreme { get; }
 
-        /// <summary>
-        /// Gets the locations input values for daily conditions.
-        /// </summary>
-        public MacroStabilityInwardsLocationInputDaily LocationInputDaily { get; }
+        public IMacroStabilityInwardsLocationInputDaily LocationInputDaily { get; }
 
         /// <summary>
         /// Gets or sets whether zones should be created.

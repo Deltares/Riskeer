@@ -24,19 +24,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
     /// <summary>
-    /// Converter to convert <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
+    /// Converter to convert <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
     /// into <see cref="SoilProfile"/>.
     /// </summary>
     internal static class SoilProfileConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
+        /// Converts <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
         /// into <see cref="SoilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to convert.</param>
@@ -44,12 +44,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        public static SoilProfile Convert(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        public static SoilProfile Convert(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
         {
             if (soilProfile == null)
             {
@@ -63,22 +63,22 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         }
 
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsSoilLayerData"/>
+        /// Converts <see cref="IMacroStabilityInwardsSoilLayerData"/>
         /// into <see cref="SoilLayer"/>.
         /// </summary>
         /// <param name="layers">The layers to convert.</param>
         /// <returns>The converted <see cref="SoilLayer"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
+        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
         {
             return layers.Select(l =>
             {
-                MacroStabilityInwardsSoilLayerData data = l.Data;
+                IMacroStabilityInwardsSoilLayerData data = l.Data;
                 return new SoilLayer(l.OuterRing, l.Holes, new SoilLayer.ConstructionProperties
                 {
                     MaterialName = data.MaterialName,
@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         }
 
         private static IEnumerable<PreconsolidationStress> ConvertPreconsolidationStresses(
-            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+            IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
             return preconsolidationStresses.Select(ps => new PreconsolidationStress(
                                                        ps.Location,

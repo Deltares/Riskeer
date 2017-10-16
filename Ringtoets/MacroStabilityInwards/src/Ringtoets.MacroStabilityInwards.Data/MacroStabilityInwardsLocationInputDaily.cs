@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -27,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Class that holds all locations input daily conditions 
     /// for the macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsLocationInputDaily : MacroStabilityInwardsLocationInput
+    public class MacroStabilityInwardsLocationInputDaily : MacroStabilityInwardsLocationInput, IMacroStabilityInwardsLocationInputDaily
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInputDaily"/> class.
@@ -37,10 +38,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             PenetrationLength = new RoundedDouble(2);
         }
 
-        /// <summary>
-        /// Gets the penetration length.
-        /// [m]
-        /// </summary>
         public RoundedDouble PenetrationLength { get; }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -27,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Base class that holds all locations input for either daily or 
     /// extreme conditions for the macro stability inwards calculation.
     /// </summary>
-    public abstract class MacroStabilityInwardsLocationInput
+    public abstract class MacroStabilityInwardsLocationInput : IMacroStabilityInwardsLocationInput
     {
         private RoundedDouble waterLevelPolder;
         private RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
@@ -50,10 +51,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             phreaticLineOffsetBelowDikeToeAtPolder = new RoundedDouble(2, double.NaN);
         }
 
-        /// <summary>
-        /// Gets or sets the polder water level.
-        /// [m+NAP]
-        /// </summary>
         public RoundedDouble WaterLevelPolder
         {
             get
@@ -66,15 +63,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets whether the default offsets should be used.
-        /// </summary>
         public bool UseDefaultOffsets { get; set; }
 
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike top at river.
-        /// [m]
-        /// </summary>
         public RoundedDouble PhreaticLineOffsetBelowDikeTopAtRiver
         {
             get
@@ -87,10 +77,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike top at polder.
-        /// [m]
-        /// </summary>
         public RoundedDouble PhreaticLineOffsetBelowDikeTopAtPolder
         {
             get
@@ -103,10 +89,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below shoulder base inside.
-        /// [m]
-        /// </summary>
         public RoundedDouble PhreaticLineOffsetBelowShoulderBaseInside
         {
             get
@@ -119,10 +101,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the offset of the phreatic line below dike toe at polder.
-        /// [m]
-        /// </summary>
         public RoundedDouble PhreaticLineOffsetBelowDikeToeAtPolder
         {
             get

@@ -23,13 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// A 2D soil layer that has been adapted by using a surface line.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayerUnderSurfaceLine
+    public class MacroStabilityInwardsSoilLayerUnderSurfaceLine : IMacroStabilityInwardsSoilLayerUnderSurfaceLine
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.
@@ -37,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
         /// <param name="data">The data of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, MacroStabilityInwardsSoilLayerData data)
+        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, IMacroStabilityInwardsSoilLayerData data)
             : this(outerRing, Enumerable.Empty<Point2D[]>(), data) {}
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="holes">The holes of the geometry of the soil layer.</param>
         /// <param name="data">The data of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, MacroStabilityInwardsSoilLayerData data)
+        public MacroStabilityInwardsSoilLayerUnderSurfaceLine(Point2D[] outerRing, IEnumerable<Point2D[]> holes, IMacroStabilityInwardsSoilLayerData data)
         {
             if (outerRing == null)
             {
@@ -66,19 +67,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             Data = data;
         }
 
-        /// <summary>
-        /// Gets the outer ring of the geometry.
-        /// </summary>
         public Point2D[] OuterRing { get; }
 
-        /// <summary>
-        /// Gets the holes of the geometry.
-        /// </summary>
         public IEnumerable<Point2D[]> Holes { get; }
 
-        /// <summary>
-        /// Gets the data of the soil layer.
-        /// </summary>
-        public MacroStabilityInwardsSoilLayerData Data { get; }
+        public IMacroStabilityInwardsSoilLayerData Data { get; }
     }
 }

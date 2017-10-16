@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -35,6 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsLocationInput>(locationInput);
+            Assert.IsInstanceOf<IMacroStabilityInwardsLocationInputExtreme>(locationInput);
 
             Assert.IsTrue(locationInput.UseDefaultOffsets);
 

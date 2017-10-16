@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,23 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using System.Collections.Generic;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
-    [TestFixture]
-    public class MacroStabilityInwardsShearStrengthModelTest
+    /// <summary>
+    /// Interface for a soil profile for which its properties have been adapted using a surface line.
+    /// </summary>
+    public interface IMacroStabilityInwardsSoilProfileUnderSurfaceLine
     {
-        [Test]
-        public void Values_ExpectedValues()
-        {
-            // Assert
-            Assert.AreEqual(3, Enum.GetValues(typeof(MacroStabilityInwardsShearStrengthModel)).Length);
-            Assert.AreEqual(1, (int) MacroStabilityInwardsShearStrengthModel.SuCalculated);
-            Assert.AreEqual(2, (int) MacroStabilityInwardsShearStrengthModel.CPhi);
-            Assert.AreEqual(3, (int) MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated);
-        }
+        /// <summary>
+        /// Gets the layers in the profile.
+        /// </summary>
+        IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> Layers { get; }
+
+        /// <summary>
+        /// Gets the preconsolidation stresses in the profile.
+        /// </summary>
+        IEnumerable<IMacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
     }
 }

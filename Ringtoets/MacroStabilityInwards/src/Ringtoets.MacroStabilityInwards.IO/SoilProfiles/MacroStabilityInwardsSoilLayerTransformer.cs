@@ -30,6 +30,7 @@ using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
@@ -101,13 +102,13 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         }
 
         /// <summary>
-        /// Sets the properties of the <see cref="MacroStabilityInwardsSoilLayerData"/>.
+        /// Sets the properties of the <see cref="IMacroStabilityInwardsSoilLayerData"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to get the data from.</param>
         /// <param name="data">The data to set the properties upon.</param>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
-        private static void SetProperties(SoilLayerBase soilLayer, MacroStabilityInwardsSoilLayerData data)
+        private static void SetProperties(SoilLayerBase soilLayer, IMacroStabilityInwardsSoilLayerData data)
         {
             data.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
             data.UsePop = TransformUsePop(soilLayer.UsePop);

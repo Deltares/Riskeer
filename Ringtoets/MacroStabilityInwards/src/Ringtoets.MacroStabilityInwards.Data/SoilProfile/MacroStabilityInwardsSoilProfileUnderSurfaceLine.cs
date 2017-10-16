@@ -21,13 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// A soil profile for which its properties have been adapted using a surface line.
     /// </summary>
-    public class MacroStabilityInwardsSoilProfileUnderSurfaceLine
+    public class MacroStabilityInwardsSoilProfileUnderSurfaceLine : IMacroStabilityInwardsSoilProfileUnderSurfaceLine
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
@@ -35,8 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="layers">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses defined for the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers,
-                                                                IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> layers,
+                                                                IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
             if (layers == null)
             {
@@ -49,15 +50,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             Layers = layers;
             PreconsolidationStresses = preconsolidationStresses;
         }
+        
+        public IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> Layers { get; }
 
-        /// <summary>
-        /// Gets the layers in the profile.
-        /// </summary>
-        public IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> Layers { get; }
-
-        /// <summary>
-        /// Gets the preconsolidation stresses in the profile.
-        /// </summary>
-        public IEnumerable<MacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
+        public IEnumerable<IMacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
     }
 }

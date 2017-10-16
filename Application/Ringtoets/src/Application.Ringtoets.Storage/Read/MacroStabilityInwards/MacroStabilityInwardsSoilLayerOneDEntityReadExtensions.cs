@@ -23,8 +23,8 @@ using System;
 using System.Drawing;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 {

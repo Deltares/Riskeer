@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,23 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
-
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
-    [TestFixture]
-    public class MacroStabilityInwardsShearStrengthModelTest
+    /// <summary>
+    /// All shear strength model types.
+    /// </summary>
+    public enum MacroStabilityInwardsShearStrengthModel
     {
-        [Test]
-        public void Values_ExpectedValues()
-        {
-            // Assert
-            Assert.AreEqual(3, Enum.GetValues(typeof(MacroStabilityInwardsShearStrengthModel)).Length);
-            Assert.AreEqual(1, (int) MacroStabilityInwardsShearStrengthModel.SuCalculated);
-            Assert.AreEqual(2, (int) MacroStabilityInwardsShearStrengthModel.CPhi);
-            Assert.AreEqual(3, (int) MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated);
-        }
+        SuCalculated = 1,
+        CPhi = 2,
+        CPhiOrSuCalculated = 3
     }
 }

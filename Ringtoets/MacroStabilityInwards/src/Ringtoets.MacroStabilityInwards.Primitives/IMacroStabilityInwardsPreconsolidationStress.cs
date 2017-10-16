@@ -19,15 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.Data
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Probabilistics;
+
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// All shear strength model types.
+    /// Interface that represents a preconsolidation stress definition that was imported
+    /// from D-Soil model.
     /// </summary>
-    public enum MacroStabilityInwardsShearStrengthModel
+    public interface IMacroStabilityInwardsPreconsolidationStress
     {
-        SuCalculated = 1,
-        CPhi = 2,
-        CPhiOrSuCalculated = 3
+        /// <summary>
+        /// Gets the distribution for the preconsolidation stress.
+        /// [kN/m²]
+        /// </summary>
+        VariationCoefficientLogNormalDistribution Stress { get; }
+
+        /// <summary>
+        /// Gets the location of the preconsolidation stress
+        /// [m]
+        /// </summary>
+        /// <remarks>The <see cref="Point2D.Y"/> has the unit [m+NAP]</remarks>
+        Point2D Location { get; }
     }
 }

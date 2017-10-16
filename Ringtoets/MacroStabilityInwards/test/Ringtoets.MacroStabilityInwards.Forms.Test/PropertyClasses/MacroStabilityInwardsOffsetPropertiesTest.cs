@@ -187,7 +187,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Given
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            MacroStabilityInwardsLocationInput input = calculationItem.InputParameters.LocationInputExtreme;
+            var input = (MacroStabilityInwardsLocationInput) calculationItem.InputParameters.LocationInputExtreme;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new MacroStabilityInwardsOffsetProperties(input, handler);
@@ -319,7 +319,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            MacroStabilityInwardsLocationInput input = calculation.InputParameters.LocationInputExtreme;
+            var input = (MacroStabilityInwardsLocationInput) calculation.InputParameters.LocationInputExtreme;
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {

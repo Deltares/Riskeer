@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Converters
 {
@@ -39,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
         /// <returns>The converted <see cref="PhreaticLineOffsets"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        public static PhreaticLineOffsets Convert(MacroStabilityInwardsLocationInput input)
+        public static PhreaticLineOffsets Convert(IMacroStabilityInwardsLocationInput input)
         {
             if (input == null)
             {

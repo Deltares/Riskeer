@@ -36,6 +36,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
@@ -630,7 +631,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinate);
         }
 
-        private static void AssertPhreaticLineOffsets(MacroStabilityInwardsLocationInput expected, PhreaticLineOffsets actual)
+        private static void AssertPhreaticLineOffsets(IMacroStabilityInwardsLocationInput expected, PhreaticLineOffsets actual)
         {
             Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaults);
             Assert.AreEqual(expected.PhreaticLineOffsetBelowDikeTopAtRiver, actual.BelowDikeTopAtRiver);

@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
 {
@@ -126,8 +127,8 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
             Assert.AreEqual(rightGrid.NumberOfVerticalPoints, entity.RightGridNrOfVerticalPoints);
         }
 
-        private static void AssertLocationInputs(MacroStabilityInwardsLocationInputExtreme locationInputExtreme,
-                                                 MacroStabilityInwardsLocationInputDaily locationInputDaily,
+        private static void AssertLocationInputs(IMacroStabilityInwardsLocationInputExtreme locationInputExtreme,
+                                                 IMacroStabilityInwardsLocationInputDaily locationInputDaily,
                                                  MacroStabilityInwardsCalculationEntity entity)
         {
             AssertAreEqual(locationInputExtreme.WaterLevelPolder, entity.LocationInputExtremeWaterLevelPolder);

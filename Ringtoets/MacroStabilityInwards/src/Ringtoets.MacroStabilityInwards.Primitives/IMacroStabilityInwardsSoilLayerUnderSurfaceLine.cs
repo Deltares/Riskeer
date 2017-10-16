@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,23 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Primitives;
+using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
-    [TestFixture]
-    public class MacroStabilityInwardsShearStrengthModelTest
+    /// <summary>
+    /// Interface for a 2D soil layer that has been adapted by using a surface line.
+    /// </summary>
+    public interface IMacroStabilityInwardsSoilLayerUnderSurfaceLine
     {
-        [Test]
-        public void Values_ExpectedValues()
-        {
-            // Assert
-            Assert.AreEqual(3, Enum.GetValues(typeof(MacroStabilityInwardsShearStrengthModel)).Length);
-            Assert.AreEqual(1, (int) MacroStabilityInwardsShearStrengthModel.SuCalculated);
-            Assert.AreEqual(2, (int) MacroStabilityInwardsShearStrengthModel.CPhi);
-            Assert.AreEqual(3, (int) MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated);
-        }
+        /// <summary>
+        /// Gets the outer ring of the geometry.
+        /// </summary>
+        Point2D[] OuterRing { get; }
+
+        /// <summary>
+        /// Gets the holes of the geometry.
+        /// </summary>
+        IEnumerable<Point2D[]> Holes { get; }
+
+        /// <summary>
+        /// Gets the data of the soil layer.
+        /// </summary>
+        IMacroStabilityInwardsSoilLayerData Data { get; }
     }
 }

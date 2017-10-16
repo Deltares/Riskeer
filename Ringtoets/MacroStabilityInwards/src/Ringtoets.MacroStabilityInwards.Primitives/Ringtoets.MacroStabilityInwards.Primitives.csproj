@@ -36,13 +36,23 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="IMacroStabilityInwardsLocationInput.cs" />
+    <Compile Include="IMacroStabilityInwardsLocationInputDaily.cs" />
+    <Compile Include="IMacroStabilityInwardsLocationInputExtreme.cs" />
+    <Compile Include="IMacroStabilityInwardsWaternetInput.cs" />
+    <Compile Include="IMacroStabilityInwardsPreconsolidationStress.cs" />
+    <Compile Include="IMacroStabilityInwardsSoilLayerData.cs" />
+    <Compile Include="IMacroStabilityInwardsSoilLayerUnderSurfaceLine.cs" />
+    <Compile Include="IMacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
     <Compile Include="MacroStabilityInwardsDikeSoilScenario.cs" />
     <Compile Include="MacroStabilityInwardsPhreaticLine.cs" />
+    <Compile Include="MacroStabilityInwardsShearStrengthModel.cs" />
     <Compile Include="MacroStabilityInwardsWaternet.cs" />
     <Compile Include="MacroStabilityInwardsWaternetLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
