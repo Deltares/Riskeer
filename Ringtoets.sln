@@ -1776,6 +1776,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Primitives.TestUtil", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Primitives.TestUtil\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.csproj", "{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test", "Ringtoets\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test\Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test.csproj", "{C80AD710-0F84-40CE-9567-10CBE332E589}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -4482,6 +4492,26 @@ Global
 		{9FB4BF13-EB15-4676-A3D4-C30DFC33631E}.Release|x86.Build.0 = Release|x86
 		{9FB4BF13-EB15-4676-A3D4-C30DFC33631E}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{9FB4BF13-EB15-4676-A3D4-C30DFC33631E}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.Debug|x86.ActiveCfg = Debug|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.Debug|x86.Build.0 = Debug|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.Release|x86.ActiveCfg = Release|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.Release|x86.Build.0 = Release|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.Debug|x86.ActiveCfg = Debug|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.Debug|x86.Build.0 = Debug|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.Release|x86.ActiveCfg = Release|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.Release|x86.Build.0 = Release|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{C80AD710-0F84-40CE-9567-10CBE332E589}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4862,6 +4892,8 @@ Global
 		{F95B449C-02CC-409B-83EA-FF16D0D7CBDB} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{D0887613-858E-4EED-9320-8C5A09170761} = {FDBC8F09-1273-4A3D-9A94-1619EDD811C4}
 		{9FB4BF13-EB15-4676-A3D4-C30DFC33631E} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
+		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
+		{C80AD710-0F84-40CE-9567-10CBE332E589} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1

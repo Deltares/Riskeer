@@ -21,20 +21,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
-namespace Ringtoets.MacroStabilityInwards.Data.Test
+namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
-    public class MacroStabilityInwardsWaternetLineTest
+    public class MacroStabilityInwardsPhreaticLineTest
     {
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternetLine(null, new List<Point2D>(), new TestMacroStabilityInwardsPhreaticLine());
+            TestDelegate call = () => new MacroStabilityInwardsPhreaticLine(null, new List<Point2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternetLine("name", null, new TestMacroStabilityInwardsPhreaticLine());
+            TestDelegate call = () => new MacroStabilityInwardsPhreaticLine("name", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,22 +51,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_PhreaticLineNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternetLine("name", new List<Point2D>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("phreaticLine", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string waternetLineName = "<some name>";
-            const string phreaticLineName = "PL1";
+            const string name = "<some name>";
             var geometry = new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -76,19 +62,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            var waternetLine = new MacroStabilityInwardsWaternetLine(waternetLineName,
-                                                                     geometry,
-                                                                     new MacroStabilityInwardsPhreaticLine(phreaticLineName, Enumerable.Empty<Point2D>()));
+            var phreaticLine = new MacroStabilityInwardsPhreaticLine(name, geometry);
 
             // Assert
-            Assert.AreEqual(waternetLineName, waternetLine.Name);
+            Assert.AreEqual(name, phreaticLine.Name);
             CollectionAssert.AreEqual(new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(15.0, 15.0)
-            }, waternetLine.Geometry);
-            Assert.AreEqual(phreaticLineName, waternetLine.PhreaticLine.Name);
-            CollectionAssert.IsEmpty(waternetLine.PhreaticLine.Geometry);
+            }, phreaticLine.Geometry);
         }
     }
 }

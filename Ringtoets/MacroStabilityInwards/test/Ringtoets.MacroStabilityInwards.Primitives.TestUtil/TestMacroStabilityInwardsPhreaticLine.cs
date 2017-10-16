@@ -22,16 +22,16 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil
 {
     /// <summary>
-    /// Simple <see cref="MacroStabilityInwardsWaternetLine"/> that can be used in tests.
+    /// Simple <see cref="MacroStabilityInwardsPhreaticLine"/> that can be used in tests.
     /// </summary>
-    public class TestMacroStabilityInwardsWaternetLine : MacroStabilityInwardsWaternetLine
+    public class TestMacroStabilityInwardsPhreaticLine : MacroStabilityInwardsPhreaticLine
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsWaternetLine"/>.
+        /// Creates a new instance of <see cref="TestMacroStabilityInwardsPhreaticLine"/>.
         /// </summary>
-        public TestMacroStabilityInwardsWaternetLine() : base("Test Waternet Line", Enumerable.Empty<Point2D>(), new TestMacroStabilityInwardsPhreaticLine()) {}
+        public TestMacroStabilityInwardsPhreaticLine() : base("Test Phreatic Line", Enumerable.Empty<Point2D>()) {}
     }
 }

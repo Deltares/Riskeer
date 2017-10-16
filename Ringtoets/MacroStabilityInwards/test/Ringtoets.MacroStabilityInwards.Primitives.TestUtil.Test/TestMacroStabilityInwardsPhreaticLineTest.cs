@@ -19,19 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
-using Core.Common.Base.Geometry;
+using NUnit.Framework;
 
-namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
+namespace Ringtoets.MacroStabilityInwards.Primitives.TestUtil.Test
 {
-    /// <summary>
-    /// Simple <see cref="MacroStabilityInwardsPhreaticLine"/> that can be used in tests.
-    /// </summary>
-    public class TestMacroStabilityInwardsPhreaticLine : MacroStabilityInwardsPhreaticLine
+    [TestFixture]
+    public class TestMacroStabilityInwardsPhreaticLineTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsPhreaticLine"/>.
-        /// </summary>
-        public TestMacroStabilityInwardsPhreaticLine() : base("Test Phreatic Line", Enumerable.Empty<Point2D>()) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var phreaticLine = new TestMacroStabilityInwardsPhreaticLine();
+
+            // Assert
+            Assert.IsInstanceOf<MacroStabilityInwardsPhreaticLine>(phreaticLine);
+            Assert.AreEqual("Test Phreatic Line", phreaticLine.Name);
+            CollectionAssert.IsEmpty(phreaticLine.Geometry);
+        }
     }
 }

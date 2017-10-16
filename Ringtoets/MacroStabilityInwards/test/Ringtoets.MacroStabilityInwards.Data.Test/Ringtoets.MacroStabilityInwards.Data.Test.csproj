@@ -66,9 +66,6 @@
     <Compile Include="MacroStabilityInwardsLocationInputDailyTest.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputExtremeTest.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputTest.cs" />
-    <Compile Include="MacroStabilityInwardsWaternetTest.cs" />
-    <Compile Include="MacroStabilityInwardsWaternetLineTest.cs" />
-    <Compile Include="MacroStabilityInwardsPhreaticLineTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsShearStrengthModelTest.cs" />
     <Compile Include="MacroStabilityInwardsSliceTest.cs" />

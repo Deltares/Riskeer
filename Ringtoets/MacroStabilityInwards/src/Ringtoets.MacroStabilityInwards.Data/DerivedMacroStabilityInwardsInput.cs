@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {

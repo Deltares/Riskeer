@@ -21,46 +21,46 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// The phreatic line created by the Waternet calculator in the derived
+    /// The waternet created by the Waternet calculator in the derived
     /// macro stability inwards calculation input.
     /// </summary>
-    public class MacroStabilityInwardsPhreaticLine
+    public class MacroStabilityInwardsWaternet
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsPhreaticLine"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsWaternet"/>.
         /// </summary>
-        /// <param name="name">The name of the phreatic line.</param>
-        /// <param name="geometry">The geometry points of the phreatic line.</param>
+        /// <param name="phreaticLines">The collection of <see cref="MacroStabilityInwardsPhreaticLine"/></param>
+        /// <param name="waternetLines">The collection of <see cref="MacroStabilityInwardsWaternetLine"/></param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsPhreaticLine(string name, IEnumerable<Point2D> geometry)
+        public MacroStabilityInwardsWaternet(IEnumerable<MacroStabilityInwardsPhreaticLine> phreaticLines,
+                                             IEnumerable<MacroStabilityInwardsWaternetLine> waternetLines)
         {
-            if (name == null)
+            if (phreaticLines == null)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(phreaticLines));
             }
-            if (geometry == null)
+            if (waternetLines == null)
             {
-                throw new ArgumentNullException(nameof(geometry));
+                throw new ArgumentNullException(nameof(waternetLines));
             }
 
-            Name = name;
-            Geometry = geometry;
+            PhreaticLines = phreaticLines;
+            WaternetLines = waternetLines;
         }
 
         /// <summary>
-        /// Gets the name of the phreatic line.
+        /// Gets the collection of phreatic lines.
         /// </summary>
-        public string Name { get; }
+        public IEnumerable<MacroStabilityInwardsPhreaticLine> PhreaticLines { get; }
 
         /// <summary>
-        /// Gets the geometry points of the phreatic line.
+        /// Gets the collection of waternet lines.
         /// </summary>
-        public IEnumerable<Point2D> Geometry { get; }
+        public IEnumerable<MacroStabilityInwardsWaternetLine> WaternetLines { get; }
     }
 }

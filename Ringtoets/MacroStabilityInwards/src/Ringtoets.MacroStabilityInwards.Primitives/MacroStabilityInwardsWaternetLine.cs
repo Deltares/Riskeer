@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// The waternet line created by the Waternet calculator in the derived
