@@ -22,12 +22,12 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using Ringtoets.MacroStabilityInwards.Service.Converters;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
+namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
     [TestFixture]
     public class DrainageConstructionConverterTest
@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
-            Assert.IsTrue(drainageConstruction.IsPresent);
+            Assert.IsTrue((bool) drainageConstruction.IsPresent);
             Assert.AreEqual(input.XCoordinateDrainageConstruction, drainageConstruction.XCoordinate);
             Assert.AreEqual(input.ZCoordinateDrainageConstruction, drainageConstruction.ZCoordinate);
         }
@@ -85,9 +85,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
-            Assert.IsFalse(drainageConstruction.IsPresent);
-            Assert.IsNaN(drainageConstruction.XCoordinate);
-            Assert.IsNaN(drainageConstruction.ZCoordinate);
+            Assert.IsFalse((bool) drainageConstruction.IsPresent);
+            Assert.IsNaN((double) drainageConstruction.XCoordinate);
+            Assert.IsNaN((double) drainageConstruction.ZCoordinate);
         }
 
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
@@ -107,9 +107,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
-            Assert.IsFalse(drainageConstruction.IsPresent);
-            Assert.IsNaN(drainageConstruction.XCoordinate);
-            Assert.IsNaN(drainageConstruction.ZCoordinate);
+            Assert.IsFalse((bool) drainageConstruction.IsPresent);
+            Assert.IsNaN((double) drainageConstruction.XCoordinate);
+            Assert.IsNaN((double) drainageConstruction.ZCoordinate);
         }
     }
 }

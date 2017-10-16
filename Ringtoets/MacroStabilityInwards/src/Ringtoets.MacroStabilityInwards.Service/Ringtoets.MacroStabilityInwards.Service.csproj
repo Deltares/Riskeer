@@ -41,10 +41,7 @@
     </Compile>
     <Compile Include="Converters\MacroStabilityInwardsSlidingCurveConverter.cs" />
     <Compile Include="Converters\MacroStabilityInwardsSlipPlaneUpliftVanConverter.cs" />
-    <Compile Include="Converters\DrainageConstructionConverter.cs" />
-    <Compile Include="Converters\PhreaticLineOffsetsConverter.cs" />
     <Compile Include="Converters\UpliftVanSlipPlaneConverter.cs" />
-    <Compile Include="Converters\SoilProfileConverter.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivity.cs" />
     <Compile Include="MacroStabilityInwardsCalculationService.cs" />
     <Compile Include="MacroStabilityInwardsDataSynchronizationService.cs" />
@@ -81,6 +78,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
       <Name>Ringtoets.Common.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.CalculatedInput\Ringtoets.MacroStabilityInwards.CalculatedInput.csproj">
+      <Project>{d0887613-858e-4eed-9320-8c5a09170761}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.CalculatedInput</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">

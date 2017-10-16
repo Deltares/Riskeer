@@ -23,17 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Converters
+namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
 {
     /// <summary>
     /// Converter to convert <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
     /// into <see cref="SoilProfile"/>.
     /// </summary>
-    internal static class SoilProfileConverter
+    public static class SoilProfileConverter
     {
         /// <summary>
         /// Converts <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>

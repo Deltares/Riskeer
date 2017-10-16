@@ -62,10 +62,7 @@
     </Compile>
     <Compile Include="Converters\MacroStabilityInwardsSlidingCurveConverterTest.cs" />
     <Compile Include="Converters\MacroStabilityInwardsSlipPlaneUpliftVanConverterTest.cs" />
-    <Compile Include="Converters\DrainageConstructionConverterTest.cs" />
-    <Compile Include="Converters\PhreaticLineOffsetsConverterTest.cs" />
     <Compile Include="Converters\UpliftVanSlipPlaneConverterTest.cs" />
-    <Compile Include="Converters\SoilProfileConverterTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationActivityTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationServiceTest.cs" />
     <Compile Include="MacroStabilityInwardsDataSynchronizationServiceTest.cs" />
@@ -115,6 +112,10 @@
       <Project>{55be9a1b-68ab-488f-af20-e037a50063db}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil\Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil.csproj">
+      <Project>{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
@@ -122,10 +123,6 @@
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil\Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.csproj">
       <Project>{3810D738-6412-47D1-8BC0-729D55BC951F}</Project>
       <Name>Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Service.TestUtil\Ringtoets.MacroStabilityInwards.Service.TestUtil.csproj">
-      <Project>{F966AE28-DE6B-497A-8449-37EC607E9F69}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.Service.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

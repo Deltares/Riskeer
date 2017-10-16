@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Factory for creating design variables based on probabilistic distributions for macro stability.

@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.Service.Converters;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
+namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
     [TestFixture]
     public class PhreaticLineOffsetsConverterTest
@@ -60,11 +60,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
 
             // Assert
-            Assert.IsTrue(offsets.UseDefaults);
-            Assert.IsNaN(offsets.BelowDikeTopAtRiver);
-            Assert.IsNaN(offsets.BelowDikeTopAtPolder);
-            Assert.IsNaN(offsets.BelowDikeToeAtPolder);
-            Assert.IsNaN(offsets.BelowShoulderBaseInside);
+            Assert.IsTrue((bool) offsets.UseDefaults);
+            Assert.IsNaN((double) offsets.BelowDikeTopAtRiver);
+            Assert.IsNaN((double) offsets.BelowDikeTopAtPolder);
+            Assert.IsNaN((double) offsets.BelowDikeToeAtPolder);
+            Assert.IsNaN((double) offsets.BelowShoulderBaseInside);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
 
             // Assert
-            Assert.IsFalse(offsets.UseDefaults);
+            Assert.IsFalse((bool) offsets.UseDefaults);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtRiver, offsets.BelowDikeTopAtRiver);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtPolder, offsets.BelowDikeTopAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeToeAtPolder, offsets.BelowDikeToeAtPolder);

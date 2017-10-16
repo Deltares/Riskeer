@@ -20,39 +20,38 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Converters
+namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
 {
     /// <summary>
-    /// Converter to convert <see cref="MacroStabilityInwardsInput"/> drainage properties
-    /// into <see cref="DrainageConstruction"/>.
+    /// Converter to convert <see cref="IMacroStabilityInwardsLocationInput"/> phreatic line offset properties
+    /// into <see cref="PhreaticLineOffsets"/>.
     /// </summary>
-    internal static class DrainageConstructionConverter
+    public static class PhreaticLineOffsetsConverter
     {
         /// <summary>
-        /// Converts <see cref="MacroStabilityInwardsInput"/> drainage properties
-        /// into <see cref="DrainageConstruction"/>.
+        /// Converts <see cref="IMacroStabilityInwardsLocationInput"/> phreatic line offset properties
+        /// into <see cref="PhreaticLineOffsets"/>.
         /// </summary>
         /// <param name="input">The input to get the properties from.</param>
-        /// <returns>The converted <see cref="DrainageConstruction"/>.</returns>
+        /// <returns>The converted <see cref="PhreaticLineOffsets"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        public static DrainageConstruction Convert(MacroStabilityInwardsInput input)
+        public static PhreaticLineOffsets Convert(IMacroStabilityInwardsLocationInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            bool isClayDike = input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay
-                              || input.DikeSoilScenario == MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand;
-
-            return !isClayDike && input.DrainageConstructionPresent
-                       ? new DrainageConstruction(input.XCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction)
-                       : new DrainageConstruction();
+            return input.UseDefaultOffsets
+                       ? new PhreaticLineOffsets()
+                       : new PhreaticLineOffsets(input.PhreaticLineOffsetBelowDikeTopAtRiver,
+                                                 input.PhreaticLineOffsetBelowDikeTopAtPolder,
+                                                 input.PhreaticLineOffsetBelowDikeToeAtPolder,
+                                                 input.PhreaticLineOffsetBelowShoulderBaseInside);
         }
     }
 }

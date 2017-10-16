@@ -21,11 +21,10 @@
 
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Service.TestUtil
+namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
 {
     /// <summary>
     /// Class for asserting Uplift Van calculator input.
