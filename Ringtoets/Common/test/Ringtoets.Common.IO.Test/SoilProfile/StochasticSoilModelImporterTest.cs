@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
 
                 string fileReadMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("het bestand bestaat niet.");
-                Assert.AreEqual($"{fileReadMessage} {Environment.NewLine}Het bestand wordt overgeslagen.",
+                Assert.AreEqual($"{fileReadMessage}",
                                 expectedLog.Item1);
                 Assert.AreEqual(Level.Error, expectedLog.Item2);
                 Assert.IsInstanceOf<CriticalFileReadException>(expectedLog.Item3);
@@ -232,8 +232,6 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(1, messages.Count());
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
 
-                StringAssert.EndsWith($"{string.Empty} {Environment.NewLine}Het bestand wordt overgeslagen.",
-                                      expectedLog.Item1);
                 Assert.AreEqual(Level.Error, expectedLog.Item2);
                 Assert.IsInstanceOf<CriticalFileReadException>(expectedLog.Item3);
             });
@@ -582,8 +580,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
                 Tuple<string, Level, Exception> actualLog = tupleArray[0];
 
-                string expectedMessage = "Het stochastische ondergrondmodel 'StochasticSoilModelName' moet een geometrie bevatten. " +
-                                         $"{Environment.NewLine}Het bestand wordt overgeslagen.";
+                const string expectedMessage = "Het stochastische ondergrondmodel 'StochasticSoilModelName' moet een geometrie bevatten.";
 
                 Assert.AreEqual(expectedMessage, actualLog.Item1);
                 Assert.AreEqual(Level.Error, actualLog.Item2);
@@ -682,7 +679,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string expectedMessage = $"{exceptionMessage} {Environment.NewLine}Het bestand wordt overgeslagen.";
+            string expectedMessage = $"{exceptionMessage}";
             Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
             Assert.IsFalse(importResult);

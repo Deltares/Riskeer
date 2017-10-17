@@ -849,10 +849,6 @@ Deze ondergrondschematisatie wordt overgeslagen.</value>
   <data name="StochasticSoilModelImporter_Reading_database" xml:space="preserve">
     <value>Inlezen van de D-Soil Model database.</value>
   </data>
-  <data name="StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
-    <value>{0} 
-Het bestand wordt overgeslagen.</value>
-  </data>
   <data name="StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
     <value>Inlezen van de stochastische ondergrondmodellen.</value>
   </data>

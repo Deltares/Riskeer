@@ -1785,16 +1785,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} 
-        ///Het bestand wordt overgeslagen..
-        /// </summary>
-        public static string StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped {
-            get {
-                return ResourceManager.GetString("StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Inlezen van de stochastische ondergrondmodellen..
         /// </summary>
         public static string StochasticSoilModelImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database {

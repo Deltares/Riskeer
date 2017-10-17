@@ -114,8 +114,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (ImportedDataTransformException e)
             {
-                Log.ErrorFormat(Resources.StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped,
-                                e.Message);
+                Log.ErrorFormat(e.Message, e);
                 return false;
             }
 
@@ -149,9 +148,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         private void HandleException(Exception e)
         {
-            string message = string.Format(Resources.StochasticSoilModelImporter_CriticalErrorMessage_0_File_Skipped,
-                                           e.Message);
-            Log.Error(message, e);
+            Log.Error(e.Message, e);
         }
 
         #region Read stochastic soil models
