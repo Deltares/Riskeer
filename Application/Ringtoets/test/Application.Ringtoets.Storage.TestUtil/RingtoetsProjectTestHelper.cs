@@ -1239,6 +1239,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             MoveGrid = true,
                             DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
                             WaterLevelRiverAverage = (RoundedDouble) 0.6,
+                            DrainageConstructionPresent = true,
                             XCoordinateDrainageConstruction = (RoundedDouble) 0.7,
                             ZCoordinateDrainageConstruction = (RoundedDouble) 0.8,
                             LocationInputExtreme =

@@ -529,6 +529,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
                 }
+                var expectedMacroStabilityInwardsCalculation = expectedChild as MacroStabilityInwardsCalculationScenario;
+                if (expectedMacroStabilityInwardsCalculation != null)
+                {
+                    AssertMacroStabilityInwardsCalculationScenario(expectedMacroStabilityInwardsCalculation, (MacroStabilityInwardsCalculationScenario) actualChild);
+                }
                 var expectedGrassCoverErosionInwardsCalculation = expectedChild as GrassCoverErosionInwardsCalculation;
                 if (expectedGrassCoverErosionInwardsCalculation != null)
                 {
@@ -1566,6 +1571,195 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedSurfaceLine.BottomDitchPolderSide, actualSurfaceLine.BottomDitchPolderSide);
             Assert.AreEqual(expectedSurfaceLine.DitchPolderSide, actualSurfaceLine.DitchPolderSide);
             Assert.AreEqual(expectedSurfaceLine.SurfaceLevelInside, actualSurfaceLine.SurfaceLevelInside);
+        }
+
+        private static void AssertMacroStabilityInwardsCalculationScenario(MacroStabilityInwardsCalculationScenario expectedMacroStabilityInwardsCalculation,
+                                                                           MacroStabilityInwardsCalculationScenario actualMacroStabilityInwardsCalculation)
+        {
+            Assert.AreEqual(expectedMacroStabilityInwardsCalculation.IsRelevant, actualMacroStabilityInwardsCalculation.IsRelevant);
+            Assert.AreEqual(expectedMacroStabilityInwardsCalculation.Contribution, actualMacroStabilityInwardsCalculation.Contribution);
+            Assert.AreEqual(expectedMacroStabilityInwardsCalculation.Name, actualMacroStabilityInwardsCalculation.Name);
+            AssertComments(expectedMacroStabilityInwardsCalculation.Comments, actualMacroStabilityInwardsCalculation.Comments);
+
+            AssertMacroStabilityInwardsInput(expectedMacroStabilityInwardsCalculation.InputParameters,
+                                             actualMacroStabilityInwardsCalculation.InputParameters);
+
+            AssertMacroStabilityInwardsOutput(expectedMacroStabilityInwardsCalculation.Output,
+                                              actualMacroStabilityInwardsCalculation.Output);
+            AssertMacroStabilityInwardsSemiProbabilisticOutput(expectedMacroStabilityInwardsCalculation.SemiProbabilisticOutput,
+                                                               actualMacroStabilityInwardsCalculation.SemiProbabilisticOutput);
+        }
+
+        private static void AssertMacroStabilityInwardsInput(MacroStabilityInwardsInput expectedInput, MacroStabilityInwardsInput actualInput)
+        {
+            Assert.AreEqual(expectedInput.AssessmentLevel, actualInput.AssessmentLevel);
+            Assert.AreEqual(expectedInput.UseAssessmentLevelManualInput, actualInput.UseAssessmentLevelManualInput);
+            Assert.AreEqual(expectedInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
+            Assert.AreEqual(expectedInput.SlipPlaneMinimumLength, actualInput.SlipPlaneMinimumLength);
+            Assert.AreEqual(expectedInput.MaximumSliceWidth, actualInput.MaximumSliceWidth);
+            Assert.AreEqual(expectedInput.MoveGrid, actualInput.MoveGrid);
+            Assert.AreEqual(expectedInput.DikeSoilScenario, actualInput.DikeSoilScenario);
+            Assert.AreEqual(expectedInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
+            Assert.AreEqual(expectedInput.DrainageConstructionPresent, actualInput.DrainageConstructionPresent);
+            Assert.AreEqual(expectedInput.XCoordinateDrainageConstruction, actualInput.XCoordinateDrainageConstruction);
+            Assert.AreEqual(expectedInput.ZCoordinateDrainageConstruction, actualInput.ZCoordinateDrainageConstruction);
+            Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
+
+            AsssertMacroStabilityInwardsLocationInputBase(expectedInput.LocationInputDaily, expectedInput.LocationInputDaily);
+            AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputExtreme, expectedInput.LocationInputExtreme);
+
+            Assert.AreEqual(expectedInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreEqual(expectedInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(expectedInput.LeakageLengthInwardsPhreaticLine3, actualInput.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(expectedInput.LeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(expectedInput.LeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(expectedInput.PiezometricHeadPhreaticLine2Outwards, actualInput.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(expectedInput.PiezometricHeadPhreaticLine2Inwards, actualInput.PiezometricHeadPhreaticLine2Inwards);
+
+            Assert.AreEqual(expectedInput.GridDeterminationType, actualInput.GridDeterminationType);
+            Assert.AreEqual(expectedInput.TangentLineDeterminationType, actualInput.TangentLineDeterminationType);
+
+            Assert.AreEqual(expectedInput.TangentLineZTop, actualInput.TangentLineZTop);
+            Assert.AreEqual(expectedInput.TangentLineZBottom, actualInput.TangentLineZBottom);
+            Assert.AreEqual(expectedInput.TangentLineNumber, actualInput.TangentLineNumber);
+
+            AssertMacroStabilityInwardsGrid(expectedInput.LeftGrid, actualInput.LeftGrid);
+            AssertMacroStabilityInwardsGrid(expectedInput.RightGrid, actualInput.RightGrid);
+
+            Assert.AreEqual(expectedInput.CreateZones, actualInput.CreateZones);
+        }
+
+        private static void AssertMacroStabilityInwardsGrid(MacroStabilityInwardsGrid expectedGrid, MacroStabilityInwardsGrid actualGrid)
+        {
+            Assert.AreEqual(expectedGrid.XLeft, actualGrid.XLeft);
+            Assert.AreEqual(expectedGrid.XRight, actualGrid.XRight);
+            Assert.AreEqual(expectedGrid.NumberOfHorizontalPoints, actualGrid.NumberOfHorizontalPoints);
+
+            Assert.AreEqual(expectedGrid.ZTop, actualGrid.ZTop);
+            Assert.AreEqual(expectedGrid.ZBottom, actualGrid.ZBottom);
+            Assert.AreEqual(expectedGrid.NumberOfVerticalPoints, actualGrid.NumberOfVerticalPoints);
+        }
+
+        private static void AsssertMacroStabilityInwardsLocationInputBase(IMacroStabilityInwardsLocationInput expectedLocationInput,
+                                                                          IMacroStabilityInwardsLocationInput actuaLocationInput)
+        {
+            Assert.AreEqual(expectedLocationInput.WaterLevelPolder, actuaLocationInput.WaterLevelPolder);
+            Assert.AreEqual(expectedLocationInput.UseDefaultOffsets, actuaLocationInput.UseDefaultOffsets);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver, actuaLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder, actuaLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowShoulderBaseInside, actuaLocationInput.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder, actuaLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder);
+        }
+
+        private static void AssertMacroStabilityInwardsLocationInput(IMacroStabilityInwardsLocationInputExtreme expectedLocationInput,
+                                                                     IMacroStabilityInwardsLocationInputExtreme actualLocationInput)
+        {
+            AsssertMacroStabilityInwardsLocationInputBase(expectedLocationInput, actualLocationInput);
+            Assert.AreEqual(expectedLocationInput.PenetrationLength, actualLocationInput.PenetrationLength);
+        }
+
+        private static void AssertMacroStabilityInwardsOutput(MacroStabilityInwardsOutput expectedOutput,
+                                                              MacroStabilityInwardsOutput actualOutput)
+        {
+            if (expectedOutput == null)
+            {
+                Assert.IsNull(actualOutput);
+            }
+            else
+            {
+                Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
+                Assert.AreEqual(expectedOutput.ZValue, actualOutput.ZValue);
+                Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMin, actualOutput.ForbiddenZonesXEntryMin);
+                Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
+
+                AssertMacroStabilityInwardsSlidingCurve(expectedOutput.SlidingCurve, actualOutput.SlidingCurve);
+            }
+        }
+
+        private static void AssertMacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsSlipPlaneUpliftVan expectedSlipPlane,
+                                                                          MacroStabilityInwardsSlipPlaneUpliftVan actualSlipPlane)
+        {
+            AssertMacroStabilityInwardsGrid(expectedSlipPlane.LeftGrid, actualSlipPlane.LeftGrid);
+            AssertMacroStabilityInwardsGrid(expectedSlipPlane.RightGrid, actualSlipPlane.RightGrid);
+            CollectionAssert.AreEqual(expectedSlipPlane.TangentLines, actualSlipPlane.TangentLines);
+        }
+
+        private static void AssertMacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCurve expectedCurve,
+                                                                    MacroStabilityInwardsSlidingCurve actualCurve)
+        {
+            Assert.AreEqual(expectedCurve.NonIteratedHorizontalForce, actualCurve.NonIteratedHorizontalForce);
+            Assert.AreEqual(expectedCurve.IteratedHorizontalForce, actualCurve.IteratedHorizontalForce);
+
+            AssertMacroStabilityInwardsSlidingCircle(expectedCurve.LeftCircle, actualCurve.LeftCircle);
+            AssertMacroStabilityInwardsSlidingCircle(expectedCurve.RightCircle, actualCurve.RightCircle);
+
+            AssertCollectionAndItems(expectedCurve.Slices, actualCurve.Slices, AssertMacroStabilityInwardsSlice);
+        }
+
+        private static void AssertMacroStabilityInwardsSlidingCircle(MacroStabilityInwardsSlidingCircle expectedCircle,
+                                                                     MacroStabilityInwardsSlidingCircle actualCircle)
+        {
+            Assert.AreEqual(expectedCircle.Center, actualCircle.Center);
+            Assert.AreEqual(expectedCircle.Radius, actualCircle.Radius);
+            Assert.AreEqual(expectedCircle.IsActive, actualCircle.IsActive);
+            Assert.AreEqual(expectedCircle.NonIteratedForce, actualCircle.NonIteratedForce);
+            Assert.AreEqual(expectedCircle.IteratedForce, actualCircle.IteratedForce);
+            Assert.AreEqual(expectedCircle.DrivingMoment, actualCircle.DrivingMoment);
+            Assert.AreEqual(expectedCircle.ResistingMoment, actualCircle.ResistingMoment);
+        }
+
+        private static void AssertMacroStabilityInwardsSlice(MacroStabilityInwardsSlice expectedSlice,
+                                                             MacroStabilityInwardsSlice actualSlice)
+        {
+            Assert.AreEqual(expectedSlice.Cohesion, actualSlice.Cohesion);
+            Assert.AreEqual(expectedSlice.FrictionAngle, actualSlice.FrictionAngle);
+            Assert.AreEqual(expectedSlice.CriticalPressure, actualSlice.CriticalPressure);
+            Assert.AreEqual(expectedSlice.OverConsolidationRatio, actualSlice.OverConsolidationRatio);
+            Assert.AreEqual(expectedSlice.Pop, actualSlice.Pop);
+            Assert.AreEqual(expectedSlice.DegreeOfConsolidationPorePressureSoil, actualSlice.DegreeOfConsolidationPorePressureSoil);
+            Assert.AreEqual(expectedSlice.DegreeOfConsolidationPorePressureLoad, actualSlice.DegreeOfConsolidationPorePressureLoad);
+            Assert.AreEqual(expectedSlice.Dilatancy, actualSlice.Dilatancy);
+            Assert.AreEqual(expectedSlice.ExternalLoad, actualSlice.ExternalLoad);
+            Assert.AreEqual(expectedSlice.HydrostaticPorePressure, actualSlice.HydrostaticPorePressure);
+            Assert.AreEqual(expectedSlice.LeftForce, actualSlice.LeftForce);
+            Assert.AreEqual(expectedSlice.LeftForceAngle, actualSlice.LeftForceAngle);
+            Assert.AreEqual(expectedSlice.LeftForceY, actualSlice.LeftForceY);
+            Assert.AreEqual(expectedSlice.RightForce, actualSlice.RightForce);
+            Assert.AreEqual(expectedSlice.RightForceAngle, actualSlice.RightForceAngle);
+            Assert.AreEqual(expectedSlice.RightForceY, actualSlice.RightForceY);
+            Assert.AreEqual(expectedSlice.LoadStress, actualSlice.LoadStress);
+            Assert.AreEqual(expectedSlice.NormalStress, actualSlice.NormalStress);
+            Assert.AreEqual(expectedSlice.PorePressure, actualSlice.PorePressure);
+            Assert.AreEqual(expectedSlice.HorizontalPorePressure, actualSlice.HorizontalPorePressure);
+            Assert.AreEqual(expectedSlice.VerticalPorePressure, actualSlice.VerticalPorePressure);
+            Assert.AreEqual(expectedSlice.PiezometricPorePressure, actualSlice.PiezometricPorePressure);
+            Assert.AreEqual(expectedSlice.EffectiveStress, actualSlice.EffectiveStress);
+            Assert.AreEqual(expectedSlice.EffectiveStressDaily, actualSlice.EffectiveStressDaily);
+            Assert.AreEqual(expectedSlice.ExcessPorePressure, actualSlice.ExcessPorePressure);
+            Assert.AreEqual(expectedSlice.ShearStress, actualSlice.ShearStress);
+            Assert.AreEqual(expectedSlice.SoilStress, actualSlice.SoilStress);
+            Assert.AreEqual(expectedSlice.TotalPorePressure, actualSlice.TotalPorePressure);
+            Assert.AreEqual(expectedSlice.TotalStress, actualSlice.TotalStress);
+            Assert.AreEqual(expectedSlice.Weight, actualSlice.Weight);
+        }
+
+        private static void AssertMacroStabilityInwardsSemiProbabilisticOutput(MacroStabilityInwardsSemiProbabilisticOutput expectedOutput,
+                                                                               MacroStabilityInwardsSemiProbabilisticOutput actualOutput)
+        {
+            if (expectedOutput == null)
+            {
+                Assert.IsNull(actualOutput);
+            }
+            else
+            {
+                Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
+                Assert.AreEqual(expectedOutput.MacroStabilityInwardsProbability, actualOutput.MacroStabilityInwardsProbability);
+                Assert.AreEqual(expectedOutput.MacroStabilityInwardsReliability, actualOutput.MacroStabilityInwardsReliability);
+                Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
+                Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
+                Assert.AreEqual(expectedOutput.MacroStabilityInwardsFactorOfSafety, actualOutput.MacroStabilityInwardsFactorOfSafety);
+            }
         }
 
         #endregion

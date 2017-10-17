@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             {
                 Name = calculation.Name.DeepClone(),
                 Comment = calculation.Comments.Body.DeepClone(),
-                ScenarioContribution = calculation.Contribution,
+                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
                 Order = order
             };

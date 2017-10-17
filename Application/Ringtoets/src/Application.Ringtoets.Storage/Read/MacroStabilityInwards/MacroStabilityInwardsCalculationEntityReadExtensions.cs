@@ -101,6 +101,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 
             inputParameters.WaterLevelRiverAverage = (RoundedDouble) entity.WaterLevelRiverAverage.ToNullAsNaN();
 
+            inputParameters.DrainageConstructionPresent = Convert.ToBoolean(entity.DrainageConstructionPresent);
             inputParameters.XCoordinateDrainageConstruction = (RoundedDouble) entity.DrainageConstructionCoordinateX.ToNullAsNaN();
             inputParameters.ZCoordinateDrainageConstruction = (RoundedDouble) entity.DrainageConstructionCoordinateZ.ToNullAsNaN();
 

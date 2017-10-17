@@ -60,6 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
+                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     SlipPlaneMinimumDepth = RoundedDouble.NaN,
@@ -118,6 +119,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
+
+            Assert.IsNull(entity.ScenarioContribution);
 
             Assert.IsNull(entity.AssessmentLevel);
             Assert.IsNull(entity.SlipPlaneMinimumDepth);
@@ -360,7 +363,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random(21);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(random.NextDouble(),
-                                                                                       MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D("A"));
+                                                                                       MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D());
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
