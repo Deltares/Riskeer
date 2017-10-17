@@ -266,33 +266,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             StabilityLocation location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
 
             // Assert
-            Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
-            Assert.AreEqual(WtiStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
-            Assert.AreEqual(WtiStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
-            Assert.AreEqual(assessmentLevel, location.WaterLevelRiver);
-            Assert.AreEqual(assessmentLevel, location.HeadInPlLine3);
-            Assert.AreEqual(assessmentLevel, location.HeadInPlLine4);
-            Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiverAverage);
-            Assert.AreEqual(waterLevelPolderExtreme, location.WaterLevelPolder);
-            Assert.AreEqual(drainageConstruction.IsPresent, location.DrainageConstructionPresent);
-            Assert.AreEqual(drainageConstruction.XCoordinate, location.XCoordMiddleDrainageConstruction);
-            Assert.AreEqual(drainageConstruction.ZCoordinate, location.ZCoordMiddleDrainageConstruction);
-            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);
-            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, location.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(phreaticLineOffsets.UseDefaults, location.UseDefaultOffsets);
-            Assert.AreEqual(phreaticLineOffsets.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
-            Assert.AreEqual(phreaticLineOffsets.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(phreaticLineOffsets.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(phreaticLineOffsets.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(adjustPhreaticLine3And4ForUplift, location.AdjustPl3And4ForUplift);
-            Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, location.LeakageLengthOutwardsPl3);
-            Assert.AreEqual(leakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);
-            Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, location.LeakageLengthOutwardsPl4);
-            Assert.AreEqual(leakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
-            Assert.AreEqual(penetrationLengthExtreme, location.PenetrationLength);
+            Assert.AreEqual(input.AssessmentLevel, location.HeadInPlLine3);
+            Assert.AreEqual(input.AssessmentLevel, location.HeadInPlLine4);
+            Assert.AreEqual(input.AssessmentLevel, location.WaterLevelRiver);
+            Assert.AreEqual(input.WaterLevelPolderExtreme, location.WaterLevelPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.UseDefaults, location.UseDefaultOffsets);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(input.PenetrationLengthExtreme, location.PenetrationLength);
 
+            AssertGeneralLocationValues(input, location);
             AssertIrrelevantValues(location);
         }
 
@@ -522,34 +507,39 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             StabilityLocation location = UpliftVanStabilityLocationCreator.CreateDaily(input);
 
             // Assert
+            Assert.AreEqual(input.WaterLevelRiverAverage, location.HeadInPlLine3);
+            Assert.AreEqual(input.WaterLevelRiverAverage, location.HeadInPlLine4);
+            Assert.AreEqual(input.WaterLevelRiverAverage, location.WaterLevelRiver);
+            Assert.AreEqual(input.WaterLevelPolderDaily, location.WaterLevelPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.UseDefaults, location.UseDefaultOffsets);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(input.PenetrationLengthDaily, location.PenetrationLength);
+
+            AssertGeneralLocationValues(input, location);
+            AssertIrrelevantValues(location);
+        }
+
+        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, Location location)
+        {
+            Assert.AreEqual(input.WaterLevelRiverAverage, location.WaterLevelRiverAverage);
+            Assert.AreEqual(input.DrainageConstruction.IsPresent, location.DrainageConstructionPresent);
+            Assert.AreEqual(input.DrainageConstruction.XCoordinate, location.XCoordMiddleDrainageConstruction);
+            Assert.AreEqual(input.DrainageConstruction.ZCoordinate, location.ZCoordMiddleDrainageConstruction);
+            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, location.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
             Assert.AreEqual(WtiStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
             Assert.AreEqual(WtiStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
-            Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiver);
-            Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine3);
-            Assert.AreEqual(waterLevelRiverAverage, location.HeadInPlLine4);
-            Assert.AreEqual(waterLevelRiverAverage, location.WaterLevelRiverAverage);
-            Assert.AreEqual(waterLevelPolderDaily, location.WaterLevelPolder);
-            Assert.AreEqual(drainageConstruction.IsPresent, location.DrainageConstructionPresent);
-            Assert.AreEqual(drainageConstruction.XCoordinate, location.XCoordMiddleDrainageConstruction);
-            Assert.AreEqual(drainageConstruction.ZCoordinate, location.ZCoordMiddleDrainageConstruction);
-            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);
-            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, location.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(phreaticLineOffsets.UseDefaults, location.UseDefaultOffsets);
-            Assert.AreEqual(phreaticLineOffsets.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
-            Assert.AreEqual(phreaticLineOffsets.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(phreaticLineOffsets.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(phreaticLineOffsets.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(adjustPhreaticLine3And4ForUplift, location.AdjustPl3And4ForUplift);
-            Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, location.LeakageLengthOutwardsPl3);
-            Assert.AreEqual(leakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);
-            Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, location.LeakageLengthOutwardsPl4);
-            Assert.AreEqual(leakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
-            Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
-            Assert.AreEqual(penetrationLengthDaily, location.PenetrationLength);
-
-            AssertIrrelevantValues(location);
+            Assert.AreEqual(input.AdjustPhreaticLine3And4ForUplift, location.AdjustPl3And4ForUplift);
+            Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine3, location.LeakageLengthOutwardsPl3);
+            Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);
+            Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine4, location.LeakageLengthOutwardsPl4);
+            Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
+            Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
+            Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
         }
 
         private static void AssertIrrelevantValues(Location location)

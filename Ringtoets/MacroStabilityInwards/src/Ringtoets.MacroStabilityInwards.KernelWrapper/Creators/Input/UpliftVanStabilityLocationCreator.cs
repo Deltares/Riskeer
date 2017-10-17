@@ -52,33 +52,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return new StabilityLocation
-            {
-                DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
-                WaterLevelRiver = input.AssessmentLevel,
-                WaterLevelRiverAverage = input.WaterLevelRiverAverage,
-                WaterLevelPolder = input.WaterLevelPolderExtreme,
-                DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
-                XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,
-                ZCoordMiddleDrainageConstruction = input.DrainageConstruction.ZCoordinate,
-                MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
-                MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
-                UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults,
-                PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver,
-                PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder,
-                PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside,
-                PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder,
-                AdjustPl3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
-                LeakageLengthOutwardsPl3 = input.LeakageLengthOutwardsPhreaticLine3,
-                LeakageLengthInwardsPl3 = input.LeakageLengthInwardsPhreaticLine3,
-                LeakageLengthOutwardsPl4 = input.LeakageLengthOutwardsPhreaticLine4,
-                LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
-                HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
-                HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = input.PenetrationLengthExtreme
-            };
+            StabilityLocation location = CreateBaseLocation(input);
+            location.WaterLevelRiver = input.AssessmentLevel;
+            location.WaterLevelPolder = input.WaterLevelPolderExtreme;
+            location.UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults;
+            location.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver;
+            location.PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder;
+            location.PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside;
+            location.PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder;
+            location.PenetrationLength = input.PenetrationLengthExtreme;
+            return location;
         }
 
         /// <summary>
@@ -101,32 +84,38 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(input));
             }
 
+            StabilityLocation location = CreateBaseLocation(input);
+            location.WaterLevelRiver = input.WaterLevelRiverAverage;
+            location.WaterLevelPolder = input.WaterLevelPolderDaily;
+            location.UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults;
+            location.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver;
+            location.PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder;
+            location.PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside;
+            location.PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder;
+            location.PenetrationLength = input.PenetrationLengthDaily;
+            return location;
+        }
+
+        private static StabilityLocation CreateBaseLocation(UpliftVanCalculatorInput input)
+        {
             return new StabilityLocation
             {
                 DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
                 PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
-                WaterLevelRiver = input.WaterLevelRiverAverage,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
-                WaterLevelPolder = input.WaterLevelPolderDaily,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
                 XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,
                 ZCoordMiddleDrainageConstruction = input.DrainageConstruction.ZCoordinate,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
-                UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults,
-                PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver,
-                PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder,
-                PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside,
-                PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder,
                 AdjustPl3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
                 LeakageLengthOutwardsPl3 = input.LeakageLengthOutwardsPhreaticLine3,
                 LeakageLengthInwardsPl3 = input.LeakageLengthInwardsPhreaticLine3,
                 LeakageLengthOutwardsPl4 = input.LeakageLengthOutwardsPhreaticLine4,
                 LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
-                HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = input.PenetrationLengthDaily
+                HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards
             };
         }
     }
