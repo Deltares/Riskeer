@@ -252,11 +252,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LocationExtreme_DisplayName))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public MacroStabilityInwardsLocationExtremeProperties LocationExtreme
+        public MacroStabilityInwardsLocationInputExtremeProperties LocationExtreme
         {
             get
             {
-                return new MacroStabilityInwardsLocationExtremeProperties((MacroStabilityInwardsLocationInputExtreme) data.LocationInputExtreme, propertyChangeHandler);
+                return new MacroStabilityInwardsLocationInputExtremeProperties((MacroStabilityInwardsLocationInputExtreme) data.LocationInputExtreme, propertyChangeHandler);
             }
         }
 
@@ -264,11 +264,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LocationDaily_DisplayName))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public MacroStabilityInwardsLocationDailyProperties LocationDaily
+        public MacroStabilityInwardsLocationInputDailyProperties LocationDaily
         {
             get
             {
-                return new MacroStabilityInwardsLocationDailyProperties((MacroStabilityInwardsLocationInputDaily) data.LocationInputDaily, propertyChangeHandler);
+                return new MacroStabilityInwardsLocationInputDailyProperties((MacroStabilityInwardsLocationInputDaily) data.LocationInputDaily, propertyChangeHandler);
             }
         }
 

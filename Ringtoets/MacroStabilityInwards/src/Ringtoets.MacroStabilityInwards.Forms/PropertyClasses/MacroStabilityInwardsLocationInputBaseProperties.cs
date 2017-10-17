@@ -33,10 +33,10 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of water stresses properties in <see cref="MacroStabilityInwardsLocationInput"/> for properties panel.
+    /// ViewModel of water stresses properties in <see cref="MacroStabilityInwardsLocationInputBase"/> for properties panel.
     /// </summary>
-    /// <typeparam name="T">The type of locations input the property class should wrap around</typeparam>
-    public abstract class MacroStabilityInwardsLocationProperties<T> : ObjectProperties<T> where T : MacroStabilityInwardsLocationInput
+    /// <typeparam name="T">The type of location input.</typeparam>
+    public abstract class MacroStabilityInwardsLocationInputBaseProperties<T> : ObjectProperties<T> where T : MacroStabilityInwardsLocationInputBase
     {
         private const int waterLevelPolderPropertyIndex = 1;
         private const int offsetsPropertyIndex = 2;
@@ -44,12 +44,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         protected readonly IObservablePropertyChangeHandler PropertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsLocationProperties{T}"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsLocationInputBaseProperties{T}"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected MacroStabilityInwardsLocationProperties(T data, IObservablePropertyChangeHandler handler)
+        protected MacroStabilityInwardsLocationInputBaseProperties(T data, IObservablePropertyChangeHandler handler)
         {
             if (data == null)
             {

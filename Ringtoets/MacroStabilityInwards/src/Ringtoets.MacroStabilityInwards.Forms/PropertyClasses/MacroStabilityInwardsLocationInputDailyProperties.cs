@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
@@ -31,19 +30,19 @@ using Ringtoets.MacroStabilityInwards.Forms.Properties;
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of water stresses properties in <see cref="MacroStabilityInwardsLocationInputExtreme"/> for properties panel.
+    /// ViewModel of water stresses properties in <see cref="MacroStabilityInwardsLocationInputDaily"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsLocationExtremeProperties : MacroStabilityInwardsLocationProperties<MacroStabilityInwardsLocationInputExtreme>
+    public class MacroStabilityInwardsLocationInputDailyProperties : MacroStabilityInwardsLocationInputBaseProperties<MacroStabilityInwardsLocationInputDaily>
     {
         private const int penetrationLengthPropertyIndex = 3;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsLocationExtremeProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsLocationInputDailyProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsLocationExtremeProperties(MacroStabilityInwardsLocationInputExtreme data, IObservablePropertyChangeHandler handler)
+        public MacroStabilityInwardsLocationInputDailyProperties(MacroStabilityInwardsLocationInputDaily data, IObservablePropertyChangeHandler handler)
             : base(data, handler) {}
 
         [PropertyOrder(penetrationLengthPropertyIndex)]
@@ -55,10 +54,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.PenetrationLength;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.PenetrationLength = value, PropertyChangeHandler);
             }
         }
     }

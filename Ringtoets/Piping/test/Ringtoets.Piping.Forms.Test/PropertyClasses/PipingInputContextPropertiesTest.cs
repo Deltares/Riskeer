@@ -648,7 +648,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
         }
 
         [Test]
@@ -659,7 +659,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
         }
 
         [Test]
@@ -670,7 +670,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
         }
 
         [Test]
@@ -687,7 +687,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
         }
 
         [Test]
@@ -698,7 +698,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DampingFactorExit.Mean = mean, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.DampingFactorExit.Mean = mean, calculation);
         }
 
         [Test]
@@ -709,7 +709,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DampingFactorExit.StandardDeviation = standardDeviation, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.DampingFactorExit.StandardDeviation = standardDeviation, calculation);
         }
 
         [Test]
@@ -720,7 +720,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PhreaticLevelExit.Mean = mean, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.PhreaticLevelExit.Mean = mean, calculation);
         }
 
         [Test]
@@ -731,7 +731,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PhreaticLevelExit.StandardDeviation = standardDeviation, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.PhreaticLevelExit.StandardDeviation = standardDeviation, calculation);
         }
 
         [Test]
@@ -742,7 +742,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.EntryPointL = newEntryPointL, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.EntryPointL = newEntryPointL, calculation);
         }
 
         [Test]
@@ -753,7 +753,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.ExitPointL = newExitPointL, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ExitPointL = newExitPointL, calculation);
         }
 
         [Test]
@@ -763,7 +763,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
                                                            calculation);
         }
 
@@ -2006,7 +2006,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsFalse(result);
         }
 
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(
+        private static void SetPropertyAndVerifyNotificationsForCalculation(
             Action<PipingInputContextProperties> setProperty,
             PipingCalculationScenario calculation)
         {

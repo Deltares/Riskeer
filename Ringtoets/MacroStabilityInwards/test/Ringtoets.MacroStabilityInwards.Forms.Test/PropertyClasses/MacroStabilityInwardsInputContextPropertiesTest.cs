@@ -445,15 +445,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new MacroStabilityInwardsInputContextProperties(context, handler);
 
-            var random = new Random();
+            var random = new Random(21);
             const double assessmentLevel = 0.36;
             MacroStabilityInwardsSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             MacroStabilityInwardsStochasticSoilModel soilModel = ValidStochasticSoilModel(0.0, 4.0);
             MacroStabilityInwardsStochasticSoilProfile soilProfile = soilModel.StochasticSoilProfiles.First();
             const MacroStabilityInwardsDikeSoilScenario dikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand;
-            double slipPlaneMinimumDepth = random.Next();
-            double slipPlaneMinimumLength = random.Next();
-            double maximumSliceWidth = random.Next();
+            double slipPlaneMinimumDepth = random.NextDouble();
+            double slipPlaneMinimumLength = random.NextDouble();
+            double maximumSliceWidth = random.NextDouble();
 
             // When
             properties.UseAssessmentLevelManualInput = true;
@@ -472,9 +472,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(soilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
             Assert.AreEqual(dikeSoilScenario, inputParameters.DikeSoilScenario);
-            Assert.AreEqual(slipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth);
-            Assert.AreEqual(slipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength);
-            Assert.AreEqual(maximumSliceWidth, inputParameters.MaximumSliceWidth);
+            Assert.AreEqual(slipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth, inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
+            Assert.AreEqual(slipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength, inputParameters.SlipPlaneMinimumLength.GetAccuracy());
+            Assert.AreEqual(maximumSliceWidth, inputParameters.MaximumSliceWidth, inputParameters.MaximumSliceWidth.GetAccuracy());
             mocks.VerifyAll();
         }
 
@@ -486,7 +486,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(p => p.SurfaceLine = newSurfaceLine, calculation);
         }
 
         [Test]
@@ -497,7 +497,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.StochasticSoilModel = newSoilModel, calculation);
         }
 
         [Test]
@@ -508,7 +508,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.StochasticSoilProfile = newSoilProfile, calculation);
         }
 
         [Test]
@@ -525,7 +525,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.AssessmentLevel = newAssessmentLevel, calculation);
         }
 
         [Test]
@@ -535,20 +535,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
-                                                           calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.UseAssessmentLevelManualInput = true,
+                                                            calculation);
         }
 
         [Test]
         public void DikeSoilScenario_SetNewValue_SetsValuesAndUpdatesObservers()
         {
             // Setup
-            var newDikeSoilScenario = new Random().NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
+            var newDikeSoilScenario = new Random(21).NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DikeSoilScenario = newDikeSoilScenario,
-                                                           calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.DikeSoilScenario = newDikeSoilScenario,
+                                                            calculation);
         }
 
         [Test]
@@ -558,8 +558,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumDepth = (RoundedDouble) 1,
-                                                           calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.SlipPlaneMinimumDepth = (RoundedDouble) 1,
+                                                            calculation);
         }
 
         [Test]
@@ -569,8 +569,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.SlipPlaneMinimumLength = (RoundedDouble) 1,
-                                                           calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.SlipPlaneMinimumLength = (RoundedDouble) 1,
+                                                            calculation);
         }
 
         [Test]
@@ -580,8 +580,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MaximumSliceWidth = (RoundedDouble) 1,
-                                                           calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.MaximumSliceWidth = (RoundedDouble) 1,
+                                                            calculation);
         }
 
         [Test]
@@ -1574,7 +1574,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(result);
         }
 
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(
+        private static void SetPropertyAndVerifyNotificationsForCalculation(
             Action<MacroStabilityInwardsInputContextProperties> setProperty,
             MacroStabilityInwardsCalculationScenario calculation)
         {

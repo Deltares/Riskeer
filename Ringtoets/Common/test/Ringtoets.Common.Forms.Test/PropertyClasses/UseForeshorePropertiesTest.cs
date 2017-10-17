@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void UseForeshore_Always_InputNotifiedAndPropertyChangedCalled()
         {
             bool useForeshore = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseForeshore = useForeshore,
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.UseForeshore = useForeshore,
                                                                     new TestUseForeshore());
         }
 
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             true);
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+        private void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<UseForeshoreProperties> setProperty,
             TestUseForeshore input)
         {

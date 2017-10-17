@@ -99,7 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             LeakageLengthInwardsPhreaticLine4 = properties.LeakageLengthInwardsPhreaticLine4;
             PiezometricHeadPhreaticLine2Outwards = properties.PiezometricHeadPhreaticLine2Outwards;
             PiezometricHeadPhreaticLine2Inwards = properties.PiezometricHeadPhreaticLine2Inwards;
-            PenetrationLength = properties.PenetrationLength;
+            PenetrationLengthExtreme = properties.PenetrationLengthExtreme;
+            PenetrationLengthDaily = properties.PenetrationLengthDaily;
             AdjustPhreaticLine3And4ForUplift = properties.AdjustPhreaticLine3And4ForUplift;
             DikeSoilScenario = properties.DikeSoilScenario;
             MoveGrid = properties.MoveGrid;
@@ -135,7 +136,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
                 LeakageLengthInwardsPhreaticLine4 = double.NaN;
                 PiezometricHeadPhreaticLine2Outwards = double.NaN;
                 PiezometricHeadPhreaticLine2Inwards = double.NaN;
-                PenetrationLength = double.NaN;
+                PenetrationLengthExtreme = double.NaN;
+                PenetrationLengthDaily = double.NaN;
                 DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay;
                 MaximumSliceWidth = double.NaN;
                 SlipPlaneMinimumDepth = double.NaN;
@@ -272,10 +274,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             public double PiezometricHeadPhreaticLine2Inwards { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the penetration length.
+            /// Gets or sets the penetration length under extreme circumstances.
             /// [m]
             /// </summary>
-            public double PenetrationLength { internal get; set; }
+            public double PenetrationLengthExtreme { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the penetration length under daily circumstances.
+            /// [m]
+            /// </summary>
+            public double PenetrationLengthDaily { internal get; set; }
 
             /// <summary>
             /// Gets or sets the value whether the grid should be moved.
@@ -443,10 +451,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
         public double PiezometricHeadPhreaticLine2Inwards { get; }
 
         /// <summary>
-        /// Gets the penetration length.
+        /// Gets the penetration length under extreme circumstances.
         /// [m]
         /// </summary>
-        public double PenetrationLength { get; }
+        public double PenetrationLengthExtreme { get; }
+
+        /// <summary>
+        /// Gets the penetration length under daily circumstances.
+        /// [m]
+        /// </summary>
+        public double PenetrationLengthDaily { get; }
 
         /// <summary>
         /// Gets the value whether the grid should be moved.

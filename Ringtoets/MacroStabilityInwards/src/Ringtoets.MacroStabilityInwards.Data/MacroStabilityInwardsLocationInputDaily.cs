@@ -25,10 +25,10 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Class that holds all locations input daily conditions 
+    /// Class that holds all location input for daily conditions
     /// for the macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsLocationInputDaily : MacroStabilityInwardsLocationInput, IMacroStabilityInwardsLocationInputDaily
+    public class MacroStabilityInwardsLocationInputDaily : MacroStabilityInwardsLocationInputBase, IMacroStabilityInwardsLocationInputDaily
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInputDaily"/> class.

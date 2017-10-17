@@ -28,6 +28,7 @@ using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -300,30 +301,31 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                 PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
-                WaterLevelRiverAverage = random.Next(),
-                WaterLevelPolderExtreme = random.Next(),
-                WaterLevelPolderDaily = random.Next(),
-                MinimumLevelPhreaticLineAtDikeTopRiver = random.Next(),
-                MinimumLevelPhreaticLineAtDikeTopPolder = random.Next(),
-                LeakageLengthOutwardsPhreaticLine3 = random.Next(),
-                LeakageLengthInwardsPhreaticLine3 = random.Next(),
-                LeakageLengthOutwardsPhreaticLine4 = random.Next(),
-                LeakageLengthInwardsPhreaticLine4 = random.Next(),
-                PiezometricHeadPhreaticLine2Outwards = random.Next(),
-                PiezometricHeadPhreaticLine2Inwards = random.Next(),
-                PenetrationLength = random.Next(),
+                WaterLevelRiverAverage = random.NextDouble(),
+                WaterLevelPolderExtreme = random.NextDouble(),
+                WaterLevelPolderDaily = random.NextDouble(),
+                MinimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble(),
+                MinimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble(),
+                LeakageLengthOutwardsPhreaticLine3 = random.NextDouble(),
+                LeakageLengthInwardsPhreaticLine3 = random.NextDouble(),
+                LeakageLengthOutwardsPhreaticLine4 = random.NextDouble(),
+                LeakageLengthInwardsPhreaticLine4 = random.NextDouble(),
+                PiezometricHeadPhreaticLine2Outwards = random.NextDouble(),
+                PiezometricHeadPhreaticLine2Inwards = random.NextDouble(),
+                PenetrationLengthExtreme = random.NextDouble(),
+                PenetrationLengthDaily = random.NextDouble(),
                 AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),
-                MaximumSliceWidth = random.Next(),
+                MaximumSliceWidth = random.NextDouble(),
                 CreateZones = random.NextBoolean(),
                 AutomaticForbiddenZones = random.NextBoolean(),
-                SlipPlaneMinimumDepth = random.Next(),
-                SlipPlaneMinimumLength = random.Next()
+                SlipPlaneMinimumDepth = random.NextDouble(),
+                SlipPlaneMinimumLength = random.NextDouble()
             });
         }
 
-        private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
+        private static SoilProfile CreateValidSoilProfile(MechanismSurfaceLineBase surfaceLine)
         {
             return new SoilProfile(new[]
             {

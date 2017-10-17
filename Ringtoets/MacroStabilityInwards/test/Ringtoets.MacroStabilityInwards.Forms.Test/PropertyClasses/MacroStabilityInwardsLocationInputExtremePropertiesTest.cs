@@ -37,10 +37,11 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class MacroStabilityInwardsLocationPropertiesTest
+    public class MacroStabilityInwardsLocationInputExtremePropertiesTest
     {
         private const int expectedwaterLevelPolderPropertyIndex = 0;
         private const int expecteOffsetPropertyIndex = 1;
+        private const int expectedPenetrationLengthPropertyIndex = 2;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -50,48 +51,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new TestMacroStabilityInwardsLocationInput();
+            var input = new MacroStabilityInwardsLocationInputExtreme();
 
             // Call
-            var properties = new TestMacroStabilityInwardsLocationProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, changeHandler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsLocationInput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsLocationInputExtreme>>(properties);
             Assert.AreSame(input, properties.Data);
 
-            TestHelper.AssertTypeConverter<TestMacroStabilityInwardsLocationProperties, ExpandableObjectConverter>(
-                nameof(TestMacroStabilityInwardsLocationProperties.Offsets));
-
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_DataNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new TestMacroStabilityInwardsLocationProperties(null, changeHandler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_HandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new TestMacroStabilityInwardsLocationProperties(new TestMacroStabilityInwardsLocationInput(),
-                                                                                      null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("handler", exception.ParamName);
         }
 
         [Test]
@@ -102,15 +71,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new TestMacroStabilityInwardsLocationInput();
+            var input = new MacroStabilityInwardsLocationInputExtreme();
 
             // Call
-            var properties = new TestMacroStabilityInwardsLocationProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string waterStressesCategory = "Waterspanningen";
 
@@ -129,6 +98,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 "Eigenschappen van offsets PL 1.",
                 true);
 
+            PropertyDescriptor penetrationLengthProperty = dynamicProperties[expectedPenetrationLengthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                penetrationLengthProperty,
+                waterStressesCategory,
+                "Indringingslengte [m]",
+                "De verticale afstand waarover de waterspanning in de deklaag verandert bij waterspanningsvariaties in de watervoerende zandlaag.");
+
             mocks.VerifyAll();
         }
 
@@ -140,14 +116,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new TestMacroStabilityInwardsLocationInput();
+            var input = new MacroStabilityInwardsLocationInputExtreme();
 
             // Call
-            var properties = new TestMacroStabilityInwardsLocationProperties(input, changeHandler);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, changeHandler);
 
             // Assert
-            Assert.AreEqual(input.WaterLevelPolder, properties.WaterLevelPolder);
-            Assert.AreSame(input, properties.Offsets.Data);
+            Assert.AreEqual(input.PenetrationLength, properties.PenetrationLength);
 
             mocks.VerifyAll();
         }
@@ -157,52 +132,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Given
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            var input = (MacroStabilityInwardsLocationInput) calculationItem.InputParameters.LocationInputExtreme;
+            var input = (MacroStabilityInwardsLocationInputExtreme) calculationItem.InputParameters.LocationInputExtreme;
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-            var properties = new TestMacroStabilityInwardsLocationProperties(input, handler);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, handler);
 
-            var random = new Random();
-            double waterLevelPolder = random.Next();
+            var random = new Random(21);
+            double waterLevelPolder = random.NextDouble();
+            double penetrationLength = random.NextDouble();
 
             // When
             properties.WaterLevelPolder = (RoundedDouble) waterLevelPolder;
+            properties.PenetrationLength = (RoundedDouble) penetrationLength;
 
             // Then
-            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder,
-                            input.WaterLevelPolder.GetAccuracy());
+            Assert.AreEqual(penetrationLength, input.PenetrationLength,
+                            input.PenetrationLength.GetAccuracy());
         }
 
         [Test]
-        public void WaterLevelPolder_SetValidValue_SetsValueAndUpdatesObservers()
+        public void PenetrationLength_SetValidValue_SetsValueAndUpdatesObservers()
         {
             // Setup
+            var random = new Random(21);
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelPolder = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.PenetrationLength = random.NextRoundedDouble(), calculation);
         }
 
-        [Test]
-        public void ToString_Always_ReturnEmptyString()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            var input = new TestMacroStabilityInwardsLocationInput();
-            var properties = new TestMacroStabilityInwardsLocationProperties(input, changeHandler);
-
-            // Call
-            string toString = properties.ToString();
-
-            // Assert
-            Assert.AreEqual(string.Empty, toString);
-        }
-
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<TestMacroStabilityInwardsLocationProperties> setProperty,
-                                                                           MacroStabilityInwardsCalculation calculation)
+        private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsLocationInputExtremeProperties> setProperty,
+                                                                            MacroStabilityInwardsCalculation calculation)
         {
             // Setup
             var mocks = new MockRepository();
@@ -217,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new TestMacroStabilityInwardsLocationProperties((MacroStabilityInwardsLocationInput) input.LocationInputExtreme, handler);
+            var properties = new MacroStabilityInwardsLocationInputExtremeProperties((MacroStabilityInwardsLocationInputExtreme) input.LocationInputExtreme, handler);
 
             // Call
             setProperty(properties);
@@ -226,14 +186,5 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
-
-        private class TestMacroStabilityInwardsLocationProperties : MacroStabilityInwardsLocationProperties<MacroStabilityInwardsLocationInput>
-        {
-            public TestMacroStabilityInwardsLocationProperties(MacroStabilityInwardsLocationInput data,
-                                                               IObservablePropertyChangeHandler handler)
-                : base(data, handler) {}
-        }
-
-        private class TestMacroStabilityInwardsLocationInput : MacroStabilityInwardsLocationInput {}
     }
 }

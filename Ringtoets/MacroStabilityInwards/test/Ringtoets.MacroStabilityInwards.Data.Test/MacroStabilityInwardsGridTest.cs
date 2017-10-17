@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -55,11 +56,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
-            var random = new Random();
-            double xLeft = random.Next();
-            double xRight = random.Next();
-            double zTop = random.Next();
-            double zBottom = random.Next();
+            var random = new Random(21);
+            double xLeft = random.NextDouble();
+            double xRight = random.NextDouble();
+            double zTop = random.NextDouble();
+            double zBottom = random.NextDouble();
 
             // call
             var grid = new MacroStabilityInwardsGrid
@@ -71,10 +72,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, xLeft), grid.XLeft);
-            Assert.AreEqual(new RoundedDouble(2, xRight), grid.XRight);
-            Assert.AreEqual(new RoundedDouble(2, zTop), grid.ZTop);
-            Assert.AreEqual(new RoundedDouble(2, zBottom), grid.ZBottom);
+            Assert.AreEqual(2, grid.XLeft.NumberOfDecimalPlaces);
+            Assert.AreEqual(xLeft, grid.XLeft,
+                            grid.XLeft.GetAccuracy());
+
+            Assert.AreEqual(2, grid.XRight.NumberOfDecimalPlaces);
+            Assert.AreEqual(xRight, grid.XRight,
+                            grid.XRight.GetAccuracy());
+
+            Assert.AreEqual(2, grid.ZTop.NumberOfDecimalPlaces);
+            Assert.AreEqual(zTop, grid.ZTop,
+                            grid.ZTop.GetAccuracy());
+
+            Assert.AreEqual(2, grid.ZBottom.NumberOfDecimalPlaces);
+            Assert.AreEqual(zBottom, grid.ZBottom,
+                            grid.ZBottom.GetAccuracy());
         }
     }
 }

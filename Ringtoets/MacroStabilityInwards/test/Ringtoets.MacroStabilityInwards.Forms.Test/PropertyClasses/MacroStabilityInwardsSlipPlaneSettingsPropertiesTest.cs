@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, handler);
 
-            var random = new Random();
+            var random = new Random(21);
             bool createZones = random.NextBoolean();
 
             // When

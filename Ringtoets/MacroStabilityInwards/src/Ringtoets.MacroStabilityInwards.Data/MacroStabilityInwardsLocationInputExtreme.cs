@@ -25,10 +25,10 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Base class that holds all locations input for extreme conditions 
+    /// Class that holds all location input for extreme conditions
     /// for the macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsLocationInputExtreme : MacroStabilityInwardsLocationInput, IMacroStabilityInwardsLocationInputExtreme
+    public class MacroStabilityInwardsLocationInputExtreme : MacroStabilityInwardsLocationInputBase, IMacroStabilityInwardsLocationInputExtreme
     {
         private RoundedDouble penetrationLength;
 

@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Base class that holds all locations input for either daily or 
     /// extreme conditions for the macro stability inwards calculation.
     /// </summary>
-    public abstract class MacroStabilityInwardsLocationInput : IMacroStabilityInwardsLocationInput
+    public abstract class MacroStabilityInwardsLocationInputBase : IMacroStabilityInwardsLocationInput
     {
         private RoundedDouble waterLevelPolder;
         private RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
@@ -37,9 +37,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble phreaticLineOffsetBelowDikeToeAtPolder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInput"/> class.
+        /// Initializes a new instance of the <see cref="MacroStabilityInwardsLocationInputBase"/> class.
         /// </summary>
-        protected MacroStabilityInwardsLocationInput()
+        protected MacroStabilityInwardsLocationInputBase()
         {
             waterLevelPolder = new RoundedDouble(2, double.NaN);
 

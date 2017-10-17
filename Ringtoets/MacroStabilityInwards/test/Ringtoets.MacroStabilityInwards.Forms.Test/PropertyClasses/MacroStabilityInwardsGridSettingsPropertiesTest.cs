@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
             var properties = new MacroStabilityInwardsGridSettingsProperties(input, handler);
 
-            var random = new Random();
+            var random = new Random(21);
             bool moveGrid = random.NextBoolean();
             var gridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>();
             var tangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>();
@@ -263,7 +263,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MoveGrid = true, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.MoveGrid = true, calculation);
         }
 
         [Test]
@@ -273,7 +273,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual, calculation);
         }
 
         [Test]
@@ -283,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified, calculation);
         }
 
         [Test]
@@ -293,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineZTop = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.TangentLineZTop = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -303,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineZBottom = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.TangentLineZBottom = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -313,7 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.TangentLineNumber = 10, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.TangentLineNumber = 10, calculation);
         }
 
         [Test]
@@ -393,8 +393,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(isTangentlineDeterminationTypeLayerSeparated || isGridDeterminationTypeAutomatic, result);
         }
 
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsGridSettingsProperties> setProperty,
-                                                                           MacroStabilityInwardsCalculation calculation)
+        private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsGridSettingsProperties> setProperty,
+                                                                            MacroStabilityInwardsCalculation calculation)
         {
             // Setup
             var mocks = new MockRepository();

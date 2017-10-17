@@ -229,42 +229,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             RoundedDouble orientation = new Random(21).NextRoundedDouble();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.Orientation = orientation);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.Orientation = orientation);
         }
 
         [Test]
         public void DikeHeight_Always_InputChangedAndObservablesNotified()
         {
             RoundedDouble dikeHeight = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeight = dikeHeight);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DikeHeight = dikeHeight);
         }
 
         [Test]
         public void DikeHeightCalculationType_Always_InputChangedAndObservablesNotified()
         {
             var dikeHeightCalculationType = new Random(21).NextEnumValue<DikeHeightCalculationType>();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeHeightCalculationType = dikeHeightCalculationType);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DikeHeightCalculationType = dikeHeightCalculationType);
         }
 
         [Test]
         public void OvertoppingRateCalculationType_Always_InputChangedAndObservablesNotified()
         {
             var overtoppingRateCalculationType = new Random(21).NextEnumValue<OvertoppingRateCalculationType>();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.OvertoppingRateCalculationType = overtoppingRateCalculationType);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.OvertoppingRateCalculationType = overtoppingRateCalculationType);
         }
 
         [Test]
         public void DikeProfile_Always_InputChangedAndObservablesNotified()
         {
             var dikeProfile = new TestDikeProfile();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.DikeProfile = dikeProfile);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DikeProfile = dikeProfile);
         }
 
         [Test]
         public void SelectedHydraulicBoundaryLocation_Always_InputChangedAndObservablesNotified()
         {
             var selectableLocation = new SelectableHydraulicBoundaryLocation(new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.SelectedHydraulicBoundaryLocation = selectableLocation);
         }
 
@@ -272,21 +272,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void BreakWater_UseBreakWaterChangedAlways_InputChangedAndObservablesNotified()
         {
             bool useBreakWater = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.BreakWater.UseBreakWater = useBreakWater);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.BreakWater.UseBreakWater = useBreakWater);
         }
 
         [Test]
         public void UseForeshore_Always_InputChangedAndObservablesNotified()
         {
             bool useForeshore = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.Foreshore.UseForeshore = useForeshore);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.Foreshore.UseForeshore = useForeshore);
         }
 
         [Test]
         public void CriticalFlowRate_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble criticalFlowMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(properties => properties.CriticalFlowRate.Mean = criticalFlowMean);
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.CriticalFlowRate.Mean = criticalFlowMean);
         }
 
         [Test]
@@ -875,7 +875,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(!hasDikeProfile, result);
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
+        private void SetPropertyAndVerifyNotificationsAndOutput(Action<GrassCoverErosionInwardsInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();

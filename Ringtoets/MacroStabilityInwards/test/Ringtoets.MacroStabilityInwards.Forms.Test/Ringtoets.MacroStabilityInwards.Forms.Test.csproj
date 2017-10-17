@@ -72,8 +72,8 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridSettingsPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationDailyPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationExtremePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputDailyPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressLinesPropertiesTest.cs" />
@@ -83,7 +83,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsPreconsolidationStressPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />

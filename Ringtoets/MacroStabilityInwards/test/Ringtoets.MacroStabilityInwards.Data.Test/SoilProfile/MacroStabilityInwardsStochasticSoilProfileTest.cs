@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
             mocks.ReplayAll();
 
-            double probability = new Random().Next(0, 1);
+            double probability = new Random(21).Next(0, 1);
 
             // Call
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);

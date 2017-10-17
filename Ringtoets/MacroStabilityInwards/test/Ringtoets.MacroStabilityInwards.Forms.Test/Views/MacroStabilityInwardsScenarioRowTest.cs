@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -116,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            int newValue = new Random().Next(0, 100);
+            int newValue = new Random(21).Next(0, 100);
 
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             var row = new MacroStabilityInwardsScenarioRow(calculation);
@@ -132,7 +133,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
+
+                Assert.AreEqual(2, calculation.Contribution.NumberOfDecimalPlaces);
+                Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
             }
         }
     }

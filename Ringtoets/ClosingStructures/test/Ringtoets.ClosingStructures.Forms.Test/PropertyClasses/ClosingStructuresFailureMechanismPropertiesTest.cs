@@ -268,7 +268,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [TestCase(-1)]
         [TestCase(41)]
         [TestCase(141)]
-        public void N2A_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(int value)
+        public void N2A_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int value)
         {
             // Setup
             var mockRepository = new MockRepository();

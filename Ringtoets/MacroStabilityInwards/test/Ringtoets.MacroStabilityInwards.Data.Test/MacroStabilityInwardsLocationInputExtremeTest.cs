@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -35,22 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var locationInput = new MacroStabilityInwardsLocationInputExtreme();
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsLocationInput>(locationInput);
+            Assert.IsInstanceOf<MacroStabilityInwardsLocationInputBase>(locationInput);
             Assert.IsInstanceOf<IMacroStabilityInwardsLocationInputExtreme>(locationInput);
-
-            Assert.IsTrue(locationInput.UseDefaultOffsets);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
 
             Assert.IsNaN(locationInput.PenetrationLength);
             Assert.AreEqual(2, locationInput.PenetrationLength.NumberOfDecimalPlaces);
@@ -60,8 +47,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_SetPenetrationLength_ExpectedValue()
         {
             // Setup
-            var random = new Random();
-            double penetrationLength = random.Next();
+            var random = new Random(21);
+            double penetrationLength = random.NextDouble();
 
             // Call
             var locationInput = new MacroStabilityInwardsLocationInputExtreme
@@ -70,7 +57,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, penetrationLength), locationInput.PenetrationLength);
+            Assert.AreEqual(2, locationInput.PenetrationLength.NumberOfDecimalPlaces);
+            Assert.AreEqual(penetrationLength, locationInput.PenetrationLength, locationInput.PenetrationLength.GetAccuracy());
         }
     }
 }

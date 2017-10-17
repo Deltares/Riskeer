@@ -60,11 +60,11 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
 
             // Assert
-            Assert.IsTrue((bool) offsets.UseDefaults);
-            Assert.IsNaN((double) offsets.BelowDikeTopAtRiver);
-            Assert.IsNaN((double) offsets.BelowDikeTopAtPolder);
-            Assert.IsNaN((double) offsets.BelowDikeToeAtPolder);
-            Assert.IsNaN((double) offsets.BelowShoulderBaseInside);
+            Assert.IsTrue(offsets.UseDefaults);
+            Assert.IsNaN(offsets.BelowDikeTopAtRiver);
+            Assert.IsNaN(offsets.BelowDikeTopAtPolder);
+            Assert.IsNaN(offsets.BelowDikeToeAtPolder);
+            Assert.IsNaN(offsets.BelowShoulderBaseInside);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new MacroStabilityInwardsLocationInputExtreme
+            var input = new TestMacroStabilityInwardsLocationInput
             {
                 UseDefaultOffsets = false,
                 PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
@@ -85,11 +85,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
 
             // Assert
-            Assert.IsFalse((bool) offsets.UseDefaults);
+            Assert.IsFalse(offsets.UseDefaults);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtRiver, offsets.BelowDikeTopAtRiver);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtPolder, offsets.BelowDikeTopAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeToeAtPolder, offsets.BelowDikeToeAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowShoulderBaseInside, offsets.BelowShoulderBaseInside);
         }
+
+        private class TestMacroStabilityInwardsLocationInput : MacroStabilityInwardsLocationInputBase {}
     }
 }

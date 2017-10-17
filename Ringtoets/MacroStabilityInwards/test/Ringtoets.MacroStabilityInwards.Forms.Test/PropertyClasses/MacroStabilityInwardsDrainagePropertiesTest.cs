@@ -169,10 +169,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
             var properties = new MacroStabilityInwardsDrainageProperties(input, handler);
 
-            var random = new Random();
+            var random = new Random(21);
             bool constructionPresent = random.NextBoolean();
-            double xCoordinateDrainageConstruction = random.Next();
-            double zCoordinateDrainageConstruction = random.Next();
+            double xCoordinateDrainageConstruction = random.NextDouble();
+            double zCoordinateDrainageConstruction = random.NextDouble();
 
             // When
             properties.DrainageConstructionPresent = constructionPresent;
@@ -194,7 +194,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.DrainageConstructionPresent = true, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.DrainageConstructionPresent = true, calculation);
         }
 
         [Test]
@@ -204,7 +204,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.XCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.XCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -214,7 +214,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.ZCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.ZCoordinateDrainageConstruction = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -299,8 +299,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(string.Empty, toString);
         }
 
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsDrainageProperties> setProperty,
-                                                                           MacroStabilityInwardsCalculation calculation)
+        private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsDrainageProperties> setProperty,
+                                                                            MacroStabilityInwardsCalculation calculation)
         {
             // Setup
             var mocks = new MockRepository();

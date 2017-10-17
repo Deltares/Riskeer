@@ -65,7 +65,7 @@
     <Compile Include="MacroStabilityInwardsGridTest.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputDailyTest.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputExtremeTest.cs" />
-    <Compile Include="MacroStabilityInwardsLocationInputTest.cs" />
+    <Compile Include="MacroStabilityInwardsLocationInputBaseTest.cs" />
     <Compile Include="MacroStabilityInwardsShearStrengthModelTest.cs" />
     <Compile Include="MacroStabilityInwardsSliceTest.cs" />
     <Compile Include="MacroStabilityInwardsSlidingCircleTest.cs" />

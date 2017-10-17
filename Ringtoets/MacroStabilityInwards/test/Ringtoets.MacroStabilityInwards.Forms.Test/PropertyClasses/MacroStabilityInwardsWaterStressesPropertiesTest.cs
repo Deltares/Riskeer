@@ -252,9 +252,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, properties.WaterLevelRiverAverage);
-            Assert.AreEqual(input.LocationInputExtreme, properties.LocationExtreme.Data);
-            Assert.AreEqual(input.LocationInputDaily, properties.LocationDaily.Data);
-            Assert.AreEqual(input, properties.WaterStressLines.Data);
+            Assert.AreSame(input.LocationInputExtreme, properties.LocationExtreme.Data);
+            Assert.AreSame(input.LocationInputDaily, properties.LocationDaily.Data);
+            Assert.AreSame(input, properties.WaterStressLines.Data);
             Assert.AreSame(input, properties.Drainage.Data);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, properties.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, properties.MinimumLevelPhreaticLineAtDikeTopPolder);
@@ -278,17 +278,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, input);
             var properties = new MacroStabilityInwardsWaterStressesProperties(input, handler);
 
-            var random = new Random();
-            double waterLevelRiverAverage = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
+            var random = new Random(21);
+            double waterLevelRiverAverage = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
-            double leakageLengthOutwardsPhreaticLine3 = random.Next();
-            double leakageLengthInwardsPhreaticLine3 = random.Next();
-            double leakageLengthOutwardsPhreaticLine4 = random.Next();
-            double leakageLengthInwardsPhreaticLine4 = random.Next();
-            double piezometricHeadPhreaticLine2Outwards = random.Next();
-            double piezometricHeadPhreaticLine2Inwards = random.Next();
+            double leakageLengthOutwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine4 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
+            double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
+            double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
 
             // When
             properties.WaterLevelRiverAverage = (RoundedDouble) waterLevelRiverAverage;
@@ -331,7 +331,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.WaterLevelRiverAverage = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.WaterLevelRiverAverage = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -341,7 +341,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopRiver = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -351,7 +351,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.MinimumLevelPhreaticLineAtDikeTopPolder = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -361,7 +361,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.AdjustPhreaticLine3And4ForUplift = true, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.AdjustPhreaticLine3And4ForUplift = true, calculation);
         }
 
         [Test]
@@ -371,7 +371,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.LeakageLengthOutwardsPhreaticLine3 = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -381,7 +381,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.LeakageLengthInwardsPhreaticLine3 = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -391,7 +391,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.LeakageLengthOutwardsPhreaticLine4 = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -401,7 +401,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -411,7 +411,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -421,7 +421,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 1, calculation);
+            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 1, calculation);
         }
 
         [Test]
@@ -442,7 +442,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(string.Empty, toString);
         }
 
-        private static void SetPropertyAndVerifyNotifcationsForCalculation(Action<MacroStabilityInwardsWaterStressesProperties> setProperty,
+        private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsWaterStressesProperties> setProperty,
                                                                            MacroStabilityInwardsCalculation calculation)
         {
             // Setup

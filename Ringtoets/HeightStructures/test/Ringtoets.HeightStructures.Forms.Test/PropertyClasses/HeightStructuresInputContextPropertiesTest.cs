@@ -323,11 +323,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void LevelCrestStructure_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.LevelCrestStructure.Mean = newMean);
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<HeightStructuresInputContextProperties> setProperty)
+        private void SetPropertyAndVerifyNotificationsAndOutput(Action<HeightStructuresInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();

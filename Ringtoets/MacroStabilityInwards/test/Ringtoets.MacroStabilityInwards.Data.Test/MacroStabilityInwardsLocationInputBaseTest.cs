@@ -22,11 +22,12 @@
 using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
-    public class MacroStabilityInwardsLocationInputTest
+    public class MacroStabilityInwardsLocationInputBaseTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -55,16 +56,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
-            var random = new Random();
-            double phreaticLineOffsetBelowDikeTopAtRiver = random.Next();
-            double phreaticLineOffsetBelowDikeTopAtPolder = random.Next();
-            double phreaticLineOffsetBelowShoulderBaseInside = random.Next();
-            double phreaticLineOffsetBelowDikeToeAtPolder = random.Next();
+            var random = new Random(21);
+            double phreaticLineOffsetBelowDikeTopAtRiver = random.NextDouble();
+            double phreaticLineOffsetBelowDikeTopAtPolder = random.NextDouble();
+            double phreaticLineOffsetBelowShoulderBaseInside = random.NextDouble();
+            double phreaticLineOffsetBelowDikeToeAtPolder = random.NextDouble();
 
             // Call
             var locationInput = new TestMacroStabilityInwardsLocationInput
             {
-                UseDefaultOffsets = false,
                 PhreaticLineOffsetBelowDikeTopAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtPolder,
                 PhreaticLineOffsetBelowDikeToeAtPolder = (RoundedDouble) phreaticLineOffsetBelowDikeToeAtPolder,
                 PhreaticLineOffsetBelowDikeTopAtRiver = (RoundedDouble) phreaticLineOffsetBelowDikeTopAtRiver,
@@ -72,13 +72,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Assert
-            Assert.IsFalse(locationInput.UseDefaultOffsets);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeTopAtPolder), locationInput.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeToeAtPolder), locationInput.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowDikeTopAtRiver), locationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(new RoundedDouble(2, phreaticLineOffsetBelowShoulderBaseInside), locationInput.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
+            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtPolder, locationInput.PhreaticLineOffsetBelowDikeTopAtPolder,
+                            locationInput.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+
+            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
+            Assert.AreEqual(phreaticLineOffsetBelowDikeToeAtPolder, locationInput.PhreaticLineOffsetBelowDikeToeAtPolder,
+                            locationInput.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+
+            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
+            Assert.AreEqual(phreaticLineOffsetBelowDikeTopAtRiver, locationInput.PhreaticLineOffsetBelowDikeTopAtRiver,
+                            locationInput.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+
+            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
+            Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside, locationInput.PhreaticLineOffsetBelowShoulderBaseInside,
+                            locationInput.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
         }
 
-        private class TestMacroStabilityInwardsLocationInput : MacroStabilityInwardsLocationInput {}
+        private class TestMacroStabilityInwardsLocationInput : MacroStabilityInwardsLocationInputBase {}
     }
 }

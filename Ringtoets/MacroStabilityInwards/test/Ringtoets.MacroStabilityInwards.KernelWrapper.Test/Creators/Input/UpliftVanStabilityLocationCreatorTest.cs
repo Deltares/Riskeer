@@ -215,19 +215,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(21);
-            double assessmentLevel = random.Next();
-            double waterLevelRiverAverage = random.Next();
-            double waterLevelPolderExtreme = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
+            double assessmentLevel = random.NextDouble();
+            double waterLevelRiverAverage = random.NextDouble();
+            double waterLevelPolderExtreme = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
-            double leakageLengthOutwardsPhreaticLine3 = random.Next();
-            double leakageLengthInwardsPhreaticLine3 = random.Next();
-            double leakageLengthOutwardsPhreaticLine4 = random.Next();
-            double leakageLengthInwardsPhreaticLine4 = random.Next();
-            double piezometricHeadPhreaticLine2Outwards = random.Next();
-            double piezometricHeadPhreaticLine2Inwards = random.Next();
-            double penetrationLength = random.Next();
+            double leakageLengthOutwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine4 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
+            double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
+            double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
+            double penetrationLengthExtreme = random.NextDouble();
 
             DrainageConstruction drainageConstruction = drainageConstructionPresent
                                                             ? new DrainageConstruction(random.Next(), random.Next())
@@ -259,7 +259,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
                     PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
-                    PenetrationLength = penetrationLength
+                    PenetrationLengthExtreme = penetrationLengthExtreme
                 });
 
             // Call
@@ -291,7 +291,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(leakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
             Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
             Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
-            Assert.AreEqual(penetrationLength, location.PenetrationLength);
+            Assert.AreEqual(penetrationLengthExtreme, location.PenetrationLength);
 
             AssertIrrelevantValues(location);
         }
@@ -471,18 +471,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             // Setup
             var random = new Random(21);
-            double assessmentLevel = random.Next();
-            double waterLevelRiverAverage = random.Next();
-            double waterLevelPolderDaily = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopRiver = random.Next();
-            double minimumLevelPhreaticLineAtDikeTopPolder = random.Next();
+            double assessmentLevel = random.NextDouble();
+            double waterLevelRiverAverage = random.NextDouble();
+            double waterLevelPolderDaily = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble();
+            double minimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble();
             bool adjustPhreaticLine3And4ForUplift = random.NextBoolean();
-            double leakageLengthOutwardsPhreaticLine3 = random.Next();
-            double leakageLengthInwardsPhreaticLine3 = random.Next();
-            double leakageLengthOutwardsPhreaticLine4 = random.Next();
-            double leakageLengthInwardsPhreaticLine4 = random.Next();
-            double piezometricHeadPhreaticLine2Outwards = random.Next();
-            double piezometricHeadPhreaticLine2Inwards = random.Next();
+            double leakageLengthOutwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine3 = random.NextDouble();
+            double leakageLengthOutwardsPhreaticLine4 = random.NextDouble();
+            double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
+            double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
+            double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
+            double penetrationLengthDaily = random.NextDouble();
 
             DrainageConstruction drainageConstruction = drainageConstructionPresent
                                                             ? new DrainageConstruction(random.Next(), random.Next())
@@ -514,7 +515,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
                     PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
-                    PenetrationLength = random.Next()
+                    PenetrationLengthDaily = penetrationLengthDaily
                 });
 
             // Call
@@ -546,12 +547,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(leakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
             Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
             Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
-            Assert.AreEqual(0.0, location.PenetrationLength);
+            Assert.AreEqual(penetrationLengthDaily, location.PenetrationLength);
 
             AssertIrrelevantValues(location);
         }
 
-        private static void AssertIrrelevantValues(StabilityLocation location)
+        private static void AssertIrrelevantValues(Location location)
         {
             Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
             Assert.AreEqual(0.0, location.X); // Unused property

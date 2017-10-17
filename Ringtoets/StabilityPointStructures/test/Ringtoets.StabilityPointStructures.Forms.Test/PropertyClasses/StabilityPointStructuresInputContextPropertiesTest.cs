@@ -1236,7 +1236,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void VolumicWeightWater_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble height = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.VolumicWeightWater = height);
         }
 
@@ -1244,7 +1244,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void FactorStormDurationOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble factor = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.FactorStormDurationOpenStructure = factor);
         }
 
@@ -1252,7 +1252,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void InflowModelType_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var type = new Random(21).NextEnumValue<StabilityPointStructureInflowModelType>();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.InflowModelType = type);
         }
 
@@ -1260,7 +1260,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void FailureProbabilityOpenStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var type = new Random(21).NextEnumValue<LoadSchematizationType>();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.LoadSchematizationType = type);
         }
 
@@ -1268,7 +1268,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void FailureProbabilityRepairClosure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var random = new Random(21);
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.FailureProbabilityRepairClosure = random.NextDouble());
         }
 
@@ -1276,7 +1276,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void LevellingCount_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             int count = new Random(21).Next();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.LevellingCount = count);
         }
 
@@ -1284,7 +1284,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ProbabilityCollisionSecondaryStructure_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             var random = new Random(21);
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ProbabilityCollisionSecondaryStructure = random.NextDouble());
         }
 
@@ -1292,7 +1292,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void EvaluationLevel_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble evaluationLevel = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.EvaluationLevel = evaluationLevel);
         }
 
@@ -1300,7 +1300,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void VerticalDistance_WithOrWithoutOutput_HasOutputFalseInputNotifiedAndCalculationNotifiedWhenHadOutput()
         {
             RoundedDouble verticalDistance = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.VerticalDistance = verticalDistance);
         }
 
@@ -1308,7 +1308,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
@@ -1316,7 +1316,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.WidthFlowApertures.Mean = newMean);
         }
 
@@ -1324,7 +1324,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void InsideWaterLevelFailureConstruction_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.InsideWaterLevelFailureConstruction.Mean = newMean);
         }
 
@@ -1332,7 +1332,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void InsideWaterLevel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.InsideWaterLevel.Mean = newMean);
         }
 
@@ -1340,7 +1340,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DrainCoefficient_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.DrainCoefficient.Mean = newMean);
         }
 
@@ -1348,7 +1348,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void LevelCrestStructure_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.LevelCrestStructure.Mean = newMean);
         }
 
@@ -1356,7 +1356,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ThresholdHeightOpenWeir_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ThresholdHeightOpenWeir.Mean = newMean);
         }
 
@@ -1364,7 +1364,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void FlowVelocityStructureClosable_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.FlowVelocityStructureClosable.Mean = newMean);
         }
 
@@ -1372,7 +1372,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void AreaFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.AreaFlowApertures.Mean = newMean);
         }
 
@@ -1380,7 +1380,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ConstructiveStrengthLinearLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ConstructiveStrengthLinearLoadModel.Mean = newMean);
         }
 
@@ -1388,7 +1388,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ConstructiveStrengthQuadraticLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ConstructiveStrengthQuadraticLoadModel.Mean = newMean);
         }
 
@@ -1396,7 +1396,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void StabilityLinearLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.StabilityLinearLoadModel.Mean = newMean);
         }
 
@@ -1404,7 +1404,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void StabilityQuadraticLoadModel_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.StabilityQuadraticLoadModel.Mean = newMean);
         }
 
@@ -1412,7 +1412,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void FailureCollisionEnergy_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.FailureCollisionEnergy.Mean = newMean);
         }
 
@@ -1420,7 +1420,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ShipMass_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ShipMass.Mean = newMean);
         }
 
@@ -1428,7 +1428,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void ShipVelocity_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.ShipVelocity.Mean = newMean);
         }
 
@@ -1436,7 +1436,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void BankWidth_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutput(
+            SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.BankWidth.Mean = newMean);
         }
 
@@ -1628,7 +1628,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutput(Action<StabilityPointStructuresInputContextProperties> setProperty)
+        private void SetPropertyAndVerifyNotificationsAndOutput(Action<StabilityPointStructuresInputContextProperties> setProperty)
         {
             // Setup
             var observable = mockRepository.StrictMock<IObservable>();

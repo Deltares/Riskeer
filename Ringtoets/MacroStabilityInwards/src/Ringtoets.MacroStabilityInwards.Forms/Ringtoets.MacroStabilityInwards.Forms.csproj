@@ -46,8 +46,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationExtremeProperties.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationDailyProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremeProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputDailyProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetLineProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsPhreaticLineProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetProperties.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsProperties.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBaseProperties.cs" />
     <Compile Include="PropertyClasses\RingProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />

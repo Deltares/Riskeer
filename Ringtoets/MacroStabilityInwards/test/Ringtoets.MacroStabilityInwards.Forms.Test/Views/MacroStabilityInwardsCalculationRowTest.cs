@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
         }
 
         [Test]
@@ -185,7 +185,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
         }
 
         [Test]
@@ -220,7 +220,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
         }
 
         [Test]
@@ -338,7 +338,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<MacroStabilityInwardsCalculationRow> setProperty,
             MacroStabilityInwardsCalculationScenario calculation)
         {

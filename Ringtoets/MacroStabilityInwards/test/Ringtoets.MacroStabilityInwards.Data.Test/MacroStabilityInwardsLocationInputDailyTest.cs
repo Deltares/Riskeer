@@ -33,22 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var locationInput = new MacroStabilityInwardsLocationInputDaily();
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsLocationInput>(locationInput);
+            Assert.IsInstanceOf<MacroStabilityInwardsLocationInputBase>(locationInput);
             Assert.IsInstanceOf<IMacroStabilityInwardsLocationInputDaily>(locationInput);
-
-            Assert.IsTrue(locationInput.UseDefaultOffsets);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
 
             Assert.AreEqual(0.0, locationInput.PenetrationLength);
             Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);

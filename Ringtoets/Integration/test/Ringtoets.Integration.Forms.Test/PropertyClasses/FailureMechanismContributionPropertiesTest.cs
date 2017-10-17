@@ -253,19 +253,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         public void LowerLimitNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.LowerLimitNorm = 0.001);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.LowerLimitNorm = 0.001);
         }
 
         [Test]
         public void SignalingNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.SignalingNorm = 0.00001);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.SignalingNorm = 0.00001);
         }
 
         [Test]
         public void NormativeNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
         {
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.NormativeNorm = NormType.Signaling);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.NormativeNorm = NormType.Signaling);
         }
 
         [Test]
@@ -393,7 +393,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private static void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(Action<FailureMechanismContributionProperties> setProperty)
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<FailureMechanismContributionProperties> setProperty)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

@@ -74,45 +74,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(inputParameters.WaterLevelRiverAverage);
             Assert.AreEqual(2, inputParameters.WaterLevelRiverAverage.NumberOfDecimalPlaces);
 
-            Assert.IsNaN(inputParameters.LocationInputExtreme.WaterLevelPolder);
-            Assert.AreEqual(2, inputParameters.LocationInputExtreme.WaterLevelPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PenetrationLength);
-            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PenetrationLength.NumberOfDecimalPlaces);
-
-            Assert.IsTrue(inputParameters.LocationInputExtreme.UseDefaultOffsets);
-
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(2, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputDaily.WaterLevelPolder);
-            Assert.AreEqual(2, inputParameters.LocationInputDaily.WaterLevelPolder.NumberOfDecimalPlaces);
-
-            Assert.AreEqual(0.0, inputParameters.LocationInputDaily.PenetrationLength);
-            Assert.AreEqual(2, inputParameters.LocationInputDaily.PenetrationLength.NumberOfDecimalPlaces);
-
-            Assert.IsTrue(inputParameters.LocationInputDaily.UseDefaultOffsets);
-
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(2, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
+            Assert.IsNotNull(inputParameters.LocationInputExtreme);
+            Assert.IsNotNull(inputParameters.LocationInputDaily);
 
             Assert.IsFalse(inputParameters.DrainageConstructionPresent);
 
@@ -173,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
-            var random = new Random();
+            var random = new Random(21);
             double slipPlaneMinimumDepth = random.NextDouble();
             double slipPlaneMinimumLength = random.NextDouble();
             double maximumSliceWidth = random.NextDouble();
@@ -215,22 +178,48 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             };
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, slipPlaneMinimumDepth), input.SlipPlaneMinimumDepth);
-            Assert.AreEqual(new RoundedDouble(2, slipPlaneMinimumLength), input.SlipPlaneMinimumLength);
-            Assert.AreEqual(new RoundedDouble(2, maximumSliceWidth), input.MaximumSliceWidth);
-            Assert.AreEqual(new RoundedDouble(2, waterLevelRiverAverage), input.WaterLevelRiverAverage);
-            Assert.AreEqual(new RoundedDouble(2, xCoordinateDrainageConstruction), input.XCoordinateDrainageConstruction);
-            Assert.AreEqual(new RoundedDouble(2, zCoordinateDrainageConstruction), input.ZCoordinateDrainageConstruction);
-            Assert.AreEqual(new RoundedDouble(2, minimumLevelPhreaticLineAtDikeTopRiver), input.MinimumLevelPhreaticLineAtDikeTopRiver);
-            Assert.AreEqual(new RoundedDouble(2, minimumLevelPhreaticLineAtDikeTopPolder), input.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(new RoundedDouble(2, leakageLengthOutwardsPhreaticLine3), input.LeakageLengthOutwardsPhreaticLine3);
-            Assert.AreEqual(new RoundedDouble(2, leakageLengthInwardsPhreaticLine3), input.LeakageLengthInwardsPhreaticLine3);
-            Assert.AreEqual(new RoundedDouble(2, leakageLengthOutwardsPhreaticLine4), input.LeakageLengthOutwardsPhreaticLine4);
-            Assert.AreEqual(new RoundedDouble(2, leakageLengthInwardsPhreaticLine4), input.LeakageLengthInwardsPhreaticLine4);
-            Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Outwards), input.PiezometricHeadPhreaticLine2Outwards);
-            Assert.AreEqual(new RoundedDouble(2, piezometricHeadPhreaticLine2Inwards), input.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(new RoundedDouble(2, tangentLineZTop), input.TangentLineZTop);
-            Assert.AreEqual(new RoundedDouble(2, tangentLineZBottom), input.TangentLineZBottom);
+            Assert.AreEqual(2, input.SlipPlaneMinimumDepth.NumberOfDecimalPlaces);
+            Assert.AreEqual(slipPlaneMinimumDepth, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
+
+            Assert.AreEqual(2, input.SlipPlaneMinimumLength.NumberOfDecimalPlaces);
+            Assert.AreEqual(slipPlaneMinimumLength, input.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
+
+            Assert.AreEqual(2, input.MaximumSliceWidth.NumberOfDecimalPlaces);
+            Assert.AreEqual(maximumSliceWidth, input.MaximumSliceWidth, input.MaximumSliceWidth.GetAccuracy());
+
+            Assert.AreEqual(2, input.WaterLevelRiverAverage.NumberOfDecimalPlaces);
+            Assert.AreEqual(waterLevelRiverAverage, input.WaterLevelRiverAverage, input.WaterLevelRiverAverage.GetAccuracy());
+
+            Assert.AreEqual(2, input.XCoordinateDrainageConstruction.NumberOfDecimalPlaces);
+            Assert.AreEqual(xCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction, input.XCoordinateDrainageConstruction.GetAccuracy());
+
+            Assert.AreEqual(2, input.ZCoordinateDrainageConstruction.NumberOfDecimalPlaces);
+            Assert.AreEqual(zCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction.GetAccuracy());
+
+            Assert.AreEqual(2, input.MinimumLevelPhreaticLineAtDikeTopRiver.NumberOfDecimalPlaces);
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver, input.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
+
+            Assert.AreEqual(2, input.MinimumLevelPhreaticLineAtDikeTopPolder.NumberOfDecimalPlaces);
+            Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder, input.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
+
+            Assert.AreEqual(2, input.LeakageLengthOutwardsPhreaticLine3.NumberOfDecimalPlaces);
+            Assert.AreEqual(leakageLengthOutwardsPhreaticLine3, input.LeakageLengthOutwardsPhreaticLine3, input.LeakageLengthOutwardsPhreaticLine3.GetAccuracy());
+
+            Assert.AreEqual(2, input.LeakageLengthInwardsPhreaticLine3.NumberOfDecimalPlaces);
+            Assert.AreEqual(leakageLengthInwardsPhreaticLine3, input.LeakageLengthInwardsPhreaticLine3, input.LeakageLengthInwardsPhreaticLine3.GetAccuracy());
+
+            Assert.AreEqual(2, input.LeakageLengthOutwardsPhreaticLine4.NumberOfDecimalPlaces);
+            Assert.AreEqual(leakageLengthOutwardsPhreaticLine4, input.LeakageLengthOutwardsPhreaticLine4, input.LeakageLengthOutwardsPhreaticLine4.GetAccuracy());
+
+            Assert.AreEqual(2, input.LeakageLengthInwardsPhreaticLine4.NumberOfDecimalPlaces);
+            Assert.AreEqual(leakageLengthInwardsPhreaticLine4, input.LeakageLengthInwardsPhreaticLine4, input.LeakageLengthInwardsPhreaticLine4.GetAccuracy());
+
+            Assert.AreEqual(2, input.TangentLineZTop.NumberOfDecimalPlaces);
+            Assert.AreEqual(tangentLineZTop, input.TangentLineZTop, input.TangentLineZTop.GetAccuracy());
+
+            Assert.AreEqual(2, input.TangentLineZBottom.NumberOfDecimalPlaces);
+            Assert.AreEqual(tangentLineZBottom, input.TangentLineZBottom, input.TangentLineZBottom.GetAccuracy());
+
             Assert.AreEqual(tangentLineNumber, input.TangentLineNumber);
         }
 

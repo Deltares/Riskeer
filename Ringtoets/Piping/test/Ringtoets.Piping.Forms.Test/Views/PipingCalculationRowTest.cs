@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilModel = newValue, calculation);
         }
 
         [Test]
@@ -189,7 +189,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StochasticSoilProfile = newValue, calculation);
         }
 
         [Test]
@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dampingFactorExitMean = (RoundedDouble) 2.3;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.DampingFactorExitMean = dampingFactorExitMean, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.DampingFactorExitMean = dampingFactorExitMean, calculation);
         }
 
         [Test]
@@ -288,7 +288,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var phreaticLevelExitMean = (RoundedDouble) 5.1;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.PhreaticLevelExitMean = phreaticLevelExitMean, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.PhreaticLevelExitMean = phreaticLevelExitMean, calculation);
         }
 
         [Test]
@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var entryPointL = (RoundedDouble) 0.1;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.EntryPointL = entryPointL, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.EntryPointL = entryPointL, calculation);
         }
 
         [Test]
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var exitPointL = (RoundedDouble) 0.3;
 
             // Call & Assert
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(row => row.ExitPointL = exitPointL, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.ExitPointL = exitPointL, calculation);
         }
 
         [Test]
@@ -528,7 +528,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<PipingCalculationRow> setProperty,
             PipingCalculationScenario calculation)
         {

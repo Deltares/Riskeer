@@ -192,7 +192,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void DikeHeight_Always_InputNotifiedAndPropertyChangedCalled()
         {
             RoundedDouble breakWaterHeight = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterHeight = breakWaterHeight,
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.BreakWaterHeight = breakWaterHeight,
                                                                     new TestUseBreakWater());
         }
 
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void BreakWaterType_Always_InputNotifiedAndPropertyChangedCalled()
         {
             var type = new Random(21).NextEnumValue<BreakWaterType>();
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.BreakWaterType = type,
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.BreakWaterType = type,
                                                                     new TestUseBreakWater());
         }
 
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void UseBreakWater_Always_InputNotifiedAndPropertyChangedCalled()
         {
             bool useBreakWater = new Random(21).NextBoolean();
-            SetPropertyAndVerifyNotifcationsAndOutputForCalculation(properties => properties.UseBreakWater = useBreakWater,
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.UseBreakWater = useBreakWater,
                                                                     new TestUseBreakWater());
         }
 
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             public BreakWater BreakWater { get; set; }
         }
 
-        private void SetPropertyAndVerifyNotifcationsAndOutputForCalculation(
+        private void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<UseBreakWaterProperties> setProperty,
             TestUseBreakWater input)
         {

@@ -225,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-20)]
-        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(int newLengthEffect)
+        public void LengthEffect_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int newLengthEffect)
         {
             // Setup
             var mockRepository = new MockRepository();

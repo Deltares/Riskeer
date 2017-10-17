@@ -239,7 +239,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-20)]
-        public void LengthEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifcations(int value)
+        public void LengthEffect_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int value)
         {
             // Setup
             var mockRepository = new MockRepository();

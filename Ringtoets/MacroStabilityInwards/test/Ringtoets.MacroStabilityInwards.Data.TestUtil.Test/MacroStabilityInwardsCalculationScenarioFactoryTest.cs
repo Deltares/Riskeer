@@ -219,53 +219,88 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             MacroStabilityInwardsInput inputParameters = scenario.InputParameters;
-            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, inputParameters.DikeSoilScenario);
-            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Outwards.Value);
-            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Inwards.Value);
+            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
+                            inputParameters.DikeSoilScenario);
+            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Outwards,
+                            inputParameters.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Inwards,
+                            inputParameters.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
             Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
-            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine3.Value);
-            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine3.Value);
-            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine4.Value);
-            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine4.Value);
-            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumDepth.Value);
-            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumLength.Value);
-            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.Value);
-            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.Value);
+            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine3,
+                            inputParameters.LeakageLengthOutwardsPhreaticLine3.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine3,
+                            inputParameters.LeakageLengthInwardsPhreaticLine3.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine4,
+                            inputParameters.LeakageLengthInwardsPhreaticLine4.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine4,
+                            inputParameters.LeakageLengthOutwardsPhreaticLine4.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumDepth,
+                            inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumLength,
+                            inputParameters.SlipPlaneMinimumLength.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder,
+                            inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver,
+                            inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
 
-            Assert.AreEqual(0.5, inputParameters.LocationInputExtreme.WaterLevelPolder);
+            Assert.AreEqual(0.5, inputParameters.LocationInputExtreme.WaterLevelPolder,
+                            inputParameters.LocationInputExtreme.WaterLevelPolder.GetAccuracy());
             Assert.IsFalse(inputParameters.LocationInputExtreme.UseDefaultOffsets);
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PenetrationLength.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PenetrationLength,
+                            inputParameters.LocationInputExtreme.PenetrationLength.GetAccuracy());
 
             Assert.AreEqual(0.5, inputParameters.LocationInputDaily.WaterLevelPolder);
             Assert.IsFalse(inputParameters.LocationInputDaily.UseDefaultOffsets);
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.Value);
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.Value);
-            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength.Value);
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength,
+                            inputParameters.LocationInputDaily.PenetrationLength.GetAccuracy());
 
             Assert.IsTrue(inputParameters.DrainageConstructionPresent);
-            Assert.AreEqual(1, inputParameters.XCoordinateDrainageConstruction.Value);
-            Assert.AreEqual(1, inputParameters.ZCoordinateDrainageConstruction.Value);
+            Assert.AreEqual(1, inputParameters.XCoordinateDrainageConstruction,
+                            inputParameters.XCoordinateDrainageConstruction.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.ZCoordinateDrainageConstruction,
+                            inputParameters.ZCoordinateDrainageConstruction.GetAccuracy());
             Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Manual, inputParameters.GridDeterminationType);
             Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.Specified, inputParameters.TangentLineDeterminationType);
-            Assert.AreEqual(1, inputParameters.TangentLineZTop.Value);
-            Assert.AreEqual(1, inputParameters.TangentLineZBottom.Value);
+            Assert.AreEqual(1, inputParameters.TangentLineZTop,
+                            inputParameters.TangentLineZTop.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.TangentLineZBottom,
+                            inputParameters.TangentLineZBottom.GetAccuracy());
             Assert.AreEqual(10, inputParameters.TangentLineNumber);
-            Assert.AreEqual(1, inputParameters.LeftGrid.XLeft.Value);
-            Assert.AreEqual(1, inputParameters.LeftGrid.XRight.Value);
-            Assert.AreEqual(1, inputParameters.LeftGrid.ZTop.Value);
-            Assert.AreEqual(1, inputParameters.LeftGrid.ZBottom.Value);
+            Assert.AreEqual(1, inputParameters.LeftGrid.XLeft,
+                            inputParameters.LeftGrid.XLeft.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeftGrid.XRight,
+                            inputParameters.LeftGrid.XRight.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeftGrid.ZTop,
+                            inputParameters.LeftGrid.ZTop.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeftGrid.ZBottom,
+                            inputParameters.LeftGrid.ZBottom.GetAccuracy());
             Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfVerticalPoints);
             Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfHorizontalPoints);
-            Assert.AreEqual(1, inputParameters.RightGrid.XLeft.Value);
-            Assert.AreEqual(1, inputParameters.RightGrid.XRight.Value);
-            Assert.AreEqual(1, inputParameters.RightGrid.ZTop.Value);
-            Assert.AreEqual(1, inputParameters.RightGrid.ZBottom.Value);
+
+            Assert.AreEqual(1, inputParameters.RightGrid.XLeft,
+                            inputParameters.RightGrid.XLeft.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.RightGrid.XRight,
+                            inputParameters.RightGrid.XRight.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.RightGrid.ZTop,
+                            inputParameters.RightGrid.ZTop.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.RightGrid.ZBottom,
+                            inputParameters.RightGrid.ZBottom.GetAccuracy());
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfVerticalPoints);
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
 

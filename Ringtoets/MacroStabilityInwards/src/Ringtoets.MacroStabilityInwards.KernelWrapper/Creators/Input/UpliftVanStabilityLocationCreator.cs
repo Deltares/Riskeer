@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = input.PenetrationLength
+                PenetrationLength = input.PenetrationLengthExtreme
             };
         }
 
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
                 LeakageLengthInwardsPl4 = input.LeakageLengthInwardsPhreaticLine4,
                 HeadInPlLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 HeadInPlLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = 0.0
+                PenetrationLength = input.PenetrationLengthDaily
             };
         }
     }
