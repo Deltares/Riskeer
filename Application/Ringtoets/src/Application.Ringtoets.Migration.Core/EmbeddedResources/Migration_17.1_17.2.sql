@@ -1616,16 +1616,50 @@ SELECT FailureMechanismEntityId,
 	0.033
 	FROM FailureMechanismEntity WHERE FailureMechanismType = 2;
 
+-- Insert new groups
 INSERT INTO CalculationGroupEntity (
-	[NAME],
-	[ORDER])
+    [Name],
+    [Order])
 SELECT 
-	"Berekeningen",
-	0;
- 
-UPDATE FailureMechanismEntity
-SET CalculationGroupEntityId = last_insert_rowid()
+    "Berekeningen",
+    0
+FROM FailureMechanismEntity
 WHERE FailureMechanismType = 2;
+
+-- Create temp table to store the new calculation group ids
+CREATE TEMP TABLE TempCalculationGroupEntity
+(
+ 'CalculationGroupId' INTEGER NOT NULL,
+ 'FailureMechanismId' INTEGER NOT NULL,
+ PRIMARY KEY ('CalculationGroupId', 'FailureMechanismId')
+) WITHOUT ROWID;
+
+-- Store the new calculation group ids
+INSERT INTO TempCalculationGroupEntity(
+    [CalculationGroupId],
+    [FailureMechanismId])
+SELECT
+    last_insert_rowid() - (
+        SELECT COUNT() 
+        FROM AssessmentSectionEntity ase 
+        WHERE fme.AssessmentSectionEntityId >= ase.AssessmentSectionEntityId
+    ) + 1,
+    FailureMechanismEntityId
+FROM FailureMechanismEntity fme
+WHERE fme.FailureMechanismType = 2
+ORDER BY AssessmentSectionEntityId;
+
+-- Link groups to all Macro (2) failure mechanisms
+UPDATE FailureMechanismEntity
+SET CalculationGroupEntityId = (
+    SELECT CalculationGroupId 
+    FROM TempCalculationGroupEntity
+    WHERE FailureMechanismId = FailureMechanismEntity.FailureMechanismEntityId
+)
+WHERE FailureMechanismType = 2;
+
+-- Cleanup
+DROP TABLE TempCalculationGroupEntity;
 
 /* 
 Write migration logging 

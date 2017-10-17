@@ -700,9 +700,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertCalculationGroup(MigratedDatabaseReader reader, string sourceFilePath)
         {
+            const string expectedNrOfCalculationGroupsQuery =
+                "SELECT " +
+                "COUNT() + " +
+                "(" +
+                "SELECT " +
+                "COUNT() " +
+                "FROM[SOURCEPROJECT].FailureMechanismEntity " +
+                "WHERE FailureMechanismType = 2" +
+                ") " +
+                "FROM [SOURCEPROJECT].CalculationGroupEntity ";
+
             string validateMigratedTable =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() + 1 FROM [SOURCEPROJECT].CalculationGroupEntity)" +
+                $"SELECT COUNT() = ({expectedNrOfCalculationGroupsQuery})" +
                 "FROM CalculationGroupEntity;" +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMigratedTable);
