@@ -53,34 +53,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
                 throw new ArgumentNullException(nameof(input));
             }
 
-            var calculatorInput = new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
-            {
-                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
-                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
-                AssessmentLevel = input.AssessmentLevel,
-                LandwardDirection = LandwardDirection.PositiveX,
-                SurfaceLine = input.SurfaceLine,
-                SoilProfile = SoilProfileConverter.Convert(input.SoilProfileUnderSurfaceLine),
-                DrainageConstruction = DrainageConstructionConverter.Convert(input),
-                PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme),
-                DikeSoilScenario = input.DikeSoilScenario,
-                WaterLevelRiverAverage = input.WaterLevelRiverAverage,
-                WaterLevelPolder = input.LocationInputExtreme.WaterLevelPolder,
-                MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
-                MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
-                LeakageLengthOutwardsPhreaticLine3 = input.LeakageLengthOutwardsPhreaticLine3,
-                LeakageLengthInwardsPhreaticLine3 = input.LeakageLengthInwardsPhreaticLine3,
-                LeakageLengthOutwardsPhreaticLine4 = input.LeakageLengthOutwardsPhreaticLine4,
-                LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
-                PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
-                PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = input.LocationInputExtreme.PenetrationLength,
-                AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,
-            });
-
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetExtremeCalculator(
-                                                                                       calculatorInput,
+                                                                                       CreateCalculatorInput(input, false),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -92,6 +67,72 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Calculated the Waternet with daily circumstances based on the values 
+        /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
+        /// </summary>
+        /// <param name="input">The input to get the values from.</param>
+        /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
+        /// or <c>null</c> when the Waternet could be calculated.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
+        /// is <c>null</c>.</exception>
+        public static MacroStabilityInwardsWaternet CalculateDaily(IMacroStabilityInwardsWaternetInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
+                                                                                   .CreateWaternetDailyCalculator(
+                                                                                       CreateCalculatorInput(input, true),
+                                                                                       MacroStabilityInwardsKernelWrapperFactory.Instance);
+
+            try
+            {
+                WaternetCalculatorResult result = calculator.Calculate();
+                return MacroStabilityInwardsWaternetConverter.Convert(result);
+            }
+            catch (WaternetCalculatorException)
+            {
+                return null;
+            }
+        }
+
+        private static WaternetCalculatorInput CreateCalculatorInput(IMacroStabilityInwardsWaternetInput input, bool daily)
+        {
+            return new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+            {
+                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
+                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
+                AssessmentLevel = input.AssessmentLevel,
+                LandwardDirection = LandwardDirection.PositiveX,
+                SurfaceLine = input.SurfaceLine,
+                SoilProfile = SoilProfileConverter.Convert(input.SoilProfileUnderSurfaceLine),
+                DrainageConstruction = DrainageConstructionConverter.Convert(input),
+                PhreaticLineOffsets = daily
+                                          ? PhreaticLineOffsetsConverter.Convert(input.LocationInputDaily)
+                                          : PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme),
+                DikeSoilScenario = input.DikeSoilScenario,
+                WaterLevelRiverAverage = input.WaterLevelRiverAverage,
+                WaterLevelPolder = daily
+                                       ? input.LocationInputDaily.WaterLevelPolder
+                                       : input.LocationInputExtreme.WaterLevelPolder,
+                MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
+                MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
+                LeakageLengthOutwardsPhreaticLine3 = input.LeakageLengthOutwardsPhreaticLine3,
+                LeakageLengthInwardsPhreaticLine3 = input.LeakageLengthInwardsPhreaticLine3,
+                LeakageLengthOutwardsPhreaticLine4 = input.LeakageLengthOutwardsPhreaticLine4,
+                LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
+                PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
+                PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
+                PenetrationLength = daily
+                                        ? input.LocationInputDaily.PenetrationLength
+                                        : input.LocationInputExtreme.PenetrationLength,
+                AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift
+            });
         }
     }
 }
