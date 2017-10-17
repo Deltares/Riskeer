@@ -65,7 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
             }
             catch (WaternetCalculatorException)
             {
-                return null;
+                return new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                         new MacroStabilityInwardsWaternetLine[0]);
             }
         }
 
@@ -97,7 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
             }
             catch (WaternetCalculatorException)
             {
-                return null;
+                return new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                         new MacroStabilityInwardsWaternetLine[0]);
             }
         }
 

@@ -50,8 +50,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
             IDictionary<WaternetPhreaticLineResult, MacroStabilityInwardsPhreaticLine> phreaticLineLookup = calculatorResult.PhreaticLines
                                                                                                                             .ToDictionary(pl => pl, ConvertPhreaticLine);
 
-            return new MacroStabilityInwardsWaternet(phreaticLineLookup.Values, calculatorResult.WaternetLines
-                                                                                                .Select(wl => ConvertWaternetLine(wl, phreaticLineLookup)));
+            return new MacroStabilityInwardsWaternet(phreaticLineLookup.Values.ToArray(),
+                                                     calculatorResult.WaternetLines
+                                                                     .Select(wl => ConvertWaternetLine(wl, phreaticLineLookup)).ToArray());
         }
 
         private static MacroStabilityInwardsWaternetLine ConvertWaternetLine(WaternetLineResult waternetLine,

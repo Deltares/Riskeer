@@ -35,6 +35,14 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
     [TestFixture]
     public class WaternetCalculationServiceTest
     {
+        private MacroStabilityInwardsCalculationScenario testCalculation;
+
+        [SetUp]
+        public void Setup()
+        {
+            testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+        }
+
         [Test]
         public void CalculateExtreme_InputNull_ThrowsArgumentNullException()
         {
@@ -50,7 +58,6 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         public void CalculateExtreme_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -74,8 +81,6 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         public void CalculateExtreme_CalculationRan_ReturnMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -89,11 +94,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         }
 
         [Test]
-        public void CalculateExtreme_ErrorInCalculation_ReturnNull()
+        public void CalculateExtreme_ErrorInCalculation_ReturnMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -103,7 +106,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters);
 
                 // Assert
-                Assert.IsNull(output);
+                Assert.IsNotNull(output);
+                CollectionAssert.IsEmpty(output.PhreaticLines);
+                CollectionAssert.IsEmpty(output.WaternetLines);
             }
         }
 
@@ -122,7 +127,6 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         public void CalculateDaily_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -146,8 +150,6 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         public void CalculateDaily_CalculationRan_ReturnMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -161,11 +163,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         }
 
         [Test]
-        public void CalculateDaily_ErrorInCalculation_ReturnNull()
+        public void CalculateDaily_ErrorInCalculation_ReturnMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -175,7 +175,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateDaily(testCalculation.InputParameters);
 
                 // Assert
-                Assert.IsNull(output);
+                Assert.IsNotNull(output);
+                CollectionAssert.IsEmpty(output.PhreaticLines);
+                CollectionAssert.IsEmpty(output.WaternetLines);
             }
         }
 

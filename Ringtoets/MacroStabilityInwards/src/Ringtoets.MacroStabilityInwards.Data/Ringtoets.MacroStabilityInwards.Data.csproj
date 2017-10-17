@@ -107,6 +107,11 @@
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.CalculatedInput\Ringtoets.MacroStabilityInwards.CalculatedInput.csproj">
+      <Project>{D0887613-858E-4EED-9320-8C5A09170761}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.CalculatedInput</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
       <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>

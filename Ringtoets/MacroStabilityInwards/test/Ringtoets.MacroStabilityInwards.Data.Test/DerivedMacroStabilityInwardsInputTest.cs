@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -35,8 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             TestDelegate call = () => new DerivedMacroStabilityInwardsInput(null);
 
             // Assert
-            const string expectedMessage = "Cannot create DerivedMacroStabilityInwardsInput without MacroStabilityInwardsInput.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -47,6 +51,118 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void WaternetExtreme_SoilProfileNull_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile = null;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetExtreme;
+
+                // Assert
+                Assert.IsNotNull(waternet);
+                CollectionAssert.IsEmpty(waternet.PhreaticLines);
+                CollectionAssert.IsEmpty(waternet.WaternetLines);
+            }
+        }
+
+        [Test]
+        public void WaternetExtreme_SurfaceLineNull_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.InputParameters.SurfaceLine = null;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetExtreme;
+
+                // Assert
+                Assert.IsNotNull(waternet);
+                CollectionAssert.IsEmpty(waternet.PhreaticLines);
+                CollectionAssert.IsEmpty(waternet.WaternetLines);
+            }
+        }
+
+        [Test]
+        public void WaternetExtreme_ValidInput_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                // Call
+                MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetExtreme;
+                
+                // Assert
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, waternet);
+            }
+        }
+
+        [Test]
+        public void WaternetDaily_SoilProfileNull_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile = null;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetDaily;
+
+                // Assert
+                Assert.IsNotNull(waternet);
+                CollectionAssert.IsEmpty(waternet.PhreaticLines);
+                CollectionAssert.IsEmpty(waternet.WaternetLines);
+            }
+        }
+
+        [Test]
+        public void WaternetDaily_SurfaceLineNull_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.InputParameters.SurfaceLine = null;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetDaily;
+
+                // Assert
+                Assert.IsNotNull(waternet);
+                CollectionAssert.IsEmpty(waternet.PhreaticLines);
+                CollectionAssert.IsEmpty(waternet.WaternetLines);
+            }
+        }
+
+        [Test]
+        public void WaternetDaily_ValidInput_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                // Call
+                MacroStabilityInwardsWaternet waternet = new DerivedMacroStabilityInwardsInput(calculation.InputParameters).WaternetDaily;
+                
+                // Assert
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, waternet);
+            }
         }
     }
 }

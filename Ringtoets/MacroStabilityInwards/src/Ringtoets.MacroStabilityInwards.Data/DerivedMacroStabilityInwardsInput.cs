@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
+using Ringtoets.MacroStabilityInwards.CalculatedInput;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -41,32 +41,36 @@ namespace Ringtoets.MacroStabilityInwards.Data
         {
             if (input == null)
             {
-                throw new ArgumentNullException(nameof(input), @"Cannot create DerivedMacroStabilityInwardsInput without MacroStabilityInwardsInput.");
+                throw new ArgumentNullException(nameof(input));
             }
             this.input = input;
         }
 
         /// <summary>
-        /// 
+        /// Gets the calculated waternet for extreme circumstances.
         /// </summary>
         public MacroStabilityInwardsWaternet WaternetExtreme
         {
             get
             {
-                return new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(),
-                                                         Enumerable.Empty<MacroStabilityInwardsWaternetLine>());
+                return input.SoilProfileUnderSurfaceLine != null
+                           ? WaternetCalculationService.CalculateExtreme(input)
+                           : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                               new MacroStabilityInwardsWaternetLine[0]);
             }
         }
 
         /// <summary>
-        /// 
+        /// Gets the calculated waternet for daily circumstances.
         /// </summary>
         public MacroStabilityInwardsWaternet WaternetDaily
         {
             get
             {
-                return new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(),
-                                                         Enumerable.Empty<MacroStabilityInwardsWaternetLine>());
+                return input.SoilProfileUnderSurfaceLine != null
+                           ? WaternetCalculationService.CalculateDaily(input)
+                           : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                               new MacroStabilityInwardsWaternetLine[0]);
             }
         }
     }
