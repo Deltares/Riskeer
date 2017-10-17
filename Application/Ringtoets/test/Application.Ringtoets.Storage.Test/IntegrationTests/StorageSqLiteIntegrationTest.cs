@@ -584,22 +584,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertWaveConditionsInput(WaveConditionsInput expectedInput, WaveConditionsInput actualInput)
         {
-            if (expectedInput.ForeshoreProfile == null)
-            {
-                Assert.IsNull(actualInput.ForeshoreProfile);
-            }
-            else
-            {
-                AssertForeshoreProfile(expectedInput.ForeshoreProfile, actualInput.ForeshoreProfile);
-            }
-            if (expectedInput.HydraulicBoundaryLocation == null)
-            {
-                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
-            }
-            else
-            {
-                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
-            }
+            AssertReferencedObject(() => expectedInput.ForeshoreProfile,
+                                   () => actualInput.ForeshoreProfile,
+                                   AssertForeshoreProfile);
+            AssertReferencedObject(() => expectedInput.HydraulicBoundaryLocation,
+                                   () => actualInput.HydraulicBoundaryLocation,
+                                   AssertHydraulicBoundaryLocation);
+
             AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
             Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
             Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
@@ -708,24 +699,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertStructureInputBase<T>(StructuresInputBase<T> expectedInput,
                                                         StructuresInputBase<T> actualInput) where T : StructureBase
         {
-            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
-            if (expectedInput.ForeshoreProfile == null)
-            {
-                Assert.IsNull(actualInput.ForeshoreProfile);
-            }
-            else
-            {
-                AssertForeshoreProfile(expectedInput.ForeshoreProfile, actualInput.ForeshoreProfile);
-            }
-
-            if (expectedInput.HydraulicBoundaryLocation == null)
-            {
-                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
-            }
-            else
-            {
-                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
-            }
+            AssertReferencedObject(() => expectedInput.ForeshoreProfile,
+                                   () => actualInput.ForeshoreProfile,
+                                   AssertForeshoreProfile);
+            AssertReferencedObject(() => expectedInput.HydraulicBoundaryLocation,
+                                   () => actualInput.HydraulicBoundaryLocation,
+                                   AssertHydraulicBoundaryLocation);
 
             Assert.AreEqual(expectedInput.StructureNormalOrientation, actualInput.StructureNormalOrientation);
             DistributionAssert.AreEqual(expectedInput.ModelFactorSuperCriticalFlow, actualInput.ModelFactorSuperCriticalFlow);
@@ -765,6 +744,30 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             for (var i = 0; i < expectedNrOfItems; i++)
             {
                 assertAction(expectedArray[i], actualArray[i]);
+            }
+        }
+
+        /// <summary>
+        /// Asserts two referenced objects of <typeparamref name="T"/> and whether
+        /// the objects are equal.
+        /// </summary>
+        /// <typeparam name="T">The type to assert.</typeparam>
+        /// <param name="getExpectedReference">The function to perform to retrieve the expected object.</param>
+        /// <param name="getActualReference">The function to perform to retrieve the actual object</param>
+        /// <param name="assertAction">The action to compare the objects against each other.</param>
+        /// <exception cref="AssertionException">Thrown when the items are not equal.</exception>
+        private static void AssertReferencedObject<T>(Func<T> getExpectedReference,
+                                                      Func<T> getActualReference,
+                                                      Action<T, T> assertAction)
+        {
+            T expectedReferenceValue = getExpectedReference();
+            if (expectedReferenceValue == null)
+            {
+                Assert.IsNull(getActualReference());
+            }
+            else
+            {
+                assertAction(expectedReferenceValue, getActualReference());
             }
         }
 
@@ -879,14 +882,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertStructureInputBase(expectedInput, actualInput);
 
-            if (expectedInput.Structure == null)
-            {
-                Assert.IsNull(actualInput.Structure);
-            }
-            else
-            {
-                AssertStabilityPointStructure(expectedInput.Structure, actualInput.Structure);
-            }
+            AssertReferencedObject(() => expectedInput.Structure,
+                                   () => actualInput.Structure,
+                                   AssertStabilityPointStructure);
 
             DistributionAssert.AreEqual(expectedInput.InsideWaterLevel, actualInput.InsideWaterLevel);
             DistributionAssert.AreEqual(expectedInput.ThresholdHeightOpenWeir, actualInput.ThresholdHeightOpenWeir);
@@ -1015,14 +1013,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertStructureInputBase(expectedInput, actualInput);
 
-            if (expectedInput.Structure == null)
-            {
-                Assert.IsNull(actualInput.Structure);
-            }
-            else
-            {
-                AssertClosingStructure(expectedInput.Structure, actualInput.Structure);
-            }
+            AssertReferencedObject(() => expectedInput.Structure,
+                                   () => actualInput.Structure,
+                                   AssertClosingStructure);
 
             Assert.AreEqual(expectedInput.InflowModelType, actualInput.InflowModelType);
             DistributionAssert.AreEqual(expectedInput.InsideWaterLevel, actualInput.InsideWaterLevel);
@@ -1198,14 +1191,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertStructureInputBase(expectedInput, actualInput);
 
-            if (expectedInput.Structure == null)
-            {
-                Assert.IsNull(actualInput.Structure);
-            }
-            else
-            {
-                AssertHeightStructure(expectedInput.Structure, actualInput.Structure);
-            }
+            AssertReferencedObject(() => expectedInput.Structure,
+                                   () => actualInput.Structure,
+                                   AssertHeightStructure);
 
             Assert.AreEqual(expectedInput.DeviationWaveDirection, actualInput.DeviationWaveDirection);
             DistributionAssert.AreEqual(expectedInput.LevelCrestStructure, actualInput.LevelCrestStructure);
@@ -1265,6 +1253,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
         {
+            AssertReferencedObject(() => expectedPipingInput.HydraulicBoundaryLocation,
+                                   () => actualPipingInput.HydraulicBoundaryLocation,
+                                   AssertHydraulicBoundaryLocation);
+
+            AssertReferencedObject(() => expectedPipingInput.SurfaceLine,
+                                   () => actualPipingInput.SurfaceLine,
+                                   AssertPipingSurfaceLine);
+            AssertReferencedObject(() => expectedPipingInput.StochasticSoilModel,
+                                   () => actualPipingInput.StochasticSoilModel,
+                                   AssertPipingStochasticSoilModel);
+            AssertReferencedObject(() => expectedPipingInput.StochasticSoilProfile,
+                                   () => actualPipingInput.StochasticSoilProfile,
+                                   AssertPipingStochasticSoilProfile);
+
             Assert.AreEqual(expectedPipingInput.ExitPointL, actualPipingInput.ExitPointL);
             Assert.AreEqual(expectedPipingInput.EntryPointL, actualPipingInput.EntryPointL);
             Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.Mean, actualPipingInput.PhreaticLevelExit.Mean);
@@ -1338,13 +1340,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                              PipingStochasticSoilModelCollection actualModels)
         {
             Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
-            AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
-            {
-                Assert.AreEqual(expectedItem.Name, actualItem.Name);
-                AssertSegmentPoints(expectedItem.Geometry, actualItem.Geometry);
-                AssertCollectionAndItems(expectedItem.StochasticSoilProfiles, actualItem.StochasticSoilProfiles,
-                                         AssertPipingStochasticSoilProfile);
-            });
+            AssertCollectionAndItems(expectedModels, actualModels, AssertPipingStochasticSoilModel);
+        }
+
+        private static void AssertPipingStochasticSoilModel(PipingStochasticSoilModel expectedSoilModel, PipingStochasticSoilModel actualSoilModel)
+        {
+            Assert.AreEqual(expectedSoilModel.Name, actualSoilModel.Name);
+            AssertSegmentPoints(expectedSoilModel.Geometry, actualSoilModel.Geometry);
+            AssertCollectionAndItems(expectedSoilModel.StochasticSoilProfiles, actualSoilModel.StochasticSoilProfiles,
+                                     AssertPipingStochasticSoilProfile);
         }
 
         private static void AssertPipingStochasticSoilProfile(PipingStochasticSoilProfile expectedProfile, PipingStochasticSoilProfile actualProfile)
@@ -1436,14 +1440,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                             MacroStabilityInwardsStochasticSoilModelCollection actualModels)
         {
             Assert.AreEqual(expectedModels.SourcePath, actualModels.SourcePath);
-            AssertCollectionAndItems(expectedModels, actualModels, (expectedItem, actualItem) =>
-            {
-                Assert.AreEqual(expectedItem.Name, actualItem.Name);
-                AssertSegmentPoints(expectedItem.Geometry, actualItem.Geometry);
-                AssertCollectionAndItems(expectedItem.StochasticSoilProfiles,
-                                         actualItem.StochasticSoilProfiles,
-                                         AssertMacroStabilityInwardsStochasticSoilProfile);
-            });
+            AssertCollectionAndItems(expectedModels, actualModels, AssertMacroStabilityInwardsStochasticSoilModel);
+        }
+
+        private static void AssertMacroStabilityInwardsStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel expectedSoilModel,
+                                                                           MacroStabilityInwardsStochasticSoilModel actualSoilModel)
+        {
+            Assert.AreEqual(expectedSoilModel.Name, actualSoilModel.Name);
+            AssertSegmentPoints(expectedSoilModel.Geometry, actualSoilModel.Geometry);
+            AssertCollectionAndItems(expectedSoilModel.StochasticSoilProfiles,
+                                     actualSoilModel.StochasticSoilProfiles,
+                                     AssertMacroStabilityInwardsStochasticSoilProfile);
         }
 
         private static void AssertMacroStabilityInwardsStochasticSoilProfile(MacroStabilityInwardsStochasticSoilProfile expectedProfile,
@@ -1592,6 +1599,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertMacroStabilityInwardsInput(MacroStabilityInwardsInput expectedInput, MacroStabilityInwardsInput actualInput)
         {
+            AssertReferencedObject(() => expectedInput.HydraulicBoundaryLocation,
+                                   () => actualInput.HydraulicBoundaryLocation,
+                                   AssertHydraulicBoundaryLocation);
+
+            AssertReferencedObject(() => expectedInput.SurfaceLine,
+                                   () => actualInput.SurfaceLine,
+                                   AssertMacroStabilityInwardsSurfaceLine);
+            AssertReferencedObject(() => expectedInput.StochasticSoilModel,
+                                   () => actualInput.StochasticSoilModel,
+                                   AssertMacroStabilityInwardsStochasticSoilModel);
+            AssertReferencedObject(() => expectedInput.StochasticSoilProfile,
+                                   () => actualInput.StochasticSoilProfile,
+                                   AssertMacroStabilityInwardsStochasticSoilProfile);
+
             Assert.AreEqual(expectedInput.AssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(expectedInput.UseAssessmentLevelManualInput, actualInput.UseAssessmentLevelManualInput);
             Assert.AreEqual(expectedInput.SlipPlaneMinimumDepth, actualInput.SlipPlaneMinimumDepth);
@@ -1606,8 +1627,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
 
-            AsssertMacroStabilityInwardsLocationInputBase(expectedInput.LocationInputDaily, expectedInput.LocationInputDaily);
-            AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputExtreme, expectedInput.LocationInputExtreme);
+            AsssertMacroStabilityInwardsLocationInputBase(expectedInput.LocationInputDaily, actualInput.LocationInputDaily);
+            AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputExtreme, actualInput.LocationInputExtreme);
 
             Assert.AreEqual(expectedInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
             Assert.AreEqual(expectedInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);
@@ -1674,6 +1695,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
 
                 AssertMacroStabilityInwardsSlidingCurve(expectedOutput.SlidingCurve, actualOutput.SlidingCurve);
+                AssertMacroStabilityInwardsSlipPlaneUpliftVan(expectedOutput.SlipPlane, actualOutput.SlipPlane);
             }
         }
 
@@ -1820,22 +1842,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput expectedInput,
                                                                 GrassCoverErosionInwardsInput actualInput)
         {
-            if (expectedInput.DikeProfile == null)
-            {
-                Assert.IsNull(actualInput.DikeProfile);
-            }
-            else
-            {
-                AssertDikeProfile(expectedInput.DikeProfile, actualInput.DikeProfile);
-            }
-            if (expectedInput.HydraulicBoundaryLocation == null)
-            {
-                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
-            }
-            else
-            {
-                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
-            }
+            AssertReferencedObject(() => expectedInput.DikeProfile,
+                                   () => actualInput.DikeProfile,
+                                   AssertDikeProfile);
+            AssertReferencedObject(() => expectedInput.HydraulicBoundaryLocation,
+                                   () => actualInput.HydraulicBoundaryLocation,
+                                   AssertHydraulicBoundaryLocation);
+
             AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
             Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
             Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);

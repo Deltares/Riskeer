@@ -42,8 +42,8 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         public static MacroStabilityInwardsCalculationEntity Create(this MacroStabilityInwardsCalculationScenario calculation,
-                                                                      PersistenceRegistry registry,
-                                                                      int order)
+                                                                    PersistenceRegistry registry,
+                                                                    int order)
         {
             if (registry == null)
             {

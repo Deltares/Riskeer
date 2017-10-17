@@ -706,7 +706,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "(" +
                 "SELECT " +
                 "COUNT() " +
-                "FROM[SOURCEPROJECT].FailureMechanismEntity " +
+                "FROM [SOURCEPROJECT].FailureMechanismEntity " +
                 "WHERE FailureMechanismType = 2" +
                 ") " +
                 "FROM [SOURCEPROJECT].CalculationGroupEntity ";
