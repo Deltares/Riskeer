@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsCalculationScenario Read(this MacroStabilityInwardsCalculationEntity entity,
+        public static MacroStabilityInwardsCalculationScenario Read(this MacroStabilityInwardsCalculationEntity entity,
                                                                       ReadConversionCollector collector)
         {
             if (collector == null)

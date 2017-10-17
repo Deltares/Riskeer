@@ -1212,12 +1212,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             CalculationGroup macroStabilityInwardsCalculationGroup = macroStabilityInwardsFailureMechanism.CalculationsGroup;
             macroStabilityInwardsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "A",
+                Name = "Calculation group with calculation",
                 Children =
                 {
                     new MacroStabilityInwardsCalculationScenario
                     {
-                        Name = "AA",
+                        Name = "Calculation With output",
                         IsRelevant = true,
                         Contribution = (RoundedDouble) 1.0,
                         Comments =
@@ -1300,11 +1300,11 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
             macroStabilityInwardsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "B"
+                Name = "Group without calculations"
             });
             macroStabilityInwardsCalculationGroup.Children.Add(new MacroStabilityInwardsCalculationScenario
             {
-                Name = "C",
+                Name = "Scenario without output",
                 IsRelevant = false,
                 Contribution = (RoundedDouble) 0.5,
                 Comments =

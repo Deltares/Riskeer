@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
         /// <param name="scenario">The <see cref="MacroStabilityInwardsCalculationScenario"/> to compare.</param>
         /// <param name="entity">The <see cref="MacroStabilityInwardsCalculationEntity"/>
         /// to compare.</param>
-        /// <exception cref="ArgumentNullException">Thrown if any of the argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if any of the arguments is <c>null</c>.</exception>
         /// <exception cref="AssertionException">Thrown when any of the values of the 
         /// <see cref="MacroStabilityInwardsCalculationScenario"/> and its nested elements do not match.
         /// </exception>

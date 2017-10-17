@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// <see cref="MacroStabilityInwardsOutput"/> for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsOutput Read(this MacroStabilityInwardsCalculationOutputEntity entity)
+        public static MacroStabilityInwardsOutput Read(this MacroStabilityInwardsCalculationOutputEntity entity)
         {
             if (entity == null)
             {

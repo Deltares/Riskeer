@@ -195,7 +195,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithHydraulicBoundaryLocationInCollector_CalculationHasAlreadyReadHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new PipingCalculationEntity
             {

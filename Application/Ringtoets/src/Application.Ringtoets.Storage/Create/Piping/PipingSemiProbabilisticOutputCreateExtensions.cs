@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <returns>A new <see cref="PipingSemiProbabilisticOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="semiProbabilisticOutput"/>
         /// is <c>null</c>.</exception>
-        internal static PipingSemiProbabilisticOutputEntity Create(this PipingSemiProbabilisticOutput semiProbabilisticOutput)
+        public static PipingSemiProbabilisticOutputEntity Create(this PipingSemiProbabilisticOutput semiProbabilisticOutput)
         {
             if (semiProbabilisticOutput == null)
             {

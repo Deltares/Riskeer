@@ -35,11 +35,11 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// Read the <see cref="MacroStabilityInwardsSemiProbabilisticOutputEntity"/> and use the information
         /// to construct a <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingSemiProbabilisticOutputEntity"/> to
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> to
         /// create <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsSemiProbabilisticOutput Read(this MacroStabilityInwardsSemiProbabilisticOutputEntity entity)
+        public static MacroStabilityInwardsSemiProbabilisticOutput Read(this MacroStabilityInwardsSemiProbabilisticOutputEntity entity)
         {
             if (entity == null)
             {

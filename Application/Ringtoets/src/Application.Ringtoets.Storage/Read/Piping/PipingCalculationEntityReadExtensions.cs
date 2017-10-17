@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// to all <see cref="PipingCalculationScenario"/> instances.</param>
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static PipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
+        public static PipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
                                                        GeneralPipingInput generalInputParameters)
         {
             if (collector == null)

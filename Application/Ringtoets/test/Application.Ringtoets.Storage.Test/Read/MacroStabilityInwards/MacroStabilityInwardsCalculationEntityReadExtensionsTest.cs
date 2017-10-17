@@ -27,7 +27,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -120,7 +120,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var collector = new ReadConversionCollector();
 
             // Call
-
             MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
@@ -167,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_EntityWithHydraulicBoundaryLocationEntity_ReturnsCalculationScenarioWithInputObjectWithLocationSet()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicLocationEntity = new HydraulicLocationEntity();
 
             var collector = new ReadConversionCollector();
@@ -198,7 +197,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             var entity = new MacroStabilityInwardsCalculationEntity
             {
-                SurfaceLineEntity = surfaceLineEntity, 
+                SurfaceLineEntity = surfaceLineEntity,
                 TangentLineNumber = 1
             };
 
@@ -222,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                                                                                        MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D());
             var stochasticSoilProfileEntity = new MacroStabilityInwardsStochasticSoilProfileEntity
             {
-                StochasticSoilModelEntity = stochasticSoilModelEntity,
+                StochasticSoilModelEntity = stochasticSoilModelEntity
             };
 
             var collector = new ReadConversionCollector();
@@ -245,7 +244,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_EntityWithSemiProbabilisticOutputEntity_ReturnsCalculationScenarioWithSemiProbabilisticOutput()
+        public void Read_EntityWithSemiProbabilisticOutput_ReturnsCalculationScenarioWithSemiProbabilisticOutput()
         {
             // Setup
             var tangentLines = new double[0];
@@ -276,7 +275,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_EntityWithOutputEntity_ReturnsCalculationScenarioWithOutput()
+        public void Read_EntityWithOutput_ReturnsCalculationScenarioWithOutput()
         {
             // Setup
             var entity = new MacroStabilityInwardsCalculationEntity

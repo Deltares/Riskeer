@@ -74,15 +74,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("A")]
-        [TestCase("b")]
-        public void ReadAsPipingCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsPipingCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -92,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -276,15 +273,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("A")]
-        [TestCase("b")]
-        public void ReadAsMacroStabilityInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsMacroStabilityInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -293,7 +287,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsMacroStabilityInwardsCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -474,15 +468,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -491,7 +482,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -668,15 +659,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -685,7 +673,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -862,15 +850,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsHeightStructuresCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsHeightStructuresCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -879,7 +864,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsHeightStructuresCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -1056,15 +1041,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsClosingStructuresCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsClosingStructuresCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -1073,7 +1055,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsClosingStructuresCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -1250,14 +1232,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsStabilityPointStructuresCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(string name)
+        public void ReadAsStabilityPointStructuresCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -1266,7 +1246,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsStabilityPointStructuresCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -1443,15 +1423,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -1460,7 +1437,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -1637,15 +1614,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase("HAbba")]
-        [TestCase("Dooeis")]
-        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            string name)
+        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                Name = name
+                Name = "A"
             };
 
             var collector = new ReadConversionCollector();
@@ -1654,7 +1628,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             CalculationGroup group = entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
 
             // Assert
-            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(entity.Name, group.Name);
             CollectionAssert.IsEmpty(group.Children);
         }
 

@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <returns>A new <see cref="PipingCalculationOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
         /// is <c>null</c>.</exception>
-        internal static PipingCalculationOutputEntity Create(this PipingOutput output)
+        public static PipingCalculationOutputEntity Create(this PipingOutput output)
         {
             if (output == null)
             {

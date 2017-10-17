@@ -65,7 +65,50 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     SlipPlaneMinimumDepth = RoundedDouble.NaN,
                     SlipPlaneMinimumLength = RoundedDouble.NaN,
                     MaximumSliceWidth = RoundedDouble.NaN,
-                    UseAssessmentLevelManualInput = true
+                    UseAssessmentLevelManualInput = true,
+                    AssessmentLevel = RoundedDouble.NaN,
+                    WaterLevelRiverAverage = RoundedDouble.NaN,
+                    XCoordinateDrainageConstruction = RoundedDouble.NaN,
+                    ZCoordinateDrainageConstruction = RoundedDouble.NaN,
+                    LocationInputExtreme =
+                    {
+                        WaterLevelPolder = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowDikeTopAtRiver = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowDikeTopAtPolder = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowShoulderBaseInside = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowDikeToeAtPolder = RoundedDouble.NaN,
+                        PenetrationLength = RoundedDouble.NaN
+                    },
+                    LocationInputDaily =
+                    {
+                        WaterLevelPolder = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowDikeTopAtRiver = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowDikeTopAtPolder = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowShoulderBaseInside = RoundedDouble.NaN,
+                        PhreaticLineOffsetBelowDikeToeAtPolder = RoundedDouble.NaN
+                    },
+                    LeakageLengthOutwardsPhreaticLine3 = RoundedDouble.NaN,
+                    LeakageLengthInwardsPhreaticLine3 = RoundedDouble.NaN,
+                    LeakageLengthOutwardsPhreaticLine4 = RoundedDouble.NaN,
+                    LeakageLengthInwardsPhreaticLine4 = RoundedDouble.NaN,
+                    PiezometricHeadPhreaticLine2Outwards = RoundedDouble.NaN,
+                    PiezometricHeadPhreaticLine2Inwards = RoundedDouble.NaN,
+                    TangentLineZTop = RoundedDouble.NaN,
+                    TangentLineZBottom = RoundedDouble.NaN,
+                    LeftGrid =
+                    {
+                        XLeft = RoundedDouble.NaN,
+                        XRight = RoundedDouble.NaN,
+                        ZTop = RoundedDouble.NaN,
+                        ZBottom = RoundedDouble.NaN
+                    },
+                    RightGrid =
+                    {
+                        XLeft = RoundedDouble.NaN,
+                        XRight = RoundedDouble.NaN,
+                        ZTop = RoundedDouble.NaN,
+                        ZBottom = RoundedDouble.NaN
+                    }
                 }
             };
             var registry = new PersistenceRegistry();
@@ -262,7 +305,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_CalculatioNWithAlreadyRegisteredHydraulicBoundaryLocation_ReturnsEntityWithHydraulicBoundaryLocationEntity()
+        public void Create_CalculationWithAlreadyRegisteredHydraulicBoundaryLocation_ReturnsEntityWithHydraulicBoundaryLocationEntity()
         {
             // Setup
             var hydraulicLocation = new TestHydraulicBoundaryLocation();

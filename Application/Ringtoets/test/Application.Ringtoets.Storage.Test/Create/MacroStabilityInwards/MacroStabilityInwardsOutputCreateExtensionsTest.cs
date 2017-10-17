@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -47,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_WithValidValues_ReturnsPropertyWithExpectedPropertiesSet()
+        public void Create_WithValidValues_ReturnsEntityWithExpectedPropertiesSet()
         {
             // Setup
             var random = new Random(21);
@@ -100,8 +101,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                                                                      double.NaN,
                                                                      double.NaN);
 
-            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(new MacroStabilityInwardsGrid(),
-                                                                        new MacroStabilityInwardsGrid(),
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(CreateGridWithNaNValues(),
+                                                                        CreateGridWithNaNValues(),
                                                                         new double[0]);
 
             var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, new MacroStabilityInwardsOutput.ConstructionProperties());
@@ -159,6 +160,17 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 ZBottom = random.NextRoundedDouble(),
                 NumberOfHorizontalPoints = random.Next(),
                 NumberOfVerticalPoints = random.Next()
+            };
+        }
+
+        private static MacroStabilityInwardsGrid CreateGridWithNaNValues()
+        {
+            return new MacroStabilityInwardsGrid
+            {
+                XLeft = RoundedDouble.NaN,
+                XRight = RoundedDouble.NaN,
+                ZTop = RoundedDouble.NaN,
+                ZBottom = RoundedDouble.NaN
             };
         }
 

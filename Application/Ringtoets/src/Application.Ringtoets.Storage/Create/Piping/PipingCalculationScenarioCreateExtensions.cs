@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="PipingCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static PipingCalculationEntity Create(this PipingCalculationScenario calculation, PersistenceRegistry registry, int order)
+        public static PipingCalculationEntity Create(this PipingCalculationScenario calculation, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {

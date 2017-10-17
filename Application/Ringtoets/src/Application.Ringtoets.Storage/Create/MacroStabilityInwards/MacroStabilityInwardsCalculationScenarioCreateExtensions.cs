@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsCalculationEntity Create(this MacroStabilityInwardsCalculationScenario calculation,
+        public static MacroStabilityInwardsCalculationEntity Create(this MacroStabilityInwardsCalculationScenario calculation,
                                                                       PersistenceRegistry registry,
                                                                       int order)
         {

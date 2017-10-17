@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// of the <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
         /// </summary>
         /// <param name="semiProbabilisticOutput">The semi-probabilistic calculation output
-        /// for piping to create a database entity for.</param>
+        /// for macro stability inwards to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSemiProbabilisticOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="semiProbabilisticOutput"/>
         /// is <c>null</c>.</exception>

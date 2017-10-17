@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <returns>A new <see cref="PipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        internal static PipingOutput Read(this PipingCalculationOutputEntity entity)
+        public static PipingOutput Read(this PipingCalculationOutputEntity entity)
         {
             if (entity == null)
             {

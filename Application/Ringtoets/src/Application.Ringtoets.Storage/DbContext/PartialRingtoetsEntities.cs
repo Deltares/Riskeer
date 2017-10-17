@@ -91,10 +91,10 @@ namespace Application.Ringtoets.Storage.DbContext
             MacroStabilityInwardsSoilLayerTwoDEntities.Load();
             MacroStabilityInwardsStochasticSoilProfileEntities.Load();
             MacroStabilityInwardsPreconsolidationStressEntities.Load();
-            MacrostabilityOutwardsSectionResultEntities.Load();
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
             MacroStabilityInwardsSemiProbabilisticOutputEntities.Load();
+            MacrostabilityOutwardsSectionResultEntities.Load();
             MicrostabilitySectionResultEntities.Load();
             ProjectEntities.Load();
             PipingCalculationEntities.Load();

@@ -38,10 +38,10 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// </summary>
         /// <param name="output">The calculation output for macro stability inwards failure mechanism to 
         /// create a database entity for.</param>
-        /// <returns>A new <see cref="PipingCalculationOutputEntity"/>.</returns>
+        /// <returns>A new <see cref="MacroStabilityInwardsCalculationOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
         /// is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsCalculationOutputEntity Create(this MacroStabilityInwardsOutput output)
+        public static MacroStabilityInwardsCalculationOutputEntity Create(this MacroStabilityInwardsOutput output)
         {
             if (output == null)
             {

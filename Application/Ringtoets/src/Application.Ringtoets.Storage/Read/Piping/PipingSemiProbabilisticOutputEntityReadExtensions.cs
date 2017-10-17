@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// create <see cref="PipingSemiProbabilisticOutput"/> for.</param>
         /// <returns>A new <see cref="PipingSemiProbabilisticOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static PipingSemiProbabilisticOutput Read(this PipingSemiProbabilisticOutputEntity entity)
+        public static PipingSemiProbabilisticOutput Read(this PipingSemiProbabilisticOutputEntity entity)
         {
             if (entity == null)
             {
