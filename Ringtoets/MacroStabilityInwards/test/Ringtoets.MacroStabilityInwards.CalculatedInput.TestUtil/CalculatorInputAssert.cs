@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
 {
     /// <summary>
-    /// Class for asserting Uplift Van calculator input.
+    /// Class for asserting calculator input.
     /// </summary>
     public static class CalculatorInputAssert
     {

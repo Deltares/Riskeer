@@ -83,9 +83,15 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
                                                                                        calculatorInput,
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            WaternetCalculatorResult result = calculator.Calculate();
-
-            return null;
+            try
+            {
+                WaternetCalculatorResult result = calculator.Calculate();
+                return MacroStabilityInwardsWaternetConverter.Convert(result);
+            }
+            catch (WaternetCalculatorException)
+            {
+                return null;
+            }
         }
     }
 }

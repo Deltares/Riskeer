@@ -64,6 +64,7 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTestFactory.cs" />
     <Compile Include="Calculators\Waternet\Input\WaternetCalculatorInputTestFactory.cs" />
     <Compile Include="Calculators\Waternet\Output\WaternetCalculatorOutputAssert.cs" />
+    <Compile Include="Calculators\Waternet\Output\WaternetCalculatorResultTestFactory.cs" />
     <Compile Include="Calculators\Waternet\WaternetCalculatorStub.cs" />
     <Compile Include="Kernels\UpliftVan\Input\KernelInputAssert.cs" />
     <Compile Include="Kernels\UpliftVan\Input\UpliftVanKernelInputAssert.cs" />

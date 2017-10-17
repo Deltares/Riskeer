@@ -34,6 +34,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
     /// </summary>
     public static class WaternetCalculatorInputTestFactory
     {
+        /// <summary>
+        /// Creates a new <see cref="WaternetCalculatorInput"/>.
+        /// </summary>
+        /// <returns>The created <see cref="WaternetCalculatorInput"/>.</returns>
         public static WaternetCalculatorInput CreateCompleteCalculatorInput()
         {
             var random = new Random(21);
@@ -63,6 +67,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
             });
         }
 
+        /// <summary>
+        /// Creates a new <see cref="WaternetCalculatorInput"/>.
+        /// </summary>
+        /// <returns>The created <see cref="WaternetCalculatorInput"/>.</returns>
         public static WaternetCalculatorInput CreateValidCalculatorInput()
         {
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();

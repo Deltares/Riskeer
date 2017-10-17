@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.MacroStabilityInwards.CalculatedInput")]
 [assembly: AssemblyProduct("Ringtoets.MacroStabilityInwards.CalculatedInput")]
 [assembly: Guid("d0887613-858e-4eed-9320-8c5a09170761")]
+[assembly: InternalsVisibleTo("Ringtoets.MacroStabilityInwards.CalculatedInput.Test")]

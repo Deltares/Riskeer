@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -28,7 +27,6 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -62,6 +60,43 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
 
                 // Assert
                 AssertInput(input, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance);
+            }
+        }
+
+        [Test]
+        public void CalculateExtreme_CalculationRan_ReturnMacroStabilityInwardsWaternet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+
+                // Call
+                MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters);
+
+                // Assert
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, output);
+            }
+        }
+
+        [Test]
+        public void CalculateExtreme_ErrorInCalculation_ReturnNull()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters);
+
+                // Assert
+                Assert.IsNull(output);
             }
         }
 

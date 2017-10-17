@@ -41,6 +41,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\DrainageConstructionConverter.cs" />
+    <Compile Include="Converters\MacroStabilityInwardsWaternetConverter.cs" />
     <Compile Include="Converters\PhreaticLineOffsetsConverter.cs" />
     <Compile Include="Converters\SoilProfileConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
