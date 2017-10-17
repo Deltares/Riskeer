@@ -1190,6 +1190,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
+        /// </summary>
+        public static string Loop_contains_disconnected_segments {
+            get {
+                return ResourceManager.GetString("Loop_contains_disconnected_segments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
@@ -1645,15 +1654,6 @@ namespace Ringtoets.Common.IO.Properties {
         public static string SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution {
             get {
                 return ResourceManager.GetString("SoilLayer_Stochastic_parameter_0_has_no_shifted_lognormal_distribution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
-        /// </summary>
-        public static string SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments {
-            get {
-                return ResourceManager.GetString("SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments", resourceCulture);
             }
         }
         

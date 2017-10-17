@@ -96,16 +96,16 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Validates that <paramref name="innerLoop"/> forms a loop.
+        /// Validates that <paramref name="loop"/> forms a loop.
         /// </summary>
-        /// <param name="innerLoop">The inner loop to validate.</param>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoop"/> 
+        /// <param name="loop">The loop to validate.</param>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="loop"/> 
         /// do not form a loop.</exception>
-        private static void CheckValidLoop(Segment2D[] innerLoop)
+        private static void CheckValidLoop(Segment2D[] loop)
         {
-            if (innerLoop.Length == 1 || !IsLoopConnected(innerLoop))
+            if (loop.Length == 1 || !IsLoopConnected(loop))
             {
-                throw new ArgumentException(Resources.SoilLayer2D_CheckValidLoop_Loop_contains_disconnected_segments);
+                throw new ArgumentException(Resources.Loop_contains_disconnected_segments);
             }
         }
 

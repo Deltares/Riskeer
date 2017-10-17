@@ -68,7 +68,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="geometry"/> is not valid XML.</item>
+        /// <item><paramref name="geometry"/> is not valid XML;</item>
         /// <item><paramref name="geometry"/> does not pass schema validation.</item>
         /// </list>
         /// </exception>
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="geometry"/> is not valid XML.</item>
+        /// <item><paramref name="geometry"/> is not valid XML;</item>
         /// <item><paramref name="geometry"/> does not pass schema validation.</item>
         /// </list>
         /// </exception>
@@ -166,60 +166,108 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses the XML element to create a collection of <see cref="Segment2D"/> describing
+        /// Parses the XML element to create a collection of sorted <see cref="Segment2D"/> describing
         /// a geometric loop.
         /// </summary>
         /// <param name="loop">The geometric loop element.</param>
-        /// <exception cref="SoilLayerConversionException">Thrown when 
-        /// XML for any geometry curve is invalid.</exception>
+        /// <exception cref="SoilLayerConversionException">Thrown when the XML:
+        /// <list type="bullet">
+        /// <item>for any geometry curve is invalid;</item>
+        /// <item>only contains one curve;</item>
+        /// <item>contains disconnected curves.</item>
+        /// </list>
+        /// </exception>
+        /// <remarks>As the description states, the returned segments are sorted. The sorting is
+        /// necessary for hiding some insufficiencies in D-Soilmodel.</remarks>
         private static IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
         {
             IEnumerable<XElement> curves = loop.XPathSelectElements($".//{geometryCurveElementName}");
-            return SortCurves(curves.Select(ParseGeometryCurve).ToArray());
+
+            Segment2D[] unsortedSegments = curves.Select(ParseGeometryCurve).ToArray();
+
+            if (unsortedSegments.Length == 1)
+            {
+                throw new SoilLayerConversionException(Resources.Loop_contains_disconnected_segments);
+            }
+
+            return CreateSortedSegments(unsortedSegments);
         }
 
-        private static IEnumerable<Segment2D> SortCurves(Segment2D[] curves)
+        /// <summary>
+        /// Creates sorted segments from <param name="unsortedSegments"/>.
+        /// </summary>
+        /// <param name="unsortedSegments">The unsorted segments to get the sorted segments from.</param>
+        /// <returns>An array of sorted segments.</returns>
+        /// <exception cref="SoilLayerConversionException">Thrown when 
+        /// <param name="unsortedSegments"/> contains disconnected segments.</exception>
+        private static IEnumerable<Segment2D> CreateSortedSegments(Segment2D[] unsortedSegments)
         {
-            if (!curves.Any())
+            Point2D[] sortedPoints = GetSortedPoints(unsortedSegments);
+            int sortedPointsLength = sortedPoints.Length;
+
+            for (var i = 0; i < sortedPointsLength; i++)
             {
-                yield break;
+                yield return new Segment2D(sortedPoints[i],
+                                           i == sortedPointsLength - 1
+                                               ? sortedPoints[0]
+                                               : sortedPoints[i + 1]);
+            }
+        }
+
+        /// <summary>
+        /// Gets sorted points from <param name="segments"/>.
+        /// </summary>
+        /// <param name="segments">The segments to get the sorted points from.</param>
+        /// <returns>An array of sorted points.</returns>
+        /// <exception cref="SoilLayerConversionException">Thrown when 
+        /// <param name="segments"/> contains disconnected segments.</exception>
+        private static Point2D[] GetSortedPoints(Segment2D[] segments)
+        {
+            var sortedPoints = new List<Point2D>();
+
+            for (var index = 0; index < segments.Length; ++index)
+            {
+                if (index == 0)
+                {
+                    sortedPoints.Add(segments[index].FirstPoint);
+                    sortedPoints.Add(segments[index].SecondPoint);
+                }
+                else if (segments[index].FirstPoint.Equals(sortedPoints[sortedPoints.Count - 1]))
+                {
+                    sortedPoints.Add(segments[index].SecondPoint);
+                }
+                else if (segments[index].SecondPoint.Equals(sortedPoints[sortedPoints.Count - 1]))
+                {
+                    sortedPoints.Add(segments[index].FirstPoint);
+                }
+                else
+                {
+                    if (sortedPoints.Count == 2)
+                    {
+                        sortedPoints.Reverse();
+                    }
+                    if (segments[index].FirstPoint.Equals(sortedPoints[sortedPoints.Count - 1]))
+                    {
+                        sortedPoints.Add(segments[index].SecondPoint);
+                    }
+                    else if (segments[index].SecondPoint.Equals(sortedPoints[sortedPoints.Count - 1]))
+                    {
+                        sortedPoints.Add(segments[index].FirstPoint);
+                    }
+                    else
+                    {
+                        throw new SoilLayerConversionException(Resources.Loop_contains_disconnected_segments);
+                    }
+                }
+            }
+            if (sortedPoints.Count <= 0 || !sortedPoints[0].Equals(sortedPoints[sortedPoints.Count - 1]))
+            {
+                return sortedPoints.ToArray();
             }
 
-            Segment2D firstCurve = curves.First();
-            yield return firstCurve;
+            sortedPoints.RemoveAt(sortedPoints.Count - 1);
 
-            Point2D startPoint = firstCurve.FirstPoint;
-            Segment2D currentCurve = firstCurve;
-            Point2D currentPoint = currentCurve.SecondPoint;
-
-            List<Segment2D> availableCurves = curves.ToList();
-            availableCurves.Remove(firstCurve);
-            while (!Equals(currentPoint, startPoint))
-            {
-                if (!availableCurves.Any())
-                {
-                    throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
-                }
-
-                Segment2D nextCurve = availableCurves.FirstOrDefault(c => !ReferenceEquals(c, currentCurve)
-                                                                          && (Equals(c.FirstPoint, currentPoint)
-                                                                              || Equals(c.SecondPoint, currentPoint)));
-
-                if (nextCurve == null)
-                {
-                    throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
-                }
-
-                availableCurves.Remove(nextCurve);
-
-                currentCurve = Equals(nextCurve.FirstPoint, currentPoint)
-                                   ? nextCurve
-                                   : new Segment2D(nextCurve.SecondPoint, nextCurve.FirstPoint);
-
-                yield return currentCurve;
-
-                currentPoint = currentCurve.SecondPoint;
-            }
+            return sortedPoints.ToArray();
         }
 
         /// <summary>
@@ -246,7 +294,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <param name="point">The 2D point element.</param>
         /// <exception cref="SoilLayerConversionException">Thrown when any of the following occurs:
         /// <list type="bullet">
-        /// <item>A coordinate value cannot be parsed.</item>
+        /// <item>A coordinate value cannot be parsed;</item>
         /// <item>XML for 2D point is invalid.</item>
         /// </list></exception>
         private static Point2D ParsePoint(XElement point)

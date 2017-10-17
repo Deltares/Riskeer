@@ -92,8 +92,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 throw new ImportedDataTransformException();
             }
 
-            Ring outerRing = TransformSegmentToRing(soilLayer.OuterLoop);
-            Ring[] innerRings = soilLayer.InnerLoops.Select(TransformSegmentToRing).ToArray();
+            Ring outerRing = TransformSegmentsToRing(soilLayer.OuterLoop);
+            Ring[] innerRings = soilLayer.InnerLoops.Select(TransformSegmentsToRing).ToArray();
 
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings);
             SetProperties(soilLayer, layer.Data);
@@ -239,20 +239,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <returns>A <see cref="Ring"/> based on <paramref name="segments"/>.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when 
         /// <paramref name="segments"/> could not be transformed to a <see cref="Ring"/>.</exception>
-        private static Ring TransformSegmentToRing(IEnumerable<Segment2D> segments)
+        private static Ring TransformSegmentsToRing(IEnumerable<Segment2D> segments)
         {
             try
             {
-                var points = new List<Point2D>();
-                foreach (Segment2D segment in segments)
-                {
-                    points.AddRange(new[]
-                    {
-                        segment.FirstPoint,
-                        segment.SecondPoint
-                    });
-                }
-                return new Ring(points.Distinct());
+                return new Ring(segments.Select(s => s.FirstPoint));
             }
             catch (ArgumentException e)
             {

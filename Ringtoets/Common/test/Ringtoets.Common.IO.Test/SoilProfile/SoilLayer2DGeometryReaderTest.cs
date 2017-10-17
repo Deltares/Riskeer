@@ -91,7 +91,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWithNoInnerLoops_ThrowsSoilLayerConversionException()
+        public void Read_XmlDocumentWithoutInnerLoopsTag_ThrowsSoilLayerConversionException()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/></GeometrySurface>");
@@ -106,10 +106,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWithNoOuterLoop_ThrowsSoilLayerConversionException()
+        public void Read_XmlDocumentWithoutOuterLoopTag_ThrowsSoilLayerConversionException()
         {
             // Setup
-            XDocument xmlDoc = GetXmlDocument("<GeometrySurface><InnerLoops><InnerLoop/></InnerLoops></GeometrySurface>");
+            XDocument xmlDoc = GetXmlDocument("<GeometrySurface><InnerLoops/></GeometrySurface>");
             var reader = new SoilLayer2DGeometryReader();
 
             // Call
@@ -121,7 +121,23 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWithEmptyInnerLoopAndOuterLoop_ReturnsLayerWithEmptyInnerLoopAndEmptyOuterLoop()
+        public void Read_XmlDocumentWithEmptyInnerLoopsAndEmptyOuterLoop_ReturnsLayerWithoutInnerLoopsAndWithEmptyOuterLoop()
+        {
+            // Setup
+            XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/><InnerLoops/></GeometrySurface>");
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(xmlDoc);
+
+            // Assert
+            Assert.NotNull(result);
+            CollectionAssert.IsEmpty(result.OuterLoop);
+            Assert.AreEqual(0, result.InnerLoops.Count());
+        }
+
+        [Test]
+        public void Read_XmlDocumentWithEmptyInnerLoopAndEmptyOuterLoop_ReturnsLayerWithEmptyInnerLoopAndEmptyOuterLoop()
         {
             // Setup
             XDocument xmlDoc = GetXmlDocument("<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop/></InnerLoops></GeometrySurface>");
@@ -135,6 +151,42 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             CollectionAssert.IsEmpty(result.OuterLoop);
             Assert.AreEqual(1, result.InnerLoops.Count());
             CollectionAssert.IsEmpty(result.InnerLoops.ElementAt(0));
+        }
+
+        [Test]
+        public void Read_XmlDocumentNoHeadPoint_ThrowsSoilLayerConversionException()
+        {
+            // Setup
+            XDocument xmlDoc = GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                "<EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint>" +
+                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
+        }
+
+        [Test]
+        public void Read_XmlDocumentNoEndPoint_ThrowsSoilLayerConversionException()
+        {
+            // Setup
+            XDocument xmlDoc = GetXmlDocument(
+                "<GeometrySurface><InnerLoops><InnerLoop><GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint>" +
+                "</GeometryCurve></InnerLoop></InnerLoops></GeometrySurface>");
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
         }
 
         [Test]
@@ -178,231 +230,75 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void Read_NLXmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint()
+        public void Read_XmlDocumentWithOneSegment_ThrowSoilLayerConversionException()
         {
-            Read_XmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint();
+            // Setup
+            XDocument xmlDoc = GetXmlDocument(
+                "<GeometrySurface><OuterLoop><CurveList>" +
+                "<GeometryCurve>" +
+                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
+                "</GeometryCurve>" +
+                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void Read_NLXmlDocumentWithSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSegments()
+        {
+            Read_XmlDocumentWithSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSegments();
         }
 
         [Test]
         [SetCulture("en-US")]
-        public void Read_ENXmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint()
+        public void Read_ENXmlDocumentWithSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSegments()
         {
-            Read_XmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint();
+            Read_XmlDocumentWithSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSegments();
         }
 
         [Test]
-        public void Read_XmlDocumentPointsInInnerLoop_ReturnsLayerWithInnerLoopWithSegment()
+        [SetCulture("nl-NL")]
+        public void Read_NLXmlDocumentWithSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSegments()
+        {
+            Read_XmlDocumentWithSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSegments();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void Read_ENXmlDocumentWithSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSegments()
+        {
+            Read_XmlDocumentWithSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSegments();
+        }
+
+        [Test]
+        public static void Read_XmlDocumentWithTwoEqualSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSegments()
         {
             // Setup
-            var random = new Random(22);
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
 
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
+            const double point1 = 1.1;
+            const double point2 = 2.2;
 
-            string x1String = XmlConvert.ToString(x1);
-            string x2String = XmlConvert.ToString(x2);
-            string y1String = XmlConvert.ToString(y1);
-            string y2String = XmlConvert.ToString(y2);
-            XDocument xmlDoc = GetXmlDocument(
-                string.Format(invariantCulture,
-                              "<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop><CurveList><GeometryCurve>" +
-                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                              "</GeometryCurve><GeometryCurve>" +
-                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                              "</GeometryCurve></CurveList></GeometryLoop></InnerLoops></GeometrySurface>",
-                              x1String, y1String, x2String, y2String));
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            SoilLayer2D result = reader.Read(xmlDoc);
-
-            // Assert
-            Assert.NotNull(result);
-
-            var expectedSegment = new Segment2D(new Point2D(x1, y1), new Point2D(x2, y2));
-            var expectedCollection = new[]
-            {
-                new List<Segment2D>
-                {
-                    expectedSegment,
-                    expectedSegment
-                }
-            };
-            CollectionAssert.AreEqual(expectedCollection, result.InnerLoops);
-        }
-
-        [Test]
-        public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsSoilLayerConversionException()
-        {
-            // Setup
-            XDocument xmlDoc = GetXmlDocument(
-                "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
-                "<EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint>" +
-                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
-
-            // Assert
-            Assert.Throws<SoilLayerConversionException>(test);
-        }
-
-        [Test]
-        public void Read_XmlDocumentSinglePointInnerLoopGeometryCurve_ThrowsSoilLayerConversionException()
-        {
-            // Setup
-            XDocument xmlDoc = GetXmlDocument(
-                "<GeometrySurface><InnerLoops><InnerLoop><GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint>" +
-                "</GeometryCurve></InnerLoop></InnerLoops></GeometrySurface>");
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
-
-            // Assert
-            Assert.Throws<SoilLayerConversionException>(test);
-        }
-
-        [Test]
-        public void Read_XmlDocumentEqualSegments_ReturnsTwoEqualSegments()
-        {
-            // Setup
-            XDocument xmlDoc = GetXmlDocument(
-                "<GeometrySurface><OuterLoop><CurveList>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            SoilLayer2D result = reader.Read(xmlDoc);
-
-            // Assert
-            Assert.AreEqual(2, result.OuterLoop.Count());
-            Assert.AreEqual(result.OuterLoop.ElementAt(0), result.OuterLoop.ElementAt(1));
-        }
-
-        [Test]
-        public void Read_XmlDocumentSegmentsNotConnectedAndReversed_ReturnsSegmentsConnectedInSameDirection()
-        {
-            // Setup
-            XDocument xmlDoc = GetXmlDocument(
-                "<GeometrySurface><OuterLoop><CurveList>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>2.92</Z></HeadPoint><EndPoint><X>0</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>2.92</Z></HeadPoint><EndPoint><X>42</X><Y>0</Y><Z>3.23</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>111</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>42</X><Y>0</Y><Z>3.23</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            SoilLayer2D result = reader.Read(xmlDoc);
-
-            // Assert
-            Assert.NotNull(result);
-            var expectedSegments = new[]
-            {
-                new Segment2D(new Point2D(0, 1.25), new Point2D(111, 1.25)),
-                new Segment2D(new Point2D(111, 1.25), new Point2D(42, 3.23)),
-                new Segment2D(new Point2D(42, 3.23), new Point2D(0, 2.92)),
-                new Segment2D(new Point2D(0, 2.92), new Point2D(0, 1.25))
-            };
-
-            CollectionAssert.AreEqual(expectedSegments, result.OuterLoop);
-        }
-
-        [Test]
-        public void Read_XmlDocumentOneSegment_ThrowSoilLayerConversionException()
-        {
-            // Setup
-            XDocument xmlDoc = GetXmlDocument(
-                "<GeometrySurface><OuterLoop><CurveList>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
-
-            // Assert
-            var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
-        }
-
-        [Test]
-        public void Read_XmlDocumentSegmentsNotConnected_ThrowSoilLayerConversionException()
-        {
-            // Setup
-            XDocument xmlDoc = GetXmlDocument(
-                "<GeometrySurface><OuterLoop><CurveList>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>1.25</Z></HeadPoint><EndPoint><X>111</X><Y>0</Y><Z>1.25</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "<GeometryCurve>" +
-                "<HeadPoint><X>0</X><Y>0</Y><Z>2.92</Z></HeadPoint><EndPoint><X>42</X><Y>0</Y><Z>3.23</Z></EndPoint>" +
-                "</GeometryCurve>" +
-                "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
-
-            var reader = new SoilLayer2DGeometryReader();
-
-            // Call
-            TestDelegate test = () => reader.Read(xmlDoc);
-
-            // Assert
-            var exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
-        }
-
-        private static void Read_XmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint()
-        {
-            // Setup
-            var random = new Random(22);
-            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
-
-            double x1 = random.NextDouble();
-            double x2 = random.NextDouble();
-            double y1 = random.NextDouble();
-            double y2 = random.NextDouble();
-
-            string x1String = XmlConvert.ToString(x1);
-            string x2String = XmlConvert.ToString(x2);
-            string y1String = XmlConvert.ToString(y1);
-            string y2String = XmlConvert.ToString(y2);
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
             XDocument bytes = GetXmlDocument(
                 string.Format(invariantCulture,
                               "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
-                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
                               "</GeometryCurve><GeometryCurve>" +
-                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
                               "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
-                              x1String, y1String, x2String, y2String));
+                              pointString1, pointString2));
 
             var reader = new SoilLayer2DGeometryReader();
 
@@ -411,12 +307,313 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(result);
-            var expectedSegment = new Segment2D(new Point2D(x1, y1), new Point2D(x2, y2));
             CollectionAssert.AreEqual(new List<Segment2D>
             {
-                expectedSegment,
-                expectedSegment
+                new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
+                new Segment2D(new Point2D(point2, point2), new Point2D(point1, point1))
             }, result.OuterLoop);
+        }
+
+        [Test]
+        public static void Read_XmlDocumentWithTwoEqualSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSegments()
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            const double point1 = 1.1;
+            const double point2 = 2.2;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop>" +
+                              "<CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></GeometryLoop></InnerLoops></GeometrySurface>",
+                              pointString1, pointString2));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(bytes);
+
+            // Assert
+            Assert.NotNull(result);
+            CollectionAssert.AreEqual(new List<Segment2D>
+            {
+                new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
+                new Segment2D(new Point2D(point2, point2), new Point2D(point1, point1))
+            }, result.InnerLoops.ElementAt(0));
+        }
+
+        [Test]
+        public static void Read_XmlDocumentWithScrambledSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSortedSegments(
+            [Values(true, false)] bool firstSegmentInverted,
+            [Values(true, false)] bool secondSegmentInverted)
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            double point1 = firstSegmentInverted ? 2.2 : 1.1;
+            double point2 = firstSegmentInverted ? 1.1 : 2.2;
+            double point3 = secondSegmentInverted ? 3.3 : 2.2;
+            double point4 = secondSegmentInverted ? 2.2 : 3.3;
+            const double point5 = 3.3;
+            const double point6 = 1.1;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            string pointString3 = XmlConvert.ToString(point3);
+            string pointString4 = XmlConvert.ToString(point4);
+            string pointString5 = XmlConvert.ToString(point5);
+            string pointString6 = XmlConvert.ToString(point6);
+
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop>" +
+                              "<CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></HeadPoint>" +
+                              "<EndPoint><X>{3}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{4}</X><Y>0.1</Y><Z>{4}</Z></HeadPoint>" +
+                              "<EndPoint><X>{5}</X><Y>0.1</Y><Z>{5}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
+                              pointString1, pointString2, pointString3, pointString4, pointString5, pointString6));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(bytes);
+
+            // Assert
+            Assert.NotNull(result);
+            CollectionAssert.AreEqual(new List<Segment2D>
+            {
+                new Segment2D(new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)),
+                new Segment2D(new Point2D(2.2, 2.2), new Point2D(3.3, 3.3)),
+                new Segment2D(new Point2D(3.3, 3.3), new Point2D(1.1, 1.1))
+            }, result.OuterLoop);
+        }
+
+        [Test]
+        public static void Read_XmlDocumentWithScrambledSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSortedSegments(
+            [Values(true, false)] bool firstSegmentInverted,
+            [Values(true, false)] bool secondSegmentInverted)
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            double point1 = firstSegmentInverted ? 2.2 : 1.1;
+            double point2 = firstSegmentInverted ? 1.1 : 2.2;
+            double point3 = secondSegmentInverted ? 3.3 : 2.2;
+            double point4 = secondSegmentInverted ? 2.2 : 3.3;
+            const double point5 = 3.3;
+            const double point6 = 1.1;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            string pointString3 = XmlConvert.ToString(point3);
+            string pointString4 = XmlConvert.ToString(point4);
+            string pointString5 = XmlConvert.ToString(point5);
+            string pointString6 = XmlConvert.ToString(point6);
+
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop>" +
+                              "<CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></HeadPoint>" +
+                              "<EndPoint><X>{3}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{4}</X><Y>0.1</Y><Z>{4}</Z></HeadPoint>" +
+                              "<EndPoint><X>{5}</X><Y>0.1</Y><Z>{5}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></GeometryLoop></InnerLoops></GeometrySurface>",
+                              pointString1, pointString2, pointString3, pointString4, pointString5, pointString6));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(bytes);
+
+            // Assert
+            Assert.NotNull(result);
+            CollectionAssert.AreEqual(new List<Segment2D>
+            {
+                new Segment2D(new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)),
+                new Segment2D(new Point2D(2.2, 2.2), new Point2D(3.3, 3.3)),
+                new Segment2D(new Point2D(3.3, 3.3), new Point2D(1.1, 1.1))
+            }, result.InnerLoops.ElementAt(0));
+        }
+
+        [Test]
+        public static void Read_XmlDocumentWithSegmentsInOuterLoopThatAreNotConnected_ThrowSoilLayerConversionException()
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            const double point1 = 1.1;
+            const double point2 = 2.2;
+            const double point3 = 3.3;
+            const double point4 = 4.4;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            string pointString3 = XmlConvert.ToString(point3);
+            string pointString4 = XmlConvert.ToString(point4);
+
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop>" +
+                              "<CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></HeadPoint>" +
+                              "<EndPoint><X>{3}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
+                              pointString1, pointString2, pointString3, pointString4));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(bytes);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        public static void Read_XmlDocumentWithSegmentsInInnerLoopThatAreNotConnected_ThrowSoilLayerConversionException()
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            const double point1 = 1.1;
+            const double point2 = 2.2;
+            const double point3 = 3.3;
+            const double point4 = 4.4;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            string pointString3 = XmlConvert.ToString(point3);
+            string pointString4 = XmlConvert.ToString(point4);
+
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop/><InnerLoops><GeometryLoop>" +
+                              "<CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></HeadPoint>" +
+                              "<EndPoint><X>{3}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></GeometryLoop></InnerLoops></GeometrySurface>",
+                              pointString1, pointString2, pointString3, pointString4));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(bytes);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        private static void Read_XmlDocumentWithSegmentsInOuterLoop_ReturnsLayerWithOuterLoopWithSegments()
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            const double point1 = 1.1;
+            const double point2 = 2.2;
+            const double point3 = 3.3;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            string pointString3 = XmlConvert.ToString(point3);
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></HeadPoint>" +
+                              "<EndPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
+                              pointString1, pointString2, pointString3));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(bytes);
+
+            // Assert
+            Assert.NotNull(result);
+            CollectionAssert.AreEqual(new List<Segment2D>
+            {
+                new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
+                new Segment2D(new Point2D(point2, point2), new Point2D(point3, point3)),
+                new Segment2D(new Point2D(point3, point3), new Point2D(point1, point1))
+            }, result.OuterLoop);
+        }
+
+        private static void Read_XmlDocumentWithSegmentsInInnerLoop_ReturnsLayerWithInnerLoopWithSegments()
+        {
+            // Setup
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            const double point1 = 1.1;
+            const double point2 = 2.2;
+            const double point3 = 3.3;
+
+            string pointString1 = XmlConvert.ToString(point1);
+            string pointString2 = XmlConvert.ToString(point2);
+            string pointString3 = XmlConvert.ToString(point3);
+            XDocument bytes = GetXmlDocument(
+                string.Format(invariantCulture,
+                              "<GeometrySurface><OuterLoop/>" +
+                              "<InnerLoops><GeometryLoop>" +
+                              "<CurveList><GeometryCurve>" +
+                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></HeadPoint>" +
+                              "<EndPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{1}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></EndPoint>" +
+                              "</GeometryCurve><GeometryCurve>" +
+                              "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{2}</Z></HeadPoint>" +
+                              "<EndPoint><X>{0}</X><Y>0.1</Y><Z>{0}</Z></EndPoint>" +
+                              "</GeometryCurve></CurveList>" +
+                              "</GeometryLoop></InnerLoops></GeometrySurface>",
+                              pointString1, pointString2, pointString3));
+
+            var reader = new SoilLayer2DGeometryReader();
+
+            // Call
+            SoilLayer2D result = reader.Read(bytes);
+
+            // Assert
+            Assert.NotNull(result);
+            CollectionAssert.AreEqual(new List<Segment2D>
+            {
+                new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
+                new Segment2D(new Point2D(point2, point2), new Point2D(point3, point3)),
+                new Segment2D(new Point2D(point3, point3), new Point2D(point1, point1))
+            }, result.InnerLoops.ElementAt(0));
         }
 
         /// <summary>
