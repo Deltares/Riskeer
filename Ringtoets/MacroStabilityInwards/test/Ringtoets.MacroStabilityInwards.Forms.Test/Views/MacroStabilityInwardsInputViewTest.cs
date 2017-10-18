@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_CalculationScenario_DataSet()
+        public void Data_MacroStabilityInwardsCalculationScenario_DataSet()
         {
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_OtherThanCalculationScenario_DataNull()
+        public void Data_OtherThanMacroStabilityInwardsCalculationScenario_DataNull()
         {
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
