@@ -215,7 +215,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 locationExtremeProperty,
                 waterStressesCategory,
                 "Extreme omstandigheden",
-                "",
+                "Eigenschappen van de waterspanningen bij extreme omstandigheden.",
                 true);
 
             PropertyDescriptor locationDailyProperty = dynamicProperties[locationDailyPropertyIndex];
@@ -223,7 +223,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 locationDailyProperty,
                 waterStressesCategory,
                 "Dagelijkse omstandigheden",
-                "",
+                "Eigenschappen van de waterspanningen bij dagelijkse omstandigheden.",
                 true);
 
             PropertyDescriptor waterStressLinesProperty = dynamicProperties[waterStressLinesPropertyIndex];
@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 waterStressLinesProperty,
                 waterStressesCategory,
                 "Waterspanningslijnen",
-                "",
+                "Eigenschappen van de waterspanningslijnen.",
                 true);
 
             mocks.VerifyAll();

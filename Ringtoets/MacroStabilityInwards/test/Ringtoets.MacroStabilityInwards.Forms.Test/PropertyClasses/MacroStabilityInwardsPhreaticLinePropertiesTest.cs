@@ -118,14 +118,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             waterStressesCategoryName,
                                                                             "Naam",
-                                                                            "",
+                                                                            "De naam van de lijn.",
                                                                             true);
 
             PropertyDescriptor geometryProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(geometryProperty,
                                                                             waterStressesCategoryName,
                                                                             "Geometrie",
-                                                                            "",
+                                                                            "De geometrie van de lijn.",
                                                                             true);
         }
     }

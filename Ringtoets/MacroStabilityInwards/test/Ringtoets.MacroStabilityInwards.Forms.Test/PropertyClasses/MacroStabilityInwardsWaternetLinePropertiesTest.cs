@@ -122,21 +122,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             waterStressesCategoryName,
                                                                             "Naam",
-                                                                            "",
+                                                                            "De naam van de zone.",
                                                                             true);
 
             PropertyDescriptor geometryProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(geometryProperty,
                                                                             waterStressesCategoryName,
                                                                             "Geometrie",
-                                                                            "",
+                                                                            "De geometrie van de zone.",
                                                                             true);
 
             PropertyDescriptor phreaticLineNameProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(phreaticLineNameProperty,
                                                                             waterStressesCategoryName,
-                                                                            "Phreatische Lijn",
-                                                                            "",
+                                                                            "Freatische Lijn",
+                                                                            "De freatische lijn behorend bij de zone.",
                                                                             true);
         }
     }

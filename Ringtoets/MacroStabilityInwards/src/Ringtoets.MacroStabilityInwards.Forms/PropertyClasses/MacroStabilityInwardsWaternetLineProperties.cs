@@ -60,6 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Line_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaternetLine_Name_Description))]
         public string Name
         {
             get
@@ -71,6 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(geometryPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Line_Geometry_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaternetLine_Geometry_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         public Point2D[] Geometry
         {
@@ -83,6 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(phreaticLineNamePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PhreaticLineName_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PhreaticLineName_Description))]
         public string PhreaticLineName
         {
             get

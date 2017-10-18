@@ -57,6 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(phreaticLinesPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PhreaticLines_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PhreaticLines_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
 
         public MacroStabilityInwardsPhreaticLineProperties[] PhreaticLines
@@ -70,6 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(waternetLinesPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaternetLines_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaternetLines_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
 
         public MacroStabilityInwardsWaternetLineProperties[] WaternetLines

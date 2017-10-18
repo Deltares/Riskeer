@@ -250,7 +250,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(locationExtremePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LocationExtreme_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Extreme_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LocationExtreme_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsLocationInputExtremeProperties LocationExtreme
         {
@@ -262,7 +263,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(locationDailyPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LocationDaily_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Daily_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.LocationDaily_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsLocationInputDailyProperties LocationDaily
         {
@@ -275,6 +277,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(waterStressLinesPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaterStressLines_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaterStressLines_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsWaterStressLinesProperties WaterStressLines
         {

@@ -111,14 +111,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waternetExtremeProperty,
                                                                             waterStressesCategoryName,
                                                                             "Extreme omstandigheden",
-                                                                            "",
+                                                                            "Eigenschappen van de waterspanningslijnen bij extreme omstandigheden.",
                                                                             true);
 
             PropertyDescriptor waternetDailyProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waternetDailyProperty,
                                                                             waterStressesCategoryName,
                                                                             "Dagelijkse omstandigheden",
-                                                                            "",
+                                                                            "Eigenschappen van de waterspanningslijnen bij dagelijkse omstandigheden.",
                                                                             true);
         }
     }
