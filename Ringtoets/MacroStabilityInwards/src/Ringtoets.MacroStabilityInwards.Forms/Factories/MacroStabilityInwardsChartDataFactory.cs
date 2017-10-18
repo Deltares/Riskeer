@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="soilLayerIndex"/> is outside the allowable range of values ([0, number_of_soil_layers>).</exception>
-        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, MacroStabilityInwardsSoilProfile1D soilProfile)
+        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
         {
             if (soilProfile == null)
             {
@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 throw new ArgumentOutOfRangeException(nameof(soilLayerIndex));
             }
 
-            MacroStabilityInwardsSoilLayer1D soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
+            IMacroStabilityInwardsSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
 
             return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.Data.MaterialName}",
                                              new ChartAreaStyle
@@ -211,7 +211,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
         /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> used for obtaining the name.</param>
         /// <remarks>A default name is set when <paramref name="soilProfile"/> is <c>null</c>.</remarks>
-        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, MacroStabilityInwardsSoilProfile1D soilProfile)
+        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData,
+                                                          IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
         {
             chartData.Name = soilProfile != null
                                  ? soilProfile.Name

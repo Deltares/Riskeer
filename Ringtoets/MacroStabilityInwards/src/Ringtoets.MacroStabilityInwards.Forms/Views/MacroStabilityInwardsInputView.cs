@@ -19,14 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -42,6 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer calculationInputObserver;
 
         private readonly ChartDataCollection chartDataCollection;
+        private readonly ChartDataCollection soilProfileChartData;
         private readonly ChartLineData surfaceLineChartData;
         private readonly ChartPointData surfaceLevelInsideChartData;
         private readonly ChartPointData ditchPolderSideChartData;
@@ -60,6 +64,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData leftGridChartData;
         private readonly ChartPointData rightGridChartData;
 
+        private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+        private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
+
         private MacroStabilityInwardsCalculationScenario data;
 
         /// <summary>
@@ -73,6 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationInputObserver = new Observer(UpdateViewData);
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
+            soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
             surfaceLineChartData = RingtoetsChartDataFactory.CreateSurfaceLineChartData();
             surfaceLevelInsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelInsideChartData();
             ditchPolderSideChartData = RingtoetsChartDataFactory.CreateDitchPolderSideChartData();
@@ -91,6 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             leftGridChartData = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
             rightGridChartData = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
 
+            chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
             chartDataCollection.Add(surfaceLevelInsideChartData);
             chartDataCollection.Add(ditchPolderSideChartData);
@@ -108,6 +117,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(surfaceLevelOutsideChartData);
             chartDataCollection.Add(leftGridChartData);
             chartDataCollection.Add(rightGridChartData);
+
+            soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
         }
 
         public object Data
@@ -179,13 +190,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             SetChartData();
 
             chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
+            soilProfileChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
         private void SetChartData()
         {
             MacroStabilityInwardsInput macroStabilityInwardsInput = data.InputParameters;
             MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsInput.SurfaceLine;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = data.InputParameters.StochasticSoilProfile?.SoilProfile;
 
+            SetSurfaceLineChartData(surfaceLine);
+            SetSoilProfileChartData(surfaceLine, soilProfile);
+
+            MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
+            MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
+            MacroStabilityInwardsGrid rightGrid = macroStabilityInwardsInput.RightGrid;
+
+            leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDeterminationType);
+            rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
+        }
+
+        private void SetSurfaceLineChartData(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
             MacroStabilityInwardsChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 
             surfaceLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine);
@@ -203,13 +229,53 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeToeAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
             dikeTopAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
             surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);
+        }
 
-            MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
-            MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
-            MacroStabilityInwardsGrid rightGrid = macroStabilityInwardsInput.RightGrid;
+        private void SetSoilProfileChartData(MacroStabilityInwardsSurfaceLine surfaceLine,
+                                             IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
+        {
+            if (!ReferenceEquals(currentSoilProfile, soilProfile))
+            {
+                currentSoilProfile = soilProfile;
 
-            leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDeterminationType);
-            rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
+                soilProfileChartData.Clear();
+                soilLayerChartDataLookup.Clear();
+                GetSoilLayers().Select((layer, layerIndex) => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layerIndex, soilProfile))
+                               .ForEachElementDo(sl =>
+                               {
+                                   soilProfileChartData.Insert(0, sl);
+                                   soilLayerChartDataLookup.Add(sl);
+                               });
+
+                MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
+            }
+
+            if (soilProfile != null && surfaceLine != null)
+            {
+                MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
+                List<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> soilLayers = soilProfileUnderSurfaceLine.Layers.ToList();
+
+                for (var i = 0; i < soilLayers.Count; i++)
+                {
+                    ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i];
+                    soilLayerData.Areas = new[]
+                    {
+                        soilLayers[i].OuterRing
+                    };
+                }
+            }
+            else if (surfaceLine == null)
+            {
+                for (var i = 0; i < GetSoilLayers().Count(); i++)
+                {
+                    soilLayerChartDataLookup[i].Areas = Enumerable.Empty<Point2D[]>();
+                }
+            }
+        }
+
+        private IEnumerable<IMacroStabilityInwardsSoilLayer> GetSoilLayers()
+        {
+            return data?.InputParameters.StochasticSoilProfile?.SoilProfile.Layers.ToList() ?? new List<IMacroStabilityInwardsSoilLayer>();
         }
     }
 }
