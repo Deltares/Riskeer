@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+        public void ChildNodeObjects_Always_ReturnOutputChildNode()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -144,39 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             CollectionAssert.AreEqual(calculationContext.AvailableStochasticSoilModels, inputContext.AvailableStochasticSoilModels);
 
             var outputContext = (MacroStabilityInwardsOutputContext) children[2];
-            Assert.AreSame(calculationContext.WrappedData.SemiProbabilisticOutput, outputContext.SemiProbabilisticOutput);
-            Assert.AreSame(calculationContext.WrappedData.Output, outputContext.WrappedData);
-        }
-
-        [Test]
-        public void ChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(new MacroStabilityInwardsCalculationScenario(),
-                                                                                         new CalculationGroup(),
-                                                                                         Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                         Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                         failureMechanism,
-                                                                                         assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(calculationContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(3, children.Length);
-            var comment = (Comment) children[0];
-            Assert.AreSame(calculationContext.WrappedData.Comments, comment);
-
-            var inputContext = (MacroStabilityInwardsInputContext) children[1];
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, inputContext.WrappedData);
-            CollectionAssert.AreEqual(calculationContext.AvailableMacroStabilityInwardsSurfaceLines, inputContext.AvailableMacroStabilityInwardsSurfaceLines);
-            CollectionAssert.AreEqual(calculationContext.AvailableStochasticSoilModels, inputContext.AvailableStochasticSoilModels);
-
-            Assert.IsInstanceOf<EmptyMacroStabilityInwardsOutput>(children[2]);
+            Assert.AreSame(calculationContext.WrappedData, outputContext.WrappedData);
         }
 
         [Test]

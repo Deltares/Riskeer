@@ -88,7 +88,6 @@
     <Compile Include="PropertyInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\MacroStabilityInwardsInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\MacroStabilityInwardsFailureMechanismContextPropertyInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyMacroStabilityInwardsOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacroStabilityInwardsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacroStabilityInwardsCalculationScenarioContextTreeNodeInfoTest.cs" />

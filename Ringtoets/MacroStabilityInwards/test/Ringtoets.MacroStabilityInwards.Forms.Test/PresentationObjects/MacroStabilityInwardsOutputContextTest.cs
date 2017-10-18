@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
@@ -32,41 +30,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
     public class MacroStabilityInwardsOutputContextTest
     {
         [Test]
-        public void Constructor_WithoutOutput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsOutputContext(null, new TestMacroStabilityInwardsSemiProbabilisticOutput());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithoutSemiProbabilisticOutput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("semiProbabilisticOutput", paramName);
-        }
-
-        [Test]
         public void Constructor_WithOutputParameters_PropertiesSet()
         {
             // Setup
-            var output = new TestMacroStabilityInwardsOutput();
-            var semiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput();
+            var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
-            var context = new MacroStabilityInwardsOutputContext(output, semiProbabilisticOutput);
+            var context = new MacroStabilityInwardsOutputContext(calculation);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<MacroStabilityInwardsOutput>>(context);
-            Assert.AreSame(output, context.WrappedData);
-            Assert.AreSame(semiProbabilisticOutput, context.SemiProbabilisticOutput);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculation>>(context);
+            Assert.AreSame(calculation, context.WrappedData);
         }
     }
 }

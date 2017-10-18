@@ -28,28 +28,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
     /// <summary>
     /// A presentation layer object which wraps a <see cref="MacroStabilityInwardsOutput"/> and a <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
     /// </summary>
-    public class MacroStabilityInwardsOutputContext : WrappedObjectContextBase<MacroStabilityInwardsOutput>
+    public class MacroStabilityInwardsOutputContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputContext"/>.
         /// </summary>
-        /// <param name="macroStabilityInwardsOutput">The <see cref="MacroStabilityInwardsOutput"/> object to wrap.</param>
-        /// <param name="semiProbabilisticOutput">The <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>
-        /// created from <paramref name="macroStabilityInwardsOutput"/>.</param>
-        public MacroStabilityInwardsOutputContext(MacroStabilityInwardsOutput macroStabilityInwardsOutput,
-                                                  MacroStabilityInwardsSemiProbabilisticOutput semiProbabilisticOutput)
-            : base(macroStabilityInwardsOutput)
-        {
-            if (semiProbabilisticOutput == null)
-            {
-                throw new ArgumentNullException(nameof(semiProbabilisticOutput));
-            }
-            SemiProbabilisticOutput = semiProbabilisticOutput;
-        }
-
-        /// <summary>
-        /// Gets the semi-probabilistic output created from the macro stability inwards output.
-        /// </summary>
-        public MacroStabilityInwardsSemiProbabilisticOutput SemiProbabilisticOutput { get; private set; }
+        /// <param name="wrappedData">The wrapped data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsOutputContext(MacroStabilityInwardsCalculation wrappedData) : base(wrappedData) {}
     }
 }

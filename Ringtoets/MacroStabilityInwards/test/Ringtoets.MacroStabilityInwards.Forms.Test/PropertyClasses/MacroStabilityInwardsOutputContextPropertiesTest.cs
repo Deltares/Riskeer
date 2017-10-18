@@ -68,10 +68,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var output = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
 
+            var calculation = new MacroStabilityInwardsCalculation
+            {
+                Output = output,
+                SemiProbabilisticOutput = semiProbabilisticOutput
+            };
+
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
             {
-                Data = new MacroStabilityInwardsOutputContext(output, semiProbabilisticOutput)
+                Data = new MacroStabilityInwardsOutputContext(calculation)
             };
 
             // Assert
@@ -89,11 +95,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculation
+            {
+                Output = new TestMacroStabilityInwardsOutput(),
+                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+            };
+
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
             {
-                Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(),
-                                                              new TestMacroStabilityInwardsSemiProbabilisticOutput())
+                Data = new MacroStabilityInwardsOutputContext(calculation)
             };
 
             // Assert
@@ -105,11 +117,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculation
+            {
+                Output = new TestMacroStabilityInwardsOutput(),
+                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+            };
+
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties
             {
-                Data = new MacroStabilityInwardsOutputContext(new TestMacroStabilityInwardsOutput(),
-                                                              new TestMacroStabilityInwardsSemiProbabilisticOutput())
+                Data = new MacroStabilityInwardsOutputContext(calculation)
             };
 
             // Assert

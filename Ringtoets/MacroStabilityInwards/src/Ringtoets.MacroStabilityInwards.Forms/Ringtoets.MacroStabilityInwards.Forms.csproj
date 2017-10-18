@@ -58,7 +58,6 @@
     <Compile Include="MacroStabilityInwardsSurfaceLineSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationObjects\EmptyMacroStabilityInwardsOutput.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsOutputContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsScenariosContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsCalculationScenarioContext.cs" />

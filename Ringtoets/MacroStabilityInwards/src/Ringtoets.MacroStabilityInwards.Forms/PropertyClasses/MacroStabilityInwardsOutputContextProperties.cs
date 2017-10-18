@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.FactorOfStability;
+                return data.WrappedData.SemiProbabilisticOutput.FactorOfStability;
             }
         }
 
@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(data.WrappedData.SemiProbabilisticOutput.RequiredProbability);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.RequiredReliability;
+                return data.WrappedData.SemiProbabilisticOutput.RequiredReliability;
             }
         }
 
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.SemiProbabilisticOutput.MacroStabilityInwardsProbability);
+                return ProbabilityFormattingHelper.Format(data.WrappedData.SemiProbabilisticOutput.MacroStabilityInwardsProbability);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.MacroStabilityInwardsReliability;
+                return data.WrappedData.SemiProbabilisticOutput.MacroStabilityInwardsReliability;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.SemiProbabilisticOutput.MacroStabilityInwardsFactorOfSafety;
+                return data.WrappedData.SemiProbabilisticOutput.MacroStabilityInwardsFactorOfSafety;
             }
         }
     }

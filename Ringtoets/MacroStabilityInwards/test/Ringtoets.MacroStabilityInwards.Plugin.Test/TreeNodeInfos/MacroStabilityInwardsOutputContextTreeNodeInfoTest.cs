@@ -27,6 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -62,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -106,6 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
@@ -122,6 +126,35 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             }
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ForeColor_HasOutputTrue_ReturnControlText()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculation
+            {
+                Output = new TestMacroStabilityInwardsOutput()
+            };
+
+            // Call
+            Color color = info.ForeColor(new MacroStabilityInwardsOutputContext(calculation));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+        }
+
+        [Test]
+        public void ForeColor_HasOutputFalse_ReturnGrayText()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculation();
+
+            // Call
+            Color color = info.ForeColor(new MacroStabilityInwardsOutputContext(calculation));
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
         }
     }
 }

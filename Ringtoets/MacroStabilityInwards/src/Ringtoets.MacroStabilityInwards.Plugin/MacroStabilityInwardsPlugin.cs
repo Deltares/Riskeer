@@ -337,7 +337,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 Text = context => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = context => context.WrappedData.HasOutput
+                                          ? Color.FromKnownColor(KnownColor.ControlText)
+                                          : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -348,16 +353,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<EmptyMacroStabilityInwardsOutput>
-            {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ForeColor = output => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
         }
@@ -747,19 +742,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                                                       macroStabilityInwardsCalculationScenarioContext.AvailableMacroStabilityInwardsSurfaceLines,
                                                       macroStabilityInwardsCalculationScenarioContext.AvailableStochasticSoilModels,
                                                       macroStabilityInwardsCalculationScenarioContext.FailureMechanism,
-                                                      macroStabilityInwardsCalculationScenarioContext.AssessmentSection)
+                                                      macroStabilityInwardsCalculationScenarioContext.AssessmentSection),
+                new MacroStabilityInwardsOutputContext(macroStabilityInwardsCalculationScenario)
             };
-
-            if (macroStabilityInwardsCalculationScenario.HasOutput)
-            {
-                childNodes.Add(new MacroStabilityInwardsOutputContext(
-                                   macroStabilityInwardsCalculationScenario.Output,
-                                   macroStabilityInwardsCalculationScenario.SemiProbabilisticOutput));
-            }
-            else
-            {
-                childNodes.Add(new EmptyMacroStabilityInwardsOutput());
-            }
 
             return childNodes.ToArray();
         }
