@@ -100,8 +100,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(layer.OuterLoop);
-            Assert.AreEqual(new Segment2D(pointA, pointB), layer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB, pointA), layer.OuterLoop.ElementAt(1));
+            CollectionAssert.AreEqual(new []
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
+            }, layer.OuterLoop); 
         }
 
         [Test]
@@ -149,8 +152,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.AreEqual(1, layer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointA, pointB), layer.InnerLoops.ElementAt(0)[0]);
-            Assert.AreEqual(new Segment2D(pointB, pointA), layer.InnerLoops.ElementAt(0)[1]);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
+            }, layer.InnerLoops.ElementAt(0));
         }
 
         private static IEnumerable<Segment2D> CreateLoopWithDisconnectedSegment()

@@ -142,27 +142,6 @@ namespace Core.Common.Base.Geometry
             return point.GetEuclideanDistanceTo(perpendicularLineIntersectionPoint);
         }
 
-        /// <summary>
-        /// Determines whether two segments are connected by each other's <see cref="FirstPoint"/>
-        /// and <see cref="SecondPoint"/>.
-        /// </summary>
-        /// <param name="segment">The segment which may be connected to the <see cref="Segment2D"/>.</param>
-        /// <returns><c>true</c> if the segments are connected. <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segment"/>
-        /// is <c>null</c>.</exception>
-        public bool IsConnected(Segment2D segment)
-        {
-            if (segment == null)
-            {
-                throw new ArgumentNullException(nameof(segment));
-            }
-
-            return FirstPoint.Equals(segment.FirstPoint) ||
-                   FirstPoint.Equals(segment.SecondPoint) ||
-                   SecondPoint.Equals(segment.FirstPoint) ||
-                   SecondPoint.Equals(segment.SecondPoint);
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
