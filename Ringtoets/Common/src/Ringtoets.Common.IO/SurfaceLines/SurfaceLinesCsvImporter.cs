@@ -105,8 +105,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
             catch (ImportedDataTransformException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                e.Message);
+                Log.Error(e.Message, e);
                 return false;
             }
 
@@ -202,8 +201,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
         private ReadResult<TReadObject> HandleCriticalReadError<TReadObject>(Exception e)
         {
-            Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                            e.Message);
+            Log.Error(e.Message, e);
             return new ReadResult<TReadObject>(true);
         }
 
@@ -308,8 +306,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
             catch (CriticalFileReadException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                e.Message);
+                Log.Error(e.Message, e);
                 return -1;
             }
         }
@@ -322,8 +319,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
             catch (ArgumentException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                e.Message);
+                Log.Error(e.Message, e);
                 return null;
             }
         }
@@ -460,8 +456,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
             catch (CriticalFileReadException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                e.Message);
+                Log.Error(e.Message, e);
                 return -1;
             }
         }
@@ -474,8 +469,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             }
             catch (ArgumentException e)
             {
-                Log.ErrorFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
-                                e.Message);
+                Log.Error(e.Message, e);
                 return null;
             }
         }

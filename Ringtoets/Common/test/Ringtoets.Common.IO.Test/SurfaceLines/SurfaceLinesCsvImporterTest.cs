@@ -30,6 +30,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -502,11 +503,17 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .Build("Er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.");
-            string expectedLogMessage = $"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.";
-            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage, LogLevelConstant.Error);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            {
+                Assert.AreEqual(1, messages.Count());
+                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+
+                Assert.AreEqual(Level.Error, expectedLog.Item2);
+
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<ArgumentException>(loggedException);
+                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+            });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
         }
 
@@ -530,14 +537,28 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build("Het bestand bestaat niet.");
-            var expectedLogMessagesAndLevels = new[]
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevels, 3);
+                Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                Assert.AreEqual(3, loggedMessages.Length);
+
+                Exception loggedException = loggedMessages[1].Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                CollectionAssert.AreEqual(new[]
+                {
+                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.",
+                    loggedException.Message,
+                    $"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'."
+                }, loggedMessages.Select(m => m.Item1));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    Level.Info,
+                    Level.Error,
+                    Level.Info
+                }, loggedMessages.Select(m => m.Item2));
+            });
+
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
         }
 
@@ -561,16 +582,27 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithLocation("op regel 1")
-                .Build("Het bestand is leeg.");
-            var expectedLogMessagesAndLevel = new[]
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
+                Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                Assert.AreEqual(3, loggedMessages.Length);
+
+                Exception loggedException = loggedMessages[1].Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                CollectionAssert.AreEqual(new[]
+                {
+                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.",
+                    loggedException.Message,
+                    $"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'."
+                }, loggedMessages.Select(m => m.Item1));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    Level.Info,
+                    Level.Error,
+                    Level.Info
+                }, loggedMessages.Select(m => m.Item2));
+            });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
         }
 
@@ -594,16 +626,27 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithLocation("op regel 1")
-                .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
-            var expectedLogMessagesAndLevel = new[]
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
+                Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                Assert.AreEqual(3, loggedMessages.Length);
+
+                Exception loggedException = loggedMessages[1].Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                CollectionAssert.AreEqual(new[]
+                {
+                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.",
+                    loggedException.Message,
+                    $"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'."
+                }, loggedMessages.Select(m => m.Item1));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    Level.Info,
+                    Level.Error,
+                    Level.Info
+                }, loggedMessages.Select(m => m.Item2));
+            });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
         }
 
@@ -636,14 +679,27 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 Action call = () => importResult = importer.Import();
 
                 // Assert
-                string internalErrorMessage = new FileReaderErrorMessageBuilder(copyTargetPath).Build("Het bestand bestaat niet.");
-                var expectedLogMessagesAndLevel = new[]
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
-                    Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
-                    Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
-                };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 3);
+                    Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                    Assert.AreEqual(3, loggedMessages.Length);
+
+                    Exception loggedException = loggedMessages[1].Item3;
+                    Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                    CollectionAssert.AreEqual(new[]
+                    {
+                        $"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.",
+                        loggedException.Message,
+                        $"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'."
+                    }, loggedMessages.Select(m => m.Item1));
+
+                    CollectionAssert.AreEqual(new[]
+                    {
+                        Level.Info,
+                        Level.Error,
+                        Level.Info
+                    }, loggedMessages.Select(m => m.Item2));
+                });
                 AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
             }
             finally
@@ -912,19 +968,31 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithLocation("op regel 1")
-                .Build("Het bestand is leeg.");
-
-            var expectedLogMessagesAndLevel = new[]
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
-            };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+                Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                Assert.AreEqual(5, loggedMessages.Length);
+
+                Exception loggedException = loggedMessages[3].Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                CollectionAssert.AreEqual(new[]
+                {
+                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
+                    $"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
+                    $"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.",
+                    loggedException.Message,
+                    $"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'."
+                }, loggedMessages.Select(m => m.Item1));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    Level.Info,
+                    Level.Info,
+                    Level.Info,
+                    Level.Error,
+                    Level.Info
+                }, loggedMessages.Select(m => m.Item2));
+            });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
         }
 
@@ -950,20 +1018,31 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithLocation("op regel 1")
-                .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
-
-            var expectedLogMessagesAndLevel = new[]
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
             {
-                Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
-                Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.", LogLevelConstant.Info),
-                Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
-            };
+                Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                Assert.AreEqual(5, loggedMessages.Length);
 
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+                Exception loggedException = loggedMessages[3].Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                CollectionAssert.AreEqual(new[]
+                {
+                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
+                    $"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.",
+                    $"Begonnen met het inlezen van karakteristieke punten uit bestand '{corruptPath}'.",
+                    loggedException.Message,
+                    $"Klaar met het inlezen van karakteristieke punten uit bestand '{corruptPath}'."
+                }, loggedMessages.Select(m => m.Item1));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    Level.Info,
+                    Level.Info,
+                    Level.Info,
+                    Level.Error,
+                    Level.Info
+                }, loggedMessages.Select(m => m.Item2));
+            });
             AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
         }
 
@@ -1008,16 +1087,31 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 Action call = () => importResult = importer.Import();
 
                 // Assert
-                string internalErrorMessage = new FileReaderErrorMessageBuilder(copyCharacteristicPointsTargetPath).Build("Het bestand bestaat niet.");
-                var expectedLogMessagesAndLevel = new[]
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
-                    Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.", LogLevelConstant.Info),
-                    Tuple.Create($"Begonnen met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'.", LogLevelConstant.Info),
-                    Tuple.Create($"Klaar met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'.", LogLevelConstant.Info),
-                    Tuple.Create($"{internalErrorMessage} \r\nHet bestand wordt overgeslagen.", LogLevelConstant.Error)
-                };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessagesAndLevel, 5);
+                    Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                    Assert.AreEqual(5, loggedMessages.Length);
+
+                    Exception loggedException = loggedMessages[3].Item3;
+                    Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                    CollectionAssert.AreEqual(new[]
+                    {
+                        $"Begonnen met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.",
+                        $"Klaar met het inlezen van profielschematisaties uit bestand '{copyTargetPath}'.",
+                        $"Begonnen met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'.",
+                        loggedException.Message,
+                        $"Klaar met het inlezen van karakteristieke punten uit bestand '{copyCharacteristicPointsTargetPath}'."
+                    }, loggedMessages.Select(m => m.Item1));
+
+                    CollectionAssert.AreEqual(new[]
+                    {
+                        Level.Info,
+                        Level.Info,
+                        Level.Info,
+                        Level.Error,
+                        Level.Info
+                    }, loggedMessages.Select(m => m.Item2));
+                });
                 AssertUnsuccessfulImport(importResult, surfaceLineUpdateStrategy);
             }
             finally
@@ -1099,6 +1193,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
             string twovalidsurfacelinesCsv = string.Format(surfaceLineFormat, fileName);
             string validSurfaceLinesFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
+            string characteristicPointsFilePath = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var surfaceLines = new TestSurfaceLineCollection();
             var surfaceLineUpdateStrategy = new TestSurfaceLineUpdateStrategy();
@@ -1111,8 +1206,31 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string expectedMessage = $"{exceptionMessage} \r\nHet bestand wordt overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 5);
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            {
+                Tuple<string, Level, Exception>[] loggedMessages = messages.ToArray();
+                Assert.AreEqual(5, loggedMessages.Length);
+
+                Exception loggedException = loggedMessages[4].Item3;
+                Assert.IsInstanceOf<ImportedDataTransformException>(loggedException);
+                CollectionAssert.AreEqual(new[]
+                {
+                    $"Begonnen met het inlezen van profielschematisaties uit bestand '{validSurfaceLinesFilePath}'.",
+                    $"Klaar met het inlezen van profielschematisaties uit bestand '{validSurfaceLinesFilePath}'.",
+                    $"Begonnen met het inlezen van karakteristieke punten uit bestand '{characteristicPointsFilePath}'.",
+                    $"Klaar met het inlezen van karakteristieke punten uit bestand '{characteristicPointsFilePath}'.",
+                    loggedException.Message
+                }, loggedMessages.Select(m => m.Item1));
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    Level.Info,
+                    Level.Info,
+                    Level.Info,
+                    Level.Info,
+                    Level.Error
+                }, loggedMessages.Select(m => m.Item2));
+            });
 
             Assert.IsFalse(importResult);
             Assert.IsFalse(surfaceLineUpdateStrategy.Updated);

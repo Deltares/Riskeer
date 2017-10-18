@@ -2384,16 +2384,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} 
-        ///Het bestand wordt overgeslagen..
-        /// </summary>
-        public static string SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped {
-            get {
-                return ResourceManager.GetString("SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {0}).
         /// </summary>
         public static string SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_ {

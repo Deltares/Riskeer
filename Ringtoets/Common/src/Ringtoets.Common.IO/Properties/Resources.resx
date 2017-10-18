@@ -713,10 +713,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="SurfaceLinesCsvImporter_Read_SurfaceLines_0_" xml:space="preserve">
     <value>Inlezen '{0}'</value>
   </data>
-  <data name="SurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
-    <value>{0} 
-Het bestand wordt overgeslagen.</value>
-  </data>
   <data name="SurfaceLinesCsvImporter_ReadSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
     <value>{0} 
 Deze profielschematisatie wordt overgeslagen.</value>
