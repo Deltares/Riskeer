@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             inputParameters.MaximumSliceWidth = (RoundedDouble) entity.MaximumSliceWidth.ToNullAsNaN();
 
             inputParameters.MoveGrid = Convert.ToBoolean(entity.MoveGrid);
-            inputParameters.DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) entity.DikeSoilScenarioType;
+            inputParameters.DikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) entity.DikeSoilScenario;
 
             inputParameters.WaterLevelRiverAverage = (RoundedDouble) entity.WaterLevelRiverAverage.ToNullAsNaN();
 

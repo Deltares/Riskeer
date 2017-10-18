@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
             AssertAreEqual(input.SlipPlaneMinimumLength, entity.SlipPlaneMinimumLength);
             AssertAreEqual(input.MaximumSliceWidth, entity.MaximumSliceWidth);
             Assert.AreEqual(Convert.ToByte(input.MoveGrid), entity.MoveGrid);
-            Assert.AreEqual(Convert.ToByte(input.DikeSoilScenario), entity.DikeSoilScenarioType);
+            Assert.AreEqual(Convert.ToByte(input.DikeSoilScenario), entity.DikeSoilScenario);
             AssertAreEqual(input.WaterLevelRiverAverage, entity.WaterLevelRiverAverage);
             Assert.AreEqual(Convert.ToByte(input.DrainageConstructionPresent), entity.DrainageConstructionPresent);
             AssertAreEqual(input.XCoordinateDrainageConstruction, entity.DrainageConstructionCoordinateX);

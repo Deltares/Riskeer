@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 SlipPlaneMinimumLength = random.NextDouble(),
                 MaximumSliceWidth = random.NextDouble(),
                 MoveGrid = Convert.ToByte(random.NextBoolean()),
-                DikeSoilScenarioType = Convert.ToByte(random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>()),
+                DikeSoilScenario = Convert.ToByte(random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>()),
                 WaterLevelRiverAverage = random.NextDouble(),
                 DrainageConstructionPresent = Convert.ToByte(random.NextBoolean()),
                 DrainageConstructionCoordinateX = random.NextDouble(),

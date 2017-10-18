@@ -702,7 +702,7 @@
           <Property Name="RightGridZTop" Type="real" />
           <Property Name="RightGridZBottom" Type="real" />
           <Property Name="RightGridNrOfVerticalPoints" Type="int" Nullable="false" />
-          <Property Name="DikeSoilScenarioType" Type="tinyint" Nullable="false" />
+          <Property Name="DikeSoilScenario" Type="tinyint" Nullable="false" />
           <Property Name="WaterLevelRiverAverage" Type="real" />
           <Property Name="DrainageConstructionPresent" Type="tinyint" Nullable="false" />
           <Property Name="DrainageConstructionCoordinateX" Type="real" />
@@ -5097,7 +5097,7 @@
           <Property Name="RightGridZTop" Type="Double" />
           <Property Name="RightGridZBottom" Type="Double" />
           <Property Name="RightGridNrOfVerticalPoints" Type="Int32" Nullable="false" />
-          <Property Name="DikeSoilScenarioType" Type="Byte" Nullable="false" />
+          <Property Name="DikeSoilScenario" Type="Byte" Nullable="false" />
           <Property Name="WaterLevelRiverAverage" Type="Double" />
           <Property Name="DrainageConstructionPresent" Type="Byte" Nullable="false" />
           <Property Name="DrainageConstructionCoordinateX" Type="Double" />
@@ -8161,7 +8161,7 @@
                 <ScalarProperty Name="DrainageConstructionCoordinateX" ColumnName="DrainageConstructionCoordinateX" />
                 <ScalarProperty Name="DrainageConstructionPresent" ColumnName="DrainageConstructionPresent" />
                 <ScalarProperty Name="WaterLevelRiverAverage" ColumnName="WaterLevelRiverAverage" />
-                <ScalarProperty Name="DikeSoilScenarioType" ColumnName="DikeSoilScenarioType" />
+                <ScalarProperty Name="DikeSoilScenario" ColumnName="DikeSoilScenario" />
                 <ScalarProperty Name="RightGridNrOfVerticalPoints" ColumnName="RightGridNrOfVerticalPoints" />
                 <ScalarProperty Name="RightGridZBottom" ColumnName="RightGridZBottom" />
                 <ScalarProperty Name="RightGridZTop" ColumnName="RightGridZTop" />

@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? RightGridZTop { get; set; }
         public double? RightGridZBottom { get; set; }
         public int RightGridNrOfVerticalPoints { get; set; }
-        public byte DikeSoilScenarioType { get; set; }
+        public byte DikeSoilScenario { get; set; }
         public double? WaterLevelRiverAverage { get; set; }
         public byte DrainageConstructionPresent { get; set; }
         public double? DrainageConstructionCoordinateX { get; set; }
