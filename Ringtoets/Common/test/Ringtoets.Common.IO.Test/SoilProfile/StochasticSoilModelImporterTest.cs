@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -188,11 +187,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.AreEqual(1, messages.Count());
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
 
-                string fileReadMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("het bestand bestaat niet.");
-                Assert.AreEqual($"{fileReadMessage}",
-                                expectedLog.Item1);
                 Assert.AreEqual(Level.Error, expectedLog.Item2);
-                Assert.IsInstanceOf<CriticalFileReadException>(expectedLog.Item3);
+
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
             });
 
             Assert.AreEqual(1, progress);
@@ -233,7 +232,10 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
 
                 Assert.AreEqual(Level.Error, expectedLog.Item2);
-                Assert.IsInstanceOf<CriticalFileReadException>(expectedLog.Item3);
+
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<CriticalFileReadException>(loggedException);
+                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
             });
 
             Assert.AreEqual(1, progress);
@@ -679,9 +681,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Action call = () => importResult = importer.Import();
 
             // Assert
-            string expectedMessage = $"{exceptionMessage}";
-            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel, 1);
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            {
+                Assert.AreEqual(1, messages.Count());
+                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+
+                Assert.AreEqual(Level.Error, expectedLog.Item2);
+
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<ImportedDataTransformException>(loggedException);
+                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+            });
             Assert.IsFalse(importResult);
         }
 

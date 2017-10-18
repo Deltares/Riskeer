@@ -227,6 +227,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <item>The read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion is not supported.</exception>
         private void SetStochasticSoilProfiles(StochasticSoilModel stochasticSoilModel)
         {
             stochasticSoilModel.StochasticSoilProfiles.AddRange(ReadStochasticSoilProfiles());
@@ -236,6 +237,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Sets the geometry points of <paramref name="stochasticSoilModel"/> from the database.
         /// </summary>
         /// <param name="stochasticSoilModel">The stochastic soil model of which the geometry to set.</param>
+        /// <exception cref="InvalidCastException">Thrown when the stochastic soil model id from the D-Soil model database
+        /// could not be convert.</exception>
         private void SetGeometry(StochasticSoilModel stochasticSoilModel)
         {
             if (!segmentPointReader.HasNext || segmentPointReader.ReadStochasticSoilModelId() != currentStochasticSoilModelId)
@@ -256,7 +259,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <item>The read failure mechanism type is not supported.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion is not supported.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion is not supported.</exception>
         private IEnumerable<StochasticSoilProfile> ReadStochasticSoilProfiles()
         {
             while (HasNext && ReadStochasticSoilModelId() == currentStochasticSoilModelId)
@@ -290,7 +293,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>The newly created <see cref="StochasticSoilModel"/>.</returns>
         /// <exception cref="StochasticSoilModelException">Thrown when the read failure mechanism 
         /// type is not supported.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion is not supported.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion is not supported.</exception>
         private StochasticSoilModel CreateStochasticSoilModel()
         {
             return new StochasticSoilModel(ReadStochasticSoilModelName(), ReadFailureMechanismType());
@@ -377,7 +380,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
         /// <exception cref="OverflowException">The read value represents a number that is less 
         /// than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion to <see cref="double"/> 
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="double"/> 
         /// is not supported.</exception>
         private double? ReadStochasticSoilProfileProbability()
         {
@@ -394,7 +397,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
         /// <exception cref="OverflowException">The read value represents a number that is less 
         /// than <see cref="long.MinValue"/> or greater than <see cref="long.MaxValue"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion to <see cref="long"/> 
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="long"/> 
         /// is not supported.</exception>
         private long? ReadSoilProfile1DId()
         {
@@ -411,7 +414,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
         /// <exception cref="OverflowException">The read value represents a number that is less 
         /// than <see cref="long.MinValue"/> or greater than <see cref="long.MaxValue"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion to <see cref="long"/> 
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="long"/> 
         /// is not supported.</exception>
         private long? ReadSoilProfile2DId()
         {
@@ -433,7 +436,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="FormatException">The read value is not in an appropriate format.</exception>
         /// <exception cref="OverflowException">The read value represents a number that is less 
         /// than <see cref="long.MinValue"/> or greater than <see cref="long.MaxValue"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion to <see cref="long"/> is not supported.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="long"/> is not supported.</exception>
         private long ReadStochasticSoilModelId()
         {
             return Convert.ToInt64(dataReader[StochasticSoilModelTableDefinitions.StochasticSoilModelId]);
@@ -454,7 +457,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <returns>The failure mechanism type.</returns>
         /// <exception cref="StochasticSoilModelException">Thrown when the read failure mechanism type is not supported.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the conversion to <see cref="long"/> is not supported.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the conversion to <see cref="long"/> is not supported.</exception>
         private FailureMechanismType ReadFailureMechanismType()
         {
             long mechanismId = Convert.ToInt64(dataReader[MechanismTableDefinitions.MechanismId]);

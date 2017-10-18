@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
             catch (ImportedDataTransformException e)
             {
-                Log.ErrorFormat(e.Message, e);
+                Log.Error(e.Message, e);
                 return false;
             }
 
