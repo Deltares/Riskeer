@@ -379,9 +379,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped" xml:space="preserve">
-    <value>{0} Het bestand wordt overgeslagen.</value>
-  </data>
   <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
     <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
   </data>

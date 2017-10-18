@@ -920,15 +920,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Het bestand wordt overgeslagen..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {

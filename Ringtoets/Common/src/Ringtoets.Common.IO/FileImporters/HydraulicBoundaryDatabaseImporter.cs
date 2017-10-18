@@ -155,8 +155,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private void HandleException(Exception e)
         {
-            string message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, e.Message);
-            log.Error(message);
+            log.Error(e.Message, e);
         }
 
         private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()

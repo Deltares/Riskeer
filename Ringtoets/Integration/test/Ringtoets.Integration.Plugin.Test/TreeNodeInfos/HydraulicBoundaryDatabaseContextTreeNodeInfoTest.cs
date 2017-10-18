@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
                     // Then
-                    string expectedMessage = $"Fout bij het lezen van bestand '{testFile}': kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.";
+                    string expectedMessage = $"Fout bij het lezen van bestand '{testFile}': kon geen locaties verkrijgen van de database.";
                     TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
                     Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);

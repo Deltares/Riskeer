@@ -24,8 +24,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -246,7 +248,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precodition failed. File does not exist: {validFilePath}");
+            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
 
             // Call
             var importResult = false;
@@ -279,7 +281,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string copyValidFilePath = Path.Combine(testDataPath, "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precodition failed. File does not exist: {validFilePath}");
+            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
 
             importer.Import(assessmentSection, validFilePath);
 
@@ -308,7 +310,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
-            Assert.IsTrue(File.Exists(validFilePath), $"Precodition failed. File does not exist: {validFilePath}");
+            Assert.IsTrue(File.Exists(validFilePath), $"Precondition failed. File does not exist: {validFilePath}");
 
             importer.Import(assessmentSection, validFilePath);
 
@@ -335,7 +337,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedLogMessage = $"Fout bij het lezen van bestand '{corruptPath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.";
 
             var importResult = true;
 
@@ -343,7 +344,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = importer.Import(assessmentSection, corruptPath);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            {
+                Assert.AreEqual(1, messages.Count());
+                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+
+                Assert.AreEqual(Level.Error, expectedLog.Item2);
+
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<LineParseException>(loggedException);
+                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+            });
             Assert.IsFalse(importResult);
             Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
@@ -366,10 +377,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
 
             // Assert
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)
-                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.");
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            {
+                Assert.AreEqual(1, messages.Count());
+                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(0);
+
+                Assert.AreEqual(Level.Error, expectedLog.Item2);
+
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<LineParseException>(loggedException);
+                Assert.AreEqual(loggedException.Message, expectedLog.Item1);
+            });
             Assert.IsFalse(importResult);
+            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
             mocks.VerifyAll();
         }
     }
