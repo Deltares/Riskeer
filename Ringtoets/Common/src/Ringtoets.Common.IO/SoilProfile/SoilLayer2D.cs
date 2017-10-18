@@ -120,7 +120,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 Segment2D segmentA = segments[i];
                 Segment2D segmentB = segments[(i + 1) % segmentCount];
-                if (!segmentA.IsConnected(segmentB))
+                if (!segmentA.SecondPoint.Equals(segmentB.FirstPoint))
                 {
                     return false;
                 }

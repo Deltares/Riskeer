@@ -56,22 +56,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase(1e-6)]
-        [TestCase(1)]
-        public void OuterLoop_TwoDisconnectedSegment_ThrowsArgumentException(double diff)
+        public void OuterLoop_DisconnectedSegment_ThrowsArgumentException()
         {
             // Setup
             var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(1.0, 0.0);
-            var pointC = new Point2D(0.0, diff);
 
             // Call
-            TestDelegate test = () => layer.OuterLoop = new List<Segment2D>
-            {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointC)
-            };
+            TestDelegate test = () => layer.OuterLoop = CreateLoopWithDisconnectedSegment();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -79,24 +70,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase(1e-6)]
-        [TestCase(1)]
-        public void OuterLoop_ThreeDisconnectedSegment_ThrowsArgumentException(double diff)
+        public void OuterLoop_InversedSegment_ThrowsArgumentException()
         {
             // Setup
             var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(1.0, 0.0);
-            var pointC = new Point2D(1.0, 1.0);
-            var pointD = new Point2D(0.0, diff);
 
             // Call
-            TestDelegate test = () => layer.OuterLoop = new List<Segment2D>
-            {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointC),
-                new Segment2D(pointC, pointD)
-            };
+            TestDelegate test = () => layer.OuterLoop = CreateLoopWithInversedSegment();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -104,7 +84,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void OuterLoop_TwoConnectedSegment_SetsNewLoop()
+        public void OuterLoop_ConnectedSegments_SetsNewLoop()
         {
             // Setup
             var layer = new SoilLayer2D();
@@ -125,46 +105,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void OuterLoop_ThreeConnectedSegment_SetsNewLoop()
+        public void AddInnerLoop_DisconnectedSegment_ThrowsArgumentException()
         {
             // Setup
             var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(1.0, 0.0);
-            var pointC = new Point2D(1.0, 1.0);
 
             // Call
-            layer.OuterLoop = new List<Segment2D>
-            {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointC),
-                new Segment2D(pointC, pointA)
-            };
-
-            // Assert
-            Assert.NotNull(layer.OuterLoop);
-            Assert.AreEqual(new Segment2D(pointA, pointB), layer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB, pointC), layer.OuterLoop.ElementAt(1));
-            Assert.AreEqual(new Segment2D(pointC, pointA), layer.OuterLoop.ElementAt(2));
-        }
-
-        [Test]
-        [TestCase(1e-6)]
-        [TestCase(1)]
-        public void AddInnerLoop_TwoDisconnectedSegment_ThrowsArgumentException(double diff)
-        {
-            // Setup
-            var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(1.0, 0.0);
-            var pointC = new Point2D(0.0, diff);
-
-            // Call
-            TestDelegate test = () => layer.AddInnerLoop(new List<Segment2D>
-            {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointC)
-            });
+            TestDelegate test = () => layer.AddInnerLoop(CreateLoopWithDisconnectedSegment());
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -172,24 +119,13 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase(1e-6)]
-        [TestCase(1)]
-        public void AddInnerLoop_ThreeDisconnectedSegment_ThrowsArgumentException(double diff)
+        public void AddInnerLoop_InversedSegment_ThrowsArgumentException()
         {
             // Setup
             var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(1.0, 0.0);
-            var pointC = new Point2D(1.0, 1.0);
-            var pointD = new Point2D(0.0, diff);
 
             // Call
-            TestDelegate test = () => layer.AddInnerLoop(new List<Segment2D>
-            {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointC),
-                new Segment2D(pointC, pointD)
-            });
+            TestDelegate test = () => layer.AddInnerLoop(CreateLoopWithInversedSegment());
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -197,7 +133,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         [Test]
-        public void AddInnerLoop_TwoConnectedSegment_SetsNewLoop()
+        public void AddInnerLoop_ConnectedSegments_SetsNewLoop()
         {
             // Setup
             var layer = new SoilLayer2D();
@@ -217,28 +153,33 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual(new Segment2D(pointB, pointA), layer.InnerLoops.ElementAt(0)[1]);
         }
 
-        [Test]
-        public void AddInnerLoop_ThreeConnectedSegment_SetsNewLoop()
+        private static IEnumerable<Segment2D> CreateLoopWithDisconnectedSegment()
         {
-            // Setup
-            var layer = new SoilLayer2D();
             var pointA = new Point2D(0.0, 0.0);
             var pointB = new Point2D(1.0, 0.0);
-            var pointC = new Point2D(1.0, 1.0);
+            var pointC = new Point2D(0.0, 1.0e-20);
 
-            // Call
-            layer.AddInnerLoop(new List<Segment2D>
+            return new List<Segment2D>
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC)
+            };
+        }
+
+        private static IEnumerable<Segment2D> CreateLoopWithInversedSegment()
+        {
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(2.0, 0.0);
+            var pointD = new Point2D(0.0, 0.0);
+
+            return new List<Segment2D>
             {
                 new Segment2D(pointA, pointB),
                 new Segment2D(pointB, pointC),
-                new Segment2D(pointC, pointA)
-            });
-
-            // Assert
-            Assert.AreEqual(1, layer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointA, pointB), layer.InnerLoops.ElementAt(0)[0]);
-            Assert.AreEqual(new Segment2D(pointB, pointC), layer.InnerLoops.ElementAt(0)[1]);
-            Assert.AreEqual(new Segment2D(pointC, pointA), layer.InnerLoops.ElementAt(0)[2]);
+                new Segment2D(pointD, pointC),
+                new Segment2D(pointD, pointA)
+            };
         }
     }
 }

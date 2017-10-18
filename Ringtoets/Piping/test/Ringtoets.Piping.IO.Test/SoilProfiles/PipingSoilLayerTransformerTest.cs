@@ -282,8 +282,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                               new Point2D(x3, y2)),
                 new Segment2D(new Point2D(x3, y2),
                               new Point2D(x1, y2)),
-                new Segment2D(new Point2D(x1, y1),
-                              new Point2D(x1, y2))
+                new Segment2D(new Point2D(x1, y2),
+                              new Point2D(x1, y1))
             };
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(
@@ -903,8 +903,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                               new Point2D(x3, y2)),
                 new Segment2D(new Point2D(x3, y2),
                               new Point2D(x1, y2)),
-                new Segment2D(new Point2D(x1, y1),
-                              new Point2D(x1, y2))
+                new Segment2D(new Point2D(x1, y2),
+                              new Point2D(x1, y1))
             };
 
             return SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(Enumerable.Empty<IEnumerable<Segment2D>>(), outerLoop);
