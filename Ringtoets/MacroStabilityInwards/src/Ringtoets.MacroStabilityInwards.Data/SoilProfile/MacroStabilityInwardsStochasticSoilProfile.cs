@@ -27,7 +27,7 @@ using Ringtoets.MacroStabilityInwards.Data.Properties;
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// This class couples a <see cref="IMacroStabilityInwardsSoilProfile"/> 
+    /// This class couples a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> 
     /// to a probability of occurrence.
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilProfile : Observable
@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="probability"/>
         /// is outside the range [0, 1].</exception>
-        public MacroStabilityInwardsStochasticSoilProfile(double probability, IMacroStabilityInwardsSoilProfile soilProfile)
+        public MacroStabilityInwardsStochasticSoilProfile(double probability, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
         {
             if (soilProfile == null)
             {
@@ -54,9 +54,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets the <see cref="IMacroStabilityInwardsSoilProfile"/>.
+        /// Gets the <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
         /// </summary>
-        public IMacroStabilityInwardsSoilProfile SoilProfile { get; private set; }
+        public IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> SoilProfile { get; private set; }
 
         /// <summary>
         /// Gets the probability of the stochastic soil profile.

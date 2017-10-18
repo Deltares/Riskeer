@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         /// <exception cref="ImportedDataTransformException">Thrown when <see cref="StochasticSoilProfile"/>
         /// could not be transformed.</exception>
         public static MacroStabilityInwardsStochasticSoilProfile Transform(StochasticSoilProfile stochasticSoilProfile,
-                                                                           IMacroStabilityInwardsSoilProfile soilProfile)
+                                                                           IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
         {
             if (stochasticSoilProfile == null)
             {

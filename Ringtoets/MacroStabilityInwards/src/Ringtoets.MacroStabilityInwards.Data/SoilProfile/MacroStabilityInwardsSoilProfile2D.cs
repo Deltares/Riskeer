@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsSoilProfile2D : IMacroStabilityInwardsSoilProfile
+    public class MacroStabilityInwardsSoilProfile2D : IMacroStabilityInwardsSoilProfile<MacroStabilityInwardsSoilLayer2D>
     {
         private MacroStabilityInwardsSoilLayer2D[] layers;
         private string name;

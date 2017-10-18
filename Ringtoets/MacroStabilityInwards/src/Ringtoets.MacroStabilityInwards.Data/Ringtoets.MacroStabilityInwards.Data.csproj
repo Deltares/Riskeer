@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="MacroStabilityInwardsProbabilityAssessmentInput.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineCollection.cs" />
+    <Compile Include="SoilProfile\IMacroStabilityInwardsSoilLayer.cs" />
     <Compile Include="SoilProfile\IMacroStabilityInwardsSoilProfile.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStress.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer1D.cs" />

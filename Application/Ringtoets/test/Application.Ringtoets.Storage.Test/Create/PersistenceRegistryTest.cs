@@ -481,7 +481,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             protected override MacroStabilityInwardsStochasticSoilProfile CreateDataModel()
             {
-                var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile>();
+                var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
                 mockRepository.ReplayAll();
 
                 return new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);

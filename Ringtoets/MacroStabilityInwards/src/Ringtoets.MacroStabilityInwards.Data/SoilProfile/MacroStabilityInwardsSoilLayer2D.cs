@@ -28,14 +28,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// This class represents a 2D layer that was imported from D-Soil Model.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayer2D
+    public class MacroStabilityInwardsSoilLayer2D : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
         /// <param name="holes">The rings describing the holes within the outer boundaries of 
-        ///     the layer.</param>
+        /// the layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes)
         {
@@ -54,11 +54,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets the data of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
-        /// </summary>
-        public MacroStabilityInwardsSoilLayerData Data { get; }
-
-        /// <summary>
         /// Gets the outer ring of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public Ring OuterRing { get; }
@@ -67,6 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// Gets the holes of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         public Ring[] Holes { get; }
+
+        public MacroStabilityInwardsSoilLayerData Data { get; }
 
         public override bool Equals(object obj)
         {

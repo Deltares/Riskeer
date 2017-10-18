@@ -547,7 +547,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 
         /// <summary>
         /// Creates a collection of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>
-        /// with all the supported <see cref="IMacroStabilityInwardsSoilProfile"/>.
+        /// with all the supported <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
         /// </summary>
         /// <returns>A collection of <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</returns>
         private static IList<MacroStabilityInwardsStochasticSoilProfile> CreateStochasticSoilProfiles()

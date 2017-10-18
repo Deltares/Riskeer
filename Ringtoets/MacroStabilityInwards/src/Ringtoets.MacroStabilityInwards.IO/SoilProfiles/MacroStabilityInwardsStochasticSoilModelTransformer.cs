@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     /// </summary>
     public class MacroStabilityInwardsStochasticSoilModelTransformer : IStochasticSoilModelTransformer<MacroStabilityInwardsStochasticSoilModel>
     {
-        private readonly Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile> soilProfiles = new Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile>();
+        private readonly Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>> soilProfiles = new Dictionary<ISoilProfile, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
 
         public MacroStabilityInwardsStochasticSoilModel Transform(StochasticSoilModel stochasticSoilModel)
         {
@@ -87,15 +87,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
         }
 
         /// <summary>
-        /// Transforms all generic <see cref="ISoilProfile"/> into <see cref="IMacroStabilityInwardsSoilProfile"/>.
+        /// Transforms all generic <see cref="ISoilProfile"/> into <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
         /// <returns>The transformed soil profile.</returns>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would 
         /// not result in a valid transformed instance.</exception>
-        private IMacroStabilityInwardsSoilProfile GetTransformedSoilProfile(ISoilProfile soilProfile)
+        private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> GetTransformedSoilProfile(ISoilProfile soilProfile)
         {
-            IMacroStabilityInwardsSoilProfile macroStabilityInwardsSoilProfile;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> macroStabilityInwardsSoilProfile;
             if (soilProfiles.ContainsKey(soilProfile))
             {
                 macroStabilityInwardsSoilProfile = soilProfiles[soilProfile];

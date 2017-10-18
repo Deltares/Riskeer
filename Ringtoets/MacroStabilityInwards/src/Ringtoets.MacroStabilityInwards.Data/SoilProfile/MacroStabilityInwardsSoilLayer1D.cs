@@ -24,7 +24,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// This class represents a 1D layer that was imported from D-Soil Model.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayer1D
+    public class MacroStabilityInwardsSoilLayer1D : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer1D"/>, where the top is set to <paramref name="top"/>.
@@ -37,14 +37,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         }
 
         /// <summary>
-        /// Gets the data of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
-        /// </summary>
-        public MacroStabilityInwardsSoilLayerData Data { get; }
-
-        /// <summary>
         /// Gets the top level of the <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
         public double Top { get; }
+
+        public MacroStabilityInwardsSoilLayerData Data { get; }
 
         public override bool Equals(object obj)
         {

@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="soilProfile"/> type
         /// is not supported.</exception>
-        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(IMacroStabilityInwardsSoilProfile soilProfile,
+        public static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile,
                                                                               MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (soilProfile == null)

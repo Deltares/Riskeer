@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNotNull(stochasticSoilProfile);
             Assert.AreEqual(entity.Probability, stochasticSoilProfile.Probability, 1e-6);
 
-            IMacroStabilityInwardsSoilProfile profile = stochasticSoilProfile.SoilProfile;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> profile = stochasticSoilProfile.SoilProfile;
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(profile);
             Assert.AreEqual(entity.MacroStabilityInwardsSoilProfileOneDEntity.Name, profile.Name);
         }
@@ -117,7 +117,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNotNull(stochasticSoilProfile);
             Assert.AreEqual(entity.Probability, stochasticSoilProfile.Probability, 1e-6);
 
-            IMacroStabilityInwardsSoilProfile profile = stochasticSoilProfile.SoilProfile;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> profile = stochasticSoilProfile.SoilProfile;
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(profile);
             Assert.AreEqual(entity.MacroStabilityInwardsSoilProfileTwoDEntity.Name, profile.Name);
         }

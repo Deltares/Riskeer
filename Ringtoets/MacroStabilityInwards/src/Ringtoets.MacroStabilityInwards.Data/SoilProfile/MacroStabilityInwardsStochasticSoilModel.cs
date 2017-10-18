@@ -121,7 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             Name = fromModel.Name;
             Geometry = fromModel.Geometry;
 
-            var newSoilProfiles = new List<IMacroStabilityInwardsSoilProfile>();
+            var newSoilProfiles = new List<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             var updatedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             var addedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
             var removedProfiles = new List<MacroStabilityInwardsStochasticSoilProfile>();
@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return Name;
         }
 
-        private static bool IsSame(IMacroStabilityInwardsSoilProfile soilProfile, IMacroStabilityInwardsSoilProfile otherSoilProfile)
+        private static bool IsSame(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> otherSoilProfile)
         {
             bool equalNames = soilProfile.Name.Equals(otherSoilProfile.Name);
             bool equalTypes = soilProfile.GetType() == otherSoilProfile.GetType();

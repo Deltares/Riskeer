@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
@@ -81,7 +80,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         /// <param name="registry">The registry to use for persisting entities.</param>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="soilProfile"/> is 
         /// not of type <see cref="MacroStabilityInwardsSoilProfile1D"/> or <see cref="MacroStabilityInwardsSoilProfile2D"/>.</exception>
-        private static void AddEntityForProfile(IMacroStabilityInwardsSoilProfile soilProfile,
+        private static void AddEntityForProfile(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile,
                                                 MacroStabilityInwardsStochasticSoilProfileEntity entity,
                                                 PersistenceRegistry registry)
         {

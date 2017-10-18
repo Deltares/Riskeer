@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var profile = new MacroStabilityInwardsSoilProfile1D(name, bottom, layers);
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsSoilProfile>(profile);
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>(profile);
             Assert.AreNotSame(layers, profile.Layers);
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);

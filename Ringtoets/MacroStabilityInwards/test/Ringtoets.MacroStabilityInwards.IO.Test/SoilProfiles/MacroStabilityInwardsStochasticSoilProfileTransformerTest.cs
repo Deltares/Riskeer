@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             // Call
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var mocks = new MockRepository();
             var soilProfile = mocks.Stub<ISoilProfile>();
-            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticSoilProfile = new StochasticSoilProfile(double.NaN, soilProfile);
@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             var mocks = new MockRepository();
             var soilProfile = mocks.Stub<ISoilProfile>();
-            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var macroStabilityInwardsSoilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticSoilProfile = new StochasticSoilProfile(random.NextDouble(), soilProfile);

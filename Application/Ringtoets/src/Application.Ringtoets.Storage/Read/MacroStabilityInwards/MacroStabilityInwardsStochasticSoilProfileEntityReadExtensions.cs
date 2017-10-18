@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 {
@@ -65,22 +64,22 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             return stochasticSoilProfile;
         }
 
-        private static IMacroStabilityInwardsSoilProfile ReadSoilProfile(this MacroStabilityInwardsStochasticSoilProfileEntity entity,
-                                                                         ReadConversionCollector collector)
+        private static IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> ReadSoilProfile(this MacroStabilityInwardsStochasticSoilProfileEntity entity,
+                                                                                                          ReadConversionCollector collector)
         {
             return entity.MacroStabilityInwardsSoilProfileOneDEntity != null
                        ? ReadSoilProfile1D(entity, collector)
                        : ReadSoilProfile2D(entity, collector);
         }
 
-        private static IMacroStabilityInwardsSoilProfile ReadSoilProfile1D(this MacroStabilityInwardsStochasticSoilProfileEntity entity,
-                                                                           ReadConversionCollector collector)
+        private static IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> ReadSoilProfile1D(this MacroStabilityInwardsStochasticSoilProfileEntity entity,
+                                                                                                            ReadConversionCollector collector)
         {
             return entity.MacroStabilityInwardsSoilProfileOneDEntity.Read(collector);
         }
 
-        private static IMacroStabilityInwardsSoilProfile ReadSoilProfile2D(this MacroStabilityInwardsStochasticSoilProfileEntity entity,
-                                                                           ReadConversionCollector collector)
+        private static IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> ReadSoilProfile2D(this MacroStabilityInwardsStochasticSoilProfileEntity entity,
+                                                                                                            ReadConversionCollector collector)
         {
             return entity.MacroStabilityInwardsSoilProfileTwoDEntity.Read(collector);
         }

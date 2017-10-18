@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             const string testName = "ttt";
 
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             soilProfile.Stub(sp => sp.Name).Return(testName);
             mocks.ReplayAll();
 

@@ -390,9 +390,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                         new Ring[0]);
         }
 
-        private class UnsupportedSoilProfile : IMacroStabilityInwardsSoilProfile
+        private class UnsupportedSoilProfile : IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>
         {
             public string Name { get; }
+            public IEnumerable<IMacroStabilityInwardsSoilLayer> Layers { get; }
         }
     }
 }

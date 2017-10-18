@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -47,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             double probability = new Random(21).Next(0, 1);
@@ -73,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             // Call
@@ -91,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
@@ -123,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
@@ -141,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
@@ -174,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticSoilProfileA = new MacroStabilityInwardsStochasticSoilProfile(0.2, soilProfile);
@@ -194,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
@@ -269,7 +270,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             return new string('x', random.Next(0, 40));
         }
 
-        private class TestSoilProfile : IMacroStabilityInwardsSoilProfile
+        private class TestSoilProfile : IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>
         {
             public TestSoilProfile(string name)
             {
@@ -278,6 +279,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             public string Name { get; }
 
+            public IEnumerable<IMacroStabilityInwardsSoilLayer> Layers { get; }
+
             public override int GetHashCode()
             {
                 return 0;
@@ -285,7 +288,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             public override bool Equals(object obj)
             {
-                var other = obj as IMacroStabilityInwardsSoilProfile;
+                var other = obj as IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>;
                 return other != null && Name.Equals(other.Name);
             }
         }

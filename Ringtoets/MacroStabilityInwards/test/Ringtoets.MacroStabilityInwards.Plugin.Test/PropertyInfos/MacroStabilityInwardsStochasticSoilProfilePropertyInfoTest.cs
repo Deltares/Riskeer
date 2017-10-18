@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);

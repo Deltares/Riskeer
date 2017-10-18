@@ -27,7 +27,6 @@ using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
@@ -54,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var mockRepository = new MockRepository();
-            var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile>();
+            var soilProfile = mockRepository.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
             mockRepository.ReplayAll();
 
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, soilProfile);
@@ -179,7 +178,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         [Test]
         [TestCaseSource(nameof(GetMacroStabilityInwardsSoilProfiles))]
-        public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned(IMacroStabilityInwardsSoilProfile soilProfile)
+        public void GivenCreatedEntity_WhenCreateCalledOnSameObject_ThenSameEntityInstanceReturned(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
         {
             // Given
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.4, soilProfile);
@@ -194,12 +193,13 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreSame(entity1, entity2);
         }
 
-        private class UnsupportedMacroStabilityInwardsSoilProfile : IMacroStabilityInwardsSoilProfile
+        private class UnsupportedMacroStabilityInwardsSoilProfile : IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>
         {
             public string Name { get; }
+            public IEnumerable<IMacroStabilityInwardsSoilLayer> Layers { get; }
         }
 
-        private static IEnumerable<IMacroStabilityInwardsSoilProfile> GetMacroStabilityInwardsSoilProfiles()
+        private static IEnumerable<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>> GetMacroStabilityInwardsSoilProfiles()
         {
             yield return MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             yield return MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();

@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// are shown in the table.
         /// </summary>
         /// <param name="layers">The collection of layers to show.</param>
-        public void SetData(IEnumerable<MacroStabilityInwardsSoilLayerData> layers)
+        public void SetData(IEnumerable<IMacroStabilityInwardsSoilLayerData> layers)
         {
             SetDataSource(layers?.Select(l => new FormattedMacroStabilityInwardsSoilLayerDataRow(l)).ToArray());
         }

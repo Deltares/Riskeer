@@ -35,14 +35,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
     internal static class MacroStabilityInwardsSoilProfileTransformer
     {
         /// <summary>
-        /// Transforms the generic <paramref name="soilProfile"/> into an <see cref="IMacroStabilityInwardsSoilProfile"/>.
+        /// Transforms the generic <paramref name="soilProfile"/> into an <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use in the transformation.</param>
-        /// <returns>A new <see cref="IMacroStabilityInwardsSoilProfile"/> based on the given data.</returns>
+        /// <returns>A new <see cref="IMacroStabilityInwardsSoilProfile{T}"/> based on the given data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
-        public static IMacroStabilityInwardsSoilProfile Transform(ISoilProfile soilProfile)
+        public static IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> Transform(ISoilProfile soilProfile)
         {
             if (soilProfile == null)
             {
