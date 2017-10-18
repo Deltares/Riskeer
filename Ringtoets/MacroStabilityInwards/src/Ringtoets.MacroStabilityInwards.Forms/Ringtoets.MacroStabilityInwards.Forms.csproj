@@ -38,8 +38,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -95,6 +97,12 @@
     <Compile Include="UITypeEditors\MacroStabilityInwardsInputContextSurfaceLineSelectionEditor.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactory.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactory.cs" />
+    <Compile Include="Views\MacroStabilityInwardsOutputView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsOutputView.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsOutputView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MacroStabilityInwardsScenarioRow.cs" />
     <Compile Include="Views\MacroStabilityInwardsScenariosView.cs">
       <SubType>UserControl</SubType>
@@ -213,6 +221,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsOutputView.resx">
+      <DependentUpon>MacroStabilityInwardsOutputView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MacroStabilityInwardsScenariosView.resx">
       <DependentUpon>MacroStabilityInwardsScenariosView.cs</DependentUpon>

@@ -104,6 +104,7 @@
     <Compile Include="Views\MacroStabilityInwardsCalculationRowTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Views\MacroStabilityInwardsOutputViewTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsScenariosViewTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataFactoryTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsInputViewTest.cs" />
