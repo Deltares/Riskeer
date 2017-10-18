@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
@@ -52,131 +49,46 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="layers">The collection of layers to show.</param>
         public void SetData(IEnumerable<IMacroStabilityInwardsSoilLayerData> layers)
         {
-            SetDataSource(layers?.Select(l => new FormattedMacroStabilityInwardsSoilLayerDataRow(l)).ToArray());
+            SetDataSource(layers?.Select(l => new MacroStabilityInwardsFormattedSoilLayerDataRow(l)).ToArray());
         }
 
         private void AddColumns()
         {
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.MaterialName),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.MaterialName),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_MaterialName,
                              true);
-            AddColorColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.Color),
+            AddColorColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Color),
                            Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Color);
-            AddCheckBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.IsAquifer),
+            AddCheckBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.IsAquifer),
                               Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_IsAquifer,
                               true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.AbovePhreaticLevel),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.AbovePhreaticLevel),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_AbovePhreaticLevel,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.BelowPhreaticLevel),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.BelowPhreaticLevel),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_BelowPhreaticLevel,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.ShearStrengthModel),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthModel,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.Cohesion),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Cohesion),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.FrictionAngle),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.FrictionAngle),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.ShearStrengthRatio),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthRatio),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_ShearStrengthRatio,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.StrengthIncreaseExponent),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.StrengthIncreaseExponent),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.UsePop),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.UsePop),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop,
                              true);
-            AddTextBoxColumn(nameof(FormattedMacroStabilityInwardsSoilLayerDataRow.Pop),
+            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Pop),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop,
                              true);
-        }
-
-        private static string FormatDesignVariable(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> distribution)
-        {
-            return $"{distribution.GetDesignValue()} ({RingtoetsCommonFormsResources.NormalDistribution_Mean_DisplayName} = {distribution.Distribution.Mean}, " +
-                   $"{RingtoetsCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {distribution.Distribution.CoefficientOfVariation})";
-        }
-
-        private class FormattedMacroStabilityInwardsSoilLayerDataRow
-        {
-            public FormattedMacroStabilityInwardsSoilLayerDataRow(IMacroStabilityInwardsSoilLayerData layerData)
-            {
-                MaterialName = layerData.MaterialName;
-                Color = layerData.Color;
-                IsAquifer = layerData.IsAquifer;
-                AbovePhreaticLevel = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData));
-                BelowPhreaticLevel = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData));
-                ShearStrengthModel = layerData.ShearStrengthModel;
-                Cohesion = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData));
-                FrictionAngle = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData));
-                ShearStrengthRatio = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData));
-                StrengthIncreaseExponent = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData));
-                UsePop = layerData.UsePop;
-                Pop = FormatDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerData));
-            }
-
-            /// <summary>
-            /// Gets a value indicating whether or not the <see cref="IMacroStabilityInwardsSoilLayerData"/> is an aquifer.
-            /// </summary>
-            public bool IsAquifer { get; }
-
-            /// <summary>
-            /// Gets the name of the material that was assigned to the <see cref="IMacroStabilityInwardsSoilLayerData"/>.
-            /// </summary>
-            public string MaterialName { get; }
-
-            /// <summary>
-            /// Gets the <see cref="Color"/> that was used to represent the <see cref="IMacroStabilityInwardsSoilLayerData"/>.
-            /// </summary>
-            public Color Color { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.AbovePhreaticLevel"/>.
-            /// </summary>
-            public string AbovePhreaticLevel { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.BelowPhreaticLevel"/>.
-            /// </summary>
-            public string BelowPhreaticLevel { get; }
-
-            /// <summary>
-            /// Gets the <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/> type.
-            /// </summary>
-            public MacroStabilityInwardsShearStrengthModel ShearStrengthModel { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.Cohesion"/>.
-            /// </summary>
-            public string Cohesion { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.FrictionAngle"/>.
-            /// </summary>
-            public string FrictionAngle { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthRatio"/>.
-            /// </summary>
-            public string ShearStrengthRatio { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.StrengthIncreaseExponent"/>.
-            /// </summary>
-            public string StrengthIncreaseExponent { get; }
-
-            /// <summary>
-            /// Gets a value indicating whether or not the <see cref="IMacroStabilityInwardsSoilLayerData"/> is using POP.
-            /// </summary>
-            public bool UsePop { get; }
-
-            /// <summary>
-            /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.Pop"/>.
-            /// </summary>
-            public string Pop { get; }
         }
     }
 }

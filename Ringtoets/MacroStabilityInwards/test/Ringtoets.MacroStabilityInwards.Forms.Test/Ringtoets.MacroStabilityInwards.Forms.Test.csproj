@@ -104,6 +104,7 @@
     <Compile Include="Views\MacroStabilityInwardsCalculationRowTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Views\MacroStabilityInwardsFormattedSoilLayerDataRowTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsOutputViewTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsScenariosViewTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataFactoryTest.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="Views\MacroStabilityInwardsCalculationsViewTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFailureMechanismViewTest.cs" />
-    <Compile Include="Views\MacroStabilityInwardsSoilLayerTableTest.cs" />
+    <Compile Include="Views\MacroStabilityInwardsSoilLayerDataTableTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

@@ -162,6 +162,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Data_SetToNull_TableDataCleared()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(
+                        0.1, new MacroStabilityInwardsSoilProfile1D(
+                            "profile",
+                            -1,
+                            new[]
+                            {
+                                new MacroStabilityInwardsSoilLayer1D(3.0),
+                                new MacroStabilityInwardsSoilLayer1D(2.0),
+                                new MacroStabilityInwardsSoilLayer1D(0)
+                            }))
+                }
+            };
+
+            using (var view = new MacroStabilityInwardsInputView
+            {
+                Data = calculation
+            })
+            {
+                var tableControl = view.Controls.Find("soilLayerDataTable", true).First() as MacroStabilityInwardsSoilLayerDataTable;
+
+                // Precondition
+                Assert.NotNull(tableControl);
+                Assert.AreEqual(3, tableControl.Rows.Count);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
+                CollectionAssert.IsEmpty(tableControl.Rows);
+            }
+        }
+
+        [Test]
         public void Data_WithSurfaceLineAndSoilProfile1D_DataUpdatedToCollectionOfFilledChartData()
         {
             // Setup
@@ -598,6 +639,59 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 AssertGridPoints(input.LeftGrid, actualLeftGridData.Points);
                 AssertGridPoints(input.RightGrid, actualRightGridData.Points);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithStochasticSoilProfile_WhenStochasticSoilProfileUpdated_ThenDataTableUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.5,
+                                                                                               new MacroStabilityInwardsSoilProfile1D(
+                                                                                                   "profile 1D",
+                                                                                                   -1,
+                                                                                                   new[]
+                                                                                                   {
+                                                                                                       new MacroStabilityInwardsSoilLayer1D(1)
+                                                                                                   })),
+                        SurfaceLine = GetSurfaceLineWithGeometry()
+                    }
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreEqual(1, soilLayerDataTable.Rows.Count);
+
+                // When
+                calculation.InputParameters.Attach(observer);
+                calculation.InputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.5,
+                                                                                                                   new MacroStabilityInwardsSoilProfile1D(
+                                                                                                                       "new profile 1D",
+                                                                                                                       -1,
+                                                                                                                       new[]
+                                                                                                                       {
+                                                                                                                           new MacroStabilityInwardsSoilLayer1D(3),
+                                                                                                                           new MacroStabilityInwardsSoilLayer1D(4)
+                                                                                                                       }));
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(2, soilLayerDataTable.Rows.Count);
+                mocks.VerifyAll();
             }
         }
 

@@ -183,6 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void UpdateViewData()
         {
             UpdateChartData();
+            UpdateTableData();
         }
 
         private void UpdateChartData()

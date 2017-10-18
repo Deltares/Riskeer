@@ -1011,6 +1011,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} (Verwachtingswaarde = {1}, Standaardafwijking = {2}).
+        /// </summary>
+        public static string DesignVariable_0_Mean_is_1_StandardDeviation_is_2 {
+            get {
+                return ResourceManager.GetString("DesignVariable_0_Mean_is_1_StandardDeviation_is_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De representatieve waarde die gebruikt wordt door de berekening..
         /// </summary>
         public static string DesignVariableProperties_DesignValue_Description {
@@ -3418,6 +3427,15 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ValidateIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (Verwachtingswaarde = {1}, Variatiecoëfficiënt = {2}).
+        /// </summary>
+        public static string VariationCoefficientDesignVariable_0_Mean_is_1_CoefficientOfVariation_is_2 {
+            get {
+                return ResourceManager.GetString("VariationCoefficientDesignVariable_0_Mean_is_1_CoefficientOfVariation_is_2", resourceCulture);
             }
         }
         

@@ -34,7 +34,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilLayerTableTest
+    public class MacroStabilityInwardsSoilLayerDataTableTest
     {
         private const int nameColumnIndex = 0;
         private const int colorColumnIndex = 1;
@@ -219,7 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 var expectedDesignVariable = (VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution>) expectedValue;
                 string expectedFormattedDesignVariable = $"{expectedDesignVariable.GetDesignValue()} (Verwachtingswaarde = {expectedDesignVariable.Distribution.Mean}, " +
-                                                         $"Standaardafwijking = {expectedDesignVariable.Distribution.CoefficientOfVariation})";
+                                                         $"Variatiecoëfficiënt = {expectedDesignVariable.Distribution.CoefficientOfVariation})";
                 Assert.AreEqual(expectedFormattedDesignVariable, actualValue);
             }
             else

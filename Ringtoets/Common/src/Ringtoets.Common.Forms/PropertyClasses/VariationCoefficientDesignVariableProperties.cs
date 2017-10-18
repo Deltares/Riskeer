@@ -65,8 +65,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{DesignValue} ({Resources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
-                   $"{Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
+            return string.Format(Resources.VariationCoefficientDesignVariable_0_Mean_is_1_CoefficientOfVariation_is_2,
+                                 DesignValue,
+                                 Mean,
+                                 CoefficientOfVariation);
         }
 
         /// <summary>
