@@ -75,7 +75,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context, new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
-            yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputContextProperties>();
+            yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputContextProperties>
+            {
+                CreateInstance = context => new MacroStabilityInwardsOutputContextProperties(context.WrappedData.SemiProbabilisticOutput)
+            };
             yield return new PropertyInfo<MacroStabilityInwardsSurfaceLinesContext, MacroStabilityInwardsSurfaceLineCollectionProperties>
             {
                 CreateInstance = context => new MacroStabilityInwardsSurfaceLineCollectionProperties(context.WrappedData)

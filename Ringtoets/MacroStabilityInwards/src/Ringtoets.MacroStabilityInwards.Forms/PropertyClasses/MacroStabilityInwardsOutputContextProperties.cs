@@ -19,20 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="MacroStabilityInwardsOutputContext"/> for properties panel.
+    /// ViewModel of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsOutputContextProperties : ObjectProperties<MacroStabilityInwardsOutputContext>
+    public class MacroStabilityInwardsOutputContextProperties : ObjectProperties<MacroStabilityInwardsSemiProbabilisticOutput>
     {
         private const int macroStabilityInwardsFactorOfStabilityIndex = 1;
         private const int requiredProbabilityIndex = 2;
@@ -40,6 +41,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int macroStabilityInwardsProbabilityIndex = 4;
         private const int macroStabilityInwardsReliabilityIndex = 5;
         private const int macroStabilityInwardsFactorOfSafetyIndex = 6;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsOutputContextProperties"/>.
+        /// </summary>
+        /// <param name="output">The semi probabilistic output to create the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// is <c>null</c>.</exception>
+        public MacroStabilityInwardsOutputContextProperties(MacroStabilityInwardsSemiProbabilisticOutput output)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
+            }
+            Data = output;
+        }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_FactorOfStability_DisplayName))]
@@ -49,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SemiProbabilisticOutput.FactorOfStability;
+                return data.FactorOfStability;
             }
         }
 
@@ -61,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.SemiProbabilisticOutput.RequiredProbability);
+                return ProbabilityFormattingHelper.Format(data.RequiredProbability);
             }
         }
 
@@ -73,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SemiProbabilisticOutput.RequiredReliability;
+                return data.RequiredReliability;
             }
         }
 
@@ -85,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.SemiProbabilisticOutput.MacroStabilityInwardsProbability);
+                return ProbabilityFormattingHelper.Format(data.MacroStabilityInwardsProbability);
             }
         }
 
@@ -97,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SemiProbabilisticOutput.MacroStabilityInwardsReliability;
+                return data.MacroStabilityInwardsReliability;
             }
         }
 
@@ -109,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.SemiProbabilisticOutput.MacroStabilityInwardsFactorOfSafety;
+                return data.MacroStabilityInwardsFactorOfSafety;
             }
         }
     }
