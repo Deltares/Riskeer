@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.TestUtil.Geometry;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
@@ -36,7 +38,27 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AssertClones(MacroStabilityInwardsSemiProbabilisticOutput original,
+        public static void AreClones(MacroStabilityInwardsSlidingCircle original,
+                                        MacroStabilityInwardsSlidingCircle clone)
+        {
+            CoreCloneAssert.AreObjectClones(original.Center, clone.Center, GeometryCloneAssert.AreClones);
+            Assert.AreEqual(original.Radius, clone.Radius);
+            Assert.AreEqual(original.IsActive, clone.IsActive);
+            Assert.AreEqual(original.NonIteratedForce, clone.NonIteratedForce);
+            Assert.AreEqual(original.IteratedForce, clone.IteratedForce);
+            Assert.AreEqual(original.DrivingMoment, clone.DrivingMoment);
+            Assert.AreEqual(original.ResistingMoment, clone.ResistingMoment);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsSemiProbabilisticOutput original,
                                         MacroStabilityInwardsSemiProbabilisticOutput clone)
         {
             Assert.AreEqual(original.FactorOfStability, clone.FactorOfStability);

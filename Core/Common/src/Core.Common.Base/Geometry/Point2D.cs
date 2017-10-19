@@ -62,12 +62,12 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
-        /// Gets or sets the x coordinate.
+        /// Gets the x coordinate.
         /// </summary>
         public double X { get; }
 
         /// <summary>
-        /// Gets or sets the y coordinate.
+        /// Gets the y coordinate.
         /// </summary>
         public double Y { get; }
 

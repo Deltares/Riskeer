@@ -21,8 +21,10 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -57,6 +59,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var circle = new MacroStabilityInwardsSlidingCircle(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(circle);
+
             Assert.AreEqual(center, circle.Center);
             Assert.AreEqual(radius, circle.Radius);
             Assert.AreEqual(isActive, circle.IsActive);
@@ -64,6 +68,28 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(iteratedForce, circle.IteratedForce);
             Assert.AreEqual(drivingMoment, circle.DrivingMoment);
             Assert.AreEqual(resistingMoment, circle.ResistingMoment);
+        }
+
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(11);
+            var center = new Point2D(random.NextDouble(), random.NextDouble());
+            double radius = random.NextDouble();
+            bool isActive = random.NextBoolean();
+            double nonIteratedForce = random.NextDouble();
+            double iteratedForce = random.NextDouble();
+            double drivingMoment = random.NextDouble();
+            double resistingMoment = random.NextDouble();
+            var original = new MacroStabilityInwardsSlidingCircle(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment); 
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

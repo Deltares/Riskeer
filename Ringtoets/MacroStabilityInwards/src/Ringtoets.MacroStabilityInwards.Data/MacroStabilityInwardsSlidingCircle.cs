@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// The macro stability inwards sliding circle.
     /// </summary>
-    public class MacroStabilityInwardsSlidingCircle
+    public class MacroStabilityInwardsSlidingCircle : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSlidingCircle"/>.
@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the center coordinate of the circle.
         /// </summary>
-        public Point2D Center { get; }
+        public Point2D Center { get; internal set; }
 
         /// <summary>
         /// Gets the radius of the circle.
@@ -93,5 +93,13 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets the resisting moment of the circle.
         /// </summary>
         public double ResistingMoment { get; }
+
+        public object Clone()
+        {
+            var clone = (MacroStabilityInwardsSlidingCircle) MemberwiseClone();
+            clone.Center = (Point2D) Center.Clone();
+
+            return clone;
+        }
     }
 }

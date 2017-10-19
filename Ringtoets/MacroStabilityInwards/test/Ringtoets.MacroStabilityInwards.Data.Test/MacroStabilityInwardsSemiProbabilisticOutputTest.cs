@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             object clone = output.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(output, clone, MacroStabilityInwardsCloneAssert.AssertClones);
+            CoreCloneAssert.AreObjectClones(output, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }
