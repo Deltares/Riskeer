@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
@@ -78,21 +80,36 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             MacroStabilityInwardsGrid leftGrid = MacroStabilityInwardsGridTestFactory.Create();
             MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
-            var tangentLines = new[]
-            {
-                0,
-                1,
-                1.5,
-                2
-            };
+            IEnumerable<double> tangentLines = Enumerable.Empty<double>();
 
             // Call
             var result = new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, tangentLines);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(result);
+
             Assert.AreSame(leftGrid, result.LeftGrid);
             Assert.AreSame(rightGrid, result.RightGrid);
             Assert.AreSame(tangentLines, result.TangentLines);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
+                                                                       MacroStabilityInwardsGridTestFactory.Create(),
+                                                                       new[]
+                                                                       {
+                                                                           random.NextDouble()
+                                                                       });
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

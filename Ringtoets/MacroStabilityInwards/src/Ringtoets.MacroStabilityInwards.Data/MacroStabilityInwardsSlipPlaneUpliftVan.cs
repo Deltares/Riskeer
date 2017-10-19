@@ -21,13 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
     /// The Uplift Van calculation grid of a macro stability calculation.
     /// </summary>
-    public class MacroStabilityInwardsSlipPlaneUpliftVan
+    public class MacroStabilityInwardsSlipPlaneUpliftVan : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSlipPlaneUpliftVan"/>.
@@ -61,16 +62,26 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the left grid result.
         /// </summary>
-        public MacroStabilityInwardsGrid LeftGrid { get; }
+        public MacroStabilityInwardsGrid LeftGrid { get; private set; }
 
         /// <summary>
         /// Gets the right grid result.
         /// </summary>
-        public MacroStabilityInwardsGrid RightGrid { get; }
+        public MacroStabilityInwardsGrid RightGrid { get; private set; }
 
         /// <summary>
         /// Gets the tangent lines result.
         /// </summary>
-        public IEnumerable<double> TangentLines { get; }
+        public IEnumerable<double> TangentLines { get; private set; }
+
+        public object Clone()
+        {
+            var clone = (MacroStabilityInwardsSlipPlaneUpliftVan) MemberwiseClone();
+            clone.LeftGrid = (MacroStabilityInwardsGrid) LeftGrid.Clone();
+            clone.RightGrid = (MacroStabilityInwardsGrid) RightGrid.Clone();
+            clone.TangentLines = TangentLines.ToArray();
+
+            return clone;
+        }
     }
 }
