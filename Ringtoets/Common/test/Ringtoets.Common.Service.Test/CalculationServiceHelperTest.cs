@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogMessagesAsErrorWithFormat_WithFormatAndErrorMessages_LogsMessagesInGivenFormat()
+        public void LogMessagesAsErrorWithFormat_WithFormatAndErrorMessages_LogsMessagesAsErrorsInGivenFormat()
         {
             // Setup
             const string format = "Message: {0}";
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogMessagesAsErrorWithoutFormat_WithFormatAndErrorMessages_LogsMessagesInGivenFormat()
+        public void LogMessagesAsErrorWithoutFormat_WithErrorMessages_LogsMessagesAsErrors()
         {
             // Setup
             var errorMessages = new[]
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void LogMessagesAsWarning_WithFormatAndWarningMessages_LogsMessagesInGivenFormat()
+        public void LogMessagesAsWarning_WithWarningMessages_LogsMessagesAsWarnings()
         {
             // Setup
             var warningMessages = new[]
