@@ -206,8 +206,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
 
                 string result = wtiStabilityCalculation.Validate();
-                ValidationResult[] deserializedResult = WTIDeserializer.DeserializeValidation(result);
-                return deserializedResult;
+
+                return WTIDeserializer.DeserializeValidation(result);
             }
             catch (Exception e)
             {

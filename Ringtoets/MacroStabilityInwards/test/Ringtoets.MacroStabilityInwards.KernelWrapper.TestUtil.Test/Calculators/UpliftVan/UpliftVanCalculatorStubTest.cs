@@ -43,6 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.Output);
             Assert.IsFalse(calculator.ThrowExceptionOnCalculate);
+            Assert.IsFalse(calculator.ThrowExceptionOnValidate);
             Assert.IsFalse(calculator.ReturnValidationWarning);
             Assert.IsFalse(calculator.ReturnValidationError);
         }

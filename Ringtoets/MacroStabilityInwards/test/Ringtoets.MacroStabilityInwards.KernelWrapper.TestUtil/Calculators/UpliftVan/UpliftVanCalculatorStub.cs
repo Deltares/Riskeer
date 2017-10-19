@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         public UpliftVanCalculatorInput Input { get; set; }
 
         /// <summary>
-        /// Gets or sets the Uplift Van calculator output.
+        /// Gets the Uplift Van calculator output.
         /// </summary>
         public UpliftVanCalculatorResult Output { get; private set; }
 

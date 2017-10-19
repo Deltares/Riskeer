@@ -194,7 +194,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
-        private UpliftVanKernelWrapper CreateInvalidKernel(Soil soil)
+        private static UpliftVanKernelWrapper CreateInvalidKernel(Soil soil)
         {
             var point1 = new Point2D(0, 0);
             var point2 = new Point2D(1, 1);

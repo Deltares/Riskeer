@@ -102,27 +102,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
         }
 
         [Test]
-        public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
-        {
-            // Setup
-            var calculator = new UpliftVanKernelStub
-            {
-                ReturnValidationResults = true
-            };
-
-            // Call
-            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
-
-            // Assert
-            Assert.IsTrue(calculator.Validated);
-            Assert.AreEqual(4, results.Count());
-            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results.ElementAt(0));
-            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results.ElementAt(1));
-            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results.ElementAt(2));
-            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results.ElementAt(3));
-        }
-
-        [Test]
         public void Validate_ThrowExceptionOnValidateTrue_ThrowsUpliftVanKernelWrapperException()
         {
             // Setup
@@ -144,7 +123,45 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             Assert.IsFalse(kernel.Validated);
         }
 
-        private void AssertValidationResult(IValidationResult expected, IValidationResult actual)
+        [Test]
+        public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
+        {
+            // Setup
+            var calculator = new UpliftVanKernelStub
+            {
+                ReturnValidationResults = true
+            };
+
+            // Call
+            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
+
+            // Assert
+            Assert.IsTrue(calculator.Validated);
+            Assert.AreEqual(4, results.Count());
+            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results.ElementAt(0));
+            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results.ElementAt(1));
+            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results.ElementAt(2));
+            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results.ElementAt(3));
+        }
+
+        [Test]
+        public void Validate_ReturnValidationResultsFalse_ReturnsNoValidationResults()
+        {
+            // Setup
+            var calculator = new UpliftVanKernelStub
+            {
+                ReturnValidationResults = false
+            };
+
+            // Call
+            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
+
+            // Assert
+            Assert.IsTrue(calculator.Validated);
+            Assert.AreEqual(0, results.Count());
+        }
+
+        private static void AssertValidationResult(IValidationResult expected, IValidationResult actual)
         {
             Assert.AreEqual(expected.MessageType, actual.MessageType);
             Assert.AreEqual(expected.Text, actual.Text);
