@@ -188,6 +188,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     DrainageConstructionPresent = random.NextBoolean(),
                     XCoordinateDrainageConstruction = random.NextRoundedDouble(),
                     ZCoordinateDrainageConstruction = random.NextRoundedDouble(),
+                    MinimumLevelPhreaticLineAtDikeTopRiver = random.NextRoundedDouble(),
+                    MinimumLevelPhreaticLineAtDikeTopPolder = random.NextRoundedDouble(),
                     LocationInputExtreme =
                     {
                         WaterLevelPolder = random.NextRoundedDouble(),

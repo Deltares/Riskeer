@@ -38,6 +38,69 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsInput original,
+                                     MacroStabilityInwardsInput clone)
+        {
+            Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
+            Assert.AreSame(original.StochasticSoilModel, clone.StochasticSoilModel);
+            Assert.AreSame(original.StochasticSoilProfile, clone.StochasticSoilProfile);
+            Assert.AreSame(original.SurfaceLine, clone.SurfaceLine);
+
+            Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
+            Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
+
+            Assert.AreEqual(original.SlipPlaneMinimumDepth, clone.SlipPlaneMinimumDepth);
+            Assert.AreEqual(original.SlipPlaneMinimumLength, clone.SlipPlaneMinimumLength);
+            Assert.AreEqual(original.MaximumSliceWidth, clone.MaximumSliceWidth);
+
+            Assert.AreEqual(original.MoveGrid, clone.MoveGrid);
+            Assert.AreEqual(original.DikeSoilScenario, clone.DikeSoilScenario);
+
+            Assert.AreEqual(original.WaterLevelRiverAverage, clone.WaterLevelRiverAverage);
+
+            Assert.AreEqual(original.DrainageConstructionPresent, clone.DrainageConstructionPresent);
+            Assert.AreEqual(original.XCoordinateDrainageConstruction, clone.XCoordinateDrainageConstruction);
+            Assert.AreEqual(original.ZCoordinateDrainageConstruction, clone.ZCoordinateDrainageConstruction);
+
+            Assert.AreEqual(original.MinimumLevelPhreaticLineAtDikeTopRiver, clone.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(original.MinimumLevelPhreaticLineAtDikeTopPolder, clone.MinimumLevelPhreaticLineAtDikeTopPolder);
+
+            CoreCloneAssert.AreObjectClones((MacroStabilityInwardsLocationInputExtreme) original.LocationInputExtreme,
+                                            clone.LocationInputExtreme,
+                                            AreClones);
+            CoreCloneAssert.AreObjectClones((MacroStabilityInwardsLocationInputDaily) original.LocationInputDaily,
+                                            clone.LocationInputDaily,
+                                            AreClones);
+
+            Assert.AreEqual(original.AdjustPhreaticLine3And4ForUplift, clone.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreEqual(original.LeakageLengthOutwardsPhreaticLine3, clone.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(original.LeakageLengthInwardsPhreaticLine3, clone.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(original.LeakageLengthOutwardsPhreaticLine4, clone.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(original.LeakageLengthInwardsPhreaticLine4, clone.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(original.PiezometricHeadPhreaticLine2Outwards, clone.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(original.PiezometricHeadPhreaticLine2Inwards, clone.PiezometricHeadPhreaticLine2Inwards);
+
+            Assert.AreEqual(original.GridDeterminationType, clone.GridDeterminationType);
+            Assert.AreEqual(original.TangentLineDeterminationType, clone.TangentLineDeterminationType);
+
+            Assert.AreEqual(original.TangentLineZTop, clone.TangentLineZTop);
+            Assert.AreEqual(original.TangentLineZBottom, clone.TangentLineZBottom);
+            Assert.AreEqual(original.TangentLineNumber, clone.TangentLineNumber);
+
+            CoreCloneAssert.AreObjectClones(original.LeftGrid, clone.LeftGrid, AreClones);
+            CoreCloneAssert.AreObjectClones(original.RightGrid, clone.RightGrid, AreClones);
+
+            Assert.AreEqual(original.CreateZones, clone.CreateZones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(MacroStabilityInwardsLocationInputBase original,
                                      MacroStabilityInwardsLocationInputBase clone)
         {
@@ -60,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static void AreClones(MacroStabilityInwardsLocationInputExtreme original,
                                      MacroStabilityInwardsLocationInputExtreme clone)
         {
-            AreClones((MacroStabilityInwardsLocationInputBase)original, clone);
+            AreClones((MacroStabilityInwardsLocationInputBase) original, clone);
             Assert.AreEqual(original.PenetrationLength, clone.PenetrationLength);
         }
 
@@ -75,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static void AreClones(MacroStabilityInwardsLocationInputDaily original,
                                      MacroStabilityInwardsLocationInputDaily clone)
         {
-            AreClones((MacroStabilityInwardsLocationInputBase)original, clone);
+            AreClones((MacroStabilityInwardsLocationInputBase) original, clone);
             Assert.AreEqual(original.PenetrationLength, clone.PenetrationLength);
         }
 

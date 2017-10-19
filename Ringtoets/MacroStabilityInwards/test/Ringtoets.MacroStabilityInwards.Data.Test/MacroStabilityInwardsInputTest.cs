@@ -20,15 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -44,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var inputParameters = new MacroStabilityInwardsInput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(inputParameters);
+            Assert.IsInstanceOf<CloneableObservable>(inputParameters);
             Assert.IsInstanceOf<ICalculationInput>(inputParameters);
             Assert.IsInstanceOf<IMacroStabilityInwardsWaternetInput>(inputParameters);
 
@@ -430,6 +433,103 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(tangentLineNumber, inputParameters.TangentLineNumber);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 1, 1)
+            });
+
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
+
+            // Precondition
+            Assert.IsNotNull(stochasticSoilProfile);
+
+            var original = new MacroStabilityInwardsInput
+            {
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                StochasticSoilModel = stochasticSoilModel,
+                StochasticSoilProfile = stochasticSoilProfile,
+                SurfaceLine = surfaceLine,
+                UseAssessmentLevelManualInput = true,
+                AssessmentLevel = random.NextRoundedDouble(),
+                SlipPlaneMinimumDepth = random.NextRoundedDouble(),
+                SlipPlaneMinimumLength = random.NextRoundedDouble(),
+                MaximumSliceWidth = random.NextRoundedDouble(),
+                MoveGrid = random.NextBoolean(),
+                DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
+                WaterLevelRiverAverage = random.NextRoundedDouble(),
+                DrainageConstructionPresent = random.NextBoolean(),
+                XCoordinateDrainageConstruction = random.NextRoundedDouble(),
+                ZCoordinateDrainageConstruction = random.NextRoundedDouble(),
+                MinimumLevelPhreaticLineAtDikeTopRiver = random.NextRoundedDouble(),
+                MinimumLevelPhreaticLineAtDikeTopPolder = random.NextRoundedDouble(),
+                LocationInputExtreme =
+                {
+                    WaterLevelPolder = random.NextRoundedDouble(),
+                    UseDefaultOffsets = random.NextBoolean(),
+                    PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
+                    PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble(),
+                    PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble(),
+                    PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble(),
+                    PenetrationLength = random.NextRoundedDouble()
+                },
+                LocationInputDaily =
+                {
+                    WaterLevelPolder = random.NextRoundedDouble(),
+                    UseDefaultOffsets = random.NextBoolean(),
+                    PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
+                    PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble(),
+                    PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble(),
+                    PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble()
+                },
+                AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
+                LeakageLengthOutwardsPhreaticLine3 = random.NextRoundedDouble(),
+                LeakageLengthInwardsPhreaticLine3 = random.NextRoundedDouble(),
+                LeakageLengthOutwardsPhreaticLine4 = random.NextRoundedDouble(),
+                LeakageLengthInwardsPhreaticLine4 = random.NextRoundedDouble(),
+                PiezometricHeadPhreaticLine2Outwards = random.NextRoundedDouble(),
+                PiezometricHeadPhreaticLine2Inwards = random.NextRoundedDouble(),
+                GridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>(),
+                TangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>(),
+                TangentLineZTop = random.NextRoundedDouble(),
+                TangentLineZBottom = random.NextRoundedDouble(),
+                TangentLineNumber = random.Next(1, 50),
+                LeftGrid =
+                {
+                    XLeft = random.NextRoundedDouble(),
+                    XRight = random.NextRoundedDouble(),
+                    NumberOfHorizontalPoints = random.Next(),
+                    ZTop = random.NextRoundedDouble(),
+                    ZBottom = random.NextRoundedDouble(),
+                    NumberOfVerticalPoints = random.Next()
+                },
+                RightGrid =
+                {
+                    XLeft = random.NextRoundedDouble(),
+                    XRight = random.NextRoundedDouble(),
+                    NumberOfHorizontalPoints = random.Next(),
+                    ZTop = random.NextRoundedDouble(),
+                    ZBottom = random.NextRoundedDouble(),
+                    NumberOfVerticalPoints = random.Next()
+                },
+                CreateZones = random.NextBoolean()
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

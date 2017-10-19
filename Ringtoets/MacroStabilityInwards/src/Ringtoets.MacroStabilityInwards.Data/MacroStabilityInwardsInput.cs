@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Class that holds all macro stability inwards calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class MacroStabilityInwardsInput : Observable, ICalculationInput, IMacroStabilityInwardsWaternetInput
+    public class MacroStabilityInwardsInput : CloneableObservable, ICalculationInput, IMacroStabilityInwardsWaternetInput
     {
         private static readonly Range<int> tangentLineNumberValidityRange = new Range<int>(1, 50);
 
@@ -356,12 +356,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the left grid.
         /// </summary>
-        public MacroStabilityInwardsGrid LeftGrid { get; }
+        public MacroStabilityInwardsGrid LeftGrid { get; private set; }
 
         /// <summary>
         /// Gets the right grid.
         /// </summary>
-        public MacroStabilityInwardsGrid RightGrid { get; }
+        public MacroStabilityInwardsGrid RightGrid { get; private set; }
 
         #endregion
 
@@ -558,9 +558,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        public IMacroStabilityInwardsLocationInputExtreme LocationInputExtreme { get; }
+        public IMacroStabilityInwardsLocationInputExtreme LocationInputExtreme { get; private set; }
 
-        public IMacroStabilityInwardsLocationInputDaily LocationInputDaily { get; }
+        public IMacroStabilityInwardsLocationInputDaily LocationInputDaily { get; private set; }
 
         /// <summary>
         /// Gets or sets whether zones should be created.
@@ -579,5 +579,15 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         #endregion
+
+        public override object Clone()
+        {
+            var clone = (MacroStabilityInwardsInput)base.Clone();
+            clone.LocationInputExtreme = (IMacroStabilityInwardsLocationInputExtreme) ((MacroStabilityInwardsLocationInputExtreme) LocationInputExtreme).Clone();
+            clone.LocationInputDaily = (IMacroStabilityInwardsLocationInputDaily) ((MacroStabilityInwardsLocationInputDaily) LocationInputDaily).Clone();
+            clone.LeftGrid = (MacroStabilityInwardsGrid) LeftGrid.Clone();
+            clone.RightGrid = (MacroStabilityInwardsGrid) RightGrid.Clone();
+            return clone;
+        }
     }
 }
