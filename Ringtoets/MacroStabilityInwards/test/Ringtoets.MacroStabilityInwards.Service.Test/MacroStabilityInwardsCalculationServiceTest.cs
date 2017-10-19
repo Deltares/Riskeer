@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_InvalidCalculationWithOutput_ReturnsFalseNoOutputChange()
         {
             // Setup
-            var output = new TestMacroStabilityInwardsOutput();
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
             MacroStabilityInwardsCalculation invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = output;
 
@@ -390,7 +390,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_ValidCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
-            var output = new TestMacroStabilityInwardsOutput();
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             testCalculation.Output = output;
 

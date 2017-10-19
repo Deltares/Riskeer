@@ -884,7 +884,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 if (useCalculationWithOutput)
                 {
-                    calculation.Output = new TestMacroStabilityInwardsOutput();
+                    calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 }
 
                 calculation.Attach(calculationObserver);
@@ -944,7 +944,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 if (useCalculationWithOutput)
                 {
-                    calculation.Output = new TestMacroStabilityInwardsOutput();
+                    calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 }
 
                 calculation.Attach(calculationObserver);

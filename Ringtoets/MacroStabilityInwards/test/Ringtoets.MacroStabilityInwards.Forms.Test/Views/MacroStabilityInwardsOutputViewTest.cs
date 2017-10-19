@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
 
                 MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculation.Output = new TestMacroStabilityInwardsOutput();
+                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
                 // Call
                 view.Data = calculation;
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            calculation.Output = new TestMacroStabilityInwardsOutput();
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
 
                 MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculation.Output = new TestMacroStabilityInwardsOutput();
+                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
                 view.Data = calculation;
 
@@ -209,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsNull(chartControl.Data);
 
                 // When
-                calculation.Output = new TestMacroStabilityInwardsOutput();
+                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 calculation.NotifyObservers();
 
                 // Then

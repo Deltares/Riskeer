@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput(),
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                 SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(expectedProbability)
             };
 
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput(),
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                 SemiProbabilisticOutput = null
             };
 
@@ -146,7 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput(),
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                 SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(double.NaN)
             };
 
@@ -165,7 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput(),
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                 SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(expectedProbability)
             };
 

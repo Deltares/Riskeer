@@ -82,8 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Run_InvalidMacroStabilityInwardsCalculationWithOutput_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            var originalOutput = new TestMacroStabilityInwardsOutput();
-            var originalSemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
+            MacroStabilityInwardsOutput originalOutput = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            MacroStabilityInwardsSemiProbabilisticOutput originalSemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
 
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;

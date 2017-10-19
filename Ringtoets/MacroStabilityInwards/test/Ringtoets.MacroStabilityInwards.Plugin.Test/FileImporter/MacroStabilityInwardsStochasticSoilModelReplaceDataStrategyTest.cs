@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var calculation = new MacroStabilityInwardsCalculationScenario();
             calculation.InputParameters.StochasticSoilModel = existingModel;
             calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
-            calculation.Output = new TestMacroStabilityInwardsOutput();
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);

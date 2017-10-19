@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call

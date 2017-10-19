@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 random.NextDouble(),
                 random.NextDouble());
 
-            scenario.Output = new TestMacroStabilityInwardsOutput();
+            scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             return scenario;
         }

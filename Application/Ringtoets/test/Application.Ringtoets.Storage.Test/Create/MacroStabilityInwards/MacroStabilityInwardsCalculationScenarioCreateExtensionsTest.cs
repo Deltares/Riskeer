@@ -393,7 +393,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             var registry = new PersistenceRegistry();

@@ -282,12 +282,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            TestMacroStabilityInwardsOutput assignedOutput = null;
+            MacroStabilityInwardsOutput assignedOutput = null;
 
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             if (hasOutput)
             {
-                assignedOutput = new TestMacroStabilityInwardsOutput();
+                assignedOutput = MacroStabilityInwardsOutputTestFactory.CreateOutput();
             }
             calculation.Output = assignedOutput;
 

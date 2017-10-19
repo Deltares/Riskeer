@@ -189,7 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput(),
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                 SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             });
 
@@ -313,7 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput(),
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                 SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             });
 
@@ -917,12 +917,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 MacroStabilityInwardsCalculationScenario calculation1 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation1.Name = "A";
-                calculation1.Output = new TestMacroStabilityInwardsOutput();
+                calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 calculation1.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
                 calculation1.Attach(calculation1Observer);
                 MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation2.Name = "B";
-                calculation2.Output = new TestMacroStabilityInwardsOutput();
+                calculation2.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 calculation2.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
                 calculation2.Attach(calculation2Observer);
 

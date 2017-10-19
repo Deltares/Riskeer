@@ -1293,7 +1293,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             CreateZones = false
                         },
-                        Output = new TestMacroStabilityInwardsOutput(),
+                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
                         SemiProbabilisticOutput = new MacroStabilityInwardsSemiProbabilisticOutput(1, 0.7, 8.8, 0.9,
                                                                                                    10.10, 11.11)
                     }

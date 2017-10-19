@@ -25,22 +25,25 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestMacroStabilityInwardsOutputTest
+    public class MacroStabilityInwardsOutputTestFactoryTest
     {
         [Test]
-        public void ParameterlessConstructor_ExpectedValues()
+        public void CreateOutput_WithoutParameters_ReturnsOutputWithExpectedProperties()
         {
             // Call
-            var output = new TestMacroStabilityInwardsOutput();
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Assert
+            Assert.IsNotNull(output);
+            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
+
             Assert.IsInstanceOf<MacroStabilityInwardsOutput>(output);
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
         }
 
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void CreateOutput_WithParameters_ReturnsOutputWithExpectedProperties()
         {
             // Setup
             var random = new Random(11);
@@ -58,10 +61,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             };
 
             // Call
-            var output = new TestMacroStabilityInwardsOutput(properties);
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput(properties);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsOutput>(output);
+            Assert.IsNotNull(output);
+            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
+
             Assert.AreEqual(factorOfStability, output.FactorOfStability);
             Assert.AreEqual(zValue, output.ZValue);
             Assert.AreEqual(forbiddenZonesXEntryMax, output.ForbiddenZonesXEntryMax);

@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
 
                 // Execute the first calculation and ensure the data grid view is updated
                 const double probability = 1.0 / 31846382.0;
-                calculation1.Output = new TestMacroStabilityInwardsOutput();
+                calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 calculation1.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(probability);
                 calculation1.NotifyObservers();
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0 / calculation1.Probability),

@@ -64,7 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segment2DLoopCollectionHelperTest.cs" />
     <Compile Include="TestMacroStabilityInwardsFailureMechanismTest.cs" />
-    <Compile Include="TestMacroStabilityInwardsOutputTest.cs" />
+    <Compile Include="MacroStabilityInwardsOutputTestFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

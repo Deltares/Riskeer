@@ -177,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.UpdateInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculationWithOutput = new MacroStabilityInwardsCalculationScenario
             {
-                Output = new TestMacroStabilityInwardsOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 

@@ -190,7 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 {
                     SurfaceLine = existingSurfaceLine
                 },
-                Output = new TestMacroStabilityInwardsOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
