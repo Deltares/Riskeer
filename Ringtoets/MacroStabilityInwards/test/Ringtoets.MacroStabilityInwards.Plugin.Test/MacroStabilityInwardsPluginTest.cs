@@ -140,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, viewInfos.Length);
+                Assert.AreEqual(6, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -170,6 +170,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                     typeof(MacroStabilityInwardsScenariosContext),
                     typeof(CalculationGroup),
                     typeof(MacroStabilityInwardsScenariosView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsOutputContext),
+                    typeof(MacroStabilityInwardsCalculationScenario),
+                    typeof(MacroStabilityInwardsOutputView));
             }
         }
 

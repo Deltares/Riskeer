@@ -132,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutputTrue_ReturnControlText()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput()
             };
@@ -148,7 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutputFalse_ReturnGrayText()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             Color color = info.ForeColor(new MacroStabilityInwardsOutputContext(calculation));

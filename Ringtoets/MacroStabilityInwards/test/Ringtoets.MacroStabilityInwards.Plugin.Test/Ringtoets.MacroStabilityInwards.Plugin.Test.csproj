@@ -106,6 +106,7 @@
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsOutputViewTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsScenariosViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +161,10 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Plugin.TestUtil\Ringtoets.Common.Plugin.TestUtil.csproj">
+      <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
+      <Name>Ringtoets.Common.Plugin.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>

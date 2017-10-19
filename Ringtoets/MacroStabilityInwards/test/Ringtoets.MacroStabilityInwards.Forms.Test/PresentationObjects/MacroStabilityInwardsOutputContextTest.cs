@@ -33,13 +33,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void Constructor_WithOutputParameters_PropertiesSet()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             var context = new MacroStabilityInwardsOutputContext(calculation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculation>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculationScenario>>(context);
             Assert.AreSame(calculation, context.WrappedData);
         }
     }

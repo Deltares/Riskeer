@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var output = new TestMacroStabilityInwardsOutput(new MacroStabilityInwardsOutput.ConstructionProperties());
 
-            var calculation = new MacroStabilityInwardsCalculation
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = output,
                 SemiProbabilisticOutput = semiProbabilisticOutput
@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculation
+            var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
                 SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()

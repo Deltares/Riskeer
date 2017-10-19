@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
+using Ringtoets.Common.Plugin;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms;
@@ -240,6 +241,14 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 AdditionalDataCheck = context => context.WrappedData == context.ParentFailureMechanism.CalculationsGroup,
                 CloseForData = CloseScenariosViewForData,
                 AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.ParentFailureMechanism; }
+            };
+
+            yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, output) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = MacroStabilityInwardsFormsResources.MacroStabilityInwardsInputIcon,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData
             };
         }
 

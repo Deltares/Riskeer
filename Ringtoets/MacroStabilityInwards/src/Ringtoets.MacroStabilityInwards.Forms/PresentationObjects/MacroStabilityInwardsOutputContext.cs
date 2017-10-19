@@ -28,13 +28,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
     /// <summary>
     /// A presentation layer object which wraps a <see cref="MacroStabilityInwardsOutput"/> and a <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
     /// </summary>
-    public class MacroStabilityInwardsOutputContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculation>
+    public class MacroStabilityInwardsOutputContext : ObservableWrappedObjectContextBase<MacroStabilityInwardsCalculationScenario>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsOutputContext(MacroStabilityInwardsCalculation wrappedData) : base(wrappedData) {}
+        public MacroStabilityInwardsOutputContext(MacroStabilityInwardsCalculationScenario wrappedData) : base(wrappedData) {}
     }
 }
