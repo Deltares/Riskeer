@@ -255,7 +255,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
                 List<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> soilLayers = soilProfileUnderSurfaceLine.Layers.ToList();
-
                 for (var i = 0; i < soilLayers.Count; i++)
                 {
                     ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i];
@@ -264,6 +263,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                         soilLayers[i].OuterRing
                     };
                 }
+
+                ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData(soilProfileUnderSurfaceLine);
+                soilLayerChartDataLookup.Add(holesChartData);
+                soilProfileChartData.Insert(soilLayers.Count, holesChartData);
             }
             else if (surfaceLine == null)
             {

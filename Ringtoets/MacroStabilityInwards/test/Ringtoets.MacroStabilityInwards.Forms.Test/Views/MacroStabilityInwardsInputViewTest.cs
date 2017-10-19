@@ -229,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(nrOfChartData, chartData.Collection.Count());
                 AssertSurfaceLineChartData(surfaceLine, chartData.Collection.ElementAt(surfaceLineIndex));
-                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true);
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true, false);
             }
         }
 
@@ -446,7 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 Assert.AreSame(surfaceLineChartData, (ChartDataCollection) chartDataList[soilProfileIndex]);
 
-                AssertSoilProfileChartData(soilProfile1D, surfaceLineChartData, true);
+                AssertSoilProfileChartData(soilProfile1D, surfaceLineChartData, true, false);
                 mocks.VerifyAll();
             }
         }
@@ -756,14 +756,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 Assert.IsNotNull(chartData);
                 Assert.AreEqual(18, chartData.Collection.Count());
-                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true);
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true, false);
 
                 // When
                 calculation.InputParameters.SurfaceLine = null;
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
-                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), false);
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), false, false);
             }
         }
 
@@ -946,25 +946,33 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(surfaceLine.Name, chartData.Name);
         }
 
-        private static void AssertSoilProfileChartData(MacroStabilityInwardsStochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
+        private static void AssertSoilProfileChartData(MacroStabilityInwardsStochasticSoilProfile soilProfile,
+                                                       ChartData chartData,
+                                                       bool soilLayerMultipleAreaDataShouldContainAreas,
+                                                       bool holesMultipleAreaDataShouldContainAreas)
         {
             Assert.IsInstanceOf<ChartDataCollection>(chartData);
             var soilProfileChartData = (ChartDataCollection) chartData;
 
-            int expectedLayerCount = soilProfile.SoilProfile.Layers.Count();
-            Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
+            int expectedSoilLayerCount = soilProfile.SoilProfile.Layers.Count();
+            Assert.AreEqual(expectedSoilLayerCount + 1, soilProfileChartData.Collection.Count());
             Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
 
             string[] soilLayers = soilProfile.SoilProfile.Layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
 
-            for (var i = 0; i < expectedLayerCount; i++)
+            for (var i = 0; i < expectedSoilLayerCount; i++)
             {
                 var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
 
                 Assert.IsNotNull(chartMultipleAreaData);
                 Assert.AreEqual(soilLayers[i], chartMultipleAreaData.Name);
-                Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
+                Assert.AreEqual(soilLayerMultipleAreaDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
             }
+
+            var holesMultipleAreaData = soilProfileChartData.Collection.Last() as ChartMultipleAreaData;
+            Assert.IsNotNull(holesMultipleAreaData);
+            Assert.AreEqual("Binnenringen", holesMultipleAreaData.Name);
+            Assert.AreEqual(holesMultipleAreaDataShouldContainAreas, holesMultipleAreaData.Areas.Any());
         }
     }
 }

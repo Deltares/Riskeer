@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -162,10 +164,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> for a <see cref="MacroStabilityInwardsSoilLayer1D"/> based on its color.
+        /// Create <see cref="ChartData"/> for a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> based on its color.
         /// </summary>
         /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer1D"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
-        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> which contains the <see cref="MacroStabilityInwardsSoilLayer1D"/>.</param>
+        /// <param name="soilProfile">The <see cref="IMacroStabilityInwardsSoilProfile{T}"/> which contains the <see cref="IMacroStabilityInwardsSoilLayer"/>.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="soilLayerIndex"/> is outside the allowable range of values ([0, number_of_soil_layers>).</exception>
@@ -193,6 +195,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create <see cref="ChartData"/> for the holes in a <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
+        /// </summary>
+        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> which contains the <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.</param>
+        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        public static ChartMultipleAreaData CreateHolesChartData(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
+
+            var holeAreas = new List<Point2D[]>();
+            foreach (IMacroStabilityInwardsSoilLayerUnderSurfaceLine t in soilProfile.Layers)
+            {
+                holeAreas.AddRange(t.Holes);
+            }
+
+            return new ChartMultipleAreaData(Resources.MacroStabilityInwardsChartDataFactory_Holes_ChartDataName, new ChartAreaStyle
+            {
+                FillColor = Color.White,
+                StrokeColor = Color.Black,
+                StrokeThickness = 1
+            })
+            {
+                Areas = holeAreas.ToArray()
+            };
+        }
+
+        /// <summary>
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
@@ -209,7 +241,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Updates the name of <paramref name="chartData"/> based on <paramref name="soilProfile"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
-        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfile1D"/> used for obtaining the name.</param>
+        /// <param name="soilProfile">The <see cref="IMacroStabilityInwardsSoilProfile{T}"/> used for obtaining the name.</param>
         /// <remarks>A default name is set when <paramref name="soilProfile"/> is <c>null</c>.</remarks>
         public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData,
                                                           IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)

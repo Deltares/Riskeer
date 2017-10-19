@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -202,6 +203,55 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
             AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
+        }
+
+        [Test]
+        public void CreateHolesChartData_SoilProfileNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsChartDataFactory.CreateHolesChartData(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("soilProfile", paramName);
+        }
+
+        [Test]
+        public void CreateHolesChartData_ValidSoilProfileWithHoles_ReturnsChartDataWithExpectedStylingAndAreas()
+        {
+            // Call
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 4),
+                new Point3D(0, 0, 3.2),
+                new Point3D(2, 0, 4)
+            });
+            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    new Point2D(0.0, 10.0),
+                    new Point2D(10.0, 10.0),
+                    new Point2D(10.0, 0.0),
+                    new Point2D(0.0, 0.0)
+                }, new[]
+                {
+                    new[]
+                    {
+                        new Point2D(2.0, 2.0),
+                        new Point2D(6.0, 2.0),
+                        new Point2D(4.0, 4.0)
+                    }
+                }, new MacroStabilityInwardsSoilLayerData())
+            }, new List<IMacroStabilityInwardsPreconsolidationStress>());
+
+            ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData(soilProfile);
+
+            // Assert
+            Assert.AreEqual("Binnenringen", holesChartData.Name);
+            AssertEqualStyle(holesChartData.Style, Color.White, Color.Black, 1);
+            CollectionAssert.AreEqual(soilProfile.Layers.First().Holes.First(), holesChartData.Areas.First());
         }
 
         [Test]
