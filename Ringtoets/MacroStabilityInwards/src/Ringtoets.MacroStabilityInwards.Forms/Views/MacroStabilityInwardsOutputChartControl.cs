@@ -20,32 +20,26 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
-using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Forms.Views;
+using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
+namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
-    [TestFixture]
-    public class MacroStabilityInwardsOutputViewTest
+    /// <summary>
+    /// Control to show macro stability inwards output data in a chart view.
+    /// </summary>
+    public partial class MacroStabilityInwardsOutputChartControl : UserControl
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsOutputChartControl"/>.
+        /// </summary>
+        public MacroStabilityInwardsOutputChartControl()
         {
-            // Call
-            using (var view = new MacroStabilityInwardsOutputView())
-            {
-                // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
-                Assert.IsNull(view.Data);
-                Assert.AreEqual(1, view.Controls.Count);
-
-                var splitContainer = view.Controls[0] as SplitContainer;
-                Assert.IsNotNull(splitContainer);
-                Assert.AreEqual(1, splitContainer.Panel1.Controls.Count);
-                Assert.IsInstanceOf<MacroStabilityInwardsOutputChartControl>(splitContainer.Panel1.Controls[0]);
-            }
+            InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets or sets the data of the control.
+        /// </summary>
+        public MacroStabilityInwardsCalculationScenario Data { get; set; }
     }
 }

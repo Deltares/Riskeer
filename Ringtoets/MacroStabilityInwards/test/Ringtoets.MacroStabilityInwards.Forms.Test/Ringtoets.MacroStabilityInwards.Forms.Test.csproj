@@ -105,6 +105,7 @@
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsFormattedSoilLayerDataRowTest.cs" />
+    <Compile Include="Views\MacroStabilityInwardsOutputChartControlTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsOutputViewTest.cs" />
     <Compile Include="Views\MacroStabilityInwardsScenariosViewTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsChartDataFactoryTest.cs" />

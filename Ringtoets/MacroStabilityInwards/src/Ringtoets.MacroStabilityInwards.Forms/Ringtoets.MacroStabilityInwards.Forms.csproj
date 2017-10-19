@@ -97,6 +97,12 @@
     <Compile Include="Factories\MacroStabilityInwardsChartDataPointsFactory.cs" />
     <Compile Include="Factories\MacroStabilityInwardsMapDataFeaturesFactory.cs" />
     <Compile Include="Views\MacroStabilityInwardsFormattedSoilLayerDataRow.cs" />
+    <Compile Include="Views\MacroStabilityInwardsOutputChartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MacroStabilityInwardsOutputChartControl.Designer.cs">
+      <DependentUpon>MacroStabilityInwardsOutputChartControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MacroStabilityInwardsOutputView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -221,6 +227,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MacroStabilityInwardsOutputChartControl.resx">
+      <DependentUpon>MacroStabilityInwardsOutputChartControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MacroStabilityInwardsOutputView.resx">
       <DependentUpon>MacroStabilityInwardsOutputView.cs</DependentUpon>

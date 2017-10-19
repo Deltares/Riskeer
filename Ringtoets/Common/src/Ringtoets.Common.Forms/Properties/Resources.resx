@@ -391,10 +391,10 @@
   <data name="CalculationGroup_Validate_all_ToolTip" xml:space="preserve">
     <value>Valideer alle berekeningen binnen deze map met berekeningen.</value>
   </data>
-  <data name="InputView_Distance_DisplayName" xml:space="preserve">
+  <data name="View_Distance_DisplayName" xml:space="preserve">
     <value>Afstand [m]</value>
   </data>
-  <data name="InputView_Height_DisplayName" xml:space="preserve">
+  <data name="View_Height_DisplayName" xml:space="preserve">
     <value>Hoogte [m+NAP]</value>
   </data>
   <data name="ProbabilityPerYearFormat" xml:space="preserve">

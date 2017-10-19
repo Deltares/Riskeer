@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     partial class MacroStabilityInwardsOutputView
@@ -50,7 +52,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
+            this.macroStabilityInwardsOutputChartControl = new MacroStabilityInwardsOutputChartControl();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,8 +64,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer.BorderStyle = BorderStyle.FixedSingle;
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.macroStabilityInwardsOutputChartControl);
             this.splitContainer.Size = new System.Drawing.Size(150, 150);
+            this.splitContainer.SplitterDistance = 75;
             this.splitContainer.TabIndex = 0;
+            // 
+            // macroStabilityInwardsOutputChartControl
+            // 
+            this.macroStabilityInwardsOutputChartControl.Data = null;
+            this.macroStabilityInwardsOutputChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.macroStabilityInwardsOutputChartControl.Location = new System.Drawing.Point(0, 0);
+            this.macroStabilityInwardsOutputChartControl.Name = "macroStabilityInwardsOutputChartControl";
+            this.macroStabilityInwardsOutputChartControl.Size = new System.Drawing.Size(150, 75);
+            this.macroStabilityInwardsOutputChartControl.TabIndex = 0;
             // 
             // MacroStabilityInwardsOutputView
             // 
@@ -69,13 +88,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer);
             this.Name = "MacroStabilityInwardsOutputView";
-            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).EndInit();
+            this.splitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer;
+        private MacroStabilityInwardsOutputChartControl macroStabilityInwardsOutputChartControl;
     }
 }

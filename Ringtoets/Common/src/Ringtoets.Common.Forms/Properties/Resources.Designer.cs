@@ -1984,24 +1984,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afstand [m].
-        /// </summary>
-        public static string InputView_Distance_DisplayName {
-            get {
-                return ResourceManager.GetString("InputView_Distance_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hoogte [m+NAP].
-        /// </summary>
-        public static string InputView_Height_DisplayName {
-            get {
-                return ResourceManager.GetString("InputView_Height_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De gemiddelde waarde van de lognormale verdeling..
         /// </summary>
         public static string LogNormalDistribution_Mean_Description {
@@ -3458,6 +3440,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string VerifyUpdate_Confirm_calculation_outputs_cleared {
             get {
                 return ResourceManager.GetString("VerifyUpdate_Confirm_calculation_outputs_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afstand [m].
+        /// </summary>
+        public static string View_Distance_DisplayName {
+            get {
+                return ResourceManager.GetString("View_Distance_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoogte [m+NAP].
+        /// </summary>
+        public static string View_Height_DisplayName {
+            get {
+                return ResourceManager.GetString("View_Height_DisplayName", resourceCulture);
             }
         }
         

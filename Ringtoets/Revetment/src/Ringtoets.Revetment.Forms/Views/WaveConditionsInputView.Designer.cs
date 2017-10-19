@@ -43,11 +43,11 @@ namespace Ringtoets.Revetment.Forms.Views
             // 
             // chartControl
             // 
-            this.chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
+            this.chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.View_Distance_DisplayName;
             this.chartControl.ChartTitle = null;
             this.chartControl.Data = null;
             this.chartControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
+            this.chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.View_Height_DisplayName;
             this.chartControl.Location = new System.Drawing.Point(0, 0);
             this.chartControl.MinimumSize = new System.Drawing.Size(100, 100);
             this.chartControl.Name = "chartControl";
