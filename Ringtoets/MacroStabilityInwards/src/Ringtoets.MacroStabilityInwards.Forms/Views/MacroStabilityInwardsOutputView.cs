@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
@@ -29,14 +31,50 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsOutputView : UserControl, IView
     {
+        private readonly Observer outputObserver;
+
+        private MacroStabilityInwardsCalculationScenario data;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputView"/>.
         /// </summary>
         public MacroStabilityInwardsOutputView()
         {
             InitializeComponent();
+
+            outputObserver = new Observer(UpdateChartData);
         }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value as MacroStabilityInwardsCalculationScenario;
+
+                outputObserver.Observable = data;
+
+                UpdateChartData();
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            outputObserver.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void UpdateChartData()
+        {
+            macroStabilityInwardsOutputChartControl.Data = data != null && data.HasOutput ? data : null;
+        }
     }
 }

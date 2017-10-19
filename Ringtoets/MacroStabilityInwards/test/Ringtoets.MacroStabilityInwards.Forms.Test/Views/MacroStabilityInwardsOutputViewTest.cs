@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
@@ -45,6 +49,177 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsNotNull(splitContainer);
                 Assert.AreEqual(1, splitContainer.Panel1.Controls.Count);
                 Assert.IsInstanceOf<MacroStabilityInwardsOutputChartControl>(splitContainer.Panel1.Controls[0]);
+            }
+        }
+
+        [Test]
+        public void Data_MacroStabilityInwardsCalculationScenario_DataSet()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                var calculation = new MacroStabilityInwardsCalculationScenario();
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_OtherThanMacroStabilityInwardsCalculationScenario_DataNull()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                // Call
+                view.Data = new object();
+
+                // Assert
+                Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_MacroStabilityInwardsCalculationScenarioWithOutput_DataSetToChartControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = new TestMacroStabilityInwardsOutput()
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+                Assert.AreSame(calculation, chartControl.Data);
+            }
+        }
+
+        [Test]
+        public void Data_MacroStabilityInwardsCalculationScenarioWithoutOutput_ChartControlDataNull()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                var calculation = new MacroStabilityInwardsCalculationScenario();
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, view.Data);
+                Assert.IsNull(chartControl.Data);
+            }
+        }
+
+        [Test]
+        public void Data_SetToNull_ChartControlDataNull()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = new TestMacroStabilityInwardsOutput()
+            };
+
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView
+            {
+                Data = calculation
+            })
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                // Precondition
+                Assert.AreSame(calculation, view.Data);
+                Assert.AreSame(calculation, chartControl.Data);
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                Assert.IsNull(view.Data);
+                Assert.IsNull(chartControl.Data);
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutput_WhenOutputCleared_ThenChartControlDataSetToNull()
+        {
+            // Given
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = new TestMacroStabilityInwardsOutput()
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreSame(calculation, chartControl.Data);
+
+                // When
+                calculation.ClearOutput();
+                calculation.NotifyObservers();
+
+                // Then
+                Assert.IsNull(chartControl.Data);
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithoutOutput_WhenOutputSet_ThenChartControlDataSetToCalculation()
+        {
+            // Given
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                var calculation = new MacroStabilityInwardsCalculationScenario();
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.IsNull(chartControl.Data);
+
+                // When
+                calculation.Output = new TestMacroStabilityInwardsOutput();
+                calculation.NotifyObservers();
+
+                // Then
+                Assert.AreSame(calculation, chartControl.Data);
             }
         }
     }
