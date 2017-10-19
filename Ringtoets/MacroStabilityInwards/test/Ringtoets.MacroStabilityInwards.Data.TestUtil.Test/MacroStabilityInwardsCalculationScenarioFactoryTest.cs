@@ -305,7 +305,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
 
             Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
-            Assert.AreEqual(string.Empty, inputParameters.StochasticSoilProfile.SoilProfile.Name);
+            Assert.AreEqual("Test", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(inputParameters.StochasticSoilProfile.SoilProfile);
             var soilProfile1D = (MacroStabilityInwardsSoilProfile1D) inputParameters.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(0, soilProfile1D.Bottom);
@@ -376,7 +376,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 }
             }, soilProfile1D.Layers);
 
-            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
             var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 2);
             var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 2);
             var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 3);
