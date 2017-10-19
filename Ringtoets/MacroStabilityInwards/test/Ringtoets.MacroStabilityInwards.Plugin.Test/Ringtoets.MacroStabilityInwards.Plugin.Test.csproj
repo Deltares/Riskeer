@@ -106,7 +106,7 @@
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismViewInfoTest.cs" />
-    <Compile Include="ViewInfos\MacroStabilityInwardsOutputViewTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsOutputViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsScenariosViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>

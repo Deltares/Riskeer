@@ -25,16 +25,22 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsOutputViewTest : ShouldCloseViewWithCalculationDataTester
+    public class MacroStabilityInwardsOutputViewInfoTest : ShouldCloseViewWithCalculationDataTester
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -112,6 +118,54 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         protected override IView GetView()
         {
             return new MacroStabilityInwardsOutputView();
+        }
+
+        protected override ICalculation GetCalculation()
+        {
+            return new MacroStabilityInwardsCalculationScenario();
+        }
+
+        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+        {
+            return new MacroStabilityInwardsCalculationScenarioContext(
+                new MacroStabilityInwardsCalculationScenario(),
+                new CalculationGroup(),
+                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                new MacroStabilityInwardsFailureMechanism(),
+                new ObservableTestAssessmentSectionStub());
+        }
+
+        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+        {
+            return new MacroStabilityInwardsCalculationGroupContext(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        new MacroStabilityInwardsCalculationScenario()
+                    }
+                },
+                null,
+                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                new MacroStabilityInwardsFailureMechanism(),
+                new ObservableTestAssessmentSectionStub());
+        }
+
+        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+        {
+            return new MacroStabilityInwardsFailureMechanismContext(
+                new MacroStabilityInwardsFailureMechanism
+                {
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new MacroStabilityInwardsCalculationScenario()
+                        }
+                    }
+                }, new ObservableTestAssessmentSectionStub());
         }
     }
 }
