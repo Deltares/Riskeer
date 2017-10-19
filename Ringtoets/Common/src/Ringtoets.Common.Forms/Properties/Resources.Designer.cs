@@ -3422,6 +3422,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} (Verwachtingswaarde = {1}, Variatiecoëfficiënt = {2}, Verschuiving = {3}).
+        /// </summary>
+        public static string VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3 {
+            get {
+                return ResourceManager.GetString("VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u kiest voor bijwerken, dan wordt het resultaat van deze berekening verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

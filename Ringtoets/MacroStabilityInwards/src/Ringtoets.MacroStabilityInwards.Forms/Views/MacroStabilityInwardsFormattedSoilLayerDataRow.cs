@@ -50,8 +50,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             MaterialName = layerData.MaterialName;
             Color = layerData.Color;
             IsAquifer = layerData.IsAquifer;
-            AbovePhreaticLevel = FormatVariationCoefficientDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData));
-            BelowPhreaticLevel = FormatVariationCoefficientDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData));
+            AbovePhreaticLevel = FormatVariationCoefficientDesignVariableWithShift(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData));
+            BelowPhreaticLevel = FormatVariationCoefficientDesignVariableWithShift(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData));
             ShearStrengthModel = layerData.ShearStrengthModel;
             Cohesion = FormatVariationCoefficientDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData));
             FrictionAngle = FormatVariationCoefficientDesignVariable(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData));
@@ -128,6 +128,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                                  designVariable.GetDesignValue(),
                                  designVariable.Distribution.Mean,
                                  designVariable.Distribution.CoefficientOfVariation);
+        }
+
+        private static string FormatVariationCoefficientDesignVariableWithShift(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
+        {
+            return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3,
+                                 designVariable.GetDesignValue(),
+                                 designVariable.Distribution.Mean,
+                                 designVariable.Distribution.CoefficientOfVariation,
+                                 designVariable.Distribution.Shift);
         }
     }
 }

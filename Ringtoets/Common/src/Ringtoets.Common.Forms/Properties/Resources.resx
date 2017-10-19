@@ -1250,4 +1250,7 @@ Pf = {1}</value>
   <data name="VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2" xml:space="preserve">
     <value>{0} (Verwachtingswaarde = {1}, Variatiecoëfficiënt = {2})</value>
   </data>
+  <data name="VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3" xml:space="preserve">
+    <value>{0} (Verwachtingswaarde = {1}, Variatiecoëfficiënt = {2}, Verschuiving = {3})</value>
+  </data>
 </root>
