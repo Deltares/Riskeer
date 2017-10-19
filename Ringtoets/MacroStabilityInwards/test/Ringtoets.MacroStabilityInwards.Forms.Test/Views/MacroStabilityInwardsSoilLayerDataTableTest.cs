@@ -22,11 +22,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -179,53 +177,50 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     MacroStabilityInwardsSoilLayerData soilLayerData = layers[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
-                    AssertColumnValueEqual(soilLayerData.MaterialName,
-                                           rowCells[nameColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayerData.Color,
-                                           rowCells[colorColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayerData.IsAquifer,
-                                           rowCells[isAquiferColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(soilLayerData),
-                                           rowCells[abovePhreaticLevelColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(soilLayerData),
-                                           rowCells[belowPhreaticLevelColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayerData.ShearStrengthModel,
-                                           rowCells[shearStrengthModelColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(soilLayerData),
-                                           rowCells[cohesionColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(soilLayerData),
-                                           rowCells[frictionAngleColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(soilLayerData),
-                                           rowCells[shrearStrengthRatioColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(soilLayerData),
-                                           rowCells[strengthIncreaseExponentColumnIndex].Value);
-                    AssertColumnValueEqual(soilLayerData.UsePop,
-                                           rowCells[usePopColumnIndex].Value);
-                    AssertColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(soilLayerData),
-                                           rowCells[popColumnIndex].Value);
+                    Assert.AreEqual(soilLayerData.MaterialName,
+                                    rowCells[nameColumnIndex].Value);
+                    Assert.AreEqual(soilLayerData.Color,
+                                    rowCells[colorColumnIndex].Value);
+                    Assert.AreEqual(soilLayerData.IsAquifer,
+                                    rowCells[isAquiferColumnIndex].Value);
+                    AssertShiftedDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(soilLayerData),
+                                                                rowCells[abovePhreaticLevelColumnIndex].Value);
+                    AssertShiftedDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(soilLayerData),
+                                                                rowCells[belowPhreaticLevelColumnIndex].Value);
+                    Assert.AreEqual(soilLayerData.ShearStrengthModel,
+                                    rowCells[shearStrengthModelColumnIndex].Value);
+                    AssertDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(soilLayerData),
+                                                         rowCells[cohesionColumnIndex].Value);
+                    AssertDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(soilLayerData),
+                                                         rowCells[frictionAngleColumnIndex].Value);
+                    AssertDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(soilLayerData),
+                                                         rowCells[shrearStrengthRatioColumnIndex].Value);
+                    AssertDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(soilLayerData),
+                                                         rowCells[strengthIncreaseExponentColumnIndex].Value);
+                    Assert.AreEqual(soilLayerData.UsePop,
+                                    rowCells[usePopColumnIndex].Value);
+                    AssertDesignVariableColumnValueEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(soilLayerData),
+                                                         rowCells[popColumnIndex].Value);
                 }
             }
         }
 
-        private static void AssertColumnValueEqual(object expectedValue, object actualValue)
+        private static void AssertDesignVariableColumnValueEqual(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> expectedValue,
+                                                                 object actualValue)
         {
-            if (expectedValue is RoundedDouble)
-            {
-                Assert.IsInstanceOf<RoundedDouble>(actualValue);
-                var expectedRoundedDouble = (RoundedDouble) expectedValue;
-                Assert.AreEqual(expectedRoundedDouble, (RoundedDouble) actualValue, expectedRoundedDouble.GetAccuracy());
-            }
-            else if (expectedValue is VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution>)
-            {
-                var expectedDesignVariable = (VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution>) expectedValue;
-                string expectedFormattedDesignVariable = $"{expectedDesignVariable.GetDesignValue()} (Verwachtingswaarde = {expectedDesignVariable.Distribution.Mean}, " +
-                                                         $"Variatiecoëfficiënt = {expectedDesignVariable.Distribution.CoefficientOfVariation})";
-                Assert.AreEqual(expectedFormattedDesignVariable, actualValue);
-            }
-            else
-            {
-                Assert.AreEqual(expectedValue, actualValue);
-            }
+            string expectedFormattedDesignVariable = $"{expectedValue.GetDesignValue()} (Verwachtingswaarde = {expectedValue.Distribution.Mean}, " +
+                                                     $"Variatiecoëfficiënt = {expectedValue.Distribution.CoefficientOfVariation})";
+
+            Assert.AreEqual(expectedFormattedDesignVariable, actualValue);
+        }
+
+        private static void AssertShiftedDesignVariableColumnValueEqual(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> expectedValue,
+                                                                        object actualValue)
+        {
+            string expectedFormattedDesignVariable = $"{expectedValue.GetDesignValue()} (Verwachtingswaarde = {expectedValue.Distribution.Mean}, " +
+                                                     $"Variatiecoëfficiënt = {expectedValue.Distribution.CoefficientOfVariation}, Verschuiving = {expectedValue.Distribution.Shift})";
+
+            Assert.AreEqual(expectedFormattedDesignVariable, actualValue);
         }
 
         private static MacroStabilityInwardsSoilLayerData CreateMacroStabilityInwardsSoilLayerData()
