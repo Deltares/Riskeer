@@ -96,20 +96,20 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Validates that <paramref name="segments"/> forms a loop.
+        /// Validates that <paramref name="segments"/> form a loop.
         /// </summary>
-        /// <param name="segments">The loop to validate.</param>
+        /// <param name="segments">The segments to validate.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="segments"/> do not form a loop.</exception>
         /// <remarks>The points in <paramref name="segments"/> must be ordered.</remarks>
         private static void CheckValidLoop(Segment2D[] segments)
         {
-            if (segments.Length == 1 || !IsLoopConnected(segments))
+            if (segments.Length == 1 || !IsValidLoop(segments))
             {
                 throw new ArgumentException(Resources.Loop_contains_disconnected_segments);
             }
         }
 
-        private static bool IsLoopConnected(Segment2D[] segments)
+        private static bool IsValidLoop(Segment2D[] segments)
         {
             int segmentCount = segments.Length;
             if (segmentCount == 2)
