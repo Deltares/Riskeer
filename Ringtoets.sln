@@ -1786,6 +1786,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.MacroStabilityInw
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base.TestUtil", "Core\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj", "{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -4508,6 +4513,14 @@ Global
 		{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}.Release|x86.Build.0 = Release|x86
 		{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.Debug|x86.ActiveCfg = Debug|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.Debug|x86.Build.0 = Debug|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.Release|x86.ActiveCfg = Release|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.Release|x86.Build.0 = Release|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4890,6 +4903,7 @@ Global
 		{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{C80AD710-0F84-40CE-9567-10CBE332E589} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
 		{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071} = {A39CC244-FBB2-4221-82B9-92CC837EF1DC}
+		{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D} = {0D9858E1-CF2D-4DE5-AC0E-64401900D531}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1
