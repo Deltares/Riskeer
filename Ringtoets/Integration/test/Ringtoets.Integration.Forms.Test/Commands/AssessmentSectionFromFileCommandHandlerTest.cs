@@ -25,6 +25,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;

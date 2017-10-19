@@ -23,7 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 
-namespace Core.Common.TestUtil
+namespace Core.Common.Base.TestUtil.Geometry
 {
     /// <summary>
     /// This class compares the distance of two <see cref="Point2D"/> instances to determine

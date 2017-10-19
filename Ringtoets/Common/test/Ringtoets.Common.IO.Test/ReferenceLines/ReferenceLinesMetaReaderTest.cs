@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
+using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;

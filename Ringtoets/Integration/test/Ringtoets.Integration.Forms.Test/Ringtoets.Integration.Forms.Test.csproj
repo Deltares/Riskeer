@@ -136,6 +136,10 @@
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj">
+      <Project>{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}</Project>
+      <Name>Core.Common.Base.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
       <Name>Core.Common.Gui.TestUtil</Name>
