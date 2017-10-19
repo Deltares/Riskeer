@@ -23,7 +23,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
 
-namespace Core.Common.TestUtil.Test
+namespace Core.Common.Base.TestUtil.Test.Geometry
 {
     [TestFixture]
     public class Point2DComparerWithToleranceTest
