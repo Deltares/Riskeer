@@ -788,24 +788,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie van de verkeersbelasting wanneer de dijk van binnen de polder wordt benaderd..
-        /// </summary>
-        public static string CharacteristicPoint_TrafficLoadInside_Description {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadInside_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie van de verkeersbelasting wanneer de dijk van buiten de polder wordt benaderd..
-        /// </summary>
-        public static string CharacteristicPoint_TrafficLoadOutside_Description {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadOutside_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
         public static string ChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_ {

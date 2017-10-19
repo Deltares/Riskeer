@@ -52,18 +52,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         public Point3D DikeToeAtRiver { get; private set; }
 
         /// <summary>
-        /// Gets the location of the start of traffic load when approaching 
-        /// from outside the polder.
-        /// </summary>
-        public Point3D TrafficLoadOutside { get; private set; }
-
-        /// <summary>
-        /// Gets the location of the start of traffic load when approaching 
-        /// from inside the polder.
-        /// </summary>
-        public Point3D TrafficLoadInside { get; private set; }
-
-        /// <summary>
         /// Gets the location of the top of the dike when approaching from 
         /// inside the polder.
         /// </summary>
@@ -261,40 +249,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Sets the <see cref="TrafficLoadInside"/> at the given point.
-        /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="TrafficLoadInside"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
-        public void SetTrafficLoadInsideAt(Point3D point)
-        {
-            Point3D geometryPoint = GetPointFromGeometry(point);
-            if (geometryPoint == null)
-            {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadInside);
-            }
-            TrafficLoadInside = geometryPoint;
-        }
-
-        /// <summary>
-        /// Sets the <see cref="TrafficLoadOutside"/> at the given point.
-        /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="TrafficLoadOutside"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="MechanismSurfaceLineBase.Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
-        public void SetTrafficLoadOutsideAt(Point3D point)
-        {
-            Point3D geometryPoint = GetPointFromGeometry(point);
-            if (geometryPoint == null)
-            {
-                throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadOutside);
-            }
-            TrafficLoadOutside = geometryPoint;
-        }
-
-        /// <summary>
         /// Sets the <see cref="DikeToeAtRiver"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
@@ -411,8 +365,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
                 hashCode = (hashCode * 397) ^ (SurfaceLevelInside?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (SurfaceLevelOutside?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (TrafficLoadInside?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (TrafficLoadOutside?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (DikeTopAtPolder?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (DikeTopAtRiver?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (ShoulderBaseInside?.GetHashCode() ?? 0);
@@ -431,8 +383,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         private void SetCharacteristicPoints(MacroStabilityInwardsSurfaceLine fromSurfaceLine)
         {
             SurfaceLevelOutside = PointFromGeometryOrNull(fromSurfaceLine.SurfaceLevelOutside);
-            TrafficLoadOutside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadOutside);
-            TrafficLoadInside = PointFromGeometryOrNull(fromSurfaceLine.TrafficLoadInside);
             DikeTopAtPolder = PointFromGeometryOrNull(fromSurfaceLine.DikeTopAtPolder);
             DikeTopAtRiver = PointFromGeometryOrNull(fromSurfaceLine.DikeTopAtRiver);
             ShoulderBaseInside = PointFromGeometryOrNull(fromSurfaceLine.ShoulderBaseInside);
@@ -463,8 +413,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             return Equals(SurfaceLevelInside, other.SurfaceLevelInside)
                    && Equals(SurfaceLevelOutside, other.SurfaceLevelOutside)
-                   && Equals(TrafficLoadInside, other.TrafficLoadInside)
-                   && Equals(TrafficLoadOutside, other.TrafficLoadOutside)
                    && Equals(DikeTopAtPolder, other.DikeTopAtPolder)
                    && Equals(DikeTopAtRiver, other.DikeTopAtRiver)
                    && Equals(ShoulderBaseInside, other.ShoulderBaseInside)

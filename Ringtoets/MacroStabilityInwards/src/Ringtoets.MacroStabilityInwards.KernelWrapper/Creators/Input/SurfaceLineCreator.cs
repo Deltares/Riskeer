@@ -156,14 +156,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeTopAtPolder));
             }
-            if (ReferenceEquals(surfaceLine.TrafficLoadInside, surfaceLinePoint))
-            {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.TrafficLoadInside));
-            }
-            if (ReferenceEquals(surfaceLine.TrafficLoadOutside, surfaceLinePoint))
-            {
-                characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.TrafficLoadOutside));
-            }
             if (ReferenceEquals(surfaceLine.ShoulderBaseInside, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.ShoulderBaseInside));

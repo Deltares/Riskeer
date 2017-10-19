@@ -1406,16 +1406,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                 new Point3D(10.0, 6.0, 0.5),
                 new Point3D(11.0, 6.0, -2.3),
                 new Point3D(12.8, 6.0, -2.3),
-                new Point3D(13.6, 6.0, 3.4),
-                new Point3D(14.2, 6.0, 3.5),
-                new Point3D(15.0, 6.0, 0.5)
+                new Point3D(13.6, 6.0, 3.4)
             };
             surfaceLine.SetGeometry(geometryPoints);
 
-            surfaceLine.SetSurfaceLevelOutsideAt(geometryPoints[14]);
-            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[13]);
-            surfaceLine.SetTrafficLoadOutsideAt(geometryPoints[12]);
-            surfaceLine.SetTrafficLoadInsideAt(geometryPoints[11]);
+            surfaceLine.SetSurfaceLevelOutsideAt(geometryPoints[12]);
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[11]);
             surfaceLine.SetDikeTopAtPolderAt(geometryPoints[10]);
             surfaceLine.SetDikeTopAtRiverAt(geometryPoints[9]);
             surfaceLine.SetShoulderBaseInsideAt(geometryPoints[8]);

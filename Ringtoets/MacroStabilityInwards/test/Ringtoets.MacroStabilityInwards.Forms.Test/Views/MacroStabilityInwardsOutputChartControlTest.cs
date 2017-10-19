@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
     {
         private const int soilProfileIndex = 0;
         private const int surfaceLineIndex = 1;
-        private const int nrOfChartData = 15;
+        private const int nrOfChartData = 14;
 
         [Test]
         public void Constructor_ExpectedValues()

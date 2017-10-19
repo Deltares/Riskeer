@@ -388,8 +388,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             Assert.IsNull(surfaceLine.SurfaceLevelOutside);
             Assert.IsNull(surfaceLine.DikeToeAtRiver);
-            Assert.IsNull(surfaceLine.TrafficLoadOutside);
-            Assert.IsNull(surfaceLine.TrafficLoadInside);
             Assert.IsNull(surfaceLine.DikeTopAtPolder);
             Assert.IsNull(surfaceLine.DikeTopAtRiver);
             Assert.IsNull(surfaceLine.ShoulderBaseInside);
@@ -436,8 +434,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             Assert.IsNull(surfaceLine.SurfaceLevelOutside);
             Assert.IsNull(surfaceLine.DikeToeAtRiver);
-            Assert.IsNull(surfaceLine.TrafficLoadOutside);
-            Assert.IsNull(surfaceLine.TrafficLoadInside);
             Assert.IsNull(surfaceLine.DikeTopAtPolder);
             Assert.IsNull(surfaceLine.DikeTopAtRiver);
             Assert.IsNull(surfaceLine.ShoulderBaseInside);
@@ -457,7 +453,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
             var random = new Random(31);
 
-            Point3D[] points = Array.ConvertAll(new Point3D[14], p => CreatePoint3D(random));
+            Point3D[] points = Array.ConvertAll(new Point3D[12], p => CreatePoint3D(random));
 
             var entity = new SurfaceLineEntity
             {
@@ -469,18 +465,16 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[1], MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[2], MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[3], MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[4], MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[5], MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[6], MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[7], MacroStabilityInwardsCharacteristicPointType.ShoulderTopInside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[8], MacroStabilityInwardsCharacteristicPointType.DikeToeAtPolder),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[9], MacroStabilityInwardsCharacteristicPointType.DitchDikeSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[10], MacroStabilityInwardsCharacteristicPointType.BottomDitchDikeSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[11], MacroStabilityInwardsCharacteristicPointType.BottomDitchPolderSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[12], MacroStabilityInwardsCharacteristicPointType.DitchPolderSide),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[13], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside)
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[2], MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[3], MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[4], MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[5], MacroStabilityInwardsCharacteristicPointType.ShoulderTopInside),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[6], MacroStabilityInwardsCharacteristicPointType.DikeToeAtPolder),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[7], MacroStabilityInwardsCharacteristicPointType.DitchDikeSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[8], MacroStabilityInwardsCharacteristicPointType.BottomDitchDikeSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[9], MacroStabilityInwardsCharacteristicPointType.BottomDitchPolderSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[10], MacroStabilityInwardsCharacteristicPointType.DitchPolderSide),
+                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[11], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside)
                 }
             };
 
@@ -496,18 +490,16 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             Assert.AreSame(surfaceLine.Points[0], surfaceLine.SurfaceLevelOutside);
             Assert.AreSame(surfaceLine.Points[1], surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(surfaceLine.Points[2], surfaceLine.TrafficLoadOutside);
-            Assert.AreSame(surfaceLine.Points[3], surfaceLine.TrafficLoadInside);
-            Assert.AreSame(surfaceLine.Points[4], surfaceLine.DikeTopAtPolder);
-            Assert.AreSame(surfaceLine.Points[5], surfaceLine.DikeTopAtRiver);
-            Assert.AreSame(surfaceLine.Points[6], surfaceLine.ShoulderBaseInside);
-            Assert.AreSame(surfaceLine.Points[7], surfaceLine.ShoulderTopInside);
-            Assert.AreSame(surfaceLine.Points[8], surfaceLine.DikeToeAtPolder);
-            Assert.AreSame(surfaceLine.Points[9], surfaceLine.DitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[10], surfaceLine.BottomDitchDikeSide);
-            Assert.AreSame(surfaceLine.Points[11], surfaceLine.BottomDitchPolderSide);
-            Assert.AreSame(surfaceLine.Points[12], surfaceLine.DitchPolderSide);
-            Assert.AreSame(surfaceLine.Points[13], surfaceLine.SurfaceLevelInside);
+            Assert.AreSame(surfaceLine.Points[2], surfaceLine.DikeTopAtPolder);
+            Assert.AreSame(surfaceLine.Points[3], surfaceLine.DikeTopAtRiver);
+            Assert.AreSame(surfaceLine.Points[4], surfaceLine.ShoulderBaseInside);
+            Assert.AreSame(surfaceLine.Points[5], surfaceLine.ShoulderTopInside);
+            Assert.AreSame(surfaceLine.Points[6], surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(surfaceLine.Points[7], surfaceLine.DitchDikeSide);
+            Assert.AreSame(surfaceLine.Points[8], surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(surfaceLine.Points[9], surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(surfaceLine.Points[10], surfaceLine.DitchPolderSide);
+            Assert.AreSame(surfaceLine.Points[11], surfaceLine.SurfaceLevelInside);
         }
 
         [Test]
@@ -533,8 +525,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),
@@ -562,8 +552,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             Assert.AreSame(geometryPoint, surfaceLine.SurfaceLevelOutside);
             Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(geometryPoint, surfaceLine.TrafficLoadOutside);
-            Assert.AreSame(geometryPoint, surfaceLine.TrafficLoadInside);
             Assert.AreSame(geometryPoint, surfaceLine.DikeTopAtPolder);
             Assert.AreSame(geometryPoint, surfaceLine.DikeTopAtRiver);
             Assert.AreSame(geometryPoint, surfaceLine.ShoulderBaseInside);
@@ -593,8 +581,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeToeAtRiver),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside),
-                    CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
                     CreateMacroStabilityInwardsCharacteristicPointEntity(point3D, MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),
@@ -619,8 +605,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             Point3D geometryPoint = surfaceLine.Points.Single();
             Assert.AreSame(geometryPoint, surfaceLine.SurfaceLevelOutside);
             Assert.AreSame(geometryPoint, surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(geometryPoint, surfaceLine.TrafficLoadOutside);
-            Assert.AreSame(geometryPoint, surfaceLine.TrafficLoadInside);
             Assert.AreSame(geometryPoint, surfaceLine.DikeTopAtPolder);
             Assert.AreSame(geometryPoint, surfaceLine.DikeTopAtRiver);
             Assert.AreSame(geometryPoint, surfaceLine.ShoulderBaseInside);

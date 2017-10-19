@@ -190,9 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 new Point3D(8, 0, 3),
                 new Point3D(9, 0, 0),
                 new Point3D(10, 0, 2),
-                new Point3D(11, 0, 3),
-                new Point3D(12, 0, 0),
-                new Point3D(13, 0, 2)
+                new Point3D(11, 0, 3)
             };
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
@@ -206,11 +204,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             surfaceLine.SetDitchPolderSideAt(geometry[6]);
             surfaceLine.SetSurfaceLevelInsideAt(geometry[7]);
             surfaceLine.SetSurfaceLevelOutsideAt(geometry[8]);
-            surfaceLine.SetTrafficLoadInsideAt(geometry[9]);
-            surfaceLine.SetTrafficLoadOutsideAt(geometry[10]);
-            surfaceLine.SetShoulderBaseInsideAt(geometry[11]);
-            surfaceLine.SetShoulderTopInsideAt(geometry[12]);
-            surfaceLine.SetDikeTopAtRiverAt(geometry[13]);
+            surfaceLine.SetShoulderBaseInsideAt(geometry[9]);
+            surfaceLine.SetShoulderTopInsideAt(geometry[10]);
+            surfaceLine.SetDikeTopAtRiverAt(geometry[11]);
 
             // Call
             SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine, LandwardDirection.PositiveX);
@@ -238,11 +234,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DitchPolderSide).LocationEquals(ToGeometryPoint(geometry[6])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.SurfaceLevelInside).LocationEquals(ToGeometryPoint(geometry[7])));
             Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.SurfaceLevelOutside).LocationEquals(ToGeometryPoint(geometry[8])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.TrafficLoadInside).LocationEquals(ToGeometryPoint(geometry[9])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.TrafficLoadOutside).LocationEquals(ToGeometryPoint(geometry[10])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderBaseInside).LocationEquals(ToGeometryPoint(geometry[11])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderTopInside).LocationEquals(ToGeometryPoint(geometry[12])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[13])));
+            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderBaseInside).LocationEquals(ToGeometryPoint(geometry[9])));
+            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderTopInside).LocationEquals(ToGeometryPoint(geometry[10])));
+            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[11])));
         }
 
         [Test]

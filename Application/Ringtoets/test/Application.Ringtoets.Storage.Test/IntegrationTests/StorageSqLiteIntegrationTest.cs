@@ -1566,8 +1566,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             Assert.AreEqual(expectedSurfaceLine.SurfaceLevelOutside, actualSurfaceLine.SurfaceLevelOutside);
             Assert.AreEqual(expectedSurfaceLine.DikeToeAtRiver, actualSurfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(expectedSurfaceLine.TrafficLoadOutside, actualSurfaceLine.TrafficLoadOutside);
-            Assert.AreEqual(expectedSurfaceLine.TrafficLoadInside, actualSurfaceLine.TrafficLoadInside);
             Assert.AreEqual(expectedSurfaceLine.DikeTopAtPolder, actualSurfaceLine.DikeTopAtPolder);
             Assert.AreEqual(expectedSurfaceLine.DikeTopAtRiver, actualSurfaceLine.DikeTopAtRiver);
             Assert.AreEqual(expectedSurfaceLine.ShoulderBaseInside, actualSurfaceLine.ShoulderBaseInside);

@@ -55,9 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData dikeToeAtPolderChartData;
         private readonly ChartPointData shoulderTopInsideChartData;
         private readonly ChartPointData shoulderBaseInsideChartData;
-        private readonly ChartPointData trafficLoadInsideChartData;
         private readonly ChartPointData dikeTopAtPolderChartData;
-        private readonly ChartPointData trafficLoadOutsideChartData;
         private readonly ChartPointData dikeToeAtRiverChartData;
         private readonly ChartPointData dikeTopAtRiverChartData;
         private readonly ChartPointData surfaceLevelOutsideChartData;
@@ -90,9 +88,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeToeAtPolderChartData = RingtoetsChartDataFactory.CreateDikeToeAtPolderChartData();
             shoulderTopInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderTopInsideChartData();
             shoulderBaseInsideChartData = MacroStabilityInwardsChartDataFactory.CreateShoulderBaseInsideChartData();
-            trafficLoadInsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadInsideChartData();
             dikeTopAtPolderChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtPolderChartData();
-            trafficLoadOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
             dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
             dikeTopAtRiverChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtRiverChartData();
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
@@ -109,9 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(dikeToeAtPolderChartData);
             chartDataCollection.Add(shoulderTopInsideChartData);
             chartDataCollection.Add(shoulderBaseInsideChartData);
-            chartDataCollection.Add(trafficLoadInsideChartData);
             chartDataCollection.Add(dikeTopAtPolderChartData);
-            chartDataCollection.Add(trafficLoadOutsideChartData);
             chartDataCollection.Add(dikeToeAtRiverChartData);
             chartDataCollection.Add(dikeTopAtRiverChartData);
             chartDataCollection.Add(surfaceLevelOutsideChartData);
@@ -224,9 +218,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeToeAtPolderChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine);
             shoulderTopInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderTopInsidePoint(surfaceLine);
             shoulderBaseInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateShoulderBaseInsidePoint(surfaceLine);
-            trafficLoadInsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadInsidePoint(surfaceLine);
             dikeTopAtPolderChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtPolderPoint(surfaceLine);
-            trafficLoadOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateTrafficLoadOutsidePoint(surfaceLine);
             dikeToeAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine);
             dikeTopAtRiverChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateDikeTopAtRiverPoint(surfaceLine);
             surfaceLevelOutsideChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateSurfaceLevelOutsidePoint(surfaceLine);

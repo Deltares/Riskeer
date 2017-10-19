@@ -380,24 +380,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verkeersbelasting kant binnenwaarts.
-        /// </summary>
-        public static string CharacteristicPoint_TrafficLoadInside {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadInside", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verkeersbelasting kant buitenwaarts.
-        /// </summary>
-        public static string CharacteristicPoint_TrafficLoadOutside {
-            get {
-                return ResourceManager.GetString("CharacteristicPoint_TrafficLoadOutside", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De stochasten van een illustratiepunt bevatten niet dezelfde stochasten als in de onderliggende illustratiepunten..
         /// </summary>
         public static string Child_stochasts_not_same_as_parent_stochasts {

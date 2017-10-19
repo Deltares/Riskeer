@@ -137,36 +137,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create a traffic load outside point in 2D space based on the provided <paramref name="surfaceLine"/>.
-        /// </summary>
-        /// <param name="surfaceLine">The surface line to create the traffic load outside point for.</param>
-        /// <returns>An array with a traffic load outside point in 2D space or an empty array when:
-        /// <list type="bullet">
-        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
-        /// <item>the traffic load outside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
-        /// </list>
-        /// </returns>
-        public static Point2D[] CreateTrafficLoadOutsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.TrafficLoadOutside);
-        }
-
-        /// <summary>
-        /// Create a traffic load inside point in 2D space based on the provided <paramref name="surfaceLine"/>.
-        /// </summary>
-        /// <param name="surfaceLine">The surface line to create the traffic load inside point for.</param>
-        /// <returns>An array with a traffic load inside point in 2D space or an empty array when:
-        /// <list type="bullet">
-        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
-        /// <item>the traffic load inside point in <paramref name="surfaceLine"/> is <c>null</c>.</item>
-        /// </list>
-        /// </returns>
-        public static Point2D[] CreateTrafficLoadInsidePoint(MacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            return GetLocalPointsFromGeometry(surfaceLine, surfaceLine?.TrafficLoadInside);
-        }
-
-        /// <summary>
         /// Create a dike top at polder point in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
         /// <param name="surfaceLine">The surface line to create the dike top at polder point for.</param>

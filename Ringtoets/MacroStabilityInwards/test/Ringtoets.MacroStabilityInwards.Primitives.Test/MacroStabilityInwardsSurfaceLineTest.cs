@@ -295,42 +295,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [Test]
-        public void Equals_DifferentTrafficLoadInside_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetTrafficLoadInsideAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
-        public void Equals_DifferentTrafficLoadOutside_ReturnsFalse()
-        {
-            // Setup
-            MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
-            MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
-            Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetTrafficLoadOutsideAt(points[5]);
-
-            // Call
-            bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
-            bool isLineTwoEqualToLineOne = surfaceLineTwo.Equals(surfaceLineOne);
-
-            // Assert
-            Assert.IsFalse(isLineOneEqualToLineTwo);
-            Assert.IsFalse(isLineTwoEqualToLineOne);
-        }
-
-        [Test]
         public void Equals_DifferentDikeTopAtPolder_ReturnsFalse()
         {
             // Setup
@@ -427,7 +391,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             MacroStabilityInwardsSurfaceLine surfaceLineOne = CreateSurfaceLineWithCharacteristicPoints();
             MacroStabilityInwardsSurfaceLine surfaceLineTwo = CreateSurfaceLineWithCharacteristicPoints();
             Point3D[] points = surfaceLineTwo.Points.ToArray();
-            surfaceLineTwo.SetBottomDitchDikeSideAt(points[5]);
+            surfaceLineTwo.SetBottomDitchDikeSideAt(points[4]);
 
             // Call
             bool isLineOneEqualToLineTwo = surfaceLineOne.Equals(surfaceLineTwo);
@@ -825,44 +789,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         }
 
         [TestFixture]
-        public class SetTrafficLoadInsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetTrafficLoadInsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.TrafficLoadInside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Verkeersbelasting kant binnenwaarts";
-            }
-        }
-
-        [TestFixture]
-        public class SetTrafficLoadOutsideAtTest : SetCharacteristicPointTest
-        {
-            protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-            {
-                surfaceLine.SetTrafficLoadOutsideAt(point);
-            }
-
-            protected override Point3D GetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine)
-            {
-                return surfaceLine.TrafficLoadOutside;
-            }
-
-            protected override string CharacteristicPointDescription()
-            {
-                return "Verkeersbelasting kant buitenwaarts";
-            }
-        }
-
-        [TestFixture]
         public class SetDikeToeAtRiverAtTest : SetCharacteristicPointTest
         {
             protected override void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
@@ -919,8 +845,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             Point3D[] actualSurfaceLinePoints = actualSurfaceLine.Points;
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.SurfaceLevelOutside, actualSurfaceLine.SurfaceLevelOutside);
-            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.TrafficLoadOutside, actualSurfaceLine.TrafficLoadOutside);
-            AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.TrafficLoadInside, actualSurfaceLine.TrafficLoadInside);
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.DikeTopAtPolder, actualSurfaceLine.DikeTopAtPolder);
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.ShoulderBaseInside, actualSurfaceLine.ShoulderBaseInside);
             AssertAreEqualAndFromSurfaceLine(actualSurfaceLinePoints, expectedSurfaceLine.ShoulderTopInside, actualSurfaceLine.ShoulderTopInside);
@@ -961,26 +885,22 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new Point3D(8, 0, 5),
                 new Point3D(9, 0, 4),
                 new Point3D(10, 0, 3),
-                new Point3D(11, 0, 2),
-                new Point3D(12, 0, 1),
-                new Point3D(13, 0, 1)
+                new Point3D(11, 0, 2)
             };
             surfaceLine.SetGeometry(geometry);
 
             surfaceLine.SetSurfaceLevelOutsideAt(geometry[0]);
-            surfaceLine.SetTrafficLoadOutsideAt(geometry[1]);
-            surfaceLine.SetTrafficLoadInsideAt(geometry[2]);
-            surfaceLine.SetDikeTopAtPolderAt(geometry[3]);
-            surfaceLine.SetDikeTopAtRiverAt(geometry[4]);
-            surfaceLine.SetShoulderBaseInsideAt(geometry[5]);
-            surfaceLine.SetShoulderTopInsideAt(geometry[6]);
-            surfaceLine.SetBottomDitchDikeSideAt(geometry[7]);
-            surfaceLine.SetBottomDitchPolderSideAt(geometry[8]);
-            surfaceLine.SetDikeToeAtPolderAt(geometry[9]);
-            surfaceLine.SetDikeToeAtRiverAt(geometry[10]);
-            surfaceLine.SetDitchDikeSideAt(geometry[11]);
-            surfaceLine.SetDitchPolderSideAt(geometry[12]);
-            surfaceLine.SetSurfaceLevelInsideAt(geometry[13]);
+            surfaceLine.SetDikeTopAtPolderAt(geometry[1]);
+            surfaceLine.SetDikeTopAtRiverAt(geometry[2]);
+            surfaceLine.SetShoulderBaseInsideAt(geometry[3]);
+            surfaceLine.SetShoulderTopInsideAt(geometry[4]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometry[5]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometry[6]);
+            surfaceLine.SetDikeToeAtPolderAt(geometry[7]);
+            surfaceLine.SetDikeToeAtRiverAt(geometry[8]);
+            surfaceLine.SetDitchDikeSideAt(geometry[9]);
+            surfaceLine.SetDitchPolderSideAt(geometry[10]);
+            surfaceLine.SetSurfaceLevelInsideAt(geometry[11]);
 
             return surfaceLine;
         }

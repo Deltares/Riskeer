@@ -97,30 +97,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateTrafficLoadInsideChartData_ReturnsChartPointDataWithExpectedStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadInsideChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Verkeersbelasting kant binnenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.LightSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle);
-        }
-
-        [Test]
-        public void CreateTrafficLoadOutsideChartData_ReturnsChartPointDataWithExpectedStyling()
-        {
-            // Call
-            ChartPointData data = MacroStabilityInwardsChartDataFactory.CreateTrafficLoadOutsideChartData();
-
-            // Assert
-            Assert.IsFalse(data.HasData);
-            Assert.AreEqual("Verkeersbelasting kant buitenwaarts", data.Name);
-            AssertEqualStyle(data.Style, Color.DarkSlateGray, 8, Color.White, 1, ChartPointSymbol.Circle);
-        }
-
-        [Test]
         public void CreateDikeTopAtRiverChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call

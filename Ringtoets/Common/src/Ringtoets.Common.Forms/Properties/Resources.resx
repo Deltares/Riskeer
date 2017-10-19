@@ -1098,12 +1098,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CharacteristicPoint_SurfaceLevelOutside_Description" xml:space="preserve">
     <value>De locatie van het maaiveld buiten de polder.</value>
   </data>
-  <data name="CharacteristicPoint_TrafficLoadInside_Description" xml:space="preserve">
-    <value>De locatie van de verkeersbelasting wanneer de dijk van binnen de polder wordt benaderd.</value>
-  </data>
-  <data name="CharacteristicPoint_TrafficLoadOutside_Description" xml:space="preserve">
-    <value>De locatie van de verkeersbelasting wanneer de dijk van buiten de polder wordt benaderd.</value>
-  </data>
   <data name="Categories_Characteristic_points" xml:space="preserve">
     <value>Karakteristieke punten</value>
   </data>

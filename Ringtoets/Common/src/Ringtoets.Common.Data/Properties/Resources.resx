@@ -333,12 +333,6 @@
   <data name="CharacteristicPoint_ShoulderTopInside" xml:space="preserve">
     <value>Kruin binnenberm</value>
   </data>
-  <data name="CharacteristicPoint_TrafficLoadInside" xml:space="preserve">
-    <value>Verkeersbelasting kant binnenwaarts</value>
-  </data>
-  <data name="CharacteristicPoint_TrafficLoadOutside" xml:space="preserve">
-    <value>Verkeersbelasting kant buitenwaarts</value>
-  </data>
   <data name="CharacteristicPoint_SurfaceLevelInside" xml:space="preserve">
     <value>Maaiveld binnenwaarts</value>
   </data>

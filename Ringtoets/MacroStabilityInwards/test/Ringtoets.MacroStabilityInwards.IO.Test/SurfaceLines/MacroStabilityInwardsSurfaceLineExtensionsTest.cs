@@ -137,16 +137,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 set.ShoulderTopInside = null;
                 yield return new TestCaseData(set).SetName(name);
 
-                name = "Missing TrafficLoadOutside";
-                set = CreateCompleteCharacteristicPointSet(name);
-                set.TrafficLoadOutside = null;
-                yield return new TestCaseData(set).SetName(name);
-
-                name = "Missing TrafficLoadInside";
-                set = CreateCompleteCharacteristicPointSet(name);
-                set.TrafficLoadInside = null;
-                yield return new TestCaseData(set).SetName(name);
-
                 name = "Missing DitchDikeSide";
                 set = CreateCompleteCharacteristicPointSet(name);
                 set.DitchDikeSide = null;
@@ -220,8 +210,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             Assert.AreEqual(points.DikeTopAtRiver, surfaceLine.DikeTopAtRiver);
             Assert.AreEqual(points.ShoulderBaseInside, surfaceLine.ShoulderBaseInside);
             Assert.AreEqual(points.ShoulderTopInside, surfaceLine.ShoulderTopInside);
-            Assert.AreEqual(points.TrafficLoadOutside, surfaceLine.TrafficLoadOutside);
-            Assert.AreEqual(points.TrafficLoadInside, surfaceLine.TrafficLoadInside);
             Assert.AreEqual(points.SurfaceLevelOutside, surfaceLine.SurfaceLevelOutside);
             Assert.AreEqual(points.SurfaceLevelInside, surfaceLine.SurfaceLevelInside);
             Assert.AreEqual(points.DikeToeAtRiver, surfaceLine.DikeToeAtRiver);
@@ -282,8 +270,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 points.DikeTopAtRiver,
                 points.ShoulderBaseInside,
                 points.ShoulderTopInside,
-                points.TrafficLoadOutside,
-                points.TrafficLoadInside,
                 points.SurfaceLevelOutside,
                 points.SurfaceLevelInside,
                 points.DikeToeAtRiver,
@@ -299,8 +285,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
         {
             var surfaceLevelOutside = new Point3D(2, 2, 5);
             var dikeToeAtRiver = new Point3D(2.1, 2, 5);
-            var trafficLoadOutside = new Point3D(2.25, 2, 5);
-            var trafficLoadInside = new Point3D(2.45, 2, 5);
             var dikeTopAtPolder = new Point3D(2.7, 2, 5);
             var dikeTopAtRiver = new Point3D(2.6, 2, 5);
             var shoulderBaseInside = new Point3D(3.2, 2, 5);
@@ -317,8 +301,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
                 DikeTopAtPolder = dikeTopAtPolder,
                 ShoulderBaseInside = shoulderBaseInside,
                 ShoulderTopInside = shoulderTopInside,
-                TrafficLoadOutside = trafficLoadOutside,
-                TrafficLoadInside = trafficLoadInside,
                 SurfaceLevelOutside = surfaceLevelOutside,
                 SurfaceLevelInside = surfaceLevelInside,
                 DikeToeAtRiver = dikeToeAtRiver,

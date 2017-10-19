@@ -194,16 +194,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                 new Point3D(10.0, 6.0, 0.5),
                 new Point3D(11.0, 6.0, -2.3),
                 new Point3D(12.8, 6.0, -2.3),
-                new Point3D(13.6, 6.0, 3.4),
-                new Point3D(14.2, 6.0, 3.5),
-                new Point3D(15.0, 6.0, 0.5)
+                new Point3D(13.6, 6.0, 3.4)
             };
             CollectionAssert.AreEqual(geometryPoints, surfaceLine.Points);
 
-            Assert.AreEqual(surfaceLine.Points[14], surfaceLine.SurfaceLevelOutside);
-            Assert.AreEqual(surfaceLine.Points[13], surfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(surfaceLine.Points[12], surfaceLine.TrafficLoadOutside);
-            Assert.AreEqual(surfaceLine.Points[11], surfaceLine.TrafficLoadInside);
+            Assert.AreEqual(surfaceLine.Points[12], surfaceLine.SurfaceLevelOutside);
+            Assert.AreEqual(surfaceLine.Points[11], surfaceLine.DikeToeAtRiver);
             Assert.AreEqual(surfaceLine.Points[10], surfaceLine.DikeTopAtPolder);
             Assert.AreEqual(surfaceLine.Points[9], surfaceLine.DikeTopAtRiver);
             Assert.AreEqual(surfaceLine.Points[8], surfaceLine.ShoulderBaseInside);

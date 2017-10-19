@@ -66,8 +66,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
             surfaceLine.TrySetDikeToeAtPolder(characteristicPoints.DikeToeAtPolder);
             surfaceLine.TrySetSurfaceLevelInside(characteristicPoints.SurfaceLevelInside);
 
-            surfaceLine.TrySetTrafficLoadOutside(characteristicPoints.TrafficLoadOutside);
-            surfaceLine.TrySetTrafficLoadInside(characteristicPoints.TrafficLoadInside);
             surfaceLine.TrySetShoulderBaseInside(characteristicPoints.ShoulderBaseInside);
             surfaceLine.TrySetShoulderTopInside(characteristicPoints.ShoulderTopInside);
             surfaceLine.TrySetDitchDikeSide(characteristicPoints.DitchDikeSide);
@@ -300,50 +298,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.SurfaceLines
                 try
                 {
                     surfaceLine.SetShoulderTopInsideAt(point);
-                }
-                catch (ArgumentException e)
-                {
-                    LogOptionalCharacteristicPointError(surfaceLine, e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/> at the location of
-        /// <paramref name="point"/>.
-        /// </summary>
-        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadInside"/>.</param>
-        private static void TrySetTrafficLoadInside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-        {
-            if (point != null)
-            {
-                try
-                {
-                    surfaceLine.SetTrafficLoadInsideAt(point);
-                }
-                catch (ArgumentException e)
-                {
-                    LogOptionalCharacteristicPointError(surfaceLine, e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Tries to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/> at the location of
-        /// <paramref name="point"/>.
-        /// </summary>
-        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> to set the 
-        /// <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/> for.</param>
-        /// <param name="point">The point at which to set the <see cref="MacroStabilityInwardsSurfaceLine.TrafficLoadOutside"/>.</param>
-        private static void TrySetTrafficLoadOutside(this MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point)
-        {
-            if (point != null)
-            {
-                try
-                {
-                    surfaceLine.SetTrafficLoadOutsideAt(point);
                 }
                 catch (ArgumentException e)
                 {

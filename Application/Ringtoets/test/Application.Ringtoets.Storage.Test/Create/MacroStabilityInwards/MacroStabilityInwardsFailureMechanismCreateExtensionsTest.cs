@@ -298,7 +298,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
             Assert.AreEqual(0, entity.PipingCharacteristicPointEntities.Count);
-            Assert.AreEqual(14, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
+            Assert.AreEqual(12, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
         }
 
         private MacroStabilityInwardsSurfaceLine CreateSurfaceLine(Random random)
@@ -308,7 +308,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 ReferenceLineIntersectionWorldPoint = new Point2D(random.NextDouble(), random.NextDouble())
             };
 
-            var geometryPoints = new Point3D[14];
+            var geometryPoints = new Point3D[12];
             for (var i = 0; i < geometryPoints.Length; i++)
             {
                 geometryPoints[i] = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
@@ -323,11 +323,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             surfaceLine.SetDikeTopAtRiverAt(geometryPoints[6]);
             surfaceLine.SetShoulderBaseInsideAt(geometryPoints[7]);
             surfaceLine.SetShoulderTopInsideAt(geometryPoints[8]);
-            surfaceLine.SetTrafficLoadInsideAt(geometryPoints[9]);
-            surfaceLine.SetTrafficLoadOutsideAt(geometryPoints[10]);
-            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[11]);
-            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[12]);
-            surfaceLine.SetSurfaceLevelInsideAt(geometryPoints[13]);
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[9]);
+            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[10]);
+            surfaceLine.SetSurfaceLevelInsideAt(geometryPoints[11]);
             surfaceLine.SetSurfaceLevelOutsideAt(geometryPoints[0]);
 
             return surfaceLine;

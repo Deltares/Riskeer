@@ -42,16 +42,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             get
             {
                 yield return new TestCaseData(
-                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.TrafficLoadOutside = p),
-                        new Func<MacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.TrafficLoadOutside),
-                        "Verkeersbelasting kant buitenwaarts")
-                    .SetName("Move TrafficLoadOutside");
-                yield return new TestCaseData(
-                        new Action<CharacteristicPoints, Point3D>((cp, p) => cp.TrafficLoadInside = p),
-                        new Func<MacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.TrafficLoadInside),
-                        "Verkeersbelasting kant binnenwaarts")
-                    .SetName("Move TrafficLoadInside");
-                yield return new TestCaseData(
                         new Action<CharacteristicPoints, Point3D>((cp, p) => cp.ShoulderBaseInside = p),
                         new Func<MacroStabilityInwardsSurfaceLine, Point3D>(sl => sl.ShoulderBaseInside),
                         "Insteek binnenberm")
@@ -276,8 +266,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             {
                 SurfaceLevelOutside = point2,
                 DikeToeAtRiver = point2,
-                TrafficLoadOutside = point2,
-                TrafficLoadInside = point2,
                 DikeTopAtPolder = point2,
                 DikeTopAtRiver = point2,
                 ShoulderBaseInside = point3,
@@ -317,8 +305,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             {
                 result.SurfaceLevelOutside,
                 result.DikeToeAtRiver,
-                result.TrafficLoadOutside,
-                result.TrafficLoadInside,
                 result.DikeTopAtPolder,
                 result.ShoulderBaseInside,
                 result.ShoulderTopInside,
@@ -367,8 +353,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             {
                 SurfaceLevelOutside = point2,
                 DikeToeAtRiver = point2,
-                TrafficLoadOutside = point2,
-                TrafficLoadInside = point2,
                 DikeTopAtPolder = point2,
                 DikeTopAtRiver = point2,
                 ShoulderBaseInside = point3,

@@ -106,32 +106,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         /// <summary>
         /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
-        /// of type traffic load inside.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateTrafficLoadInsideChartData()
-        {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadInside,
-                                      GetCharacteristicPointStyle(Color.LightSlateGray,
-                                                                  Color.White,
-                                                                  ChartPointSymbol.Circle));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
-        /// of type traffic load outside.
-        /// </summary>
-        /// <returns>The created <see cref="ChartPointData"/>.</returns>
-        public static ChartPointData CreateTrafficLoadOutsideChartData()
-        {
-            return new ChartPointData(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadOutside,
-                                      GetCharacteristicPointStyle(Color.DarkSlateGray,
-                                                                  Color.White,
-                                                                  ChartPointSymbol.Circle));
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
         /// of type dike top at river.
         /// </summary>
         /// <returns>The created <see cref="ChartPointData"/>.</returns>

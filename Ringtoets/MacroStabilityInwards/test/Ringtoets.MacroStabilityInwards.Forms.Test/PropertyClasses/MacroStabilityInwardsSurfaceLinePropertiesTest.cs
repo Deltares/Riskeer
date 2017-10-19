@@ -60,8 +60,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var point10 = new Point3D(10.1, 3.5, 0.5);
             var point11 = new Point3D(12.2, 3.8, 0.5);
             var point12 = new Point3D(13.1, 4.2, 1.0);
-            var point13 = new Point3D(14.1, 5.6, 1.1);
-            var point14 = new Point3D(15.1, 4.6, 1.1);
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(expectedName);
             surfaceLine.SetGeometry(new[]
@@ -77,25 +75,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 point9,
                 point10,
                 point11,
-                point12,
-                point13,
-                point14
+                point12
             });
 
             surfaceLine.SetSurfaceLevelOutsideAt(point1);
             surfaceLine.SetDikeToeAtRiverAt(point2);
             surfaceLine.SetDikeTopAtPolderAt(point3);
             surfaceLine.SetShoulderBaseInsideAt(point4);
-            surfaceLine.SetTrafficLoadOutsideAt(point5);
-            surfaceLine.SetTrafficLoadInsideAt(point6);
-            surfaceLine.SetShoulderTopInsideAt(point7);
-            surfaceLine.SetDikeToeAtPolderAt(point8);
-            surfaceLine.SetDitchDikeSideAt(point9);
-            surfaceLine.SetBottomDitchDikeSideAt(point10);
-            surfaceLine.SetBottomDitchPolderSideAt(point11);
-            surfaceLine.SetDitchPolderSideAt(point12);
-            surfaceLine.SetSurfaceLevelInsideAt(point13);
-            surfaceLine.SetDikeTopAtRiverAt(point14);
+            surfaceLine.SetShoulderTopInsideAt(point5);
+            surfaceLine.SetDikeToeAtPolderAt(point6);
+            surfaceLine.SetDitchDikeSideAt(point7);
+            surfaceLine.SetBottomDitchDikeSideAt(point8);
+            surfaceLine.SetBottomDitchPolderSideAt(point9);
+            surfaceLine.SetDitchPolderSideAt(point10);
+            surfaceLine.SetSurfaceLevelInsideAt(point11);
+            surfaceLine.SetDikeTopAtRiverAt(point12);
 
             var properties = new MacroStabilityInwardsSurfaceLineProperties
             {
@@ -110,8 +104,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(surfaceLine.DikeTopAtRiver, properties.DikeTopAtRiver);
             Assert.AreEqual(surfaceLine.DikeTopAtPolder, properties.DikeTopAtPolder);
             Assert.AreEqual(surfaceLine.ShoulderBaseInside, properties.ShoulderBaseInside);
-            Assert.AreEqual(surfaceLine.TrafficLoadOutside, properties.TrafficLoadOutside);
-            Assert.AreEqual(surfaceLine.TrafficLoadInside, properties.TrafficLoadInside);
             Assert.AreEqual(surfaceLine.ShoulderTopInside, properties.ShoulderTopInside);
             Assert.AreEqual(surfaceLine.DikeToeAtPolder, properties.DikeToeAtPolder);
             Assert.AreEqual(surfaceLine.DitchDikeSide, properties.DitchDikeSide);
@@ -135,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string charactersticPointsCategory = "Karakteristieke punten";
@@ -178,75 +170,61 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 dynamicProperties[5],
                 charactersticPointsCategory,
-                "Verkeersbelasting kant buitenwaarts",
-                "De locatie van de verkeersbelasting wanneer de dijk van buiten de polder wordt benaderd.",
-                true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[6],
-                charactersticPointsCategory,
-                "Verkeersbelasting kant binnenwaarts",
-                "De locatie van de verkeersbelasting wanneer de dijk van binnen de polder wordt benaderd.",
-                true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[7],
-                charactersticPointsCategory,
                 "Kruin binnentalud",
                 "De kruin van het talud wanneer de dijk van binnen de polder wordt benaderd.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[8],
+                dynamicProperties[6],
                 charactersticPointsCategory,
                 "Insteek binnenberm",
                 "De locatie van de insteek van de binnenberm.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[9],
+                dynamicProperties[7],
                 charactersticPointsCategory,
                 "Kruin binnenberm",
                 "De locatie van de kruin van de binnenberm.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[10],
+                dynamicProperties[8],
                 charactersticPointsCategory,
                 "Teen dijk binnenwaarts",
                 "De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[11],
+                dynamicProperties[9],
                 charactersticPointsCategory,
                 "Insteek sloot dijkzijde",
                 "De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[12],
+                dynamicProperties[10],
                 charactersticPointsCategory,
                 "Slootbodem dijkzijde",
                 "De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[13],
+                dynamicProperties[11],
                 charactersticPointsCategory,
                 "Slootbodem polderzijde",
                 "De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[14],
+                dynamicProperties[12],
                 charactersticPointsCategory,
                 "Insteek sloot polderzijde",
                 "De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.",
                 true);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                dynamicProperties[15],
+                dynamicProperties[13],
                 charactersticPointsCategory,
                 "Maaiveld binnenwaarts",
                 "De locatie van het maaiveld binnen de polder.",

@@ -50,15 +50,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int dikeToeAtPolderIndex = 7;
         private const int shoulderTopInsideIndex = 8;
         private const int shoulderBaseInsideIndex = 9;
-        private const int trafficLoadInsideIndex = 10;
-        private const int dikeTopAtPolderIndex = 11;
-        private const int trafficLoadOutsideIndex = 12;
-        private const int dikeToeAtRiverIndex = 13;
-        private const int dikeTopAtRiverIndex = 14;
-        private const int surfaceLevelOutsideIndex = 15;
-        private const int leftGridIndex = 16;
-        private const int rightGridIndex = 17;
-        private const int nrOfChartData = 18;
+        private const int dikeTopAtPolderIndex = 10;
+        private const int dikeToeAtRiverIndex = 11;
+        private const int dikeTopAtRiverIndex = 12;
+        private const int surfaceLevelOutsideIndex = 13;
+        private const int leftGridIndex = 14;
+        private const int rightGridIndex = 15;
+        private const int nrOfChartData = 16;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -465,9 +463,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedDikeToeAtPolderIndex = dikeToeAtPolderIndex - 1;
             const int updatedShoulderTopInsideIndex = shoulderTopInsideIndex - 1;
             const int updatedShoulderBaseInsideIndex = shoulderBaseInsideIndex - 1;
-            const int updatedTrafficLoadInsideIndex = trafficLoadInsideIndex - 1;
             const int updatedDikeTopAtPolderIndex = dikeTopAtPolderIndex - 1;
-            const int updatedTrafficLoadOutsideIndex = trafficLoadOutsideIndex - 1;
             const int updatedDikeToeAtRiverIndex = dikeToeAtRiverIndex - 1;
             const int updatedSurfaceLevelOutsideIndex = surfaceLevelOutsideIndex - 1;
             const int updatedLeftGridIndex = leftGridIndex - 1;
@@ -498,9 +494,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var dikeToeAtPolderData = (ChartPointData) chartDataList[updatedDikeToeAtPolderIndex];
                 var shoulderTopInsideData = (ChartPointData) chartDataList[updatedShoulderTopInsideIndex];
                 var shoulderBaseInsideData = (ChartPointData) chartDataList[updatedShoulderBaseInsideIndex];
-                var trafficLoadInsideData = (ChartPointData) chartDataList[updatedTrafficLoadInsideIndex];
                 var dikeTopAtPolderData = (ChartPointData) chartDataList[updatedDikeTopAtPolderIndex];
-                var trafficLoadOutsideData = (ChartPointData) chartDataList[updatedTrafficLoadOutsideIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
                 var surfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
                 var leftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
@@ -516,9 +510,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Teen dijk binnenwaarts", dikeToeAtPolderData.Name);
                 Assert.AreEqual("Kruin binnenberm", shoulderTopInsideData.Name);
                 Assert.AreEqual("Insteek binnenberm", shoulderBaseInsideData.Name);
-                Assert.AreEqual("Verkeersbelasting kant binnenwaarts", trafficLoadInsideData.Name);
                 Assert.AreEqual("Kruin binnentalud", dikeTopAtPolderData.Name);
-                Assert.AreEqual("Verkeersbelasting kant buitenwaarts", trafficLoadOutsideData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
                 Assert.AreEqual("Linker grid", leftGridData.Name);
@@ -543,9 +535,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualDikeToeAtPolderData = (ChartPointData) chartDataList[updatedDikeToeAtPolderIndex];
                 var actualShoulderTopInsideData = (ChartPointData) chartDataList[updatedShoulderTopInsideIndex];
                 var actualShoulderBaseInsideData = (ChartPointData) chartDataList[updatedShoulderBaseInsideIndex];
-                var actualTrafficLoadInsideData = (ChartPointData) chartDataList[updatedTrafficLoadInsideIndex];
                 var actualDikeTopAtPolderData = (ChartPointData) chartDataList[updatedDikeTopAtPolderIndex];
-                var actualTrafficLoadOutsideData = (ChartPointData) chartDataList[updatedTrafficLoadOutsideIndex];
                 var actualDikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
                 var actualSurfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
                 var actualLeftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
@@ -561,9 +551,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Teen dijk binnenwaarts", actualDikeToeAtPolderData.Name);
                 Assert.AreEqual("Kruin binnenberm", actualShoulderTopInsideData.Name);
                 Assert.AreEqual("Insteek binnenberm", actualShoulderBaseInsideData.Name);
-                Assert.AreEqual("Verkeersbelasting kant binnenwaarts", actualTrafficLoadInsideData.Name);
                 Assert.AreEqual("Kruin binnentalud", actualDikeTopAtPolderData.Name);
-                Assert.AreEqual("Verkeersbelasting kant buitenwaarts", actualTrafficLoadOutsideData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", actualDikeToeAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", actualSurfaceLevelOutsideData.Name);
                 Assert.AreEqual("Linker grid", actualLeftGridData.Name);
@@ -755,7 +743,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 Assert.IsNotNull(chartData);
-                Assert.AreEqual(18, chartData.Collection.Count());
+                Assert.AreEqual(16, chartData.Collection.Count());
                 AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true, false);
 
                 // When
@@ -888,9 +876,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var dikeToeAtPolderData = (ChartPointData) chartDatasList[dikeToeAtPolderIndex];
             var shoulderTopInsideData = (ChartPointData) chartDatasList[shoulderTopInsideIndex];
             var shoulderBaseInsideData = (ChartPointData) chartDatasList[shoulderBaseInsideIndex];
-            var trafficLoadInsideData = (ChartPointData) chartDatasList[trafficLoadInsideIndex];
             var dikeTopAtPolderData = (ChartPointData) chartDatasList[dikeTopAtPolderIndex];
-            var trafficLoadOutsideData = (ChartPointData) chartDatasList[trafficLoadOutsideIndex];
             var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
             var dikeTopAtRiverData = (ChartPointData) chartDatasList[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
@@ -907,9 +893,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(dikeToeAtPolderData.Points);
             CollectionAssert.IsEmpty(shoulderTopInsideData.Points);
             CollectionAssert.IsEmpty(shoulderBaseInsideData.Points);
-            CollectionAssert.IsEmpty(trafficLoadInsideData.Points);
             CollectionAssert.IsEmpty(dikeTopAtPolderData.Points);
-            CollectionAssert.IsEmpty(trafficLoadOutsideData.Points);
             CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
             CollectionAssert.IsEmpty(dikeTopAtRiverData.Points);
             CollectionAssert.IsEmpty(surfaceLevelOutsideData.Points);
@@ -926,9 +910,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Teen dijk binnenwaarts", dikeToeAtPolderData.Name);
             Assert.AreEqual("Kruin binnenberm", shoulderTopInsideData.Name);
             Assert.AreEqual("Insteek binnenberm", shoulderBaseInsideData.Name);
-            Assert.AreEqual("Verkeersbelasting kant binnenwaarts", trafficLoadInsideData.Name);
             Assert.AreEqual("Kruin binnentalud", dikeTopAtPolderData.Name);
-            Assert.AreEqual("Verkeersbelasting kant buitenwaarts", trafficLoadOutsideData.Name);
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
             Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);

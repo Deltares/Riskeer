@@ -166,31 +166,27 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             const int surfaceLevelOutsideIndex = 1;
             surfaceLine.SetSurfaceLevelOutsideAt(geometry[surfaceLevelOutsideIndex]);
-            const int trafficLoadOutsideIndex = 2;
-            surfaceLine.SetTrafficLoadOutsideAt(geometry[trafficLoadOutsideIndex]);
-            const int trafficLoadInsideIndex = 3;
-            surfaceLine.SetTrafficLoadInsideAt(geometry[trafficLoadInsideIndex]);
-            const int dikeTopAtPolderIndex = 4;
+            const int dikeTopAtPolderIndex = 2;
             surfaceLine.SetDikeTopAtPolderAt(geometry[dikeTopAtPolderIndex]);
-            const int dikeTopAtRiverIndex = 5;
+            const int dikeTopAtRiverIndex = 3;
             surfaceLine.SetDikeTopAtRiverAt(geometry[dikeTopAtRiverIndex]);
-            const int shoulderBaseInsideIndex = 6;
+            const int shoulderBaseInsideIndex = 4;
             surfaceLine.SetShoulderBaseInsideAt(geometry[shoulderBaseInsideIndex]);
-            const int shoulderTopInsideIndex = 7;
+            const int shoulderTopInsideIndex = 5;
             surfaceLine.SetShoulderTopInsideAt(geometry[shoulderTopInsideIndex]);
-            const int bottomDitchDikeSideIndex = 8;
+            const int bottomDitchDikeSideIndex = 6;
             surfaceLine.SetBottomDitchDikeSideAt(geometry[bottomDitchDikeSideIndex]);
-            const int bottomDitchPolderSideIndex = 9;
+            const int bottomDitchPolderSideIndex = 7;
             surfaceLine.SetBottomDitchPolderSideAt(geometry[bottomDitchPolderSideIndex]);
-            const int dikeToeAtPolderIndex = 10;
+            const int dikeToeAtPolderIndex = 8;
             surfaceLine.SetDikeToeAtPolderAt(geometry[dikeToeAtPolderIndex]);
-            const int dikeToeAtRiverIndex = 11;
+            const int dikeToeAtRiverIndex = 9;
             surfaceLine.SetDikeToeAtRiverAt(geometry[dikeToeAtRiverIndex]);
-            const int ditchDikeSideIndex = 12;
+            const int ditchDikeSideIndex = 10;
             surfaceLine.SetDitchDikeSideAt(geometry[ditchDikeSideIndex]);
-            const int ditchPolderSideIndex = 13;
+            const int ditchPolderSideIndex = 11;
             surfaceLine.SetDitchPolderSideAt(geometry[ditchPolderSideIndex]);
-            const int surfaceLevelInsideIndex = 14;
+            const int surfaceLevelInsideIndex = 12;
             surfaceLine.SetSurfaceLevelInsideAt(geometry[surfaceLevelInsideIndex]);
 
             var registry = new PersistenceRegistry();
@@ -206,7 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
-            Assert.AreEqual(14, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
+            Assert.AreEqual(12, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
             foreach (MacroStabilityInwardsCharacteristicPointEntity characteristicPointEntity in entity.MacroStabilityInwardsCharacteristicPointEntities)
             {
                 switch (characteristicPointEntity.Type)
@@ -215,16 +211,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                         Assert.AreEqual(geometry[surfaceLevelOutsideIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[surfaceLevelOutsideIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[surfaceLevelOutsideIndex].Z, characteristicPointEntity.Z);
-                        break;
-                    case (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside:
-                        Assert.AreEqual(geometry[trafficLoadOutsideIndex].X, characteristicPointEntity.X);
-                        Assert.AreEqual(geometry[trafficLoadOutsideIndex].Y, characteristicPointEntity.Y);
-                        Assert.AreEqual(geometry[trafficLoadOutsideIndex].Z, characteristicPointEntity.Z);
-                        break;
-                    case (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside:
-                        Assert.AreEqual(geometry[trafficLoadInsideIndex].X, characteristicPointEntity.X);
-                        Assert.AreEqual(geometry[trafficLoadInsideIndex].Y, characteristicPointEntity.Y);
-                        Assert.AreEqual(geometry[trafficLoadInsideIndex].Z, characteristicPointEntity.Z);
                         break;
                     case (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder:
                         Assert.AreEqual(geometry[dikeTopAtPolderIndex].X, characteristicPointEntity.X);
@@ -304,8 +290,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             };
             surfaceLine.SetGeometry(geometry);
             surfaceLine.SetSurfaceLevelOutsideAt(geometry[0]);
-            surfaceLine.SetTrafficLoadOutsideAt(geometry[0]);
-            surfaceLine.SetTrafficLoadInsideAt(geometry[0]);
             surfaceLine.SetDikeTopAtPolderAt(geometry[0]);
             surfaceLine.SetDikeTopAtRiverAt(geometry[0]);
             surfaceLine.SetShoulderBaseInsideAt(geometry[0]);
@@ -329,12 +313,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
-            Assert.AreEqual(14, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
+            Assert.AreEqual(12, entity.MacroStabilityInwardsCharacteristicPointEntities.Count);
             CollectionAssert.AreEquivalent(new[]
             {
                 (byte) MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside,
-                (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside,
-                (byte) MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside,
                 (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder,
                 (byte) MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver,
                 (byte) MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside,

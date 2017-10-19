@@ -81,8 +81,6 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             var characteristicPointAssociations = new[]
             {
                 Tuple.Create(surfaceLine.SurfaceLevelOutside, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
-                Tuple.Create(surfaceLine.TrafficLoadOutside, MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside),
-                Tuple.Create(surfaceLine.TrafficLoadInside, MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside),
                 Tuple.Create(surfaceLine.DikeTopAtPolder, MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),
                 Tuple.Create(surfaceLine.DikeTopAtRiver, MacroStabilityInwardsCharacteristicPointType.DikeTopAtRiver),
                 Tuple.Create(surfaceLine.ShoulderBaseInside, MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside),

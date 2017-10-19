@@ -195,12 +195,6 @@ namespace Application.Ringtoets.Storage.Read
                 case MacroStabilityInwardsCharacteristicPointType.SurfaceLevelInside:
                     surfaceLine.SetSurfaceLevelInsideAt(geometryPoint);
                     break;
-                case MacroStabilityInwardsCharacteristicPointType.TrafficLoadOutside:
-                    surfaceLine.SetTrafficLoadOutsideAt(geometryPoint);
-                    break;
-                case MacroStabilityInwardsCharacteristicPointType.TrafficLoadInside:
-                    surfaceLine.SetTrafficLoadInsideAt(geometryPoint);
-                    break;
                 case MacroStabilityInwardsCharacteristicPointType.ShoulderBaseInside:
                     surfaceLine.SetShoulderBaseInsideAt(geometryPoint);
                     break;

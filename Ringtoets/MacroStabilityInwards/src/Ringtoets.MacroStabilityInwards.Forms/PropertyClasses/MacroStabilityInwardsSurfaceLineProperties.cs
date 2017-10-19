@@ -94,28 +94,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadOutside))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_TrafficLoadOutside_Description))]
-        public Point3D TrafficLoadOutside
-        {
-            get
-            {
-                return data.TrafficLoadOutside;
-            }
-        }
-
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_TrafficLoadInside))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_TrafficLoadInside_Description))]
-        public Point3D TrafficLoadInside
-        {
-            get
-            {
-                return data.TrafficLoadInside;
-            }
-        }
-
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Characteristic_points))]
         [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), nameof(RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CharacteristicPoint_DikeTopAtPolder_Description))]
         public Point3D DikeTopAtPolder
