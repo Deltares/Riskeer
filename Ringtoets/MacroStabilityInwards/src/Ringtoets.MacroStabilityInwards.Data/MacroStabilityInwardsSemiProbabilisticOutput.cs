@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// This class contains the results of a semi-probabilistic assessment of the macro stability inwards
     /// failure mechanism.
     /// </summary>
-    public class MacroStabilityInwardsSemiProbabilisticOutput
+    public class MacroStabilityInwardsSemiProbabilisticOutput : ICloneable
     {
         private double requiredProbability;
         private double macroStabilityInwardsProbability;
@@ -116,6 +116,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 ProbabilityHelper.ValidateProbability(value, nameof(value), true);
                 macroStabilityInwardsProbability = value;
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

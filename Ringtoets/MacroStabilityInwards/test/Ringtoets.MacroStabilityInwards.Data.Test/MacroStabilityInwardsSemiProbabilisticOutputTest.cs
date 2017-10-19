@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -51,6 +53,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 macroStabilityInwardsFactorOfSafety);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(output);
+
             Assert.AreEqual(factorOfStability, output.FactorOfStability, output.FactorOfStability.GetAccuracy());
             Assert.AreEqual(3, output.FactorOfStability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
@@ -181,6 +185,32 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstancesWithCopiedValues()
+        {
+            var random = new Random(21);
+            double factorOfStability = random.NextDouble();
+            double requiredProbability = random.NextDouble();
+            double requiredReliability = random.NextDouble();
+            double macroStabilityInwardsProbability = random.NextDouble();
+            double macroStabilityInwardsReliability = random.NextDouble();
+            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
+
+            var output = new MacroStabilityInwardsSemiProbabilisticOutput(
+                factorOfStability,
+                requiredProbability,
+                requiredReliability,
+                macroStabilityInwardsProbability,
+                macroStabilityInwardsReliability,
+                macroStabilityInwardsFactorOfSafety);
+
+            // Call
+            object clone = output.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(output, clone, MacroStabilityInwardsCloneAssert.AssertClones);
         }
     }
 }
