@@ -21,8 +21,11 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -59,6 +62,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.AreEqual(2, locationInput.PenetrationLength.NumberOfDecimalPlaces);
             Assert.AreEqual(penetrationLength, locationInput.PenetrationLength, locationInput.PenetrationLength.GetAccuracy());
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new MacroStabilityInwardsLocationInputExtreme
+            {
+                PenetrationLength = random.NextRoundedDouble()
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

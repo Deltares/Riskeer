@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -28,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Base class that holds all locations input for either daily or 
     /// extreme conditions for the macro stability inwards calculation.
     /// </summary>
-    public abstract class MacroStabilityInwardsLocationInputBase : IMacroStabilityInwardsLocationInput
+    public abstract class MacroStabilityInwardsLocationInputBase : IMacroStabilityInwardsLocationInput, ICloneable
     {
         private RoundedDouble waterLevelPolder;
         private RoundedDouble phreaticLineOffsetBelowDikeTopAtRiver;
@@ -111,6 +112,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 phreaticLineOffsetBelowDikeToeAtPolder = value.ToPrecision(phreaticLineOffsetBelowDikeToeAtPolder.NumberOfDecimalPlaces);
             }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

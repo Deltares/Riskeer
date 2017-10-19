@@ -21,8 +21,11 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
@@ -37,6 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsLocationInput>(locationInput);
+            Assert.IsInstanceOf<ICloneable>(locationInput);
+
             Assert.IsTrue(locationInput.UseDefaultOffsets);
 
             Assert.IsNaN(locationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
@@ -87,6 +92,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, locationInput.PhreaticLineOffsetBelowShoulderBaseInside.NumberOfDecimalPlaces);
             Assert.AreEqual(phreaticLineOffsetBelowShoulderBaseInside, locationInput.PhreaticLineOffsetBelowShoulderBaseInside,
                             locationInput.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            MacroStabilityInwardsLocationInputBase original = new TestMacroStabilityInwardsLocationInput
+            {
+                PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble(),
+                PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble(),
+                PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
+                PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble()
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
 
         private class TestMacroStabilityInwardsLocationInput : MacroStabilityInwardsLocationInputBase {}

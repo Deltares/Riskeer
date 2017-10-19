@@ -38,6 +38,55 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsLocationInputBase original,
+                                     MacroStabilityInwardsLocationInputBase clone)
+        {
+            Assert.AreEqual(original.WaterLevelPolder, clone.WaterLevelPolder);
+            Assert.AreEqual(original.UseDefaultOffsets, clone.UseDefaultOffsets);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowDikeTopAtPolder, clone.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowDikeTopAtRiver, clone.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowShoulderBaseInside, clone.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(original.PhreaticLineOffsetBelowDikeToeAtPolder, clone.PhreaticLineOffsetBelowDikeToeAtPolder);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsLocationInputExtreme original,
+                                     MacroStabilityInwardsLocationInputExtreme clone)
+        {
+            AreClones((MacroStabilityInwardsLocationInputBase)original, clone);
+            Assert.AreEqual(original.PenetrationLength, clone.PenetrationLength);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsLocationInputDaily original,
+                                     MacroStabilityInwardsLocationInputDaily clone)
+        {
+            AreClones((MacroStabilityInwardsLocationInputBase)original, clone);
+            Assert.AreEqual(original.PenetrationLength, clone.PenetrationLength);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(MacroStabilityInwardsGrid original,
                                      MacroStabilityInwardsGrid clone)
         {
