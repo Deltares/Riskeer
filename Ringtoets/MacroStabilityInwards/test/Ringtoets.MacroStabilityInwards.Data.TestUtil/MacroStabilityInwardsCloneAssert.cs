@@ -38,6 +38,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsSlidingCurve original,
+                                     MacroStabilityInwardsSlidingCurve clone)
+        {
+            CoreCloneAssert.AreObjectClones(original.LeftCircle, clone.LeftCircle, AreClones);
+            CoreCloneAssert.AreObjectClones(original.RightCircle, clone.RightCircle, AreClones);
+            CoreCloneAssert.AreEnumerationClones(original.Slices, clone.Slices, AreClones);
+
+            Assert.AreEqual(original.NonIteratedHorizontalForce, clone.NonIteratedHorizontalForce);
+            Assert.AreEqual(original.IteratedHorizontalForce, clone.IteratedHorizontalForce);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(MacroStabilityInwardsSlice original,
                                      MacroStabilityInwardsSlice clone)
         {

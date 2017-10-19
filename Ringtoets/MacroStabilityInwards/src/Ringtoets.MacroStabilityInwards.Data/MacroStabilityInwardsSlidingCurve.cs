@@ -21,13 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
     /// The macro stability inwards sliding curve.
     /// </summary>
-    public class MacroStabilityInwardsSlidingCurve
+    public class MacroStabilityInwardsSlidingCurve : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSlidingCurve"/>.
@@ -67,17 +68,17 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the left circle.
         /// </summary>
-        public MacroStabilityInwardsSlidingCircle LeftCircle { get; }
+        public MacroStabilityInwardsSlidingCircle LeftCircle { get; private set; }
 
         /// <summary>
         /// Gets the right circle.
         /// </summary>
-        public MacroStabilityInwardsSlidingCircle RightCircle { get; }
+        public MacroStabilityInwardsSlidingCircle RightCircle { get; private set; }
 
         /// <summary>
         /// Gets the slices.
         /// </summary>
-        public IEnumerable<MacroStabilityInwardsSlice> Slices { get; }
+        public IEnumerable<MacroStabilityInwardsSlice> Slices { get; private set; }
 
         /// <summary>
         /// Gets the non iterated horizontal force.
@@ -88,5 +89,15 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets the iterated horizontal force.
         /// </summary>
         public double IteratedHorizontalForce { get; }
+
+        public object Clone()
+        {
+            var clone = (MacroStabilityInwardsSlidingCurve) MemberwiseClone();
+            clone.LeftCircle = (MacroStabilityInwardsSlidingCircle) LeftCircle.Clone();
+            clone.RightCircle = (MacroStabilityInwardsSlidingCircle) RightCircle.Clone();
+            clone.Slices = Slices.Select(s => (MacroStabilityInwardsSlice) s.Clone()).ToArray();
+
+            return clone;
+        }
     }
 }

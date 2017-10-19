@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Geometry;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
@@ -81,8 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
             var slices = new[]
             {
-                new MacroStabilityInwardsSlice(new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0), new Point2D(0, 0),
-                                               new MacroStabilityInwardsSlice.ConstructionProperties())
+                MacroStabilityInwardsSliceTestFactory.CreateSlice()
             };
 
             double nonIteratedHorizontalForce = random.NextDouble();
@@ -92,11 +91,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var curve = new MacroStabilityInwardsSlidingCurve(leftCircle, rightCircle, slices, nonIteratedHorizontalForce, iteratedHorizontalForce);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(curve);
+
             Assert.AreSame(leftCircle, curve.LeftCircle);
             Assert.AreSame(rightCircle, curve.RightCircle);
             Assert.AreEqual(nonIteratedHorizontalForce, curve.NonIteratedHorizontalForce);
             Assert.AreEqual(iteratedHorizontalForce, curve.IteratedHorizontalForce);
             Assert.AreSame(slices, curve.Slices);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
+            MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
+            var slices = new[]
+            {
+                MacroStabilityInwardsSliceTestFactory.CreateSlice()
+            };
+            var original = new MacroStabilityInwardsSlidingCurve(leftCircle, rightCircle, slices, random.NextDouble(), random.NextDouble());
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }
