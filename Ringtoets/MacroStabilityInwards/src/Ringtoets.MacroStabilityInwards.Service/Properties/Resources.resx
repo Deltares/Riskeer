@@ -130,9 +130,9 @@
     <value>Kan het toetspeil niet afleiden op basis van de invoer.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation" xml:space="preserve">
-    <value>Macrostabiliteit berekening mislukt.</value>
+    <value>Macrostabiliteit binnenwaarts berekening mislukt.</value>
   </data>
-  <data name="MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_validation" xml:space="preserve">
-    <value>Macrostabiliteit validatie mislukt.</value>
+  <data name="MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation" xml:space="preserve">
+    <value>Macrostabiliteit binnenwaarts validatie mislukt.</value>
   </data>
 </root>

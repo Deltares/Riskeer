@@ -337,7 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
                 {
                     Tuple<string, Level, Exception> tuple = tuples.ElementAt(1);
-                    Assert.AreEqual("Macrostabiliteit validatie mislukt.", tuple.Item1);
+                    Assert.AreEqual("Macrostabiliteit binnenwaarts validatie mislukt.", tuple.Item1);
                     Assert.AreEqual(Level.Error, tuple.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
                 });
@@ -576,7 +576,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
                 {
                     Tuple<string, Level, Exception> tuple = tuples.ElementAt(1);
-                    Assert.AreEqual("Macrostabiliteit berekening mislukt.", tuple.Item1);
+                    Assert.AreEqual("Macrostabiliteit binnenwaarts berekening mislukt.", tuple.Item1);
                     Assert.AreEqual(Level.Error, tuple.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
                 });

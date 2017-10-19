@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
             catch (UpliftVanCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_validation, e);
+                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation, e);
                 CalculationServiceHelper.LogValidationEnd();
                 return false;
             }

@@ -113,10 +113,7 @@ namespace Ringtoets.Piping.Service
             }
             catch (PipingCalculatorException e)
             {
-                CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_calculation_0, new[]
-                {
-                    e.Message
-                });
+                CalculationServiceHelper.LogExceptionAsError(Resources.Error_in_piping_calculation, e);
             }
             finally
             {

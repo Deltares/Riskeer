@@ -82,11 +82,11 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piping berekening mislukt: {0}.
+        ///   Looks up a localized string similar to Piping berekening mislukt..
         /// </summary>
-        internal static string Error_in_piping_calculation_0 {
+        internal static string Error_in_piping_calculation {
             get {
-                return ResourceManager.GetString("Error_in_piping_calculation_0", resourceCulture);
+                return ResourceManager.GetString("Error_in_piping_calculation", resourceCulture);
             }
         }
         

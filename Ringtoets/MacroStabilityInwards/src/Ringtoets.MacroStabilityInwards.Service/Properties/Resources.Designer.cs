@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Macrostabiliteit berekening mislukt..
+        ///   Looks up a localized string similar to Macrostabiliteit binnenwaarts berekening mislukt..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation {
             get {
@@ -92,12 +92,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Macrostabiliteit validatie mislukt..
+        ///   Looks up a localized string similar to Macrostabiliteit binnenwaarts validatie mislukt..
         /// </summary>
-        internal static string MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_validation {
+        internal static string MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation {
             get {
-                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_" +
-                        "validation", resourceCulture);
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_v" +
+                        "alidation", resourceCulture);
             }
         }
         
