@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
         }
 
         [Test]
-        public void Calculate_KernelWithCompleteOutput_OutputCorrectlySetToCalculator()
+        public void Calculate_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
@@ -152,11 +152,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
 
         private static void SetCompleteKernelOutput(WaternetKernelStub kernel)
         {
-            kernel.Waternet = CreateValidOutput();
-        }
-
-        private static WtiStabilityWaternet CreateValidOutput()
-        {
             var headLine = new HeadLine
             {
                 Name = "line 1",
@@ -167,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
                 }
             };
 
-            return new WtiStabilityWaternet
+            kernel.Waternet = new WtiStabilityWaternet
             {
                 HeadLineList =
                 {

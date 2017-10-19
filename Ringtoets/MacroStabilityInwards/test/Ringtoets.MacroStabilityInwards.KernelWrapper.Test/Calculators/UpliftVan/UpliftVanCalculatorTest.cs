@@ -159,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         }
 
         [Test]
-        public void Calculate_KernelWithCompleteOutput_OutputCorrectlySetToCalculator()
+        public void Calculate_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
             UpliftVanCalculatorInput input = CreateValidCalculatorInput();
