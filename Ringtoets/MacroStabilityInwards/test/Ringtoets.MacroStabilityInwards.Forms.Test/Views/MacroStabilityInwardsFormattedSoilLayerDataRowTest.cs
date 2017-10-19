@@ -46,6 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void Constructor_WithSoilLayerData_ExpectedValues()
         {
             // Setup
