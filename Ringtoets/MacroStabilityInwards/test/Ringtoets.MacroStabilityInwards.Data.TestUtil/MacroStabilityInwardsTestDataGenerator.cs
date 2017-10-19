@@ -271,7 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
             var calculationWithSurfaceLineAndSoilModel = new MacroStabilityInwardsCalculationScenario
             {
@@ -292,7 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
             var calculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
@@ -322,7 +322,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.ElementAt(0)
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {
@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.ElementAt(0)
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
             var subCalculationWithHydraulicBoundaryLocation = new MacroStabilityInwardsCalculationScenario
             {

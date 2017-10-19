@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var originalOutput = new TestMacroStabilityInwardsOutput();
-            var originalSemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput();
+            var originalSemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
 
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;

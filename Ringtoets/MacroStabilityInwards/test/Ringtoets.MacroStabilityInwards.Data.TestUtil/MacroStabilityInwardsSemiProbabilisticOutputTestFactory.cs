@@ -22,15 +22,19 @@
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
-    /// A <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> configured to be used immediately for testing purposes.
+    /// Factory that creates instances of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>
+    /// that can be used for testing.
     /// </summary>
-    /// <seealso cref="MacroStabilityInwardsSemiProbabilisticOutput" />
-    public class TestMacroStabilityInwardsSemiProbabilisticOutput : MacroStabilityInwardsSemiProbabilisticOutput
+    public static class MacroStabilityInwardsSemiProbabilisticOutputTestFactory
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="TestMacroStabilityInwardsSemiProbabilisticOutput"/> class.
+        /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.
         /// </summary>
         /// <param name="probability">The optional probability to set (set to <c>0</c> when not specified).</param>
-        public TestMacroStabilityInwardsSemiProbabilisticOutput(double probability = 0) : base(0, 0, 0, probability, 0, 0) {}
+        /// <returns>A <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.</returns>
+        public static MacroStabilityInwardsSemiProbabilisticOutput CreateOutput(double probability = 0)
+        {
+            return new MacroStabilityInwardsSemiProbabilisticOutput(0, 0, 0, probability, 0, 0);
+        }
     }
 }

@@ -190,7 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             group.Children.Add(new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             });
 
             var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
@@ -314,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             group.Children.Add(new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             });
 
             var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
@@ -918,12 +918,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 MacroStabilityInwardsCalculationScenario calculation1 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation1.Name = "A";
                 calculation1.Output = new TestMacroStabilityInwardsOutput();
-                calculation1.SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput();
+                calculation1.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
                 calculation1.Attach(calculation1Observer);
                 MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation2.Name = "B";
                 calculation2.Output = new TestMacroStabilityInwardsOutput();
-                calculation2.SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput();
+                calculation2.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
                 calculation2.Attach(calculation2Observer);
 
                 var childGroup = new CalculationGroup();

@@ -414,7 +414,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var registry = new PersistenceRegistry();

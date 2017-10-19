@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var context = new MacroStabilityInwardsOutputContext(scenario);

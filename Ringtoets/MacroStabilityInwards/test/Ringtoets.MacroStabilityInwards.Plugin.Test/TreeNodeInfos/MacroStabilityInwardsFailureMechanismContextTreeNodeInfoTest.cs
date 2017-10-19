@@ -220,12 +220,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var calculation1 = new MacroStabilityInwardsCalculationScenario
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
-                    SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
                 };
                 var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
-                    SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
                 };
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -432,7 +432,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     Output = new TestMacroStabilityInwardsOutput(),
-                    SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                    SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
                 };
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();

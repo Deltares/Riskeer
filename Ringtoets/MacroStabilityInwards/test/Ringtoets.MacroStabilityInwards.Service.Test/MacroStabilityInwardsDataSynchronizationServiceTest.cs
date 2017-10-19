@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var calculation = new MacroStabilityInwardsCalculation
             {
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             // Call

@@ -357,7 +357,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     SurfaceLine = surfaceLine
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -405,7 +405,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     SurfaceLine = affectedSurfaceLine
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var unaffectedGeometry = new[]
@@ -422,7 +422,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     SurfaceLine = unaffectedSurfaceLine
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -489,7 +489,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     SurfaceLine = removedSurfaceLine
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var unaffectedGeometry = new[]
@@ -506,7 +506,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                     SurfaceLine = unaffectedSurfaceLine
                 },
                 Output = new TestMacroStabilityInwardsOutput(),
-                SemiProbabilisticOutput = new TestMacroStabilityInwardsSemiProbabilisticOutput()
+                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
             };
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

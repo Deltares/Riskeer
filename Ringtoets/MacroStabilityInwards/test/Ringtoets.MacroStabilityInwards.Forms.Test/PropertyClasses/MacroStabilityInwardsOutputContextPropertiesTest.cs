@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var output = new TestMacroStabilityInwardsSemiProbabilisticOutput();
+            var output = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
             
             // Call
             var properties = new MacroStabilityInwardsOutputContextProperties(output);
@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
             // Call
-            var properties = new MacroStabilityInwardsOutputContextProperties(new TestMacroStabilityInwardsSemiProbabilisticOutput());
+            var properties = new MacroStabilityInwardsOutputContextProperties(MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput());
 
             // Assert
             const string probability = "1/Oneindig";
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new MacroStabilityInwardsOutputContextProperties(new TestMacroStabilityInwardsSemiProbabilisticOutput());
+            var properties = new MacroStabilityInwardsOutputContextProperties(MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
