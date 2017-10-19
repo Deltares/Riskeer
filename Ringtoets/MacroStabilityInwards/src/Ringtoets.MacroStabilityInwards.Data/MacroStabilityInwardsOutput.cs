@@ -28,7 +28,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// Simple class containing the results of a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsOutput : Observable, ICalculationOutput
+    public class MacroStabilityInwardsOutput : CloneableObservable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutput"/>.
@@ -65,9 +65,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            throw new NotImplementedException();
+            var clone = (MacroStabilityInwardsOutput) base.Clone();
+            clone.SlidingCurve = (MacroStabilityInwardsSlidingCurve) SlidingCurve.Clone();
+            clone.SlipPlane = (MacroStabilityInwardsSlipPlaneUpliftVan) SlipPlane.Clone();
+            return clone;
         }
 
         /// <summary>
@@ -112,12 +115,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the sliding curve.
         /// </summary>
-        public MacroStabilityInwardsSlidingCurve SlidingCurve { get; }
+        public MacroStabilityInwardsSlidingCurve SlidingCurve { get; private set; }
 
         /// <summary>
         /// Gets the slip plane.
         /// </summary>
-        public MacroStabilityInwardsSlipPlaneUpliftVan SlipPlane { get; }
+        public MacroStabilityInwardsSlipPlaneUpliftVan SlipPlane { get; private set; }
 
         /// <summary>
         /// Gets the factor of stability of the Uplift Van calculation.

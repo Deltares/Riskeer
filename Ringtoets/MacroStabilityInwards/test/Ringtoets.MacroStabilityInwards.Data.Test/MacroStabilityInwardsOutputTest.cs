@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -134,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var output = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, properties);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
 
             Assert.AreSame(slidingCurve, output.SlidingCurve);
@@ -144,6 +145,36 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(zValue, output.ZValue);
             Assert.AreEqual(xEntryMin, output.ForbiddenZonesXEntryMin);
             Assert.AreEqual(xEntryMax, output.ForbiddenZonesXEntryMax);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     MacroStabilityInwardsSlidingCircleTestFactory.Create(),
+                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+
+            var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
+                                                                        MacroStabilityInwardsGridTestFactory.Create(),
+                                                                        new double[0]);
+
+            var random = new Random(21);
+            var properties = new MacroStabilityInwardsOutput.ConstructionProperties
+            {
+                FactorOfStability = random.NextDouble(),
+                ZValue = random.NextDouble(),
+                ForbiddenZonesXEntryMin = random.NextDouble(),
+                ForbiddenZonesXEntryMax = random.NextDouble()
+            };
+
+            var original = new MacroStabilityInwardsOutput(slidingCurve, slipPlane, properties);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

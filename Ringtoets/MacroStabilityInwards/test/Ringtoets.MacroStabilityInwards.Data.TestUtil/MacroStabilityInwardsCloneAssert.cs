@@ -57,13 +57,34 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsOutput original,
+                                     MacroStabilityInwardsOutput clone)
+        {
+            CoreCloneAssert.AreObjectClones(original.SlidingCurve, clone.SlidingCurve, AreClones);
+            CoreCloneAssert.AreObjectClones(original.SlipPlane, clone.SlipPlane, AreClones);
+
+            Assert.AreEqual(original.FactorOfStability, clone.FactorOfStability);
+            Assert.AreEqual(original.ZValue, clone.ZValue);
+            Assert.AreEqual(original.ForbiddenZonesXEntryMin, clone.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(original.ForbiddenZonesXEntryMax, clone.ForbiddenZonesXEntryMax);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(MacroStabilityInwardsSlipPlaneUpliftVan original,
                                      MacroStabilityInwardsSlipPlaneUpliftVan clone)
         {
             CoreCloneAssert.AreObjectClones(original.LeftGrid, clone.LeftGrid, AreClones);
             CoreCloneAssert.AreObjectClones(original.RightGrid, clone.RightGrid, AreClones);
             CoreCloneAssert.AreEnumerationClones(original.TangentLines, clone.TangentLines,
-                                                 (originalTangentLine, clonedTangentLine) => Assert.AreEqual(originalTangentLine, clonedTangentLine));
+                                                 (originalTangentLine, clonedTangentLine) =>
+                                                     Assert.AreEqual(originalTangentLine, clonedTangentLine));
         }
 
         /// <summary>
