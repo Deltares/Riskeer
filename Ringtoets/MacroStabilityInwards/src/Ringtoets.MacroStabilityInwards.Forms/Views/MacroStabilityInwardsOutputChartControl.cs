@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
+using Core.Components.Chart.Forms;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -37,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// Control to show macro stability inwards output data in a chart view.
     /// </summary>
-    public partial class MacroStabilityInwardsOutputChartControl : UserControl
+    public partial class MacroStabilityInwardsOutputChartControl : UserControl, IChartView
     {
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
@@ -55,9 +56,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData dikeToeAtRiverChartData;
         private readonly ChartPointData dikeTopAtRiverChartData;
         private readonly ChartPointData surfaceLevelOutsideChartData;
-        private MacroStabilityInwardsCalculationScenario data;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+        private MacroStabilityInwardsCalculationScenario data;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
 
         /// <summary>
@@ -103,10 +104,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
         }
 
-        /// <summary>
-        /// Gets or sets the data of the control.
-        /// </summary>
-        public MacroStabilityInwardsCalculationScenario Data
+        public IChartControl Chart
+        {
+            get
+            {
+                return chartControl;
+            }
+        }
+
+        public object Data
         {
             get
             {
@@ -114,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
             set
             {
-                data = value;
+                data = value as MacroStabilityInwardsCalculationScenario;
 
                 if (data != null)
                 {

@@ -21,11 +21,10 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
+using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 
@@ -42,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<IChartView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
 

@@ -22,6 +22,7 @@
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Core.Components.Chart.Forms;
 using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
@@ -29,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// This class is a view to show the macro stability inwards output.
     /// </summary>
-    public partial class MacroStabilityInwardsOutputView : UserControl, IView
+    public partial class MacroStabilityInwardsOutputView : UserControl, IChartView
     {
         private readonly Observer outputObserver;
 
@@ -75,6 +76,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void UpdateChartData()
         {
             macroStabilityInwardsOutputChartControl.Data = data != null && data.HasOutput ? data : null;
+        }
+
+        public IChartControl Chart
+        {
+            get
+            {
+                return macroStabilityInwardsOutputChartControl.Chart;
+            }
         }
     }
 }
