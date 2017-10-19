@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// A slice of a macro stability inwards sliding curve.
     /// </summary>
-    public class MacroStabilityInwardsSlice
+    public class MacroStabilityInwardsSlice : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSlice"/>.
@@ -104,22 +104,22 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the top left point.
         /// </summary>
-        public Point2D TopLeftPoint { get; }
+        public Point2D TopLeftPoint { get; private set; }
 
         /// <summary>
         /// Gets the top right point.
         /// </summary>
-        public Point2D TopRightPoint { get; }
+        public Point2D TopRightPoint { get; private set; }
 
         /// <summary>
         /// Gets the bottom left point.
         /// </summary>
-        public Point2D BottomLeftPoint { get; }
+        public Point2D BottomLeftPoint { get; private set; }
 
         /// <summary>
         /// Gets the bottom right point.
         /// </summary>
-        public Point2D BottomRightPoint { get; }
+        public Point2D BottomRightPoint { get; private set; }
 
         /// <summary>
         /// Gets the cohesion.
@@ -299,6 +299,17 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// [kN/m]
         /// </summary>
         public double Weight { get; }
+
+        public object Clone()
+        {
+            var clone = (MacroStabilityInwardsSlice) MemberwiseClone();
+            clone.TopLeftPoint = (Point2D) TopLeftPoint.Clone();
+            clone.TopRightPoint = (Point2D) TopRightPoint.Clone();
+            clone.BottomLeftPoint = (Point2D) BottomLeftPoint.Clone();
+            clone.BottomRightPoint = (Point2D) BottomRightPoint.Clone();
+
+            return clone;
+        }
 
         public class ConstructionProperties
         {

@@ -1734,6 +1734,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertMacroStabilityInwardsSlice(MacroStabilityInwardsSlice expectedSlice,
                                                              MacroStabilityInwardsSlice actualSlice)
         {
+            Assert.AreEqual(expectedSlice.TopLeftPoint, actualSlice.TopLeftPoint);
+            Assert.AreEqual(expectedSlice.TopRightPoint, actualSlice.TopRightPoint);
+            Assert.AreEqual(expectedSlice.BottomLeftPoint, actualSlice.BottomLeftPoint);
+            Assert.AreEqual(expectedSlice.BottomRightPoint, actualSlice.BottomRightPoint);
+
             Assert.AreEqual(expectedSlice.Cohesion, actualSlice.Cohesion);
             Assert.AreEqual(expectedSlice.FrictionAngle, actualSlice.FrictionAngle);
             Assert.AreEqual(expectedSlice.CriticalPressure, actualSlice.CriticalPressure);

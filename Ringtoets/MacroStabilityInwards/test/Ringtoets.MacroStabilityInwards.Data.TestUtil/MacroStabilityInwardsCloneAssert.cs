@@ -38,8 +38,56 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsSlice original,
+                                     MacroStabilityInwardsSlice clone)
+        {
+            CoreCloneAssert.AreObjectClones(original.TopLeftPoint, clone.TopLeftPoint, GeometryCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original.TopRightPoint, clone.TopRightPoint, GeometryCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original.BottomLeftPoint, clone.BottomLeftPoint, GeometryCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original.BottomRightPoint, clone.BottomRightPoint, GeometryCloneAssert.AreClones);
+
+            Assert.AreEqual(original.Cohesion, clone.Cohesion);
+            Assert.AreEqual(original.FrictionAngle, clone.FrictionAngle);
+            Assert.AreEqual(original.CriticalPressure, clone.CriticalPressure);
+            Assert.AreEqual(original.OverConsolidationRatio, clone.OverConsolidationRatio);
+            Assert.AreEqual(original.Pop, clone.Pop);
+            Assert.AreEqual(original.DegreeOfConsolidationPorePressureSoil, clone.DegreeOfConsolidationPorePressureSoil);
+            Assert.AreEqual(original.DegreeOfConsolidationPorePressureLoad, clone.DegreeOfConsolidationPorePressureLoad);
+            Assert.AreEqual(original.Dilatancy, clone.Dilatancy);
+            Assert.AreEqual(original.ExternalLoad, clone.ExternalLoad);
+            Assert.AreEqual(original.HydrostaticPorePressure, clone.HydrostaticPorePressure);
+            Assert.AreEqual(original.LeftForce, clone.LeftForce);
+            Assert.AreEqual(original.LeftForceAngle, clone.LeftForceAngle);
+            Assert.AreEqual(original.LeftForceY, clone.LeftForceY);
+            Assert.AreEqual(original.RightForce, clone.RightForce);
+            Assert.AreEqual(original.RightForceAngle, clone.RightForceAngle);
+            Assert.AreEqual(original.RightForceY, clone.RightForceY);
+            Assert.AreEqual(original.LoadStress, clone.LoadStress);
+            Assert.AreEqual(original.NormalStress, clone.NormalStress);
+            Assert.AreEqual(original.PorePressure, clone.PorePressure);
+            Assert.AreEqual(original.HorizontalPorePressure, clone.HorizontalPorePressure);
+            Assert.AreEqual(original.VerticalPorePressure, clone.VerticalPorePressure);
+            Assert.AreEqual(original.PiezometricPorePressure, clone.PiezometricPorePressure);
+            Assert.AreEqual(original.EffectiveStress, clone.EffectiveStress);
+            Assert.AreEqual(original.EffectiveStressDaily, clone.EffectiveStressDaily);
+            Assert.AreEqual(original.ExcessPorePressure, clone.ExcessPorePressure);
+            Assert.AreEqual(original.ShearStress, clone.ShearStress);
+            Assert.AreEqual(original.SoilStress, clone.SoilStress);
+            Assert.AreEqual(original.TotalPorePressure, clone.TotalPorePressure);
+            Assert.AreEqual(original.TotalStress, clone.TotalStress);
+            Assert.AreEqual(original.Weight, clone.Weight);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(MacroStabilityInwardsSlidingCircle original,
-                                        MacroStabilityInwardsSlidingCircle clone)
+                                     MacroStabilityInwardsSlidingCircle clone)
         {
             CoreCloneAssert.AreObjectClones(original.Center, clone.Center, GeometryCloneAssert.AreClones);
             Assert.AreEqual(original.Radius, clone.Radius);
@@ -59,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(MacroStabilityInwardsSemiProbabilisticOutput original,
-                                        MacroStabilityInwardsSemiProbabilisticOutput clone)
+                                     MacroStabilityInwardsSemiProbabilisticOutput clone)
         {
             Assert.AreEqual(original.FactorOfStability, clone.FactorOfStability);
             Assert.AreEqual(original.RequiredProbability, clone.RequiredProbability);

@@ -21,7 +21,9 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -101,6 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                                        new MacroStabilityInwardsSlice.ConstructionProperties());
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(slice);
+
             Assert.AreEqual(topLeftPoint, slice.TopLeftPoint);
             Assert.AreEqual(topRightPoint, slice.TopRightPoint);
             Assert.AreEqual(bottomLeftPoint, slice.BottomLeftPoint);
@@ -253,6 +257,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(totalPorePressure, slice.TotalPorePressure);
             Assert.AreEqual(totalStress, slice.TotalStress);
             Assert.AreEqual(weight, slice.Weight);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            MacroStabilityInwardsSlice original = MacroStabilityInwardsSliceTestFactory.CreateSlice();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

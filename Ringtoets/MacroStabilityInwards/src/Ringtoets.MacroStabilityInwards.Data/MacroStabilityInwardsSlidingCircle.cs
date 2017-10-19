@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the center coordinate of the circle.
         /// </summary>
-        public Point2D Center { get; internal set; }
+        public Point2D Center { get; private set; }
 
         /// <summary>
         /// Gets the radius of the circle.
