@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Given
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            var input = (MacroStabilityInwardsLocationInputBase) calculationItem.InputParameters.LocationInputExtreme;
+            var input = new TestMacroStabilityInwardsLocationInput();
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new TestMacroStabilityInwardsLocationProperties(input, handler);
@@ -176,9 +176,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void WaterLevelPolder_SetValidValue_SetsValueAndUpdatesObservers()
         {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-
             // Call & Assert
             SetPropertyAndVerifyNotificationsForCalculation(properties => properties.WaterLevelPolder = (RoundedDouble) 1);
         }

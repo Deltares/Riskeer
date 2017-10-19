@@ -19,17 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -124,64 +118,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(input.PenetrationLength, properties.PenetrationLength);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenPropertiesWithData_WhenChangingProperties_ThenPropertiesSetOnInput()
-        {
-            // Given
-            var calculationItem = new MacroStabilityInwardsCalculationScenario();
-            var input = (MacroStabilityInwardsLocationInputDaily) calculationItem.InputParameters.LocationInputDaily;
-
-            var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-            var properties = new MacroStabilityInwardsLocationInputDailyProperties(input, handler);
-
-            var random = new Random(21);
-            double waterLevelPolder = random.NextDouble();
-
-            // When
-            properties.WaterLevelPolder = (RoundedDouble) waterLevelPolder;
-
-            // Then
-            Assert.AreEqual(waterLevelPolder, input.WaterLevelPolder,
-                            input.WaterLevelPolder.GetAccuracy());
-        }
-
-        [Test]
-        public void WaterLevelPolder_SetValidValue_SetsValueAndUpdatesObservers()
-        {
-            // Setup
-            var random = new Random(21);
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-
-            // Call & Assert
-            SetPropertyAndVerifyNotificationsForCalculation(properties => properties.WaterLevelPolder = random.NextRoundedDouble(), calculation);
-        }
-
-        private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsLocationInputDailyProperties> setProperty,
-                                                                            MacroStabilityInwardsCalculation calculation)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            MacroStabilityInwardsInput input = calculation.InputParameters;
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
-
-            var properties = new MacroStabilityInwardsLocationInputDailyProperties((MacroStabilityInwardsLocationInputDaily) input.LocationInputDaily, handler);
-
-            // Call
-            setProperty(properties);
-
-            // Assert
-            Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
         }
     }

@@ -84,11 +84,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Offsets_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Offsets_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public MacroStabilityInwardsOffsetProperties Offsets
+        public MacroStabilityInwardsLocationInputOffsetProperties Offsets
         {
             get
             {
-                return new MacroStabilityInwardsOffsetProperties(data, PropertyChangeHandler);
+                return new MacroStabilityInwardsLocationInputOffsetProperties(data, PropertyChangeHandler);
             }
         }
 

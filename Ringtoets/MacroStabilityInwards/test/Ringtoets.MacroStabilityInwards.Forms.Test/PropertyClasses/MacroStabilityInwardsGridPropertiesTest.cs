@@ -201,18 +201,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsGridProperties(grid, handler, false);
 
             var random = new Random(21);
-            double xLeft = random.NextDouble();
-            double xRight = random.NextDouble();
-            double zTop = random.NextDouble();
-            double zBottom = random.NextDouble();
+            RoundedDouble xLeft = random.NextRoundedDouble();
+            RoundedDouble xRight = random.NextRoundedDouble();
+            RoundedDouble zTop = random.NextRoundedDouble();
+            RoundedDouble zBottom = random.NextRoundedDouble();
             int numberOfHorizontalPoints = random.Next();
             int numberOfVerticalPoints = random.Next();
 
             // When
-            properties.XLeft = (RoundedDouble) xLeft;
-            properties.XRight = (RoundedDouble) xRight;
-            properties.ZTop = (RoundedDouble) zTop;
-            properties.ZBottom = (RoundedDouble) zBottom;
+            properties.XLeft = xLeft;
+            properties.XRight = xRight;
+            properties.ZTop = zTop;
+            properties.ZBottom = zBottom;
             properties.NumberOfHorizontalPoints = numberOfHorizontalPoints;
             properties.NumberOfVerticalPoints = numberOfVerticalPoints;
 

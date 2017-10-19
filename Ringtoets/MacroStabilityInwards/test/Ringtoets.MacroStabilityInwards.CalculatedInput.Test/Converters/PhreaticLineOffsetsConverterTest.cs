@@ -22,9 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
@@ -47,14 +48,15 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new MacroStabilityInwardsLocationInputExtreme
-            {
-                UseDefaultOffsets = true,
-                PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
-                PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble(),
-                PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble(),
-                PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble()
-            };
+            var mockRepository = new MockRepository();
+            var input = mockRepository.Stub<IMacroStabilityInwardsLocationInput>();
+            mockRepository.ReplayAll();
+
+            input.UseDefaultOffsets = true;
+            input.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            input.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            input.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+            input.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
 
             // Call
             PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
@@ -72,14 +74,15 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new TestMacroStabilityInwardsLocationInput
-            {
-                UseDefaultOffsets = false,
-                PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble(),
-                PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble(),
-                PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble(),
-                PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble()
-            };
+            var mockRepository = new MockRepository();
+            var input = mockRepository.Stub<IMacroStabilityInwardsLocationInput>();
+            mockRepository.ReplayAll();
+
+            input.UseDefaultOffsets = false;
+            input.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            input.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            input.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+            input.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
 
             // Call
             PhreaticLineOffsets offsets = PhreaticLineOffsetsConverter.Convert(input);
@@ -90,8 +93,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeTopAtPolder, offsets.BelowDikeTopAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowDikeToeAtPolder, offsets.BelowDikeToeAtPolder);
             Assert.AreEqual(input.PhreaticLineOffsetBelowShoulderBaseInside, offsets.BelowShoulderBaseInside);
-        }
 
-        private class TestMacroStabilityInwardsLocationInput : MacroStabilityInwardsLocationInputBase {}
+            mockRepository.VerifyAll();
+        }
     }
 }

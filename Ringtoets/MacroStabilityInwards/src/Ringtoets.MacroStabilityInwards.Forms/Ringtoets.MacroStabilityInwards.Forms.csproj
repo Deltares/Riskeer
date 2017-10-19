@@ -78,7 +78,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsGridSettingsProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsOffsetProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputOffsetProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsOutputContextProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBaseProperties.cs" />

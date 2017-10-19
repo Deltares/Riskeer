@@ -138,11 +138,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsLocationInputExtremeProperties(input, handler);
 
             var random = new Random(21);
-            double waterLevelPolder = random.NextDouble();
             double penetrationLength = random.NextDouble();
 
             // When
-            properties.WaterLevelPolder = (RoundedDouble) waterLevelPolder;
             properties.PenetrationLength = (RoundedDouble) penetrationLength;
 
             // Then
