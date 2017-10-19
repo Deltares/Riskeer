@@ -263,13 +263,57 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            MacroStabilityInwardsSlice original = MacroStabilityInwardsSliceTestFactory.CreateSlice();
+            var random = new Random(21);
+            var properties = new MacroStabilityInwardsSlice.ConstructionProperties
+            {
+                Cohesion = random.NextDouble(),
+                FrictionAngle = random.NextDouble(),
+                CriticalPressure = random.NextDouble(),
+                OverConsolidationRatio = random.NextDouble(),
+                DegreeOfConsolidationPorePressureSoil = random.NextDouble(),
+                DegreeOfConsolidationPorePressureLoad = random.NextDouble(),
+                Pop = random.NextDouble(),
+                Dilatancy = random.NextDouble(),
+                ExternalLoad = random.NextDouble(),
+                HydrostaticPorePressure = random.NextDouble(),
+                LeftForce = random.NextDouble(),
+                LeftForceAngle = random.NextDouble(),
+                LeftForceY = random.NextDouble(),
+                RightForce = random.NextDouble(),
+                RightForceAngle = random.NextDouble(),
+                RightForceY = random.NextDouble(),
+                LoadStress = random.NextDouble(),
+                NormalStress = random.NextDouble(),
+                PorePressure = random.NextDouble(),
+                HorizontalPorePressure = random.NextDouble(),
+                VerticalPorePressure = random.NextDouble(),
+                PiezometricPorePressure = random.NextDouble(),
+                EffectiveStress = random.NextDouble(),
+                EffectiveStressDaily = random.NextDouble(),
+                ExcessPorePressure = random.NextDouble(),
+                ShearStress = random.NextDouble(),
+                SoilStress = random.NextDouble(),
+                TotalPorePressure = random.NextDouble(),
+                TotalStress = random.NextDouble(),
+                Weight = random.NextDouble()
+            };
+
+            var original = new MacroStabilityInwardsSlice(CreateRandomPoint(random),
+                                                          CreateRandomPoint(random),
+                                                          CreateRandomPoint(random),
+                                                          CreateRandomPoint(random),
+                                                          properties);
 
             // Call
             object clone = original.Clone();
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+        }
+
+        private static Point2D CreateRandomPoint(Random random)
+        {
+            return new Point2D(random.NextDouble(), random.NextDouble());
         }
     }
 }

@@ -70,20 +70,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(resistingMoment, circle.ResistingMoment);
         }
 
-
         [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             var random = new Random(11);
             var center = new Point2D(random.NextDouble(), random.NextDouble());
-            double radius = random.NextDouble();
-            bool isActive = random.NextBoolean();
-            double nonIteratedForce = random.NextDouble();
-            double iteratedForce = random.NextDouble();
-            double drivingMoment = random.NextDouble();
-            double resistingMoment = random.NextDouble();
-            var original = new MacroStabilityInwardsSlidingCircle(center, radius, isActive, nonIteratedForce, iteratedForce, drivingMoment, resistingMoment); 
+            var original = new MacroStabilityInwardsSlidingCircle(center,
+                                                                  random.NextDouble(),
+                                                                  random.NextBoolean(),
+                                                                  random.NextDouble(),
+                                                                  random.NextDouble(),
+                                                                  random.NextDouble(),
+                                                                  random.NextDouble());
 
             // Call
             object clone = original.Clone();
