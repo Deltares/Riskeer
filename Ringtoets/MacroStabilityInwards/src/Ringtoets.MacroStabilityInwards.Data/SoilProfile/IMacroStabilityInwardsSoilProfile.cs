@@ -26,7 +26,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// Interface for the different types of soil profile that can be used in macro stability inwards.
     /// </summary>
-    /// <typeparam name="T">The type of the soil profile.</typeparam>
+    /// <typeparam name="T">The type of the layers in the soil profile.</typeparam>
     public interface IMacroStabilityInwardsSoilProfile<out T> where T : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         string Name { get; }
 
         /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> containing the layers of the soil profile.
+        /// Gets the layers of the soil profile.
         /// </summary>
         IEnumerable<T> Layers { get; }
     }

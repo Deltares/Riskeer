@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return string.Format(Resources.DesignVariable_0_Mean_is_1_StandardDeviation_is_2,
+            return string.Format(Resources.DesignVariable_0_Mean_1_StandardDeviation_2,
                                  DesignValue,
                                  Mean,
                                  StandardDeviation);

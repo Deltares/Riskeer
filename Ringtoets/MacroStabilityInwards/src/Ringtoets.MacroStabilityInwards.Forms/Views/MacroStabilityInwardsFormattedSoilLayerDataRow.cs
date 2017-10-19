@@ -30,7 +30,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// This class defines a formatted version of an <see cref="IMacroStabilityInwardsSoilLayerData"/> object.
+    /// This class represents a row of <see cref="IMacroStabilityInwardsSoilLayerData"/>.
     /// </summary>
     public class MacroStabilityInwardsFormattedSoilLayerDataRow
     {
@@ -62,69 +62,69 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets a value indicating whether or not the <see cref="IMacroStabilityInwardsSoilLayerData"/> is an aquifer.
+        /// Gets a value indicating whether the layer is an aquifer.
         /// </summary>
         public bool IsAquifer { get; }
 
         /// <summary>
-        /// Gets the name of the material that was assigned to the <see cref="IMacroStabilityInwardsSoilLayerData"/>.
+        /// Gets the material name of the layer.
         /// </summary>
         public string MaterialName { get; }
 
         /// <summary>
-        /// Gets the <see cref="Color"/> that was used to represent the <see cref="IMacroStabilityInwardsSoilLayerData"/>.
+        /// Gets the color of the layer.
         /// </summary>
         public Color Color { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.AbovePhreaticLevel"/>.
+        /// Gets the above phreatic level of the layer.
         /// </summary>
         public string AbovePhreaticLevel { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.BelowPhreaticLevel"/>.
+        /// Gets the below phreatic level of the layer.
         /// </summary>
         public string BelowPhreaticLevel { get; }
 
         /// <summary>
-        /// Gets the <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/> type.
+        /// Gets the shear strength model of the layer.
         /// </summary>
         [TypeConverter(typeof(EnumTypeConverter))]
         public MacroStabilityInwardsShearStrengthModel ShearStrengthModel { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.Cohesion"/>.
+        /// Gets the cohesion of the layer.
         /// </summary>
         public string Cohesion { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.FrictionAngle"/>.
+        /// Gets the friction angle of the layer.
         /// </summary>
         public string FrictionAngle { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthRatio"/>.
+        /// Gets the shear strength ratio of the layer.
         /// </summary>
         public string ShearStrengthRatio { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.StrengthIncreaseExponent"/>.
+        /// Gets the strength increase exponent of the layer.
         /// </summary>
         public string StrengthIncreaseExponent { get; }
 
         /// <summary>
-        /// Gets a value indicating whether or not the <see cref="IMacroStabilityInwardsSoilLayerData"/> is using POP.
+        /// Gets a value indicating whether the layer is using POP.
         /// </summary>
         public bool UsePop { get; }
 
         /// <summary>
-        /// Gets the formatted design variable for <see cref="IMacroStabilityInwardsSoilLayerData.Pop"/>.
+        /// Gets the POP of the layer.
         /// </summary>
         public string Pop { get; }
 
         private static string FormatVariationCoefficientDesignVariable(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
-            return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_is_1_CoefficientOfVariation_is_2,
+            return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2,
                                  designVariable.GetDesignValue(),
                                  designVariable.Distribution.Mean,
                                  designVariable.Distribution.CoefficientOfVariation);

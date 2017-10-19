@@ -22,7 +22,7 @@
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// Interface for the different types of soil layer that can be used in macro stability inwards.
+    /// Interface for the soil layer that can be used in macro stability inwards.
     /// </summary>
     public interface IMacroStabilityInwardsSoilLayer
     {

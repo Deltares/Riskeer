@@ -98,7 +98,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData);
 
             // Assert
-
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFormattedSoilLayerDataRow, EnumTypeConverter>(
                 nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel));
 

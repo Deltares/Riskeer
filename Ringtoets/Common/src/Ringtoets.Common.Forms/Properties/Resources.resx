@@ -1244,10 +1244,10 @@ Pf = {1}</value>
   <data name="DesignVariableProperties_DesignValue_DisplayName" xml:space="preserve">
     <value>Rekenwaarde</value>
   </data>
-  <data name="DesignVariable_0_Mean_is_1_StandardDeviation_is_2" xml:space="preserve">
+  <data name="DesignVariable_0_Mean_1_StandardDeviation_2" xml:space="preserve">
     <value>{0} (Verwachtingswaarde = {1}, Standaardafwijking = {2})</value>
   </data>
-  <data name="VariationCoefficientDesignVariable_0_Mean_is_1_CoefficientOfVariation_is_2" xml:space="preserve">
+  <data name="VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2" xml:space="preserve">
     <value>{0} (Verwachtingswaarde = {1}, Variatiecoëfficiënt = {2})</value>
   </data>
 </root>
