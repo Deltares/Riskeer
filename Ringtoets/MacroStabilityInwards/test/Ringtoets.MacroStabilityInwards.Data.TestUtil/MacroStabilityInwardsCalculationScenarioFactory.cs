@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
         {
             const double top = 10.56;
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, new[]
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D("Test", 0.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(top)
                 {
@@ -201,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 }
             }));
 
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
             var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 2);
             var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 2);
             var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 3);

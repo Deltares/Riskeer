@@ -19,18 +19,41 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
+using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
     public class MacroStabilityInwardsOutputChartControlTest
     {
+        private const int soilProfileIndex = 0;
+        private const int surfaceLineIndex = 1;
+        private const int surfaceLevelInsideIndex = 2;
+        private const int ditchPolderSideIndex = 3;
+        private const int bottomDitchPolderSideIndex = 4;
+        private const int bottomDitchDikeSideIndex = 5;
+        private const int ditchDikeSideIndex = 6;
+        private const int dikeToeAtPolderIndex = 7;
+        private const int shoulderTopInsideIndex = 8;
+        private const int shoulderBaseInsideIndex = 9;
+        private const int trafficLoadInsideIndex = 10;
+        private const int dikeTopAtPolderIndex = 11;
+        private const int dikeToeAtRiverIndex = 12;
+        private const int dikeTopAtRiverIndex = 13;
+        private const int surfaceLevelOutsideIndex = 14;
+        private const int nrOfChartData = 15;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -55,12 +78,115 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 IChartControl chartControl = GetChartControl(control);
                 Assert.IsInstanceOf<Control>(chartControl);
                 Assert.AreSame(chartControl, chartControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)chartControl).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
                 Assert.IsNull(chartControl.Data);
             }
         }
+
+        [Test]
+        public void Data_SetValue_ChartDatSet()
+        {
+            // Setup
+            using (var control = new MacroStabilityInwardsOutputChartControl())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                // Call
+                control.Data = calculation;
+
+                // Assert
+                Assert.AreSame(calculation, control.Data);
+                ChartDataCollection chartData = GetChartControl(control).Data;
+                Assert.IsInstanceOf<ChartDataCollection>(chartData);
+                Assert.AreEqual(nrOfChartData, chartData.Collection.Count());
+                AssertSurfaceLineChartData(surfaceLine, chartData.Collection.ElementAt(surfaceLineIndex));
+                AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true);
+            }
+        }
+
+        private static MacroStabilityInwardsStochasticSoilProfile GetStochasticSoilProfile2D()
+        {
+            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D("profile 2D", new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                {
+                    new Point2D(0.0, 1.0),
+                    new Point2D(2.0, 4.0)
+                }), new List<Ring>()),
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                {
+                    new Point2D(3.0, 1.0),
+                    new Point2D(8.0, 3.0)
+                }), new List<Ring>()),
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                {
+                    new Point2D(2.0, 4.0),
+                    new Point2D(2.0, 8.0)
+                }), new List<Ring>())
+            }, new List<MacroStabilityInwardsPreconsolidationStress>()));
+        }
+
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
+        {
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.8, 6.0)
+            };
+
+            return GetSurfaceLine(points);
+        }
+
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
+        {
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
+            surfaceLine.SetGeometry(points);
+            return surfaceLine;
+        }
+
+        private static void AssertSurfaceLineChartData(MacroStabilityInwardsSurfaceLine surfaceLine, ChartData chartData)
+        {
+            Assert.IsInstanceOf<ChartLineData>(chartData);
+            var surfaceLineChartData = (ChartLineData) chartData;
+
+            Assert.AreEqual(surfaceLine.Points.Length, surfaceLineChartData.Points.Length);
+            CollectionAssert.AreEqual(surfaceLine.LocalGeometry, surfaceLineChartData.Points);
+            Assert.AreEqual(surfaceLine.Name, chartData.Name);
+        }
+
+        private static void AssertSoilProfileChartData(MacroStabilityInwardsStochasticSoilProfile soilProfile, ChartData chartData, bool mapDataShouldContainAreas)
+        {
+            Assert.IsInstanceOf<ChartDataCollection>(chartData);
+            var soilProfileChartData = (ChartDataCollection) chartData;
+
+            int expectedLayerCount = soilProfile.SoilProfile.Layers.Count();
+            Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
+            Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
+
+            string[] soilLayers = soilProfile.SoilProfile.Layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
+
+            for (var i = 0; i < expectedLayerCount; i++)
+            {
+                var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
+
+                Assert.IsNotNull(chartMultipleAreaData);
+                Assert.AreEqual(soilLayers[i], chartMultipleAreaData.Name);
+                Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
+            }
+        }
+
         private static IChartControl GetChartControl(MacroStabilityInwardsOutputChartControl view)
         {
             return ControlTestHelper.GetControls<IChartControl>(view, "chartControl").Single();

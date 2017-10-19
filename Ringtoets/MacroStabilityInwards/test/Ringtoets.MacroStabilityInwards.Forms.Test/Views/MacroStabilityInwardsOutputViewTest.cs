@@ -25,6 +25,7 @@ using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 
@@ -94,10 +95,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
 
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = new TestMacroStabilityInwardsOutput()
-                };
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                calculation.Output = new TestMacroStabilityInwardsOutput();
 
                 // Call
                 view.Data = calculation;
@@ -120,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
 
-                var calculation = new MacroStabilityInwardsCalculationScenario();
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
                 // Call
                 view.Data = calculation;
@@ -135,10 +134,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Data_SetToNull_ChartControlDataNull()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario
-            {
-                Output = new TestMacroStabilityInwardsOutput()
-            };
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.Output = new TestMacroStabilityInwardsOutput();
 
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView
@@ -176,10 +173,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
 
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = new TestMacroStabilityInwardsOutput()
-                };
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                calculation.Output = new TestMacroStabilityInwardsOutput();
 
                 view.Data = calculation;
 
@@ -207,7 +202,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
 
-                var calculation = new MacroStabilityInwardsCalculationScenario();
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
                 view.Data = calculation;
 
