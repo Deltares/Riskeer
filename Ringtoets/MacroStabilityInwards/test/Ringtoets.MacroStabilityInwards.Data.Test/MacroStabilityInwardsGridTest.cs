@@ -21,8 +21,11 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
@@ -36,6 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var grid = new MacroStabilityInwardsGrid();
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(grid);
+
             Assert.IsNaN(grid.XLeft);
             Assert.AreEqual(2, grid.XLeft.NumberOfDecimalPlaces);
 
@@ -87,6 +92,28 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, grid.ZBottom.NumberOfDecimalPlaces);
             Assert.AreEqual(zBottom, grid.ZBottom,
                             grid.ZBottom.GetAccuracy());
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var original = new MacroStabilityInwardsGrid
+            {
+                XLeft = random.NextRoundedDouble(),
+                XRight = random.NextRoundedDouble(),
+                NumberOfHorizontalPoints = random.Next(),
+                ZTop = random.NextRoundedDouble(),
+                ZBottom = random.NextRoundedDouble(),
+                NumberOfVerticalPoints = random.Next()
+            };
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
     }
 }

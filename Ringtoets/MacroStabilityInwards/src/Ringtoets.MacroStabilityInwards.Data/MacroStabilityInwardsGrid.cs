@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.MacroStabilityInwards.Data
@@ -26,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// A grid used in the macro stability calculation.
     /// </summary>
-    public class MacroStabilityInwardsGrid
+    public class MacroStabilityInwardsGrid : ICloneable
     {
         private RoundedDouble xLeft;
         private RoundedDouble xRight;
@@ -117,5 +118,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the number of vertical points.
         /// </summary>
         public int NumberOfVerticalPoints { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }
