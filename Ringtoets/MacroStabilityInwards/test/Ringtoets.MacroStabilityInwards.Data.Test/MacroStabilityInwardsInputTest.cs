@@ -436,7 +436,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_NoPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new MacroStabilityInwardsInput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             var random = new Random(21);

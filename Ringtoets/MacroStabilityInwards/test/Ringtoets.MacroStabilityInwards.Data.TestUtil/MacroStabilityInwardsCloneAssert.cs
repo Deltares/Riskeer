@@ -22,6 +22,7 @@
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
@@ -30,6 +31,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     /// </summary>
     public static class MacroStabilityInwardsCloneAssert
     {
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(MacroStabilityInwardsCalculation original,
+                                     MacroStabilityInwardsCalculation clone)
+        {
+            Assert.AreEqual(original.Name, clone.Name);
+            CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
+            CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
+            CoreCloneAssert.AreObjectClones(original.SemiProbabilisticOutput, clone.SemiProbabilisticOutput, AreClones);
+        }
+
         /// <summary>
         /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
         /// are clones.
