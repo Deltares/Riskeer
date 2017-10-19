@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
+using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test

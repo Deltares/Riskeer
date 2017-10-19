@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.TestUtil.Geometry;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
@@ -43,6 +45,8 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point2D(x, y);
 
             // Assert
+            Assert.IsInstanceOf<ICloneable>(point);
+
             Assert.AreEqual(x, point.X);
             Assert.AreEqual(y, point.Y);
         }
@@ -387,6 +391,22 @@ namespace Core.Common.Base.Test.Geometry
                                               Math.Pow(point.Y - point2.Y, 2));
             Assert.AreEqual(expectedResult, euclideanDistance1);
             Assert.AreEqual(euclideanDistance2, euclideanDistance1);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            double x = random.NextDouble();
+            double y = random.NextDouble();
+            var original = new Point2D(x, y);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, GeometryCloneAssert.AreClones);
         }
 
         private static void DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture()

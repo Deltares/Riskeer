@@ -30,7 +30,7 @@ namespace Core.Common.Base.Geometry
     /// <summary>
     /// Defines a mathematical, immutable point in 2D Euclidean space.
     /// </summary>
-    public sealed class Point2D
+    public sealed class Point2D : ICloneable
     {
         /// <summary>
         /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> set to <paramref name="x"/>
@@ -193,6 +193,11 @@ namespace Core.Common.Base.Geometry
         private bool Equals(Point2D other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

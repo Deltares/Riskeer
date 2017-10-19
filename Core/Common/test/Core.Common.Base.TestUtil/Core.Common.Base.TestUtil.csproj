@@ -50,6 +50,7 @@
     <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Geometry\GeometryCloneAssert.cs" />
     <Compile Include="Geometry\Point2DComparerWithTolerance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
