@@ -720,6 +720,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
             return builder.AddExportItem()
                           .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, nodeData)
+                          .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
                           .AddValidateCalculationItem(

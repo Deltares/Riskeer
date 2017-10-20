@@ -55,9 +55,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class MacroStabilityInwardsCalculationScenarioContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuValidateIndex = 4;
-        private const int contextMenuCalculateIndex = 5;
-        private const int contextMenuClearIndex = 7;
+        private const int contextMenuDuplicateIndex = 2;
+        private const int contextMenuValidateIndex = 6;
+        private const int contextMenuCalculateIndex = 7;
+        private const int contextMenuClearIndex = 9;
 
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -293,6 +294,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                 contextMenuDuplicateIndex,
+                                                                 "D&upliceren",
+                                                                 "Dupliceer dit element.",
+                                                                 RingtoetsCommonFormsResources.CopyHS);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuValidateIndex,
                                                                   "&Valideren",
                                                                   "Valideer de invoer voor deze berekening.",
@@ -326,6 +333,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
