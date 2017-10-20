@@ -111,8 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
 
             for (var i = 0; i < original.Length; i++)
             {
-                Assert.AreSame(original[i].OuterRing, actual[i].OuterRing);
-                Assert.AreSame(original[i].Holes, actual[i].Holes);
+                CollectionAssert.AreEqual(original[i].OuterRing, actual[i].OuterRing);
+                CollectionAssert.AreEqual(original[i].Holes, actual[i].Holes);
 
                 IMacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
                 Assert.AreEqual(expectedData.MaterialName, actual[i].MaterialName);

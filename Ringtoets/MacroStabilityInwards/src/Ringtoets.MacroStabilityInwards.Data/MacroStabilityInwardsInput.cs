@@ -57,8 +57,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble tangentLineZTop;
         private RoundedDouble tangentLineZBottom;
         private int tangentLineNumber;
-        private MacroStabilityInwardsSurfaceLine surfaceLine;
-        private MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
@@ -109,22 +107,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the surface line.
-        /// </summary>
-        public MacroStabilityInwardsSurfaceLine SurfaceLine
-        {
-            get
-            {
-                return surfaceLine;
-            }
-            set
-            {
-                surfaceLine = value;
-                SetSoilProfileUnderSurfaceLine();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the stochastic soil model which is linked to the <see cref="StochasticSoilProfile"/>.
         /// </summary>
         public MacroStabilityInwardsStochasticSoilModel StochasticSoilModel { get; set; }
@@ -132,18 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or sets the profile which contains a definition of soil layers with properties.
         /// </summary>
-        public MacroStabilityInwardsStochasticSoilProfile StochasticSoilProfile
-        {
-            get
-            {
-                return stochasticSoilProfile;
-            }
-            set
-            {
-                stochasticSoilProfile = value;
-                SetSoilProfileUnderSurfaceLine();
-            }
-        }
+        public MacroStabilityInwardsStochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.
@@ -168,6 +139,21 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     HydraulicBoundaryLocation = null;
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the surface line.
+        /// </summary>
+        public MacroStabilityInwardsSurfaceLine SurfaceLine { get; set; }
+
+        public override object Clone()
+        {
+            var clone = (MacroStabilityInwardsInput) base.Clone();
+            clone.LocationInputExtreme = (IMacroStabilityInwardsLocationInputExtreme) ((MacroStabilityInwardsLocationInputExtreme) LocationInputExtreme).Clone();
+            clone.LocationInputDaily = (IMacroStabilityInwardsLocationInputDaily) ((MacroStabilityInwardsLocationInputDaily) LocationInputDaily).Clone();
+            clone.LeftGrid = (MacroStabilityInwardsGrid) LeftGrid.Clone();
+            clone.RightGrid = (MacroStabilityInwardsGrid) RightGrid.Clone();
+            return clone;
         }
 
         #region Derived input
@@ -200,7 +186,15 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        public IMacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfileUnderSurfaceLine { get; private set; }
+        public IMacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfileUnderSurfaceLine
+        {
+            get
+            {
+                return SurfaceLine != null && StochasticSoilProfile != null
+                           ? MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(StochasticSoilProfile.SoilProfile, SurfaceLine)
+                           : null;
+            }
+        }
 
         /// <summary>
         /// Gets the derived waternet calculation output under extreme circumstances.
@@ -222,13 +216,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 return new DerivedMacroStabilityInwardsInput(this).WaternetDaily;
             }
-        }
-
-        private void SetSoilProfileUnderSurfaceLine()
-        {
-            SoilProfileUnderSurfaceLine = SurfaceLine != null && StochasticSoilProfile != null
-                                              ? MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(StochasticSoilProfile.SoilProfile, SurfaceLine)
-                                              : null;
         }
 
         #endregion
@@ -579,15 +566,5 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         #endregion
-
-        public override object Clone()
-        {
-            var clone = (MacroStabilityInwardsInput)base.Clone();
-            clone.LocationInputExtreme = (IMacroStabilityInwardsLocationInputExtreme) ((MacroStabilityInwardsLocationInputExtreme) LocationInputExtreme).Clone();
-            clone.LocationInputDaily = (IMacroStabilityInwardsLocationInputDaily) ((MacroStabilityInwardsLocationInputDaily) LocationInputDaily).Clone();
-            clone.LeftGrid = (MacroStabilityInwardsGrid) LeftGrid.Clone();
-            clone.RightGrid = (MacroStabilityInwardsGrid) RightGrid.Clone();
-            return clone;
-        }
     }
 }
