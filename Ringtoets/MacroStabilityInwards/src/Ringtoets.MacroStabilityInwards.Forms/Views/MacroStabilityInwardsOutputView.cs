@@ -57,7 +57,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
                 outputObserver.Observable = data;
 
-                UpdateChartData();
+                macroStabilityInwardsOutputChartControl.Data = data;
+            }
+        }
+
+        public IChartControl Chart
+        {
+            get
+            {
+                return macroStabilityInwardsOutputChartControl.Chart;
             }
         }
 
@@ -74,15 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void UpdateChartData()
         {
-            macroStabilityInwardsOutputChartControl.Data = data != null && data.HasOutput ? data : null;
-        }
-
-        public IChartControl Chart
-        {
-            get
-            {
-                return macroStabilityInwardsOutputChartControl.Chart;
-            }
+            macroStabilityInwardsOutputChartControl.UpdateChartData();
         }
     }
 }

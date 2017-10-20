@@ -305,7 +305,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
 
             Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
-            Assert.AreEqual("Test", inputParameters.StochasticSoilProfile.SoilProfile.Name);
+            Assert.AreEqual("Ondergrondschematisatie", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(inputParameters.StochasticSoilProfile.SoilProfile);
             var soilProfile1D = (MacroStabilityInwardsSoilProfile1D) inputParameters.StochasticSoilProfile.SoilProfile;
             Assert.AreEqual(0, soilProfile1D.Bottom);

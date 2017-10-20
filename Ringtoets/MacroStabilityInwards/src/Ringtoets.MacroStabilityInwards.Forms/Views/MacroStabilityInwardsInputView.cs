@@ -241,6 +241,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                                });
 
                 MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
+
+                ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
+                soilProfileChartData.Insert(soilLayerChartDataLookup.Count, holesChartData);
+                soilLayerChartDataLookup.Add(holesChartData);
+
+                MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
             }
 
             if (soilProfile != null)
@@ -255,9 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                         soilLayerData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingPoints(soilLayers[i]);
                     }
 
-                    ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
-                    soilProfileChartData.Insert(soilLayerChartDataLookup.Count, holesChartData);
-                    holesChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfileUnderSurfaceLine);
+                    soilLayerChartDataLookup.Last().Areas = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfileUnderSurfaceLine);
                 }
                 else
                 {

@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
         {
             const double top = 10.56;
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D("Test", 0.0, new[]
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D("Ondergrondschematisatie", 0.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(top)
                 {
