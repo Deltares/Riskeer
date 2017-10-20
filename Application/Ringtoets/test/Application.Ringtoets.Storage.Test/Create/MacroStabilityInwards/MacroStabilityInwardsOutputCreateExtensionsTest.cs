@@ -152,20 +152,19 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         private static MacroStabilityInwardsGrid CreateGrid(int seed)
         {
             var random = new Random(seed);
-            return new MacroStabilityInwardsGrid
+            return new MacroStabilityInwardsGrid(random.NextDouble(),
+                                                 1 + random.NextDouble(),
+                                                 1 + random.NextDouble(),
+                                                 random.NextDouble())
             {
-                XLeft = random.NextRoundedDouble(),
-                XRight = random.NextRoundedDouble(),
-                ZTop = random.NextRoundedDouble(),
-                ZBottom = random.NextRoundedDouble(),
-                NumberOfHorizontalPoints = random.Next(),
-                NumberOfVerticalPoints = random.Next()
+                NumberOfHorizontalPoints = random.Next(1, 100),
+                NumberOfVerticalPoints = random.Next(1, 100)
             };
         }
 
         private static MacroStabilityInwardsGrid CreateGridWithNaNValues()
         {
-            return new MacroStabilityInwardsGrid
+            return new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN)
             {
                 XLeft = RoundedDouble.NaN,
                 XRight = RoundedDouble.NaN,

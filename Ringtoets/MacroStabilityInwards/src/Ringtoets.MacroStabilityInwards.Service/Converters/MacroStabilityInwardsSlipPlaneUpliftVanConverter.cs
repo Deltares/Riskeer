@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -56,12 +55,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Converters
 
         private static MacroStabilityInwardsGrid ConvertGrid(UpliftVanGrid grid)
         {
-            return new MacroStabilityInwardsGrid
+            return new MacroStabilityInwardsGrid(grid.XLeft,
+                                                 grid.XRight,
+                                                 grid.ZTop,
+                                                 grid.ZBottom)
             {
-                XLeft = (RoundedDouble) grid.XLeft,
-                XRight = (RoundedDouble) grid.XRight,
-                ZTop = (RoundedDouble) grid.ZTop,
-                ZBottom = (RoundedDouble) grid.ZBottom,
                 NumberOfHorizontalPoints = grid.NumberOfHorizontalPoints,
                 NumberOfVerticalPoints = grid.NumberOfVerticalPoints
             };

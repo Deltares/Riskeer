@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -36,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var grid = new MacroStabilityInwardsGrid();
+            var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Assert
             Assert.IsInstanceOf<ICloneable>(grid);
@@ -63,17 +62,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
             double xLeft = random.NextDouble();
-            double xRight = random.NextDouble();
-            double zTop = random.NextDouble();
+            double xRight = 1 + random.NextDouble();
+            double zTop = 1 + random.NextDouble();
             double zBottom = random.NextDouble();
+            int numberOfHorizontalPoints = random.Next(1, 100);
+            int numberOfVerticalPoints = random.Next(1, 100);
 
             // call
-            var grid = new MacroStabilityInwardsGrid
+            var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN)
             {
                 XLeft = (RoundedDouble) xLeft,
                 XRight = (RoundedDouble) xRight,
                 ZTop = (RoundedDouble) zTop,
-                ZBottom = (RoundedDouble) zBottom
+                ZBottom = (RoundedDouble) zBottom,
+                NumberOfHorizontalPoints = numberOfHorizontalPoints,
+                NumberOfVerticalPoints = numberOfVerticalPoints
             };
 
             // Assert
@@ -92,6 +95,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(2, grid.ZBottom.NumberOfDecimalPlaces);
             Assert.AreEqual(zBottom, grid.ZBottom,
                             grid.ZBottom.GetAccuracy());
+
+            Assert.AreEqual(numberOfHorizontalPoints, grid.NumberOfHorizontalPoints);
+            Assert.AreEqual(numberOfVerticalPoints, grid.NumberOfVerticalPoints);
         }
 
         [Test]
@@ -99,14 +105,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var original = new MacroStabilityInwardsGrid
+            var original = new MacroStabilityInwardsGrid(random.NextDouble(),
+                                                         1 + random.NextDouble(),
+                                                         1 + random.NextDouble(),
+                                                         random.NextDouble())
             {
-                XLeft = random.NextRoundedDouble(),
-                XRight = random.NextRoundedDouble(),
-                NumberOfHorizontalPoints = random.Next(),
-                ZTop = random.NextRoundedDouble(),
-                ZBottom = random.NextRoundedDouble(),
-                NumberOfVerticalPoints = random.Next()
+                NumberOfHorizontalPoints = random.Next(1, 100),
+                NumberOfVerticalPoints = random.Next(1, 100)
             };
 
             // Call

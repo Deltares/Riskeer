@@ -102,8 +102,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             tangentLineZBottom = new RoundedDouble(2, double.NaN);
             tangentLineNumber = 1;
 
-            LeftGrid = new MacroStabilityInwardsGrid();
-            RightGrid = new MacroStabilityInwardsGrid();
+            LeftGrid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
+            RightGrid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
 
             CreateZones = true;
         }

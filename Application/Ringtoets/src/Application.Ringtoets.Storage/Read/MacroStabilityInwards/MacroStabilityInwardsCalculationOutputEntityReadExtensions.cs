@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -63,22 +62,21 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 
         private static MacroStabilityInwardsSlipPlaneUpliftVan ReadSlipPlane(MacroStabilityInwardsCalculationOutputEntity entity)
         {
-            var leftGrid = new MacroStabilityInwardsGrid
+            var leftGrid = new MacroStabilityInwardsGrid(entity.SlipPlaneLeftGridXLeft.ToNullAsNaN(),
+                                                         entity.SlipPlaneLeftGridXRight.ToNullAsNaN(),
+                                                         entity.SlipPlaneLeftGridZTop.ToNullAsNaN(),
+                                                         entity.SlipPlaneLeftGridZBottom.ToNullAsNaN())
             {
-                XLeft = (RoundedDouble) entity.SlipPlaneLeftGridXLeft.ToNullAsNaN(),
-                XRight = (RoundedDouble) entity.SlipPlaneLeftGridXRight.ToNullAsNaN(),
                 NumberOfHorizontalPoints = entity.SlipPlaneLeftGridNrOfHorizontalPoints,
-                ZTop = (RoundedDouble) entity.SlipPlaneLeftGridZTop.ToNullAsNaN(),
-                ZBottom = (RoundedDouble) entity.SlipPlaneLeftGridZBottom.ToNullAsNaN(),
                 NumberOfVerticalPoints = entity.SlipPlaneLeftGridNrOfVerticalPoints
             };
-            var rightGrid = new MacroStabilityInwardsGrid
+            var rightGrid = new MacroStabilityInwardsGrid(entity.SlipPlaneRightGridXLeft.ToNullAsNaN(),
+                                                          entity.SlipPlaneRightGridXRight.ToNullAsNaN(),
+                                                          entity.SlipPlaneRightGridZTop.ToNullAsNaN(),
+                                                          entity.SlipPlaneRightGridZBottom.ToNullAsNaN()
+            )
             {
-                XLeft = (RoundedDouble) entity.SlipPlaneRightGridXLeft.ToNullAsNaN(),
-                XRight = (RoundedDouble) entity.SlipPlaneRightGridXRight.ToNullAsNaN(),
                 NumberOfHorizontalPoints = entity.SlipPlaneRightGridNrOfHorizontalPoints,
-                ZTop = (RoundedDouble) entity.SlipPlaneRightGridZTop.ToNullAsNaN(),
-                ZBottom = (RoundedDouble) entity.SlipPlaneRightGridZBottom.ToNullAsNaN(),
                 NumberOfVerticalPoints = entity.SlipPlaneRightGridNrOfVerticalPoints
             };
 

@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
-
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
@@ -35,12 +33,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <returns>The created <see cref="MacroStabilityInwardsGrid"/>.</returns>
         public static MacroStabilityInwardsGrid Create()
         {
-            return new MacroStabilityInwardsGrid
+            return new MacroStabilityInwardsGrid(1.0, 2.0, 4.0, 3.0)
             {
-                XLeft = (RoundedDouble) 0.1,
-                XRight = (RoundedDouble) 0.2,
-                ZTop = (RoundedDouble) 0.3,
-                ZBottom = (RoundedDouble) 0.4,
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 2
             };

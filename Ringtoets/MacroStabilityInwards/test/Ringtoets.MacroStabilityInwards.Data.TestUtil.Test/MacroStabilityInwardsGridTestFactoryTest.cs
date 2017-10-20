@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 {
@@ -33,10 +34,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Assert
-            Assert.AreEqual(0.1, grid.XLeft);
-            Assert.AreEqual(0.2, grid.XRight);
-            Assert.AreEqual(0.3, grid.ZTop);
-            Assert.AreEqual(0.4, grid.ZBottom);
+            Assert.AreEqual(1.0, grid.XLeft, grid.XLeft.GetAccuracy());
+            Assert.AreEqual(2.0, grid.XRight, grid.XRight.GetAccuracy());
+            Assert.AreEqual(4.0, grid.ZTop, grid.ZTop.GetAccuracy());
+            Assert.AreEqual(3.0, grid.ZBottom, grid.ZBottom.GetAccuracy());
             Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
             Assert.AreEqual(2, grid.NumberOfVerticalPoints);
         }

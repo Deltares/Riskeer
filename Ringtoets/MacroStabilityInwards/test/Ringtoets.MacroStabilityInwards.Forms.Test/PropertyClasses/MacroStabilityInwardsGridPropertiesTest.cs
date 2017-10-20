@@ -32,6 +32,7 @@ using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
@@ -54,14 +55,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var data = new MacroStabilityInwardsGrid();
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
-            var properties = new MacroStabilityInwardsGridProperties(data, changeHandler, false);
+            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, false);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsGrid>>(properties);
-            Assert.AreSame(data, properties.Data);
+            Assert.AreSame(grid, properties.Data);
             mocks.VerifyAll();
         }
 
@@ -85,8 +86,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
+            // Setup
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), null, false);
+            TestDelegate call = () => new MacroStabilityInwardsGridProperties(grid, null, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var grid = new MacroStabilityInwardsGrid();
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
             var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, isReadOnly);
@@ -174,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var grid = new MacroStabilityInwardsGrid();
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
 
             // Call
             var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, false);
@@ -202,8 +206,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var random = new Random(21);
             RoundedDouble xLeft = random.NextRoundedDouble();
-            RoundedDouble xRight = random.NextRoundedDouble();
-            RoundedDouble zTop = random.NextRoundedDouble();
+            var xRight = (RoundedDouble) (1 + random.NextDouble());
+            var zTop = (RoundedDouble) (1 + random.NextDouble());
             RoundedDouble zBottom = random.NextRoundedDouble();
             int numberOfHorizontalPoints = random.Next();
             int numberOfVerticalPoints = random.Next();
@@ -293,7 +297,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), changeHandler, false);
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
+            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, false);
 
             // Call
             string toString = properties.ToString();
@@ -312,7 +317,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new MacroStabilityInwardsGridProperties(new MacroStabilityInwardsGrid(), changeHandler, isReadOnly);
+            MacroStabilityInwardsGrid grid = MacroStabilityInwardsGridTestFactory.Create();
+            var properties = new MacroStabilityInwardsGridProperties(grid, changeHandler, isReadOnly);
 
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod(string.Empty);

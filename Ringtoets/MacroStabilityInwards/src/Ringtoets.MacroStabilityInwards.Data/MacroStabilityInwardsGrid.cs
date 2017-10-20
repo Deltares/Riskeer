@@ -37,12 +37,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsGrid"/>.
         /// </summary>
-        public MacroStabilityInwardsGrid()
+        /// <param name="xLeft">The x left of the grid.</param>
+        /// <param name="xRight">The x right of the grid.</param>
+        /// <param name="zTop">The z top of the grid.</param>
+        /// <param name="zBottom">The z bottom of the grid.</param>
+        public MacroStabilityInwardsGrid(double xLeft, double xRight, double zTop, double zBottom)
         {
-            xLeft = new RoundedDouble(2, double.NaN);
-            xRight = new RoundedDouble(2, double.NaN);
-            zTop = new RoundedDouble(2, double.NaN);
-            zBottom = new RoundedDouble(2, double.NaN);
+            this.xLeft = new RoundedDouble(2, xLeft);
+            this.xRight = new RoundedDouble(2, xRight);
+            this.zTop = new RoundedDouble(2, zTop);
+            this.zBottom = new RoundedDouble(2, zBottom);
         }
 
         /// <summary>
