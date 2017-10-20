@@ -243,28 +243,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
             }
 
-            if (soilProfile != null && surfaceLine != null)
+            if (soilProfile != null)
             {
-                MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
-                List<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> soilLayers = soilProfileUnderSurfaceLine.Layers.ToList();
-                for (var i = 0; i < soilLayers.Count; i++)
+                if (surfaceLine != null)
                 {
-                    ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i];
-                    soilLayerData.Areas = new[]
+                    IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = data.InputParameters.SoilProfileUnderSurfaceLine;
+                    List<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> soilLayers = soilProfileUnderSurfaceLine.Layers.ToList();
+                    for (var i = 0; i < soilLayers.Count; i++)
                     {
-                        soilLayers[i].OuterRing
-                    };
-                }
+                        ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i];
+                        soilLayerData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingPoints(soilLayers[i]);
+                    }
 
-                ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData(soilProfileUnderSurfaceLine);
-                soilLayerChartDataLookup.Add(holesChartData);
-                soilProfileChartData.Insert(soilLayers.Count, holesChartData);
-            }
-            else if (surfaceLine == null)
-            {
-                for (var i = 0; i < GetSoilLayers().Count(); i++)
+                    ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
+                    soilProfileChartData.Insert(soilLayerChartDataLookup.Count, holesChartData);
+                    holesChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfileUnderSurfaceLine);
+                }
+                else
                 {
-                    soilLayerChartDataLookup[i].Areas = Enumerable.Empty<Point2D[]>();
+                    for (var i = 0; i < GetSoilLayers().Count(); i++)
+                    {
+                        soilLayerChartDataLookup[i].Areas = Enumerable.Empty<Point2D[]>();
+                    }
                 }
             }
         }

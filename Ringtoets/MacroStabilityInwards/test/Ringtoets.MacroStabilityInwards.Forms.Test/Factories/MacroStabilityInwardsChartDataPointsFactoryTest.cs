@@ -527,292 +527,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSoilLayerAreas_SoilLayerNull_ReturnsEmptyAreasCollection()
-        {
-            // Setup
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(3.2)
-            });
-            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(null, soilProfile, surfaceLine);
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SoilProfileNull_ReturnsEmptyAreasCollection()
-        {
-            // Setup
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
-            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, null, surfaceLine);
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineNull_ReturnsEmptyAreasCollection()
-        {
-            // Setup
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, null);
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineOnTopOrAboveSoilLayer_ReturnsSoilLayerPointsAsRectangle()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 4),
-                new Point3D(0, 0, 3.2),
-                new Point3D(2, 0, 4)
-            });
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
-
-            // Assert
-            Assert.AreEqual(1, areas.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0, 3.2),
-                new Point2D(2, 3.2),
-                new Point2D(2, 2),
-                new Point2D(0, 2)
-            }, areas.ElementAt(0));
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineBelowSoilLayer_ReturnsEmptyAreasCollection()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 2.0),
-                new Point3D(2, 0, 2.0)
-            });
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(3.2);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", 2.0, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine);
-
-            // Assert
-            CollectionAssert.IsEmpty(areas);
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineThroughMiddleLayerButNotSplittingIt_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 3.0),
-                new Point3D(1, 0, 2.0),
-                new Point3D(2, 0, 3.0)
-            });
-            const double bottom = 1.5;
-            const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
-
-            // Assert
-            Assert.AreEqual(1, areas.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0.5, top),
-                new Point2D(1, 2.0),
-                new Point2D(1.5, top),
-                new Point2D(2, top),
-                new Point2D(2, bottom),
-                new Point2D(0, bottom),
-                new Point2D(0, top)
-            }, areas.ElementAt(0));
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineThroughMiddleLayerButNotSplittingItIntersectionOnTopLevel_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 3.0),
-                new Point3D(0.5, 0, 2.5),
-                new Point3D(1, 0, 2.0),
-                new Point3D(1.5, 0, 2.5),
-                new Point3D(2, 0, 3.0)
-            });
-            const double bottom = 1.5;
-            const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
-
-            // Assert
-            Assert.AreEqual(1, areas.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0.5, top),
-                new Point2D(1, 2.0),
-                new Point2D(1.5, top),
-                new Point2D(2, top),
-                new Point2D(2, bottom),
-                new Point2D(0, bottom),
-                new Point2D(0, top)
-            }, areas.ElementAt(0));
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineStartsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 2.0),
-                new Point3D(1, 0, 2.0),
-                new Point3D(2, 0, 3.0)
-            });
-            const double bottom = 1.5;
-            const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
-
-            // Assert
-            Assert.AreEqual(1, areas.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0, 2.0),
-                new Point2D(1, 2.0),
-                new Point2D(1.5, top),
-                new Point2D(2, top),
-                new Point2D(2, bottom),
-                new Point2D(0, bottom)
-            }, areas.ElementAt(0));
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineEndsBelowLayerTopButAboveBottom_ReturnsSoilLayerPointsAsRectangleFollowingSurfaceLine()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 3.0),
-                new Point3D(1, 0, 2.0),
-                new Point3D(2, 0, 2.0)
-            });
-            const double bottom = 1.5;
-            const double top = 2.5;
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
-
-            // Assert
-            Assert.AreEqual(1, areas.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0.5, top),
-                new Point2D(1, 2.0),
-                new Point2D(2, 2.0),
-                new Point2D(2, bottom),
-                new Point2D(0, bottom),
-                new Point2D(0, top)
-            }, areas.ElementAt(0));
-        }
-
-        [Test]
-        public void CreateSoilLayerAreas_SurfaceLineZigZagsThroughSoilLayer_ReturnsSoilLayerPointsSplitInMultipleAreas()
-        {
-            // Setup
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 4.0),
-                new Point3D(4, 0, 0.0),
-                new Point3D(8, 0, 4.0)
-            });
-            const int bottom = 1;
-            const int top = 3;
-            var soilLayer = new MacroStabilityInwardsSoilLayer1D(top);
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", bottom, new[]
-            {
-                soilLayer
-            });
-
-            // Call
-            IEnumerable<Point2D[]> areas = MacroStabilityInwardsChartDataPointsFactory.CreateSoilLayerAreas(soilLayer, soilProfile, surfaceLine).ToList();
-
-            // Assert
-            Assert.AreEqual(2, areas.Count());
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(1, top),
-                new Point2D(3, bottom),
-                new Point2D(0, bottom),
-                new Point2D(0, top)
-            }, areas.ElementAt(0));
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(5, bottom),
-                new Point2D(7, top),
-                new Point2D(8, top),
-                new Point2D(8, bottom)
-            }, areas.ElementAt(1));
-        }
-
-        [Test]
         public void CreateGridPoints_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
         {
             // Call
@@ -915,6 +629,95 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
+        }
+
+        [Test]
+        public void CreateHolesAreas_SoilProfileNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            IEnumerable<Point2D[]> holes = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(holes);
+        }
+
+        [Test]
+        public void CreateHolesAreas_SoilProfileWithoutHoles_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new IMacroStabilityInwardsSoilLayerUnderSurfaceLine[0],
+                                                                                   new IMacroStabilityInwardsPreconsolidationStress[0]);
+
+            // Call
+            IEnumerable<Point2D[]> holes = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfile);
+
+            // Assert
+            CollectionAssert.IsEmpty(holes);
+        }
+
+        [Test]
+        public void CreateHolesAreas_SoilProfileWithHoles_ReturnsHolesPointsArray()
+        {
+            // Setup
+            var holes = new[]
+            {
+                new[]
+                {
+                    new Point2D(2.0, 2.0),
+                    new Point2D(6.0, 2.0),
+                    new Point2D(4.0, 4.0)
+                }
+            };
+            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                {
+                    new Point2D(0.0, 10.0),
+                    new Point2D(10.0, 10.0),
+                    new Point2D(10.0, 0.0),
+                    new Point2D(0.0, 0.0)
+                }, holes, new MacroStabilityInwardsSoilLayerData())
+            }, new List<IMacroStabilityInwardsPreconsolidationStress>());
+
+            // Call
+            IEnumerable<Point2D[]> holesChartData = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfile);
+
+            // Assert
+            CollectionAssert.AreEqual(holes, holesChartData);
+        }
+
+        [Test]
+        public void CreateOuterRingPoints_SoilLayerNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            IEnumerable<Point2D[]> outerRing = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(outerRing);
+        }
+
+        [Test]
+        public void CreateOuterRingPoints_WithSoilLayerNull_ReturnsOuterRingPointsArray()
+        {
+            // Setup
+            var outerRing = new[]
+            {
+                new Point2D(0.0, 10.0),
+                new Point2D(10.0, 10.0),
+                new Point2D(10.0, 0.0),
+                new Point2D(0.0, 0.0)
+            };
+
+            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, new MacroStabilityInwardsSoilLayerData());
+
+            // Call
+            IEnumerable<Point2D[]> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingPoints(layer);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                outerRing
+            }, outerRingChartData);
         }
 
         private static void AssertEqualPointCollection(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)

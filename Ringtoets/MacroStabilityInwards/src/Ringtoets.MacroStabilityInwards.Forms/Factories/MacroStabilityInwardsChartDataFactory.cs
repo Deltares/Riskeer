@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -171,31 +169,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <summary>
         /// Create <see cref="ChartData"/> for the holes in a <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
         /// </summary>
-        /// <param name="soilProfile">The <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/> which contains the <see cref="MacroStabilityInwardsSoilLayerUnderSurfaceLine"/>.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        public static ChartMultipleAreaData CreateHolesChartData(MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
+        public static ChartMultipleAreaData CreateHolesChartData()
         {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException(nameof(soilProfile));
-            }
-
-            var holeAreas = new List<Point2D[]>();
-            foreach (IMacroStabilityInwardsSoilLayerUnderSurfaceLine t in soilProfile.Layers)
-            {
-                holeAreas.AddRange(t.Holes);
-            }
-
-            return new ChartMultipleAreaData(Resources.MacroStabilityInwardsChartDataFactory_Holes_ChartDataName, new ChartAreaStyle
-            {
-                FillColor = Color.White,
-                StrokeColor = Color.Black,
-                StrokeThickness = 1
-            })
-            {
-                Areas = holeAreas.ToArray()
-            };
+            return new ChartMultipleAreaData(Resources.MacroStabilityInwardsChartDataFactory_Holes_ChartDataName,
+                                             new ChartAreaStyle
+                                             {
+                                                 FillColor = Color.White,
+                                                 StrokeColor = Color.Black,
+                                                 StrokeThickness = 1
+                                             });
         }
 
         /// <summary>
