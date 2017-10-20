@@ -21,7 +21,6 @@
 
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.Views;
 using Core.Components.Chart.Forms;
 using Ringtoets.MacroStabilityInwards.Data;
 

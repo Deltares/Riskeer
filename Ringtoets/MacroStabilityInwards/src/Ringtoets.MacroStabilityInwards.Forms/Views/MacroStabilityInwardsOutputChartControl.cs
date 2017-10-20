@@ -117,12 +117,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
             set
             {
-                data = value as MacroStabilityInwardsCalculationScenario;
+                 data = value as MacroStabilityInwardsCalculationScenario;
 
                 if (data != null)
                 {
                     SetChartData();
-                    chartControl.Data = chartDataCollection;
+                    Chart.Data = chartDataCollection;
+                }
+                else
+                {
+                    Chart.Data = null;
                 }
             }
         }

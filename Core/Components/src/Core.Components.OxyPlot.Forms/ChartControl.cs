@@ -76,6 +76,7 @@ namespace Core.Components.OxyPlot.Forms
                 {
                     DrawInitialChartData();
                 }
+                plotView.InvalidatePlot(true);
             }
         }
 
@@ -300,8 +301,6 @@ namespace Core.Components.OxyPlot.Forms
             {
                 DrawChartData(chartData);
             }
-
-            plotView.InvalidatePlot(true);
         }
 
         private void DrawChartData(ChartData chartData)
