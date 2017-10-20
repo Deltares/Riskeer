@@ -22,14 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using WtiStabilitySoil = Deltares.WTIStability.Data.Geo.Soil;
+using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
@@ -105,8 +105,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 
         private void SetInputOnKernel(IWaternetKernel waternetKernel)
         {
-            WtiStabilitySoil[] soils = SoilCreator.Create(Input.SoilProfile);
-            Dictionary<SoilLayer, WtiStabilitySoil> layersWithSoils =
+            Soil[] soils = SoilCreator.Create(Input.SoilProfile);
+            Dictionary<SoilLayer, Soil> layersWithSoils =
                 Input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {

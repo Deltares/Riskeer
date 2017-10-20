@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIStability.Data.Geo;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using LandwardDirection = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
 using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
@@ -33,13 +32,13 @@ using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDir
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SurfaceLine2"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="SurfaceLine2"/> instances which are required in a calculation.
     /// </summary>
     internal static class SurfaceLineCreator
     {
         /// <summary>
         /// Creates a <see cref="SurfaceLine2"/> based on information of <paramref name="surfaceLine"/>,
-        /// which can be used by <see cref="IUpliftVanKernel"/>.
+        /// which can be used in a calculation.
         /// </summary>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> from
         /// which to take the information.</param>

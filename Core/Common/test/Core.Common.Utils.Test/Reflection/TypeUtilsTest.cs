@@ -268,7 +268,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetProperty_PrivateProperty_ReturnPropertyValue()
+        public void GetProperty_ProtectedProperty_ReturnPropertyValue()
         {
             // Setup
             var testClass = new TestClass();
@@ -281,7 +281,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetProperty_PrivatePropertyOfDerivedClass_ReturnPropertyValue()
+        public void GetProperty_ProtectedPropertyOfDerivedClass_ReturnPropertyValue()
         {
             // Setup
             var testClass = new DerivedTestClass();

@@ -22,18 +22,17 @@
 using System;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SoilModel"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="SoilModel"/> instances which are required in a calculation.
     /// </summary>
     internal static class SoilModelCreator
     {
         /// <summary>
         /// Creates a <see cref="SoilModel"/> with the given <paramref name="soils"/>
-        /// which can be used by <see cref="IUpliftVanKernel"/>.
+        /// which can be used in a calculation.
         /// </summary>
         /// <param name="soils">The array of <see cref="Soil"/> to use in the <see cref="SoilModel"/>.</param>
         /// <returns>A new <see cref="SoilModel"/> with the <paramref name="soils"/>.</returns>

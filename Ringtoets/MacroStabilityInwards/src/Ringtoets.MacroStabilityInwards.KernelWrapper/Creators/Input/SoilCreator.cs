@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using WtiStabilitySoil = Deltares.WTIStability.Data.Geo.Soil;
 using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
@@ -31,13 +30,13 @@ using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStren
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="WtiStabilitySoil"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="WtiStabilitySoil"/> instances which are required in a calculation.
     /// </summary>
     internal static class SoilCreator
     {
         /// <summary>
         /// Creates a <see cref="WtiStabilitySoil"/> based on information contained in the profile <paramref name="profile"/>,
-        /// which can be used by <see cref="IUpliftVanKernel"/>.
+        /// which can be used in a calculation.
         /// </summary>
         /// <param name="profile">The <see cref="SoilProfile"/> from which to take the information.</param>
         /// <returns>A new <see cref="WtiStabilitySoil"/> with information taken from the <see cref="profile"/>.</returns>

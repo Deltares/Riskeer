@@ -140,7 +140,7 @@ namespace Core.Common.Utils.Reflection
         }
 
         /// <summary>
-        /// Gets the value of a field of an instance.
+        /// Sets the value of a field of an instance.
         /// </summary>
         /// <param name="obj">Instance holding the field. Cannot be <c>null</c>.</param>
         /// <param name="fieldName">Name of the field.</param>
