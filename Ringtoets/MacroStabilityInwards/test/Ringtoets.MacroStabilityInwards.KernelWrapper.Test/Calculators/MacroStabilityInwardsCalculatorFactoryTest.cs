@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateUpliftVanCalculator_Always_ReturnsUpliftVanCalculator()
+        public void CreateUpliftVanCalculator_WithUpliftVanCalculatorInput_ReturnsUpliftVanCalculator()
         {
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateWaternetExtremeCalculator_Always_ReturnsWaternetExtremeCalculator()
+        public void CreateWaternetExtremeCalculator_WithWaternetCalculatorInput_ReturnsWaternetExtremeCalculator()
         {
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     PhreaticLineOffsets = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
+                    DrainageConstruction = new DrainageConstruction()
                 }), new TestMacroStabilityInwardsKernelFactory());
 
             // Assert
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateWaternetDailyCalculator_Always_ReturnsWaternetDailyCalculator()
+        public void CreateWaternetDailyCalculator_WithWaternetCalculatorInput_ReturnsWaternetDailyCalculator()
         {
             // Setup
             IMacroStabilityInwardsCalculatorFactory factory = MacroStabilityInwardsCalculatorFactory.Instance;
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     SoilProfile = new TestSoilProfile(),
                     PhreaticLineOffsets = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
+                    DrainageConstruction = new DrainageConstruction()
                 }), new TestMacroStabilityInwardsKernelFactory());
 
             // Assert

@@ -51,8 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, DikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
-        public void ConvertDikeSoilScenario_ValidDikeSoilScenario_ReturnStabilityLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                                              DikeSoilScenario expectedDikeSoilScenario)
+        public void ConvertDikeSoilScenario_ValidDikeSoilScenario_ReturnExpectedDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
+                                                                                                 DikeSoilScenario expectedDikeSoilScenario)
         {
             // Call
             DikeSoilScenario convertedDikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
@@ -75,8 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
-        public void ConvertWaternetCreationMode_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                                          WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
+        public void ConvertWaternetCreationMode_ValidWaternetCreationMode_ReturnExpectedWtiStabilityWaternetCreationMode(WaternetCreationMode waternetCreationMode,
+                                                                                                                         WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Call
             WtiStabilityWaternetCreationMethod convertedWaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
@@ -104,8 +104,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(PlLineCreationMethod.DupuitDynamic, WtiStabilityPlLineCreationMethod.DupuitDynamic)]
         [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
-        public void ConvertPlLineCreationMethod_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                                          WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+        public void ConvertPlLineCreationMethod_ValidPlLineCreationMethod_ReturnExpectedWtiStabilityPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod,
+                                                                                                                         WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Call
             WtiStabilityPlLineCreationMethod actualPlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);

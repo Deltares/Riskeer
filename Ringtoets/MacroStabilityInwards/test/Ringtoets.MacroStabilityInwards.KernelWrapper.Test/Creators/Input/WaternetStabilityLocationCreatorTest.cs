@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
         public void Create_ValidDikeSoilScenario_ReturnStabilityLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                                    DikeSoilScenario expectedDikeSoilScenario)
+                                                                                             DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void Create_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                            WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                                     WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -176,7 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void Create_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                            WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                                     WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -199,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [Combinatorial]
         public void Create_WithInput_ReturnStabilityLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                                    [Values(true, false)] bool useDefaultOffsets)
+                                                             [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);

@@ -494,7 +494,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             AssertIrrelevantValues(location);
         }
 
-        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, Location location)
+        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, StabilityLocation location)
         {
             Assert.AreEqual(input.WaterLevelRiverAverage, location.WaterLevelRiverAverage);
             Assert.AreEqual(input.DrainageConstruction.IsPresent, location.DrainageConstructionPresent);

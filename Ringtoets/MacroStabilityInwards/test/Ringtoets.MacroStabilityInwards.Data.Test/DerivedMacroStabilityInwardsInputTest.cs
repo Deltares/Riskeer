@@ -44,16 +44,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_WithMacroStabilityInwardsInput_DoesNotThrow()
-        {
-            // Call
-            TestDelegate call = () => new DerivedMacroStabilityInwardsInput(new MacroStabilityInwardsInput());
-
-            // Assert
-            Assert.DoesNotThrow(call);
-        }
-
-        [Test]
         public void WaternetExtreme_SoilProfileNull_ReturnMacroStabilityInwardsWaternet()
         {
             // Setup
