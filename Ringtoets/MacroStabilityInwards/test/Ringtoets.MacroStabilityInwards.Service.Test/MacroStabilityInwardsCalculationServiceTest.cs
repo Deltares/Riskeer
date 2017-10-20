@@ -331,7 +331,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
-                Action call = () => { MacroStabilityInwardsCalculationService.Validate(testCalculation); };
+                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>

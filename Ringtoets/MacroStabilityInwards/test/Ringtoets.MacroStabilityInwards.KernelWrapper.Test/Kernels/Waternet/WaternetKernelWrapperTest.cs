@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             };
 
             // Assert
-            var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
+            var stabilityModel = TypeUtils.GetProperty<StabilityModel>(kernel, "StabilityModel");
 
             Assert.AreSame(stabilityLocation, stabilityModel.Location);
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         }
 
         [Test]
-        public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperException()
+        public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
         {
             // Setup
             var kernel = new TestWaternetKernelWrapper();
@@ -85,19 +85,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var exception = Assert.Throws<WaternetKernelWrapperException>(test);
             Assert.IsNotNull(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
-        }
-
-        [Test]
-        public void Calculate_ExceptionDuringCalculation_OutputPropertiesNotSet()
-        {
-            // Setup
-            var kernel = new TestWaternetKernelWrapper();
-
-            // Call
-            TestDelegate test = () => kernel.Calculate();
-
-            // Assert
-            Assert.Throws<WaternetKernelWrapperException>(test);
             Assert.IsNull(kernel.Waternet);
         }
 

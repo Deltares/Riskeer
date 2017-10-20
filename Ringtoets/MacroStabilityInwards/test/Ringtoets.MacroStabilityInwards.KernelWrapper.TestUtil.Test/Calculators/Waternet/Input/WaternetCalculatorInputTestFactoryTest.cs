@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -53,11 +54,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsFalse(double.IsNaN(input.PiezometricHeadPhreaticLine2Outwards));
             Assert.IsFalse(double.IsNaN(input.PiezometricHeadPhreaticLine2Inwards));
             Assert.IsFalse(double.IsNaN(input.PenetrationLength));
-            Assert.IsNotNull(input.AdjustPhreaticLine3And4ForUplift);
-            Assert.IsNotNull(input.DikeSoilScenario);
 
             AssertSurfaceLine(input.SurfaceLine);
             AssertSoilProfile(input.SoilProfile, input.SurfaceLine);
+
+            Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
+            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
+            Assert.AreEqual(LandwardDirection.PositiveX, input.LandwardDirection);
+            Assert.IsTrue(Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario));
         }
 
         [Test]
@@ -84,6 +88,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             AssertSurfaceLine(input.SurfaceLine);
             AssertSoilProfile(input.SoilProfile, input.SurfaceLine);
+
+            Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
+            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
+            Assert.AreEqual(LandwardDirection.PositiveX, input.LandwardDirection);
+            Assert.IsTrue(Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario));
         }
 
         private static void AssertSoilProfile(SoilProfile soilProfile, MacroStabilityInwardsSurfaceLine surfaceLine)

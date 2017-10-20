@@ -244,6 +244,101 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
+        public void GetProperty_InstanceNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.GetProperty<int>(null, "A");
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("instance", paramName);
+        }
+
+        [Test]
+        public void GetProperty_PropertyNameIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var testClass = new TestClass(22);
+
+            // Call
+            TestDelegate call = () => TypeUtils.GetProperty<int>(testClass, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void GetProperty_PrivateProperty_ReturnPropertyValue()
+        {
+            // Setup
+            var testClass = new TestClass();
+
+            // Call
+            var privateIntValue = TypeUtils.GetProperty<int>(testClass, "PrivateIntProperty");
+
+            // Assert
+            Assert.AreEqual(102, privateIntValue);
+        }
+
+        [Test]
+        public void GetProperty_PrivatePropertyOfDerivedClass_ReturnPropertyValue()
+        {
+            // Setup
+            var testClass = new DerivedTestClass();
+
+            // Call
+            var privateIntValue = TypeUtils.GetProperty<int>(testClass, "PrivateIntProperty");
+
+            // Assert
+            Assert.AreEqual(102, privateIntValue);
+        }
+
+        [Test]
+        public void GetProperty_PublicProperty_ReturnPublicPropertyValue()
+        {
+            // Setup
+            var testClass = new TestClass
+            {
+                PublicProperty = 1234.0
+            };
+
+            // Call
+            var publicPropertyValue = TypeUtils.GetProperty<double>(testClass, "PublicProperty");
+
+            // Assert
+            Assert.AreEqual(testClass.PublicProperty, publicPropertyValue);
+        }
+
+        [Test]
+        public void GetProperty_PublicPropertyFromBaseClass_ReturnPublicPropertyValue()
+        {
+            // Setup
+            var derivedTestClass = new DerivedTestClass(1)
+            {
+                PublicProperty = 2.0
+            };
+
+            // Call
+            var publicPropertyValue = TypeUtils.GetProperty<double>(derivedTestClass, "PublicProperty");
+
+            // Assert
+            Assert.AreEqual(derivedTestClass.PublicProperty, publicPropertyValue);
+        }
+
+        [Test]
+        public void GetProperty_GetNonExistingPrivateProperty_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var testClass = new TestClass(0);
+
+            // Call
+            TestDelegate call = () => TypeUtils.GetProperty<int>(testClass, "nonExistingProperty");
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call);
+        }
+
+        [Test]
         public void SetField_InstanceNull_ThrowArgumentNullException()
         {
             // Call
@@ -541,7 +636,17 @@ namespace Core.Common.Utils.Test.Reflection
                 this.privateInt = privateInt;
             }
 
+            public double PublicProperty { get; set; }
+
             public double PublicPropertyPrivateSetter { get; private set; }
+
+            protected int PrivateIntProperty
+            {
+                get
+                {
+                    return 102;
+                }
+            }
 
             // ReSharper disable once UnusedMember.Local
             private int PrivateMethod(int i)
@@ -552,6 +657,8 @@ namespace Core.Common.Utils.Test.Reflection
 
         private class DerivedTestClass : TestClass
         {
+            public DerivedTestClass() {}
+
             public DerivedTestClass(int privateInt) : base(privateInt) {}
         }
     }

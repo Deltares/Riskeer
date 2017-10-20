@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             };
 
             // Assert
-            var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
+            var stabilityModel = TypeUtils.GetProperty<StabilityModel>(kernel, "StabilityModel");
 
             Assert.AreSame(stabilityLocation, stabilityModel.LocationDaily);
             Assert.AreSame(surfaceLine, stabilityModel.SurfaceLine2);

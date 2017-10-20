@@ -113,6 +113,33 @@ namespace Core.Common.Utils.Reflection
         }
 
         /// <summary>
+        /// Gets the value of a property of an instance.
+        /// </summary>
+        /// <typeparam name="T">Type of the property.</typeparam>
+        /// <param name="instance">Instance holding the property. Cannot be <c>null</c>.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>The value of the property.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="instance"/>
+        /// doesn't have a property with the name <paramref name="propertyName"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <remarks>This method can be used for properties of any visibility.</remarks>
+        public static T GetProperty<T>(object instance, string propertyName)
+        {
+            if (instance == null)
+            {
+                throw new ArgumentNullException(nameof(instance));
+            }
+            PropertyInfo propertyInfo =
+                instance.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            if (propertyInfo == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(propertyInfo));
+            }
+            MethodInfo getter = propertyInfo.GetGetMethod(true);
+            return (T) getter.Invoke(instance, null);
+        }
+
+        /// <summary>
         /// Gets the value of a field of an instance.
         /// </summary>
         /// <param name="obj">Instance holding the field. Cannot be <c>null</c>.</param>

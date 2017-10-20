@@ -71,6 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertStabilityLocations(StabilityLocation expected, StabilityLocation actual)
         {
+            Assert.AreEqual(expected.StabilityModel, actual.StabilityModel);
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
             Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
             Assert.AreEqual(expected.PlLineCreationMethod, actual.PlLineCreationMethod);
@@ -96,6 +97,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.LeakageLengthInwardsPl3, actual.LeakageLengthInwardsPl3);
             Assert.AreEqual(expected.LeakageLengthOutwardsPl4, actual.LeakageLengthOutwardsPl4);
             Assert.AreEqual(expected.LeakageLengthInwardsPl4, actual.LeakageLengthInwardsPl4);
+            Assert.AreEqual(expected.HeadInPlLine3, actual.HeadInPlLine3);
+            Assert.AreEqual(expected.HeadInPlLine4, actual.HeadInPlLine4);
+            Assert.AreEqual(expected.X, actual.X);
+            Assert.AreEqual(expected.Y, actual.Y);
+            Assert.AreEqual(expected.PiezometricHeads.Name, actual.PiezometricHeads.Name);
+            Assert.AreEqual(expected.PiezometricHeads.HeadPl1, actual.PiezometricHeads.HeadPl1);
+            Assert.AreEqual(expected.PiezometricHeads.HeadPl2, actual.PiezometricHeads.HeadPl2);
+            Assert.AreEqual(expected.PiezometricHeads.HeadPl3, actual.PiezometricHeads.HeadPl3);
+            Assert.AreEqual(expected.PiezometricHeads.HeadPl4, actual.PiezometricHeads.HeadPl4);
+            Assert.AreEqual(expected.PiezometricHeads.DampingFactorPl3, actual.PiezometricHeads.DampingFactorPl3);
+            Assert.AreEqual(expected.PiezometricHeads.DampingFactorPl4, actual.PiezometricHeads.DampingFactorPl4);
         }
 
         /// <summary>
@@ -126,13 +138,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
             for (var i = 0; i < expected.Length; i++)
             {
-                SoilLayer2D expectedSurface = expected[i];
-                SoilLayer2D actualSurface = actual[i];
+                SoilLayer2D expectedSoilLayer = expected[i];
+                SoilLayer2D actualSoilLayer = actual[i];
 
-                Assert.AreEqual(expectedSurface.IsAquifer, actualSurface.IsAquifer);
-                AssertGeometrySurfaces(expectedSurface.GeometrySurface, actualSurface.GeometrySurface);
-                AssertSoils(expectedSurface.Soil, actualSurface.Soil);
-                Assert.AreEqual(expectedSurface.WaterpressureInterpolationModel, actualSurface.WaterpressureInterpolationModel);
+                Assert.AreEqual(expectedSoilLayer.Name, actualSoilLayer.Name);
+                Assert.AreEqual(expectedSoilLayer.IsAquifer, actualSoilLayer.IsAquifer);
+                AssertGeometrySurfaces(expectedSoilLayer.GeometrySurface, actualSoilLayer.GeometrySurface);
+                AssertSoils(expectedSoilLayer.Soil, actualSoilLayer.Soil);
+                Assert.AreEqual(expectedSoilLayer.WaterpressureInterpolationModel, actualSoilLayer.WaterpressureInterpolationModel);
             }
         }
 
@@ -152,6 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
                 PreConsolidationStress expectedPreconsolidationStress = expected[i];
                 PreConsolidationStress actualPreconsolidationStress = actual[i];
 
+                Assert.AreEqual(expectedPreconsolidationStress.Name, actualPreconsolidationStress.Name);
                 Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
                 Assert.AreEqual(expectedPreconsolidationStress.X, actualPreconsolidationStress.X);
                 Assert.AreEqual(expectedPreconsolidationStress.Z, actualPreconsolidationStress.Z);
@@ -198,6 +212,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             Assert.AreEqual(expected.StrengthIncreaseExponent, actual.StrengthIncreaseExponent);
             Assert.AreEqual(expected.PoP, actual.PoP);
             Assert.AreEqual(expected.DilatancyType, actual.DilatancyType);
+            Assert.AreEqual(expected.CuBottom, actual.CuBottom);
+            Assert.AreEqual(expected.CuTop, actual.CuTop);
+            Assert.AreEqual(expected.Ocr, actual.Ocr);
+            Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
         }
 
         /// <summary>
@@ -215,6 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             CollectionAssert.AreEqual(expected.Curves, actual.Curves, new GeometryCurveComparer());
             CollectionAssert.AreEqual(expected.Points, actual.Points, new StabilityPointComparer());
 
+            Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.Bottom, actual.Bottom);
             Assert.AreEqual(expected.Left, actual.Left);
             Assert.AreEqual(expected.Right, actual.Right);
@@ -247,6 +266,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         private static void AssertCharacteristicPointSets(CharacteristicPointSet expected, CharacteristicPointSet actual)
         {
             Assert.AreEqual(expected.Count, actual.Count);
+            Assert.AreEqual(expected.GeometryMustContainPoint, actual.GeometryMustContainPoint);
 
             for (var i = 0; i < expected.Count; i++)
             {
@@ -284,6 +304,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// is not equal to <paramref name="expected"/>.</exception>
         private static void AssertGeometryPoints(GeometryPoint expected, GeometryPoint actual)
         {
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Owner, actual.Owner);
             Assert.AreEqual(expected.X, actual.X);
             Assert.AreEqual(expected.Z, actual.Z);
         }

@@ -36,14 +36,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal abstract class WaternetKernelWrapper : IWaternetKernel
     {
-        private readonly StabilityModel stabilityModel;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
         /// </summary>
         protected WaternetKernelWrapper()
         {
-            stabilityModel = new StabilityModel();
+            StabilityModel = new StabilityModel();
         }
 
         public abstract StabilityLocation Location { set; }
@@ -94,16 +92,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Gets the stability model of the kernel.
         /// </summary>
-        protected StabilityModel StabilityModel
-        {
-            get
-            {
-                return stabilityModel;
-            }
-        }
+        protected StabilityModel StabilityModel { get; }
 
+        /// <summary>
+        /// Creates the Waternet XML result with the supplied calculation.
+        /// </summary>
+        /// <param name="waternetCalculation">The calculation to create the Waternet from.</param>
+        /// <returns>The Waternet XML result.</returns>
         protected abstract string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation);
 
+        /// <summary>
+        /// Reads the <see cref="WtiStabilityWaternet"/> from the supplied XML result.
+        /// </summary>
+        /// <param name="waternetXmlResult">The Waternet XML result to read.</param>
+        /// <returns>The parsed Waternet result.</returns>
         protected abstract WtiStabilityWaternet ReadResult(string waternetXmlResult);
 
         /// <summary>
