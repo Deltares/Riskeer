@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         }
 
         [Test]
-        public void Convert_UseDefaultOffsetsTrue_ReturnUpliftVanPhreaticLineOffsets()
+        public void Convert_UseDefaultOffsetsTrue_ReturnPhreaticLineOffsets()
         {
             // Setup
             var random = new Random(11);
@@ -70,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         }
 
         [Test]
-        public void Convert_UseDefaultOffsetsFalse_ReturnUpliftVanPhreaticLineOffsets()
+        public void Convert_UseDefaultOffsetsFalse_ReturnPhreaticLineOffsets()
         {
             // Setup
             var random = new Random(11);

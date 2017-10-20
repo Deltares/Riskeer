@@ -59,7 +59,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PhreaticLines_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PhreaticLines_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-
         public MacroStabilityInwardsPhreaticLineProperties[] PhreaticLines
         {
             get
@@ -73,7 +72,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaternetLines_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaternetLines_Description))]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-
         public MacroStabilityInwardsWaternetLineProperties[] WaternetLines
         {
             get

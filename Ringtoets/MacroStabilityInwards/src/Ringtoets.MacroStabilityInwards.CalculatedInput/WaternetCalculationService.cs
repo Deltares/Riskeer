@@ -38,12 +38,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
     public static class WaternetCalculationService
     {
         /// <summary>
-        /// Calculated the Waternet with extreme circumstances based on the values 
+        /// Calculates the Waternet with extreme circumstances based on the values 
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
         /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
-        /// or <c>null</c> when the Waternet could be calculated.</returns>
+        /// or an empty <see cref="MacroStabilityInwardsWaternet"/> when the Waternet
+        /// could not be calculated.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
         public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input)
@@ -55,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetExtremeCalculator(
-                                                                                       CreateCalculatorInput(input, false),
+                                                                                       CreateExtremeCalculatorInput(input),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -71,12 +72,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
         }
 
         /// <summary>
-        /// Calculated the Waternet with daily circumstances based on the values 
+        /// Calculates the Waternet with daily circumstances based on the values 
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
         /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
-        /// or <c>null</c> when the Waternet could be calculated.</returns>
+        /// or an empty <see cref="MacroStabilityInwardsWaternet"/> when the Waternet
+        /// could not be calculated.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
         public static MacroStabilityInwardsWaternet CalculateDaily(IMacroStabilityInwardsWaternetInput input)
@@ -88,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetDailyCalculator(
-                                                                                       CreateCalculatorInput(input, true),
+                                                                                       CreateDailyCalculatorInput(input),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -103,25 +105,40 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
             }
         }
 
-        private static WaternetCalculatorInput CreateCalculatorInput(IMacroStabilityInwardsWaternetInput input, bool daily)
+        private static WaternetCalculatorInput CreateDailyCalculatorInput(IMacroStabilityInwardsWaternetInput input)
         {
-            return new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
+            WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input);
+            properties.PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputDaily);
+            properties.AssessmentLevel = input.WaterLevelRiverAverage;
+            properties.WaterLevelPolder = input.LocationInputDaily.WaterLevelPolder;
+            properties.PenetrationLength = input.LocationInputDaily.PenetrationLength;
+
+            return new WaternetCalculatorInput(properties);
+        }
+
+        private static WaternetCalculatorInput CreateExtremeCalculatorInput(IMacroStabilityInwardsWaternetInput input)
+        {
+            WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input);
+            properties.PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme);
+            properties.AssessmentLevel = input.AssessmentLevel;
+            properties.WaterLevelPolder = input.LocationInputExtreme.WaterLevelPolder;
+            properties.PenetrationLength = input.LocationInputExtreme.PenetrationLength;
+
+            return new WaternetCalculatorInput(properties);
+        }
+
+        private static WaternetCalculatorInput.ConstructionProperties CreateCalculatorInputConstructionProperties(IMacroStabilityInwardsWaternetInput input)
+        {
+            return new WaternetCalculatorInput.ConstructionProperties
             {
                 WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                 PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
-                AssessmentLevel = input.AssessmentLevel,
                 LandwardDirection = LandwardDirection.PositiveX,
                 SurfaceLine = input.SurfaceLine,
                 SoilProfile = SoilProfileConverter.Convert(input.SoilProfileUnderSurfaceLine),
                 DrainageConstruction = DrainageConstructionConverter.Convert(input),
-                PhreaticLineOffsets = daily
-                                          ? PhreaticLineOffsetsConverter.Convert(input.LocationInputDaily)
-                                          : PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme),
                 DikeSoilScenario = input.DikeSoilScenario,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
-                WaterLevelPolder = daily
-                                       ? input.LocationInputDaily.WaterLevelPolder
-                                       : input.LocationInputExtreme.WaterLevelPolder,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
                 LeakageLengthOutwardsPhreaticLine3 = input.LeakageLengthOutwardsPhreaticLine3,
@@ -130,11 +147,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
                 LeakageLengthInwardsPhreaticLine4 = input.LeakageLengthInwardsPhreaticLine4,
                 PiezometricHeadPhreaticLine2Outwards = input.PiezometricHeadPhreaticLine2Outwards,
                 PiezometricHeadPhreaticLine2Inwards = input.PiezometricHeadPhreaticLine2Inwards,
-                PenetrationLength = daily
-                                        ? input.LocationInputDaily.PenetrationLength
-                                        : input.LocationInputExtreme.PenetrationLength,
                 AdjustPhreaticLine3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift
-            });
+            };
         }
     }
 }

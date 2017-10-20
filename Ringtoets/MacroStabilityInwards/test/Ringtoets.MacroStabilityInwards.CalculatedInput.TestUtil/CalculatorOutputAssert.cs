@@ -59,6 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
                 Assert.AreEqual(originalWaternetLines[i].Name, actualWaternetLines[i].Name);
                 CollectionAssert.AreEqual(originalWaternetLines[i].Geometry, actualWaternetLines[i].Geometry);
                 Assert.AreEqual(originalWaternetLines[i].PhreaticLine.Name, actualWaternetLines[i].PhreaticLine.Name);
+                CollectionAssert.AreEqual(originalWaternetLines[i].PhreaticLine.Geometry, actualWaternetLines[i].PhreaticLine.Geometry);
             }
         }
     }

@@ -72,8 +72,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputExtreme, actualInput.PhreaticLineOffsets);
                 Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
                 Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, actualInput.PenetrationLength);
+                Assert.AreEqual(input.AssessmentLevel, actualInput.AssessmentLevel);
 
-                AssertGenericInput(input, factory);
+                AssertGenericInput(input, actualInput);
             }
         }
 
@@ -141,8 +142,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputDaily, actualInput.PhreaticLineOffsets);
                 Assert.AreEqual(input.LocationInputDaily.WaterLevelPolder, actualInput.WaterLevelPolder);
                 Assert.AreEqual(input.LocationInputDaily.PenetrationLength, actualInput.PenetrationLength);
+                Assert.AreEqual(input.WaterLevelRiverAverage, actualInput.AssessmentLevel);
 
-                AssertGenericInput(input, factory);
+                AssertGenericInput(input, actualInput);
             }
         }
 
@@ -181,21 +183,16 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
             }
         }
 
-        private static void AssertGenericInput(IMacroStabilityInwardsWaternetInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
+        private static void AssertGenericInput(IMacroStabilityInwardsWaternetInput originalInput, WaternetCalculatorInput actualInput)
         {
-            WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
             CalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             CalculatorInputAssert.AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreEqual(LandwardDirection.PositiveX, actualInput.LandwardDirection);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
-            Assert.AreEqual(originalInput.AssessmentLevel, actualInput.AssessmentLevel);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
-            Assert.AreEqual(originalInput.DrainageConstructionPresent, actualInput.DrainageConstruction.IsPresent);
-            Assert.AreEqual(originalInput.XCoordinateDrainageConstruction, actualInput.DrainageConstruction.XCoordinate);
-            Assert.AreEqual(originalInput.ZCoordinateDrainageConstruction, actualInput.DrainageConstruction.ZCoordinate);
             Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);

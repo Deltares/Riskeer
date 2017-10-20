@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
@@ -120,6 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
                 Assert.AreEqual(expectedData.IsAquifer, actual[i].IsAquifer);
                 Assert.AreEqual(DilatancyType.Zero, actual[i].DilatancyType);
                 Assert.AreEqual(WaterPressureInterpolationModel.Automatic, actual[i].WaterPressureInterpolationModel);
+                Assert.AreEqual(ConvertShearStrengthModel(expectedData.ShearStrengthModel), actual[i].ShearStrengthModel);
 
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(expectedData).GetDesignValue(), actual[i].AbovePhreaticLevel);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(expectedData).GetDesignValue(), actual[i].BelowPhreaticLevel);
@@ -128,6 +130,28 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(expectedData).GetDesignValue(), actual[i].StrengthIncreaseExponent);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(expectedData).GetDesignValue(), actual[i].ShearStrengthRatio);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(expectedData).GetDesignValue(), actual[i].Pop);
+            }
+        }
+
+        /// <summary>
+        /// Converts <paramref name="shearStrengthModel"/> to a <see cref="ShearStrengthModel"/>.
+        /// </summary>
+        /// <param name="shearStrengthModel">The original shear strength model</param>
+        /// <returns>A converted shear strength model</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is an invalid value.</exception>
+        private static ShearStrengthModel ConvertShearStrengthModel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        {
+            switch (shearStrengthModel)
+            {
+                case MacroStabilityInwardsShearStrengthModel.SuCalculated:
+                    return ShearStrengthModel.SuCalculated;
+                case MacroStabilityInwardsShearStrengthModel.CPhi:
+                    return ShearStrengthModel.CPhi;
+                case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
+                    return ShearStrengthModel.CPhiOrSuCalculated;
+                default:
+                    throw new InvalidEnumArgumentException();
             }
         }
     }

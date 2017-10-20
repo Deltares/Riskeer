@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// Converts <see cref="WaternetCalculatorResult"/> into <see cref="MacroStabilityInwardsWaternet"/>.
         /// </summary>
         /// <param name="calculatorResult">The result to convert.</param>
-        /// <returns>The converter <see cref="MacroStabilityInwardsWaternet"/></returns>
+        /// <returns>The converted <see cref="MacroStabilityInwardsWaternet"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculatorResult"/>
         /// is <c>null</c>.</exception>
         public static MacroStabilityInwardsWaternet Convert(WaternetCalculatorResult calculatorResult)

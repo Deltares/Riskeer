@@ -38,8 +38,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             // Assert
             Assert.IsInstanceOf<WaternetKernelWrapper>(kernel);
-            var calculateDaily = TypeUtils.GetField<bool>(kernel, "calculateDaily");
-            Assert.IsTrue(calculateDaily);
         }
 
         [Test]
@@ -72,6 +70,96 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.AreEqual("WaternetDaily", stabilityModel.GeotechnicsData.CurrentWaternetDaily.Name);
 
             AssertAutomaticallySyncedValues(stabilityModel, soilProfile2D, surfaceLine);
+        }
+
+        [Test]
+        public void Calculate_ValidationErrorInCalculation_ThrowsWaternetKernelWrapperException()
+        {
+            // Setup
+            WaternetDailyKernelWrapper kernel = CreateInvalidKernel();
+
+            // Call
+            TestDelegate test = () => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WaternetKernelWrapperException>(test);
+            Assert.AreEqual("Waternet-Beoordeling: De punten in de hoogtegeometrie zijn niet oplopend. (x-waarde)\r\n" +
+                            "Waternet-Dagelijks: De punten in de hoogtegeometrie zijn niet oplopend. (x-waarde)", exception.Message);
+        }
+
+        private static WaternetDailyKernelWrapper CreateInvalidKernel()
+        {
+            var point1 = new Point2D(0, 0);
+            var point2 = new Point2D(1, 1);
+            var point3 = new Point2D(2, 2);
+            var point4 = new Point2D(3, 3);
+            var curve1 = new GeometryCurve(point1, point2);
+            var curve2 = new GeometryCurve(point2, point3);
+            var curve3 = new GeometryCurve(point3, point4);
+            var curve4 = new GeometryCurve(point4, point1);
+            var loop = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve1,
+                    curve2,
+                    curve3,
+                    curve4
+                }
+            };
+            var geometrySurface = new GeometrySurface
+            {
+                OuterLoop = loop
+            };
+            var soil = new Soil();
+            return new WaternetDailyKernelWrapper
+            {
+                SurfaceLine = new SurfaceLine2(),
+                Location = new StabilityLocation(),
+                SoilProfile = new SoilProfile2D
+                {
+                    Geometry = new GeometryData
+                    {
+                        Points =
+                        {
+                            point1,
+                            point2,
+                            point3,
+                            point4
+                        },
+                        Curves =
+                        {
+                            curve1,
+                            curve2,
+                            curve3,
+                            curve4
+                        },
+                        Loops =
+                        {
+                            loop
+                        },
+                        Surfaces =
+                        {
+                            geometrySurface
+                        }
+                    },
+                    Surfaces =
+                    {
+                        new SoilLayer2D
+                        {
+                            GeometrySurface = geometrySurface,
+                            Soil = soil
+                        }
+                    }
+                },
+                SoilModel = new SoilModel
+                {
+                    Soils =
+                    {
+                        soil
+                    }
+                }
+            };
         }
 
         private static void AssertAutomaticallySyncedValues(StabilityModel stabilityModel, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)

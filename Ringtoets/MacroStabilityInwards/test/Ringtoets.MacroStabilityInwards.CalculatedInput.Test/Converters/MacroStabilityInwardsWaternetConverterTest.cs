@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;

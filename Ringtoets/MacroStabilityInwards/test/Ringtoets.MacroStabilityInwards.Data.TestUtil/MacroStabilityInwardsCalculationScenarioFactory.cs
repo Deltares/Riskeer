@@ -234,6 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilProfile,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
+                    WaterLevelRiverAverage = (RoundedDouble) 1.5,
                     LocationInputExtreme =
                     {
                         WaterLevelPolder = (RoundedDouble) 0.5,

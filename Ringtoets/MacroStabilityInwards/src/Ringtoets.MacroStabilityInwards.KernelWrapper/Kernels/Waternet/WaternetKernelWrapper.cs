@@ -36,18 +36,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal abstract class WaternetKernelWrapper : IWaternetKernel
     {
-        private readonly bool calculateDaily;
-        private readonly StabilityModel stabilityModel;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
         /// </summary>
-        /// <param name="calculateDaily">Indicator whether the daily waternet
-        /// should be calculated.</param>
-        protected WaternetKernelWrapper(bool calculateDaily)
+        protected WaternetKernelWrapper()
         {
-            this.calculateDaily = calculateDaily;
-            stabilityModel = new StabilityModel();
+            StabilityModel = new StabilityModel();
         }
 
         public abstract StabilityLocation Location { set; }
@@ -56,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         {
             set
             {
-                stabilityModel.SoilModel = value;
+                StabilityModel.SoilModel = value;
             }
         }
 
@@ -64,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         {
             set
             {
-                stabilityModel.SoilProfile = value;
+                StabilityModel.SoilProfile = value;
             }
         }
 
@@ -72,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         {
             set
             {
-                stabilityModel.SurfaceLine2 = value;
+                StabilityModel.SurfaceLine2 = value;
             }
         }
 
@@ -83,11 +77,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             try
             {
                 var waternetCalculation = new WTIStabilityCalculation();
-                waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(stabilityModel));
+                waternetCalculation.InitializeForDeterministic(WTISerializer.Serialize(StabilityModel));
 
-                string waternetXmlResult = waternetCalculation.CreateWaternet(calculateDaily);
+                string waternetXmlResult = CreateWaternetXmlResult(waternetCalculation);
                 ReadValidationResult(waternetXmlResult);
-                ReadResult(waternetXmlResult);
+                Waternet = ReadResult(waternetXmlResult);
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
@@ -98,18 +92,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Gets the stability model of the kernel.
         /// </summary>
-        protected StabilityModel StabilityModel
-        {
-            get
-            {
-                return stabilityModel;
-            }
-        }
+        protected StabilityModel StabilityModel { get; }
 
-        private void ReadResult(string waternetXmlResult)
-        {
-            Waternet = WTIDeserializer.DeserializeWaternetUsedDuringCalculation(waternetXmlResult, calculateDaily);
-        }
+        protected abstract string CreateWaternetXmlResult(WTIStabilityCalculation waternetCalculation);
+
+        protected abstract WtiStabilityWaternet ReadResult(string waternetXmlResult);
 
         /// <summary>
         /// Reads the validation results of the calculation.

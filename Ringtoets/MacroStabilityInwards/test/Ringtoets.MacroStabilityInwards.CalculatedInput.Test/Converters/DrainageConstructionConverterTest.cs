@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -46,14 +46,15 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         [Test]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
-        public void Convert_SandDikeAndDrainageConstructionPresentTrue_ReturnUpliftVanDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
+        public void Convert_SandDikeAndDrainageConstructionPresentTrue_ReturnDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
         {
             // Setup
+            var random = new Random(21);
             var input = new MacroStabilityInwardsInput
             {
                 DrainageConstructionPresent = true,
-                XCoordinateDrainageConstruction = (RoundedDouble) 2,
-                ZCoordinateDrainageConstruction = (RoundedDouble) 4,
+                XCoordinateDrainageConstruction = random.NextRoundedDouble(),
+                ZCoordinateDrainageConstruction = random.NextRoundedDouble(),
                 DikeSoilScenario = soilScenario
             };
 
@@ -61,23 +62,25 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
-            Assert.IsTrue((bool) drainageConstruction.IsPresent);
+            Assert.IsTrue(drainageConstruction.IsPresent);
             Assert.AreEqual(input.XCoordinateDrainageConstruction, drainageConstruction.XCoordinate);
             Assert.AreEqual(input.ZCoordinateDrainageConstruction, drainageConstruction.ZCoordinate);
         }
 
+        [Test]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
-        public void Convert_DrainageConstructionPresentFalse_ReturnUpliftVanDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
+        public void Convert_DrainageConstructionPresentFalse_ReturnDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
         {
             // Setup
+            var random = new Random(21);
             var input = new MacroStabilityInwardsInput
             {
                 DrainageConstructionPresent = false,
-                XCoordinateDrainageConstruction = (RoundedDouble) 2,
-                ZCoordinateDrainageConstruction = (RoundedDouble) 4,
+                XCoordinateDrainageConstruction = random.NextRoundedDouble(),
+                ZCoordinateDrainageConstruction = random.NextRoundedDouble(),
                 DikeSoilScenario = soilScenario
             };
 
@@ -85,21 +88,23 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
-            Assert.IsFalse((bool) drainageConstruction.IsPresent);
-            Assert.IsNaN((double) drainageConstruction.XCoordinate);
-            Assert.IsNaN((double) drainageConstruction.ZCoordinate);
+            Assert.IsFalse(drainageConstruction.IsPresent);
+            Assert.IsNaN(drainageConstruction.XCoordinate);
+            Assert.IsNaN(drainageConstruction.ZCoordinate);
         }
 
+        [Test]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay)]
-        public void Convert_ClayDikeAndDrainageConstructionPresentTrue_ReturnUpliftVanDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
+        public void Convert_ClayDikeAndDrainageConstructionPresentTrue_ReturnDrainageConstruction(MacroStabilityInwardsDikeSoilScenario soilScenario)
         {
             // Setup
+            var random = new Random(21);
             var input = new MacroStabilityInwardsInput
             {
                 DrainageConstructionPresent = true,
-                XCoordinateDrainageConstruction = (RoundedDouble) 2,
-                ZCoordinateDrainageConstruction = (RoundedDouble) 4,
+                XCoordinateDrainageConstruction = random.NextRoundedDouble(),
+                ZCoordinateDrainageConstruction = random.NextRoundedDouble(),
                 DikeSoilScenario = soilScenario
             };
 
@@ -107,9 +112,9 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             DrainageConstruction drainageConstruction = DrainageConstructionConverter.Convert(input);
 
             // Assert
-            Assert.IsFalse((bool) drainageConstruction.IsPresent);
-            Assert.IsNaN((double) drainageConstruction.XCoordinate);
-            Assert.IsNaN((double) drainageConstruction.ZCoordinate);
+            Assert.IsFalse(drainageConstruction.IsPresent);
+            Assert.IsNaN(drainageConstruction.XCoordinate);
+            Assert.IsNaN(drainageConstruction.ZCoordinate);
         }
     }
 }

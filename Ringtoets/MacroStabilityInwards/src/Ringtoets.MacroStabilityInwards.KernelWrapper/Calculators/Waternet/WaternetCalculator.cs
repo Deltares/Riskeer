@@ -22,14 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
+using WtiStabilitySoil = Deltares.WTIStability.Data.Geo.Soil;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 {
@@ -44,8 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values
         /// required for performing the Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or 
-        /// <paramref name="factory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         protected WaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
         {
             if (input == null)
@@ -68,11 +68,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         }
 
         /// <summary>
-        /// Gets the input of the calculation.
-        /// </summary>
-        protected WaternetCalculatorInput Input { get; }
-
-        /// <summary>
         /// Gets the factory responsible for creating the Waternet kernel.
         /// </summary>
         protected IMacroStabilityInwardsKernelFactory Factory { get; }
@@ -83,10 +78,18 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <returns>The created <see cref="IWaternetKernel"/>.</returns>
         protected abstract IWaternetKernel CreateWaternetKernel();
 
+        private WaternetCalculatorInput Input { get; }
+
+        /// <summary>
+        /// Performs the Waternet calculation.
+        /// </summary>
+        /// <returns>The Waternet kernel with output set.</returns>
+        /// <exception cref="WaternetCalculatorException">Thrown when the Waternet
+        /// kernel throws a <see cref="WaternetKernelWrapperException"/>.</exception>
         private IWaternetKernel CalculateWaternet()
         {
             IWaternetKernel waternetKernel = CreateWaternetKernel();
-            SetinputOnKernel(waternetKernel);
+            SetInputOnKernel(waternetKernel);
 
             try
             {
@@ -100,10 +103,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
             return waternetKernel;
         }
 
-        private void SetinputOnKernel(IWaternetKernel waternetKernel)
+        private void SetInputOnKernel(IWaternetKernel waternetKernel)
         {
-            Soil[] soils = SoilCreator.Create(Input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
+            WtiStabilitySoil[] soils = SoilCreator.Create(Input.SoilProfile);
+            Dictionary<SoilLayer, WtiStabilitySoil> layersWithSoils =
                 Input.SoilProfile.Layers
                      .Zip(soils, (layer, soil) => new
                      {

@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         }
 
         [Test]
-        public void Convert_WithSoilProfile_ReturnUpliftVanSoilProfile()
+        public void Convert_WithSoilProfile_ReturnSoilProfile()
         {
             // Setup
             var random = new Random(22);
@@ -147,8 +147,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         [TestCase(MacroStabilityInwardsShearStrengthModel.CPhi, ShearStrengthModel.CPhi)]
         [TestCase(MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, ShearStrengthModel.CPhiOrSuCalculated)]
         [TestCase(MacroStabilityInwardsShearStrengthModel.SuCalculated, ShearStrengthModel.SuCalculated)]
-        public void Convert_ValidShearStrengthModel_ReturnExpectedUpliftVanShearStrengthModel(MacroStabilityInwardsShearStrengthModel originalShearStrengthModel,
-                                                                                              ShearStrengthModel expectedShearStrengthModel)
+        public void Convert_ValidShearStrengthModel_ReturnExpectedShearStrengthModel(MacroStabilityInwardsShearStrengthModel originalShearStrengthModel,
+                                                                                     ShearStrengthModel expectedShearStrengthModel)
         {
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]

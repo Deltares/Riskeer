@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -39,6 +40,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         /// for performing an Uplift Van calculation.</param>
         /// <param name="factory">The factory responsible for creating the Uplift Van kernel.</param>
         /// <returns>The Uplift Van calculator.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         IUpliftVanCalculator CreateUpliftVanCalculator(UpliftVanCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
 
         /// <summary>
@@ -48,8 +51,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         /// for performing a Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <returns>The Waternet calculator.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         IWaternetCalculator CreateWaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
-        
+
         /// <summary>
         /// Creates a Waternet calculator for the daily circumstances.
         /// </summary>
@@ -57,6 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators
         /// for performing a Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
         /// <returns>The Waternet calculator.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         IWaternetCalculator CreateWaternetDailyCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory);
     }
 }

@@ -22,40 +22,38 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using DilatancyType = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
-using ShearStrengthModel = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
-using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using WtiStabilitySoil = Deltares.WTIStability.Data.Geo.Soil;
 using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
 using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="Soil"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="WtiStabilitySoil"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class SoilCreator
     {
         /// <summary>
-        /// Creates a <see cref="Soil"/> based on information contained in the profile <paramref name="profile"/>,
+        /// Creates a <see cref="WtiStabilitySoil"/> based on information contained in the profile <paramref name="profile"/>,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="profile">The <see cref="SoilProfile"/> from which to take the information.</param>
-        /// <returns>A new <see cref="Soil"/> with information taken from the <see cref="profile"/>.</returns>
+        /// <returns>A new <see cref="WtiStabilitySoil"/> with information taken from the <see cref="profile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="profile"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>
         /// or <see cref="DilatancyType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>
         /// or <see cref="DilatancyType"/> is a valid value but unsupported.</exception>
-        public static Soil[] Create(SoilProfile profile)
+        public static WtiStabilitySoil[] Create(SoilProfile profile)
         {
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            return profile.Layers.Select(l => new Soil(l.MaterialName)
+            return profile.Layers.Select(l => new WtiStabilitySoil(l.MaterialName)
             {
                 UsePop = l.UsePop,
                 ShearStrengthModel = ConvertShearStrengthModel(l.ShearStrengthModel),

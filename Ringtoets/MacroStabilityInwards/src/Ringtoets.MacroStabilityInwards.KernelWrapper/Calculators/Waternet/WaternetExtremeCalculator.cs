@@ -37,8 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> containing all the values
         /// required for performing the Waternet calculation.</param>
         /// <param name="factory">The factory responsible for creating the Waternet kernel.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> or 
-        /// <paramref name="factory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         public WaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
             : base(input, factory) {}
 

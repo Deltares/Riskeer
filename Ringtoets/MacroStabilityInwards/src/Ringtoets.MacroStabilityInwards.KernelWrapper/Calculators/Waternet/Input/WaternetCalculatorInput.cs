@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
         /// <param name="properties">The object containing the values for the properties 
         /// of the new <see cref="WaternetCalculatorInput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/> is <c>null</c>.</exception>
-        /// /// <exception cref="ArgumentException">Thrown when one of the following properties is <c>null</c>:
+        /// <exception cref="ArgumentException">Thrown when one of the following properties is <c>null</c>:
         /// <list type="bullet">
         /// <item><see cref="ConstructionProperties.SurfaceLine"/>;</item>
         /// <item><see cref="ConstructionProperties.SoilProfile"/>;</item>
