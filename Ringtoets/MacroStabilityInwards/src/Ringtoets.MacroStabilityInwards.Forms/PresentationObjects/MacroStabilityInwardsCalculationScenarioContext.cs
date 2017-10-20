@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -61,6 +62,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
             }
 
             Parent = parent;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as MacroStabilityInwardsCalculationScenarioContext);
+        }
+
+        public override bool Equals(WrappedObjectContextBase<MacroStabilityInwardsCalculationScenario> other)
+        {
+            return base.Equals(other)
+                   && other is MacroStabilityInwardsCalculationScenarioContext
+                   && ReferenceEquals(Parent, ((MacroStabilityInwardsCalculationScenarioContext) other).Parent);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ Parent.GetHashCode();
         }
 
         public CalculationGroup Parent { get; }

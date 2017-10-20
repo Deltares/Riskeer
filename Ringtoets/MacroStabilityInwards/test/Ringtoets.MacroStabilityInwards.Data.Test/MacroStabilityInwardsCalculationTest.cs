@@ -221,7 +221,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Clone_NoOutput_ReturnNewInstanceWithCopiedValues()
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();
@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Clone_WithOutput_ReturnNewInstanceWithCopiedValues()
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();

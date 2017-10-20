@@ -179,10 +179,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Clone_WithRandomValues_ReturnsCopiedInstanceWithPropertiesSet()
+        public void Clone_NotAllPropertiesSet_ReturnsCopiedInstanceWithPropertiesSet()
         {
             // Setup
             MacroStabilityInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnsCopiedInstanceWithPropertiesSet()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+            original.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
 
             // Call
             object clone = original.Clone();
@@ -197,6 +212,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             return new MacroStabilityInwardsCalculationScenario
             {
+                Name = "A Name",
+                Comments =
+                {
+                    Body = "A comment"
+                },
+                InputParameters =
+                {
+                    SlipPlaneMinimumDepth = random.NextRoundedDouble(),
+                    SlipPlaneMinimumLength = random.NextRoundedDouble(),
+                    MaximumSliceWidth = random.NextRoundedDouble(),
+                    MoveGrid = random.NextBoolean()
+                },
                 IsRelevant = random.NextBoolean(),
                 Contribution = random.NextRoundedDouble()
             };
