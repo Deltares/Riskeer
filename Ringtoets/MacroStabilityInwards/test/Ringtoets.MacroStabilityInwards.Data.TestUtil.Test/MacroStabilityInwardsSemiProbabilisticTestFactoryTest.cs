@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         {
             // Setup
             var random = new Random(21);
-            var probability = random.NextDouble();
+            double probability = random.NextDouble();
 
             // Call
             MacroStabilityInwardsSemiProbabilisticOutput output = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput(probability);

@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -46,6 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
 
@@ -214,6 +218,55 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsTrue(calculationHasOutput);
+        }
+
+        [Test]
+        public void Clone_NoOutput_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_WithOutput_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();
+            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
+            original.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+        }
+
+        private static MacroStabilityInwardsCalculation CreateRandomCalculationWithoutOutput()
+        {
+            var random = new Random(21);
+
+            return new MacroStabilityInwardsCalculation
+            {
+                Name = "A Name",
+                Comments =
+                {
+                    Body = "A comment"
+                },
+                InputParameters =
+                {
+                    SlipPlaneMinimumDepth = random.NextRoundedDouble(),
+                    SlipPlaneMinimumLength = random.NextRoundedDouble(),
+                    MaximumSliceWidth = random.NextRoundedDouble(),
+                    MoveGrid = random.NextBoolean()
+                }
+            };
         }
     }
 }

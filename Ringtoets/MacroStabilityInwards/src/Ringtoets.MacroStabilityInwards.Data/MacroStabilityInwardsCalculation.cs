@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -30,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="MacroStabilityInwardsFailureMechanism"/>.
     /// </summary>
-    public class MacroStabilityInwardsCalculation : Observable, ICalculation
+    public class MacroStabilityInwardsCalculation : CloneableObservable, ICalculation
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculation"/> with default values set for some of the parameters.
@@ -45,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the input parameters to perform a macro stability inwards calculation with.
         /// </summary>
-        public MacroStabilityInwardsInput InputParameters { get; }
+        public MacroStabilityInwardsInput InputParameters { get; private set; }
 
         /// <summary>
         /// Gets or sets <see cref="MacroStabilityInwardsOutput"/>, which contains the results of a macro stability inwards calculation.
@@ -67,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        public Comment Comments { get; }
+        public Comment Comments { get; private set; }
 
         public void ClearOutput()
         {
@@ -75,9 +74,23 @@ namespace Ringtoets.MacroStabilityInwards.Data
             SemiProbabilisticOutput = null;
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            throw new NotImplementedException();
+            var clone = (MacroStabilityInwardsCalculation) base.Clone();
+            clone.Comments = (Comment) Comments.Clone();
+            clone.InputParameters = (MacroStabilityInwardsInput) InputParameters.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (MacroStabilityInwardsOutput) Output.Clone();
+            }
+
+            if (SemiProbabilisticOutput != null)
+            {
+                clone.SemiProbabilisticOutput = (MacroStabilityInwardsSemiProbabilisticOutput) SemiProbabilisticOutput.Clone();
+            }
+
+            return clone;
         }
     }
 }
