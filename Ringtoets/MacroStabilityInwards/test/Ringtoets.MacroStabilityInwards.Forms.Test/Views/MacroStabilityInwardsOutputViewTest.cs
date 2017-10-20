@@ -19,14 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
+using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 {
@@ -137,61 +143,130 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-//        [Test]
-//        public void GivenCalculationWithOutput_WhenOutputCleared_ThenChartControlDataSetToNull()
-//        {
-//            // Given
-//            using (var form = new Form())
-//            using (var view = new MacroStabilityInwardsOutputView())
-//            {
-//                form.Controls.Add(view);
-//                form.Show();
-//
-//                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
-//
-//                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-//                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-//
-//                view.Data = calculation;
-//
-//                // Precondition
-//                Assert.AreSame(calculation, chartControl.Data);
-//
-//                // When
-//                calculation.ClearOutput();
-//                calculation.NotifyObservers();
-//
-//                // Then
-//                Assert.IsNull(chartControl.Data);
-//            }
-//        }
-//
-//        [Test]
-//        public void GivenCalculationWithoutOutput_WhenOutputSet_ThenChartControlDataSetToCalculation()
-//        {
-//            // Given
-//            using (var form = new Form())
-//            using (var view = new MacroStabilityInwardsOutputView())
-//            {
-//                form.Controls.Add(view);
-//                form.Show();
-//
-//                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
-//
-//                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-//
-//                view.Data = calculation;
-//
-//                // Precondition
-//                Assert.AreSame(calculation, chartControl.Data);
-//
-//                // When
-//                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-//                calculation.NotifyObservers();
-//
-//                // Then
-//                Assert.AreSame(calculation, chartControl.Data);
-//            }
-//        }
+        [Test]
+        public void GivenCalculationWithOutput_WhenOutputCleared_ThenChartDataUpdated()
+        {
+            // Given
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                ChartDataCollection chartData = GetChartControl(chartControl).Data;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation.InputParameters.SurfaceLine,
+                                                                               calculation.InputParameters.StochasticSoilProfile,
+                                                                               chartData);
+
+                // When
+                calculation.ClearOutput();
+                calculation.NotifyObservers();
+
+                // Then
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(chartData, false);
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithoutOutput_WhenOutputSet_ThenChartDataUpdated()
+        {
+            // Given
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                ChartDataCollection chartData = GetChartControl(chartControl).Data;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(chartData, false);
+
+                // When
+                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+                calculation.NotifyObservers();
+
+                // Then
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation.InputParameters.SurfaceLine,
+                                                                               calculation.InputParameters.StochasticSoilProfile,
+                                                                               chartData);
+            }
+        }
+
+        private static IChartControl GetChartControl(MacroStabilityInwardsOutputChartControl view)
+        {
+            return ControlTestHelper.GetControls<IChartControl>(view, "chartControl").Single();
+        }
+
+        private static MacroStabilityInwardsStochasticSoilProfile GetStochasticSoilProfile2D()
+        {
+            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D("Ondergrondschematisatie", new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                {
+                    new Point2D(0.0, 1.0),
+                    new Point2D(2.0, 4.0)
+                }), new List<Ring>()),
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                {
+                    new Point2D(3.0, 1.0),
+                    new Point2D(8.0, 3.0)
+                }), new List<Ring>()),
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                {
+                    new Point2D(2.0, 4.0),
+                    new Point2D(2.0, 8.0)
+                }), new List<Ring>())
+            }, new List<MacroStabilityInwardsPreconsolidationStress>()));
+        }
+
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
+        {
+            var points = new[]
+            {
+                new Point3D(1.2, 2.3, 4.0),
+                new Point3D(2.7, 2.8, 6.0)
+            };
+
+            return GetSurfaceLine(points);
+        }
+
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
+        {
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
+            surfaceLine.SetGeometry(points);
+            return surfaceLine;
+        }
     }
 }
