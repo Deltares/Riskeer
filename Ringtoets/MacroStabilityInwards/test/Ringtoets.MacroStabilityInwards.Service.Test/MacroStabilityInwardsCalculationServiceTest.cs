@@ -499,14 +499,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             inputParameters.LeftGrid.XRight = random.NextRoundedDouble();
             inputParameters.LeftGrid.ZTop = random.NextRoundedDouble();
             inputParameters.LeftGrid.ZBottom = random.NextRoundedDouble();
-            inputParameters.LeftGrid.NumberOfHorizontalPoints = random.Next();
-            inputParameters.LeftGrid.NumberOfVerticalPoints = random.Next();
+            inputParameters.LeftGrid.NumberOfHorizontalPoints = random.Next(1, 100);
+            inputParameters.LeftGrid.NumberOfVerticalPoints = random.Next(1, 100);
             inputParameters.RightGrid.XLeft = random.NextRoundedDouble();
             inputParameters.RightGrid.XRight = random.NextRoundedDouble();
             inputParameters.RightGrid.ZTop = random.NextRoundedDouble();
             inputParameters.RightGrid.ZBottom = random.NextRoundedDouble();
-            inputParameters.RightGrid.NumberOfHorizontalPoints = random.Next();
-            inputParameters.RightGrid.NumberOfVerticalPoints = random.Next();
+            inputParameters.RightGrid.NumberOfHorizontalPoints = random.Next(1, 100);
+            inputParameters.RightGrid.NumberOfVerticalPoints = random.Next(1, 100);
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.MacroStabilityInwards.Data.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -29,10 +30,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsGrid : ICloneable
     {
+        private static readonly Range<int> numberOfPointsValidityRange = new Range<int>(1, 100);
+
         private RoundedDouble xLeft;
         private RoundedDouble xRight;
         private RoundedDouble zTop;
         private RoundedDouble zBottom;
+        private int numberOfHorizontalPoints;
+        private int numberOfVerticalPoints;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsGrid"/>.
@@ -47,6 +52,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
             this.xRight = new RoundedDouble(2, xRight);
             this.zTop = new RoundedDouble(2, zTop);
             this.zBottom = new RoundedDouble(2, zBottom);
+
+            NumberOfHorizontalPoints = 5;
+            NumberOfVerticalPoints = 5;
         }
 
         /// <summary>
@@ -116,12 +124,48 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets or set the number of horizontal points.
         /// </summary>
-        public int NumberOfHorizontalPoints { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [1, 100].</exception>
+        public int NumberOfHorizontalPoints
+        {
+            get
+            {
+                return numberOfHorizontalPoints;
+            }
+            set
+            {
+                if (!numberOfPointsValidityRange.InRange(value))
+                {
+                    string message = string.Format(Resources.NumberOfHorizontalPoints_must_be_in_Range_0_,
+                                                   numberOfPointsValidityRange);
+
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+                numberOfHorizontalPoints = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the number of vertical points.
         /// </summary>
-        public int NumberOfVerticalPoints { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is not in range [1, 100].</exception>
+        public int NumberOfVerticalPoints
+        {
+            get
+            {
+                return numberOfVerticalPoints;
+            }
+            set
+            {
+                if (!numberOfPointsValidityRange.InRange(value))
+                {
+                    string message = string.Format(Resources.NumberOfVerticalPoints_must_be_in_Range_0_,
+                                                   numberOfPointsValidityRange);
+
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+                numberOfVerticalPoints = value;
+            }
+        }
 
         public object Clone()
         {

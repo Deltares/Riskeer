@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -52,8 +53,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsNaN(grid.ZBottom);
             Assert.AreEqual(2, grid.ZBottom.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(0, grid.NumberOfHorizontalPoints);
-            Assert.AreEqual(0, grid.NumberOfVerticalPoints);
+            Assert.AreEqual(5, grid.NumberOfHorizontalPoints);
+            Assert.AreEqual(5, grid.NumberOfVerticalPoints);
         }
 
         [Test]
@@ -98,6 +99,40 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.AreEqual(numberOfHorizontalPoints, grid.NumberOfHorizontalPoints);
             Assert.AreEqual(numberOfVerticalPoints, grid.NumberOfVerticalPoints);
+        }
+
+        [Test]
+        [TestCase(-10)]
+        [TestCase(0)]
+        [TestCase(101)]
+        public void NumberOfHorizontalPoints_NumberOfPointsNotInRange_ThrowsArgumentOutOfRangeException(int numberOfPoints)
+        {
+            // Setup
+            var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
+
+            // Call
+            TestDelegate call = () => grid.NumberOfHorizontalPoints = numberOfPoints;
+
+            // Assert
+            const string expectedMessage = "De waarde voor het aantal horizontale punten moet in het bereik [1, 100] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(-10)]
+        [TestCase(0)]
+        [TestCase(101)]
+        public void NumberOfVerticalPoints_NumberOfPointsNotInRange_ThrowsArgumentOutOfRangeException(int numberOfPoints)
+        {
+            // Setup
+            var grid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
+
+            // Call
+            TestDelegate call = () => grid.NumberOfVerticalPoints = numberOfPoints;
+
+            // Assert
+            const string expectedMessage = "De waarde voor het aantal verticale punten moet in het bereik [1, 100] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]

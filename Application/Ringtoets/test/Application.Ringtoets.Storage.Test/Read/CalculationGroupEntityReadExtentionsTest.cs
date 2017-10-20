@@ -363,13 +363,21 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         Order = 1,
                         Name = "2",
-                        TangentLineNumber = 1
+                        TangentLineNumber = 1,
+                        LeftGridNrOfHorizontalPoints = 5,
+                        LeftGridNrOfVerticalPoints = 5,
+                        RightGridNrOfHorizontalPoints = 5,
+                        RightGridNrOfVerticalPoints = 5
                     },
                     new MacroStabilityInwardsCalculationEntity
                     {
                         Order = 0,
                         Name = "1",
-                        TangentLineNumber = 1
+                        TangentLineNumber = 1,
+                        LeftGridNrOfHorizontalPoints = 5,
+                        LeftGridNrOfVerticalPoints = 5,
+                        RightGridNrOfHorizontalPoints = 5,
+                        RightGridNrOfVerticalPoints = 5
                     }
                 }
             };
@@ -403,13 +411,21 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         Order = 0,
                         Name = "calculation1",
-                        TangentLineNumber = 1
+                        TangentLineNumber = 1,
+                        LeftGridNrOfHorizontalPoints = 5,
+                        LeftGridNrOfVerticalPoints = 5,
+                        RightGridNrOfHorizontalPoints = 5,
+                        RightGridNrOfVerticalPoints = 5
                     },
                     new MacroStabilityInwardsCalculationEntity
                     {
                         Order = 2,
                         Name = "calculation2",
-                        TangentLineNumber = 2
+                        TangentLineNumber = 2,
+                        LeftGridNrOfHorizontalPoints = 5,
+                        LeftGridNrOfVerticalPoints = 5,
+                        RightGridNrOfHorizontalPoints = 5,
+                        RightGridNrOfVerticalPoints = 5
                     }
                 },
                 CalculationGroupEntity1 =

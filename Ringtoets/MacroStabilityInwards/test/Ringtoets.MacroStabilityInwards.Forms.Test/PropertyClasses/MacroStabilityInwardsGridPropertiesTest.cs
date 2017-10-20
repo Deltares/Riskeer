@@ -209,8 +209,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var xRight = (RoundedDouble) (1 + random.NextDouble());
             var zTop = (RoundedDouble) (1 + random.NextDouble());
             RoundedDouble zBottom = random.NextRoundedDouble();
-            int numberOfHorizontalPoints = random.Next();
-            int numberOfVerticalPoints = random.Next();
+            int numberOfHorizontalPoints = random.Next(1, 100);
+            int numberOfVerticalPoints = random.Next(1, 100);
 
             // When
             properties.XLeft = xLeft;

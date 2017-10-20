@@ -282,12 +282,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <list type="bullet">
         /// <item><paramref name="grid"/> is <c>null</c>;</item>
         /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
-        /// <item>the grid settings are invalid:
-        /// <list type="bullet">
-        /// <item>the grid boundaries are <see cref="double.NaN"/>;</item>
-        /// <item>the number of horizontal or vertical points are not greater than zero.</item>
-        /// </list>
-        /// </item>
+        /// <item>The grid boundaries are <see cref="double.NaN"/>.</item>
         /// </list>
         /// </returns>
         public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
@@ -316,9 +311,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         private static bool AreGridSettingsValid(MacroStabilityInwardsGrid grid)
         {
-            return grid.NumberOfHorizontalPoints > 0
-                   && grid.NumberOfVerticalPoints > 0
-                   && !double.IsNaN(grid.XLeft)
+            return !double.IsNaN(grid.XLeft)
                    && !double.IsNaN(grid.XRight)
                    && !double.IsNaN(grid.ZTop)
                    && !double.IsNaN(grid.ZBottom);

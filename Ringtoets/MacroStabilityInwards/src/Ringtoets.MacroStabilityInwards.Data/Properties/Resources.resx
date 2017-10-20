@@ -156,4 +156,10 @@
   <data name="TangentLineNumber_Value_needs_to_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor het aantal raaklijnen moet in het bereik {0} liggen.</value>
   </data>
+  <data name="NumberOfHorizontalPoints_must_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor het aantal horizontale punten moet in het bereik {0} liggen.</value>
+  </data>
+  <data name="NumberOfVerticalPoints_must_be_in_Range_0_" xml:space="preserve">
+    <value>De waarde voor het aantal verticale punten moet in het bereik {0} liggen.</value>
+  </data>
 </root>

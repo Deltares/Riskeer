@@ -88,8 +88,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                     XRight = random.NextRoundedDouble(),
                     ZTop = random.NextRoundedDouble(),
                     ZBottom = random.NextRoundedDouble(),
-                    NumberOfVerticalPoints = random.Next(),
-                    NumberOfHorizontalPoints = random.Next()
+                    NumberOfVerticalPoints = random.Next(1, 100),
+                    NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 RightGrid =
                 {
@@ -97,8 +97,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                     XRight = random.NextRoundedDouble(),
                     ZTop = random.NextRoundedDouble(),
                     ZBottom = random.NextRoundedDouble(),
-                    NumberOfVerticalPoints = random.Next(),
-                    NumberOfHorizontalPoints = random.Next()
+                    NumberOfVerticalPoints = random.Next(1, 100),
+                    NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated,
                 TangentLineZTop = (RoundedDouble) 1,
@@ -133,8 +133,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                     XRight = random.NextRoundedDouble(),
                     ZTop = random.NextRoundedDouble(),
                     ZBottom = random.NextRoundedDouble(),
-                    NumberOfVerticalPoints = random.Next(),
-                    NumberOfHorizontalPoints = random.Next()
+                    NumberOfVerticalPoints = random.Next(1, 100),
+                    NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 RightGrid =
                 {
@@ -142,8 +142,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                     XRight = random.NextRoundedDouble(),
                     ZTop = random.NextRoundedDouble(),
                     ZBottom = random.NextRoundedDouble(),
-                    NumberOfVerticalPoints = random.Next(),
-                    NumberOfHorizontalPoints = random.Next()
+                    NumberOfVerticalPoints = random.Next(1, 100),
+                    NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
                 TangentLineZTop = random.NextRoundedDouble(),

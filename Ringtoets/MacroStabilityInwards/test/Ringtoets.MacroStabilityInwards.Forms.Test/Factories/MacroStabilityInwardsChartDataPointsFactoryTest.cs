@@ -546,8 +546,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                                                      1 + random.NextDouble(),
                                                      random.NextDouble())
             {
-                NumberOfHorizontalPoints = 0,
-                NumberOfVerticalPoints = 1
+                NumberOfHorizontalPoints = random.Next(1, 100),
+                NumberOfVerticalPoints = random.Next(1, 100)
             };
 
             // Call
@@ -762,33 +762,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             double xRight = 1 + random.NextDouble();
             double zTop = 1 + random.NextDouble();
             double zBottom = random.NextDouble();
-            yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, zBottom)
-            {
-                NumberOfHorizontalPoints = 0,
-                NumberOfVerticalPoints = 1
-            }).SetName("NumberOfHorizontalPointsZero");
 
-            yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, zBottom)
-            {
-                NumberOfHorizontalPoints = 1,
-                NumberOfVerticalPoints = 0
-            }).SetName("NumberOfVerticalPointsZero");
-            yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, zBottom)
-            {
-                NumberOfHorizontalPoints = 0,
-                NumberOfVerticalPoints = 0
-            }).SetName("BothNrOfPointsZero");
-
-            yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, zBottom)
-            {
-                NumberOfHorizontalPoints = 1,
-                NumberOfVerticalPoints = -1
-            }).SetName("NumberOfVerticalPointsNegative");
-            yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, zBottom)
-            {
-                NumberOfHorizontalPoints = -1,
-                NumberOfVerticalPoints = 1
-            }).SetName("NumberOfHorizontalPointsNegative");
             yield return new TestCaseData(new MacroStabilityInwardsGrid(double.NaN, xRight, zTop, zBottom)
             {
                 NumberOfHorizontalPoints = 1,

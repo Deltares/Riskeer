@@ -164,6 +164,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor het aantal horizontale punten moet in het bereik {0} liggen..
+        /// </summary>
+        public static string NumberOfHorizontalPoints_must_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("NumberOfHorizontalPoints_must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor het aantal verticale punten moet in het bereik {0} liggen..
+        /// </summary>
+        public static string NumberOfVerticalPoints_must_be_in_Range_0_ {
+            get {
+                return ResourceManager.GetString("NumberOfVerticalPoints_must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gespecificeerd.
         /// </summary>
         public static string Specified_DisplayName {

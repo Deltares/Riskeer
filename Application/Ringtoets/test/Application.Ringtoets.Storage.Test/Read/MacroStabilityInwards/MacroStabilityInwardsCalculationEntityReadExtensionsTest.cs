@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new MacroStabilityInwardsCalculationEntity();
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);
@@ -104,16 +104,16 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 TangentLineNumber = random.Next(1, 50),
                 LeftGridXLeft = random.NextDouble(),
                 LeftGridXRight = random.NextDouble(),
-                LeftGridNrOfHorizontalPoints = random.Next(),
+                LeftGridNrOfHorizontalPoints = random.Next(1, 100),
                 LeftGridZTop = random.NextDouble(),
                 LeftGridZBottom = random.NextDouble(),
-                LeftGridNrOfVerticalPoints = random.Next(),
+                LeftGridNrOfVerticalPoints = random.Next(1, 100),
                 RightGridXLeft = random.NextDouble(),
                 RightGridXRight = random.NextDouble(),
-                RightGridNrOfHorizontalPoints = random.Next(),
+                RightGridNrOfHorizontalPoints = random.Next(1, 100),
                 RightGridZTop = random.NextDouble(),
                 RightGridZBottom = random.NextDouble(),
-                RightGridNrOfVerticalPoints = random.Next(),
+                RightGridNrOfVerticalPoints = random.Next(1, 100),
                 CreateZones = Convert.ToByte(random.NextBoolean())
             };
 
@@ -140,10 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_EntityWithNullValues_ReturnsCalculationScenarioWithNaNValues()
         {
             // Setup
-            var entity = new MacroStabilityInwardsCalculationEntity
-            {
-                TangentLineNumber = 1
-            };
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
             var collector = new ReadConversionCollector();
 
             // Call
@@ -172,11 +169,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var collector = new ReadConversionCollector();
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
-            var entity = new MacroStabilityInwardsCalculationEntity
-            {
-                HydraulicLocationEntity = hydraulicLocationEntity,
-                TangentLineNumber = 1
-            };
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
+            entity.HydraulicLocationEntity = hydraulicLocationEntity;
 
             // Call
             MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
@@ -195,11 +189,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var collector = new ReadConversionCollector();
             collector.Read(surfaceLineEntity, surfaceLine);
 
-            var entity = new MacroStabilityInwardsCalculationEntity
-            {
-                SurfaceLineEntity = surfaceLineEntity,
-                TangentLineNumber = 1
-            };
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
+            entity.SurfaceLineEntity = surfaceLineEntity;
 
             // Call
             MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
@@ -228,11 +219,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             collector.Read(stochasticSoilModelEntity, stochasticSoilModel);
             collector.Read(stochasticSoilProfileEntity, stochasticSoilProfile);
 
-            var entity = new MacroStabilityInwardsCalculationEntity
-            {
-                MacroStabilityInwardsStochasticSoilProfileEntity = stochasticSoilProfileEntity,
-                TangentLineNumber = 1
-            };
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
+            entity.MacroStabilityInwardsStochasticSoilProfileEntity = stochasticSoilProfileEntity;
 
             // Call
             MacroStabilityInwardsCalculationScenario calculation = entity.Read(collector);
@@ -247,22 +235,23 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_EntityWithSemiProbabilisticOutput_ReturnsCalculationScenarioWithSemiProbabilisticOutput()
         {
             // Setup
+            var random = new Random(31);
             var tangentLines = new double[0];
             var slices = new MacroStabilityInwardsSlice[0];
 
             var calculationOutputEntity = new MacroStabilityInwardsCalculationOutputEntity
             {
                 SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(tangentLines),
-                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(slices)
+                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(slices),
+                SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(1, 100),
+                SlipPlaneLeftGridNrOfVerticalPoints = random.Next(1, 100),
+                SlipPlaneRightGridNrOfHorizontalPoints = random.Next(1, 100),
+                SlipPlaneRightGridNrOfVerticalPoints = random.Next(1, 100)
             };
-            var entity = new MacroStabilityInwardsCalculationEntity
-            {
-                TangentLineNumber = 1,
-                MacroStabilityInwardsCalculationOutputEntities =
-                {
-                    calculationOutputEntity
-                }
-            };
+
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
+            entity.MacroStabilityInwardsCalculationOutputEntities.Add(calculationOutputEntity);
+
             var collector = new ReadConversionCollector();
 
             // Call
@@ -278,14 +267,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_EntityWithOutput_ReturnsCalculationScenarioWithOutput()
         {
             // Setup
-            var entity = new MacroStabilityInwardsCalculationEntity
-            {
-                TangentLineNumber = 1,
-                MacroStabilityInwardsSemiProbabilisticOutputEntities =
-                {
-                    new MacroStabilityInwardsSemiProbabilisticOutputEntity()
-                }
-            };
+            MacroStabilityInwardsCalculationEntity entity = CreateValidCalculationEntity();
+            entity.MacroStabilityInwardsSemiProbabilisticOutputEntities.Add(new MacroStabilityInwardsSemiProbabilisticOutputEntity());
 
             var collector = new ReadConversionCollector();
 
@@ -302,6 +285,19 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             Assert.IsNaN(output.MacroStabilityInwardsFactorOfSafety);
             Assert.IsNaN(output.MacroStabilityInwardsProbability);
             Assert.IsNaN(output.MacroStabilityInwardsReliability);
+        }
+
+        private static MacroStabilityInwardsCalculationEntity CreateValidCalculationEntity()
+        {
+            var random = new Random(21);
+            return new MacroStabilityInwardsCalculationEntity
+            {
+                TangentLineNumber = 1,
+                LeftGridNrOfHorizontalPoints = random.Next(1, 100),
+                LeftGridNrOfVerticalPoints = random.Next(1, 100),
+                RightGridNrOfHorizontalPoints = random.Next(1, 100),
+                RightGridNrOfVerticalPoints = random.Next(1, 100)
+            };
         }
     }
 }

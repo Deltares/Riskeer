@@ -88,16 +88,16 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(tangentLines),
                 SlipPlaneLeftGridXLeft = random.NextDouble(),
                 SlipPlaneLeftGridXRight = random.NextDouble(),
-                SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(),
+                SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(1, 100),
                 SlipPlaneLeftGridZTop = random.NextDouble(),
                 SlipPlaneLeftGridZBottom = random.NextDouble(),
-                SlipPlaneLeftGridNrOfVerticalPoints = random.Next(),
+                SlipPlaneLeftGridNrOfVerticalPoints = random.Next(1, 100),
                 SlipPlaneRightGridXLeft = random.NextDouble(),
                 SlipPlaneRightGridXRight = random.NextDouble(),
-                SlipPlaneRightGridNrOfHorizontalPoints = random.Next(),
+                SlipPlaneRightGridNrOfHorizontalPoints = random.Next(1, 100),
                 SlipPlaneRightGridZTop = random.NextDouble(),
                 SlipPlaneRightGridZBottom = random.NextDouble(),
-                SlipPlaneRightGridNrOfVerticalPoints = random.Next()
+                SlipPlaneRightGridNrOfVerticalPoints = random.Next(1, 100)
             };
 
             // Call
@@ -111,11 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_EntityWithNullValues_ReturnExpectedOutputWithNaNValues()
         {
             // Setup
-            var entity = new MacroStabilityInwardsCalculationOutputEntity
-            {
-                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(new MacroStabilityInwardsSlice[0]),
-                SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(new double[0])
-            };
+            MacroStabilityInwardsCalculationOutputEntity entity = CreateValidCalculationOutputEntity();
 
             // Call
             MacroStabilityInwardsOutput output = entity.Read();
@@ -128,11 +124,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_SlipPlaneTangentLineXMLEmpty_ThrowsArgumentException()
         {
             // Setup
-            var entity = new MacroStabilityInwardsCalculationOutputEntity
-            {
-                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(new MacroStabilityInwardsSlice[0]),
-                SlipPlaneTangentLinesXml = string.Empty
-            };
+            MacroStabilityInwardsCalculationOutputEntity entity = CreateValidCalculationOutputEntity();
+            entity.SlipPlaneTangentLinesXml = string.Empty;
 
             // Call
             TestDelegate call = () => entity.Read();
@@ -146,11 +139,8 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         public void Read_SlidingCurveSliceXMLEmpty_ThrowsArgumentException()
         {
             // Setup
-            var entity = new MacroStabilityInwardsCalculationOutputEntity
-            {
-                SlidingCurveSliceXML = string.Empty,
-                SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(new double[0])
-            };
+            MacroStabilityInwardsCalculationOutputEntity entity = CreateValidCalculationOutputEntity();
+            entity.SlidingCurveSliceXML = string.Empty;
 
             // Call
             TestDelegate call = () => entity.Read();
@@ -158,6 +148,20 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("xml", exception.ParamName);
+        }
+
+        private static MacroStabilityInwardsCalculationOutputEntity CreateValidCalculationOutputEntity()
+        {
+            var random = new Random(31);
+            return new MacroStabilityInwardsCalculationOutputEntity
+            {
+                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(new MacroStabilityInwardsSlice[0]),
+                SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(new double[0]),
+                SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(1, 100),
+                SlipPlaneLeftGridNrOfVerticalPoints = random.Next(1, 100),
+                SlipPlaneRightGridNrOfHorizontalPoints = random.Next(1, 100),
+                SlipPlaneRightGridNrOfVerticalPoints = random.Next(1, 100)
+            };
         }
     }
 }

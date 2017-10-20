@@ -908,7 +908,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             Name = "B",
                             TangentLineNumber = 1,
-                            Order = 0
+                            Order = 0,
+                            LeftGridNrOfHorizontalPoints = 5,
+                            LeftGridNrOfVerticalPoints = 5,
+                            RightGridNrOfHorizontalPoints = 5,
+                            RightGridNrOfVerticalPoints = 5
                         }
                     }
                 }
