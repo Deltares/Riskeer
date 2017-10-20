@@ -294,7 +294,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SurfaceLines
             // Assert
             string message = $"Karakteristiek punt van profielschematisatie '{locationName}' is overgeslagen. De geometrie bevat geen punt op locatie {notOnSurfaceLinePoint} om als '{changedCharacteristicPointName}' in te stellen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(message, LogLevelConstant.Error));
-            Assert.AreEqual(new[]
+            CollectionAssert.AreEqual(new[]
             {
                 point1,
                 point2,
