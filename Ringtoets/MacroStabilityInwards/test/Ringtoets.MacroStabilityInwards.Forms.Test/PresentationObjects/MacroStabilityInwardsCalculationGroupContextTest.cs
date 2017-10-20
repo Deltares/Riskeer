@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -59,7 +61,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var groupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup, parent, surfaceLines, soilModels, failureMechanism, assessmentSection);
+            var groupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                parent,
+                                                                                surfaceLines,
+                                                                                soilModels,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsContext<CalculationGroup>>(groupContext);
@@ -71,6 +78,278 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToNull_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                parent,
+                                                                                surfaceLines,
+                                                                                soilModels,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
+
+            // Call
+            bool equalToNull = groupContext.Equals(null);
+
+            // Assert
+            Assert.IsFalse(equalToNull);
+        }
+
+        [Test]
+        public void Equals_ToDifferentObject_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext1 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+
+            // Call
+            bool isContextEqualToDifferentObject = groupContext1.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(isContextEqualToDifferentObject);
+        }
+
+        [Test]
+        public void Equals_ToDerivedClass_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                parent,
+                                                                                surfaceLines,
+                                                                                soilModels,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
+
+            var derivedContext = new DerivedMacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                         parent,
+                                                                                         surfaceLines,
+                                                                                         soilModels,
+                                                                                         failureMechanism,
+                                                                                         assessmentSection);
+            // Call
+            bool isContextEqualToDerivedContext = groupContext.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isContextEqualToDerivedContext);
+        }
+
+        [Test]
+        public void Equals_ToItself_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext1 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            MacroStabilityInwardsCalculationGroupContext groupContext2 = groupContext1;
+
+            // Call
+            bool isContext1EqualTo2 = groupContext1.Equals(groupContext2);
+            bool isContext2EqualTo1 = groupContext2.Equals(groupContext1);
+
+            // Assert
+            Assert.IsTrue(isContext1EqualTo2);
+            Assert.IsTrue(isContext2EqualTo1);
+        }
+
+        [Test]
+        public void Equal_ToOtherWithSameWrappedDataAndParent_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext1 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            var groupContext2 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+
+            // Call
+            bool isContext1EqualTo2 = groupContext1.Equals(groupContext2);
+            bool isContext2EqualTo1 = groupContext2.Equals(groupContext1);
+
+            // Assert
+            Assert.IsTrue(isContext1EqualTo2);
+            Assert.IsTrue(isContext2EqualTo1);
+        }
+
+        [Test]
+        public void Equal_ToOTherWithDifferentWrappedData_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext1 = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            var groupContext2 = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+
+            // Call
+            bool isContext1EqualTo2 = groupContext1.Equals(groupContext2);
+            bool isContext2EqualTo1 = groupContext2.Equals(groupContext1);
+
+            // Assert
+            Assert.IsFalse(isContext1EqualTo2);
+            Assert.IsFalse(isContext2EqualTo1);
+        }
+
+        [Test]
+        public void Equal_ToOTherWithDifferentParent_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext1 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 new CalculationGroup(),
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            var groupContext2 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 new CalculationGroup(),
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+
+            // Call
+            bool isContext1EqualTo2 = groupContext1.Equals(groupContext2);
+            bool isContext2EqualTo1 = groupContext2.Equals(groupContext1);
+
+            // Assert
+            Assert.IsFalse(isContext1EqualTo2);
+            Assert.IsFalse(isContext2EqualTo1);
+        }
+
+        [Test]
+        public void GetHashCode_EqualObject_ReturnsSameHashCode()
+        {
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
+            var soilModels = new MacroStabilityInwardsStochasticSoilModel[0];
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var groupContext1 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            var groupContext2 = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                 parent,
+                                                                                 surfaceLines,
+                                                                                 soilModels,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+
+            // Call
+            int hashCode1 = groupContext1.GetHashCode();
+            int hashCode2 = groupContext2.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCode1, hashCode2);
+        }
+
+        private class DerivedMacroStabilityInwardsCalculationGroupContext : MacroStabilityInwardsCalculationGroupContext
+        {
+            public DerivedMacroStabilityInwardsCalculationGroupContext(CalculationGroup calculationGroup,
+                                                                       CalculationGroup parent,
+                                                                       IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines,
+                                                                       IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels,
+                                                                       MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
+                                                                       IAssessmentSection assessmentSection)
+                : base(calculationGroup, parent, surfaceLines, stochasticSoilModels, macroStabilityInwardsFailureMechanism, assessmentSection) {}
         }
     }
 }

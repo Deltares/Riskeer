@@ -350,8 +350,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Text = context => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ForeColor = context => context.WrappedData.HasOutput
-                                          ? Color.FromKnownColor(KnownColor.ControlText)
-                                          : Color.FromKnownColor(KnownColor.GrayText),
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -855,7 +855,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                    .AddExportItem()
                    .AddSeparator();
 
-            if (!isNestedGroup)
+            if (isNestedGroup)
+            {
+                builder.AddDuplicateCalculationItem(group, nodeData)
+                       .AddSeparator();
+            }
+            else
             {
                 builder.AddCustomItem(generateCalculationsItem)
                        .AddSeparator();
