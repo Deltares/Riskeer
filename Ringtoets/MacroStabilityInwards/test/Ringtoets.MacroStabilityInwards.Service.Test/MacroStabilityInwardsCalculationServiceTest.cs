@@ -495,16 +495,16 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             inputParameters.TangentLineZTop = random.NextRoundedDouble();
             inputParameters.TangentLineZBottom = random.NextRoundedDouble();
             inputParameters.TangentLineNumber = random.Next(1, 51);
-            inputParameters.LeftGrid.XLeft = random.NextRoundedDouble();
-            inputParameters.LeftGrid.XRight = random.NextRoundedDouble();
-            inputParameters.LeftGrid.ZTop = random.NextRoundedDouble();
-            inputParameters.LeftGrid.ZBottom = random.NextRoundedDouble();
+            inputParameters.LeftGrid.XLeft = random.NextRoundedDouble(0.0, 1.0);
+            inputParameters.LeftGrid.XRight = random.NextRoundedDouble(2.0, 3.0);
+            inputParameters.LeftGrid.ZTop = random.NextRoundedDouble(2.0, 3.0);
+            inputParameters.LeftGrid.ZBottom = random.NextRoundedDouble(0.0, 1.0);
             inputParameters.LeftGrid.NumberOfHorizontalPoints = random.Next(1, 100);
             inputParameters.LeftGrid.NumberOfVerticalPoints = random.Next(1, 100);
-            inputParameters.RightGrid.XLeft = random.NextRoundedDouble();
-            inputParameters.RightGrid.XRight = random.NextRoundedDouble();
-            inputParameters.RightGrid.ZTop = random.NextRoundedDouble();
-            inputParameters.RightGrid.ZBottom = random.NextRoundedDouble();
+            inputParameters.RightGrid.XLeft = random.NextRoundedDouble(0.0, 1.0);
+            inputParameters.RightGrid.XRight = random.NextRoundedDouble(2.0, 3.0);
+            inputParameters.RightGrid.ZTop = random.NextRoundedDouble(2.0, 3.0);
+            inputParameters.RightGrid.ZBottom = random.NextRoundedDouble(0.0, 1.0);
             inputParameters.RightGrid.NumberOfHorizontalPoints = random.Next(1, 100);
             inputParameters.RightGrid.NumberOfVerticalPoints = random.Next(1, 100);
 

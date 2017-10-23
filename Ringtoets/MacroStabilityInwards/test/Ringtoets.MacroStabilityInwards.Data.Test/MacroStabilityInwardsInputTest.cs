@@ -519,20 +519,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 TangentLineNumber = random.Next(1, 50),
                 LeftGrid =
                 {
-                    XLeft = random.NextRoundedDouble(),
-                    XRight = random.NextRoundedDouble(),
+                    XLeft = random.NextRoundedDouble(0.0, 1.0),
+                    XRight = random.NextRoundedDouble(2.0, 3.0),
                     NumberOfHorizontalPoints = random.Next(1, 100),
-                    ZTop = random.NextRoundedDouble(),
-                    ZBottom = random.NextRoundedDouble(),
+                    ZTop = random.NextRoundedDouble(2.0, 3.0),
+                    ZBottom = random.NextRoundedDouble(0.0, 1.0),
                     NumberOfVerticalPoints = random.Next(1, 100)
                 },
                 RightGrid =
                 {
-                    XLeft = random.NextRoundedDouble(),
-                    XRight = random.NextRoundedDouble(),
+                    XLeft = random.NextRoundedDouble(0.0, 1.0),
+                    XRight = random.NextRoundedDouble(2.0, 3.0),
                     NumberOfHorizontalPoints = random.Next(1, 100),
-                    ZTop = random.NextRoundedDouble(),
-                    ZBottom = random.NextRoundedDouble(),
+                    ZTop = random.NextRoundedDouble(2.0, 3.0),
+                    ZBottom = random.NextRoundedDouble(0.0, 1.0),
                     NumberOfVerticalPoints = random.Next(1, 100)
                 },
                 CreateZones = random.NextBoolean()

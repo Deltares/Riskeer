@@ -118,6 +118,42 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X links moet kleiner zijn dan X rechts, of NaN..
+        /// </summary>
+        public static string MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X rechts moet groter zijn dan X links, of NaN..
+        /// </summary>
+        public static string MacroStabilityInwardsGrid_XRight_should_be_larger_than_XLeft {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_XRight_should_be_larger_than_XLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z onder moet kleiner zijn dan Z boven, of NaN..
+        /// </summary>
+        public static string MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_ZTop {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_ZTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z boven moet groter zijn dan Z onder, of NaN..
+        /// </summary>
+        public static string MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; voor de grensspanning moet een concreet getal zijn..
         /// </summary>
         public static string MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value {

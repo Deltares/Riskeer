@@ -608,18 +608,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsPointsOverlap))]
-        public void CreateGridPoints_MacroStabilityInwardsGridSettingsOverlappingPoints_ReturnExpectedGridPoints(
-            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
-        {
-            // Call
-            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
-
-            // Assert
-            AssertEqualPointCollection(expectedPoints, gridPoints);
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetWellDefinedGridSettings))]
         public void CreateGridPoints_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
             MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
@@ -787,19 +775,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
         private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints()
         {
-            var gridRightSmallerThanLeft = new MacroStabilityInwardsGrid(1, -2, 3, 1)
-            {
-                NumberOfHorizontalPoints = 4,
-                NumberOfVerticalPoints = 1
-            };
-            yield return new TestCaseData(gridRightSmallerThanLeft, new[]
-            {
-                new Point2D(gridRightSmallerThanLeft.XLeft, gridRightSmallerThanLeft.ZBottom),
-                new Point2D(0, gridRightSmallerThanLeft.ZBottom),
-                new Point2D(-1, gridRightSmallerThanLeft.ZBottom),
-                new Point2D(gridRightSmallerThanLeft.XRight, gridRightSmallerThanLeft.ZBottom)
-            }).SetName("XRight < XLeft");
-
             var gridRightLargerThanLeft = new MacroStabilityInwardsGrid(1, 4, 3, 1)
             {
                 NumberOfHorizontalPoints = 4,
@@ -828,19 +803,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(gridTopLargerThanBottom.XLeft, 3),
                 new Point2D(gridTopLargerThanBottom.XLeft, gridTopLargerThanBottom.ZTop)
             }).SetName("ZTop > ZBottom");
-
-            var gridBottomLargerThanTop = new MacroStabilityInwardsGrid(1, 3, -2, 1)
-            {
-                NumberOfHorizontalPoints = 1,
-                NumberOfVerticalPoints = 4
-            };
-            yield return new TestCaseData(gridBottomLargerThanTop, new[]
-            {
-                new Point2D(gridBottomLargerThanTop.XLeft, gridBottomLargerThanTop.ZBottom),
-                new Point2D(gridBottomLargerThanTop.XLeft, 0),
-                new Point2D(gridBottomLargerThanTop.XLeft, -1),
-                new Point2D(gridBottomLargerThanTop.XLeft, gridBottomLargerThanTop.ZTop)
-            }).SetName("ZTop < ZTop");
         }
 
         private static IEnumerable<TestCaseData> GetGridSettingsOnePoint()
@@ -853,13 +815,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 NumberOfVerticalPoints = 1
             };
             yield return new TestCaseData(grid).SetName("XRight > XLeft, ZTop > ZBottom");
-
-            var inverseGrid = new MacroStabilityInwardsGrid(1, -2, -3, zBottom)
-            {
-                NumberOfHorizontalPoints = 1,
-                NumberOfVerticalPoints = 1
-            };
-            yield return new TestCaseData(inverseGrid).SetName("XRight < XLeft, ZTop < ZBottom");
         }
 
         private static IEnumerable<TestCaseData> GetWellDefinedGridSettings()
@@ -881,65 +836,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(2, grid.ZTop),
                 new Point2D(grid.XRight, grid.ZTop)
             }).SetName("XRight > XLeft, ZTop > ZBottom");
-
-            var inverseGrid = new MacroStabilityInwardsGrid(1, -1, -1, 1)
-            {
-                NumberOfHorizontalPoints = 3,
-                NumberOfVerticalPoints = 3
-            };
-            yield return new TestCaseData(inverseGrid, new[]
-            {
-                new Point2D(inverseGrid.XLeft, inverseGrid.ZBottom),
-                new Point2D(0, inverseGrid.ZBottom),
-                new Point2D(inverseGrid.XRight, inverseGrid.ZBottom),
-                new Point2D(inverseGrid.XLeft, 0),
-                new Point2D(0, 0),
-                new Point2D(inverseGrid.XRight, 0),
-                new Point2D(inverseGrid.XLeft, inverseGrid.ZTop),
-                new Point2D(0, inverseGrid.ZTop),
-                new Point2D(inverseGrid.XRight, inverseGrid.ZTop)
-            }).SetName("XRight < XLeft, ZTop < ZBottom");
-        }
-
-        private static IEnumerable<TestCaseData> GetGridSettingsPointsOverlap()
-        {
-            const double commonCoordinateValue = 5.0;
-
-            var horizontalPointsOverlap = new MacroStabilityInwardsGrid(commonCoordinateValue,
-                                                                        commonCoordinateValue,
-                                                                        2,
-                                                                        1)
-            {
-                NumberOfHorizontalPoints = 3,
-                NumberOfVerticalPoints = 2
-            };
-            yield return new TestCaseData(horizontalPointsOverlap, new[]
-            {
-                new Point2D(commonCoordinateValue, horizontalPointsOverlap.ZBottom),
-                new Point2D(commonCoordinateValue, horizontalPointsOverlap.ZBottom),
-                new Point2D(commonCoordinateValue, horizontalPointsOverlap.ZBottom),
-                new Point2D(commonCoordinateValue, horizontalPointsOverlap.ZTop),
-                new Point2D(commonCoordinateValue, horizontalPointsOverlap.ZTop),
-                new Point2D(commonCoordinateValue, horizontalPointsOverlap.ZTop)
-            }).SetName("HorizontalPointsOverlap");
-
-            var grid = new MacroStabilityInwardsGrid(1,
-                                                     2,
-                                                     commonCoordinateValue,
-                                                     commonCoordinateValue)
-            {
-                NumberOfHorizontalPoints = 2,
-                NumberOfVerticalPoints = 3
-            };
-            yield return new TestCaseData(grid, new[]
-            {
-                new Point2D(grid.XLeft, commonCoordinateValue),
-                new Point2D(grid.XRight, commonCoordinateValue),
-                new Point2D(grid.XLeft, commonCoordinateValue),
-                new Point2D(grid.XRight, commonCoordinateValue),
-                new Point2D(grid.XLeft, commonCoordinateValue),
-                new Point2D(grid.XRight, commonCoordinateValue)
-            }).SetName("VerticalPointsOverlap");
         }
 
         #endregion

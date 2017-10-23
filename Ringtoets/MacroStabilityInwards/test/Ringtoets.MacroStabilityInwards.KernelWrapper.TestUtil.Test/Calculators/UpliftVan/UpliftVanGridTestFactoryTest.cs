@@ -37,8 +37,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             // Assert
             Assert.AreEqual(0.1, grid.XLeft);
             Assert.AreEqual(0.2, grid.XRight);
-            Assert.AreEqual(0.3, grid.ZTop);
-            Assert.AreEqual(0.4, grid.ZBottom);
+            Assert.AreEqual(0.4, grid.ZTop);
+            Assert.AreEqual(0.3, grid.ZBottom);
             Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
             Assert.AreEqual(2, grid.NumberOfVerticalPoints);
         }

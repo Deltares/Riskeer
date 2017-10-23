@@ -276,8 +276,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     LeftGrid =
                     {
                         XLeft = (RoundedDouble) 1.0,
-                        XRight = (RoundedDouble) 1.0,
-                        ZTop = (RoundedDouble) 1.0,
+                        XRight = (RoundedDouble) 2.0,
+                        ZTop = (RoundedDouble) 2.0,
                         ZBottom = (RoundedDouble) 1.0,
                         NumberOfVerticalPoints = 1,
                         NumberOfHorizontalPoints = 1
@@ -285,8 +285,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     RightGrid =
                     {
                         XLeft = (RoundedDouble) 1.0,
-                        XRight = (RoundedDouble) 1.0,
-                        ZTop = (RoundedDouble) 1.0,
+                        XRight = (RoundedDouble) 2.0,
+                        ZTop = (RoundedDouble) 2.0,
                         ZBottom = (RoundedDouble) 1.0,
                         NumberOfVerticalPoints = 1,
                         NumberOfHorizontalPoints = 1

@@ -284,9 +284,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(10, inputParameters.TangentLineNumber);
             Assert.AreEqual(1, inputParameters.LeftGrid.XLeft,
                             inputParameters.LeftGrid.XLeft.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeftGrid.XRight,
+            Assert.AreEqual(2, inputParameters.LeftGrid.XRight,
                             inputParameters.LeftGrid.XRight.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeftGrid.ZTop,
+            Assert.AreEqual(2, inputParameters.LeftGrid.ZTop,
                             inputParameters.LeftGrid.ZTop.GetAccuracy());
             Assert.AreEqual(1, inputParameters.LeftGrid.ZBottom,
                             inputParameters.LeftGrid.ZBottom.GetAccuracy());
@@ -295,9 +295,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             Assert.AreEqual(1, inputParameters.RightGrid.XLeft,
                             inputParameters.RightGrid.XLeft.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.RightGrid.XRight,
+            Assert.AreEqual(2, inputParameters.RightGrid.XRight,
                             inputParameters.RightGrid.XRight.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.RightGrid.ZTop,
+            Assert.AreEqual(2, inputParameters.RightGrid.ZTop,
                             inputParameters.RightGrid.ZTop.GetAccuracy());
             Assert.AreEqual(1, inputParameters.RightGrid.ZBottom,
                             inputParameters.RightGrid.ZBottom.GetAccuracy());

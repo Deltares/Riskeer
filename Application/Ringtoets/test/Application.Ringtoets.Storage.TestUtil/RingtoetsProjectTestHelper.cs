@@ -1278,8 +1278,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 XLeft = (RoundedDouble) 2.8,
                                 XRight = (RoundedDouble) 2.9,
                                 NumberOfHorizontalPoints = 3,
-                                ZTop = (RoundedDouble) 3.0,
-                                ZBottom = (RoundedDouble) 3.1,
+                                ZTop = (RoundedDouble) 3.1,
+                                ZBottom = (RoundedDouble) 3.0,
                                 NumberOfVerticalPoints = 4
                             },
                             RightGrid =
@@ -1287,8 +1287,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 XLeft = (RoundedDouble) 3.2,
                                 XRight = (RoundedDouble) 3.3,
                                 NumberOfHorizontalPoints = 5,
-                                ZTop = (RoundedDouble) 3.4,
-                                ZBottom = (RoundedDouble) 3.5,
+                                ZTop = (RoundedDouble) 3.5,
+                                ZBottom = (RoundedDouble) 3.4,
                                 NumberOfVerticalPoints = 6
                             },
                             CreateZones = false
@@ -1356,8 +1356,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                         XLeft = (RoundedDouble) 40.8,
                         XRight = (RoundedDouble) 40.9,
                         NumberOfHorizontalPoints = 3,
-                        ZTop = (RoundedDouble) 30.0,
-                        ZBottom = (RoundedDouble) 30.1,
+                        ZTop = (RoundedDouble) 30.1,
+                        ZBottom = (RoundedDouble) 30.0,
                         NumberOfVerticalPoints = 4
                     },
                     RightGrid =
@@ -1365,8 +1365,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                         XLeft = (RoundedDouble) 30.2,
                         XRight = (RoundedDouble) 30.3,
                         NumberOfHorizontalPoints = 5,
-                        ZTop = (RoundedDouble) 30.4,
-                        ZBottom = (RoundedDouble) 30.5,
+                        ZTop = (RoundedDouble) 30.5,
+                        ZBottom = (RoundedDouble) 30.4,
                         NumberOfVerticalPoints = 6
                     }
                 },

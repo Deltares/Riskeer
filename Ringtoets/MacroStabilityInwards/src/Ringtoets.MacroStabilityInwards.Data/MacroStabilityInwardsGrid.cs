@@ -46,8 +46,23 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="xRight">The x right of the grid.</param>
         /// <param name="zTop">The z top of the grid.</param>
         /// <param name="zBottom">The z bottom of the grid.</param>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="xLeft"/> is not smaller than <paramref name="xRight"/>;</item>
+        /// <item><paramref name="zTop"/> is not larger than <paramref name="zBottom"/>.</item>
+        /// </list>
+        /// </exception>
         public MacroStabilityInwardsGrid(double xLeft, double xRight, double zTop, double zBottom)
         {
+            if (!IsSmallerOrNaN(xLeft, xRight))
+            {
+                throw new ArgumentException(Resources.MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight);
+            }
+            if (!IsSmallerOrNaN(zBottom, zTop))
+            {
+                throw new ArgumentException(Resources.MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom);
+            }
+
             this.xLeft = new RoundedDouble(2, xLeft);
             this.xRight = new RoundedDouble(2, xRight);
             this.zTop = new RoundedDouble(2, zTop);
@@ -61,6 +76,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the x left of the grid.
         /// [m]
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not smaller 
+        /// than <see cref="XRight"/> or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble XLeft
         {
             get
@@ -69,6 +86,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
+                if (!IsSmallerOrNaN(value, xRight))
+                {
+                    throw new ArgumentException(Resources.MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight);
+                }
+
                 xLeft = value.ToPrecision(xLeft.NumberOfDecimalPlaces);
             }
         }
@@ -77,6 +99,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the x right of the grid.
         /// [m]
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not larger 
+        /// than <see cref="XLeft"/> or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble XRight
         {
             get
@@ -85,6 +109,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
+                if (!IsSmallerOrNaN(xLeft, value))
+                {
+                    throw new ArgumentException(Resources.MacroStabilityInwardsGrid_XRight_should_be_larger_than_XLeft);
+                }
+
                 xRight = value.ToPrecision(xRight.NumberOfDecimalPlaces);
             }
         }
@@ -93,6 +122,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the z top of the grid.
         /// [m+NAP]
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not larger 
+        /// than <see cref="ZBottom"/> or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble ZTop
         {
             get
@@ -101,6 +132,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
+                if (!IsSmallerOrNaN(ZBottom, value))
+                {
+                    throw new ArgumentException(Resources.MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom);
+                }
+
                 zTop = value.ToPrecision(zTop.NumberOfDecimalPlaces);
             }
         }
@@ -109,6 +145,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the z bottom of the grid.
         /// [m+NAP]
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not smaller 
+        /// than <see cref="ZTop"/> or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble ZBottom
         {
             get
@@ -117,6 +155,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
+                if (!IsSmallerOrNaN(value, ZTop))
+                {
+                    throw new ArgumentException(Resources.MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_ZTop);
+                }
+
                 zBottom = value.ToPrecision(zBottom.NumberOfDecimalPlaces);
             }
         }
@@ -140,6 +183,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
                     throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
+
                 numberOfHorizontalPoints = value;
             }
         }
@@ -163,6 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
                     throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
+
                 numberOfVerticalPoints = value;
             }
         }
@@ -170,6 +215,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        private static bool IsSmallerOrNaN(double xLeft, double xRight)
+        {
+            return double.IsNaN(xLeft) || double.IsNaN(xRight) || xLeft.CompareTo(xRight) < 0;
         }
     }
 }

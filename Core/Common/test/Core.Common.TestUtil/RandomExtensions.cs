@@ -96,6 +96,26 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
+        /// Returns a random <see cref="RoundedDouble"/> value.
+        /// </summary>
+        /// <param name="random">A pseudo-random number generator.</param>
+        /// <param name="lowerLimit">The lower limit of the new random number.</param>
+        /// <param name="upperLimit">The upper limit of the new random number.</param>
+        /// <returns>A new random <see cref="RoundedDouble"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="lowerLimit"/> is larger than <paramref name="upperLimit"/>.</exception>
+        /// <exception cref="NotFiniteNumberException">Thrown when the generated value is not finite.</exception>
+        public static RoundedDouble NextRoundedDouble(this Random random, double lowerLimit, double upperLimit)
+        {
+            if (random == null)
+            {
+                throw new ArgumentNullException(nameof(random));
+            }
+
+            return (RoundedDouble) random.GetFromRange(lowerLimit, upperLimit);
+        }
+
+        /// <summary>
         /// Returns a random value of <typeparamref name="TEnum"/>.
         /// </summary>
         /// <typeparam name="TEnum">The <see cref="Enum"/> to use.</typeparam>

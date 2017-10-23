@@ -162,4 +162,16 @@
   <data name="NumberOfVerticalPoints_must_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor het aantal verticale punten moet in het bereik {0} liggen.</value>
   </data>
+  <data name="MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_XRight" xml:space="preserve">
+    <value>X links moet kleiner zijn dan X rechts, of NaN.</value>
+  </data>
+  <data name="MacroStabilityInwardsGrid_ZTop_should_be_larger_than_ZBottom" xml:space="preserve">
+    <value>Z boven moet groter zijn dan Z onder, of NaN.</value>
+  </data>
+  <data name="MacroStabilityInwardsGrid_XRight_should_be_larger_than_XLeft" xml:space="preserve">
+    <value>X rechts moet groter zijn dan X links, of NaN.</value>
+  </data>
+  <data name="MacroStabilityInwardsGrid_ZBottom_should_be_smaller_than_ZTop" xml:space="preserve">
+    <value>Z onder moet kleiner zijn dan Z boven, of NaN.</value>
+  </data>
 </root>

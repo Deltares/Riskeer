@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         /// <returns>The created <see cref="UpliftVanGrid"/>.</returns>
         public static UpliftVanGrid Create()
         {
-            return new UpliftVanGrid(0.1, 0.2, 0.3, 0.4, 1, 2);
+            return new UpliftVanGrid(0.1, 0.2, 0.4, 0.3, 1, 2);
         }
     }
 }
