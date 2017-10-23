@@ -685,7 +685,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateOuterRingPoints_WithSoilLayerNull_ReturnsOuterRingPointsArray()
+        public void CreateOuterRingPoints_WithSoilLayer_ReturnsOuterRingPointsArray()
         {
             // Setup
             var outerRing = new[]
@@ -706,6 +706,43 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             {
                 outerRing
             }, outerRingChartData);
+        }
+
+        [Test]
+        public void CreateWaternetZonePoints_WaternetLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(zone);
+        }
+
+        [Test]
+        public void CreateWaternetZonePoints_WithWaternetLine_ReturnsPointsArray()
+        {
+            // Setup
+            var waternetLineGeometry = new[]
+            {
+                new Point2D(0, -2),
+                new Point2D(10, -2)
+            };
+            var phreaticLineGeometry = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 0)
+            };
+
+            var waternetLine = new MacroStabilityInwardsWaternetLine(
+                "Line",
+                waternetLineGeometry,
+                new MacroStabilityInwardsPhreaticLine("Line 2",
+                                                      phreaticLineGeometry));
+            // Call
+            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine);
+
+            // Assert
+            CollectionAssert.AreEqual(phreaticLineGeometry.Concat(waternetLineGeometry.Reverse()), zone);
         }
 
         private static void AssertEqualPointCollection(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)

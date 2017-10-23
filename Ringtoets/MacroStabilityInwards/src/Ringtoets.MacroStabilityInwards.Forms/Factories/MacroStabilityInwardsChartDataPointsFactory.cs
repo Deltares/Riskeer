@@ -252,6 +252,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                        : new Point2D[0][];
         }
 
+        /// <summary>
+        /// Create points of the waternet zone in 2D space based on the provide <paramref name="waternetLine"/>.
+        /// </summary>
+        /// <param name="waternetLine">The waternet line to create the zone for.</param>
+        /// <returns>An array of points in 2D space or an empty array when <paramref name="waternetLine"/>
+        /// is <c>null</c>.</returns>
+        public static Point2D[] CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine)
+        {
+            if (waternetLine == null)
+            {
+                return new Point2D[0];
+            }
+
+            var points = new List<Point2D>();
+
+            points.AddRange(waternetLine.PhreaticLine.Geometry);
+            points.AddRange(waternetLine.Geometry.Reverse());
+
+            return points.ToArray();
+        }
+
         #region SoilLayers and Surface Line Helpers
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,

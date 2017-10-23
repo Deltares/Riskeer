@@ -46,6 +46,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
+        private readonly ChartDataCollection waternetZonesExtremeChartData;
+        private readonly ChartDataCollection waternetZonesDailyChartData;
         private readonly ChartLineData surfaceLineChartData;
         private readonly ChartPointData surfaceLevelInsideChartData;
         private readonly ChartPointData ditchPolderSideChartData;
@@ -94,6 +96,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
             leftGridChartData = MacroStabilityInwardsChartDataFactory.CreateLeftGridChartData();
             rightGridChartData = MacroStabilityInwardsChartDataFactory.CreateRightGridChartData();
+            waternetZonesExtremeChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesExtremeChartDataCollection();
+            waternetZonesDailyChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesDailyChartDataCollection();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
@@ -111,6 +115,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(surfaceLevelOutsideChartData);
             chartDataCollection.Add(leftGridChartData);
             chartDataCollection.Add(rightGridChartData);
+            chartDataCollection.Add(waternetZonesExtremeChartData);
+            chartDataCollection.Add(waternetZonesDailyChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
         }
@@ -196,6 +202,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
+            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetExtreme, waternetZonesExtremeChartData);
+            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetDaily, waternetZonesDailyChartData);
 
             MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
@@ -203,6 +211,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             leftGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(leftGrid, gridDeterminationType);
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
+        }
+
+        private void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartData)
+        {
+            foreach (MacroStabilityInwardsWaternetLine waternetLine in waternet.WaternetLines)
+            {
+                ChartAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
+                waternetLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine);
+                chartData.Add(waternetLineChartData);
+            }
         }
 
         private void SetSurfaceLineChartData(MacroStabilityInwardsSurfaceLine surfaceLine)
@@ -245,8 +263,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
                 soilProfileChartData.Insert(soilLayerChartDataLookup.Count, holesChartData);
                 soilLayerChartDataLookup.Add(holesChartData);
-
-                MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
             }
 
             if (soilProfile != null)

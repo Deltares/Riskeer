@@ -37,6 +37,54 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
     public class MacroStabilityInwardsChartDataFactoryTest
     {
         [Test]
+        public void CreateWaternetZonesExtremeChartDataCollection_ReturnsEmptyChartDataCollection()
+        {
+            // Call
+            ChartDataCollection data = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesExtremeChartDataCollection();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual("Zones extreem", data.Name);
+        }
+
+        [Test]
+        public void CreateWaternetZonesDailyChartDataCollection_ReturnsEmptyChartDataCollection()
+        {
+            // Call
+            ChartDataCollection data = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesDailyChartDataCollection();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual("Zones dagelijks", data.Name);
+        }
+
+        [Test]
+        public void CreateWaternetZoneChartData_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWaternetZoneChartData_ReturnsEmptyChartAreaData()
+        {
+            // Setup
+            const string name = "zone";
+
+            // Call
+            ChartAreaData data = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(name);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Points);
+            Assert.AreEqual(name, data.Name);
+            AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Blue, 2);
+        }
+
+        [Test]
         public void CreateShoulderBaseInsideChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call

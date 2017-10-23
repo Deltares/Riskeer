@@ -1506,6 +1506,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zones dagelijks.
+        /// </summary>
+        public static string WaternetLinesDaily_DisplayName {
+            get {
+                return ResourceManager.GetString("WaternetLinesDaily_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zones extreem.
+        /// </summary>
+        public static string WaternetLinesExtreme_DisplayName {
+            get {
+                return ResourceManager.GetString("WaternetLinesExtreme_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eigenschappen van de waterspanning..
         /// </summary>
         public static string Waterstresses_Description {

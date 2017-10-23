@@ -38,6 +38,48 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
     internal static class MacroStabilityInwardsChartDataFactory
     {
         /// <summary>
+        /// Create a <see cref="ChartDataCollection"/> for waternet zones
+        /// under extreme circumstances.
+        /// </summary>
+        /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
+        public static ChartDataCollection CreateWaternetZonesExtremeChartDataCollection()
+        {
+            return new ChartDataCollection(Resources.WaternetLinesExtreme_DisplayName);
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartDataCollection"/> for waternet zones
+        /// under daily circumstances.
+        /// </summary>
+        /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
+        public static ChartDataCollection CreateWaternetZonesDailyChartDataCollection()
+        {
+            return new ChartDataCollection(Resources.WaternetLinesDaily_DisplayName);
+        }
+
+        /// <summary>
+        /// Create a <see cref="ChartAreaData"/> for a waternet zone.
+        /// </summary>
+        /// <param name="name">The name of the zone.</param>
+        /// <returns>The created <see cref="ChartAreaData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public static ChartAreaData CreateWaternetZoneChartData(string name)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            return new ChartAreaData(name, new ChartAreaStyle
+            {
+                StrokeThickness = 2,
+                StrokeColor = Color.Blue,
+                FillColor = Color.FromArgb(60, Color.DeepSkyBlue)
+            });
+        }
+
+        /// <summary>
         /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
         /// of type shoulder base inside.
         /// </summary>

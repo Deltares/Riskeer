@@ -649,4 +649,10 @@
   <data name="MacroStabilityInwardsChartDataFactory_Holes_ChartDataName" xml:space="preserve">
     <value>Binnenringen</value>
   </data>
+  <data name="WaternetLinesDaily_DisplayName" xml:space="preserve">
+    <value>Zones dagelijks</value>
+  </data>
+  <data name="WaternetLinesExtreme_DisplayName" xml:space="preserve">
+    <value>Zones extreem</value>
+  </data>
 </root>

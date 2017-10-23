@@ -56,7 +56,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int surfaceLevelOutsideIndex = 13;
         private const int leftGridIndex = 14;
         private const int rightGridIndex = 15;
-        private const int nrOfChartData = 16;
+        private const int waternetZonesExtremeIndex = 16;
+        private const int waternetZonesDailyIndex = 17;
+        private const int nrOfChartData = 18;
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -743,7 +745,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 Assert.IsNotNull(chartData);
-                Assert.AreEqual(16, chartData.Collection.Count());
+                Assert.AreEqual(nrOfChartData, chartData.Collection.Count());
                 AssertSoilProfileChartData(stochasticSoilProfile, chartData.Collection.ElementAt(soilProfileIndex), true, false);
 
                 // When
@@ -882,6 +884,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
             var leftGridOutsideData = (ChartPointData) chartDatasList[leftGridIndex];
             var rightGridOutsideData = (ChartPointData) chartDatasList[rightGridIndex];
+            var waternetZonesExtremeData = (ChartDataCollection)chartDatasList[waternetZonesExtremeIndex];
+            var waternetZonesDailyData = (ChartDataCollection)chartDatasList[waternetZonesDailyIndex];
 
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(soilProfileData.Collection);
@@ -899,6 +903,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(surfaceLevelOutsideData.Points);
             CollectionAssert.IsEmpty(leftGridOutsideData.Points);
             CollectionAssert.IsEmpty(rightGridOutsideData.Points);
+            CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
+            CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
 
             Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
             Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
@@ -916,6 +922,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
             Assert.AreEqual("Linker grid", leftGridOutsideData.Name);
             Assert.AreEqual("Rechter grid", rightGridOutsideData.Name);
+            Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
+            Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
         }
 
         private static void AssertSurfaceLineChartData(MacroStabilityInwardsSurfaceLine surfaceLine, ChartData chartData)
