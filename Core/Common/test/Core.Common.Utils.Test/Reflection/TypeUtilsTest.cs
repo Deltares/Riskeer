@@ -274,7 +274,7 @@ namespace Core.Common.Utils.Test.Reflection
             var testClass = new TestClass();
 
             // Call
-            var privateIntValue = TypeUtils.GetProperty<int>(testClass, "PrivateIntProperty");
+            var privateIntValue = TypeUtils.GetProperty<int>(testClass, "ProtectedIntProperty");
 
             // Assert
             Assert.AreEqual(102, privateIntValue);
@@ -287,7 +287,7 @@ namespace Core.Common.Utils.Test.Reflection
             var testClass = new DerivedTestClass();
 
             // Call
-            var privateIntValue = TypeUtils.GetProperty<int>(testClass, "PrivateIntProperty");
+            var privateIntValue = TypeUtils.GetProperty<int>(testClass, "ProtectedIntProperty");
 
             // Assert
             Assert.AreEqual(102, privateIntValue);
@@ -640,7 +640,7 @@ namespace Core.Common.Utils.Test.Reflection
 
             public double PublicPropertyPrivateSetter { get; private set; }
 
-            protected int PrivateIntProperty
+            protected int ProtectedIntProperty
             {
                 get
                 {
@@ -648,7 +648,6 @@ namespace Core.Common.Utils.Test.Reflection
                 }
             }
 
-            // ReSharper disable once UnusedMember.Local
             private int PrivateMethod(int i)
             {
                 return i * 2;
