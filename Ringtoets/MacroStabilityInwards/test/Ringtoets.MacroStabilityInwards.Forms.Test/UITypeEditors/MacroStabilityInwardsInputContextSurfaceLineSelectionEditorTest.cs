@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 SurfaceLine = ValidSurfaceLine()
             };
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 SurfaceLine = surfaceLine
             };

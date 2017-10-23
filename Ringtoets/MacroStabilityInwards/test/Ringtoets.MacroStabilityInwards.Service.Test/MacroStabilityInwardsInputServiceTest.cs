@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             MacroStabilityInwardsStochasticSoilModel soilModel =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             MacroStabilityInwardsInputService.SetMatchingStochasticSoilModel(input, new[]
@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void SetMatchingStochasticSoilModel_SurfaceLineOverlappingMultipleSoilModels_DoesNotSetModel()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             MacroStabilityInwardsStochasticSoilModel soilModel1 =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A");
             MacroStabilityInwardsStochasticSoilModel soilModel2 =
@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             MacroStabilityInwardsStochasticSoilModel nonOverlappingSoilModel =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A");
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 StochasticSoilModel = nonOverlappingSoilModel
             };
@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                                                        soilProfile
                                                                                                    });
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 StochasticSoilModel = soilModel
             };
@@ -132,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     new MacroStabilityInwardsStochasticSoilProfile(1.0, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D())
                 });
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 StochasticSoilModel = soilModel
             };
@@ -156,7 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     soilProfile
                 });
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 StochasticSoilModel = soilModel,
                 StochasticSoilProfile = soilProfile

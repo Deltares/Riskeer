@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidWaternet_ExpectedValues()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
@@ -65,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnEmpty()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
 
             // Call
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);

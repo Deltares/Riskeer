@@ -675,7 +675,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var random = new Random(21);
-            var inputParameters = new MacroStabilityInwardsInput
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(50)
             };

@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1.0, soilProfile)
             };
@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             var calculationItem = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilModel = stochasticSoilModel,

@@ -27,12 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
@@ -89,18 +85,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var context = new MacroStabilityInwardsInputContext(
-                new MacroStabilityInwardsInput(),
-                new MacroStabilityInwardsCalculationScenario(),
-                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                new MacroStabilityInwardsFailureMechanism(),
-                mocks.Stub<IAssessmentSection>());
-
             mocks.ReplayAll();
 
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Invoer", text);
@@ -110,18 +98,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var context = new MacroStabilityInwardsInputContext(
-                new MacroStabilityInwardsInput(),
-                new MacroStabilityInwardsCalculationScenario(),
-                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                new MacroStabilityInwardsFailureMechanism(),
-                mocks.Stub<IAssessmentSection>());
-
             mocks.ReplayAll();
 
             // Call
-            Image image = info.Image(context);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.MacroStabilityInwardsInputIcon, image);

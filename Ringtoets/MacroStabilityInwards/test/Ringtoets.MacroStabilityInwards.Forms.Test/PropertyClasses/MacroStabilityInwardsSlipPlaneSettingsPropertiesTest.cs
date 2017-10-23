@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
@@ -80,9 +80,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneSettingsProperties(new MacroStabilityInwardsInput(),
-                                                                                           null);
+            TestDelegate call = () => new MacroStabilityInwardsSlipPlaneSettingsProperties(input, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
@@ -136,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
@@ -176,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
@@ -201,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsSlipPlaneSettingsProperties(input, changeHandler);
 
             // Call

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -48,12 +47,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         public void Convert_MacroStabilityInwardsGridDeterminationTypeAutomatic_ReturnUpliftVanSlipPlane()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties
+            {
+                TangentLineZTop = 1,
+                TangentLineZBottom = 0
+            })
             {
                 GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic,
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                TangentLineZTop = (RoundedDouble) 1,
-                TangentLineZBottom = (RoundedDouble) 0,
                 TangentLineNumber = 10
             };
 
@@ -79,30 +80,34 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties
+            {
+                LeftGridXLeft = random.NextRoundedDouble(0.0, 1.0),
+                LeftGridXRight = random.NextRoundedDouble(2.0, 3.0),
+                LeftGridZTop = random.NextRoundedDouble(2.0, 3.0),
+                LeftGridZBottom = random.NextRoundedDouble(0.0, 1.0),
+
+                RightGridXLeft = random.NextRoundedDouble(0.0, 1.0),
+                RightGridXRight = random.NextRoundedDouble(2.0, 3.0),
+                RightGridZTop = random.NextRoundedDouble(2.0, 3.0),
+                RightGridZBottom = random.NextRoundedDouble(0.0, 1.0),
+
+                TangentLineZTop = 1,
+                TangentLineZBottom = 0
+            })
             {
                 GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
                 LeftGrid =
                 {
-                    XLeft = random.NextRoundedDouble(0.0, 1.0),
-                    XRight = random.NextRoundedDouble(2.0, 3.0),
-                    ZTop = random.NextRoundedDouble(2.0, 3.0),
-                    ZBottom = random.NextRoundedDouble(0.0, 1.0),
                     NumberOfVerticalPoints = random.Next(1, 100),
                     NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 RightGrid =
                 {
-                    XLeft = random.NextRoundedDouble(0.0, 1.0),
-                    XRight = random.NextRoundedDouble(2.0, 3.0),
-                    ZTop = random.NextRoundedDouble(2.0, 3.0),
-                    ZBottom = random.NextRoundedDouble(0.0, 1.0),
                     NumberOfVerticalPoints = random.Next(1, 100),
                     NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated,
-                TangentLineZTop = (RoundedDouble) 1,
-                TangentLineZBottom = (RoundedDouble) 0,
                 TangentLineNumber = 10
             };
 
@@ -124,30 +129,34 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
         {
             // Setup
             var random = new Random(11);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties
+            {
+                LeftGridXLeft = random.NextRoundedDouble(0.0, 1.0),
+                LeftGridXRight = random.NextRoundedDouble(2.0, 3.0),
+                LeftGridZTop = random.NextRoundedDouble(2.0, 3.0),
+                LeftGridZBottom = random.NextRoundedDouble(0.0, 1.0),
+
+                RightGridXLeft = random.NextRoundedDouble(0.0, 1.0),
+                RightGridXRight = random.NextRoundedDouble(2.0, 3.0),
+                RightGridZTop = random.NextRoundedDouble(2.0, 3.0),
+                RightGridZBottom = random.NextRoundedDouble(0.0, 1.0),
+
+                TangentLineZTop = random.NextRoundedDouble(2.0, 3.0),
+                TangentLineZBottom = random.NextRoundedDouble(0.0, 1.0)
+            })
             {
                 GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
                 LeftGrid =
                 {
-                    XLeft = random.NextRoundedDouble(0.0, 1.0),
-                    XRight = random.NextRoundedDouble(2.0, 3.0),
-                    ZTop = random.NextRoundedDouble(2.0, 3.0),
-                    ZBottom = random.NextRoundedDouble(0.0, 1.0),
                     NumberOfVerticalPoints = random.Next(1, 100),
                     NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 RightGrid =
                 {
-                    XLeft = random.NextRoundedDouble(0.0, 1.0),
-                    XRight = random.NextRoundedDouble(2.0, 3.0),
-                    ZTop = random.NextRoundedDouble(2.0, 3.0),
-                    ZBottom = random.NextRoundedDouble(0.0, 1.0),
                     NumberOfVerticalPoints = random.Next(1, 100),
                     NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                TangentLineZTop = random.NextRoundedDouble(2.0, 3.0),
-                TangentLineZBottom = random.NextRoundedDouble(0.0, 1.0),
                 TangentLineNumber = random.Next(1, 51)
             };
 

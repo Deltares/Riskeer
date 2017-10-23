@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
@@ -83,9 +83,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_HandlerNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsDrainageProperties(new MacroStabilityInwardsInput(),
-                                                                                  null);
+            TestDelegate call = () => new MacroStabilityInwardsDrainageProperties(input, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -100,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
@@ -147,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
@@ -232,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DrainageConstructionPresent = drainageConstructionPresent,
                 DikeSoilScenario = soilScenario
@@ -263,7 +265,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DrainageConstructionPresent = drainageConstructionPresent,
                 DikeSoilScenario = soilScenario
@@ -289,7 +291,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var input = new MacroStabilityInwardsInput();
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsDrainageProperties(input, changeHandler);
 
             // Call

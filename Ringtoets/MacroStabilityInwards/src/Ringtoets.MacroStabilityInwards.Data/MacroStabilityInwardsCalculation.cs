@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = new MacroStabilityInwardsInput();
+            InputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             Comments = new Comment();
         }
 

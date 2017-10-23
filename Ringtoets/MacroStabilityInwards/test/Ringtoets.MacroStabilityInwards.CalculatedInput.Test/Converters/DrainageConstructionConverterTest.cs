@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(21);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DrainageConstructionPresent = true,
                 XCoordinateDrainageConstruction = random.NextRoundedDouble(),
@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(21);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DrainageConstructionPresent = false,
                 XCoordinateDrainageConstruction = random.NextRoundedDouble(),
@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
         {
             // Setup
             var random = new Random(21);
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 DrainageConstructionPresent = true,
                 XCoordinateDrainageConstruction = random.NextRoundedDouble(),

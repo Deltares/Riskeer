@@ -58,8 +58,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble tangentLineZBottom;
         private int tangentLineNumber;
 
-        public MacroStabilityInwardsInput() : this(new ConstructionProperties()) {}
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
         /// </summary>
