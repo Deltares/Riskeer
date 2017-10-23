@@ -85,6 +85,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreatePhreaticLineChartData_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void CreatePhreaticLineChartData_ReturnsEmptyChartLineData()
+        {
+            // Setup
+            const string name = "zone";
+
+            // Call
+            ChartLineData data = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(name);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Points);
+            Assert.AreEqual(name, data.Name);
+            AssertEqualStyle(data.Style, Color.Blue, 2, ChartLineDashStyle.Solid);
+        }
+
+        [Test]
         public void CreateShoulderBaseInsideChartData_ReturnsChartPointDataWithExpectedStyling()
         {
             // Call
@@ -335,6 +361,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
             Assert.AreEqual(width, areaStyle.StrokeThickness);
             Assert.IsFalse(areaStyle.IsEditable);
+        }
+
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle dashStyle)
+        {
+            Assert.AreEqual(color, lineStyle.Color);
+            Assert.AreEqual(width, lineStyle.Width);
+            Assert.AreEqual(dashStyle, lineStyle.DashStyle);
         }
     }
 }

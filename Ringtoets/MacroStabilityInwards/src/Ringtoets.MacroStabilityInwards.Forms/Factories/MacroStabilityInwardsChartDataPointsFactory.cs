@@ -253,6 +253,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create points of the phreatic line in 2D space based on the provided <paramref name="phreaticLine"/>.
+        /// </summary>
+        /// <param name="phreaticLine">The phreatic line to create the points for.</param>
+        /// <returns>An array of points in 2D space or an empty array when <paramref name="phreaticLine"/>
+        /// is <c>null</c>.</returns>
+        public static Point2D[] CreatePhreaticLinePoints(MacroStabilityInwardsPhreaticLine phreaticLine)
+        {
+            return phreaticLine?.Geometry.ToArray() ?? new Point2D[0];
+        }
+
+        /// <summary>
         /// Create points of the waternet zone in 2D space based on the provide <paramref name="waternetLine"/>.
         /// </summary>
         /// <param name="waternetLine">The waternet line to create the zone for.</param>

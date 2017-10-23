@@ -80,6 +80,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
+        /// Create a <see cref="ChartLineData"/> for a phreatic line.
+        /// </summary>
+        /// <param name="name">The name of the line.</param>
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null</c>.</exception>
+        public static ChartLineData CreatePhreaticLineChartData(string name)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            return new ChartLineData(name, new ChartLineStyle
+            {
+                Color = Color.Blue,
+                DashStyle = ChartLineDashStyle.Solid,
+                Width = 2
+            });
+        }
+
+        /// <summary>
         /// Create <see cref="ChartPointData"/> with default styling for a characteristic point 
         /// of type shoulder base inside.
         /// </summary>

@@ -709,6 +709,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreatePhreaticLinePoints_PhreaticLineNull_ReturnsEmptyPointsArray()
+        {
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(line);
+        }
+
+        [Test]
+        public void CreatePhreaticLinePoints_WithPhreaticLine_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 10),
+                new Point2D(5, 4)
+            };
+
+            // Call
+            Point2D[] line = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(new MacroStabilityInwardsPhreaticLine("Test",
+                                                                                                                                        points));
+
+            // Assert
+            CollectionAssert.AreEqual(points, line);
+        }
+
+        [Test]
         public void CreateWaternetZonePoints_WaternetLineNull_ReturnsEmptyPointsArray()
         {
             // Call

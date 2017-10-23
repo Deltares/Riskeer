@@ -213,8 +213,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
         }
 
-        private void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartData)
+        private static void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartData)
         {
+            foreach (MacroStabilityInwardsPhreaticLine phreaticLine in waternet.PhreaticLines)
+            {
+                ChartLineData phreaticLineChartData = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(phreaticLine.Name);
+                phreaticLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(phreaticLine);
+                chartData.Add(phreaticLineChartData);
+            }
+
             foreach (MacroStabilityInwardsWaternetLine waternetLine in waternet.WaternetLines)
             {
                 ChartAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
