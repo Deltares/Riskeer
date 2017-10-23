@@ -217,9 +217,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
             return MemberwiseClone();
         }
 
-        private static bool IsSmallerOrNaN(double xLeft, double xRight)
+        private static bool IsSmallerOrNaN(double value, double valueToCompareTo)
         {
-            return double.IsNaN(xLeft) || double.IsNaN(xRight) || xLeft.CompareTo(xRight) < 0;
+            return double.IsNaN(value) || double.IsNaN(valueToCompareTo) || value.CompareTo(valueToCompareTo) < 0;
         }
     }
 }

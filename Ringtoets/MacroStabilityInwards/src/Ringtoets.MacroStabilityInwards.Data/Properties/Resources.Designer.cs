@@ -154,6 +154,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tangentlijn Z-boven moet groter zijn dan tangentlijn Z-onder, of NaN..
+        /// </summary>
+        public static string MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBott" +
+                        "om", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; voor de grensspanning moet een concreet getal zijn..
         /// </summary>
         public static string MacroStabilityInwardsPreconsolidationStress_ValidateParameter_The_value_of_ParameterName_0_must_be_a_concrete_value {

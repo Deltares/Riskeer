@@ -111,10 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var random = new Random(21);
-            double xLeft = random.NextDouble();
-            double xRight = 1 + random.NextDouble();
-            double zTop = 1 + random.NextDouble();
-            double zBottom = random.NextDouble();
+            double xLeft = random.GetFromRange(0.0, 1.0);
+            double xRight = random.GetFromRange(2.0, 3.0);
+            double zTop = random.GetFromRange(2.0, 3.0);
+            double zBottom = random.GetFromRange(0.0, 1.0);
             int numberOfHorizontalPoints = random.Next(1, 100);
             int numberOfVerticalPoints = random.Next(1, 100);
 

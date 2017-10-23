@@ -58,11 +58,35 @@ namespace Ringtoets.MacroStabilityInwards.Data
         private RoundedDouble tangentLineZBottom;
         private int tangentLineNumber;
 
+        public MacroStabilityInwardsInput() : this(new ConstructionProperties()) {}
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsInput"/> class.
         /// </summary>
-        public MacroStabilityInwardsInput()
+        /// <param name="properties">The container of the properties for the
+        /// <see cref="MacroStabilityInwardsInput"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><see cref="ConstructionProperties.LeftGridXLeft"/> is not smaller than <see cref="ConstructionProperties.LeftGridXRight"/>;</item>
+        /// <item><see cref="ConstructionProperties.LeftGridZTop"/> is not larger than <see cref="ConstructionProperties.LeftGridZBottom"/>;</item>
+        /// <item><see cref="ConstructionProperties.RightGridXLeft"/> is not smaller than <see cref="ConstructionProperties.RightGridXRight"/>;</item>
+        /// <item><see cref="ConstructionProperties.RightGridZTop"/> is not larger than <see cref="ConstructionProperties.RightGridZBottom"/>;</item>
+        /// <item><see cref="ConstructionProperties.TangentLineZBottom"/> is not larger than <see cref="ConstructionProperties.TangentLineZTop"/>.</item>
+        /// </list>
+        /// </exception>
+        public MacroStabilityInwardsInput(ConstructionProperties properties)
         {
+            if (properties == null)
+            {
+                throw new ArgumentNullException(nameof(properties));
+            }
+            if (!IsSmallerOrNaN(properties.TangentLineZBottom, properties.TangentLineZTop))
+            {
+                throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom);
+            }
+
             assessmentLevel = new RoundedDouble(2, double.NaN);
             useAssessmentLevelManualInput = false;
 
@@ -96,12 +120,18 @@ namespace Ringtoets.MacroStabilityInwards.Data
             GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
             TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated;
 
-            tangentLineZTop = new RoundedDouble(2, double.NaN);
-            tangentLineZBottom = new RoundedDouble(2, double.NaN);
+            tangentLineZTop = new RoundedDouble(2, properties.TangentLineZTop);
+            tangentLineZBottom = new RoundedDouble(2, properties.TangentLineZBottom);
             tangentLineNumber = 1;
 
-            LeftGrid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
-            RightGrid = new MacroStabilityInwardsGrid(double.NaN, double.NaN, double.NaN, double.NaN);
+            LeftGrid = new MacroStabilityInwardsGrid(properties.LeftGridXLeft,
+                                                     properties.LeftGridXRight,
+                                                     properties.LeftGridZTop,
+                                                     properties.LeftGridZBottom);
+            RightGrid = new MacroStabilityInwardsGrid(properties.RightGridXLeft,
+                                                      properties.RightGridXRight,
+                                                      properties.RightGridZTop,
+                                                      properties.RightGridZBottom);
 
             CreateZones = true;
         }
@@ -154,6 +184,86 @@ namespace Ringtoets.MacroStabilityInwards.Data
             clone.LeftGrid = (MacroStabilityInwardsGrid) LeftGrid.Clone();
             clone.RightGrid = (MacroStabilityInwardsGrid) RightGrid.Clone();
             return clone;
+        }
+
+        private static bool IsSmallerOrNaN(double value, double valueToCompareTo)
+        {
+            return double.IsNaN(value) || double.IsNaN(valueToCompareTo) || value.CompareTo(valueToCompareTo) < 0;
+        }
+
+        /// <summary>
+        /// Container for properties for constructing a <see cref="MacroStabilityInwardsInput"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Creates a new instance of <see cref="ConstructionProperties"/>.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                LeftGridXLeft = double.NaN;
+                LeftGridXRight = double.NaN;
+                LeftGridZTop = double.NaN;
+                LeftGridZBottom = double.NaN;
+
+                RightGridXLeft = double.NaN;
+                RightGridXRight = double.NaN;
+                RightGridZTop = double.NaN;
+                RightGridZBottom = double.NaN;
+
+                TangentLineZTop = double.NaN;
+                TangentLineZBottom = double.NaN;
+            }
+
+            /// <summary>
+            /// Gets or sets the x left of the left grid.
+            /// </summary>
+            public double LeftGridXLeft { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the x right of the left grid.
+            /// </summary>
+            public double LeftGridXRight { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the z top of the left grid.
+            /// </summary>
+            public double LeftGridZTop { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the z bottom of the left grid.
+            /// </summary>
+            public double LeftGridZBottom { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the x left of the right grid.
+            /// </summary>
+            public double RightGridXLeft { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the x right of the right grid.
+            /// </summary>
+            public double RightGridXRight { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the z top of the right grid.
+            /// </summary>
+            public double RightGridZTop { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the z bottom of the right grid.
+            /// </summary>
+            public double RightGridZBottom { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tangent line z top.
+            /// </summary>
+            public double TangentLineZTop { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tangent line z bottom.
+            /// </summary>
+            public double TangentLineZBottom { internal get; set; }
         }
 
         #region Derived input

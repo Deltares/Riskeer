@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -41,10 +42,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     public class MacroStabilityInwardsInputTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_PropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            var inputParameters = new MacroStabilityInwardsInput();
+            TestDelegate test = () => new MacroStabilityInwardsInput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("properties", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesWithoutValuesSet_ExpectedValues()
+        {
+            // Call
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(inputParameters);
@@ -136,6 +148,71 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        public void Constructor_ConstructionPropertiesWithValuesSet_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+
+            double leftGridXLeft = random.GetFromRange(0.0, 1.0);
+            double leftGridXRight = random.GetFromRange(2.0, 3.0);
+            double leftGridZTop = random.GetFromRange(2.0, 3.0);
+            double leftGridZBottom = random.GetFromRange(0.0, 1.0);
+
+            double rightGridXLeft = random.GetFromRange(0.0, 1.0);
+            double rightGridXRight = random.GetFromRange(2.0, 3.0);
+            double rightGridZTop = random.GetFromRange(2.0, 3.0);
+            double rightGridZBottom = random.GetFromRange(0.0, 1.0);
+
+            double tangentLineZTop = random.NextDouble();
+            double tangentLineZBottom = random.NextDouble();
+
+            var properties = new MacroStabilityInwardsInput.ConstructionProperties
+            {
+                LeftGridXLeft = leftGridXLeft,
+                LeftGridXRight = leftGridXRight,
+                LeftGridZTop = leftGridZTop,
+                LeftGridZBottom = leftGridZBottom,
+
+                RightGridXLeft = rightGridXLeft,
+                RightGridXRight = rightGridXRight,
+                RightGridZTop = rightGridZTop,
+                RightGridZBottom = rightGridZBottom,
+
+                TangentLineZTop = tangentLineZTop,
+                TangentLineZBottom = tangentLineZBottom
+            };
+
+            // Call
+            var inputParameters = new MacroStabilityInwardsInput(properties);
+
+            // Assert
+            Assert.AreEqual(leftGridXLeft, inputParameters.LeftGrid.XLeft, inputParameters.LeftGrid.XLeft.GetAccuracy());
+            Assert.AreEqual(leftGridXRight, inputParameters.LeftGrid.XRight, inputParameters.LeftGrid.XRight.GetAccuracy());
+            Assert.AreEqual(leftGridZTop, inputParameters.LeftGrid.ZTop, inputParameters.LeftGrid.ZTop.GetAccuracy());
+            Assert.AreEqual(leftGridZBottom, inputParameters.LeftGrid.ZBottom, inputParameters.LeftGrid.ZBottom.GetAccuracy());
+
+            Assert.AreEqual(rightGridXLeft, inputParameters.RightGrid.XLeft, inputParameters.RightGrid.XLeft.GetAccuracy());
+            Assert.AreEqual(rightGridXRight, inputParameters.RightGrid.XRight, inputParameters.RightGrid.XRight.GetAccuracy());
+            Assert.AreEqual(rightGridZTop, inputParameters.RightGrid.ZTop, inputParameters.RightGrid.ZTop.GetAccuracy());
+            Assert.AreEqual(rightGridZBottom, inputParameters.RightGrid.ZBottom, inputParameters.RightGrid.ZBottom.GetAccuracy());
+
+            Assert.AreEqual(tangentLineZTop, inputParameters.TangentLineZTop, inputParameters.TangentLineZTop.GetAccuracy());
+            Assert.AreEqual(tangentLineZBottom, inputParameters.TangentLineZBottom, inputParameters.TangentLineZBottom.GetAccuracy());
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetInValidConstructionPropertiesCombinations))]
+        public void Constructor_InvalidConstructionProperties_ThrowsArgumentException(MacroStabilityInwardsInput.ConstructionProperties properties,
+                                                                                      string expectedMessage)
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsInput(properties);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
         public void Constructor_SetProperties_ExpectedValues()
         {
             // Setup
@@ -159,7 +236,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             int tangentLineNumber = random.Next(1, 51);
 
             // Call
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 SlipPlaneMinimumDepth = (RoundedDouble) slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = (RoundedDouble) slipPlaneMinimumLength,
@@ -230,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputIsFalse_ReturnsNaN()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 UseAssessmentLevelManualInput = false,
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
@@ -256,7 +333,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 }
             };
 
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation
             };
@@ -272,7 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputFalseAndSettingValue_ThrowsInvalidOperationException()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 UseAssessmentLevelManualInput = false
             };
@@ -291,7 +368,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void AssessmentLevel_UseAssessmentLevelManualInputTrueAndSettingValue_ReturnSetValue()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 UseAssessmentLevelManualInput = true
             };
@@ -312,7 +389,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Given
             var random = new Random(21);
             var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 HydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(testLevel)
             };
@@ -335,7 +412,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Given
             var random = new Random(21);
             var testLevel = (RoundedDouble) random.NextDouble();
-            var input = new MacroStabilityInwardsInput
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 UseAssessmentLevelManualInput = true,
                 AssessmentLevel = testLevel
@@ -358,7 +435,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GivenInput_WhenSurfaceLineSetAndStochasticSoilProfileNull_ThenSoilProfileUnderSurfaceLineNull()
         {
             // Given
-            var inputParameters = new MacroStabilityInwardsInput();
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // When
             inputParameters.SurfaceLine = new MacroStabilityInwardsSurfaceLine("test");
@@ -371,7 +448,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GivenInput_WhenStochasticSoilProfileSetAndSurfaceLineNull_ThenSoilProfileUnderSurfaceLineNull()
         {
             // Given
-            var inputParameters = new MacroStabilityInwardsInput();
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // When
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
@@ -385,7 +462,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GivenInput_WhenSurfaceLineAndStochasticSoilProfileSet_ThenSoilProfileUnderSurfaceLineSet()
         {
             // Given
-            var inputParameters = new MacroStabilityInwardsInput();
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // When
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("test");
@@ -408,7 +485,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void TangentLineNumber_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(int tangentLineNumber)
         {
             // Setup
-            var inputParameters = new MacroStabilityInwardsInput();
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             TestDelegate call = () => inputParameters.TangentLineNumber = tangentLineNumber;
@@ -426,7 +503,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void TangentLineNumber_SetValueInsideValidRange_GetNewlySetValue(int tangentLineNumber)
         {
             // Setup
-            var inputParameters = new MacroStabilityInwardsInput();
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             inputParameters.TangentLineNumber = tangentLineNumber;
@@ -439,7 +516,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Clone_NoPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new MacroStabilityInwardsInput();
+            var original = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
             object clone = original.Clone();
@@ -467,7 +544,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Precondition
             Assert.IsNotNull(stochasticSoilProfile);
 
-            var original = new MacroStabilityInwardsInput
+            var original = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties())
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 StochasticSoilModel = stochasticSoilModel,
@@ -543,6 +620,83 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+        }
+
+        private static IEnumerable<TestCaseData> GetInValidConstructionPropertiesCombinations()
+        {
+            const string expectedXMessage = "X links moet kleiner zijn dan X rechts, of NaN.";
+            const string expectedZMessage = "Z boven moet groter zijn dan Z onder, of NaN.";
+            const string expectedTangentLineMessage = "Tangentlijn Z-boven moet groter zijn dan tangentlijn Z-onder, of NaN.";
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    LeftGridXLeft = 0.0,
+                    LeftGridXRight = 0.0
+                }, expectedXMessage)
+                .SetName("LeftGrid equal X");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    LeftGridXLeft = 1.0,
+                    LeftGridXRight = 0.0
+                }, expectedXMessage)
+                .SetName("LeftGrid XRight smaller than XLeft");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    LeftGridZTop = 0.0,
+                    LeftGridZBottom = 0.0
+                }, expectedZMessage)
+                .SetName("LeftGrid equal Z");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    LeftGridZTop = 0.0,
+                    LeftGridZBottom = 1.0
+                }, expectedZMessage)
+                .SetName("LeftGrid ZTop smaller than ZBottom");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    RightGridXLeft = 0.0,
+                    RightGridXRight = 0.0
+                }, expectedXMessage)
+                .SetName("RightGrid equal X");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    RightGridXLeft = 1.0,
+                    RightGridXRight = 0.0
+                }, expectedXMessage)
+                .SetName("RightGrid XRight smaller than XLeft");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    RightGridZTop = 0.0,
+                    RightGridZBottom = 0.0
+                }, expectedZMessage)
+                .SetName("RightGrid equal Z");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    RightGridZTop = 0.0,
+                    RightGridZBottom = 1.0
+                }, expectedZMessage)
+                .SetName("RightGrid ZTop smaller than ZBottom");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    TangentLineZTop = 0.0,
+                    TangentLineZBottom = 0.0
+                }, expectedTangentLineMessage)
+                .SetName("TangentLine equal Z");
+
+            yield return new TestCaseData(new MacroStabilityInwardsInput.ConstructionProperties
+                {
+                    TangentLineZTop = 0.0,
+                    TangentLineZBottom = 1.0
+                }, expectedTangentLineMessage)
+                .SetName("TangentLine ZTop smaller than ZBottom");
         }
     }
 }
