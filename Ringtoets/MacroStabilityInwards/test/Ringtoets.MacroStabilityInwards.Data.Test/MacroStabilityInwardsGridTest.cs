@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidPointCombinations))]
+        [TestCaseSource(nameof(GetInvalidPointCombinations))]
         public void Constructor_InvalidX_ThrowsArgumentException(double xLeft, double xRight)
         {
             // Call
@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidPointCombinations))]
+        [TestCaseSource(nameof(GetInvalidPointCombinations))]
         public void Constructor_InvalidZ_ThrowsArgumentException(double zBottom, double zTop)
         {
             // Call
@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidPointCombinations))]
+        [TestCaseSource(nameof(GetInvalidPointCombinations))]
         public void XLeft_InvalidXLeft_ThrowsArgumentException(double xLeft, double xRight)
         {
             // Setup
@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidPointCombinations))]
+        [TestCaseSource(nameof(GetInvalidPointCombinations))]
         public void XRight_InvalidXRight_ThrowsArgumentException(double xLeft, double xRight)
         {
             // Setup
@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidPointCombinations))]
+        [TestCaseSource(nameof(GetInvalidPointCombinations))]
         public void ZTop_InvalidZTop_ThrowsArgumentException(double zBottom, double zTop)
         {
             // Setup
@@ -196,7 +196,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInValidPointCombinations))]
+        [TestCaseSource(nameof(GetInvalidPointCombinations))]
         public void ZBottom_InvalidZBottom_ThrowsArgumentException(double zBottom, double zTop)
         {
             // Setup
@@ -265,7 +265,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
         }
 
-        private static IEnumerable<TestCaseData> GetInValidPointCombinations()
+        private static IEnumerable<TestCaseData> GetInvalidPointCombinations()
         {
             yield return new TestCaseData(0.0, 0.0);
             yield return new TestCaseData(1.0, 0.0);

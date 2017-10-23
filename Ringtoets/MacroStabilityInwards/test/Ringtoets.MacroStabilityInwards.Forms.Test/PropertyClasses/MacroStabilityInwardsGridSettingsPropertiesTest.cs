@@ -235,8 +235,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             bool moveGrid = random.NextBoolean();
             var gridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>();
             var tangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>();
-            double tangentLineZTop = random.NextDouble();
-            double tangentLineZBottom = random.NextDouble();
+            double tangentLineZTop = random.GetFromRange(2.0, 3.0);
+            double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
             int tangentLineNumber = random.Next(1, 51);
 
             // When

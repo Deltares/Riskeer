@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Deltares.WTIStability;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -60,8 +61,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var rightGridZBottom = new RoundedDouble(2, random.NextDouble());
             int rightGridXNumber = random.Next();
             int rightGridZNumber = random.Next();
-            double tangentLineZTop = random.NextDouble();
-            double tangentLineZBottom = random.NextDouble();
+            double tangentLineZTop = random.GetFromRange(2.0, 3.0);
+            double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
             int tangentLineNumber = random.Next();
 
             var leftGrid = new UpliftVanGrid(leftGridXLeft, leftGridXRight, leftGridZTop, leftGridZBottom, leftGridXNumber, leftGridZNumber);

@@ -163,8 +163,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double rightGridZTop = random.GetFromRange(2.0, 3.0);
             double rightGridZBottom = random.GetFromRange(0.0, 1.0);
 
-            double tangentLineZTop = random.NextDouble();
-            double tangentLineZBottom = random.NextDouble();
+            double tangentLineZTop = random.GetFromRange(2.0, 3.0);
+            double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
 
             var properties = new MacroStabilityInwardsInput.ConstructionProperties
             {
@@ -231,8 +231,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
             double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
             double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
-            double tangentLineZTop = random.NextDouble();
-            double tangentLineZBottom = random.NextDouble();
+            double tangentLineZTop = random.GetFromRange(2.0, 3.0);
+            double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
             int tangentLineNumber = random.Next(1, 51);
 
             // Call
@@ -480,6 +480,42 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
+        [TestCaseSource(nameof(GetInvalidTangentCombinations))]
+        public void TangentLineZTop_InvalidTangentLineZTop_ThrowsArgumentException(double zBottom, double zTop)
+        {
+            // Setup
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties
+            {
+                TangentLineZBottom = zBottom
+            });
+
+            // Call
+            TestDelegate test = () => inputParameters.TangentLineZTop = (RoundedDouble) zTop;
+
+            // Assert
+            const string expectedMessage = "Tangentlijn Z-boven moet groter zijn dan tangentlijn Z-onder, of NaN.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetInvalidTangentCombinations))]
+        public void TangentLineZBottom_InvalidTangentLineZBottom_ThrowsArgumentException(double zBottom, double zTop)
+        {
+            // Setup
+            var inputParameters = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties
+            {
+                TangentLineZTop = zTop
+            });
+
+            // Call
+            TestDelegate test = () => inputParameters.TangentLineZBottom = (RoundedDouble) zBottom;
+
+            // Assert
+            const string expectedMessage = "Tangentlijn Z-onder moet kleiner zijn dan tangentlijn Z-boven, of NaN.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(51)]
         public void TangentLineNumber_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(int tangentLineNumber)
@@ -697,6 +733,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                     TangentLineZBottom = 1.0
                 }, expectedTangentLineMessage)
                 .SetName("TangentLine ZTop smaller than ZBottom");
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidTangentCombinations()
+        {
+            yield return new TestCaseData(0.0, 0.0);
+            yield return new TestCaseData(1.0, 0.0);
+            yield return new TestCaseData(0.0, -1.0);
         }
     }
 }

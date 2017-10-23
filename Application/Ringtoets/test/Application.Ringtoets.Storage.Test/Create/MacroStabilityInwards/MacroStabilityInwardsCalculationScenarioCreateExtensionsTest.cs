@@ -218,8 +218,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     PiezometricHeadPhreaticLine2Inwards = random.NextRoundedDouble(),
                     GridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>(),
                     TangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>(),
-                    TangentLineZTop = random.NextRoundedDouble(),
-                    TangentLineZBottom = random.NextRoundedDouble(),
+                    TangentLineZTop = random.NextRoundedDouble(2.0, 3.0),
+                    TangentLineZBottom = random.NextRoundedDouble(0.0, 1.0),
                     TangentLineNumber = random.Next(1, 50),
                     LeftGrid =
                     {

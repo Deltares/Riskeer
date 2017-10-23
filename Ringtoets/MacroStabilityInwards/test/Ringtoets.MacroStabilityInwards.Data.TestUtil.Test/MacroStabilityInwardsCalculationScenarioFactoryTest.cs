@@ -277,7 +277,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                             inputParameters.ZCoordinateDrainageConstruction.GetAccuracy());
             Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Manual, inputParameters.GridDeterminationType);
             Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.Specified, inputParameters.TangentLineDeterminationType);
-            Assert.AreEqual(1, inputParameters.TangentLineZTop,
+            Assert.AreEqual(2, inputParameters.TangentLineZTop,
                             inputParameters.TangentLineZTop.GetAccuracy());
             Assert.AreEqual(1, inputParameters.TangentLineZBottom,
                             inputParameters.TangentLineZBottom.GetAccuracy());

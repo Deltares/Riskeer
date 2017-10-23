@@ -1270,8 +1270,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 2.5,
                             GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
                             TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                            TangentLineZTop = (RoundedDouble) 2.6,
-                            TangentLineZBottom = (RoundedDouble) 2.7,
+                            TangentLineZTop = (RoundedDouble) 2.7,
+                            TangentLineZBottom = (RoundedDouble) 2.6,
                             TangentLineNumber = 2,
                             LeftGrid =
                             {
@@ -1348,8 +1348,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                     LeakageLengthInwardsPhreaticLine4 = (RoundedDouble) 40.3,
                     PiezometricHeadPhreaticLine2Outwards = (RoundedDouble) 40.4,
                     PiezometricHeadPhreaticLine2Inwards = (RoundedDouble) 40.5,
-                    TangentLineZTop = (RoundedDouble) 40.6,
-                    TangentLineZBottom = (RoundedDouble) 40.7,
+                    TangentLineZTop = (RoundedDouble) 40.7,
+                    TangentLineZBottom = (RoundedDouble) 40.6,
                     TangentLineNumber = 2,
                     LeftGrid =
                     {

@@ -270,7 +270,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     ZCoordinateDrainageConstruction = (RoundedDouble) 1.0,
                     GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual,
                     TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                    TangentLineZTop = (RoundedDouble) 1.0,
+                    TangentLineZTop = (RoundedDouble) 2.0,
                     TangentLineZBottom = (RoundedDouble) 1.0,
                     TangentLineNumber = 10,
                     LeftGrid =

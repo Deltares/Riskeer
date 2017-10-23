@@ -399,6 +399,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the tangent line z top.
         /// [m+NAP]
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not larger 
+        /// than <see cref="TangentLineZBottom"/> or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble TangentLineZTop
         {
             get
@@ -407,6 +409,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
+                if (!IsSmallerOrNaN(TangentLineZBottom, value))
+                {
+                    throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZTop_should_be_larger_than_TangentLineZBottom);
+                }
+
                 tangentLineZTop = value.ToPrecision(tangentLineZTop.NumberOfDecimalPlaces);
             }
         }
@@ -415,6 +422,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets or sets the tangent line z bottom.
         /// [m+NAP]
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not smaller 
+        /// than <see cref="TangentLineZTop"/> or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble TangentLineZBottom
         {
             get
@@ -423,6 +432,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
             set
             {
+                if (!IsSmallerOrNaN(value, TangentLineZTop))
+                {
+                    throw new ArgumentException(Resources.MacroStabilityInwardsInput_TangentLineZBottom_should_be_smaller_than_TangentLineZTop);
+                }
+
                 tangentLineZBottom = value.ToPrecision(tangentLineZBottom.NumberOfDecimalPlaces);
             }
         }

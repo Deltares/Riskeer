@@ -492,8 +492,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var random = new Random(11);
             MacroStabilityInwardsInput inputParameters = testCalculation.InputParameters;
             inputParameters.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
-            inputParameters.TangentLineZTop = random.NextRoundedDouble();
-            inputParameters.TangentLineZBottom = random.NextRoundedDouble();
+            inputParameters.TangentLineZTop = random.NextRoundedDouble(2.0, 3.0);
+            inputParameters.TangentLineZBottom = random.NextRoundedDouble(0.0, 1.0);
             inputParameters.TangentLineNumber = random.Next(1, 51);
             inputParameters.LeftGrid.XLeft = random.NextRoundedDouble(0.0, 1.0);
             inputParameters.LeftGrid.XRight = random.NextRoundedDouble(2.0, 3.0);

@@ -146,8 +146,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
                     NumberOfHorizontalPoints = random.Next(1, 100)
                 },
                 TangentLineDeterminationType = MacroStabilityInwardsTangentLineDeterminationType.Specified,
-                TangentLineZTop = random.NextRoundedDouble(),
-                TangentLineZBottom = random.NextRoundedDouble(),
+                TangentLineZTop = random.NextRoundedDouble(2.0, 3.0),
+                TangentLineZBottom = random.NextRoundedDouble(0.0, 1.0),
                 TangentLineNumber = random.Next(1, 51)
             };
 
