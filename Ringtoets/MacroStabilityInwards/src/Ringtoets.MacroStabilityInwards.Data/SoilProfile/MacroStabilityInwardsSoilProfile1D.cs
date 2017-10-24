@@ -51,11 +51,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="layers"/> 
         /// is <c>null</c>.</exception>
+        /// <remarks>The <see cref="Layers"/> in this soil profile are ordered by
+        /// <see cref="MacroStabilityInwardsSoilLayer1D.Top"/> in descending order.</remarks>
         public MacroStabilityInwardsSoilProfile1D(string name, double bottom, IEnumerable<MacroStabilityInwardsSoilLayer1D> layers)
         {
             Name = name;
             Bottom = bottom;
-            Layers = layers;
+            ValidateLayersCollection(layers);
+            Layers = layers.OrderByDescending(l => l.Top);
         }
 
         /// <summary>
@@ -63,12 +66,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// </summary>
         public double Bottom { get; }
 
-        /// <summary>
-        /// Gets an ordered (by <see cref="MacroStabilityInwardsSoilLayer1D.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
-        /// <see cref="MacroStabilityInwardsSoilLayer1D"/> for the <see cref="MacroStabilityInwardsSoilProfile1D"/>.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
         public IEnumerable<MacroStabilityInwardsSoilLayer1D> Layers
         {
             get
@@ -77,8 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
             private set
             {
-                ValidateLayersCollection(value);
-                layers = value.OrderByDescending(l => l.Top).ToArray();
+                layers = value.ToArray();
             }
         }
 

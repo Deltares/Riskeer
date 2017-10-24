@@ -86,6 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
 
             // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
             Assert.NotNull(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);

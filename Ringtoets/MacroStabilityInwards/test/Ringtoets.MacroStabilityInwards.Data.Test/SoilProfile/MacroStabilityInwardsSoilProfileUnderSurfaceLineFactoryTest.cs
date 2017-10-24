@@ -83,7 +83,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             TestDelegate test = () => MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(soilProfile, surfaceLine);
 
             // Assert
-            Assert.Throws<NotSupportedException>(test);
+            var exception = Assert.Throws<NotSupportedException>(test);
+            Assert.AreEqual($"{soilProfile.GetType().Name} is not supported. " +
+                            $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} and " +
+                            $"{nameof(MacroStabilityInwardsSoilProfile2D)}.", exception.Message);
             mocks.VerifyAll();
         }
 

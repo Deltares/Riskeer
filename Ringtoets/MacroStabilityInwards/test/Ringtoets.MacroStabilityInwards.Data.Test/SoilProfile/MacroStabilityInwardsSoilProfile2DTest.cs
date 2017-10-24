@@ -56,7 +56,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var profile = new MacroStabilityInwardsSoilProfile2D(name, layers, preconsolidationStresses);
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>(profile);
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilProfile<MacroStabilityInwardsSoilLayer2D>>(profile);
             Assert.AreNotSame(layers, profile.Layers);
             TestHelper.AssertCollectionsAreEqual(layers, profile.Layers,
                                                  new ReferenceEqualityComparer<MacroStabilityInwardsSoilLayer2D>());

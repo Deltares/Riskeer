@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -237,12 +238,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create points of the outer ring in 2D space based on the provided <paramref name="soilLayer"/>.
+        /// Create an area of the outer ring in 2D space based on the provided <paramref name="soilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to create the outer ring for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="soilLayer"/>
-        /// is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateOuterRingPoints(IMacroStabilityInwardsSoilLayerUnderSurfaceLine soilLayer)
+        /// <returns>A collection containing a single array of points in 2D space 
+        /// or an empty collection when <paramref name="soilLayer"/> is <c>null</c>.</returns>
+        public static IEnumerable<Point2D[]> CreateOuterRingArea(IMacroStabilityInwardsSoilLayerUnderSurfaceLine soilLayer)
         {
             return soilLayer != null
                        ? new[]
@@ -282,6 +283,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             points.AddRange(waternetLine.Geometry.Reverse());
 
             return points.ToArray();
+        }
+
+        /// <summary>
+        /// Sets an empty area to every element in <paramref name="chartMultipleAreaData"/>.
+        /// </summary>
+        /// <param name="chartMultipleAreaData">A collection of <see cref="ChartMultipleAreaData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartMultipleAreaData"/>
+        /// is <c>null</c>.</exception>
+        public static void SetEmptyAreas(IEnumerable<ChartMultipleAreaData> chartMultipleAreaData)
+        {
+            if (chartMultipleAreaData == null)
+            {
+                throw new ArgumentNullException(nameof(chartMultipleAreaData));
+            }
+
+            foreach (ChartMultipleAreaData t in chartMultipleAreaData)
+            {
+                t.Areas = Enumerable.Empty<Point2D[]>();
+            }
         }
 
         #region SoilLayers and Surface Line Helpers

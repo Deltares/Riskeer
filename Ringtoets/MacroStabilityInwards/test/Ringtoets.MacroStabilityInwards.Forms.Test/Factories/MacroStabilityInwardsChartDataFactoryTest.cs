@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -223,28 +223,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [TestCase("Random", 5)]
         public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithExpectedStyling(string name, int soilLayerIndex)
         {
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
+            // Setup 
+            var mocks = new MockRepository();
+            var soilLayer = mocks.Stub<IMacroStabilityInwardsSoilLayer>();
+            soilLayer.Stub(sl => sl.Data).Return(new MacroStabilityInwardsSoilLayerData
             {
-                new Point3D(0, 0, 4),
-                new Point3D(0, 0, 3.2),
-                new Point3D(2, 0, 4)
-            });
-            var layers = new List<MacroStabilityInwardsSoilLayer1D>();
-            for (var i = 0; i < soilLayerIndex; i++)
-            {
-                layers.Add(new MacroStabilityInwardsSoilLayer1D((double) i / 10));
-            }
-            layers.Add(new MacroStabilityInwardsSoilLayer1D(-1.0)
-            {
-                Data =
-                {
-                    MaterialName = name,
-                    Color = Color.Aquamarine
-                }
+                MaterialName = name,
+                Color = Color.Aquamarine
             });
 
-            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers);
+            List<IMacroStabilityInwardsSoilLayer> layers = Enumerable.Repeat(mocks.Stub<IMacroStabilityInwardsSoilLayer>(), soilLayerIndex)
+                                                                     .ToList();
+            layers.Add(soilLayer);
+
+            var profile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
+            profile.Stub(p => p.Layers).Return(layers);
+
+            mocks.ReplayAll();
 
             // Call
             ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
@@ -252,7 +247,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
-            AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
+            AssertEqualStyle(data.Style, soilLayer.Data.Color, Color.Black, 1);
         }
 
         [Test]

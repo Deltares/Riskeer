@@ -162,7 +162,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return Name;
         }
 
-        private static bool IsSame(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> otherSoilProfile)
+        private static bool IsSame(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile,
+                                   IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> otherSoilProfile)
         {
             bool equalNames = soilProfile.Name.Equals(otherSoilProfile.Name);
             bool equalTypes = soilProfile.GetType() == otherSoilProfile.GetType();

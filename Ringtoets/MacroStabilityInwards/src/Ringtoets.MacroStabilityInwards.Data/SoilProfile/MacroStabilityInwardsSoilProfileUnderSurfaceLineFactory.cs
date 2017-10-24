@@ -66,7 +66,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 return Create(profile2D);
             }
-            throw new NotSupportedException();
+            throw new NotSupportedException($"{soilProfile.GetType().Name} is not supported. " +
+                                            $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} " +
+                                            $"and {nameof(MacroStabilityInwardsSoilProfile2D)}.");
         }
 
         private static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile1D soilProfile,

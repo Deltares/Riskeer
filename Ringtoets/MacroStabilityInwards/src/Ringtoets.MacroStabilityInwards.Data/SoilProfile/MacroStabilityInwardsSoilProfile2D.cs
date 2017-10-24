@@ -54,16 +54,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
 
             Name = name;
+            ValidateLayersCollection(layers);
             Layers = layers;
             PreconsolidationStresses = preconsolidationStresses.ToArray();
         }
 
         /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsSoilLayer2D"/> for 
-        /// the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsPreconsolidationStress"/>
+        /// for the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
+        public IEnumerable<MacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
+
         public IEnumerable<MacroStabilityInwardsSoilLayer2D> Layers
         {
             get
@@ -72,16 +73,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
             private set
             {
-                ValidateLayersCollection(value);
                 layers = value.ToArray();
             }
         }
-
-        /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsPreconsolidationStress"/>
-        /// for the <see cref="MacroStabilityInwardsSoilProfile2D"/>.
-        /// </summary>
-        public IEnumerable<MacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
 
         /// <summary>
         /// Gets the name of <see cref="MacroStabilityInwardsSoilProfile2D"/>.

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
@@ -75,13 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         [TestCase("Random", 5)]
         public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithExpectedStyling(string name, int soilLayerIndex)
         {
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 4),
-                new Point3D(0, 0, 3.2),
-                new Point3D(2, 0, 4)
-            });
+            // Setup
             var layers = new List<PipingSoilLayer>();
             for (var i = 0; i < soilLayerIndex; i++)
             {

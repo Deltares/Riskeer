@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Components.Chart.Data;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
@@ -620,7 +622,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHolesAreas_SoilProfileNull_ReturnsEmptyPointsArray()
+        public void CreateHolesAreas_SoilProfileNull_ReturnsEmptyAreaCollection()
         {
             // Call
             IEnumerable<Point2D[]> holes = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(null);
@@ -630,7 +632,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHolesAreas_SoilProfileWithoutHoles_ReturnsEmptyPointsArray()
+        public void CreateHolesAreas_SoilProfileWithoutHoles_ReturnsEmptyAreaCollection()
         {
             // Setup
             var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new IMacroStabilityInwardsSoilLayerUnderSurfaceLine[0],
@@ -644,10 +646,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHolesAreas_SoilProfileWithHoles_ReturnsHolesPointsArray()
+        public void CreateHolesAreas_SoilProfileWithHoles_ReturnsHolesAreaCollection()
         {
             // Setup
-            var holes = new[]
+            var mocks = new MockRepository();
+            var holesLayer1 = new[]
             {
                 new[]
                 {
@@ -656,38 +659,55 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                     new Point2D(4.0, 4.0)
                 }
             };
-            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            var holesLayer2 = new[]
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(new[]
+                new[]
                 {
-                    new Point2D(0.0, 10.0),
-                    new Point2D(10.0, 10.0),
-                    new Point2D(10.0, 0.0),
-                    new Point2D(0.0, 0.0)
-                }, holes, new MacroStabilityInwardsSoilLayerData())
-            }, new List<IMacroStabilityInwardsPreconsolidationStress>());
+                    new Point2D(3.0, 3.0),
+                    new Point2D(7.0, 3.0),
+                    new Point2D(5.0, 5.0)
+                }
+            };
+
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
+            var soilLayer1 = mocks.Stub<IMacroStabilityInwardsSoilLayerUnderSurfaceLine>();
+            soilLayer1.Stub(l => l.Holes).Return(holesLayer1);
+
+            var soilLayer2 = mocks.Stub<IMacroStabilityInwardsSoilLayerUnderSurfaceLine>();
+            soilLayer2.Stub(l => l.Holes).Return(holesLayer2);
+
+            soilProfile.Stub(p => p.Layers).Return(new[]
+            {
+                soilLayer1,
+                soilLayer2
+            });
+            mocks.ReplayAll();
 
             // Call
             IEnumerable<Point2D[]> holesChartData = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfile);
 
             // Assert
-            CollectionAssert.AreEqual(holes, holesChartData);
+            IEnumerable<Point2D[]> expectedHoles = holesLayer1.Concat(holesLayer2);
+            CollectionAssert.AreEqual(expectedHoles, holesChartData);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateOuterRingPoints_SoilLayerNull_ReturnsEmptyPointsArray()
+        public void CreateOuterRingArea_SoilLayerNull_ReturnsEmptyAreaCollection()
         {
             // Call
-            IEnumerable<Point2D[]> outerRing = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingPoints(null);
+            IEnumerable<Point2D[]> outerRing = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(null);
 
             // Assert
             CollectionAssert.IsEmpty(outerRing);
         }
 
         [Test]
-        public void CreateOuterRingPoints_WithSoilLayer_ReturnsOuterRingPointsArray()
+        public void CreateOuterRingArea_WithSoilLayer_ReturnsOuterRingArea()
         {
             // Setup
+            var mocks = new MockRepository();
             var outerRing = new[]
             {
                 new Point2D(0.0, 10.0),
@@ -696,16 +716,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(0.0, 0.0)
             };
 
-            var layer = new MacroStabilityInwardsSoilLayerUnderSurfaceLine(outerRing, new MacroStabilityInwardsSoilLayerData());
+            var layer = mocks.Stub<IMacroStabilityInwardsSoilLayerUnderSurfaceLine>();
+            layer.Stub(l => l.OuterRing).Return(outerRing);
+
+            mocks.ReplayAll();
 
             // Call
-            IEnumerable<Point2D[]> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingPoints(layer);
+            IEnumerable<Point2D[]> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(layer);
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
                 outerRing
             }, outerRingChartData);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -772,6 +797,49 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             CollectionAssert.AreEqual(phreaticLineGeometry.Concat(waternetLineGeometry.Reverse()), zone);
+        }
+
+        [Test]
+        public void SetEmptyAreas_ChartMultipleAreaDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsChartDataPointsFactory.SetEmptyAreas(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("chartMultipleAreaData", paramName);
+        }
+
+        [Test]
+        public void SetEmptyAreas_WithChartMultipleAreaDataContainingAreas_SetsEmptyAreasToChartMultipleAreaData()
+        {
+            // Setup
+            var chartData = new[]
+            {
+                new ChartMultipleAreaData("Layer 1")
+                {
+                    Areas = new[]
+                    {
+                        new Point2D[0]
+                    }
+                },
+                new ChartMultipleAreaData("Layer 2")
+                {
+                    Areas = new[]
+                    {
+                        new Point2D[0]
+                    }
+                }
+            };
+
+            // Call
+            MacroStabilityInwardsChartDataPointsFactory.SetEmptyAreas(chartData);
+
+            // Assert
+            foreach (ChartMultipleAreaData chartMultipleAreaData in chartData)
+            {
+                CollectionAssert.IsEmpty(chartMultipleAreaData.Areas);
+            }
         }
 
         private static void AssertEqualPointCollection(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
