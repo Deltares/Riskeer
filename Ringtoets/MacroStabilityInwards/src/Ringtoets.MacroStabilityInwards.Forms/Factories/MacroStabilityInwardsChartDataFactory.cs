@@ -73,8 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
             return new ChartAreaData(name, new ChartAreaStyle
             {
-                StrokeThickness = 2,
-                StrokeColor = Color.Blue,
+                StrokeThickness = 0,
                 FillColor = Color.FromArgb(60, Color.DeepSkyBlue)
             });
         }

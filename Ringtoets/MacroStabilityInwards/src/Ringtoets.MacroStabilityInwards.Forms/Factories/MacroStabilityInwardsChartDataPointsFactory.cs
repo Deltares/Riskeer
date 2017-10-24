@@ -268,19 +268,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// Create points of the waternet zone in 2D space based on the provide <paramref name="waternetLine"/>.
         /// </summary>
         /// <param name="waternetLine">The waternet line to create the zone for.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="waternetLine"/>
-        /// is <c>null</c>.</returns>
-        public static Point2D[] CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine)
+        /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> that may intersect with 
+        /// the <see cref="MacroStabilityInwardsWaternetLine.PhreaticLine"/> and by doing that restricts the
+        /// drawn height of it.</param>
+        /// <returns>An array of points in 2D space or an empty array when <paramref name="waternetLine"/> or
+        /// <paramref name="surfaceLine"/> is <c>null</c>.</returns>
+        public static Point2D[] CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine,
+                                                         MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            if (waternetLine == null)
+            if (waternetLine == null || surfaceLine == null)
             {
                 return new Point2D[0];
             }
 
-            var points = new List<Point2D>();
+            Point2D[] phreaticLineGeometry = waternetLine.PhreaticLine.Geometry.ToArray();
+            var points = new List<Point2D>(waternetLine.Geometry.Reverse());
+            var phreaticLinePoints = new List<Point2D>();
 
-            points.AddRange(waternetLine.PhreaticLine.Geometry);
-            points.AddRange(waternetLine.Geometry.Reverse());
+            phreaticLinePoints.AddRange(ClipPhreaticLineGeometryToSurfaceLine(phreaticLineGeometry, surfaceLine));
+            phreaticLinePoints.AddRange(GetPhreaticLineIntersectionPointsWithSurfaceLine(phreaticLineGeometry, surfaceLine));
+            phreaticLinePoints.AddRange(ClipPhreaticLineSegmentsToSurfaceLine(surfaceLine, phreaticLinePoints));
+
+            points.AddRange(phreaticLinePoints.OrderBy(p => p.X));
 
             return points.ToArray();
         }
@@ -421,6 +430,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             {
                 yield return new Point2D(x, zPoint);
                 x += deltaXBetweenPoints;
+            }
+        }
+
+        #endregion
+
+        #region Waternet Helpers
+
+        private static IEnumerable<Point2D> ClipPhreaticLineGeometryToSurfaceLine(IEnumerable<Point2D> phreaticLineGeometry,
+                                                                                  MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            foreach (Point2D phreaticLinePoint in phreaticLineGeometry)
+            {
+                double surfaceLineHeight = surfaceLine.GetZAtL((RoundedDouble)phreaticLinePoint.X);
+                double height = surfaceLineHeight < phreaticLinePoint.Y ? surfaceLineHeight : phreaticLinePoint.Y;
+
+                yield return new Point2D(phreaticLinePoint.X, height);
+            }
+        }
+
+
+        private static IEnumerable<Point2D> GetPhreaticLineIntersectionPointsWithSurfaceLine(IEnumerable<Point2D> phreaticLineGeometry,
+                                                                                             MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            IEnumerable<Segment2D> phreaticLineSegments = Math2D.ConvertLinePointsToLineSegments(phreaticLineGeometry);
+            IEnumerable<Segment2D> surfacelineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.LocalGeometry);
+
+            foreach (Segment2D phreaticLineSegment in phreaticLineSegments)
+            {
+                foreach (Segment2D surfaceLineSegment in surfacelineSegments)
+                {
+                    Segment2DIntersectSegment2DResult intersectionPointResult = Math2D.GetIntersectionBetweenSegments(
+                        phreaticLineSegment, surfaceLineSegment);
+
+                    if (intersectionPointResult.IntersectionType == Intersection2DType.Intersects)
+                    {
+                        yield return intersectionPointResult.IntersectionPoints.First();
+                    }
+                }
+            }
+        }
+
+        private static IEnumerable<Point2D> ClipPhreaticLineSegmentsToSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine,
+                                                                                  List<Point2D> phreaticLinePoints)
+        {
+            IEnumerable<Segment2D> adaptedPhreaticLineSegments = Math2D.ConvertLinePointsToLineSegments(phreaticLinePoints);
+
+            foreach (Point2D surfaceLinePoint in surfaceLine.LocalGeometry)
+            {
+                Point2D[] intersectionPoint = Math2D.SegmentsIntersectionWithVerticalLine(adaptedPhreaticLineSegments, surfaceLinePoint.X).ToArray();
+
+                if (intersectionPoint.Any() && intersectionPoint.First().Y >= surfaceLinePoint.Y && !phreaticLinePoints.Contains(surfaceLinePoint))
+                {
+                    yield return surfaceLinePoint;
+                }
             }
         }
 

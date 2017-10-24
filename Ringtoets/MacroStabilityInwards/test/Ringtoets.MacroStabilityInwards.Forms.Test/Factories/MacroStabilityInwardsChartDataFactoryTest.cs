@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Points);
             Assert.AreEqual(name, data.Name);
-            AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Blue, 2);
+            AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Empty, 0);
         }
 
         [Test]

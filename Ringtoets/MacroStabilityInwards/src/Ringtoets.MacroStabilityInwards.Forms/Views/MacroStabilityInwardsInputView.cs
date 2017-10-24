@@ -201,8 +201,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
-            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetExtreme, waternetZonesExtremeChartData);
-            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetDaily, waternetZonesDailyChartData);
+            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetExtreme, surfaceLine, waternetZonesExtremeChartData);
+            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetDaily, surfaceLine, waternetZonesDailyChartData);
 
             MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
@@ -212,7 +212,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
         }
 
-        private static void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartData)
+        private static void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine,
+                                                      ChartDataCollection chartData)
         {
             foreach (MacroStabilityInwardsPhreaticLine phreaticLine in waternet.PhreaticLines)
             {
@@ -224,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             foreach (MacroStabilityInwardsWaternetLine waternetLine in waternet.WaternetLines)
             {
                 ChartAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
-                waternetLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine);
+                waternetLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
                 chartData.Add(waternetLineChartData);
             }
         }
