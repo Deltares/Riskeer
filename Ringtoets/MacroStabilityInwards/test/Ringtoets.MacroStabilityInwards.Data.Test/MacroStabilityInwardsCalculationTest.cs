@@ -238,8 +238,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             MacroStabilityInwardsCalculation original = CreateRandomCalculationWithoutOutput();
-            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
-            original.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            original.SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateRandomOutput();
+            original.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
             // Call
             object clone = original.Clone();
@@ -250,23 +250,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         private static MacroStabilityInwardsCalculation CreateRandomCalculationWithoutOutput()
         {
-            var random = new Random(21);
-
-            return new MacroStabilityInwardsCalculation
+            var calculation = new MacroStabilityInwardsCalculation
             {
                 Name = "A Name",
                 Comments =
                 {
                     Body = "A comment"
-                },
-                InputParameters =
-                {
-                    SlipPlaneMinimumDepth = random.NextRoundedDouble(),
-                    SlipPlaneMinimumLength = random.NextRoundedDouble(),
-                    MaximumSliceWidth = random.NextRoundedDouble(),
-                    MoveGrid = random.NextBoolean()
                 }
             };
+            MacroStabilityInwardsTestDataGenerator.SetRandomMacroStabilityInwardsInput(calculation.InputParameters);
+            return calculation;
         }
     }
 }

@@ -37,7 +37,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsNotNull(output);
             Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
 
-            Assert.IsInstanceOf<MacroStabilityInwardsOutput>(output);
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
         }
@@ -73,6 +72,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(forbiddenZonesXEntryMin, output.ForbiddenZonesXEntryMin);
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
+        }
+
+        [Test]
+        public void CreateRandomOutput_WithoutParameters_ReturnsOutputWithExpectedProperties()
+        {
+            // Call
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            // Assert
+            Assert.IsNotNull(output);
+            Assert.AreEqual(typeof(MacroStabilityInwardsOutput), output.GetType());
+
+            AssertIsConcreteValue(output.FactorOfStability);
+            AssertIsConcreteValue(output.ZValue);
+            AssertIsConcreteValue(output.ForbiddenZonesXEntryMax);
+            AssertIsConcreteValue(output.ForbiddenZonesXEntryMin);
+            Assert.IsNotNull(output.SlidingCurve);
+            Assert.IsNotNull(output.SlipPlane);
+        }
+
+        private static void AssertIsConcreteValue(double actualValue)
+        {
+            Assert.IsFalse(double.IsNaN(actualValue));
+            Assert.IsFalse(double.IsInfinity(actualValue));
         }
     }
 }

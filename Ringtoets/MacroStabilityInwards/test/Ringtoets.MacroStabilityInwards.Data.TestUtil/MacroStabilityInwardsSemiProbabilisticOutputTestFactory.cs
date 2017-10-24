@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
 {
     /// <summary>
@@ -35,6 +37,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsSemiProbabilisticOutput CreateOutput(double probability = 0)
         {
             return new MacroStabilityInwardsSemiProbabilisticOutput(0, 0, 0, probability, 0, 0);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>
+        /// with random values that are not <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/>
+        /// or <see cref="double.NegativeInfinity"/>.
+        /// </summary>
+        /// <returns>A <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>.</returns>
+        public static MacroStabilityInwardsSemiProbabilisticOutput CreateRandomOutput()
+        {
+            var random = new Random(21);
+            return new MacroStabilityInwardsSemiProbabilisticOutput(random.NextDouble(),
+                                                                    random.NextDouble(),
+                                                                    random.NextDouble(),
+                                                                    random.NextDouble(),
+                                                                    random.NextDouble(),
+                                                                    random.NextDouble());
         }
     }
 }

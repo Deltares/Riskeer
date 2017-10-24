@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -48,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateOutput_WithProbability_ReturnsSemiProbabilistyOutputWithProbability()
+        public void CreateOutput_WithProbability_ReturnsSemiProbabilisticOutputWithProbability()
         {
             // Setup
             var random = new Random(21);
@@ -68,6 +69,31 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(probability, output.MacroStabilityInwardsProbability);
             Assert.AreEqual(0, output.MacroStabilityInwardsReliability, output.MacroStabilityInwardsReliability.GetAccuracy());
             Assert.AreEqual(0, output.MacroStabilityInwardsFactorOfSafety, output.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
+        }
+
+        [Test]
+        public void CreateRandomOutput_WithoutParameters_ReturnsSemiProbabilisticOutput()
+        {
+            // Call
+            MacroStabilityInwardsSemiProbabilisticOutput output = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateRandomOutput();
+
+            // Assert
+            Assert.IsNotNull(output);
+
+            Assert.AreEqual(typeof(MacroStabilityInwardsSemiProbabilisticOutput), output.GetType());
+
+            AssertIsConcreteValue(output.FactorOfStability);
+            AssertIsConcreteValue(output.RequiredProbability);
+            AssertIsConcreteValue(output.RequiredReliability);
+            AssertIsConcreteValue(output.MacroStabilityInwardsProbability);
+            AssertIsConcreteValue(output.MacroStabilityInwardsReliability);
+            AssertIsConcreteValue(output.MacroStabilityInwardsFactorOfSafety);
+        }
+
+        private static void AssertIsConcreteValue(double actualValue)
+        {
+            Assert.IsFalse(double.IsNaN(actualValue));
+            Assert.IsFalse(double.IsInfinity(actualValue));
         }
     }
 }

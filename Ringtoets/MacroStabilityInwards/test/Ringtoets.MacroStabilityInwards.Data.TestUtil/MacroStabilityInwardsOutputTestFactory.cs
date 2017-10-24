@@ -27,7 +27,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
     /// Factory that creates instances of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/>
     /// that can be used for testing.
     /// </summary>
-    public class MacroStabilityInwardsOutputTestFactory
+    public static class MacroStabilityInwardsOutputTestFactory
     {
         /// <summary>
         /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> with default values.
@@ -54,6 +54,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                                                                MacroStabilityInwardsGridTestFactory.Create(),
                                                                                                new double[0]),
                                                    properties);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> with initialized values
+        /// for all properties.
+        /// </summary>
+        /// <returns>A <see cref="MacroStabilityInwardsOutput"/>.</returns>
+        public static MacroStabilityInwardsOutput CreateRandomOutput()
+        {
+            var random = new Random(21);
+            var properties = new MacroStabilityInwardsOutput.ConstructionProperties
+            {
+                FactorOfStability = random.NextDouble(),
+                ForbiddenZonesXEntryMax = random.NextDouble(),
+                ForbiddenZonesXEntryMin = random.NextDouble(),
+                ZValue = random.NextDouble()
+            };
+
+            return CreateOutput(properties);
         }
     }
 }

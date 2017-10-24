@@ -151,15 +151,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
+            var random = new Random(21);
             var slidingCurve = new MacroStabilityInwardsSlidingCurve(MacroStabilityInwardsSlidingCircleTestFactory.Create(),
                                                                      MacroStabilityInwardsSlidingCircleTestFactory.Create(),
-                                                                     new MacroStabilityInwardsSlice[0], 0, 0);
+                                                                     new []
+                                                                     {
+                                                                         MacroStabilityInwardsSliceTestFactory.CreateSlice()
+                                                                     }, 
+                                                                     random.NextDouble(), 
+                                                                     random.NextDouble());
 
             var slipPlane = new MacroStabilityInwardsSlipPlaneUpliftVan(MacroStabilityInwardsGridTestFactory.Create(),
                                                                         MacroStabilityInwardsGridTestFactory.Create(),
-                                                                        new double[0]);
+                                                                        new []
+                                                                        {
+                                                                            random.NextDouble()
+                                                                        });
 
-            var random = new Random(21);
+            
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = random.NextDouble(),

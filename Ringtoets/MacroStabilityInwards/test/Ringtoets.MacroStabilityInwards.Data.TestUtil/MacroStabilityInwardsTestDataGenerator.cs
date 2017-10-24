@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -370,6 +373,87 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     subCalculationWithSurfaceLineAndStochasticSoilModel
                 }
             });
+        }
+
+        /// <summary>
+        /// Sets random values to all setters, including the nested ones, 
+        /// of the <see cref="MacroStabilityInwardsInput"/>.
+        /// </summary>
+        /// <param name="input">The input to set the random data to.</param>
+        public static void SetRandomMacroStabilityInwardsInput(MacroStabilityInwardsInput input)
+        {
+            var random = new Random(21);
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 0),
+                new Point3D(1, 1, 1)
+            });
+
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            input.StochasticSoilModel = stochasticSoilModel;
+            input.StochasticSoilProfile = stochasticSoilProfile;
+            input.SurfaceLine = surfaceLine;
+            input.UseAssessmentLevelManualInput = true;
+            input.AssessmentLevel = random.NextRoundedDouble();
+            input.SlipPlaneMinimumDepth = random.NextRoundedDouble();
+            input.SlipPlaneMinimumLength = random.NextRoundedDouble();
+            input.MaximumSliceWidth = random.NextRoundedDouble();
+            input.MoveGrid = random.NextBoolean();
+            input.DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>();
+            input.WaterLevelRiverAverage = random.NextRoundedDouble();
+            input.DrainageConstructionPresent = random.NextBoolean();
+            input.XCoordinateDrainageConstruction = random.NextRoundedDouble();
+            input.ZCoordinateDrainageConstruction = random.NextRoundedDouble();
+            input.MinimumLevelPhreaticLineAtDikeTopRiver = random.NextRoundedDouble();
+            input.MinimumLevelPhreaticLineAtDikeTopPolder = random.NextRoundedDouble();
+
+            input.LocationInputExtreme.WaterLevelPolder = random.NextRoundedDouble();
+            input.LocationInputExtreme.UseDefaultOffsets = random.NextBoolean();
+            input.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            input.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            input.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
+            input.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+            input.LocationInputExtreme.PenetrationLength = random.NextRoundedDouble();
+
+            input.LocationInputDaily.WaterLevelPolder = random.NextRoundedDouble();
+            input.LocationInputDaily.UseDefaultOffsets = random.NextBoolean();
+            input.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver = random.NextRoundedDouble();
+            input.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder = random.NextRoundedDouble();
+            input.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside = random.NextRoundedDouble();
+            input.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder = random.NextRoundedDouble();
+
+            input.AdjustPhreaticLine3And4ForUplift = random.NextBoolean();
+            input.LeakageLengthOutwardsPhreaticLine3 = random.NextRoundedDouble();
+            input.LeakageLengthInwardsPhreaticLine3 = random.NextRoundedDouble();
+            input.LeakageLengthOutwardsPhreaticLine4 = random.NextRoundedDouble();
+            input.LeakageLengthInwardsPhreaticLine4 = random.NextRoundedDouble();
+            input.PiezometricHeadPhreaticLine2Outwards = random.NextRoundedDouble();
+            input.PiezometricHeadPhreaticLine2Inwards = random.NextRoundedDouble();
+            input.GridDeterminationType = random.NextEnumValue<MacroStabilityInwardsGridDeterminationType>();
+            input.TangentLineDeterminationType = random.NextEnumValue<MacroStabilityInwardsTangentLineDeterminationType>();
+            input.TangentLineZTop = random.NextRoundedDouble();
+            input.TangentLineZBottom = random.NextRoundedDouble();
+            input.TangentLineNumber = random.Next(1, 50);
+
+            input.LeftGrid.XLeft = random.NextRoundedDouble(0.0, 1.0);
+            input.LeftGrid.XRight = random.NextRoundedDouble(2.0, 3.0);
+            input.LeftGrid.NumberOfHorizontalPoints = random.Next(1, 100);
+            input.LeftGrid.ZTop = random.NextRoundedDouble(2.0, 3.0);
+            input.LeftGrid.ZBottom = random.NextRoundedDouble(0.0, 1.0);
+            input.LeftGrid.NumberOfVerticalPoints = random.Next(1, 100);
+
+            input.RightGrid.XLeft = random.NextRoundedDouble(0.0, 1.0);
+            input.RightGrid.XRight = random.NextRoundedDouble(2.0, 3.0);
+            input.RightGrid.NumberOfHorizontalPoints = random.Next(1, 100);
+            input.RightGrid.ZTop = random.NextRoundedDouble(2.0, 3.0);
+            input.RightGrid.ZBottom = random.NextRoundedDouble(0.0, 1.0);
+            input.RightGrid.NumberOfVerticalPoints = random.Next(1, 100);
+
+            input.CreateZones = random.NextBoolean();
         }
     }
 }
