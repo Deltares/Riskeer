@@ -106,6 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsFalse(equalToNull);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -134,6 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsFalse(isContextEqualToDifferentObject);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -168,6 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsFalse(isContextEqualToDerivedContext);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -199,6 +202,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsTrue(isContext1EqualTo2);
             Assert.IsTrue(isContext2EqualTo1);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -235,6 +239,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsTrue(isContext1EqualTo2);
             Assert.IsTrue(isContext2EqualTo1);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -270,6 +275,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsFalse(isContext1EqualTo2);
             Assert.IsFalse(isContext2EqualTo1);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -305,6 +311,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsFalse(isContext1EqualTo2);
             Assert.IsFalse(isContext2EqualTo1);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -339,6 +346,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.AreEqual(hashCode1, hashCode2);
+            mocks.VerifyAll();
         }
 
         private class DerivedMacroStabilityInwardsCalculationGroupContext : MacroStabilityInwardsCalculationGroupContext
