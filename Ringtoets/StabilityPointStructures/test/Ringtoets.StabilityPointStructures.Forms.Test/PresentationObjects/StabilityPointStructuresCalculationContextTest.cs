@@ -56,5 +56,36 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
+
+        [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup  
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedStabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocksRepository.VerifyAll();
+        }
+
+        private class DerivedStabilityPointStructuresCalculationContext : StabilityPointStructuresCalculationContext
+        {
+            public DerivedStabilityPointStructuresCalculationContext(StructuresCalculation<StabilityPointStructuresInput> calculation,
+                                                                     CalculationGroup parent,
+                                                                     StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) {}
+        }
     }
 }

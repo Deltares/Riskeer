@@ -145,6 +145,29 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var parent = new CalculationGroup();
+
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
@@ -252,6 +275,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        private class DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext : WaveImpactAsphaltCoverWaveConditionsCalculationContext
+        {
+            public DerivedWaveImpactAsphaltCoverWaveConditionsCalculationContext(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
+                                                                                 CalculationGroup parent,
+                                                                                 WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                                 IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }
 }

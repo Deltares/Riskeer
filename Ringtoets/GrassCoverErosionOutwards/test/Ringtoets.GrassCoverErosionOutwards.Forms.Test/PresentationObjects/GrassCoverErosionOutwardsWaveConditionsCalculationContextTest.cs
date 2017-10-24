@@ -145,6 +145,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup  
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedGrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
@@ -252,6 +274,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        private class DerivedGrassCoverErosionOutwardsWaveConditionsCalculationContext : GrassCoverErosionOutwardsWaveConditionsCalculationContext
+        {
+            public DerivedGrassCoverErosionOutwardsWaveConditionsCalculationContext(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                                    CalculationGroup parent,
+                                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                    IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }
 }

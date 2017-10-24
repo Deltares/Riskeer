@@ -145,6 +145,28 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup  
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<TestStructuresInput>();
+            var failureMechanism = new TestFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new TestStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedTestStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
@@ -260,6 +282,15 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                                                     CalculationGroup parent,
                                                     TestFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) {}
+        }
+
+        private class DerivedTestStructuresCalculationContext : TestStructuresCalculationContext
+        {
+            public DerivedTestStructuresCalculationContext(StructuresCalculation<TestStructuresInput> calculation,
+                                                           CalculationGroup parent,
+                                                           TestFailureMechanism failureMechanism,
+                                                           IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }

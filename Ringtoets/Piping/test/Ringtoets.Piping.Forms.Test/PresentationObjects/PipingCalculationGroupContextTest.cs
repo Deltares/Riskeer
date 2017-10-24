@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -152,6 +153,40 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             Assert.IsFalse(isEqual);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new PipingSurfaceLine[0];
+            var soilModels = new PipingStochasticSoilModel[0];
+            var context = new PipingCalculationGroupContext(calculationGroup,
+                                                            parent,
+                                                            surfaceLines,
+                                                            soilModels,
+                                                            failureMechanism,
+                                                            assessmentSection);
+            var derivedContext = new DerivedPipingCalculationGroupContext(calculationGroup,
+                                                                          parent,
+                                                                          surfaceLines,
+                                                                          soilModels,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
             mocks.VerifyAll();
         }
 
@@ -302,6 +337,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        private class DerivedPipingCalculationGroupContext : PipingCalculationGroupContext
+        {
+            public DerivedPipingCalculationGroupContext(CalculationGroup calculationGroup,
+                                                        CalculationGroup parent,
+                                                        IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                        IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
+                                                        PipingFailureMechanism pipingFailureMechanism,
+                                                        IAssessmentSection assessmentSection)
+                : base(calculationGroup, parent, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
         }
     }
 }

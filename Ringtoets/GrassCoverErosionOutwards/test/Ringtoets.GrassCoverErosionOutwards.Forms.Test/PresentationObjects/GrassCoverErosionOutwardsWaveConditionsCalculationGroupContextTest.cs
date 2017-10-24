@@ -136,6 +136,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                             parent,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+            var derivedContext = new DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext(calculationGroup,
+                                                                                                            parent,
+                                                                                                            failureMechanism,
+                                                                                                            assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
@@ -266,6 +294,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        private class DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext : GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext
+        {
+            public DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext(CalculationGroup calculationGroup,
+                                                                                          CalculationGroup parent,
+                                                                                          GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                          IAssessmentSection assessmentSection)
+                : base(calculationGroup, parent, failureMechanism, assessmentSection) {}
         }
     }
 }

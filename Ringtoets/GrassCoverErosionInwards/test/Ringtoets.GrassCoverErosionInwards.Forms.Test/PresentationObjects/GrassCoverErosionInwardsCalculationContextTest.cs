@@ -125,6 +125,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup  
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedGrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentType_ReturnFalse()
         {
             // Setup
@@ -254,6 +276,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocksRepository.VerifyAll();
+        }
+
+        private class DerivedGrassCoverErosionInwardsCalculationContext : GrassCoverErosionInwardsCalculationContext
+        {
+            public DerivedGrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation,
+                                                                     CalculationGroup parent,
+                                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }
 }

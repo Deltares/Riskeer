@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -189,6 +190,40 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+            var parent = new CalculationGroup();
+            var surfaceLines = new PipingSurfaceLine[0];
+            var soilModels = new PipingStochasticSoilModel[0];
+            var context = new PipingCalculationScenarioContext(calculationScenario,
+                                                               parent,
+                                                               surfaceLines,
+                                                               soilModels,
+                                                               failureMechanism,
+                                                               assessmentSection);
+            var derivedContext = new DerivedPipingCalculationScenarioContext(calculationScenario,
+                                                                             parent,
+                                                                             surfaceLines,
+                                                                             soilModels,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
@@ -332,6 +367,16 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocksRepository.VerifyAll();
+        }
+
+        private class DerivedPipingCalculationScenarioContext : PipingCalculationScenarioContext
+        {
+            public DerivedPipingCalculationScenarioContext(PipingCalculationScenario calculation,
+                                                           CalculationGroup parent,
+                                                           IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                           IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
+                                                           PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
+                : base(calculation, parent, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
         }
     }
 }

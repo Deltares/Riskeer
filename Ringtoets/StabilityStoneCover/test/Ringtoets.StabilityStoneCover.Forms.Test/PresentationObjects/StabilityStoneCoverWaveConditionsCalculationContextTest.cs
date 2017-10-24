@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Is = Rhino.Mocks.Constraints.Is;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 {
@@ -145,6 +146,28 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedStabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Equals_ToOtherWithDifferentWrappedData_ReturnFalse()
         {
             // Setup
@@ -215,7 +238,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var context1 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
             var context2 = new StabilityStoneCoverWaveConditionsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            
+
             // Call
             bool isEqual1 = context1.Equals(context2);
             bool isEqual2 = context2.Equals(context1);
@@ -252,6 +275,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        private class DerivedStabilityStoneCoverWaveConditionsCalculationContext : StabilityStoneCoverWaveConditionsCalculationContext
+        {
+            public DerivedStabilityStoneCoverWaveConditionsCalculationContext(StabilityStoneCoverWaveConditionsCalculation wrappedData,
+                                                                              CalculationGroup parent,
+                                                                              StabilityStoneCoverFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection)
+                : base(wrappedData, parent, failureMechanism, assessmentSection) {}
         }
     }
 }

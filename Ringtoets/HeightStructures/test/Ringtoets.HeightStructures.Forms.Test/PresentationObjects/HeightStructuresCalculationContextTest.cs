@@ -56,5 +56,36 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
+
+        [Test]
+        public void Equals_ToDerivedObject_ReturnsFalse()
+        {
+            // Setup  
+            var mocksRepository = new MockRepository();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var parent = new CalculationGroup();
+            var context = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedHeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocksRepository.VerifyAll();
+        }
+
+        private class DerivedHeightStructuresCalculationContext : HeightStructuresCalculationContext
+        {
+            public DerivedHeightStructuresCalculationContext(StructuresCalculation<HeightStructuresInput> calculation,
+                                                                     CalculationGroup parent,
+                                                                     HeightStructuresFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
+                : base(calculation, parent, failureMechanism, assessmentSection) { }
+        }
     }
 }

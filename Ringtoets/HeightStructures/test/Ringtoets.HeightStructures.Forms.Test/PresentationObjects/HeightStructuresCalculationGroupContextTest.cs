@@ -74,9 +74,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                       parent,
-                                                                       failureMechanism,
-                                                                       assessmentSection);
+                                                                      parent,
+                                                                      failureMechanism,
+                                                                      assessmentSection);
 
             // Call
             bool isEqual = context.Equals(null);
@@ -99,9 +99,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                       parent,
-                                                                       failureMechanism,
-                                                                       assessmentSection);
+                                                                      parent,
+                                                                      failureMechanism,
+                                                                      assessmentSection);
 
             // Call
             bool isEqual = context.Equals(context);
@@ -124,9 +124,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                       parent,
-                                                                       failureMechanism,
-                                                                       assessmentSection);
+                                                                      parent,
+                                                                      failureMechanism,
+                                                                      assessmentSection);
 
             // Call
             bool isEqual = context.Equals(new object());
@@ -134,6 +134,34 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             // Assert
             Assert.IsFalse(isEqual);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToDerivedType_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var parent = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var context = new HeightStructuresCalculationGroupContext(calculationGroup,
+                                                                      parent,
+                                                                      failureMechanism,
+                                                                      assessmentSection);
+            var derivedContext = new DerivedHeightStructuresCalculationGroupContext(calculationGroup,
+                                                                                    parent,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(derivedContext);
+
+            // Assert
+            Assert.IsFalse(isEqual);
             mocks.VerifyAll();
         }
 
@@ -150,13 +178,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context1 = new HeightStructuresCalculationGroupContext(calculationGroup1,
-                                                                        parent,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
             var context2 = new HeightStructuresCalculationGroupContext(calculationGroup2,
-                                                                        parent,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
 
             // Precondition
             Assert.IsFalse(calculationGroup1.Equals(calculationGroup2));
@@ -185,13 +213,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent2 = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context1 = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                        parent1,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent1,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
             var context2 = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                        parent2,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent2,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
 
             // Precondition
             Assert.IsFalse(parent1.Equals(parent2));
@@ -219,13 +247,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context1 = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                        parent,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
             var context2 = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                        parent,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
 
             // Call
             bool isEqual1 = context1.Equals(context2);
@@ -250,13 +278,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context1 = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                        parent,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
             var context2 = new HeightStructuresCalculationGroupContext(calculationGroup,
-                                                                        parent,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+                                                                       parent,
+                                                                       failureMechanism,
+                                                                       assessmentSection);
             // Precondition
             Assert.AreEqual(context1, context2);
 
@@ -268,6 +296,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             Assert.AreEqual(hashCode1, hashCode2);
 
             mocks.VerifyAll();
+        }
+
+        private class DerivedHeightStructuresCalculationGroupContext : HeightStructuresCalculationGroupContext
+        {
+            public DerivedHeightStructuresCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                                  CalculationGroup parent,
+                                                                  HeightStructuresFailureMechanism failureMechanism,
+                                                                  IAssessmentSection assessmentSection)
+                : base(calculationsGroup, parent, failureMechanism, assessmentSection) {}
         }
     }
 }
