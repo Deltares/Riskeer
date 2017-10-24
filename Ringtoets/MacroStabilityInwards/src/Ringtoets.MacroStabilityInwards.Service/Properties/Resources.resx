@@ -135,4 +135,7 @@
   <data name="MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation" xml:space="preserve">
     <value>Macrostabiliteit binnenwaarts validatie mislukt.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop" xml:space="preserve">
+    <value>De ondergrondschematisatie moet boven de profielschematisatie liggen.</value>
+  </data>
 </root>

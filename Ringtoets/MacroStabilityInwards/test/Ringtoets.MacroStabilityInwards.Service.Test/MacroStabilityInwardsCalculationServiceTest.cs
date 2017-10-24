@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
@@ -30,6 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
@@ -37,6 +39,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Service.Test
 {
@@ -233,6 +236,128 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(0.06)]
+        [TestCase(1)]
+        public void Validate_SoilProfile1DTopDoesNotExceedSurfaceLineTop_LogsErrorAndReturnsFalse(double differenceFromTop)
+        {
+            // Setup
+            const double surfaceLineTop = 5.0;
+
+            testCalculation.Name = "Top of soil layer does not exceed top of surface line";
+
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile1D("profile", 0.0, new[]
+            {
+                new MacroStabilityInwardsSoilLayer1D(surfaceLineTop - differenceFromTop)
+            }));
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 0.0);
+            var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 1.0);
+            var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 2.0);
+            var fourthCharacteristicPointLocation = new Point3D(0.4, 0.0, 3.0);
+            var fifthCharacteristicPointLocation = new Point3D(0.5, 0.0, 4.0);
+            var sixthCharacteristicPointLocation = new Point3D(0.6, 0.0, surfaceLineTop);
+
+            surfaceLine.SetGeometry(new[]
+            {
+                firstCharacteristicPointLocation,
+                secondCharacteristicPointLocation,
+                thirdCharacteristicPointLocation,
+                fourthCharacteristicPointLocation,
+                fifthCharacteristicPointLocation,
+                sixthCharacteristicPointLocation
+            });
+            surfaceLine.SetSurfaceLevelOutsideAt(firstCharacteristicPointLocation);
+            surfaceLine.SetDikeToeAtRiverAt(secondCharacteristicPointLocation);
+            surfaceLine.SetDikeTopAtRiverAt(thirdCharacteristicPointLocation);
+            surfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
+            surfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
+            surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
+
+            testCalculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
+            testCalculation.InputParameters.SurfaceLine = surfaceLine;
+
+            var isValid = true;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("De ondergrondschematisatie moet boven de profielschematisatie liggen.", msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                });
+                Assert.IsFalse(isValid);
+            }
+        }
+
+        [Test]
+        [TestCase(0.05)]
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void Validate_SoilProfile1DTopExceedsSurfaceLineTop_ReturnsTrue(double differenceFromTop)
+        {
+            // Setup
+            const double surfaceLineTop = 5.0;
+
+            testCalculation.Name = "Top of soil layer < top of surface line";
+
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile1D("profile", 0.0, new[]
+            {
+                new MacroStabilityInwardsSoilLayer1D(surfaceLineTop - differenceFromTop)
+            }));
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 0.0);
+            var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 1.0);
+            var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 2.0);
+            var fourthCharacteristicPointLocation = new Point3D(0.4, 0.0, 3.0);
+            var fifthCharacteristicPointLocation = new Point3D(0.5, 0.0, 4.0);
+            var sixthCharacteristicPointLocation = new Point3D(0.6, 0.0, surfaceLineTop);
+
+            surfaceLine.SetGeometry(new[]
+            {
+                firstCharacteristicPointLocation,
+                secondCharacteristicPointLocation,
+                thirdCharacteristicPointLocation,
+                fourthCharacteristicPointLocation,
+                fifthCharacteristicPointLocation,
+                sixthCharacteristicPointLocation
+            });
+            surfaceLine.SetSurfaceLevelOutsideAt(firstCharacteristicPointLocation);
+            surfaceLine.SetDikeToeAtRiverAt(secondCharacteristicPointLocation);
+            surfaceLine.SetDikeTopAtRiverAt(thirdCharacteristicPointLocation);
+            surfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
+            surfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
+            surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
+
+            testCalculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
+            testCalculation.InputParameters.SurfaceLine = surfaceLine;
+
+            var isValid = false;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(2, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                });
+                Assert.IsTrue(isValid);
+            }
         }
 
         [Test]

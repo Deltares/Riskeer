@@ -139,5 +139,15 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationService_ValidateInput_No_SurfaceLine_selected", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ondergrondschematisatie moet boven de profielschematisatie liggen..
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger" +
+                        "_than_SurfaceLineTop", resourceCulture);
+            }
+        }
     }
 }

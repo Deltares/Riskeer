@@ -26,12 +26,14 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -146,10 +148,36 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             validationResults.AddRange(ValidateHydraulics(inputParameters));
 
-            IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters);
+            IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters).ToArray();
             validationResults.AddRange(coreValidationError);
 
+            if (!coreValidationError.Any())
+            {
+                validationResults.AddRange(ValidateSoilLayers(inputParameters));
+            }
+
             return validationResults;
+        }
+
+        private static IEnumerable<string> ValidateSoilLayers(MacroStabilityInwardsInput inputParameters)
+        {
+            var soilProfile1D = inputParameters.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+            if (soilProfile1D != null)
+            {
+                if (!ValidateTopOfProfileExceedsSurfaceLineTop(inputParameters, soilProfile1D))
+                {
+                    yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop;
+                }
+            }
+        }
+
+        private static bool ValidateTopOfProfileExceedsSurfaceLineTop(IMacroStabilityInwardsWaternetInput inputParameters,
+                                                                      MacroStabilityInwardsSoilProfile1D soilProfile1D)
+        {
+            double layerTop = soilProfile1D.Layers.Max(l => l.Top);
+            double surfaceLineTop = inputParameters.SurfaceLine.LocalGeometry.Max(p => p.Y);
+
+            return layerTop + 0.05 >= surfaceLineTop;
         }
 
         private static IEnumerable<string> ValidateHydraulics(MacroStabilityInwardsInput inputParameters)
