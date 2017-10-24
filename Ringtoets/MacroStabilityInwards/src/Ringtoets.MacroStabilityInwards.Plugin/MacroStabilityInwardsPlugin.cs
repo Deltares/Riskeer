@@ -75,9 +75,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context, new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
-            yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputContextProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsSemiProbabilisticOutputProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsOutputContextProperties(context.WrappedData.SemiProbabilisticOutput)
+                CreateInstance = context => new MacroStabilityInwardsSemiProbabilisticOutputProperties(context.WrappedData.SemiProbabilisticOutput)
             };
             yield return new PropertyInfo<MacroStabilityInwardsSurfaceLinesContext, MacroStabilityInwardsSurfaceLineCollectionProperties>
             {
@@ -232,7 +232,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
                 GetViewName = (view, input) => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = MacroStabilityInwardsFormsResources.MacroStabilityInwardsInputIcon,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData
             };
 
@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, output) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = MacroStabilityInwardsFormsResources.MacroStabilityInwardsInputIcon,
+                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData
             };
         }
@@ -285,7 +285,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new TreeNodeInfo<MacroStabilityInwardsInputContext>
             {
                 Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => MacroStabilityInwardsFormsResources.MacroStabilityInwardsInputIcon,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
@@ -748,7 +748,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = macroStabilityInwardsCalculationScenarioContext.WrappedData;
 
-            var childNodes = new List<object>
+            return new object[]
             {
                 macroStabilityInwardsCalculationScenario.Comments,
                 new MacroStabilityInwardsInputContext(macroStabilityInwardsCalculationScenario.InputParameters,
@@ -759,8 +759,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                                                       macroStabilityInwardsCalculationScenarioContext.AssessmentSection),
                 new MacroStabilityInwardsOutputContext(macroStabilityInwardsCalculationScenario)
             };
-
-            return childNodes.ToArray();
         }
 
         private static void CalculationContextOnNodeRemoved(MacroStabilityInwardsCalculationScenarioContext macroStabilityInwardsCalculationScenarioContext, object parentNodeData)

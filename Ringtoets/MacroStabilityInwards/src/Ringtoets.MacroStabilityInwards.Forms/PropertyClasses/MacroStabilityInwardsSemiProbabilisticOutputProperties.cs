@@ -33,7 +33,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="MacroStabilityInwardsSemiProbabilisticOutput"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsOutputContextProperties : ObjectProperties<MacroStabilityInwardsSemiProbabilisticOutput>
+    public class MacroStabilityInwardsSemiProbabilisticOutputProperties : ObjectProperties<MacroStabilityInwardsSemiProbabilisticOutput>
     {
         private const int macroStabilityInwardsFactorOfStabilityIndex = 1;
         private const int requiredProbabilityIndex = 2;
@@ -43,23 +43,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int macroStabilityInwardsFactorOfSafetyIndex = 6;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsOutputContextProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSemiProbabilisticOutputProperties"/>.
         /// </summary>
-        /// <param name="output">The semi probabilistic output to create the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/>
+        /// <param name="semiProbabilisticOutput">The semi probabilistic output to create the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="semiProbabilisticOutput"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsOutputContextProperties(MacroStabilityInwardsSemiProbabilisticOutput output)
+        public MacroStabilityInwardsSemiProbabilisticOutputProperties(MacroStabilityInwardsSemiProbabilisticOutput semiProbabilisticOutput)
         {
-            if (output == null)
+            if (semiProbabilisticOutput == null)
             {
-                throw new ArgumentNullException(nameof(output));
+                throw new ArgumentNullException(nameof(semiProbabilisticOutput));
             }
-            Data = output;
+            Data = semiProbabilisticOutput;
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_FactorOfStability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_FactorOfStability_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_FactorOfStability_Description))]
         [PropertyOrder(macroStabilityInwardsFactorOfStabilityIndex)]
         public RoundedDouble MacroStabilityInwardsFactorOfStability
         {
@@ -69,9 +69,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredProbability_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_RequiredProbability_Description))]
         [PropertyOrder(requiredProbabilityIndex)]
         public string RequiredProbability
         {
@@ -81,9 +81,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredReliability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_RequiredReliability_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_RequiredReliability_Description))]
         [PropertyOrder(requiredReliabilityIndex)]
         public RoundedDouble RequiredReliability
         {
@@ -93,9 +93,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsProbability_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsProbability_Description))]
         [PropertyOrder(macroStabilityInwardsProbabilityIndex)]
         public string MacroStabilityInwardsProbability
         {
@@ -105,9 +105,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsReliability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsReliability_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsReliability_Description))]
         [PropertyOrder(macroStabilityInwardsReliabilityIndex)]
         public RoundedDouble MacroStabilityInwardsReliability
         {
@@ -117,9 +117,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsFactorOfSafety_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutputContext_MacroStabilityInwardsFactorOfSafety_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_Categories_MacroStabilityInwards))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsSemiProbabilisticOutput_MacroStabilityInwardsFactorOfSafety_Description))]
         [PropertyOrder(macroStabilityInwardsFactorOfSafetyIndex)]
         public RoundedDouble MacroStabilityInwardsFactorOfSafety
         {

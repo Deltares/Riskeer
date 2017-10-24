@@ -46,8 +46,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var surfaceLineChartData = (ChartLineData) actual;
 
             Assert.AreEqual(original.Points.Length, surfaceLineChartData.Points.Length);
-            CollectionAssert.AreEqual(original.LocalGeometry, surfaceLineChartData.Points);
             Assert.AreEqual(original.Name, actual.Name);
+            CollectionAssert.AreEqual(original.LocalGeometry, surfaceLineChartData.Points);
         }
 
         /// <summary>
@@ -67,14 +67,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(expectedLayerCount + 1, soilProfileChartData.Collection.Count());
             Assert.AreEqual(original.SoilProfile.Name, soilProfileChartData.Name);
 
-            string[] soilLayers = original.SoilProfile.Layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
+            string[] expectedSoilLayerNames = original.SoilProfile.Layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
 
             for (var i = 0; i < expectedLayerCount; i++)
             {
                 var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
 
                 Assert.IsNotNull(chartMultipleAreaData);
-                Assert.AreEqual(soilLayers[i], chartMultipleAreaData.Name);
+                Assert.AreEqual(expectedSoilLayerNames[i], chartMultipleAreaData.Name);
                 Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
             }
 

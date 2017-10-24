@@ -69,14 +69,49 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains empty data without
+        /// any soil layer chart data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="chartDataCollection"/> is not empty;</item>
+        /// <item>the soil profile chart data contains chart data.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertEmptyChartDataWithoutSoilLayerData(ChartDataCollection chartDataCollection)
+        {
+            var soilProfileData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(soilProfileIndex);
+            CollectionAssert.IsEmpty(soilProfileData.Collection);
+            AssertEmptyChartData(chartDataCollection);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains empty data and
+        /// empty soil layer chart data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="chartDataCollection"/> is not empty;</item>
+        /// <item>a soil layer chart data contains data.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertEmptyChartDataWithEmptySoilLayerChartData(ChartDataCollection chartDataCollection)
+        {
+            var soilProfileData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(soilProfileIndex);
+            CollectionAssert.IsNotEmpty(soilProfileData.Collection);
+            Assert.IsFalse(soilProfileData.Collection.Any(c => c.HasData));
+            AssertEmptyChartData(chartDataCollection);
+        }
+
+        /// <summary>
         /// Asserts whether <paramref name="chartDataCollection"/> contains empty data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
-        /// <param name="soilProfileEmpty">Indicator whether the soil profile chart data
-        /// should be empty.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="chartDataCollection"/>
         /// is not empty.</exception>
-        public static void AssertEmptyChartData(ChartDataCollection chartDataCollection, bool soilProfileEmpty)
+        private static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
         {
             Assert.AreEqual("Resultaat", chartDataCollection.Name);
 
@@ -99,14 +134,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var dikeTopAtRiverData = (ChartPointData) chartDatasList[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
 
-            if (soilProfileEmpty)
-            {
-                CollectionAssert.IsEmpty(soilProfileData.Collection);
-            }
-            else
-            {
-                Assert.IsFalse(soilProfileData.Collection.Any(c => c.HasData));
-            }
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
             CollectionAssert.IsEmpty(ditchPolderSideData.Points);

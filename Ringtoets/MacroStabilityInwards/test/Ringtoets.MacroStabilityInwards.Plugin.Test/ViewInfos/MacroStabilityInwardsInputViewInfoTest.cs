@@ -26,12 +26,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using FormsResources = Ringtoets.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsInputContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityInwardsCalculationScenario), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(FormsResources.MacroStabilityInwardsInputIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, info.Image);
         }
 
         [Test]

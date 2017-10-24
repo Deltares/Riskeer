@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
     public class MacroStabilityInwardsOutputContextTest
     {
         [Test]
-        public void Constructor_WithOutputParameters_PropertiesSet()
+        public void Constructor_WithCalculationScenario_PropertiesSet()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();

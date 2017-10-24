@@ -54,6 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var splitContainer = view.Controls[0] as SplitContainer;
                 Assert.IsNotNull(splitContainer);
                 Assert.AreEqual(1, splitContainer.Panel1.Controls.Count);
+                Assert.IsEmpty(splitContainer.Panel2.Controls);
                 Assert.IsInstanceOf<MacroStabilityInwardsOutputChartControl>(splitContainer.Panel1.Controls[0]);
             }
         }
@@ -98,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 form.Controls.Add(view);
                 form.Show();
 
-                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
                 MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
@@ -128,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 form.Controls.Add(view);
                 form.Show();
 
-                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
                 // Precondition
                 Assert.AreSame(calculation, view.Data);
@@ -153,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 form.Controls.Add(view);
                 form.Show();
 
-                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
@@ -180,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(chartData, false);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(chartData);
             }
         }
 
@@ -194,7 +195,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 form.Controls.Add(view);
                 form.Show();
 
-                MacroStabilityInwardsOutputChartControl chartControl = ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
+                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
@@ -211,7 +212,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(chartData, false);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(chartData);
 
                 // When
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
@@ -222,6 +223,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                calculation.InputParameters.StochasticSoilProfile,
                                                                                chartData);
             }
+        }
+
+        private static MacroStabilityInwardsOutputChartControl GetChartControl(Form form)
+        {
+            return ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
         }
 
         private static IChartControl GetChartControl(MacroStabilityInwardsOutputChartControl view)

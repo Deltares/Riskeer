@@ -32,27 +32,27 @@ using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class MacroStabilityInwardsOutputContextPropertiesTest
+    public class MacroStabilityInwardsSemiProbabilisticOutputPropertiesTest
     {
         [Test]
-        public void Constructor_OutputNull_ThrowsArgumentNullException()
+        public void Constructor_SemiProbabilisticOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutputContextProperties(null);
+            TestDelegate call = () => new MacroStabilityInwardsSemiProbabilisticOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("output", exception.ParamName);
+            Assert.AreEqual("semiProbabilisticOutput", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var output = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
-            
+            MacroStabilityInwardsSemiProbabilisticOutput output = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput();
+
             // Call
-            var properties = new MacroStabilityInwardsOutputContextProperties(output);
+            var properties = new MacroStabilityInwardsSemiProbabilisticOutputProperties(output);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSemiProbabilisticOutput>>(properties);
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 macroStabilityInwardsFactorOfSafety);
 
             // Call
-            var properties = new MacroStabilityInwardsOutputContextProperties(semiProbabilisticOutput);
+            var properties = new MacroStabilityInwardsSemiProbabilisticOutputProperties(semiProbabilisticOutput);
 
             // Assert
             Assert.AreEqual(macroStabilityInwardsFactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithZeroValues_ReturnTranslatedFormat()
         {
             // Call
-            var properties = new MacroStabilityInwardsOutputContextProperties(MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput());
+            var properties = new MacroStabilityInwardsSemiProbabilisticOutputProperties(MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput());
 
             // Assert
             const string probability = "1/Oneindig";
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new MacroStabilityInwardsOutputContextProperties(MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput());
+            var properties = new MacroStabilityInwardsSemiProbabilisticOutputProperties(MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsOutputContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsSemiProbabilisticOutputProperties));
         }
 
         [TearDown]
@@ -54,11 +54,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsOutputContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityInwardsOutputContextProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsSemiProbabilisticOutputProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
+        public void CreateInstance_Always_NewPropertiesWithSemiProbabilisticOutputAsData()
         {
             // Setup
             var scenario = new MacroStabilityInwardsCalculationScenario
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsOutputContextProperties>(objectProperties);
+            Assert.IsInstanceOf<MacroStabilityInwardsSemiProbabilisticOutputProperties>(objectProperties);
             Assert.AreSame(scenario.SemiProbabilisticOutput, objectProperties.Data);
         }
     }

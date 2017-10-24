@@ -27,8 +27,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.MacroStabilityInwardsInputIcon, image);
+            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, image);
         }
 
         [Test]

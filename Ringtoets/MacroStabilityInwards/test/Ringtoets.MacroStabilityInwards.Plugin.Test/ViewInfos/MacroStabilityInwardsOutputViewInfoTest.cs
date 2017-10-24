@@ -29,18 +29,18 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsOutputViewInfoTest : ShouldCloseViewWithCalculationDataTester
+    public class MacroStabilityInwardsOutputViewInfoTest
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -66,11 +66,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsOutputContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityInwardsCalculationScenario), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(Resources.MacroStabilityInwardsInputIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(Resources.GeneralOutputIcon, info.Image);
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsInputResourceName()
+        public void GetViewName_Always_ReturnsOutputResourceName()
         {
             // Setup
             using (var view = new MacroStabilityInwardsOutputView())
@@ -110,62 +110,71 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             Assert.IsInstanceOf<MacroStabilityInwardsOutputView>(view);
         }
 
-        protected override bool ShouldCloseMethod(IView view, object o)
+        [TestFixture]
+        public class ShouldCloseMacroStabilityInwardsOutputViewTester : ShouldCloseViewWithCalculationDataTester
         {
-            return info.CloseForData(view, o);
-        }
-
-        protected override IView GetView()
-        {
-            return new MacroStabilityInwardsOutputView();
-        }
-
-        protected override ICalculation GetCalculation()
-        {
-            return new MacroStabilityInwardsCalculationScenario();
-        }
-
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-        {
-            return new MacroStabilityInwardsCalculationScenarioContext(
-                new MacroStabilityInwardsCalculationScenario(),
-                new CalculationGroup(),
-                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                new MacroStabilityInwardsFailureMechanism(),
-                new ObservableTestAssessmentSectionStub());
-        }
-
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-        {
-            return new MacroStabilityInwardsCalculationGroupContext(
-                new CalculationGroup
+            protected override bool ShouldCloseMethod(IView view, object o)
+            {
+                using (var plugin = new MacroStabilityInwardsPlugin())
                 {
-                    Children =
-                    {
-                        new MacroStabilityInwardsCalculationScenario()
-                    }
-                },
-                null,
-                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                new MacroStabilityInwardsFailureMechanism(),
-                new ObservableTestAssessmentSectionStub());
-        }
+                    return plugin.GetViewInfos()
+                                 .First(tni => tni.ViewType == typeof(MacroStabilityInwardsOutputView))
+                                 .CloseForData(view, o);
+                }
+            }
 
-        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-        {
-            return new MacroStabilityInwardsFailureMechanismContext(
-                new MacroStabilityInwardsFailureMechanism
-                {
-                    CalculationsGroup =
+            protected override IView GetView()
+            {
+                return new MacroStabilityInwardsOutputView();
+            }
+
+            protected override ICalculation GetCalculation()
+            {
+                return new MacroStabilityInwardsCalculationScenario();
+            }
+
+            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            {
+                return new MacroStabilityInwardsCalculationScenarioContext(
+                    new MacroStabilityInwardsCalculationScenario(),
+                    new CalculationGroup(),
+                    Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                    Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                    new MacroStabilityInwardsFailureMechanism(),
+                    new ObservableTestAssessmentSectionStub());
+            }
+
+            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            {
+                return new MacroStabilityInwardsCalculationGroupContext(
+                    new CalculationGroup
                     {
                         Children =
                         {
                             new MacroStabilityInwardsCalculationScenario()
                         }
-                    }
-                }, new ObservableTestAssessmentSectionStub());
+                    },
+                    null,
+                    Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                    Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                    new MacroStabilityInwardsFailureMechanism(),
+                    new ObservableTestAssessmentSectionStub());
+            }
+
+            protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            {
+                return new MacroStabilityInwardsFailureMechanismContext(
+                    new MacroStabilityInwardsFailureMechanism
+                    {
+                        CalculationsGroup =
+                        {
+                            Children =
+                            {
+                                new MacroStabilityInwardsCalculationScenario()
+                            }
+                        }
+                    }, new ObservableTestAssessmentSectionStub());
+            }
         }
     }
 }

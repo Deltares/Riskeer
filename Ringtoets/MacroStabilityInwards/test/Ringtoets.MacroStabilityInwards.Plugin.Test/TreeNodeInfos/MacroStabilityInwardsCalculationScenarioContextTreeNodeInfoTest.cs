@@ -108,11 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnOutputChildNode()
         {
             // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario
-            {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                SemiProbabilisticOutput = MacroStabilityInwardsSemiProbabilisticOutputTestFactory.CreateOutput()
-            };
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -294,10 +290,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                 contextMenuDuplicateIndex,
-                                                                 "D&upliceren",
-                                                                 "Dupliceer dit element.",
-                                                                 RingtoetsCommonFormsResources.CopyHS);
+                                                                  contextMenuDuplicateIndex,
+                                                                  "D&upliceren",
+                                                                  "Dupliceer dit element.",
+                                                                  RingtoetsCommonFormsResources.CopyHS);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   contextMenuValidateIndex,

@@ -125,9 +125,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Updates the chart data and redraws elements when necessary.
+        /// </summary>
         public void UpdateChartData()
         {
-            if (data != null && data.HasOutput)
+            if (data?.Output != null)
             {
                 SetChartData();
             }
@@ -137,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
 
             chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
-            soilProfileChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
+            soilProfileChartData.Collection.ForEachElementDo(sp => sp.NotifyObservers());
         }
 
         private void SetChartDataEmpty()

@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(chartControl.Data, true);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithoutSoilLayerData(chartControl.Data);
             }
         }
 
@@ -158,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.Data = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(control.Chart.Data, false);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(control.Chart.Data);
             }
         }
 
@@ -192,7 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.Data = null;
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(control.Chart.Data, false);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(control.Chart.Data);
             }
         }
 
@@ -217,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(control.Chart.Data, false);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(control.Chart.Data);
 
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
@@ -263,7 +263,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartData(control.Chart.Data, false);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(control.Chart.Data);
             }
         }
 
