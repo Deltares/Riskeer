@@ -58,20 +58,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create a <see cref="ChartAreaData"/> for a waternet zone.
+        /// Create a <see cref="ChartMultipleAreaData"/> for a waternet zone.
         /// </summary>
         /// <param name="name">The name of the zone.</param>
-        /// <returns>The created <see cref="ChartAreaData"/>.</returns>
+        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
         /// is <c>null</c>.</exception>
-        public static ChartAreaData CreateWaternetZoneChartData(string name)
+        public static ChartMultipleAreaData CreateWaternetZoneChartData(string name)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
 
-            return new ChartAreaData(name, new ChartAreaStyle
+            return new ChartMultipleAreaData(name, new ChartAreaStyle
             {
                 StrokeThickness = 0,
                 FillColor = Color.FromArgb(60, Color.DeepSkyBlue)
@@ -199,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> for a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> based on its color.
+        /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> based on its color.
         /// </summary>
         /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer1D"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
         /// <param name="soilProfile">The <see cref="IMacroStabilityInwardsSoilProfile{T}"/> which contains the <see cref="IMacroStabilityInwardsSoilLayer"/>.</param>

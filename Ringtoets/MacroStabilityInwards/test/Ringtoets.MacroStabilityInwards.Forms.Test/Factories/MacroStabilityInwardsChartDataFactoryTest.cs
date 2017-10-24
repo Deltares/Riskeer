@@ -76,10 +76,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             const string name = "zone";
 
             // Call
-            ChartAreaData data = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(name);
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(name);
 
             // Assert
-            CollectionAssert.IsEmpty(data.Points);
+            CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual(name, data.Name);
             AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Empty, 0);
         }

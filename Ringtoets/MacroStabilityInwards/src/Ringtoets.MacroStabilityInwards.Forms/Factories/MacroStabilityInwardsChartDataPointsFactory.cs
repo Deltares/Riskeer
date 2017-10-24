@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
 using Core.Components.Chart.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -273,16 +274,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// drawn height of it.</param>
         /// <returns>An array of points in 2D space or an empty array when <paramref name="waternetLine"/> or
         /// <paramref name="surfaceLine"/> is <c>null</c>.</returns>
-        public static Point2D[] CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine,
+        public static IEnumerable<Point2D[]> CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine,
                                                          MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (waternetLine == null || surfaceLine == null)
             {
-                return new Point2D[0];
+                return new Point2D[0][];
             }
 
             Point2D[] phreaticLineGeometry = waternetLine.PhreaticLine.Geometry.ToArray();
-            var points = new List<Point2D>(waternetLine.Geometry.Reverse());
+
+            var points = new List<Point2D>();
             var phreaticLinePoints = new List<Point2D>();
 
             phreaticLinePoints.AddRange(ClipPhreaticLineGeometryToSurfaceLine(phreaticLineGeometry, surfaceLine));
@@ -290,8 +292,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             phreaticLinePoints.AddRange(ClipPhreaticLineSegmentsToSurfaceLine(surfaceLine, phreaticLinePoints));
 
             points.AddRange(phreaticLinePoints.OrderBy(p => p.X));
+            points.AddRange(waternetLine.Geometry.OrderByDescending(p => p.X));
+            points.Add(phreaticLinePoints.First());
 
-            return points.ToArray();
+            return new[]
+            {
+                points.ToArray()
+            };
         }
 
         #region SoilLayers and Surface Line Helpers

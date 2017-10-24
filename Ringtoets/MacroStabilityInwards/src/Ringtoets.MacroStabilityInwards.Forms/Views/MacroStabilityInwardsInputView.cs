@@ -225,8 +225,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             foreach (MacroStabilityInwardsWaternetLine waternetLine in waternet.WaternetLines)
             {
-                ChartAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
-                waternetLineChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+                ChartMultipleAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
+                waternetLineChartData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
                 chartData.Add(waternetLineChartData);
             }
         }

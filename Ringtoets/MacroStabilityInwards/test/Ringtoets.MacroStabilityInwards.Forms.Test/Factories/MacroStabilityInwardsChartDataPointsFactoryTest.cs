@@ -771,7 +771,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             // Call
-            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(null, surfaceLine);
+            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(null, surfaceLine);
 
             // Assert
             CollectionAssert.IsEmpty(zone);
@@ -784,7 +784,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             var waternetLine = new TestMacroStabilityInwardsWaternetLine();
 
             // Call
-            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, null);
+            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, null);
 
             // Assert
             CollectionAssert.IsEmpty(zone);
@@ -819,10 +819,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
-            CollectionAssert.AreEqual(waternetLineGeometry.Reverse().Concat(phreaticLineGeometry), zone);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 0),
+                new Point2D(10,-2),
+                new Point2D(0, -2),
+                new Point2D(0, 0)
+            }, zone.First());
         }
 
         [Test]
@@ -857,18 +864,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                new Point2D(10, -2),
-                new Point2D(0, -2),
                 new Point2D(0, 2),
                 new Point2D(1.09, 4.91),
                 new Point2D(2, 4),
-                new Point2D(10, 0)
-            }, zone, new Point2DComparerWithTolerance(1e-2));
+                new Point2D(10, 0),
+                new Point2D(10, -2),
+                new Point2D(0, -2),
+                new Point2D(0, 2)
+            }, zone.First(), new Point2DComparerWithTolerance(1e-2));
         }
 
         [Test]
@@ -903,19 +911,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             });
 
             // Call
-            Point2D[] zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                new Point2D(10, -2),
-                new Point2D(0, -2),
                 new Point2D(0, 2),
                 new Point2D(3, 2),
                 new Point2D(4, 4),
                 new Point2D(4.67, 5.33),
-                new Point2D(8, 2)
-            }, zone, new Point2DComparerWithTolerance(1e-2));
+                new Point2D(8, 2),
+                new Point2D(10, -2),
+                new Point2D(0, -2),
+                new Point2D(0, 2)
+            }, zone.First(), new Point2DComparerWithTolerance(1e-2));
         }
 
         private static void AssertEqualPointCollection(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
