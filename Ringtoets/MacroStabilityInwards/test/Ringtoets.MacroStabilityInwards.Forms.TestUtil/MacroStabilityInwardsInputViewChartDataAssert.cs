@@ -23,16 +23,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
 {
     /// <summary>
     /// Class for asserting chart data in the macro stability
-    /// inwards output view.
+    /// inwards input view.
     /// </summary>
-    public static class MacroStabilityInwardsOutputViewChartDataAssert
+    public static class MacroStabilityInwardsInputViewChartDataAssert
     {
         private const int soilProfileIndex = 0;
         private const int surfaceLineIndex = 1;
@@ -48,7 +50,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int dikeToeAtRiverIndex = 11;
         private const int dikeTopAtRiverIndex = 12;
         private const int surfaceLevelOutsideIndex = 13;
-        private const int nrOfChartData = 14;
+        private const int leftGridIndex = 14;
+        private const int rightGridIndex = 15;
+        private const int waternetZonesExtremeIndex = 16;
+        private const int waternetZonesDailyIndex = 17;
+        private const int nrOfChartData = 18;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="surfaceLine"/>
@@ -69,16 +75,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether the data table in <paramref name="view"/> contains empty data.
+        /// </summary>
+        /// <param name="view">The actual <see cref="MacroStabilityInwardsInputView"/>.</param>
+        /// <exception cref="AssertionException">Thrown when the data table in <paramref name="view"/>
+        /// is not empty.</exception>
+        public static void AssertEmptySoilLayerTable(MacroStabilityInwardsInputView view)
+        {
+            MacroStabilityInwardsSoilLayerDataTable tableControl = ControlTestHelper.GetControls<MacroStabilityInwardsSoilLayerDataTable>(view,
+                                                                                                                                          "soilLayerDataTable")
+                                                                                    .Single();
+
+            // Precondition
+            Assert.NotNull(tableControl);
+            CollectionAssert.IsEmpty(tableControl.Rows);
+        }
+
+        /// <summary>
         /// Asserts whether <paramref name="chartDataCollection"/> contains empty data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
-        /// <param name="soilProfileEmpty">Indicator whether the soil profile chart data
-        /// should be empty.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="chartDataCollection"/>
         /// is not empty.</exception>
-        public static void AssertEmptyChartData(ChartDataCollection chartDataCollection, bool soilProfileEmpty)
+        public static void AssertEmptyChartData(ChartDataCollection chartDataCollection)
         {
-            Assert.AreEqual("Resultaat", chartDataCollection.Name);
+            Assert.AreEqual("Invoer", chartDataCollection.Name);
 
             List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
 
@@ -98,16 +119,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
             var dikeTopAtRiverData = (ChartPointData) chartDatasList[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
+            var leftGridOutsideData = (ChartPointData) chartDatasList[leftGridIndex];
+            var rightGridOutsideData = (ChartPointData) chartDatasList[rightGridIndex];
+            var waternetZonesExtremeData = (ChartDataCollection) chartDatasList[waternetZonesExtremeIndex];
+            var waternetZonesDailyData = (ChartDataCollection) chartDatasList[waternetZonesDailyIndex];
 
-            if (soilProfileEmpty)
-            {
-                CollectionAssert.IsEmpty(soilProfileData.Collection);
-            }
-            else
-            {
-                Assert.IsFalse(soilProfileData.Collection.Any(c => c.HasData));
-            }
             CollectionAssert.IsEmpty(surfaceLineData.Points);
+            CollectionAssert.IsEmpty(soilProfileData.Collection);
             CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
             CollectionAssert.IsEmpty(ditchPolderSideData.Points);
             CollectionAssert.IsEmpty(bottomDitchPolderSideData.Points);
@@ -120,6 +138,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             CollectionAssert.IsEmpty(dikeToeAtRiverData.Points);
             CollectionAssert.IsEmpty(dikeTopAtRiverData.Points);
             CollectionAssert.IsEmpty(surfaceLevelOutsideData.Points);
+            CollectionAssert.IsEmpty(leftGridOutsideData.Points);
+            CollectionAssert.IsEmpty(rightGridOutsideData.Points);
+            CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
+            CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
 
             Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
             Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
@@ -135,6 +157,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
             Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
+            Assert.AreEqual("Linker grid", leftGridOutsideData.Name);
+            Assert.AreEqual("Rechter grid", rightGridOutsideData.Name);
+            Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
+            Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
         }
     }
 }

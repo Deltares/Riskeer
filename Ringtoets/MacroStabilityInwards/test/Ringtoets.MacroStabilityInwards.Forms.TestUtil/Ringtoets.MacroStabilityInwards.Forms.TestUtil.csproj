@@ -47,12 +47,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="MacroStabilityInwardsInputViewChartDataAssert.cs" />
+    <Compile Include="MacroStabilityInwardsViewChartDataAssert.cs" />
     <Compile Include="MacroStabilityInwardsOutputViewChartDataAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,6 +70,10 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Chart</Name>
@@ -75,9 +82,17 @@
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
+      <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
+      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Forms\Ringtoets.MacroStabilityInwards.Forms.csproj">
+      <Project>{69EBF07F-20E5-4B5A-8620-C2638191AFED}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
       <Project>{E9B39743-2DC9-4922-9E0F-6BA3E0E54189}</Project>
