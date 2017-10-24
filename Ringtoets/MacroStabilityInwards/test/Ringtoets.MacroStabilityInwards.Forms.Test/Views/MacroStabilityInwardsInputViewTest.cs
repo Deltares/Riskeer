@@ -294,7 +294,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 view.Data = calculation;
 
                 // Assert
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptySoilLayerTable(view);
+                MacroStabilityInwardsSoilLayerDataTable tableControl =
+                    ControlTestHelper.GetControls<MacroStabilityInwardsSoilLayerDataTable>(view, "soilLayerDataTable")
+                                     .SingleOrDefault();
+
+                Assert.IsNotNull(tableControl);
+                CollectionAssert.IsEmpty(tableControl.Rows);
             }
         }
 
@@ -419,13 +424,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsInputView())
             {
-                MacroStabilityInwardsStochasticSoilProfile soilProfile2D = GetStochasticSoilProfile2D();
+                MacroStabilityInwardsStochasticSoilProfile originalSoilProfile = GetStochasticSoilProfile2D();
 
                 var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
-                        StochasticSoilProfile = soilProfile2D,
+                        StochasticSoilProfile = originalSoilProfile,
                         SurfaceLine = GetSurfaceLineWithGeometry()
                     }
                 };
@@ -437,10 +442,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 surfaceLineChartData.Attach(observer);
 
-                MacroStabilityInwardsStochasticSoilProfile soilProfile1D = GetStochasticSoilProfile1D();
+                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = GetStochasticSoilProfile2D();
 
                 // When
-                calculation.InputParameters.StochasticSoilProfile = soilProfile1D;
+                calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
@@ -448,7 +453,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 Assert.AreSame(surfaceLineChartData, (ChartDataCollection) chartDataList[soilProfileIndex]);
 
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(soilProfile1D, surfaceLineChartData, true);
+                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(newSoilProfile, surfaceLineChartData, true);
                 mocks.VerifyAll();
             }
         }

@@ -23,9 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
@@ -72,23 +70,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(nrOfChartData, actual.Collection.Count());
             MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(surfaceLine, actual.Collection.ElementAt(surfaceLineIndex));
             MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(stochasticSoilProfile, actual.Collection.ElementAt(soilProfileIndex), true);
-        }
-
-        /// <summary>
-        /// Asserts whether the data table in <paramref name="view"/> contains empty data.
-        /// </summary>
-        /// <param name="view">The actual <see cref="MacroStabilityInwardsInputView"/>.</param>
-        /// <exception cref="AssertionException">Thrown when the data table in <paramref name="view"/>
-        /// is not empty.</exception>
-        public static void AssertEmptySoilLayerTable(MacroStabilityInwardsInputView view)
-        {
-            MacroStabilityInwardsSoilLayerDataTable tableControl = ControlTestHelper.GetControls<MacroStabilityInwardsSoilLayerDataTable>(view,
-                                                                                                                                          "soilLayerDataTable")
-                                                                                    .Single();
-
-            // Precondition
-            Assert.NotNull(tableControl);
-            CollectionAssert.IsEmpty(tableControl.Rows);
         }
 
         /// <summary>

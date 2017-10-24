@@ -248,6 +248,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
             AssertEqualStyle(data.Style, soilLayer.Data.Color, Color.Black, 1);
+            mocks.VerifyAll();
         }
 
         [Test]

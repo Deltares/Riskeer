@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -256,40 +257,59 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 currentSoilProfile = soilProfile;
 
-                soilProfileChartData.Clear();
-                soilLayerChartDataLookup.Clear();
-                GetSoilLayers().Select((layer, layerIndex) => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layerIndex, soilProfile))
-                               .ForEachElementDo(sl =>
-                               {
-                                   soilProfileChartData.Insert(0, sl);
-                                   soilLayerChartDataLookup.Add(sl);
-                               });
-
-                MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
-
-                ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
-                soilProfileChartData.Insert(soilLayerChartDataLookup.Count, holesChartData);
-                soilLayerChartDataLookup.Add(holesChartData);
+                SetSoilProfileChartData(soilProfile);
             }
 
             if (soilProfile != null)
             {
                 if (surfaceLine != null)
                 {
-                    IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = data.InputParameters.SoilProfileUnderSurfaceLine;
-                    var i = 0;
-                    foreach (IMacroStabilityInwardsSoilLayerUnderSurfaceLine soilLayer in soilProfileUnderSurfaceLine.Layers)
-                    {
-                        ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i++];
-                        soilLayerData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(soilLayer);
-                    }
-
-                    soilLayerChartDataLookup.Last().Areas = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfileUnderSurfaceLine);
+                    SetSoilLayerAreas();
                 }
                 else
                 {
-                    MacroStabilityInwardsChartDataPointsFactory.SetEmptyAreas(soilLayerChartDataLookup);
+                    SetEmptySoilLayerAreas();
                 }
+            }
+        }
+
+        private void SetSoilProfileChartData(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
+        {
+            soilProfileChartData.Clear();
+            soilLayerChartDataLookup.Clear();
+            GetSoilLayers().Select((layer, layerIndex) => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layerIndex, soilProfile))
+                           .ForEachElementDo(sl =>
+                           {
+                               soilProfileChartData.Insert(0, sl);
+                               soilLayerChartDataLookup.Add(sl);
+                           });
+
+            MacroStabilityInwardsChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, soilProfile);
+
+            ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
+            soilProfileChartData.Insert(soilLayerChartDataLookup.Count, holesChartData);
+            soilLayerChartDataLookup.Add(holesChartData);
+        }
+
+        private void SetSoilLayerAreas()
+        {
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = data.InputParameters.SoilProfileUnderSurfaceLine;
+
+            var i = 0;
+            foreach (IMacroStabilityInwardsSoilLayerUnderSurfaceLine soilLayer in soilProfileUnderSurfaceLine.Layers)
+            {
+                ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i++];
+                soilLayerData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(soilLayer);
+            }
+
+            soilLayerChartDataLookup.Last().Areas = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfileUnderSurfaceLine);
+        }
+
+        private void SetEmptySoilLayerAreas()
+        {
+            foreach (ChartMultipleAreaData soilLayerChartData in soilLayerChartDataLookup)
+            {
+                soilLayerChartData.Areas = Enumerable.Empty<Point2D[]>();
             }
         }
 

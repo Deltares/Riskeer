@@ -378,9 +378,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point2D(2, 0),
                 new Point2D(3, 0)
             };
-            var otherStochasticProfileA = new MacroStabilityInwardsStochasticSoilProfile(
-                0.7,
-                new TestSoilProfile(equalProfileName));
+            var otherStochasticProfileA = new MacroStabilityInwardsStochasticSoilProfile(0.7, new TestSoilProfile(equalProfileName));
             var otherStochasticProfileB = new MacroStabilityInwardsStochasticSoilProfile(0.3, CreateMacroStabilityInwardsSoilProfile("other profile name"));
             var otherModel = new MacroStabilityInwardsStochasticSoilModel(otherName, otherGeometry, new[]
             {

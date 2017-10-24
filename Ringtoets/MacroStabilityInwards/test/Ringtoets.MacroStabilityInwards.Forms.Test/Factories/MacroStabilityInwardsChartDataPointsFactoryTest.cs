@@ -918,49 +918,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }, zone, new Point2DComparerWithTolerance(1e-2));
         }
 
-        [Test]
-        public void SetEmptyAreas_ChartMultipleAreaDataNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => MacroStabilityInwardsChartDataPointsFactory.SetEmptyAreas(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("chartMultipleAreaData", paramName);
-        }
-
-        [Test]
-        public void SetEmptyAreas_WithChartMultipleAreaDataContainingAreas_SetsEmptyAreasToChartMultipleAreaData()
-        {
-            // Setup
-            var chartData = new[]
-            {
-                new ChartMultipleAreaData("Layer 1")
-                {
-                    Areas = new[]
-                    {
-                        new Point2D[0]
-                    }
-                },
-                new ChartMultipleAreaData("Layer 2")
-                {
-                    Areas = new[]
-                    {
-                        new Point2D[0]
-                    }
-                }
-            };
-
-            // Call
-            MacroStabilityInwardsChartDataPointsFactory.SetEmptyAreas(chartData);
-
-            // Assert
-            foreach (ChartMultipleAreaData chartMultipleAreaData in chartData)
-            {
-                CollectionAssert.IsEmpty(chartMultipleAreaData.Areas);
-            }
-        }
-
         private static void AssertEqualPointCollection(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
         {
             CollectionAssert.AreEqual(points, chartPoints);

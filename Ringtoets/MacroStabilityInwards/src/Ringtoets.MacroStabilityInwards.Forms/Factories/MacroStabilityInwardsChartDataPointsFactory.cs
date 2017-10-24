@@ -294,25 +294,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return points.ToArray();
         }
 
-        /// <summary>
-        /// Sets an empty area to every element in <paramref name="chartMultipleAreaData"/>.
-        /// </summary>
-        /// <param name="chartMultipleAreaData">A collection of <see cref="ChartMultipleAreaData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartMultipleAreaData"/>
-        /// is <c>null</c>.</exception>
-        public static void SetEmptyAreas(IEnumerable<ChartMultipleAreaData> chartMultipleAreaData)
-        {
-            if (chartMultipleAreaData == null)
-            {
-                throw new ArgumentNullException(nameof(chartMultipleAreaData));
-            }
-
-            foreach (ChartMultipleAreaData t in chartMultipleAreaData)
-            {
-                t.Areas = Enumerable.Empty<Point2D[]>();
-            }
-        }
-
         #region SoilLayers and Surface Line Helpers
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
