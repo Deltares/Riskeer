@@ -243,7 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Equal_ToOTherWithDifferentWrappedData_ReturnsFalse()
+        public void Equal_ToOtherWithDifferentWrappedData_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -279,7 +279,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Equal_ToOTherWithDifferentParent_ReturnsFalse()
+        public void Equal_ToOtherWithDifferentParent_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
