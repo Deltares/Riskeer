@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         /// <summary>
-        /// Updates the chart data and redraws elements when necessary.
+        /// Updates the chart data.
         /// </summary>
         public void UpdateChartData()
         {

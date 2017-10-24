@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
@@ -82,28 +81,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         {
             Assert.AreEqual("Invoer", chartDataCollection.Name);
 
-            List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
+            ChartData[] chartDataArray = chartDataCollection.Collection.ToArray();
 
-            Assert.AreEqual(nrOfChartData, chartDatasList.Count);
+            Assert.AreEqual(nrOfChartData, chartDataArray.Length);
 
-            var surfaceLineData = (ChartLineData) chartDatasList[surfaceLineIndex];
-            var soilProfileData = (ChartDataCollection) chartDatasList[soilProfileIndex];
-            var surfaceLevelInsideData = (ChartPointData) chartDatasList[surfaceLevelInsideIndex];
-            var ditchPolderSideData = (ChartPointData) chartDatasList[ditchPolderSideIndex];
-            var bottomDitchPolderSideData = (ChartPointData) chartDatasList[bottomDitchPolderSideIndex];
-            var bottomDitchDikeSideData = (ChartPointData) chartDatasList[bottomDitchDikeSideIndex];
-            var ditchDikeSideData = (ChartPointData) chartDatasList[ditchDikeSideIndex];
-            var dikeToeAtPolderData = (ChartPointData) chartDatasList[dikeToeAtPolderIndex];
-            var shoulderTopInsideData = (ChartPointData) chartDatasList[shoulderTopInsideIndex];
-            var shoulderBaseInsideData = (ChartPointData) chartDatasList[shoulderBaseInsideIndex];
-            var dikeTopAtPolderData = (ChartPointData) chartDatasList[dikeTopAtPolderIndex];
-            var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
-            var dikeTopAtRiverData = (ChartPointData) chartDatasList[dikeTopAtRiverIndex];
-            var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
-            var leftGridOutsideData = (ChartPointData) chartDatasList[leftGridIndex];
-            var rightGridOutsideData = (ChartPointData) chartDatasList[rightGridIndex];
-            var waternetZonesExtremeData = (ChartDataCollection) chartDatasList[waternetZonesExtremeIndex];
-            var waternetZonesDailyData = (ChartDataCollection) chartDatasList[waternetZonesDailyIndex];
+            var surfaceLineData = (ChartLineData) chartDataArray[surfaceLineIndex];
+            var soilProfileData = (ChartDataCollection) chartDataArray[soilProfileIndex];
+            var surfaceLevelInsideData = (ChartPointData) chartDataArray[surfaceLevelInsideIndex];
+            var ditchPolderSideData = (ChartPointData) chartDataArray[ditchPolderSideIndex];
+            var bottomDitchPolderSideData = (ChartPointData) chartDataArray[bottomDitchPolderSideIndex];
+            var bottomDitchDikeSideData = (ChartPointData) chartDataArray[bottomDitchDikeSideIndex];
+            var ditchDikeSideData = (ChartPointData) chartDataArray[ditchDikeSideIndex];
+            var dikeToeAtPolderData = (ChartPointData) chartDataArray[dikeToeAtPolderIndex];
+            var shoulderTopInsideData = (ChartPointData) chartDataArray[shoulderTopInsideIndex];
+            var shoulderBaseInsideData = (ChartPointData) chartDataArray[shoulderBaseInsideIndex];
+            var dikeTopAtPolderData = (ChartPointData) chartDataArray[dikeTopAtPolderIndex];
+            var dikeToeAtRiverData = (ChartPointData) chartDataArray[dikeToeAtRiverIndex];
+            var dikeTopAtRiverData = (ChartPointData) chartDataArray[dikeTopAtRiverIndex];
+            var surfaceLevelOutsideData = (ChartPointData) chartDataArray[surfaceLevelOutsideIndex];
+            var leftGridOutsideData = (ChartPointData) chartDataArray[leftGridIndex];
+            var rightGridOutsideData = (ChartPointData) chartDataArray[rightGridIndex];
+            var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
+            var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
 
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(soilProfileData.Collection);

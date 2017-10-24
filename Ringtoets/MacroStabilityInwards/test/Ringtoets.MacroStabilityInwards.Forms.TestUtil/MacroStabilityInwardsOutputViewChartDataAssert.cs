@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
@@ -115,24 +114,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         {
             Assert.AreEqual("Resultaat", chartDataCollection.Name);
 
-            List<ChartData> chartDatasList = chartDataCollection.Collection.ToList();
+            ChartData[] chartDataArray = chartDataCollection.Collection.ToArray();
 
-            Assert.AreEqual(nrOfChartData, chartDatasList.Count);
+            Assert.AreEqual(nrOfChartData, chartDataArray.Length);
 
-            var surfaceLineData = (ChartLineData) chartDatasList[surfaceLineIndex];
-            var soilProfileData = (ChartDataCollection) chartDatasList[soilProfileIndex];
-            var surfaceLevelInsideData = (ChartPointData) chartDatasList[surfaceLevelInsideIndex];
-            var ditchPolderSideData = (ChartPointData) chartDatasList[ditchPolderSideIndex];
-            var bottomDitchPolderSideData = (ChartPointData) chartDatasList[bottomDitchPolderSideIndex];
-            var bottomDitchDikeSideData = (ChartPointData) chartDatasList[bottomDitchDikeSideIndex];
-            var ditchDikeSideData = (ChartPointData) chartDatasList[ditchDikeSideIndex];
-            var dikeToeAtPolderData = (ChartPointData) chartDatasList[dikeToeAtPolderIndex];
-            var shoulderTopInsideData = (ChartPointData) chartDatasList[shoulderTopInsideIndex];
-            var shoulderBaseInsideData = (ChartPointData) chartDatasList[shoulderBaseInsideIndex];
-            var dikeTopAtPolderData = (ChartPointData) chartDatasList[dikeTopAtPolderIndex];
-            var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
-            var dikeTopAtRiverData = (ChartPointData) chartDatasList[dikeTopAtRiverIndex];
-            var surfaceLevelOutsideData = (ChartPointData) chartDatasList[surfaceLevelOutsideIndex];
+            var surfaceLineData = (ChartLineData) chartDataArray[surfaceLineIndex];
+            var soilProfileData = (ChartDataCollection) chartDataArray[soilProfileIndex];
+            var surfaceLevelInsideData = (ChartPointData) chartDataArray[surfaceLevelInsideIndex];
+            var ditchPolderSideData = (ChartPointData) chartDataArray[ditchPolderSideIndex];
+            var bottomDitchPolderSideData = (ChartPointData) chartDataArray[bottomDitchPolderSideIndex];
+            var bottomDitchDikeSideData = (ChartPointData) chartDataArray[bottomDitchDikeSideIndex];
+            var ditchDikeSideData = (ChartPointData) chartDataArray[ditchDikeSideIndex];
+            var dikeToeAtPolderData = (ChartPointData) chartDataArray[dikeToeAtPolderIndex];
+            var shoulderTopInsideData = (ChartPointData) chartDataArray[shoulderTopInsideIndex];
+            var shoulderBaseInsideData = (ChartPointData) chartDataArray[shoulderBaseInsideIndex];
+            var dikeTopAtPolderData = (ChartPointData) chartDataArray[dikeTopAtPolderIndex];
+            var dikeToeAtRiverData = (ChartPointData) chartDataArray[dikeToeAtRiverIndex];
+            var dikeTopAtRiverData = (ChartPointData) chartDataArray[dikeTopAtRiverIndex];
+            var surfaceLevelOutsideData = (ChartPointData) chartDataArray[surfaceLevelOutsideIndex];
 
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
