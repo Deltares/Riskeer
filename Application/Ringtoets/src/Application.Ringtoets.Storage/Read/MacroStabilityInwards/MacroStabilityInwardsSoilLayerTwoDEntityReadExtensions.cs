@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 
             return new MacroStabilityInwardsSoilLayer2D(outerRing, holes)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                     MaterialName = entity.MaterialName ?? string.Empty,

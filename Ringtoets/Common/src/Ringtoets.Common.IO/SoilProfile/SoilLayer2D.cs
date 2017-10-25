@@ -21,10 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Core.Common.Base.Geometry;
-using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
@@ -33,99 +29,41 @@ namespace Ringtoets.Common.IO.SoilProfile
     /// </summary>
     public class SoilLayer2D : SoilLayerBase
     {
-        private readonly Collection<Segment2D[]> innerLoops;
-        private Segment2D[] outerLoop;
-
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer2D"/>.
         /// </summary>
-        public SoilLayer2D()
+        /// <param name="outerLoop">The outer loop of the soil layer.</param>
+        /// <param name="innerLoops">The inner loops of the soil layer.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public SoilLayer2D(SoilLayer2DLoop outerLoop, IEnumerable<SoilLayer2DLoop> innerLoops)
         {
-            innerLoops = new Collection<Segment2D[]>();
+            if (outerLoop == null)
+            {
+                throw new ArgumentNullException(nameof(outerLoop));
+            }
+
+            if (innerLoops == null)
+            {
+                throw new ArgumentNullException(nameof(innerLoops));
+            }
+
+            OuterLoop = outerLoop;
+            InnerLoops = innerLoops;
         }
 
         /// <summary>
-        /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
-        /// for which each of the segments are connected to the next.
+        /// Gets the outer loop of the geometry.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="value"/>
-        /// do not form a loop.</exception>
-        public IEnumerable<Segment2D> OuterLoop
-        {
-            get
-            {
-                return outerLoop;
-            }
-            internal set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                Segment2D[] loop = value.ToArray();
-                CheckValidLoop(loop);
-                outerLoop = loop;
-            }
-        }
+        public SoilLayer2DLoop OuterLoop { get; }
 
         /// <summary>
-        /// Gets the <see cref="Collection{T}"/> of inner loops (as <see cref="List{T}"/> of <see cref="Segment2D"/>,
-        /// for which each of the segments are connected to the next) of the <see cref="SoilLayer2D"/>.
+        /// Gets the inner loops of the geometry.
         /// </summary>
-        public IEnumerable<Segment2D[]> InnerLoops
-        {
-            get
-            {
-                return innerLoops;
-            }
-        }
+        public IEnumerable<SoilLayer2DLoop> InnerLoops { get; }
 
         /// <summary>
-        /// Adds an inner loop to the <see cref="SoilLayer2D"/> geometry.
+        /// Gets or sets the nested layers of the geometry.
         /// </summary>
-        /// <param name="innerLoop">The inner loop to add.</param>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoop"/> 
-        /// do not form a loop.</exception>
-        internal void AddInnerLoop(IEnumerable<Segment2D> innerLoop)
-        {
-            Segment2D[] loop = innerLoop.ToArray();
-            CheckValidLoop(loop);
-            innerLoops.Add(loop);
-        }
-
-        /// <summary>
-        /// Validates that <paramref name="segments"/> form a loop.
-        /// </summary>
-        /// <param name="segments">The segments to validate.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="segments"/> do not form a loop.</exception>
-        /// <remarks>The points in <paramref name="segments"/> must be ordered.</remarks>
-        private static void CheckValidLoop(Segment2D[] segments)
-        {
-            if (segments.Length == 1 || !IsValidLoop(segments))
-            {
-                throw new ArgumentException(Resources.Loop_contains_disconnected_segments);
-            }
-        }
-
-        private static bool IsValidLoop(Segment2D[] segments)
-        {
-            int segmentCount = segments.Length;
-            if (segmentCount == 2)
-            {
-                return segments[0].Equals(segments[1]);
-            }
-            for (var i = 0; i < segmentCount; i++)
-            {
-                Segment2D segmentA = segments[i];
-                Segment2D segmentB = segments[(i + 1) % segmentCount];
-                if (!segmentA.SecondPoint.Equals(segmentB.FirstPoint))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        public IEnumerable<SoilLayer2D> NestedLayers { get; set; }
     }
 }

@@ -122,9 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.Data = calculation;
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                               stochasticSoilProfile,
-                                                                               GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
             }
         }
 
@@ -150,9 +148,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                               stochasticSoilProfile,
-                                                                               GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
 
                 // Call
                 control.Data = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
@@ -163,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetToNull_ChartDataEmpty()
+        public void Data_SetToNull_ChartDataCleared()
         {
             // Setup
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
@@ -184,15 +180,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                               stochasticSoilProfile,
-                                                                               GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
 
                 // Call
                 control.Data = null;
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(control.Chart.Data);
+                Assert.IsNull(control.Chart.Data);
             }
         }
 
@@ -225,9 +219,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                               stochasticSoilProfile,
-                                                                               GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
             }
         }
 
@@ -253,9 +245,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                               stochasticSoilProfile,
-                                                                               GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
 
                 calculation.ClearOutput();
 
@@ -275,17 +265,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     new Point2D(0.0, 1.0),
                     new Point2D(2.0, 4.0)
-                }), new List<Ring>()),
+                }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
                     new Point2D(3.0, 1.0),
                     new Point2D(8.0, 3.0)
-                }), new List<Ring>()),
+                }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
                     new Point2D(2.0, 4.0),
                     new Point2D(2.0, 8.0)
                 }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                }
             }, new List<MacroStabilityInwardsPreconsolidationStress>()));
         }
 

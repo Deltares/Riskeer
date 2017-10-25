@@ -52,14 +52,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                 {
                     new MacroStabilityInwardsSoilLayer1D(thicknessCoverageLayer)
                     {
-                        Data =
+                        Data = new MacroStabilityInwardsSoilLayerData
                         {
                             IsAquifer = false
                         }
                     },
                     new MacroStabilityInwardsSoilLayer1D(0.0)
                     {
-                        Data =
+                        Data = new MacroStabilityInwardsSoilLayerData
                         {
                             IsAquifer = true
                         }
@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new MacroStabilityInwardsSoilLayer1D(0.0)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = true
                     }
@@ -122,21 +122,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = false
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = true
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTopLevel + deltaAboveSurfaceLine)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = false
                     }
@@ -168,21 +168,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             {
                 new MacroStabilityInwardsSoilLayer1D(4.3)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = false
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(3.3)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = true
                     }
                 },
                 new MacroStabilityInwardsSoilLayer1D(1.1)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = true
                     }

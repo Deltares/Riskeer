@@ -176,10 +176,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                             -1,
                             new[]
                             {
-                                new MacroStabilityInwardsSoilLayer1D(3.0),
-                                new MacroStabilityInwardsSoilLayer1D(2.0),
+                                new MacroStabilityInwardsSoilLayer1D(3.0)
+                                {
+                                    Data = new MacroStabilityInwardsSoilLayerData()
+                                },
+                                new MacroStabilityInwardsSoilLayer1D(2.0)
+                                {
+                                    Data = new MacroStabilityInwardsSoilLayerData()
+                                },
                                 new MacroStabilityInwardsSoilLayer1D(0)
-                            }))
+                                {
+                                    Data = new MacroStabilityInwardsSoilLayerData()
+                                }
+                            })),
+                    SurfaceLine = GetSurfaceLineWithGeometry()
                 }
             };
 
@@ -229,9 +239,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreSame(calculation, view.Data);
                 ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
-                MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                              stochasticSoilProfile,
-                                                                              chartData);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, chartData);
             }
         }
 
@@ -260,9 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreSame(calculation, view.Data);
                 ChartDataCollection chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
-                MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(surfaceLine,
-                                                                              stochasticSoilProfile,
-                                                                              chartData);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, chartData);
             }
         }
 
@@ -453,7 +459,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 Assert.AreSame(surfaceLineChartData, (ChartDataCollection) chartDataList[soilProfileIndex]);
 
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(newSoilProfile, surfaceLineChartData, true);
+                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                    newSoilProfile.SoilProfile.Name,
+                                                                                    true,
+                                                                                    surfaceLineChartData);
+
                 mocks.VerifyAll();
             }
         }
@@ -663,6 +673,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                                    new[]
                                                                                                    {
                                                                                                        new MacroStabilityInwardsSoilLayer1D(1)
+                                                                                                       {
+                                                                                                           Data = new MacroStabilityInwardsSoilLayerData()
+                                                                                                       }
                                                                                                    })),
                         SurfaceLine = GetSurfaceLineWithGeometry()
                     }
@@ -681,8 +694,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                                                        -1,
                                                                                                                        new[]
                                                                                                                        {
-                                                                                                                           new MacroStabilityInwardsSoilLayer1D(3),
+                                                                                                                           new MacroStabilityInwardsSoilLayer1D(3)
+                                                                                                                           {
+                                                                                                                               Data = new MacroStabilityInwardsSoilLayerData()
+                                                                                                                           },
                                                                                                                            new MacroStabilityInwardsSoilLayer1D(4)
+                                                                                                                           {
+                                                                                                                               Data = new MacroStabilityInwardsSoilLayerData()
+                                                                                                                           }
                                                                                                                        }));
                 calculation.InputParameters.NotifyObservers();
 
@@ -753,18 +772,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 Assert.IsNotNull(chartData);
                 Assert.AreEqual(nrOfChartData, chartData.Collection.Count());
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(stochasticSoilProfile,
-                                                                                    chartData.Collection.ElementAt(soilProfileIndex),
-                                                                                    true);
+                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                    stochasticSoilProfile.SoilProfile.Name,
+                                                                                    true,
+                                                                                    chartData.Collection.ElementAt(soilProfileIndex));
 
                 // When
                 calculation.InputParameters.SurfaceLine = null;
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(stochasticSoilProfile,
-                                                                                    chartData.Collection.ElementAt(soilProfileIndex),
-                                                                                    false);
+                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                    stochasticSoilProfile.SoilProfile.Name,
+                                                                                    true,
+                                                                                    chartData.Collection.ElementAt(soilProfileIndex));
             }
         }
 
@@ -805,9 +826,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile1D("profile 1D", -1, new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(1),
-                new MacroStabilityInwardsSoilLayer1D(3),
+                new MacroStabilityInwardsSoilLayer1D(1)
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                },
+                new MacroStabilityInwardsSoilLayer1D(3)
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                },
                 new MacroStabilityInwardsSoilLayer1D(5)
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                }
             }));
         }
 
@@ -819,17 +849,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     new Point2D(0.0, 1.0),
                     new Point2D(2.0, 4.0)
-                }), new List<Ring>()),
+                }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
                     new Point2D(3.0, 1.0),
                     new Point2D(8.0, 3.0)
-                }), new List<Ring>()),
+                }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
                     new Point2D(2.0, 4.0),
                     new Point2D(2.0, 8.0)
                 }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                }
             }, new List<MacroStabilityInwardsPreconsolidationStress>()));
         }
 

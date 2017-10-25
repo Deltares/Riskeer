@@ -227,30 +227,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create areas of holes in 2D space based on the provided <paramref name="soilProfile"/>.
-        /// </summary>
-        /// <param name="soilProfile">The soil profile to create the holes for.</param>
-        /// <returns>An array with an array of points in 2D space or an empty array when
-        /// <paramref name="soilProfile"/> is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateHolesAreas(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
-        {
-            return soilProfile?.Layers.SelectMany(l => l.Holes).ToArray() ?? new Point2D[0][];
-        }
-
-        /// <summary>
         /// Create an area of the outer ring in 2D space based on the provided <paramref name="soilLayer"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to create the outer ring for.</param>
         /// <returns>A collection containing a single array of points in 2D space 
         /// or an empty collection when <paramref name="soilLayer"/> is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateOuterRingArea(IMacroStabilityInwardsSoilLayerUnderSurfaceLine soilLayer)
+        public static IEnumerable<Point2D[]> CreateOuterRingArea(IMacroStabilityInwardsSoilLayer2D soilLayer)
         {
             return soilLayer != null
-                       ? new[]
+                       ? new List<Point2D[]>
                        {
-                           soilLayer.OuterRing
+                           soilLayer.OuterRing.Points.ToArray()
                        }
-                       : new Point2D[0][];
+                       : Enumerable.Empty<Point2D[]>();
         }
 
         /// <summary>

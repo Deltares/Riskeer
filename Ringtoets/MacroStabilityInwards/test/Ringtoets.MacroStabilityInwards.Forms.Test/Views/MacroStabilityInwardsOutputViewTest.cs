@@ -172,9 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation.InputParameters.SurfaceLine,
-                                                                               calculation.InputParameters.StochasticSoilProfile,
-                                                                               chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
 
                 // When
                 calculation.ClearOutput();
@@ -219,9 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation.InputParameters.SurfaceLine,
-                                                                               calculation.InputParameters.StochasticSoilProfile,
-                                                                               chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
             }
         }
 
@@ -243,17 +239,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     new Point2D(0.0, 1.0),
                     new Point2D(2.0, 4.0)
-                }), new List<Ring>()),
+                }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
                     new Point2D(3.0, 1.0),
                     new Point2D(8.0, 3.0)
-                }), new List<Ring>()),
+                }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
                     new Point2D(2.0, 4.0),
                     new Point2D(2.0, 8.0)
                 }), new List<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData(),
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                }
             }, new List<MacroStabilityInwardsPreconsolidationStress>()));
         }
 

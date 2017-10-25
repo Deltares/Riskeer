@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 {
@@ -49,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
+            IMacroStabilityInwardsSoilLayerData data = soilLayer.Data;
             return new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 OuterRingXml = new Point2DXmlSerializer().ToXml(soilLayer.OuterRing.Points),

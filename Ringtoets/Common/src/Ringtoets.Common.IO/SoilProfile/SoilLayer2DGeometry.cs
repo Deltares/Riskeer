@@ -19,16 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+using System.Collections.Generic;
+
+namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Interface for the soil layer that can be used in macro stability inwards.
+    /// Class representing the full geometry of a 2D soil layer, taking into account
+    /// layer properties, an outer loop and zero to many inner loops.
     /// </summary>
-    public interface IMacroStabilityInwardsSoilLayer
+    internal class SoilLayer2DGeometry
     {
         /// <summary>
-        /// Gets the data of the soil layer.
+        /// Gets or sets the layer properties going with the geometry.
         /// </summary>
-        MacroStabilityInwardsSoilLayerData Data { get; }
+        public LayerProperties LayerProperties { get; set; }
+
+        /// <summary>
+        /// Gets or sets the outer loop of the geometry.
+        /// </summary>
+        public SoilLayer2DLoop OuterLoop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the inner loops of the geometry.
+        /// </summary>
+        public IEnumerable<SoilLayer2DLoop> InnerLoops { get; set; }
     }
 }

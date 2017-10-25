@@ -1509,8 +1509,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertMacroStabilityInwardsSoilLayerData(expectedLayer.Data, actualLayer.Data);
         }
 
-        private static void AssertMacroStabilityInwardsSoilLayerData(MacroStabilityInwardsSoilLayerData expectedData,
-                                                                     MacroStabilityInwardsSoilLayerData actualData)
+        private static void AssertMacroStabilityInwardsSoilLayerData(IMacroStabilityInwardsSoilLayerData expectedData,
+                                                                     IMacroStabilityInwardsSoilLayerData actualData)
         {
             Assert.AreEqual(expectedData.IsAquifer, actualData.IsAquifer);
             Assert.AreEqual(expectedData.MaterialName, actualData.MaterialName);

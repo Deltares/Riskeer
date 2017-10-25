@@ -313,7 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             {
                 new MacroStabilityInwardsSoilLayer1D(10.56)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = false,
                         Cohesion = new VariationCoefficientLogNormalDistribution(),
@@ -334,7 +334,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 },
                 new MacroStabilityInwardsSoilLayer1D(6.0)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = true,
                         Cohesion = new VariationCoefficientLogNormalDistribution(),
@@ -355,7 +355,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 },
                 new MacroStabilityInwardsSoilLayer1D(0.1)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         IsAquifer = false,
                         Cohesion = new VariationCoefficientLogNormalDistribution(),

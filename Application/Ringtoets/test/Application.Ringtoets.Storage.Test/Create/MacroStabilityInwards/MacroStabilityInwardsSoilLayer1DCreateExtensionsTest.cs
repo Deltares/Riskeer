@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var random = new Random(31);
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     IsAquifer = random.NextBoolean(),
                     MaterialName = "MaterialName",
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(soilLayer.Top, entity.Top);
 
-            MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
+            IMacroStabilityInwardsSoilLayerData data = soilLayer.Data;
             Assert.AreEqual(Convert.ToByte(data.IsAquifer), entity.IsAquifer);
             Assert.AreEqual(data.MaterialName, entity.MaterialName);
             Assert.AreEqual(data.Color.ToArgb(), Convert.ToInt32(entity.Color));
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(double.NaN)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     AbovePhreaticLevel =
                     {
@@ -211,7 +211,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             const string materialName = "MaterialName";
             var soilLayer = new MacroStabilityInwardsSoilLayer1D(0)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = materialName
                 }

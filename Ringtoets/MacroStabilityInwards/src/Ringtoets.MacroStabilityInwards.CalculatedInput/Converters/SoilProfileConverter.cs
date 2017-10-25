@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -73,28 +74,35 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// <exception cref="NotSupportedException">Thrown when 
         /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> layers)
+        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers)
         {
             return layers.Select(l =>
             {
                 IMacroStabilityInwardsSoilLayerData data = l.Data;
-                return new SoilLayer(l.OuterRing, l.Holes, new SoilLayer.ConstructionProperties
-                {
-                    MaterialName = data.MaterialName,
-                    UsePop = data.UsePop,
-                    IsAquifer = data.IsAquifer,
-                    ShearStrengthModel = ConvertShearStrengthModel(data.ShearStrengthModel),
-                    AbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(data).GetDesignValue(),
-                    BelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(data).GetDesignValue(),
-                    Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(data).GetDesignValue(),
-                    FrictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(data).GetDesignValue(),
-                    ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data).GetDesignValue(),
-                    StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data).GetDesignValue(),
-                    Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue(),
-                    DilatancyType = DilatancyType.Zero,
-                    WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic
-                });
+                return new SoilLayer(RingToPoints(l.OuterRing),
+                                     l.Holes.Select(RingToPoints).ToArray(),
+                                     new SoilLayer.ConstructionProperties
+                                     {
+                                         MaterialName = data.MaterialName,
+                                         UsePop = data.UsePop,
+                                         IsAquifer = data.IsAquifer,
+                                         ShearStrengthModel = ConvertShearStrengthModel(data.ShearStrengthModel),
+                                         AbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(data).GetDesignValue(),
+                                         BelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(data).GetDesignValue(),
+                                         Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(data).GetDesignValue(),
+                                         FrictionAngle = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(data).GetDesignValue(),
+                                         ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(data).GetDesignValue(),
+                                         StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(data).GetDesignValue(),
+                                         Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue(),
+                                         DilatancyType = DilatancyType.Zero,
+                                         WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic
+                                     });
             }).ToArray();
+        }
+
+        private static Point2D[] RingToPoints(Ring ring)
+        {
+            return ring.Points.ToArray();
         }
 
         private static IEnumerable<PreconsolidationStress> ConvertPreconsolidationStresses(

@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             {
                 StochasticSoilProfileTestFactory.CreateStochasticSoilProfileWithValidProbability(new SoilProfile2D(0, name, new[]
                 {
-                    new SoilLayer2D()
+                    new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2DLoop>())
                 }, Enumerable.Empty<PreconsolidationStress>()))
             });
 

@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
@@ -80,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                  })
                                                              })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Test Name",
                     IsAquifer = true
@@ -166,7 +167,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                             new Point2D(20.210230, 26.00001),
                                                             new Point2D(3.830, 1.040506)
                                                         }),
-                                                        new Ring[0]);
+                                                        new Ring[0])
+            {
+                Data = new MacroStabilityInwardsSoilLayerData()
+            };
         }
     }
 }

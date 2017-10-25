@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.IO.SoilProfile;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             var soilLayer2Ds = new[]
             {
-                new SoilLayer2D()
+                SoilLayer2DTestFactory.CreateSoilLayer2D()
             };
 
             // Call
@@ -63,7 +64,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Setup
             var soilLayer2Ds = new[]
             {
-                new SoilLayer2D()
+                SoilLayer2DTestFactory.CreateSoilLayer2D()
             };
 
             // Call
@@ -82,7 +83,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const string name = "some name";
             var soilLayer2Ds = new[]
             {
-                new SoilLayer2D()
+                SoilLayer2DTestFactory.CreateSoilLayer2D()
             };
 
             var stresses = new[]

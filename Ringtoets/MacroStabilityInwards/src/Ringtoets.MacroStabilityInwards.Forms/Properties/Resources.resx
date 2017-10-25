@@ -643,9 +643,6 @@
   <data name="WaterStressLines_Description" xml:space="preserve">
     <value>Eigenschappen van de waterspanningslijnen.</value>
   </data>
-  <data name="MacroStabilityInwardsChartDataFactory_Holes_ChartDataName" xml:space="preserve">
-    <value>Binnenringen</value>
-  </data>
   <data name="WaternetLinesDaily_DisplayName" xml:space="preserve">
     <value>Zones dagelijks</value>
   </data>

@@ -122,6 +122,7 @@
     <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
     <Compile Include="SoilProfile\SoilLayer1DTest.cs" />
     <Compile Include="SoilProfile\SoilLayer2DGeometryReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DLoopTest.cs" />
     <Compile Include="SoilProfile\SoilLayer2DTest.cs" />
     <Compile Include="SoilProfile\SoilLayerBaseTest.cs" />
     <Compile Include="SoilProfile\SoilLayerColorConverterTest.cs" />

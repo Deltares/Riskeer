@@ -90,23 +90,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         private static MacroStabilityInwardsSoilProfileUnderSurfaceLine Create(MacroStabilityInwardsSoilProfile2D soilProfile)
         {
-            IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layersUnderSurfaceLine = soilProfile.Layers.Select(
-                layer => new MacroStabilityInwardsSoilLayerUnderSurfaceLine(
-                    RingToPoints(layer.OuterRing),
-                    layer.Holes.Select(RingToPoints).ToArray(),
-                    layer.Data)).ToArray();
-
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layersUnderSurfaceLine, soilProfile.PreconsolidationStresses);
-        }
-
-        private static Point2D[] RingToPoints(Ring ring)
-        {
-            return ring.Points.ToArray();
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(soilProfile.Layers, soilProfile.PreconsolidationStresses);
         }
 
         private static MacroStabilityInwardsSoilProfileUnderSurfaceLine GeometriesToIntersections(IEnumerable<TempSoilLayerGeometry> layerGeometries, IEnumerable<Point2D> surfaceLineGeometry)
         {
-            var collection = new Collection<MacroStabilityInwardsSoilLayerUnderSurfaceLine>();
+            var soilLayers = new Collection<MacroStabilityInwardsSoilLayer2D>();
 
             IEnumerable<Point2D> surfaceLineGeometryArray = surfaceLineGeometry.ToArray();
 
@@ -114,11 +103,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 foreach (Point2D[] soilLayerArea in GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometryArray, layer.OuterLoop))
                 {
-                    collection.Add(new MacroStabilityInwardsSoilLayerUnderSurfaceLine(soilLayerArea, layer.Data));
+                    soilLayers.Add(new MacroStabilityInwardsSoilLayer2D(new Ring(soilLayerArea), Enumerable.Empty<Ring>())
+                    {
+                        Data = layer.Data,
+                        NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                    });
                 }
             }
 
-            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(collection, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+            return new MacroStabilityInwardsSoilProfileUnderSurfaceLine(soilLayers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
         }
 
         private static TempSoilLayerGeometry As2DGeometry(MacroStabilityInwardsSoilLayer1D layer, MacroStabilityInwardsSoilProfile1D soilProfile, double minX, double maxX)
@@ -142,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         private class TempSoilLayerGeometry
         {
-            public TempSoilLayerGeometry(Point2D[] outerLoop, MacroStabilityInwardsSoilLayerData data)
+            public TempSoilLayerGeometry(Point2D[] outerLoop, IMacroStabilityInwardsSoilLayerData data)
             {
                 OuterLoop = outerLoop;
                 Data = data;
@@ -150,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
             public Point2D[] OuterLoop { get; }
 
-            public MacroStabilityInwardsSoilLayerData Data { get; }
+            public IMacroStabilityInwardsSoilLayerData Data { get; }
         }
     }
 }

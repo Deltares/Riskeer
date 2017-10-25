@@ -33,6 +33,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 {
@@ -560,6 +561,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                    new[]
                                                                    {
                                                                        new MacroStabilityInwardsSoilLayer1D(0.0)
+                                                                       {
+                                                                           Data = new MacroStabilityInwardsSoilLayerData()
+                                                                       }
                                                                    })),
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D(
                                                                    "B",
@@ -570,6 +574,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                            new Point2D(3, 2),
                                                                            new Point2D(4, 5)
                                                                        }), Enumerable.Empty<Ring>())
+                                                                       {
+                                                                           Data = new MacroStabilityInwardsSoilLayerData(),
+                                                                           NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                                                                       }
                                                                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
             };
         }

@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -62,10 +61,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             ValidateStochasticParameters(soilLayer);
 
-            var layer = new MacroStabilityInwardsSoilLayer1D(soilLayer.Top);
-            SetProperties(soilLayer, layer.Data);
-
-            return layer;
+            return new MacroStabilityInwardsSoilLayer1D(soilLayer.Top)
+            {
+                Data = ConvertSoilLayerData(soilLayer)
+            };
         }
 
         /// <summary>
@@ -87,71 +86,74 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             ValidateStochasticParameters(soilLayer);
 
-            if (soilLayer.OuterLoop == null)
+            return ConvertLayerRecursively(soilLayer);
+        }
+
+        private static MacroStabilityInwardsSoilLayer2D ConvertLayerRecursively(SoilLayer2D soilLayer)
+        {
+            Ring outerRing = TransformSegmentsToRing(soilLayer.OuterLoop.Segments);
+            Ring[] innerRings = soilLayer.InnerLoops.Select(il => TransformSegmentsToRing(il.Segments)).ToArray();
+
+            return new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings)
             {
-                throw new ImportedDataTransformException();
-            }
-
-            Ring outerRing = TransformSegmentsToRing(soilLayer.OuterLoop);
-            Ring[] innerRings = soilLayer.InnerLoops.Select(TransformSegmentsToRing).ToArray();
-
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, innerRings);
-            SetProperties(soilLayer, layer.Data);
-
-            return layer;
+                Data = ConvertSoilLayerData(soilLayer),
+                NestedLayers = soilLayer.NestedLayers.Select(ConvertLayerRecursively).ToArray()
+            };
         }
 
         /// <summary>
-        /// Sets the properties of the <see cref="IMacroStabilityInwardsSoilLayerData"/>.
+        /// Converts <see cref="SoilLayerBase"/> into <see cref="MacroStabilityInwardsSoilLayerData"/>.
         /// </summary>
         /// <param name="soilLayer">The soil layer to get the data from.</param>
-        /// <param name="data">The data to set the properties upon.</param>
         /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
         /// in a valid transformed instance.</exception>
-        private static void SetProperties(SoilLayerBase soilLayer, IMacroStabilityInwardsSoilLayerData data)
+        private static MacroStabilityInwardsSoilLayerData ConvertSoilLayerData(SoilLayerBase soilLayer)
         {
-            data.ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel);
-            data.UsePop = TransformUsePop(soilLayer.UsePop);
+            return new MacroStabilityInwardsSoilLayerData
+            {
+                ShearStrengthModel = TransformShearStrengthModel(soilLayer.ShearStrengthModel),
+                UsePop = TransformUsePop(soilLayer.UsePop),
 
-            data.MaterialName = soilLayer.MaterialName;
-            data.IsAquifer = TransformIsAquifer(soilLayer.IsAquifer);
-            data.Color = SoilLayerColorConverter.Convert(soilLayer.Color);
-            data.AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.AbovePhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.AbovePhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) soilLayer.AbovePhreaticLevelShift
-            };
-            data.BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.BelowPhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.BelowPhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) soilLayer.BelowPhreaticLevelShift
-            };
-            data.Cohesion = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.CohesionMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.CohesionCoefficientOfVariation
-            };
-            data.FrictionAngle = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.FrictionAngleMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.FrictionAngleCoefficientOfVariation
-            };
-            data.ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.ShearStrengthRatioMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.ShearStrengthRatioCoefficientOfVariation
-            };
-            data.StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.StrengthIncreaseExponentMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.StrengthIncreaseExponentCoefficientOfVariation
-            };
-            data.Pop = new VariationCoefficientLogNormalDistribution
-            {
-                Mean = (RoundedDouble) soilLayer.PopMean,
-                CoefficientOfVariation = (RoundedDouble) soilLayer.PopCoefficientOfVariation
+                MaterialName = soilLayer.MaterialName,
+                IsAquifer = TransformIsAquifer(soilLayer.IsAquifer),
+                Color = SoilLayerColorConverter.Convert(soilLayer.Color),
+                AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.AbovePhreaticLevelMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.AbovePhreaticLevelCoefficientOfVariation,
+                    Shift = (RoundedDouble) soilLayer.AbovePhreaticLevelShift
+                },
+                BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.BelowPhreaticLevelMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.BelowPhreaticLevelCoefficientOfVariation,
+                    Shift = (RoundedDouble) soilLayer.BelowPhreaticLevelShift
+                },
+                Cohesion = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.CohesionMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.CohesionCoefficientOfVariation
+                },
+                FrictionAngle = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.FrictionAngleMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.FrictionAngleCoefficientOfVariation
+                },
+                ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.ShearStrengthRatioMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.ShearStrengthRatioCoefficientOfVariation
+                },
+                StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.StrengthIncreaseExponentMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.StrengthIncreaseExponentCoefficientOfVariation
+                },
+                Pop = new VariationCoefficientLogNormalDistribution
+                {
+                    Mean = (RoundedDouble) soilLayer.PopMean,
+                    CoefficientOfVariation = (RoundedDouble) soilLayer.PopCoefficientOfVariation
+                }
             };
         }
 

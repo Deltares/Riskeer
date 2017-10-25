@@ -45,10 +45,11 @@
     <Compile Include="IMacroStabilityInwardsLocationInput.cs" />
     <Compile Include="IMacroStabilityInwardsLocationInputDaily.cs" />
     <Compile Include="IMacroStabilityInwardsLocationInputExtreme.cs" />
+    <Compile Include="IMacroStabilityInwardsSoilLayer.cs" />
+    <Compile Include="IMacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="IMacroStabilityInwardsWaternetInput.cs" />
     <Compile Include="IMacroStabilityInwardsPreconsolidationStress.cs" />
     <Compile Include="IMacroStabilityInwardsSoilLayerData.cs" />
-    <Compile Include="IMacroStabilityInwardsSoilLayerUnderSurfaceLine.cs" />
     <Compile Include="IMacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
     <Compile Include="MacroStabilityInwardsDikeSoilScenario.cs" />
     <Compile Include="MacroStabilityInwardsPhreaticLine.cs" />
@@ -63,6 +64,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="MacroStabilityInwardsSurfaceLine.cs" />
+    <Compile Include="Ring.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

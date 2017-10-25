@@ -19,14 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.Piping.IO.Exceptions;
-
-namespace Ringtoets.Piping.IO.Test.Exceptions
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
-    [TestFixture]
-    public class SoilLayerConversionExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<SoilLayerConversionException, Exception> {}
+    /// <summary>
+    /// Interface for the soil layer that can be used in macro stability inwards.
+    /// </summary>
+    public interface IMacroStabilityInwardsSoilLayer
+    {
+        /// <summary>
+        /// Gets the data of the soil layer.
+        /// </summary>
+        IMacroStabilityInwardsSoilLayerData Data { get; }
+    }
 }

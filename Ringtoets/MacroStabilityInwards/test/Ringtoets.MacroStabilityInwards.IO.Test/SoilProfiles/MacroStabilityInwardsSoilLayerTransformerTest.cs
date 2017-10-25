@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -109,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(top, soilLayer1D.Top);
 
-            MacroStabilityInwardsSoilLayerData data = soilLayer1D.Data;
+            IMacroStabilityInwardsSoilLayerData data = soilLayer1D.Data;
 
             Assert.AreEqual(materialName, data.MaterialName);
             bool expectedIsAquifer = isAquifer.Equals(1.0);
@@ -377,7 +376,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            MacroStabilityInwardsSoilLayerData data = soilLayer2D.Data;
+            IMacroStabilityInwardsSoilLayerData data = soilLayer2D.Data;
 
             Assert.AreEqual(materialName, data.MaterialName);
             bool expectedIsAquifer = isAquifer.Equals(1.0);
@@ -587,16 +586,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterRingNull_ThrowImportedDataTransformException()
-        {
-            // Call
-            TestDelegate test = () => MacroStabilityInwardsSoilLayerTransformer.Transform(new SoilLayer2D());
-
-            // Assert
-            Assert.Throws<ImportedDataTransformException>(test);
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetSoilLayerWithInvalidGeometry))]
         public void SoilLayer2DTransform_SoilLayer2DWithInvalidLoops_ThrowsImportedDataException(SoilLayer2D soilLayer)
         {
@@ -611,11 +600,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static void AssertRings(SoilLayer2D soilLayer, MacroStabilityInwardsSoilLayer2D macroStabilityInwardsSoilLayer)
         {
-            Assert.AreEqual(GetRingFromSegment(soilLayer.OuterLoop), macroStabilityInwardsSoilLayer.OuterRing);
-            CollectionAssert.AreEqual(soilLayer.InnerLoops.Select(GetRingFromSegment), macroStabilityInwardsSoilLayer.Holes);
+            Assert.AreEqual(GetRingFromSegments(soilLayer.OuterLoop.Segments), macroStabilityInwardsSoilLayer.OuterRing);
+            CollectionAssert.AreEqual(soilLayer.InnerLoops.Select(il => GetRingFromSegments(il.Segments)), macroStabilityInwardsSoilLayer.Holes);
         }
 
-        private static Ring GetRingFromSegment(IEnumerable<Segment2D> loop)
+        private static Ring GetRingFromSegments(IEnumerable<Segment2D> loop)
         {
             var points = new List<Point2D>();
             foreach (Segment2D segment in loop)
@@ -681,7 +670,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributionsSoilLayer2D()
         {
-            return IncorrectShiftedLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer2D));
+            return IncorrectShiftedLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
         }
 
         private static IEnumerable<TestCaseData> IncorrectShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)
@@ -710,7 +699,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsSoilLayer2D()
         {
-            return IncorrectNonShiftedLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer2D));
+            return IncorrectNonShiftedLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
         }
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)

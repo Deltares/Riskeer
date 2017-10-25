@@ -482,15 +482,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Binnenringen.
-        /// </summary>
-        public static string MacroStabilityInwardsChartDataFactory_Holes_ChartDataName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsChartDataFactory_Holes_ChartDataName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt..
         /// </summary>
         public static string MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description {

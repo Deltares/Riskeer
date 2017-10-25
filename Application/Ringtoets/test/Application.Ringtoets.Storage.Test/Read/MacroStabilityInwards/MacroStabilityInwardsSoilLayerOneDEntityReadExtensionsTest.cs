@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
@@ -101,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(layer);
             Assert.AreEqual(top, layer.Top);
-            MacroStabilityInwardsSoilLayerData data = layer.Data;
+            IMacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(isAquifer, data.IsAquifer);
             Assert.AreEqual(Color.FromArgb(color), data.Color);
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
@@ -165,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(layer);
-            MacroStabilityInwardsSoilLayerData data = layer.Data;
+            IMacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
             Assert.IsNaN(layer.Top);

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -20,28 +20,27 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// Interface for a 2D soil layer that has been adapted by using a surface line.
+    /// Interface for the 2D soil layer that can be used in macro stability inwards.
     /// </summary>
-    public interface IMacroStabilityInwardsSoilLayerUnderSurfaceLine
+    public interface IMacroStabilityInwardsSoilLayer2D : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
-        /// Gets the outer ring of the geometry.
+        /// Gets the outer ring of the layer.
         /// </summary>
-        Point2D[] OuterRing { get; }
+        Ring OuterRing { get; }
 
         /// <summary>
-        /// Gets the holes of the geometry.
+        /// Gets the holes of the layer.
         /// </summary>
-        IEnumerable<Point2D[]> Holes { get; }
+        Ring[] Holes { get; }
 
         /// <summary>
-        /// Gets the data of the soil layer.
+        /// Gets the nested layers.
         /// </summary>
-        IMacroStabilityInwardsSoilLayerData Data { get; }
+        IEnumerable<IMacroStabilityInwardsSoilLayer2D> NestedLayers { get; }
     }
 }

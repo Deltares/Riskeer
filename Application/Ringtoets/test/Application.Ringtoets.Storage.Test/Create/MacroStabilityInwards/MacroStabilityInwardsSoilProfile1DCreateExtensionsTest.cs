@@ -72,8 +72,14 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             double bottom = -random.NextDouble();
             var soilProfile = new MacroStabilityInwardsSoilProfile1D(name, bottom, new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(random.NextDouble()),
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                },
+                new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                }
             });
             var registry = new PersistenceRegistry();
 
@@ -100,6 +106,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("some name", double.NaN, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                }
             });
             var registry = new PersistenceRegistry();
 

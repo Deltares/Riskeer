@@ -207,59 +207,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSoilLayerChartData_SoilProfileNull_ThrowsArgumentNullException()
+        public void CreateSoilLayerChartData_NameAndFillColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
         {
-            // Call
-            TestDelegate test = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(0, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilProfile", paramName);
-        }
-
-        [Test]
-        [TestCase("A", 0)]
-        [TestCase("B", 3)]
-        [TestCase("Random", 5)]
-        public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithExpectedStyling(string name, int soilLayerIndex)
-        {
-            // Setup 
-            var mocks = new MockRepository();
-            var soilLayer = mocks.Stub<IMacroStabilityInwardsSoilLayer>();
-            soilLayer.Stub(sl => sl.Data).Return(new MacroStabilityInwardsSoilLayerData
-            {
-                MaterialName = name,
-                Color = Color.Aquamarine
-            });
-
-            List<IMacroStabilityInwardsSoilLayer> layers = Enumerable.Repeat(mocks.Stub<IMacroStabilityInwardsSoilLayer>(), soilLayerIndex)
-                                                                     .ToList();
-            layers.Add(soilLayer);
-
-            var profile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            profile.Stub(p => p.Layers).Return(layers);
-
-            mocks.ReplayAll();
+            // Setup
+            const string name = "Soil layer test name";
+            Color fillColor = Color.Firebrick;
 
             // Call
-            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(name, fillColor);
 
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
-            Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
-            AssertEqualStyle(data.Style, soilLayer.Data.Color, Color.Black, 1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateHolesChartData_ValidSoilProfileWithHoles_ReturnsChartDataWithExpectedStylingAndAreas()
-        {
-            // Call
-            ChartMultipleAreaData holesChartData = MacroStabilityInwardsChartDataFactory.CreateHolesChartData();
-
-            // Assert
-            Assert.AreEqual("Binnenringen", holesChartData.Name);
-            AssertEqualStyle(holesChartData.Style, Color.White, Color.Black, 1);
+            Assert.AreEqual(name, data.Name);
+            AssertEqualStyle(data.Style, fillColor, Color.Black, 1);
         }
 
         [Test]
@@ -318,27 +278,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
             // Assert
             Assert.AreEqual("soil profile name", chartData.Name);
-        }
-
-        [TestCase(-1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        public void CreateSoilLayerChartData_InvalidSoilLayerIndex_ThrowsArgumentOutOfRangeException(int soilLayerIndex)
-        {
-            // Setup
-            var layers = new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(0),
-                new MacroStabilityInwardsSoilLayer1D(1)
-            };
-            var profile = new MacroStabilityInwardsSoilProfile1D("name", -1.0, layers);
-
-            // Call
-            TestDelegate test = () => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
-            Assert.AreEqual("soilLayerIndex", paramName);
         }
 
         private static void AssertEqualStyle(ChartPointStyle pointStyle, Color fillColor, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// A collection of points which together form a closed line.

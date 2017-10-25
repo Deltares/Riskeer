@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.MacroStabilityInwards.Primitives;
+
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
@@ -33,7 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         public MacroStabilityInwardsSoilLayer1D(double top)
         {
             Top = top;
-            Data = new MacroStabilityInwardsSoilLayerData();
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// </summary>
         public double Top { get; }
 
-        public MacroStabilityInwardsSoilLayerData Data { get; }
+        public IMacroStabilityInwardsSoilLayerData Data { get; set; }
 
         public override bool Equals(object obj)
         {

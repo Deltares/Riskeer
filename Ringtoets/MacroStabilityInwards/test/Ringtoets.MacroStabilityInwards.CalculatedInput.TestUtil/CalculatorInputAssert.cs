@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// does not correspond to <paramref name="original"/>.</exception>
         public static void AssertSoilProfile(IMacroStabilityInwardsSoilProfileUnderSurfaceLine original, SoilProfile actual)
         {
-            IMacroStabilityInwardsSoilLayerUnderSurfaceLine[] expectedLayers = original.Layers.ToArray();
+            IMacroStabilityInwardsSoilLayer2D[] expectedLayers = original.Layers.ToArray();
             SoilLayer[] actualLayers = actual.Layers.ToArray();
 
             IMacroStabilityInwardsPreconsolidationStress[] expectedPreconsolidationStresses = original.PreconsolidationStresses.ToArray();
@@ -102,18 +102,18 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="IMacroStabilityInwardsSoilLayerUnderSurfaceLine"/> array.</param>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsSoilLayer2D"/> array.</param>
         /// <param name="actual">The actual <see cref="SoilLayer"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        private static void AssertLayers(IMacroStabilityInwardsSoilLayerUnderSurfaceLine[] original, SoilLayer[] actual)
+        private static void AssertLayers(IMacroStabilityInwardsSoilLayer2D[] original, SoilLayer[] actual)
         {
             Assert.AreEqual(original.Length, actual.Length);
 
             for (var i = 0; i < original.Length; i++)
             {
-                CollectionAssert.AreEqual(original[i].OuterRing, actual[i].OuterRing);
-                CollectionAssert.AreEqual(original[i].Holes, actual[i].Holes);
+                CollectionAssert.AreEqual(original[i].OuterRing.Points, actual[i].OuterRing);
+                CollectionAssert.AreEqual(original[i].Holes.Select(h => h.Points), actual[i].Holes);
 
                 IMacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
                 Assert.AreEqual(expectedData.MaterialName, actual[i].MaterialName);

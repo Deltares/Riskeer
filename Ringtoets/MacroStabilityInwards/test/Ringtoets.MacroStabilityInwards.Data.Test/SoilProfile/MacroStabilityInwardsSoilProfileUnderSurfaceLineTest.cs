@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>(),
+            TestDelegate call = () => new MacroStabilityInwardsSoilProfileUnderSurfaceLine(Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(),
                                                                                            null);
 
             // Assert
@@ -58,9 +58,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_WithValidParameters_NewInstanceWithPropertiesSet()
         {
             // Call
-            IEnumerable<MacroStabilityInwardsSoilLayerUnderSurfaceLine> layers = Enumerable.Empty<MacroStabilityInwardsSoilLayerUnderSurfaceLine>();
-            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses =
-                Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>();
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>();
+            IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses = Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>();
 
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(layers, preconsolidationStresses);

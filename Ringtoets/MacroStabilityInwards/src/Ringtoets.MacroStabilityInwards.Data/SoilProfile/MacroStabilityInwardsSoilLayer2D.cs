@@ -22,13 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a 2D layer that was imported from D-Soil Model.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayer2D : IMacroStabilityInwardsSoilLayer
+    public class MacroStabilityInwardsSoilLayer2D : IMacroStabilityInwardsSoilLayer2D
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
@@ -48,22 +49,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 throw new ArgumentNullException(nameof(holes));
             }
 
-            Data = new MacroStabilityInwardsSoilLayerData();
             OuterRing = outerRing;
             Holes = holes.ToArray();
         }
 
-        /// <summary>
-        /// Gets the outer ring of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
-        /// </summary>
         public Ring OuterRing { get; }
 
-        /// <summary>
-        /// Gets the holes of the polygon with holes describing the surface of the <see cref="MacroStabilityInwardsSoilLayer2D"/>.
-        /// </summary>
         public Ring[] Holes { get; }
 
-        public MacroStabilityInwardsSoilLayerData Data { get; }
+        public IEnumerable<IMacroStabilityInwardsSoilLayer2D> NestedLayers { get; set; }
+
+        public IMacroStabilityInwardsSoilLayerData Data { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -87,11 +83,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             unchecked
             {
                 int hashCode = Data.GetHashCode();
+
                 hashCode = (hashCode * 397) ^ OuterRing.GetHashCode();
+
                 foreach (Ring hole in Holes)
                 {
                     hashCode = (hashCode * 397) ^ hole.GetHashCode();
                 }
+
+                foreach (IMacroStabilityInwardsSoilLayer2D nestedLayer in NestedLayers)
+                {
+                    hashCode = (hashCode * 397) ^ nestedLayer.GetHashCode();
+                }
+
                 return hashCode;
             }
         }
@@ -100,7 +104,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         {
             return Data.Equals(other.Data)
                    && OuterRing.Equals(other.OuterRing)
-                   && Holes.SequenceEqual(other.Holes);
+                   && Holes.SequenceEqual(other.Holes)
+                   && NestedLayers.SequenceEqual(other.NestedLayers);
         }
     }
 }

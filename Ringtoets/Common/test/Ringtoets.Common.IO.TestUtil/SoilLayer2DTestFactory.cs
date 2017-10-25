@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.SoilProfile;
 
@@ -81,17 +82,11 @@ namespace Ringtoets.Common.IO.TestUtil
                 throw new ArgumentNullException(nameof(outerLoop));
             }
 
-            var soilLayer2D = new SoilLayer2D
+            return new SoilLayer2D(new SoilLayer2DLoop(outerLoop.ToArray()),
+                                   innerLoops.Select(il => new SoilLayer2DLoop(il.ToArray())).ToArray())
             {
-                OuterLoop = outerLoop
+                NestedLayers = Enumerable.Empty<SoilLayer2D>()
             };
-
-            foreach (IEnumerable<Segment2D> innerLoop in innerLoops)
-            {
-                soilLayer2D.AddInnerLoop(innerLoop);
-            }
-
-            return soilLayer2D;
         }
 
         /// <summary>

@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 new MacroStabilityInwardsSoilLayer1D(top)
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
@@ -182,11 +182,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                     })
                 })
                 {
-                    Data =
+                    Data = new MacroStabilityInwardsSoilLayerData
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi
-                    }
+                    },
+                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 }
             }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
             AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());

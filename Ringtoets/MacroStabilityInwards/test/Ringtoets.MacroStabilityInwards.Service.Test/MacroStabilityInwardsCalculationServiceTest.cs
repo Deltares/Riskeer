@@ -313,6 +313,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(1, new MacroStabilityInwardsSoilProfile1D("profile", 0.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(surfaceLineTop - differenceFromTop)
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                }
             }));
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");

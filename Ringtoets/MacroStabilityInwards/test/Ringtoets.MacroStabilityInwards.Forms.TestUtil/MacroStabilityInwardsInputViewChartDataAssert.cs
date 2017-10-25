@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -54,21 +55,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int nrOfChartData = 18;
 
         /// <summary>
-        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="surfaceLine"/>
-        /// and <paramref name="stochasticSoilProfile"/>.
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="calculationScenario"/>.
         /// </summary>
-        /// <param name="surfaceLine">The original <see cref="MacroStabilityInwardsSurfaceLine"/>.</param>
-        /// <param name="stochasticSoilProfile">The original <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</param>
+        /// <param name="calculationScenario">The original <see cref="MacroStabilityInwardsCalculationScenario"/>.</param>
         /// <param name="actual">The actual <see cref="ChartDataCollection"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// does not correspond to <paramref name="surfaceLine"/> or<paramref name="stochasticSoilProfile"/>.</exception>
-        public static void AssertChartData(MacroStabilityInwardsSurfaceLine surfaceLine,
-                                           MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile,
-                                           ChartDataCollection actual)
+        /// does not correspond to <paramref name="calculationScenario"/>.</exception>
+        public static void AssertChartData(MacroStabilityInwardsCalculationScenario calculationScenario, ChartDataCollection actual)
         {
             Assert.AreEqual(nrOfChartData, actual.Collection.Count());
-            MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(surfaceLine, actual.Collection.ElementAt(surfaceLineIndex));
-            MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(stochasticSoilProfile, actual.Collection.ElementAt(soilProfileIndex), true);
+            MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(calculationScenario.InputParameters.SurfaceLine, actual.Collection.ElementAt(surfaceLineIndex));
+            MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculationScenario.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                calculationScenario.InputParameters.StochasticSoilProfile.SoilProfile.Name,
+                                                                                true,
+                                                                                actual.Collection.ElementAt(soilProfileIndex));
         }
 
         /// <summary>

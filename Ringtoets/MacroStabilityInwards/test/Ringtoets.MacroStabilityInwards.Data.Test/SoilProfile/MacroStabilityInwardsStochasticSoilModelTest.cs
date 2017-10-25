@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -527,6 +528,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             return new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(2)
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                }
             };
         }
 

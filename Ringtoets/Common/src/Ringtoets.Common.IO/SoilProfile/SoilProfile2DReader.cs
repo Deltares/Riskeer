@@ -171,19 +171,19 @@ namespace Ringtoets.Common.IO.SoilProfile
         private SoilProfile2D TryReadSoilProfile()
         {
             var criticalProperties = new CriticalProfileProperties(this);
-            var soilLayers = new List<SoilLayer2D>();
+            var soilLayerGeometries = new List<SoilLayer2DGeometry>();
             var stresses = new List<PreconsolidationStress>();
             long soilProfileId = criticalProperties.ProfileId;
 
             RequiredProfileProperties properties;
-            
+
             try
             {
                 properties = new RequiredProfileProperties(this, criticalProperties.ProfileName);
 
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
-                    soilLayers.Add(ReadSoilLayerFrom(this, criticalProperties.ProfileName));
+                    soilLayerGeometries.Add(ReadSoilLayerGeometryFrom(this, criticalProperties.ProfileName));
                     MoveNext();
                 }
 
@@ -199,7 +199,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return new SoilProfile2D(soilProfileId,
                                          criticalProperties.ProfileName,
-                                         soilLayers,
+                                         GetSoilLayers(soilLayerGeometries),
                                          stresses)
                 {
                     IntersectionX = properties.IntersectionX
@@ -232,28 +232,105 @@ namespace Ringtoets.Common.IO.SoilProfile
             return preconsolidationStressReader.ReadPreconsolidationStresses().ToArray();
         }
 
+        private static IEnumerable<SoilLayer2D> GetSoilLayers(List<SoilLayer2DGeometry> soilLayerGeometries)
+        {
+            SoilLayer2DLoop[] innerLoops = soilLayerGeometries.SelectMany(slg => slg.InnerLoops).ToArray();
+
+            foreach (SoilLayer2DGeometry soilLayerGeometry in soilLayerGeometries)
+            {
+                if (IsNestedLayer(innerLoops, soilLayerGeometry))
+                {
+                    continue;
+                }
+
+                SoilLayer2D soilLayer = CreateSoilLayer2D(soilLayerGeometry);
+
+                CreateNestedSoilLayersRecursively(soilLayerGeometries, soilLayerGeometry, soilLayer);
+
+                yield return soilLayer;
+            }
+        }
+
+        private static void CreateNestedSoilLayersRecursively(List<SoilLayer2DGeometry> soilLayerGeometries, SoilLayer2DGeometry soilLayerGeometry, SoilLayer2D soilLayer)
+        {
+            var nestedLayers = new List<SoilLayer2D>();
+
+            foreach (SoilLayer2DLoop innerLoop in soilLayerGeometry.InnerLoops)
+            {
+                SoilLayer2DGeometry nestedSoilLayerGeometry = soilLayerGeometries.First(slg => slg.OuterLoop.Segments.SequenceEqual(innerLoop.Segments));
+                SoilLayer2D nestedSoilLayer = CreateSoilLayer2D(nestedSoilLayerGeometry);
+
+                CreateNestedSoilLayersRecursively(soilLayerGeometries, nestedSoilLayerGeometry, nestedSoilLayer);
+
+                nestedLayers.Add(nestedSoilLayer);
+            }
+
+            soilLayer.NestedLayers = StripDuplicateNestedLayers(nestedLayers);
+        }
+
+        private static SoilLayer2D CreateSoilLayer2D(SoilLayer2DGeometry soilLayerGeometry)
+        {
+            var soilLayer = new SoilLayer2D(soilLayerGeometry.OuterLoop, soilLayerGeometry.InnerLoops);
+
+            SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, soilLayerGeometry.LayerProperties);
+
+            return soilLayer;
+        }
+
+        private static bool IsNestedLayer(IEnumerable<SoilLayer2DLoop> innerLoops, SoilLayer2DGeometry soilLayerGeometry)
+        {
+            return innerLoops.Any(il => il.Segments.SequenceEqual(soilLayerGeometry.OuterLoop.Segments));
+        }
+
+        private static IEnumerable<SoilLayer2D> StripDuplicateNestedLayers(List<SoilLayer2D> nestedLayers)
+        {
+            return nestedLayers.Where(nl => !nestedLayers.Except(
+                                                             new[]
+                                                             {
+                                                                 nl
+                                                             })
+                                                         .SelectMany(GetLayersRecursively)
+                                                         .Any(l => l.OuterLoop.Segments.SequenceEqual(nl.OuterLoop.Segments)));
+        }
+
+        private static IEnumerable<SoilLayer2D> GetLayersRecursively(SoilLayer2D soilLayer)
+        {
+            var layers = new List<SoilLayer2D>
+            {
+                soilLayer
+            };
+
+            foreach (SoilLayer2D nestedLayer in soilLayer.NestedLayers)
+            {
+                layers.AddRange(GetLayersRecursively(nestedLayer));
+            }
+
+            return layers;
+        }
+
         /// <summary>
-        /// Reads a <see cref="SoilLayer2D"/> from the given <paramref name="reader"/>.
+        /// Reads a <see cref="SoilLayer2DGeometry"/> from the given <paramref name="reader"/>.
         /// </summary>
-        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the layers failed.</exception>
-        private static SoilLayer2D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
+        /// <param name="reader">The reader to read the geometry from.</param>
+        /// <param name="profileName">The name of the profile to read the geometry for.</param>
+        /// <returns>A <see cref="SoilLayer2DGeometry"/>.</returns>
+        /// <exception cref="SoilProfileReadException">Thrown when reading properties of the geometry failed.</exception>
+        private static SoilLayer2DGeometry ReadSoilLayerGeometryFrom(IRowBasedDatabaseReader reader, string profileName)
         {
             var properties = new Layer2DProperties(reader, profileName);
-            byte[] geometryValue = properties.GeometryValue;
 
-            SoilLayer2D soilLayer;
             try
             {
-                soilLayer = new SoilLayer2DGeometryReader().Read(geometryValue);
+                SoilLayer2DGeometry soilLayerGeometry = new SoilLayer2DGeometryReader().Read(properties.GeometryValue);
+
+                soilLayerGeometry.LayerProperties = properties;
+
+                return soilLayerGeometry;
             }
             catch (SoilLayerConversionException e)
             {
                 throw CreateSoilProfileReadException(reader.Path, profileName, e);
             }
-
-            SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, properties);
-
-            return soilLayer;
         }
 
         private static SoilProfileReadException CreateSoilProfileReadException(string filePath, string profileName, Exception innerException)

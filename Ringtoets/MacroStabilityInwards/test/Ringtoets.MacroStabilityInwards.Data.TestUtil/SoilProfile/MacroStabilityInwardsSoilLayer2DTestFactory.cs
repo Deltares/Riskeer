@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
 {
@@ -40,7 +41,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
-            }), new Ring[0]);
+            }), new Ring[0])
+            {
+                Data = new MacroStabilityInwardsSoilLayerData()
+            };
         }
     }
 }

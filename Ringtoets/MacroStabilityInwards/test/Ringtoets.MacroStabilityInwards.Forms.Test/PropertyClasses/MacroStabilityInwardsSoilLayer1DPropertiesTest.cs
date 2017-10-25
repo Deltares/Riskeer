@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var layer = new MacroStabilityInwardsSoilLayer1D(-2.9)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Test Name",
                     IsAquifer = true
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var layer = new MacroStabilityInwardsSoilLayer1D(-2.9)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Layer A"
                 }

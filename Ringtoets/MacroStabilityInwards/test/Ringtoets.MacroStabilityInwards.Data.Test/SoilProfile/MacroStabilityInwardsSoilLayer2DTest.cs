@@ -21,11 +21,13 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -86,12 +88,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer2D>(layer);
             Assert.NotNull(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
-            Assert.NotNull(layer.Data);
+            Assert.Null(layer.Data);
         }
 
         [Test]
@@ -163,7 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
                 }
@@ -175,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
                 }
@@ -187,7 +189,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(32))
                 })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
                 }
@@ -199,7 +201,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Gold
                 }
@@ -258,10 +260,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomRing(random)
             })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
-                }
+                },
+                NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
             };
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -56,13 +55,14 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var random = new Random(22);
 
-            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRing(21),
+                                                                 new[]
+                                                                 {
+                                                                     CreateRing(11),
+                                                                     CreateRing(22)
+                                                                 })
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new List<Point2D[]>
-                {
-                    CreateRing(11),
-                    CreateRing(22)
-                }, new MacroStabilityInwardsSoilLayerData
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     UsePop = random.NextBoolean(),
                     IsAquifer = random.NextBoolean(),
@@ -104,16 +104,25 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
                         Mean = random.NextRoundedDouble(),
                         CoefficientOfVariation = random.NextRoundedDouble()
                     }
-                })
-            }, new[]
-            {
-                new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
-                                                                new VariationCoefficientLogNormalDistribution
-                                                                {
-                                                                    Mean = (RoundedDouble) 0.05,
-                                                                    CoefficientOfVariation = random.NextRoundedDouble()
-                                                                })
-            });
+                }
+            };
+
+            var preconsolidationStress = new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
+                                                                                         new VariationCoefficientLogNormalDistribution
+                                                                                         {
+                                                                                             Mean = (RoundedDouble) 0.05,
+                                                                                             CoefficientOfVariation = random.NextRoundedDouble()
+                                                                                         });
+
+            var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
+                new[]
+                {
+                    soilLayer
+                },
+                new[]
+                {
+                    preconsolidationStress
+                });
 
             // Call
             SoilProfile soilProfile = SoilProfileConverter.Convert(profile);
@@ -128,11 +137,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new Point2D[0][],
-                                                                   new MacroStabilityInwardsSoilLayerData
-                                                                   {
-                                                                       ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
-                                                                   })
+                new MacroStabilityInwardsSoilLayer2D(CreateRing(21), new Ring[0])
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData
+                    {
+                        ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
+                    }
+                }
             }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
@@ -153,11 +164,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayerUnderSurfaceLine(CreateRing(21), new Point2D[0][],
-                                                                   new MacroStabilityInwardsSoilLayerData
-                                                                   {
-                                                                       ShearStrengthModel = originalShearStrengthModel
-                                                                   })
+                new MacroStabilityInwardsSoilLayer2D(CreateRing(21), new Ring[0])
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData
+                    {
+                        ShearStrengthModel = originalShearStrengthModel
+                    }
+                }
             }, new MacroStabilityInwardsPreconsolidationStress[0]);
 
             // Call
@@ -167,7 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             Assert.AreEqual(expectedShearStrengthModel, soilProfile.Layers.First().ShearStrengthModel);
         }
 
-        private static Point2D[] CreateRing(int seed)
+        private static Ring CreateRing(int seed)
         {
             var random = new Random(seed);
             int x1 = random.Next();
@@ -179,13 +192,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             double x4 = x1 + (x3 - x1) * random.NextDouble();
             int y4 = y1;
 
-            return new[]
+            return new Ring(new[]
             {
                 new Point2D(x1, y1),
                 new Point2D(x2, y2),
                 new Point2D(x3, y3),
                 new Point2D(x4, y4)
-            };
+            });
         }
     }
 }

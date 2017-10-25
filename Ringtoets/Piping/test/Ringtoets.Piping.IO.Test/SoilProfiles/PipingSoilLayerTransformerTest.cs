@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_EmptySoilLayer2D_ReturnsEmptyCollectionWithMaxValueBottom()
         {
             // Setup
-            var layer = new SoilLayer2D();
+            var layer = new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), Enumerable.Empty<SoilLayer2DLoop>());
             double bottom;
 
             // Call
@@ -860,10 +860,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_IncorrectShiftedLogNormalDistribution_ThrowsImportedDataTransformException()
         {
             // Setup
-            var layer = new SoilLayer2D
-            {
-                BelowPhreaticLevelDistributionType = -1
-            };
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
+
+            layer.BelowPhreaticLevelDistributionType = -1;
 
             double bottom;
 
@@ -917,7 +916,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer2D()
         {
-            return IncorrectLogNormalDistributions(() => new SoilLayer2D(), nameof(SoilLayer2D));
+            return IncorrectLogNormalDistributions(SoilLayer2DTestFactory.CreateSoilLayer2D, nameof(SoilLayer2D));
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributions(Func<SoilLayerBase> soilLayer, string typeName)

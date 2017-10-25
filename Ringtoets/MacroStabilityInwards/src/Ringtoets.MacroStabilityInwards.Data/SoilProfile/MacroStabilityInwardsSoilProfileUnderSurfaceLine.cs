@@ -36,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="layers">The layers in the profile.</param>
         /// <param name="preconsolidationStresses">The preconsolidation stresses defined for the profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> layers,
+        public MacroStabilityInwardsSoilProfileUnderSurfaceLine(IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers,
                                                                 IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
         {
             if (layers == null)
@@ -50,8 +50,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             Layers = layers;
             PreconsolidationStresses = preconsolidationStresses;
         }
-        
-        public IEnumerable<IMacroStabilityInwardsSoilLayerUnderSurfaceLine> Layers { get; }
+
+        public IEnumerable<IMacroStabilityInwardsSoilLayer2D> Layers { get; }
 
         public IEnumerable<IMacroStabilityInwardsPreconsolidationStress> PreconsolidationStresses { get; }
     }

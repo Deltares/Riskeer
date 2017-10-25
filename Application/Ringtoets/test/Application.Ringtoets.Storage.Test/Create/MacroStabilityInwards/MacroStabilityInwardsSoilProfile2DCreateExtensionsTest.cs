@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -151,6 +152,9 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                     new Point2D(random.NextDouble(), random.NextDouble()),
                     new Point2D(random.NextDouble(), random.NextDouble())
                 }), Enumerable.Empty<Ring>())
+                {
+                    Data = new MacroStabilityInwardsSoilLayerData()
+                }
             };
 
             return new MacroStabilityInwardsSoilProfile2D(name, layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());

@@ -139,6 +139,7 @@
     <Compile Include="SoilProfile\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
     <Compile Include="SoilProfile\SoilLayer1D.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DGeometry.cs" />
     <Compile Include="SoilProfile\SoilLayer2D.cs" />
     <Compile Include="SoilProfile\SoilLayer2DGeometryReader.cs" />
     <Compile Include="SoilProfile\SoilLayerBase.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="SoilProfile\DistributionHelper.cs" />
     <Compile Include="SoilProfile\SoilLayerHelper.cs" />
     <Compile Include="SoilProfile\SoilLayerIsAquiferConverter.cs" />
+    <Compile Include="SoilProfile\SoilLayer2DLoop.cs" />
     <Compile Include="SoilProfile\SoilProfile1D.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReader.cs" />
     <Compile Include="SoilProfile\SoilProfile2D.cs" />

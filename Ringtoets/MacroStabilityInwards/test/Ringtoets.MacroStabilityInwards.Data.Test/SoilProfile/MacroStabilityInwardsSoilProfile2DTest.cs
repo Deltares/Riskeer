@@ -31,6 +31,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -316,10 +317,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomRing(random.Next())
             })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
-                }
+                },
+                NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
             };
         }
 
@@ -330,7 +332,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 soilLayer.Holes[0]
             })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = soilLayer.Data.Color
                 }

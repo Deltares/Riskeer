@@ -28,7 +28,6 @@ using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
@@ -623,78 +622,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHolesAreas_SoilProfileNull_ReturnsEmptyAreaCollection()
-        {
-            // Call
-            IEnumerable<Point2D[]> holes = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(null);
-
-            // Assert
-            CollectionAssert.IsEmpty(holes);
-        }
-
-        [Test]
-        public void CreateHolesAreas_SoilProfileWithoutHoles_ReturnsEmptyAreaCollection()
-        {
-            // Setup
-            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new IMacroStabilityInwardsSoilLayerUnderSurfaceLine[0],
-                                                                                   new IMacroStabilityInwardsPreconsolidationStress[0]);
-
-            // Call
-            IEnumerable<Point2D[]> holes = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfile);
-
-            // Assert
-            CollectionAssert.IsEmpty(holes);
-        }
-
-        [Test]
-        public void CreateHolesAreas_SoilProfileWithHoles_ReturnsHolesAreaCollection()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var holesLayer1 = new[]
-            {
-                new[]
-                {
-                    new Point2D(2.0, 2.0),
-                    new Point2D(6.0, 2.0),
-                    new Point2D(4.0, 4.0)
-                }
-            };
-            var holesLayer2 = new[]
-            {
-                new[]
-                {
-                    new Point2D(3.0, 3.0),
-                    new Point2D(7.0, 3.0),
-                    new Point2D(5.0, 5.0)
-                }
-            };
-
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
-            var soilLayer1 = mocks.Stub<IMacroStabilityInwardsSoilLayerUnderSurfaceLine>();
-            soilLayer1.Stub(l => l.Holes).Return(holesLayer1);
-
-            var soilLayer2 = mocks.Stub<IMacroStabilityInwardsSoilLayerUnderSurfaceLine>();
-            soilLayer2.Stub(l => l.Holes).Return(holesLayer2);
-
-            soilProfile.Stub(p => p.Layers).Return(new[]
-            {
-                soilLayer1,
-                soilLayer2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<Point2D[]> holesChartData = MacroStabilityInwardsChartDataPointsFactory.CreateHolesAreas(soilProfile);
-
-            // Assert
-            IEnumerable<Point2D[]> expectedHoles = holesLayer1.Concat(holesLayer2);
-            CollectionAssert.AreEqual(expectedHoles, holesChartData);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CreateOuterRingArea_SoilLayerNull_ReturnsEmptyAreaCollection()
         {
             // Call
@@ -709,15 +636,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         {
             // Setup
             var mocks = new MockRepository();
-            var outerRing = new[]
+            var outerRing = new Ring(new[]
             {
                 new Point2D(0.0, 10.0),
                 new Point2D(10.0, 10.0),
                 new Point2D(10.0, 0.0),
                 new Point2D(0.0, 0.0)
-            };
+            });
 
-            var layer = mocks.Stub<IMacroStabilityInwardsSoilLayerUnderSurfaceLine>();
+            var layer = mocks.Stub<IMacroStabilityInwardsSoilLayer2D>();
             layer.Stub(l => l.OuterRing).Return(outerRing);
 
             mocks.ReplayAll();
@@ -728,7 +655,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                outerRing
+                outerRing.Points
             }, outerRingChartData);
 
             mocks.VerifyAll();

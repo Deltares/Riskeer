@@ -48,6 +48,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -440,7 +441,7 @@ namespace Demo.Ringtoets.Commands
                     {
                         new MacroStabilityInwardsSoilLayer1D(30.1267)
                         {
-                            Data =
+                            Data = new MacroStabilityInwardsSoilLayerData
                             {
                                 MaterialName = "1D Layer",
                                 IsAquifer = true
@@ -476,7 +477,7 @@ namespace Demo.Ringtoets.Commands
                                 })
                             })
                         {
-                            Data =
+                            Data = new MacroStabilityInwardsSoilLayerData
                             {
                                 MaterialName = "2D Layer"
                             }

@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 return Enumerable.Empty<PipingSoilLayer>();
             }
 
-            double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(soilLayer.OuterLoop, atX).ToArray();
+            double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(soilLayer.OuterLoop.Segments, atX).ToArray();
 
             if (!outerLoopIntersectionHeights.Any())
             {
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             }
 
             var soilLayers = new Collection<PipingSoilLayer>();
-            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = soilLayer.InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));
+            IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = soilLayer.InnerLoops.Select(loop => GetLoopIntersectionHeights(loop.Segments, atX));
             IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
             IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 

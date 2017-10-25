@@ -51,23 +51,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="soilProfileUnderSurface"/>,
+        /// <paramref name="expectedName"/> and <paramref name="mapDataShouldContainAreas"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</param>
+        /// <param name="soilProfileUnderSurface">The <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/>
+        /// that should be represented as series in <paramref name="actual"/>.</param>
+        /// <param name="expectedName">The expected name of <paramref name="actual"/>.</param>
+        /// <param name="mapDataShouldContainAreas">Indicator whether areas should be present.</param>
         /// <param name="actual">The actual <see cref="ChartData"/>.</param>
-        /// <param name="mapDataShouldContainAreas">Indicator whether areas are present.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// does not correspond to <paramref name="original"/>.</exception>
-        public static void AssertSoilProfileChartData(MacroStabilityInwardsStochasticSoilProfile original, ChartData actual, bool mapDataShouldContainAreas)
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/> does not correspond
+        /// to <paramref name="soilProfileUnderSurface"/>, <paramref name="expectedName"/> or
+        /// <paramref name="mapDataShouldContainAreas"/>.</exception>
+        public static void AssertSoilProfileChartData(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurface, string expectedName, bool mapDataShouldContainAreas, ChartData actual)
         {
             Assert.IsInstanceOf<ChartDataCollection>(actual);
             var soilProfileChartData = (ChartDataCollection) actual;
 
-            int expectedLayerCount = original.SoilProfile.Layers.Count();
-            Assert.AreEqual(expectedLayerCount + 1, soilProfileChartData.Collection.Count());
-            Assert.AreEqual(original.SoilProfile.Name, soilProfileChartData.Name);
+            IMacroStabilityInwardsSoilLayer2D[] layers = soilProfileUnderSurface?.GetLayersRecursively().ToArray() ?? new IMacroStabilityInwardsSoilLayer2D[0];
+            int expectedLayerCount = layers.Length;
 
-            string[] expectedSoilLayerNames = original.SoilProfile.Layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
+            Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
+            Assert.AreEqual(expectedName, soilProfileChartData.Name);
+
+            string[] expectedSoilLayerNames = layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
 
             for (var i = 0; i < expectedLayerCount; i++)
             {
@@ -77,11 +83,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                 Assert.AreEqual(expectedSoilLayerNames[i], chartMultipleAreaData.Name);
                 Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
             }
-
-            var holesMultipleAreaData = soilProfileChartData.Collection.Last() as ChartMultipleAreaData;
-            Assert.IsNotNull(holesMultipleAreaData);
-            Assert.AreEqual("Binnenringen", holesMultipleAreaData.Name);
-            Assert.IsFalse(holesMultipleAreaData.Areas.Any());
         }
     }
 }

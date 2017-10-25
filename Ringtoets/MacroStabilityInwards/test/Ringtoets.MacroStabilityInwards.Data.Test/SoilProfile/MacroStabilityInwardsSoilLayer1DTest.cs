@@ -24,6 +24,7 @@ using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -41,8 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
-            Assert.NotNull(layer);
-            Assert.NotNull(layer.Data);
+            Assert.Null(layer.Data);
             Assert.AreEqual(top, layer.Top);
         }
 
@@ -112,21 +112,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             var layerE = new MacroStabilityInwardsSoilLayer1D(3)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
                 }
             };
             var layerF = new MacroStabilityInwardsSoilLayer1D(4)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Blue
                 }
             };
             var layerG = new MacroStabilityInwardsSoilLayer1D(3)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.Gold
                 }
@@ -178,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             var random = new Random(randomSeed);
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }

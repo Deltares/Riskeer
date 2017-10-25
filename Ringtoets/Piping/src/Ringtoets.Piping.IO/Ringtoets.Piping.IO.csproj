@@ -36,7 +36,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exceptions\SoilProfileBuilderException.cs" />
-    <Compile Include="Exceptions\SoilLayerConversionException.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\PipingCalculationConfigurationImporter.cs" />

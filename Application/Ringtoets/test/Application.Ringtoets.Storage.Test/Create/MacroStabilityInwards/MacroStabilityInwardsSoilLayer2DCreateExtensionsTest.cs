@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 CreateRandomRing(random)
             })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     IsAquifer = random.NextBoolean(),
                     MaterialName = "MaterialName",
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
 
-            MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
+            IMacroStabilityInwardsSoilLayerData data = soilLayer.Data;
             Assert.AreEqual(Convert.ToByte(data.IsAquifer), entity.IsAquifer);
             Assert.AreEqual(data.MaterialName, entity.MaterialName);
             Assert.AreEqual(data.Color.ToArgb(), Convert.ToInt32(entity.Color));
@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var random = new Random(31);
             var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), Enumerable.Empty<Ring>())
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     AbovePhreaticLevel =
                     {
@@ -224,7 +224,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 CreateRandomRing(random)
             })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = materialName
                 }

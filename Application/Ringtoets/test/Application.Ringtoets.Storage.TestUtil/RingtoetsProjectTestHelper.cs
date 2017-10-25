@@ -1065,7 +1065,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             var soilLayer1D = new MacroStabilityInwardsSoilLayer1D(5)
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     IsAquifer = true,
                     MaterialName = "SeaShellLayer",
@@ -1132,7 +1132,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 })
             })
             {
-                Data =
+                Data = new MacroStabilityInwardsSoilLayerData
                 {
                     IsAquifer = false,
                     MaterialName = "GainsboroLayer",

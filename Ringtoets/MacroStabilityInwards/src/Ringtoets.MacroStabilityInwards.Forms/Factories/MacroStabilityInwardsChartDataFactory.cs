@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Linq;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -199,46 +198,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> based on its color.
+        /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="IMacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <param name="soilLayerIndex">The index of the <see cref="MacroStabilityInwardsSoilLayer1D"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
-        /// <param name="soilProfile">The <see cref="IMacroStabilityInwardsSoilProfile{T}"/> which contains the <see cref="IMacroStabilityInwardsSoilLayer"/>.</param>
+        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
+        /// <param name="fillColor">The fill color of the <see cref="ChartData"/>.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="soilLayerIndex"/> is outside the allowable range of values ([0, number_of_soil_layers>).</exception>
-        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
+        public static ChartMultipleAreaData CreateSoilLayerChartData(string name, Color fillColor)
         {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException(nameof(soilProfile));
-            }
-
-            if (soilLayerIndex < 0 || soilLayerIndex >= soilProfile.Layers.Count())
-            {
-                throw new ArgumentOutOfRangeException(nameof(soilLayerIndex));
-            }
-
-            IMacroStabilityInwardsSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
-
-            return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.Data.MaterialName}",
+            return new ChartMultipleAreaData(name,
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = soilLayer.Data.Color,
-                                                 StrokeColor = Color.Black,
-                                                 StrokeThickness = 1
-                                             });
-        }
-
-        /// <summary>
-        /// Create <see cref="ChartData"/> for the holes in a <see cref="MacroStabilityInwardsSoilProfileUnderSurfaceLine"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        public static ChartMultipleAreaData CreateHolesChartData()
-        {
-            return new ChartMultipleAreaData(Resources.MacroStabilityInwardsChartDataFactory_Holes_ChartDataName,
-                                             new ChartAreaStyle
-                                             {
-                                                 FillColor = Color.White,
+                                                 FillColor = fillColor,
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

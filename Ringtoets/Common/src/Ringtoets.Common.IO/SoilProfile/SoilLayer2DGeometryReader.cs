@@ -35,15 +35,15 @@ namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading an array of bytes and interpret this as an XML document,
-    /// which contains information about the geometry of a soil layer.
+    /// which contains information about the geometry of a 2D soil layer.
     /// </summary>
     internal class SoilLayer2DGeometryReader
     {
         private const string outerLoopElementName = "OuterLoop";
         private const string innerLoopsElementName = "InnerLoops";
         private const string innerLoopElementName = "GeometryLoop";
-        private const string endPointElementName = "EndPoint";
         private const string headPointElementName = "HeadPoint";
+        private const string endPointElementName = "EndPoint";
         private const string geometryCurveElementName = "GeometryCurve";
         private const string xElementName = "X";
         private const string zElementName = "Z";
@@ -59,21 +59,20 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads a new <see cref="SoilLayer2D"/> using the <paramref name="geometry"/> as the source of the 
-        /// geometry for a soil layer.
+        /// Reads a <see cref="SoilLayer2DGeometry"/> from <paramref name="geometry"/>.
         /// </summary>
         /// <param name="geometry">An <see cref="Array"/> of <see cref="byte"/> which contains the information
-        /// of a soil layer in an XML document.</param>
-        /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
+        /// of a soil layer 2D geometry as an XML document.</param>
+        /// <returns>A <see cref="SoilLayer2DGeometry"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="geometry"/> is not valid XML;</item>
-        /// <item><paramref name="geometry"/> does not pass schema validation.</item>
+        /// <item><paramref name="geometry"/> does not pass the schema validation.</item>
         /// </list>
         /// </exception>
         /// <seealso cref="Read(XDocument)"/>
-        public SoilLayer2D Read(byte[] geometry)
+        public SoilLayer2DGeometry Read(byte[] geometry)
         {
             if (geometry == null)
             {
@@ -93,28 +92,29 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads a new <see cref="SoilLayer2D"/> using the <paramref name="geometry"/>.
+        /// Reads a <see cref="SoilLayer2DGeometry"/> from <paramref name="geometry"/>.
         /// </summary>
-        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information 
-        /// of a soil layer in an XML document.</param>
-        /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
+        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information
+        /// of a soil layer 2D geometry.</param>
+        /// <returns>A <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="SoilLayerConversionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="geometry"/> is not valid XML;</item>
-        /// <item><paramref name="geometry"/> does not pass schema validation.</item>
+        /// <item><paramref name="geometry"/> does not pass the schema validation.</item>
         /// </list>
         /// </exception>
         /// <seealso cref="Read(byte[])"/>
-        public SoilLayer2D Read(XDocument geometry)
+        public SoilLayer2DGeometry Read(XDocument geometry)
         {
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+
             ValidateToSchema(geometry);
 
-            return ParseLayer(geometry);
+            return ParseGeometry(geometry);
         }
 
         /// <summary>
@@ -142,34 +142,31 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses the XML element to create a 2D soil layer.
+        /// Parses <param name="geometry"/> in order to create a 2D soil layer geometry.
         /// </summary>
-        /// <param name="geometry">The geometry.</param>
-        /// <exception cref="SoilLayerConversionException">Thrown when 
-        /// XML for inner or outer geometry loops is invalid.</exception>
-        private static SoilLayer2D ParseLayer(XDocument geometry)
+        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information
+        /// of a 2D soil layer geometry.</param>
+        /// <returns>A <see cref="SoilLayer2DGeometry"/> with data set for the outer loop and the inner loops.</returns>
+        /// <exception cref="SoilLayerConversionException">Thrown when the XML for the outer
+        /// or inner geometry loops is invalid.</exception>
+        private static SoilLayer2DGeometry ParseGeometry(XDocument geometry)
         {
-            var soilLayer = new SoilLayer2D();
-
             XElement xmlOuterLoop = geometry.XPathSelectElement($"//{outerLoopElementName}");
             IEnumerable<XElement> xmlInnerLoops = geometry.XPathSelectElements($"//{innerLoopsElementName}//{innerLoopElementName}");
 
-            if (xmlOuterLoop != null)
+            return new SoilLayer2DGeometry
             {
-                soilLayer.OuterLoop = ParseGeometryLoop(xmlOuterLoop);
-            }
-            foreach (XElement loop in xmlInnerLoops)
-            {
-                soilLayer.AddInnerLoop(ParseGeometryLoop(loop));
-            }
-            return soilLayer;
+                OuterLoop = ParseLoop(xmlOuterLoop),
+                InnerLoops = xmlInnerLoops.Select(ParseLoop).ToArray()
+            };
         }
 
         /// <summary>
-        /// Parses the XML element to create a collection of sorted <see cref="Segment2D"/> describing
-        /// a geometric loop.
+        /// Parses <param name="loop"/> in order to create a <see cref="SoilLayer2DLoop"/>.
         /// </summary>
-        /// <param name="loop">The geometric loop element.</param>
+        /// <param name="loop">An <see cref="XElement"/> which contains the information
+        /// of a 2D soil layer loop.</param>
+        /// <returns>A <see cref="SoilLayer2DLoop"/>.</returns>
         /// <exception cref="SoilLayerConversionException">Thrown when the XML:
         /// <list type="bullet">
         /// <item>for any geometry curve is invalid;</item>
@@ -177,20 +174,72 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <item>contains disconnected curves.</item>
         /// </list>
         /// </exception>
-        /// <remarks>As the description states, the returned segments are sorted. The sorting is
-        /// necessary for hiding some insufficiencies in D-Soilmodel.</remarks>
-        private static IEnumerable<Segment2D> ParseGeometryLoop(XElement loop)
+        private static SoilLayer2DLoop ParseLoop(XElement loop)
         {
             IEnumerable<XElement> curves = loop.XPathSelectElements($".//{geometryCurveElementName}");
 
-            Segment2D[] unsortedSegments = curves.Select(ParseGeometryCurve).ToArray();
+            Segment2D[] unsortedSegments = curves.Select(ParseCurve).ToArray();
 
             if (unsortedSegments.Length == 1)
             {
                 throw new SoilLayerConversionException(Resources.Loop_contains_disconnected_segments);
             }
 
-            return CreateSortedSegments(unsortedSegments);
+            return new SoilLayer2DLoop(GetSortedSegments(unsortedSegments).ToArray());
+        }
+
+        /// <summary>
+        /// Parses <see cref="curve"/> in order to create a <see cref="Segment2D"/>.
+        /// </summary>
+        /// <param name="curve">An <see cref="XElement"/> which contains the information
+        /// of a 2D segment.</param>
+        /// <returns>A <see cref="Segment2D"/>.</returns>
+        /// <exception cref="SoilLayerConversionException">Thrown when the XML for the curve
+        /// is invalid.</exception>
+        private static Segment2D ParseCurve(XElement curve)
+        {
+            XElement headDefinition = curve.Element(headPointElementName);
+            XElement endDefinition = curve.Element(endPointElementName);
+            if (headDefinition == null || endDefinition == null)
+            {
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
+            }
+
+            return new Segment2D(ParsePoint(headDefinition), ParsePoint(endDefinition));
+        }
+
+        /// <summary>
+        /// Parses <see cref="point"/> in order to create a <see cref="Point2D"/>.
+        /// </summary>
+        /// <param name="point">An <see cref="XElement"/> which contains the information
+        /// of a 2D point.</param>
+        /// <returns>A <see cref="Point2D"/>.</returns>
+        /// <exception cref="SoilLayerConversionException">Thrown when any of the following occurs:
+        /// <list type="bullet">
+        /// <item>A coordinate value cannot be parsed.</item>
+        /// <item>The XML for the point is invalid.</item>
+        /// </list></exception>
+        private static Point2D ParsePoint(XElement point)
+        {
+            XElement xElement = point.Element(xElementName);
+            XElement yElement = point.Element(zElementName);
+            if (xElement == null || yElement == null)
+            {
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
+            }
+
+            try
+            {
+                double x = XmlConvert.ToDouble(xElement.Value);
+                double y = XmlConvert.ToDouble(yElement.Value);
+                return new Point2D(x, y);
+            }
+            catch (SystemException e) when (e is ArgumentNullException
+                                            || e is FormatException
+                                            || e is OverflowException)
+            {
+                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Could_not_parse_point_location, e);
+            }
         }
 
         /// <summary>
@@ -200,7 +249,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <returns>An array of sorted segments.</returns>
         /// <exception cref="SoilLayerConversionException">Thrown when 
         /// <param name="unsortedSegments"/> contains disconnected segments.</exception>
-        private static IEnumerable<Segment2D> CreateSortedSegments(Segment2D[] unsortedSegments)
+        private static IEnumerable<Segment2D> GetSortedSegments(Segment2D[] unsortedSegments)
         {
             Point2D[] sortedPoints = GetSortedPoints(unsortedSegments);
             int sortedPointsLength = sortedPoints.Length;
@@ -268,56 +317,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             sortedPoints.RemoveAt(sortedPoints.Count - 1);
 
             return sortedPoints.ToArray();
-        }
-
-        /// <summary>
-        /// Parses the XML element to create a <see cref="Segment2D"/>.
-        /// </summary>
-        /// <param name="curve">The geometry curve element.</param>
-        /// <exception cref="SoilLayerConversionException">Thrown when 
-        /// XML for geometry curve is invalid.</exception>
-        private static Segment2D ParseGeometryCurve(XElement curve)
-        {
-            XElement headDefinition = curve.Element(headPointElementName);
-            XElement endDefinition = curve.Element(endPointElementName);
-            if (headDefinition == null || endDefinition == null)
-            {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
-            }
-
-            return new Segment2D(ParsePoint(headDefinition), ParsePoint(endDefinition));
-        }
-
-        /// <summary>
-        /// Parses the XML element to create a <see cref="Point2D"/>.
-        /// </summary>
-        /// <param name="point">The 2D point element.</param>
-        /// <exception cref="SoilLayerConversionException">Thrown when any of the following occurs:
-        /// <list type="bullet">
-        /// <item>A coordinate value cannot be parsed;</item>
-        /// <item>XML for 2D point is invalid.</item>
-        /// </list></exception>
-        private static Point2D ParsePoint(XElement point)
-        {
-            XElement xElement = point.Element(xElementName);
-            XElement yElement = point.Element(zElementName);
-            if (xElement == null || yElement == null)
-            {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Geometry_contains_no_valid_xml);
-            }
-
-            try
-            {
-                double x = XmlConvert.ToDouble(xElement.Value);
-                double y = XmlConvert.ToDouble(yElement.Value);
-                return new Point2D(x, y);
-            }
-            catch (SystemException e) when (e is ArgumentNullException
-                                            || e is FormatException
-                                            || e is OverflowException)
-            {
-                throw new SoilLayerConversionException(Resources.SoilLayer2DGeometryReader_Could_not_parse_point_location, e);
-            }
         }
     }
 }

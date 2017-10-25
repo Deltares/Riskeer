@@ -129,12 +129,12 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 });
 
             // Assert
-            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.Segments.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.Segments.ElementAt(1));
 
             Assert.AreEqual(1, soilLayer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
-            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0).Segments[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0).Segments[1]);
         }
 
         [Test]
@@ -149,12 +149,12 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var pointC = new Point2D(1.0, 1.0);
             var pointD = new Point2D(2.0, 1.0);
 
-            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.Segments.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.Segments.ElementAt(1));
 
             Assert.AreEqual(1, soilLayer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
-            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0).Segments[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0).Segments[1]);
         }
 
         [Test]
@@ -170,12 +170,12 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var pointD = new Point2D(2.0, 1.0);
 
             Assert.AreEqual(0.0, soilLayer.IsAquifer);
-            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.Segments.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.Segments.ElementAt(1));
 
             Assert.AreEqual(1, soilLayer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
-            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0).Segments[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0).Segments[1]);
         }
 
         [Test]
@@ -276,12 +276,12 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 });
 
             // Assert
-            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.ElementAt(1));
+            Assert.AreEqual(new Segment2D(pointA, pointB), soilLayer.OuterLoop.Segments.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), soilLayer.OuterLoop.Segments.ElementAt(1));
 
             Assert.AreEqual(1, soilLayer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0)[0]);
-            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0)[1]);
+            Assert.AreEqual(new Segment2D(pointC, pointD), soilLayer.InnerLoops.ElementAt(0).Segments[0]);
+            Assert.AreEqual(new Segment2D(pointD, pointC), soilLayer.InnerLoops.ElementAt(0).Segments[1]);
         }
     }
 }
