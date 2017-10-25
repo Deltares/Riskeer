@@ -237,7 +237,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// Sets the geometry points of <paramref name="stochasticSoilModel"/> from the database.
         /// </summary>
         /// <param name="stochasticSoilModel">The stochastic soil model of which the geometry to set.</param>
-        /// <exception cref="InvalidCastException">Thrown when the stochastic soil model id from the D-Soil model database
+        /// <exception cref="InvalidCastException">Thrown when the stochastic soil model id from the D-Soil Model database
         /// could not be convert.</exception>
         private void SetGeometry(StochasticSoilModel stochasticSoilModel)
         {

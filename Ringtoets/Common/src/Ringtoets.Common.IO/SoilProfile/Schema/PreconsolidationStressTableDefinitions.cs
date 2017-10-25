@@ -23,7 +23,7 @@ namespace Ringtoets.Common.IO.SoilProfile.Schema
 {
     /// <summary>
     /// Defines the column and table names of the table 'PreconsolidationStresses' in 
-    /// the D-Soil model database.
+    /// the D-Soil Model database.
     /// </summary>
     internal static class PreconsolidationStressTableDefinitions
     {

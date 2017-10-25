@@ -27,7 +27,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
     /// Class which provides helper methods for validating distributions coming from
-    /// D-Soil model files.
+    /// D-Soil Model files.
     /// </summary>
     public static class DistributionHelper
     {

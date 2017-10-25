@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
     /// This class represents a preconsolidation stress definition that was imported
-    /// from D-Soil model.
+    /// from D-Soil Model.
     /// </summary>
     public class MacroStabilityInwardsPreconsolidationStress : IMacroStabilityInwardsPreconsolidationStress
     {
