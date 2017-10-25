@@ -238,7 +238,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
         private static bool IsPointNearSoilSegments(Point2D surfaceLinePoint, IEnumerable<Segment2D> soilSegments)
         {
-            foreach (Segment2D soilSegment in soilSegments)
+            foreach (Segment2D soilSegment in soilSegments.Where(s => !s.IsVertical()))
             {
                 double distance = soilSegment.GetEuclideanDistanceToPoint(surfaceLinePoint);
 
