@@ -832,100 +832,100 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             }, zone.First());
         }
 
-        [Test]
-        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineIntersectionPointNotCoordinate_ReturnsPointsArray()
-        {
-            // Setup
-            var waternetLineGeometry = new[]
-            {
-                new Point2D(0, -2),
-                new Point2D(10, -2)
-            };
-            var phreaticLineGeometry = new[]
-            {
-                new Point2D(0, 6),
-                new Point2D(2, 4),
-                new Point2D(10, 0)
-            };
-
-            var waternetLine = new MacroStabilityInwardsWaternetLine(
-                "Line",
-                waternetLineGeometry,
-                new MacroStabilityInwardsPhreaticLine("Line 2",
-                                                      phreaticLineGeometry));
-
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 2, 2),
-                new Point3D(3, 10, 10),
-                new Point3D(6, 8, 8),
-                new Point3D(10, 2, 2)
-            });
-
-            // Call
-            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(1.09, 4.91),
-                new Point2D(2, 4),
-                new Point2D(10, 0),
-                new Point2D(10, -2),
-                new Point2D(0, -2),
-                new Point2D(0, 2)
-            }, zone.First(), new Point2DComparerWithTolerance(1e-2));
-        }
-
-        [Test]
-        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineIntersectionPointCoordinate_ReturnsPointsArray()
-        {
-            // Setup
-            var waternetLineGeometry = new[]
-            {
-                new Point2D(0, -2),
-                new Point2D(10, -2)
-            };
-            var phreaticLineGeometry = new[]
-            {
-                new Point2D(0, 6),
-                new Point2D(4, 6),
-                new Point2D(8, 2)
-            };
-
-            var waternetLine = new MacroStabilityInwardsWaternetLine(
-                "Line",
-                waternetLineGeometry,
-                new MacroStabilityInwardsPhreaticLine("Line 2",
-                                                      phreaticLineGeometry));
-
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 2, 2),
-                new Point3D(3, 2, 2),
-                new Point3D(6, 8, 8),
-                new Point3D(10, 2, 2)
-            });
-
-            // Call
-            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(3, 2),
-                new Point2D(4, 4),
-                new Point2D(4.67, 5.33),
-                new Point2D(8, 2),
-                new Point2D(10, -2),
-                new Point2D(0, -2),
-                new Point2D(0, 2)
-            }, zone.First(), new Point2DComparerWithTolerance(1e-2));
-        }
+//        [Test]
+//        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineIntersectionPointNotCoordinate_ReturnsPointsArray()
+//        {
+//            // Setup
+//            var waternetLineGeometry = new[]
+//            {
+//                new Point2D(0, -2),
+//                new Point2D(10, -2)
+//            };
+//            var phreaticLineGeometry = new[]
+//            {
+//                new Point2D(0, 6),
+//                new Point2D(2, 4),
+//                new Point2D(10, 0)
+//            };
+//
+//            var waternetLine = new MacroStabilityInwardsWaternetLine(
+//                "Line",
+//                waternetLineGeometry,
+//                new MacroStabilityInwardsPhreaticLine("Line 2",
+//                                                      phreaticLineGeometry));
+//
+//            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+//            surfaceLine.SetGeometry(new[]
+//            {
+//                new Point3D(0, 2, 2),
+//                new Point3D(3, 10, 10),
+//                new Point3D(6, 8, 8),
+//                new Point3D(10, 2, 2)
+//            });
+//
+//            // Call
+//            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+//
+//            // Assert
+//            CollectionAssert.AreEqual(new[]
+//            {
+//                new Point2D(0, 2),
+//                new Point2D(1.09, 4.91),
+//                new Point2D(2, 4),
+//                new Point2D(10, 0),
+//                new Point2D(10, -2),
+//                new Point2D(0, -2),
+//                new Point2D(0, 2)
+//            }, zone.First(), new Point2DComparerWithTolerance(1e-2));
+//        }
+//
+//        [Test]
+//        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineIntersectionPointCoordinate_ReturnsPointsArray()
+//        {
+//            // Setup
+//            var waternetLineGeometry = new[]
+//            {
+//                new Point2D(0, -2),
+//                new Point2D(10, -2)
+//            };
+//            var phreaticLineGeometry = new[]
+//            {
+//                new Point2D(0, 6),
+//                new Point2D(4, 6),
+//                new Point2D(8, 2)
+//            };
+//
+//            var waternetLine = new MacroStabilityInwardsWaternetLine(
+//                "Line",
+//                waternetLineGeometry,
+//                new MacroStabilityInwardsPhreaticLine("Line 2",
+//                                                      phreaticLineGeometry));
+//
+//            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+//            surfaceLine.SetGeometry(new[]
+//            {
+//                new Point3D(0, 2, 2),
+//                new Point3D(3, 2, 2),
+//                new Point3D(6, 8, 8),
+//                new Point3D(10, 2, 2)
+//            });
+//
+//            // Call
+//            IEnumerable<Point2D[]> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+//
+//            // Assert
+//            CollectionAssert.AreEqual(new[]
+//            {
+//                new Point2D(0, 2),
+//                new Point2D(3, 2),
+//                new Point2D(4, 4),
+//                new Point2D(4.67, 5.33),
+//                new Point2D(8, 2),
+//                new Point2D(10, -2),
+//                new Point2D(0, -2),
+//                new Point2D(0, 2)
+//            }, zone.First(), new Point2DComparerWithTolerance(1e-2));
+//        }
 
         private static void AssertEqualPointCollection(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
         {
