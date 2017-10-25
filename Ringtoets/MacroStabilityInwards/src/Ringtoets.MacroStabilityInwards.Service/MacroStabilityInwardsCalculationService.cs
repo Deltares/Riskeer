@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
@@ -168,6 +169,16 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop;
                 }
+                yield break;
+            }
+
+            var soilProfile2D = inputParameters.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile2D;
+            if (soilProfile2D != null)
+            {
+                if (!ValidateSurfaceLineIsNearSoilProfile(inputParameters, soilProfile2D))
+                {
+                    yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer;
+                }
             }
         }
 
@@ -178,6 +189,65 @@ namespace Ringtoets.MacroStabilityInwards.Service
             double surfaceLineTop = inputParameters.SurfaceLine.LocalGeometry.Max(p => p.Y);
 
             return layerTop + 0.05 >= surfaceLineTop;
+        }
+
+        private static bool ValidateSurfaceLineIsNearSoilProfile(MacroStabilityInwardsInput inputParameters,
+                                                                 MacroStabilityInwardsSoilProfile2D soilProfile2D)
+        {
+            IEnumerable<double> uniqueXs = GetDistinctXFromCoordinates(inputParameters.SurfaceLine.LocalGeometry,
+                                                                       soilProfile2D);
+
+            IEnumerable<Point2D> surfaceLineWithInterpolations = GetSurfaceLineWithInterpolations(inputParameters, uniqueXs);
+
+            foreach (Point2D surfaceLinePoint in surfaceLineWithInterpolations)
+            {
+                bool isNear = soilProfile2D.Layers.Any(l => IsPointNearSoilSegments(
+                                                           surfaceLinePoint,
+                                                           Math2D.ConvertLinePointsToLineSegments(l.OuterRing.Points)));
+                if (!isNear)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static IEnumerable<double> GetDistinctXFromCoordinates(IEnumerable<Point2D> surfaceLinePoints,
+                                                                       MacroStabilityInwardsSoilProfile2D soilProfile2D)
+        {
+            return surfaceLinePoints.Select(p => p.X)
+                                    .Concat(soilProfile2D.Layers
+                                                         .SelectMany(l => l.OuterRing
+                                                                           .Points
+                                                                           .Select(outerRingPoint => outerRingPoint.X))
+                                    ).OrderBy(d => d)
+                                    .Distinct();
+        }
+
+        private static IEnumerable<Point2D> GetSurfaceLineWithInterpolations(MacroStabilityInwardsInput inputParameters,
+                                                                             IEnumerable<double> uniqueXs)
+        {
+            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(inputParameters.SurfaceLine.LocalGeometry).ToArray();
+
+            foreach (double x in uniqueXs)
+            {
+                double y = surfaceLineSegments.Interpolate(x);
+                yield return new Point2D(x, y);
+            }
+        }
+
+        private static bool IsPointNearSoilSegments(Point2D surfaceLinePoint, IEnumerable<Segment2D> soilSegments)
+        {
+            foreach (Segment2D soilSegment in soilSegments)
+            {
+                double distance = soilSegment.GetEuclideanDistanceToPoint(surfaceLinePoint);
+
+                if ((distance - 0.05).CompareTo(1e-6) < 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static IEnumerable<string> ValidateHydraulics(MacroStabilityInwardsInput inputParameters)

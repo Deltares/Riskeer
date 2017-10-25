@@ -138,4 +138,7 @@
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop" xml:space="preserve">
     <value>De ondergrondschematisatie moet boven de profielschematisatie liggen.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer" xml:space="preserve">
+    <value>De profielschematisatie moet op de ondergrondschematisatie liggen.</value>
+  </data>
 </root>

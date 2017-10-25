@@ -361,6 +361,81 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
+        [TestCaseSource(nameof(SurfacelineNotOnMacroStabilityInwardsSoilProfile2D))]
+        public void Validate_SurfaceLineNotNear2DProfile_LogsErrorAndReturnsFalse(MacroStabilityInwardsSoilProfile2D soilProfile)
+        {
+            // Setup
+            testCalculation.Name = "calculation name";
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0.0, 10),
+                new Point3D(1, 0.0, 20),
+                new Point3D(2, 0.0, 10)
+            });
+
+            testCalculation.InputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0,
+                                                                                                                   soilProfile);
+            testCalculation.InputParameters.SurfaceLine = surfaceLine;
+
+            var isValid = true;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("De profielschematisatie moet op de ondergrondschematisatie liggen.", msgs[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                });
+                Assert.IsFalse(isValid);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(SurfaceLineOnMacroStabilityInwardsSoilProfile2D))]
+        public void Validate_SurfaceLineNear2DProfile_ReturnsTrue(MacroStabilityInwardsSoilProfile2D soilProfile)
+        {
+            // Setup
+            testCalculation.Name = "calculation name";
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 10),
+                new Point3D(0.1, 0.0, 20),
+                new Point3D(0.2, 0.0, 10)
+            });
+
+            testCalculation.InputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0,
+                                                                                                                   soilProfile);
+            testCalculation.InputParameters.SurfaceLine = surfaceLine;
+
+            var isValid = false;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(2, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                });
+                Assert.IsTrue(isValid);
+            }
+        }
+
+        [Test]
         public void Validate_KernelReturnsValidationError_LogsErrorAndReturnsFalse()
         {
             // Setup
@@ -708,6 +783,184 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(testCalculation.Output);
             }
+        }
+
+        private static IEnumerable<TestCaseData> SurfacelineNotOnMacroStabilityInwardsSoilProfile2D()
+        {
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(1, -20),
+                                new Point2D(2, 10),
+                                new Point2D(1, -20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0, -10.0),
+                                new Point2D(1, -20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("First surface line point way too high");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(1, 20),
+                                new Point2D(2, 10),
+                                new Point2D(1, 20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0, 100.0),
+                                new Point2D(1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("First surface line point way too low");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(1, 200),
+                                new Point2D(2, 100),
+                                new Point2D(1, 200)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0, 10.0 - 0.05),
+                                new Point2D(1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("First surface line point too high");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(1, 200),
+                                new Point2D(2, 100),
+                                new Point2D(1, 200)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0, 10.0 + 0.05),
+                                new Point2D(1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("First surface line point too low");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(1, 20),
+                                new Point2D(3, -1),
+                                new Point2D(1, 20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0, 10.0),
+                                new Point2D(1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("X further than x of surfaceLine, Y not within limit");
+        }
+
+        private static IEnumerable<TestCaseData> SurfaceLineOnMacroStabilityInwardsSoilProfile2D()
+        {
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.1, 20),
+                                new Point2D(0.2, 10),
+                                new Point2D(0.15, -10),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("Irrelevant surface line point");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.1, 20),
+                                new Point2D(0.2, 10),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10.0049),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("First surface line point within upper limit");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.1, 20),
+                                new Point2D(0.2, 10),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10.0 - 0.0049),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("First surface line point within lower limit");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.1, 20),
+                                new Point2D(0.3, 0),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0]),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10.0),
+                                new Point2D(0.1, 20)
+                            }), new Ring[0])
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("X further than x of surfaceLine");
         }
 
         private static void AssertInput(MacroStabilityInwardsInput originalInput, TestMacroStabilityInwardsCalculatorFactory factory)
