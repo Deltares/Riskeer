@@ -999,12 +999,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.2, 10),
                                 new Point2D(0.15, -10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            },
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10),
                                 new Point2D(0.1, 20)
                             }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            }
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("Irrelevant surface line point");
 
@@ -1018,12 +1024,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.1, 20),
                                 new Point2D(0.2, 10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            },
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10.0049),
                                 new Point2D(0.1, 20)
                             }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            }
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point within upper limit");
 
@@ -1037,12 +1049,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.1, 20),
                                 new Point2D(0.2, 10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            },
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10.0 - 0.0049),
                                 new Point2D(0.1, 20)
                             }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            }
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point within lower limit");
 
@@ -1056,12 +1074,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.1, 20),
                                 new Point2D(0.3, 0),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            },
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10.0),
                                 new Point2D(0.1, 20)
                             }), new Ring[0])
+                            {
+                                Data = new MacroStabilityInwardsSoilLayerData()
+                            }
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("X further than x of surfaceLine");
         }

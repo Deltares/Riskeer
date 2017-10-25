@@ -66,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithoutSoilLayerData(chartControl.Data);
+                Assert.IsNull(chartControl.Data);
             }
         }
 
