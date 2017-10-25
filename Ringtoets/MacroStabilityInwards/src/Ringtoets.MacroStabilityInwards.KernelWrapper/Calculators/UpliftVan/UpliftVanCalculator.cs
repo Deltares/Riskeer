@@ -63,30 +63,30 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             this.factory = factory;
         }
 
-        public IEnumerable<UpliftVanValidationResult> Validate()
+        public IEnumerable<UpliftVanKernelMessage> Validate()
         {
             try
             {
                 IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
                 IEnumerable<ValidationResult> results = upliftVanKernel.Validate();
-                var upliftVanValidationResults = new List<UpliftVanValidationResult>();
+                var upliftVanKernelMessages = new List<UpliftVanKernelMessage>();
                 foreach (ValidationResult result in results)
                 {
-                    UpliftVanValidationResultType type;
+                    UpliftVanKernelMessageType type;
                     switch (result.MessageType)
                     {
                         case ValidationResultType.Error:
-                            type = UpliftVanValidationResultType.Error;
+                            type = UpliftVanKernelMessageType.Error;
                             break;
                         case ValidationResultType.Warning:
-                            type = UpliftVanValidationResultType.Warning;
+                            type = UpliftVanKernelMessageType.Warning;
                             break;
                         default:
                             continue;
                     }
-                    upliftVanValidationResults.Add(new UpliftVanValidationResult(type, result.Text));
+                    upliftVanKernelMessages.Add(new UpliftVanKernelMessage(type, result.Text));
                 }
-                return upliftVanValidationResults;
+                return upliftVanKernelMessages;
             }
             catch (UpliftVanKernelWrapperException e)
             {
@@ -101,6 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                 UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
+                UpliftVanKernelMessagesCreator.Create(upliftVanKernel.CalculationMessages),
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = upliftVanKernel.FactorOfStability,

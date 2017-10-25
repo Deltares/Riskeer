@@ -56,8 +56,8 @@
     <Compile Include="Calculators\Input\SoilLayer.cs" />
     <Compile Include="Calculators\Input\SoilProfile.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorException.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResult.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultType.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanKernelMessage.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanKernelMessageType.cs" />
     <Compile Include="Calculators\Waternet\Input\WaternetCalculatorInput.cs" />
     <Compile Include="Calculators\Waternet\IWaternetCalculator.cs" />
     <Compile Include="Calculators\Waternet\Output\WaternetCalculatorResult.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResult.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResult.cs" />
     <Compile Include="Creators\Input\WaternetStabilityLocationCreator.cs" />
+    <Compile Include="Creators\Output\UpliftVanKernelMessagesCreator.cs" />
     <Compile Include="Creators\Output\WaternetCalculatorResultCreator.cs" />
     <Compile Include="Kernels\UpliftVan\UpliftVanKernelWrapperException.cs" />
     <Compile Include="Kernels\Waternet\IWaternetKernel.cs" />

@@ -138,6 +138,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         SlipPlaneUpliftVan SlipPlaneResult { get; }
 
         /// <summary>
+        /// Gets the messages returned by the kernel during
+        /// the calculation.
+        /// </summary>
+        IEnumerable<LogMessage> CalculationMessages { get; }
+
+        /// <summary>
         /// Performs the Uplift Van calculation.
         /// </summary>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when

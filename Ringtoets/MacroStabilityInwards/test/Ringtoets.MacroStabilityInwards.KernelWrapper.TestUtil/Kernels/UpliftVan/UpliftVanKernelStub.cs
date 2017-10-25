@@ -58,6 +58,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
         /// </summary>
         public bool ReturnValidationResults { get; set; }
 
+        /// <summary>
+        /// Indicator whether a log message must be returned when performing the calculation.
+        /// </summary>
+        public bool ReturnLogMessages { get; set; }
+
         public SoilModel SoilModel { get; set; }
 
         public SoilProfile2D SoilProfile { get; set; }
@@ -96,11 +101,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
 
         public SlipPlaneUpliftVan SlipPlaneResult { get; set; }
 
+        public IEnumerable<LogMessage> CalculationMessages { get; set; }
+
         public void Calculate()
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
+            }
+            if (ReturnLogMessages)
+            {
+                CalculationMessages = new[]
+                {
+                    new LogMessage(LogMessageType.Trace, "subject", "Calculation Trace"),
+                    new LogMessage(LogMessageType.Debug, "subject", "Calculation Debug"),
+                    new LogMessage(LogMessageType.Info, "subject", "Calculation Info"),
+                    new LogMessage(LogMessageType.Warning, "subject", "Calculation Warning"),
+                    new LogMessage(LogMessageType.Error, "subject", "Calculation Error"),
+                    new LogMessage(LogMessageType.FatalError, "subject", "Calculation Fatal Error")
+                };
+            }
+            else
+            {
+                CalculationMessages = new LogMessage[0];
             }
 
             Calculated = true;

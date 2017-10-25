@@ -44,6 +44,16 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
         public UpliftVanCalculatorResult Output { get; private set; }
 
         /// <summary>
+        /// Indicator whether an error message must be returned when performing the calculation.
+        /// </summary>
+        public bool ReturnCalculationError { get; set; }
+
+        /// <summary>
+        /// Indicator whether a warning message must be returned when performing the calculation.
+        /// </summary>
+        public bool ReturnCalculationWarning { get; set; }
+
+        /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
@@ -69,10 +79,21 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             {
                 throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2");
             }
-            return Output ?? (Output = CreateUpliftVanCalculatorResult());
+
+            var calculationMessages = new List<UpliftVanKernelMessage>();
+            if (ReturnCalculationError)
+            {
+                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error"));
+            }
+            if (ReturnCalculationWarning)
+            {
+                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning"));
+            }
+
+            return Output ?? (Output = CreateUpliftVanCalculatorResult(calculationMessages));
         }
 
-        public IEnumerable<UpliftVanValidationResult> Validate()
+        public IEnumerable<UpliftVanKernelMessage> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
@@ -81,15 +102,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
 
             if (ReturnValidationError)
             {
-                yield return new UpliftVanValidationResult(UpliftVanValidationResultType.Error, "Validation Error");
+                yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Validation Error");
             }
             if (ReturnValidationWarning)
             {
-                yield return new UpliftVanValidationResult(UpliftVanValidationResultType.Warning, "Validation Warning");
+                yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Validation Warning");
             }
         }
 
-        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult()
+        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult(IEnumerable<UpliftVanKernelMessage> calculationMessages)
         {
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultTestFactory.Create(),
@@ -102,6 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
                         2,
                         1.5
                     }),
+                calculationMessages,
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = 0.1,

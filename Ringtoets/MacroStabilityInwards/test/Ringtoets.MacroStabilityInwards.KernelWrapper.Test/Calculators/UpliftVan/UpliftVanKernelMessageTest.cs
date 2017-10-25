@@ -26,13 +26,13 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
     [TestFixture]
-    public class UpliftVanValidationResultTest
+    public class UpliftVanKernelMessageTest
     {
         [Test]
         public void Constructor_MessageNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanValidationResult(UpliftVanValidationResultType.Error, null);
+            TestDelegate call = () => new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -43,15 +43,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_ValidArguments_ReturnsExpectedValues()
         {
             // Setup
-            var resultType = UpliftVanValidationResultType.Error;
-            var message = "Error in validation";
+            const UpliftVanKernelMessageType resultType = UpliftVanKernelMessageType.Error;
+            const string message = "Error in validation";
 
             // Call
-            var validationResult = new UpliftVanValidationResult(resultType, message);
+            var kernelMessage = new UpliftVanKernelMessage(resultType, message);
 
             // Assert
-            Assert.AreEqual(message, validationResult.Message);
-            Assert.AreEqual(resultType, validationResult.ResultType);
+            Assert.AreEqual(message, kernelMessage.Message);
+            Assert.AreEqual(resultType, kernelMessage.ResultType);
         }
     }
 }

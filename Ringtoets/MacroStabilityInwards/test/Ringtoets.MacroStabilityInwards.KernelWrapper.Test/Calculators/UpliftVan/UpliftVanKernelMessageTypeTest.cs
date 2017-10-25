@@ -19,14 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
+using System;
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+
+namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
-    /// <summary>
-    /// Indicates what log level an Uplift Van validation result represents.
-    /// </summary>
-    public enum UpliftVanValidationResultType
+    [TestFixture]
+    public class UpliftVanKernelMessageTypeTest
     {
-        Warning = 1,
-        Error = 2
+        [Test]
+        public void Values_ExpectedValues()
+        {
+            // Assert
+            Assert.AreEqual(2, Enum.GetValues(typeof(UpliftVanKernelMessageType)).Length);
+            Assert.AreEqual(1, (int) UpliftVanKernelMessageType.Warning);
+            Assert.AreEqual(2, (int) UpliftVanKernelMessageType.Error);
+        }
     }
 }

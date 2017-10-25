@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 {
@@ -33,10 +34,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// </summary>
         /// <param name="slidingCurveResult">The sliding curve result.</param>
         /// <param name="calculationGridResult">The calculation grid result.</param>
+        /// <param name="calculationMessages">The messages returned by the calculation.</param>
         /// <param name="properties">The container of the properties for the <see cref="UpliftVanCalculatorResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal UpliftVanCalculatorResult(UpliftVanSlidingCurveResult slidingCurveResult,
                                            UpliftVanCalculationGridResult calculationGridResult,
+                                           IEnumerable<UpliftVanKernelMessage> calculationMessages,
                                            ConstructionProperties properties)
         {
             if (slidingCurveResult == null)
@@ -46,6 +49,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             if (calculationGridResult == null)
             {
                 throw new ArgumentNullException(nameof(calculationGridResult));
+            }
+            if (calculationMessages == null)
+            {
+                throw new ArgumentNullException(nameof(calculationMessages));
             }
             if (properties == null)
             {
@@ -59,6 +66,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             ZValue = properties.ZValue;
             ForbiddenZonesXEntryMin = properties.ForbiddenZonesXEntryMin;
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
+
+            CalculationMessages = calculationMessages;
         }
 
         /// <summary>
@@ -129,6 +138,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
         /// Gets the forbidden zones x entry max.
         /// </summary>
         public double ForbiddenZonesXEntryMax { get; }
+
+        /// <summary>
+        /// Gets the messages returned by the kernel during
+        /// the calculation.
+        /// </summary>
+        public IEnumerable<UpliftVanKernelMessage> CalculationMessages { get; }
 
         #endregion
     }

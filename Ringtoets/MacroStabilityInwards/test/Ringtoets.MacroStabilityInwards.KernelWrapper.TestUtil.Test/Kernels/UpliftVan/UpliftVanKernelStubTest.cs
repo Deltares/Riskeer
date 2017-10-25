@@ -83,6 +83,48 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
             Assert.IsTrue(kernel.ThrowExceptionOnCalculate);
             Assert.IsFalse(kernel.ThrowExceptionOnValidate);
             Assert.IsFalse(kernel.ReturnValidationResults);
+            Assert.IsFalse(kernel.ReturnLogMessages);
+        }
+
+        [Test]
+        public void Calculate_ReturnLogMessagesTrue_ReturnsLogMessages()
+        {
+            // Setup
+            var calculator = new UpliftVanKernelStub
+            {
+                ReturnLogMessages = true
+            };
+
+            // Call
+            calculator.Calculate();
+
+            // Assert
+            IEnumerable<LogMessage> results = calculator.CalculationMessages.ToList();
+            Assert.IsTrue(calculator.Calculated);
+            Assert.AreEqual(6, results.Count());
+            AssertLogMessage(new LogMessage(LogMessageType.Trace, "subject", "Calculation Trace"), results.ElementAt(0));
+            AssertLogMessage(new LogMessage(LogMessageType.Debug, "subject", "Calculation Debug"), results.ElementAt(1));
+            AssertLogMessage(new LogMessage(LogMessageType.Info, "subject", "Calculation Info"), results.ElementAt(2));
+            AssertLogMessage(new LogMessage(LogMessageType.Warning, "subject", "Calculation Warning"), results.ElementAt(3));
+            AssertLogMessage(new LogMessage(LogMessageType.Error, "subject", "Calculation Error"), results.ElementAt(4));
+            AssertLogMessage(new LogMessage(LogMessageType.FatalError, "subject", "Calculation Fatal Error"), results.ElementAt(5));
+        }
+
+        [Test]
+        public void Calculate_ReturnLogMessagesFalse_ReturnsNoLogMessages()
+        {
+            // Setup
+            var calculator = new UpliftVanKernelStub
+            {
+                ReturnLogMessages = false
+            };
+
+            // Call
+            calculator.Calculate();
+
+            // Assert
+            Assert.IsTrue(calculator.Calculated);
+            CollectionAssert.IsEmpty(calculator.CalculationMessages);
         }
 
         [Test]
@@ -158,13 +200,20 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Up
 
             // Assert
             Assert.IsTrue(calculator.Validated);
-            Assert.AreEqual(0, results.Count());
+            CollectionAssert.IsEmpty(results);
         }
 
         private static void AssertValidationResult(IValidationResult expected, IValidationResult actual)
         {
             Assert.AreEqual(expected.MessageType, actual.MessageType);
             Assert.AreEqual(expected.Text, actual.Text);
+        }
+
+        private static void AssertLogMessage(LogMessage expected, LogMessage actual)
+        {
+            Assert.AreEqual(expected.MessageType, actual.MessageType);
+            Assert.AreEqual(expected.Message, actual.Message);
+            Assert.AreEqual(expected.Subject, actual.Subject);
         }
     }
 }

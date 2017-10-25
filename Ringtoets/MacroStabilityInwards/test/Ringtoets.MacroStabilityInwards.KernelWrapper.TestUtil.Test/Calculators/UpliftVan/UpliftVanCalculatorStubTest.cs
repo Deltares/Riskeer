@@ -46,6 +46,43 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.IsFalse(calculator.ThrowExceptionOnValidate);
             Assert.IsFalse(calculator.ReturnValidationWarning);
             Assert.IsFalse(calculator.ReturnValidationError);
+            Assert.IsFalse(calculator.ReturnCalculationError);
+            Assert.IsFalse(calculator.ReturnCalculationWarning);
+        }
+
+        [Test]
+        public void Calculate_ReturnCalculationErrorAndWarningFalse_ReturnsEmptyEnumerable()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub();
+
+            // Call
+            calculator.Calculate();
+
+            // Assert
+            CollectionAssert.IsEmpty(calculator.Output.CalculationMessages);
+        }
+
+        [Test]
+        public void Calculate_ReturnCalculationErrorAndWarningTrue_ReturnsKernelMessages()
+        {
+            // Setup
+            var calculator = new UpliftVanCalculatorStub
+            {
+                ReturnCalculationError = true,
+                ReturnCalculationWarning = true
+            };
+
+            // Call
+            calculator.Calculate();
+
+            // Assert
+            IEnumerable<UpliftVanKernelMessage> messages = calculator.Output.CalculationMessages.ToList();
+            Assert.AreEqual(2, messages.Count());
+            Assert.AreEqual("Calculation Error", messages.ElementAt(0).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, messages.ElementAt(0).ResultType);
+            Assert.AreEqual("Calculation Warning", messages.ElementAt(1).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, messages.ElementAt(1).ResultType);
         }
 
         [Test]
@@ -92,14 +129,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             var calculator = new UpliftVanCalculatorStub();
 
             // Call
-            IEnumerable<UpliftVanValidationResult> result = calculator.Validate();
+            IEnumerable<UpliftVanKernelMessage> messages = calculator.Validate();
 
             // Assert
-            CollectionAssert.IsEmpty(result);
+            CollectionAssert.IsEmpty(messages);
         }
 
         [Test]
-        public void Validate_ReturnValidationErrorAndWarningTrue_ReturnsValidationResults()
+        public void Validate_ReturnValidationErrorAndWarningTrue_ReturnsKernelMessages()
         {
             // Setup
             var calculator = new UpliftVanCalculatorStub
@@ -109,14 +146,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             };
 
             // Call
-            IEnumerable<UpliftVanValidationResult> results = calculator.Validate();
+            IEnumerable<UpliftVanKernelMessage> messages = calculator.Validate().ToList();
 
             // Assert
-            Assert.AreEqual(2, results.Count());
-            Assert.AreEqual("Validation Error", results.ElementAt(0).Message);
-            Assert.AreEqual(UpliftVanValidationResultType.Error, results.ElementAt(0).ResultType);
-            Assert.AreEqual("Validation Warning", results.ElementAt(1).Message);
-            Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(1).ResultType);
+            Assert.AreEqual(2, messages.Count());
+            Assert.AreEqual("Validation Error", messages.ElementAt(0).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, messages.ElementAt(0).ResultType);
+            Assert.AreEqual("Validation Warning", messages.ElementAt(1).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, messages.ElementAt(1).ResultType);
         }
 
         [Test]

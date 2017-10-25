@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
@@ -155,6 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.AutomaticForbiddenZones, upliftVanKernel.AutomaticForbiddenZones);
             Assert.AreEqual(input.SlipPlaneMinimumDepth, upliftVanKernel.SlipPlaneMinimumDepth);
             Assert.AreEqual(input.SlipPlaneMinimumLength, upliftVanKernel.SlipPlaneMinimumLength);
+            CollectionAssert.IsEmpty(upliftVanKernel.CalculationMessages);
         }
 
         [Test]
@@ -180,6 +182,41 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                                                                result.SlidingCurveResult);
             UpliftVanCalculatorOutputAssert.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
                                                                 result.CalculationGridResult);
+        }
+
+        [Test]
+        public void Calculate_KernelReturnsLogMessages_ReturnsExpectedLogMessages()
+        {
+            // Setup
+            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
+
+            UpliftVanKernelStub upliftVanKernel = testMacroStabilityInwardsKernelFactory.LastCreatedUpliftVanKernel;
+            upliftVanKernel.ReturnLogMessages = true;
+            SetCompleteKernelOutput(upliftVanKernel);
+
+            // Call
+            new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
+
+            // Assert
+            Assert.AreEqual(6, upliftVanKernel.CalculationMessages.Count());
+            Assert.AreEqual("Calculation Trace", upliftVanKernel.CalculationMessages.ElementAt(0).Message);
+            Assert.AreEqual(LogMessageType.Trace, upliftVanKernel.CalculationMessages.ElementAt(0).MessageType);
+
+            Assert.AreEqual("Calculation Debug", upliftVanKernel.CalculationMessages.ElementAt(1).Message);
+            Assert.AreEqual(LogMessageType.Debug, upliftVanKernel.CalculationMessages.ElementAt(1).MessageType);
+
+            Assert.AreEqual("Calculation Info", upliftVanKernel.CalculationMessages.ElementAt(2).Message);
+            Assert.AreEqual(LogMessageType.Info, upliftVanKernel.CalculationMessages.ElementAt(2).MessageType);
+
+            Assert.AreEqual("Calculation Warning", upliftVanKernel.CalculationMessages.ElementAt(3).Message);
+            Assert.AreEqual(LogMessageType.Warning, upliftVanKernel.CalculationMessages.ElementAt(3).MessageType);
+
+            Assert.AreEqual("Calculation Error", upliftVanKernel.CalculationMessages.ElementAt(4).Message);
+            Assert.AreEqual(LogMessageType.Error, upliftVanKernel.CalculationMessages.ElementAt(4).MessageType);
+
+            Assert.AreEqual("Calculation Fatal Error", upliftVanKernel.CalculationMessages.ElementAt(5).Message);
+            Assert.AreEqual(LogMessageType.FatalError, upliftVanKernel.CalculationMessages.ElementAt(5).MessageType);
         }
 
         [Test]
@@ -223,10 +260,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             var testMacroStabilityInwardsKernelFactory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            IEnumerable<UpliftVanValidationResult> validationResult = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
+            IEnumerable<UpliftVanKernelMessage> kernelMessages = new UpliftVanCalculator(input, testMacroStabilityInwardsKernelFactory).Validate();
 
             // Assert
-            CollectionAssert.IsEmpty(validationResult);
+            CollectionAssert.IsEmpty(kernelMessages);
         }
 
         [Test]
@@ -238,14 +275,15 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             upliftVanKernel.ReturnValidationResults = true;
 
             // Call
-            IEnumerable<UpliftVanValidationResult> results = new UpliftVanCalculator(CreateValidCalculatorInput(), testMacroStabilityInwardsKernelFactory).Validate();
+            IEnumerable<UpliftVanKernelMessage> kernelMessages = new UpliftVanCalculator(CreateValidCalculatorInput(),
+                                                                                         testMacroStabilityInwardsKernelFactory).Validate().ToList();
 
             // Assert
-            Assert.AreEqual(2, results.Count());
-            Assert.AreEqual("Validation Warning", results.ElementAt(0).Message);
-            Assert.AreEqual(UpliftVanValidationResultType.Warning, results.ElementAt(0).ResultType);
-            Assert.AreEqual("Validation Error", results.ElementAt(1).Message);
-            Assert.AreEqual(UpliftVanValidationResultType.Error, results.ElementAt(1).ResultType);
+            Assert.AreEqual(2, kernelMessages.Count());
+            Assert.AreEqual("Validation Warning", kernelMessages.ElementAt(0).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, kernelMessages.ElementAt(0).ResultType);
+            Assert.AreEqual("Validation Error", kernelMessages.ElementAt(1).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessages.ElementAt(1).ResultType);
         }
 
         [Test]

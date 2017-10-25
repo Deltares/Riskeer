@@ -785,6 +785,90 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             }
         }
 
+        [Test]
+        public void Calculate_KernelReturnsCalculationError_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            testCalculation.Name = name;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Calculation Error", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+                });
+            }
+        }
+
+        [Test]
+        public void Calculate_KernelReturnsCalculationWarning_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            testCalculation.Name = name;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
+                                    $"{Environment.NewLine}" +
+                                    "* Calculation Warning", msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+                });
+            }
+        }
+
+        [Test]
+        public void Calculate_KernelReturnsCalculationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            testCalculation.Name = name;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
+                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                    Assert.AreEqual("Calculation Error", msgs[1]);
+                    Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
+                                    $"{Environment.NewLine}" +
+                                    "* Calculation Warning", msgs[2]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                });
+            }
+        }
+
         private static IEnumerable<TestCaseData> SurfacelineNotOnMacroStabilityInwardsSoilProfile2D()
         {
             yield return new TestCaseData(

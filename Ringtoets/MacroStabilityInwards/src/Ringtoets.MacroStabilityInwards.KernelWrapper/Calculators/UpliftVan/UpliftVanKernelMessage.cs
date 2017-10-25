@@ -24,18 +24,18 @@ using System;
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
-    /// Class representing a validation result of an Uplift Van calculation.
+    /// Class representing a message returned by the Uplift Van kernel.
     /// </summary>
-    public class UpliftVanValidationResult
+    public class UpliftVanKernelMessage
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanValidationResult"/>.
+        /// Creates a new instance of <see cref="UpliftVanKernelMessage"/>.
         /// </summary>
-        /// <param name="type">The type of the validation result.</param>
-        /// <param name="message">The message of the validation result.</param>
+        /// <param name="type">The type of the message.</param>
+        /// <param name="message">The text of the message.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="message"/>
         /// is <c>null</c>.</exception>
-        public UpliftVanValidationResult(UpliftVanValidationResultType type, string message)
+        public UpliftVanKernelMessage(UpliftVanKernelMessageType type, string message)
         {
             if (message == null)
             {
@@ -46,12 +46,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         }
 
         /// <summary>
-        /// Gets the type of the validation result.
+        /// Gets the type of the message.
         /// </summary>
-        public UpliftVanValidationResultType ResultType { get; }
+        public UpliftVanKernelMessageType ResultType { get; }
 
         /// <summary>
-        /// Gets the message of the validation result.
+        /// Gets the text of the message.
         /// </summary>
         public string Message { get; }
     }

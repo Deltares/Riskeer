@@ -75,8 +75,8 @@
     <Compile Include="Calculators\Input\SoilLayerTest.cs" />
     <Compile Include="Calculators\Input\SoilProfileTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorExceptionTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultTypeTest.cs" />
-    <Compile Include="Calculators\UpliftVan\UpliftVanValidationResultTest.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanKernelMessageTypeTest.cs" />
+    <Compile Include="Calculators\UpliftVan\UpliftVanKernelMessageTest.cs" />
     <Compile Include="Calculators\Waternet\Input\WaternetCalculatorInputTest.cs" />
     <Compile Include="Calculators\Waternet\Output\WaternetCalculatorResultTest.cs" />
     <Compile Include="Calculators\Waternet\Output\WaternetLineResultTest.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResultTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCircleResultTest.cs" />
     <Compile Include="Creators\Input\WaternetStabilityLocationCreatorTest.cs" />
+    <Compile Include="Creators\Output\UpliftVanKernelMessagesCreatorTest.cs" />
     <Compile Include="Creators\Output\UpliftVanSlidingCurveResultCreatorTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSlidingCurveResultTest.cs" />
     <Compile Include="Creators\Output\UpliftVanCalculationGridResultCreatorTest.cs" />

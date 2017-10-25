@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
@@ -181,6 +180,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public SlipPlaneUpliftVan SlipPlaneResult { get; private set; }
 
+        public IEnumerable<LogMessage> CalculationMessages { get; private set; }
+
         public void Calculate()
         {
             try
@@ -225,12 +226,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             StabilityAssessmentCalculationResult convertedResult = WTIDeserializer.DeserializeResult(result);
 
-            if (convertedResult.Messages.Any())
-            {
-                string message = convertedResult.Messages.Aggregate(string.Empty, (current, logMessage) => current + $"{logMessage}{Environment.NewLine}").Trim();
-                throw new UpliftVanKernelWrapperException(message);
-            }
-
             FactorOfStability = convertedResult.FactorOfSafety;
             ZValue = convertedResult.ZValue;
             ForbiddenZonesXEntryMin = convertedResult.XMinEntry;
@@ -238,6 +233,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
             SlidingCurveResult = (SlidingDualCircle) convertedResult.Curve;
             SlipPlaneResult = convertedResult.SlipPlaneUpliftVan;
+
+            CalculationMessages = convertedResult.Messages;
         }
     }
 }

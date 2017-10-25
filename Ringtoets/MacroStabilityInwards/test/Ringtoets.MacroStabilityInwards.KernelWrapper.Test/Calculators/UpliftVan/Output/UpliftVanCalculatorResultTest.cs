@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
@@ -34,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_SlidingCurveResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(null, CreateGridResult(), new UpliftVanCalculatorResult.ConstructionProperties());
+            TestDelegate call = () => new UpliftVanCalculatorResult(null, CreateGridResult(), new UpliftVanKernelMessage[0], new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,11 +50,25 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, null, new UpliftVanCalculatorResult.ConstructionProperties());
+            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, null, new UpliftVanKernelMessage[0], new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculationGridResult", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CalculationMessagesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
+
+            // Call
+            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), null, new UpliftVanCalculatorResult.ConstructionProperties());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationMessages", exception.ParamName);
         }
 
         [Test]
@@ -62,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), null);
+            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), new UpliftVanKernelMessage[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,13 +91,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Setup
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
             UpliftVanCalculationGridResult calculationGridResult = CreateGridResult();
+            IEnumerable<UpliftVanKernelMessage> calculationMessages = new List<UpliftVanKernelMessage>
+            {
+                new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Error"),
+                new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Warning")
+            };
 
             // Call
-            var result = new UpliftVanCalculatorResult(slidingCurveResult, calculationGridResult, new UpliftVanCalculatorResult.ConstructionProperties());
+            var result = new UpliftVanCalculatorResult(slidingCurveResult, calculationGridResult, calculationMessages, new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
             Assert.AreSame(slidingCurveResult, result.SlidingCurveResult);
             Assert.AreSame(calculationGridResult, result.CalculationGridResult);
+            Assert.AreSame(calculationMessages, result.CalculationMessages);
         }
 
         [Test]
@@ -91,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            var result = new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), new UpliftVanCalculatorResult.ConstructionProperties());
+            var result = new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), new UpliftVanKernelMessage[0], new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
             Assert.IsNaN(result.FactorOfStability);
@@ -121,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            var result = new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), constructionProperties);
+            var result = new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), new UpliftVanKernelMessage[0], constructionProperties);
 
             // Assert
             Assert.AreEqual(factorOfStability, result.FactorOfStability);
