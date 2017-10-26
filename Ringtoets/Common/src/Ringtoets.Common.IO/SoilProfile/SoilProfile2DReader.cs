@@ -171,7 +171,7 @@ namespace Ringtoets.Common.IO.SoilProfile
         private SoilProfile2D TryReadSoilProfile()
         {
             var criticalProperties = new CriticalProfileProperties(this);
-            var soilLayerGeometries = new List<SoilLayer2DGeometry>();
+            var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
             var stresses = new List<PreconsolidationStress>();
             long soilProfileId = criticalProperties.ProfileId;
 
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
                 for (var i = 1; i <= criticalProperties.LayerCount; i++)
                 {
-                    soilLayerGeometries.Add(ReadSoilLayerGeometryFrom(this, criticalProperties.ProfileName));
+                    ReadSoilLayerGeometryFrom(this, criticalProperties.ProfileName, soilLayerGeometryLookup);
                     MoveNext();
                 }
 
@@ -199,7 +199,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return new SoilProfile2D(soilProfileId,
                                          criticalProperties.ProfileName,
-                                         GetSoilLayers(soilLayerGeometries),
+                                         GetSoilLayers(soilLayerGeometryLookup),
                                          stresses)
                 {
                     IntersectionX = properties.IntersectionX
@@ -232,8 +232,9 @@ namespace Ringtoets.Common.IO.SoilProfile
             return preconsolidationStressReader.ReadPreconsolidationStresses().ToArray();
         }
 
-        private static IEnumerable<SoilLayer2D> GetSoilLayers(List<SoilLayer2DGeometry> soilLayerGeometries)
+        private static IEnumerable<SoilLayer2D> GetSoilLayers(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup)
         {
+            SoilLayer2DGeometry[] soilLayerGeometries = soilLayerGeometryLookup.Keys.ToArray();
             SoilLayer2DLoop[] innerLoops = soilLayerGeometries.SelectMany(slg => slg.InnerLoops).ToArray();
 
             foreach (SoilLayer2DGeometry soilLayerGeometry in soilLayerGeometries)
@@ -243,24 +244,25 @@ namespace Ringtoets.Common.IO.SoilProfile
                     continue;
                 }
 
-                SoilLayer2D soilLayer = CreateSoilLayer2D(soilLayerGeometry);
+                SoilLayer2D soilLayer = CreateSoilLayer2D(soilLayerGeometry, soilLayerGeometryLookup[soilLayerGeometry]);
 
-                CreateNestedSoilLayersRecursively(soilLayerGeometries, soilLayerGeometry, soilLayer);
+                CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, soilLayerGeometry, soilLayer);
 
                 yield return soilLayer;
             }
         }
 
-        private static void CreateNestedSoilLayersRecursively(List<SoilLayer2DGeometry> soilLayerGeometries, SoilLayer2DGeometry soilLayerGeometry, SoilLayer2D soilLayer)
+        private static void CreateNestedSoilLayersRecursively(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup, SoilLayer2DGeometry soilLayerGeometry, SoilLayer2D soilLayer)
         {
             var nestedLayers = new List<SoilLayer2D>();
+            SoilLayer2DGeometry[] soilLayerGeometries = soilLayerGeometryLookup.Keys.ToArray();
 
             foreach (SoilLayer2DLoop innerLoop in soilLayerGeometry.InnerLoops)
             {
                 SoilLayer2DGeometry nestedSoilLayerGeometry = soilLayerGeometries.First(slg => slg.OuterLoop.Segments.SequenceEqual(innerLoop.Segments));
-                SoilLayer2D nestedSoilLayer = CreateSoilLayer2D(nestedSoilLayerGeometry);
+                SoilLayer2D nestedSoilLayer = CreateSoilLayer2D(nestedSoilLayerGeometry, soilLayerGeometryLookup[nestedSoilLayerGeometry]);
 
-                CreateNestedSoilLayersRecursively(soilLayerGeometries, nestedSoilLayerGeometry, nestedSoilLayer);
+                CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, nestedSoilLayerGeometry, nestedSoilLayer);
 
                 nestedLayers.Add(nestedSoilLayer);
             }
@@ -268,11 +270,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             soilLayer.NestedLayers = StripDuplicateNestedLayers(nestedLayers);
         }
 
-        private static SoilLayer2D CreateSoilLayer2D(SoilLayer2DGeometry soilLayerGeometry)
+        private static SoilLayer2D CreateSoilLayer2D(SoilLayer2DGeometry soilLayerGeometry, LayerProperties layerProperties)
         {
             var soilLayer = new SoilLayer2D(soilLayerGeometry.OuterLoop, soilLayerGeometry.InnerLoops);
 
-            SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, soilLayerGeometry.LayerProperties);
+            SoilLayerHelper.SetSoilLayerBaseProperties(soilLayer, layerProperties);
 
             return soilLayer;
         }
@@ -313,19 +315,15 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// </summary>
         /// <param name="reader">The reader to read the geometry from.</param>
         /// <param name="profileName">The name of the profile to read the geometry for.</param>
-        /// <returns>A <see cref="SoilLayer2DGeometry"/>.</returns>
+        /// <param name="soilLayerGeometriesLookup">The lookup to add the read data to.</param>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the geometry failed.</exception>
-        private static SoilLayer2DGeometry ReadSoilLayerGeometryFrom(IRowBasedDatabaseReader reader, string profileName)
+        private static void ReadSoilLayerGeometryFrom(IRowBasedDatabaseReader reader, string profileName, Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometriesLookup)
         {
             var properties = new Layer2DProperties(reader, profileName);
 
             try
             {
-                SoilLayer2DGeometry soilLayerGeometry = new SoilLayer2DGeometryReader().Read(properties.GeometryValue);
-
-                soilLayerGeometry.LayerProperties = properties;
-
-                return soilLayerGeometry;
+                soilLayerGeometriesLookup[new SoilLayer2DGeometryReader().Read(properties.GeometryValue)] = properties;
             }
             catch (SoilLayerConversionException e)
             {

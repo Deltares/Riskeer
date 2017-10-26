@@ -29,13 +29,13 @@ using Ringtoets.Common.IO.SoilProfile;
 namespace Ringtoets.Common.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class SoilLayer2DTest
+    public class SoilLayer2DGeometryTest
     {
         [Test]
         public void Constructor_OuterLoopNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayer2D(null, Enumerable.Empty<SoilLayer2DLoop>());
+            TestDelegate test = () => new SoilLayer2DGeometry(null, Enumerable.Empty<SoilLayer2DLoop>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_InnerLoopsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayer2D(new SoilLayer2DLoop(new Segment2D[0]), null);
+            TestDelegate test = () => new SoilLayer2DGeometry(new SoilLayer2DLoop(new Segment2D[0]), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -61,12 +61,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             IEnumerable<SoilLayer2DLoop> innerLoops = Enumerable.Empty<SoilLayer2DLoop>();
 
             // Call
-            var layer = new SoilLayer2D(outerLoop, innerLoops);
+            var geometry = new SoilLayer2DGeometry(outerLoop, innerLoops);
 
             // Assert
-            Assert.IsInstanceOf<SoilLayerBase>(layer);
-            Assert.AreSame(outerLoop, layer.OuterLoop);
-            Assert.AreSame(innerLoops, layer.InnerLoops);
+            Assert.AreSame(outerLoop, geometry.OuterLoop);
+            Assert.AreSame(innerLoops, geometry.InnerLoops);
         }
     }
 }

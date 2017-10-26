@@ -19,29 +19,46 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// Class representing the full geometry of a 2D soil layer, taking into account
-    /// layer properties, an outer loop and zero to many inner loops.
+    /// Class representing the geometry of a 2D soil layer.
     /// </summary>
     internal class SoilLayer2DGeometry
     {
         /// <summary>
-        /// Gets or sets the layer properties going with the geometry.
+        /// Creates a new instance of <see cref="SoilLayer2DGeometry"/>.
         /// </summary>
-        public LayerProperties LayerProperties { get; set; }
+        /// <param name="outerLoop">The outer loop of the geometry.</param>
+        /// <param name="innerLoops">The inner loops of the geometry.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public SoilLayer2DGeometry(SoilLayer2DLoop outerLoop, IEnumerable<SoilLayer2DLoop> innerLoops)
+        {
+            if (outerLoop == null)
+            {
+                throw new ArgumentNullException(nameof(outerLoop));
+            }
+
+            if (innerLoops == null)
+            {
+                throw new ArgumentNullException(nameof(innerLoops));
+            }
+
+            OuterLoop = outerLoop;
+            InnerLoops = innerLoops;
+        }
 
         /// <summary>
-        /// Gets or sets the outer loop of the geometry.
+        /// Gets the outer loop of the geometry.
         /// </summary>
-        public SoilLayer2DLoop OuterLoop { get; set; }
+        public SoilLayer2DLoop OuterLoop { get; }
 
         /// <summary>
-        /// Gets or sets the inner loops of the geometry.
+        /// Gets the inner loops of the geometry.
         /// </summary>
-        public IEnumerable<SoilLayer2DLoop> InnerLoops { get; set; }
+        public IEnumerable<SoilLayer2DLoop> InnerLoops { get; }
     }
 }

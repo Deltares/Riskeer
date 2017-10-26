@@ -154,11 +154,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             XElement xmlOuterLoop = geometry.XPathSelectElement($"//{outerLoopElementName}");
             IEnumerable<XElement> xmlInnerLoops = geometry.XPathSelectElements($"//{innerLoopsElementName}//{innerLoopElementName}");
 
-            return new SoilLayer2DGeometry
-            {
-                OuterLoop = ParseLoop(xmlOuterLoop),
-                InnerLoops = xmlInnerLoops.Select(ParseLoop).ToArray()
-            };
+            return new SoilLayer2DGeometry(ParseLoop(xmlOuterLoop), xmlInnerLoops.Select(ParseLoop).ToArray());
         }
 
         /// <summary>

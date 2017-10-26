@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Ringtoets.Common.IO.SoilProfile
 {
     /// <summary>
-    /// A two-dimensional soil layer that was imported from D-Soil Model.
+    /// A two-dimensional soil layer.
     /// </summary>
     public class SoilLayer2D : SoilLayerBase
     {
@@ -52,17 +52,17 @@ namespace Ringtoets.Common.IO.SoilProfile
         }
 
         /// <summary>
-        /// Gets the outer loop of the geometry.
+        /// Gets the outer loop of the soil layer.
         /// </summary>
         public SoilLayer2DLoop OuterLoop { get; }
 
         /// <summary>
-        /// Gets the inner loops of the geometry.
+        /// Gets the inner loops of the soil layer.
         /// </summary>
         public IEnumerable<SoilLayer2DLoop> InnerLoops { get; }
 
         /// <summary>
-        /// Gets or sets the nested layers of the geometry.
+        /// Gets or sets any nested layers.
         /// </summary>
         public IEnumerable<SoilLayer2D> NestedLayers { get; set; }
     }
