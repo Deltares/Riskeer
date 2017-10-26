@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
@@ -29,12 +30,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     public class MacroStabilityInwardsSoilLayer1D : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer1D"/>, where the top is set to <paramref name="top"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer1D"/>.
         /// </summary>
-        /// <param name="top">The top level of the layer.</param>
-        public MacroStabilityInwardsSoilLayer1D(double top)
+        /// <param name="top">The top level of the soil layer.</param>
+        public MacroStabilityInwardsSoilLayer1D(double top) : this(top, new MacroStabilityInwardsSoilLayerData()) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer1D"/>.
+        /// </summary>
+        /// <param name="top">The top level of the soil layer.</param>
+        /// <param name="data">The data of the soil layer.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsSoilLayer1D(double top, IMacroStabilityInwardsSoilLayerData data)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
             Top = top;
+            Data = data;
         }
 
         /// <summary>
@@ -42,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// </summary>
         public double Top { get; }
 
-        public IMacroStabilityInwardsSoilLayerData Data { get; set; }
+        public IMacroStabilityInwardsSoilLayerData Data { get; }
 
         public override bool Equals(object obj)
         {

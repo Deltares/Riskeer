@@ -29,7 +29,6 @@ using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SoilProfile.Schema;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.IO.SoilProfiles;
 using Ringtoets.MacroStabilityInwards.IO.TestUtil;
@@ -131,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             {
                 new MacroStabilityInwardsSoilLayer1D(top)
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData
+                    Data =
                     {
                         UsePop = true,
                         ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,

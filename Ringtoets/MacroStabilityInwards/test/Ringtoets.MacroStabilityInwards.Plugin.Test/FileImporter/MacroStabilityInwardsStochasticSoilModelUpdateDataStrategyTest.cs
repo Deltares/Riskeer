@@ -561,9 +561,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                    new[]
                                                                    {
                                                                        new MacroStabilityInwardsSoilLayer1D(0.0)
-                                                                       {
-                                                                           Data = new MacroStabilityInwardsSoilLayerData()
-                                                                       }
                                                                    })),
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D(
                                                                    "B",

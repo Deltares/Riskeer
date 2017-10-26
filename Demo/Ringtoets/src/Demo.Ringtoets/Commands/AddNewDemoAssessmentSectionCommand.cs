@@ -441,7 +441,7 @@ namespace Demo.Ringtoets.Commands
                     {
                         new MacroStabilityInwardsSoilLayer1D(30.1267)
                         {
-                            Data = new MacroStabilityInwardsSoilLayerData
+                            Data =
                             {
                                 MaterialName = "1D Layer",
                                 IsAquifer = true

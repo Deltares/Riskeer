@@ -363,7 +363,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             var layer = new MacroStabilityInwardsSoilLayer1D(1)
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     UsePop = usePop,
                     IsAquifer = isAquifer,

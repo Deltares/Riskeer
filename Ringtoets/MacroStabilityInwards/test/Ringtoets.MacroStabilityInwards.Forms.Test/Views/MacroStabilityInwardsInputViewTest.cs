@@ -176,18 +176,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                             -1,
                             new[]
                             {
-                                new MacroStabilityInwardsSoilLayer1D(3.0)
-                                {
-                                    Data = new MacroStabilityInwardsSoilLayerData()
-                                },
-                                new MacroStabilityInwardsSoilLayer1D(2.0)
-                                {
-                                    Data = new MacroStabilityInwardsSoilLayerData()
-                                },
+                                new MacroStabilityInwardsSoilLayer1D(3.0),
+                                new MacroStabilityInwardsSoilLayer1D(2.0),
                                 new MacroStabilityInwardsSoilLayer1D(0)
-                                {
-                                    Data = new MacroStabilityInwardsSoilLayerData()
-                                }
                             })),
                     SurfaceLine = GetSurfaceLineWithGeometry()
                 }
@@ -688,9 +679,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                                    new[]
                                                                                                    {
                                                                                                        new MacroStabilityInwardsSoilLayer1D(1)
-                                                                                                       {
-                                                                                                           Data = new MacroStabilityInwardsSoilLayerData()
-                                                                                                       }
                                                                                                    })),
                         SurfaceLine = GetSurfaceLineWithGeometry()
                     }
@@ -709,14 +697,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                                                        -1,
                                                                                                                        new[]
                                                                                                                        {
-                                                                                                                           new MacroStabilityInwardsSoilLayer1D(3)
-                                                                                                                           {
-                                                                                                                               Data = new MacroStabilityInwardsSoilLayerData()
-                                                                                                                           },
+                                                                                                                           new MacroStabilityInwardsSoilLayer1D(3),
                                                                                                                            new MacroStabilityInwardsSoilLayer1D(4)
-                                                                                                                           {
-                                                                                                                               Data = new MacroStabilityInwardsSoilLayerData()
-                                                                                                                           }
                                                                                                                        }));
                 calculation.InputParameters.NotifyObservers();
 
@@ -841,18 +823,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile1D("profile 1D", -1, new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(1)
-                {
-                    Data = new MacroStabilityInwardsSoilLayerData()
-                },
-                new MacroStabilityInwardsSoilLayer1D(3)
-                {
-                    Data = new MacroStabilityInwardsSoilLayerData()
-                },
+                new MacroStabilityInwardsSoilLayer1D(1),
+                new MacroStabilityInwardsSoilLayer1D(3),
                 new MacroStabilityInwardsSoilLayer1D(5)
-                {
-                    Data = new MacroStabilityInwardsSoilLayerData()
-                }
             }));
         }
 

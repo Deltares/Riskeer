@@ -32,7 +32,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsSoilLayer1DTest
     {
         [Test]
-        public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
+        public void Constructor_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            double top = new Random(22).NextDouble();
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer1D(top, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithTop_ReturnsNewInstanceWithExpectedProperties()
         {
             // Setup
             double top = new Random(22).NextDouble();
@@ -42,8 +56,24 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
-            Assert.Null(layer.Data);
             Assert.AreEqual(top, layer.Top);
+            Assert.IsNotNull(layer.Data);
+        }
+
+        [Test]
+        public void Constructor_WithTopAndData_ReturnsNewInstanceWithExpectedProperties()
+        {
+            // Setup
+            double top = new Random(22).NextDouble();
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            // Call
+            var layer = new MacroStabilityInwardsSoilLayer1D(top, data);
+
+            // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
+            Assert.AreEqual(top, layer.Top);
+            Assert.AreSame(data, layer.Data);
         }
 
         [Test]
@@ -112,21 +142,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
             var layerE = new MacroStabilityInwardsSoilLayer1D(3)
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Blue
                 }
             };
             var layerF = new MacroStabilityInwardsSoilLayer1D(4)
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Blue
                 }
             };
             var layerG = new MacroStabilityInwardsSoilLayer1D(3)
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Gold
                 }
@@ -176,9 +206,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         private static MacroStabilityInwardsSoilLayer1D CreateRandomLayer(int randomSeed)
         {
             var random = new Random(randomSeed);
+
             return new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 }

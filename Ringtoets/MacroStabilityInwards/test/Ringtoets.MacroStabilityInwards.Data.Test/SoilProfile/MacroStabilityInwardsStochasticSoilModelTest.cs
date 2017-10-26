@@ -528,9 +528,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             return new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(2)
-                {
-                    Data = new MacroStabilityInwardsSoilLayerData()
-                }
             };
         }
 

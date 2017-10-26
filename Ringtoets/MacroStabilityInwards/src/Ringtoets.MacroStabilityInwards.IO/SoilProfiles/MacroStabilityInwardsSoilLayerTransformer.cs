@@ -61,10 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
 
             ValidateStochasticParameters(soilLayer);
 
-            return new MacroStabilityInwardsSoilLayer1D(soilLayer.Top)
-            {
-                Data = ConvertSoilLayerData(soilLayer)
-            };
+            return new MacroStabilityInwardsSoilLayer1D(soilLayer.Top, ConvertSoilLayerData(soilLayer));
         }
 
         /// <summary>

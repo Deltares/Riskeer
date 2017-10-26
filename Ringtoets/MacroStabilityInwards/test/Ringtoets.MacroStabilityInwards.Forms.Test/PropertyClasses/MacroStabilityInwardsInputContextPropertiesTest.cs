@@ -360,7 +360,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 new MacroStabilityInwardsSoilLayer1D(random.NextDouble())
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData
+                    Data =
                     {
                         IsAquifer = true
                     }

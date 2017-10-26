@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 
             return new MacroStabilityInwardsSoilLayer1D(entity.Top.ToNullAsNaN())
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                     MaterialName = entity.MaterialName ?? string.Empty,
