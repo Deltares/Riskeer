@@ -1263,7 +1263,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De geneste lagen binnen deze grondlaag..
+        ///   Looks up a localized string similar to De geometrie van de buitenring van deze grondlaag..
+        /// </summary>
+        public static string SoilLayer_Geometry_Description {
+            get {
+                return ResourceManager.GetString("SoilLayer_Geometry_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geometrie.
+        /// </summary>
+        public static string SoilLayer_Geometry_DisplayName {
+            get {
+                return ResourceManager.GetString("SoilLayer_Geometry_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De uitsneden binnen deze grondlaag..
         /// </summary>
         public static string SoilLayer_NestedLayers_Description {
             get {
@@ -1272,29 +1290,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geneste lagen.
+        ///   Looks up a localized string similar to Uitsneden.
         /// </summary>
         public static string SoilLayer_NestedLayers_DisplayName {
             get {
                 return ResourceManager.GetString("SoilLayer_NestedLayers_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De geometrie van de buitenring van deze grondlaag..
-        /// </summary>
-        public static string SoilLayer_OuterRing_Description {
-            get {
-                return ResourceManager.GetString("SoilLayer_OuterRing_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buitenring.
-        /// </summary>
-        public static string SoilLayer_OuterRing_DisplayName {
-            get {
-                return ResourceManager.GetString("SoilLayer_OuterRing_DisplayName", resourceCulture);
             }
         }
         

@@ -76,13 +76,14 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputOffsetPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSemiProbabilisticOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DBasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaterStressLinesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsPhreaticLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsPreconsolidationStressPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DTopLevelPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionPropertiesTest.cs" />

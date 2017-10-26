@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -33,19 +31,8 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
-    public class MacroStabilityInwardsSoilLayer2DPropertiesTest
+    public class MacroStabilityInwardsSoilLayer2DTopLevelPropertiesTest
     {
-        [Test]
-        public void Constructor_MacroStabilityInwardsSoilLayer2DNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2DProperties(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("soilLayer", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_ValidMacroStabilityInwardsSoilLayer2D_ExpectedValues()
         {
@@ -53,14 +40,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsSoilLayer2D soilLayer = CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties(soilLayer);
+            var properties = new MacroStabilityInwardsSoilLayer2DTopLevelProperties(soilLayer);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IMacroStabilityInwardsSoilLayer2D>>(properties);
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties,
-                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.OuterRing));
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties,
-                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.NestedLayers));
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilLayer2DBaseProperties>(properties);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DTopLevelProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DTopLevelProperties.NestedLayers));
             Assert.AreSame(soilLayer, properties.Data);
         }
 
@@ -77,7 +62,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 Data = new MacroStabilityInwardsSoilLayerData
                 {
-                    MaterialName = "Test Name",
                     IsAquifer = true
                 },
                 NestedLayers = new[]
@@ -91,30 +75,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
+            var properties = new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer);
 
             // Assert
-            Assert.AreEqual(layer.Data.MaterialName, properties.Name);
             Assert.AreEqual(layer.Data.IsAquifer, properties.IsAquifer);
-            CollectionAssert.AreEqual(layer.OuterRing.Points, properties.OuterRing);
             Assert.AreEqual(1, properties.NestedLayers.Length);
-            Assert.AreSame(layer.NestedLayers.Single(), properties.NestedLayers[0].Data);
-        }
-
-        [Test]
-        public void ToString_Always_ReturnsMaterialName()
-        {
-            // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
-            layer.Data.MaterialName = "Layer A 2D";
-
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
-
-            // Call
-            string name = properties.ToString();
-
-            // Assert
-            Assert.AreEqual(layer.Data.MaterialName, name);
+            Assert.AreSame(layer.NestedLayers.Single(), properties.NestedLayers.Single().Data);
         }
 
         [Test]
@@ -124,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
-            var properties = new MacroStabilityInwardsSoilLayer2DProperties(layer);
+            var properties = new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -143,15 +109,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertyDescriptor outerRingProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(outerRingProperty,
                                                                             generalCategoryName,
-                                                                            "Buitenring",
+                                                                            "Geometrie",
                                                                             "De geometrie van de buitenring van deze grondlaag.",
                                                                             true);
 
             PropertyDescriptor nestedLayersProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nestedLayersProperty,
                                                                             generalCategoryName,
-                                                                            "Geneste lagen",
-                                                                            "De geneste lagen binnen deze grondlaag.",
+                                                                            "Uitsneden",
+                                                                            "De uitsneden binnen deze grondlaag.",
                                                                             true);
 
             PropertyDescriptor isAquiferProperty = dynamicProperties[3];

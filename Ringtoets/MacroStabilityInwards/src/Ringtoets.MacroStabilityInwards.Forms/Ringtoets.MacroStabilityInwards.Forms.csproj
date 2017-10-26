@@ -50,6 +50,7 @@
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremeProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputDailyProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DTopLevelProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetLineProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsPhreaticLineProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsWaternetProperties.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsSemiProbabilisticOutputProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBaseProperties.cs" />
-    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DProperties.cs" />
+    <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DBaseProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelCollectionProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer1DProperties.cs" />

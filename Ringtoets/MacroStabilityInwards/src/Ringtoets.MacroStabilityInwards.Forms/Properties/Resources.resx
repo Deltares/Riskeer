@@ -524,16 +524,16 @@
     <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland.</value>
   </data>
   <data name="SoilLayer_NestedLayers_Description" xml:space="preserve">
-    <value>De geneste lagen binnen deze grondlaag.</value>
+    <value>De uitsneden binnen deze grondlaag.</value>
   </data>
   <data name="SoilLayer_NestedLayers_DisplayName" xml:space="preserve">
-    <value>Geneste lagen</value>
+    <value>Uitsneden</value>
   </data>
-  <data name="SoilLayer_OuterRing_Description" xml:space="preserve">
+  <data name="SoilLayer_Geometry_Description" xml:space="preserve">
     <value>De geometrie van de buitenring van deze grondlaag.</value>
   </data>
-  <data name="SoilLayer_OuterRing_DisplayName" xml:space="preserve">
-    <value>Buitenring</value>
+  <data name="SoilLayer_Geometry_DisplayName" xml:space="preserve">
+    <value>Geometrie</value>
   </data>
   <data name="SlipPlaneSettings_Description" xml:space="preserve">
     <value>Eigenschappen van de zonering van het glijvlak.</value>

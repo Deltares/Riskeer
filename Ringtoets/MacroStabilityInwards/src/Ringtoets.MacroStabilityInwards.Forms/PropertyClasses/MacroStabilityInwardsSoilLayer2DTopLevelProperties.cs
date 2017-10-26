@@ -22,10 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -34,63 +32,30 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IMacroStabilityInwardsSoilLayer2D"/> for properties panel.
+    /// ViewModel of a top level <see cref="IMacroStabilityInwardsSoilLayer2D"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class MacroStabilityInwardsSoilLayer2DProperties : ObjectProperties<IMacroStabilityInwardsSoilLayer2D>
+    public class MacroStabilityInwardsSoilLayer2DTopLevelProperties : MacroStabilityInwardsSoilLayer2DBaseProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2DProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2DTopLevelProperties"/> for
+        /// the top level properties of a <see cref="IMacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="soilLayer">The 2D soil layer for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2DProperties(IMacroStabilityInwardsSoilLayer2D soilLayer)
-        {
-            if (soilLayer == null)
-            {
-                throw new ArgumentNullException(nameof(soilLayer));
-            }
-
-            Data = soilLayer;
-        }
-
-        [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_Name_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_Name_Description))]
-        public string Name
-        {
-            get
-            {
-                return data.Data.MaterialName;
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ReadOnly(true)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_OuterRing_Description))]
-        public Point2D[] OuterRing
-        {
-            get
-            {
-                return data.OuterRing.Points.ToArray();
-            }
-        }
+        public MacroStabilityInwardsSoilLayer2DTopLevelProperties(IMacroStabilityInwardsSoilLayer2D soilLayer) : base(soilLayer) {}
 
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_NestedLayers_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_NestedLayers_Description))]
-        public MacroStabilityInwardsSoilLayer2DProperties[] NestedLayers
+        public MacroStabilityInwardsSoilLayer2DBaseProperties[] NestedLayers
         {
             get
             {
-                return data.NestedLayers.Select(nestedLayer => new MacroStabilityInwardsSoilLayer2DProperties(nestedLayer)).ToArray();
+                return data.NestedLayers.Select(nestedLayer => new MacroStabilityInwardsSoilLayer2DBaseProperties(nestedLayer)).ToArray();
             }
         }
 
@@ -104,11 +69,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return data.Data.IsAquifer;
             }
-        }
-
-        public override string ToString()
-        {
-            return data.Data.MaterialName;
         }
     }
 }

@@ -31,6 +31,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
@@ -102,13 +103,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Layers_DisplayName))]
-        public MacroStabilityInwardsSoilLayer2DProperties[] Layers2D
+        public MacroStabilityInwardsSoilLayer2DTopLevelProperties[] Layers2D
         {
             get
             {
-                IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
-                return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DProperties(layer)).ToArray() ??
-                       new MacroStabilityInwardsSoilLayer2DProperties[0];
+                IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
+                IEnumerable<IMacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = layers != null
+                                                                                                       ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
+                                                                                                       : new List<MacroStabilityInwardsSoilLayer2D>();
+                return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer)).ToArray() ??
+                       new MacroStabilityInwardsSoilLayer2DTopLevelProperties[0];
             }
         }
 
