@@ -68,11 +68,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var nestedLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-            {
-                new Point2D(12.987, 12.821),
-                new Point2D(4.23, 1.02)
-            }), new Ring[0]);
             var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                                                              {
                                                                  new Point2D(20.210230, 26.00001),
@@ -87,7 +82,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 },
                 NestedLayers = new[]
                 {
-                    nestedLayer
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(12.987, 12.821),
+                        new Point2D(4.23, 1.02)
+                    }), new Ring[0])
                 }
             };
 

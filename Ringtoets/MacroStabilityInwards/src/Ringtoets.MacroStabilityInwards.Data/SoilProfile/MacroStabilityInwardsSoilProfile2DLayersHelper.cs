@@ -27,24 +27,24 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// Extension methods dealing with <see cref="IMacroStabilityInwardsSoilProfileUnderSurfaceLine"/> instances.
+    /// Helper methods for dealing with 2D layers in <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
     /// </summary>
-    public static class MacroStabilityInwardsSoilProfileUnderSurfaceLineExtensions
+    public static class MacroStabilityInwardsSoilProfile2DLayersHelper
     {
         /// <summary>
-        /// Method for obtaining all <see cref="IMacroStabilityInwardsSoilLayer2D"/> in <param name="profile"/> recursively.
+        /// Method for obtaining all <see cref="IMacroStabilityInwardsSoilLayer2D"/> in <param name="layers"/> recursively.
         /// </summary>
-        /// <param name="profile">The profile to get the layers from.</param>
+        /// <param name="layers">The collection of layers to recursively get the layers from.</param>
         /// <returns>An enumerable with <see cref="IMacroStabilityInwardsSoilLayer2D"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <param name="profile"/> is <c>null</c>.</exception>
-        public static IEnumerable<IMacroStabilityInwardsSoilLayer2D> GetLayersRecursively(this IMacroStabilityInwardsSoilProfileUnderSurfaceLine profile)
+        /// <exception cref="ArgumentNullException">Thrown when <param name="layers"/> is <c>null</c>.</exception>
+        public static IEnumerable<IMacroStabilityInwardsSoilLayer2D> GetLayersRecursively(IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers)
         {
-            if (profile == null)
+            if (layers == null)
             {
-                throw new ArgumentNullException(nameof(profile));
+                throw new ArgumentNullException(nameof(layers));
             }
 
-            return profile.Layers.SelectMany(GetLayersRecursively);
+            return layers.SelectMany(GetLayersRecursively);
         }
 
         private static IEnumerable<IMacroStabilityInwardsSoilLayer2D> GetLayersRecursively(IMacroStabilityInwardsSoilLayer2D layer)
