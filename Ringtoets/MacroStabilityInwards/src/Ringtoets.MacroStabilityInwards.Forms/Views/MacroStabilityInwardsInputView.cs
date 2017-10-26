@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -67,6 +66,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
+
+        private MacroStabilityInwardsWaternet currentWaternetExtreme;
+        private MacroStabilityInwardsWaternet currentWaternetDaily;
 
         private MacroStabilityInwardsCalculationScenario data;
 
@@ -204,8 +206,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
-            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetExtreme, surfaceLine, waternetZonesExtremeChartData);
-            SetWaternetZonesChartData(macroStabilityInwardsInput.WaternetDaily, surfaceLine, waternetZonesDailyChartData);
+
+            SetWaternetExtremeChartData(macroStabilityInwardsInput.WaternetExtreme, surfaceLine);
+            SetWaternetDailyChartData(macroStabilityInwardsInput.WaternetDaily, surfaceLine);
 
             MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
@@ -215,9 +218,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             rightGridChartData.Points = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(rightGrid, gridDeterminationType);
         }
 
+        private void SetWaternetExtremeChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            if (!waternet.Equals(currentWaternetExtreme))
+            {
+                currentWaternetExtreme = waternet;
+                SetWaternetZonesChartData(waternet, surfaceLine, waternetZonesExtremeChartData);
+            }
+        }
+
+        private void SetWaternetDailyChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            if (!waternet.Equals(currentWaternetDaily))
+            {
+                currentWaternetDaily = waternet;
+                SetWaternetZonesChartData(waternet, surfaceLine, waternetZonesDailyChartData);
+            }
+        }
+
         private static void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine,
                                                       ChartDataCollection chartData)
         {
+            chartData.Clear();
+
             foreach (MacroStabilityInwardsPhreaticLine phreaticLine in waternet.PhreaticLines)
             {
                 ChartLineData phreaticLineChartData = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(phreaticLine.Name);

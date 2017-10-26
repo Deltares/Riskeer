@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
@@ -84,6 +85,39 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                 Assert.IsNotNull(chartMultipleAreaData);
                 Assert.AreEqual(expectedSoilLayerNames[i], chartMultipleAreaData.Name);
                 Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="MacroStabilityInwardsWaternet"/>.</param>
+        /// <param name="actual">The actual <see cref="ChartDataCollection"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        public static void AssertWaternetChartData(MacroStabilityInwardsWaternet original, ChartDataCollection actual)
+        {
+            ChartData[] waternetChartData = actual.Collection.ToArray();
+            MacroStabilityInwardsWaternetLine[] waternetLines = original.WaternetLines.ToArray();
+            MacroStabilityInwardsPhreaticLine[] phreaticLines = original.PhreaticLines.ToArray();
+
+            Assert.AreEqual(waternetLines.Length + phreaticLines.Length, waternetChartData.Length);
+
+            for (var i = 0; i < waternetChartData.Length; i++)
+            {
+                if (i < phreaticLines.Length)
+                {
+                    ChartLineData phreaticLineChartData = (ChartLineData) waternetChartData[i];
+                    Assert.AreEqual(phreaticLines[i].Name, phreaticLineChartData.Name);
+                    Assert.AreEqual(phreaticLines[i].Geometry, phreaticLineChartData.Points);
+                }
+                else
+                {
+                    ChartMultipleAreaData waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
+                    MacroStabilityInwardsWaternetLine waternetLine = waternetLines[i - waternetLines.Length];
+                    Assert.AreEqual(waternetLine.Name, waternetLineChartData.Name);
+                    Assert.IsTrue(waternetLineChartData.HasData);
+                }
             }
         }
     }

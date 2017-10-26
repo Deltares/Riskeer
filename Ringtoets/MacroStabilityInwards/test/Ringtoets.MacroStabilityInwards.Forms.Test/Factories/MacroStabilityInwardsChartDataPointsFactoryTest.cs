@@ -717,6 +717,64 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateWaternetZonePoints_WaternetLineGeometryEmpty_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var phreaticLineGeometry = new[]
+            {
+                new Point2D(0, 6),
+                new Point2D(2, 4),
+                new Point2D(10, 0)
+            };
+
+            MacroStabilityInwardsWaternetLine waternetLine = CreateWaterNetLine(new Point2D[0], phreaticLineGeometry);
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 2, 2),
+                new Point3D(3, 10, 10),
+                new Point3D(6, 8, 8),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(zones);
+        }
+
+        [Test]
+        public void CreateWaternetZonePoints_PhreaticLineGeometryEmpty_ReturnsEmptyPointsArray()
+        {
+            // Setup
+            var waternetLineGeometry = new[]
+            {
+                new Point2D(0, 6),
+                new Point2D(2, 4),
+                new Point2D(10, 0)
+            };
+
+            MacroStabilityInwardsWaternetLine waternetLine = CreateWaterNetLine(waternetLineGeometry, new Point2D[0]);
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 2, 2),
+                new Point3D(3, 10, 10),
+                new Point3D(6, 8, 8),
+                new Point3D(10, 2, 2)
+            });
+
+            // Call
+            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(zones);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineConfigurationsBelowSurfaceLine))]
         public void CreateWaternetZonePoints_DifferentWaternetLineAndPhreaticLineBelowSurfaceLineConfigurations_ReturnsPointsArray(
             MacroStabilityInwardsSurfaceLine surfaceLine,
@@ -738,19 +796,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineBeforeIntersectionPointWithSurfaceLine_ReturnsPointsArray()
         {
             // Setup
-            var waternetLineGeometry = new[]
+            var phreaticLineGeometry = new[]
             {
                 new Point2D(0, -2),
                 new Point2D(10, -2)
             };
-            var phreaticLineGeometry = new[]
+            var waternetLineGeometry = new[]
             {
                 new Point2D(0, 6),
                 new Point2D(2, 4),
                 new Point2D(10, 0)
             };
 
-            MacroStabilityInwardsWaternetLine waternetLine = CreateWaterNetLine(phreaticLineGeometry, waternetLineGeometry);
+            MacroStabilityInwardsWaternetLine waternetLine = CreateWaterNetLine(waternetLineGeometry, phreaticLineGeometry);
 
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
             surfaceLine.SetGeometry(new[]

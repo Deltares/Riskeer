@@ -58,14 +58,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
 
         private static WaternetCalculatorResult CreateWaternetCalculatorResult()
         {
-            var phreaticLineResult = new WaternetPhreaticLineResult("line 1", new Point2D[0]);
+            var phreaticLineResult = new WaternetPhreaticLineResult("line 1", new []
+            {
+                new Point2D(0, 0),
+                new Point2D(10, 0)
+            });
             return new WaternetCalculatorResult(
                 new[]
                 {
                     phreaticLineResult
                 }, new[]
                 {
-                    new WaternetLineResult("line 2", new Point2D[0], phreaticLineResult)
+                    new WaternetLineResult("line 2", new[]
+                    {
+                        new Point2D(0, 2),
+                        new Point2D(10, 2)
+                    }, phreaticLineResult)
                 });
         }
     }

@@ -35,6 +35,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 {
@@ -297,6 +298,70 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 Assert.IsNotNull(tableControl);
                 CollectionAssert.IsEmpty(tableControl.Rows);
+            }
+        }
+
+        [Test]
+        public void Data_EmptyWaternets_NoWaternetChartDataSet()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                ChartData[] chartDataArray = view.Chart.Data.Collection.ToArray();
+
+                var waternetZonesExtremeData = (ChartDataCollection)chartDataArray[waternetZonesExtremeIndex];
+                var waternetZonesDailyData = (ChartDataCollection)chartDataArray[waternetZonesDailyIndex];
+
+                CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
+                CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
+            }
+        }
+
+
+        [Test]
+        public void Data_WithWaternets_WaternetChartDataSet()
+        {
+            // Setup
+            using(new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                // Call
+                view.Data = calculation;
+
+                // Assert
+                ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                                                                                 (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                                                                                 (ChartDataCollection) chartData[waternetZonesDailyIndex]);
             }
         }
 
@@ -783,6 +848,136 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                     stochasticSoilProfile.SoilProfile.Name,
                                                                                     true,
                                                                                     chartData.Collection.ElementAt(soilProfileIndex));
+            }
+        }
+
+        [Test]
+        public void GivenViewWithWaternets_WhenWaternetSetEmpty_ThenNoChartData()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    view.Data = calculation;
+
+                    // Precondition
+                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                    MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                                                                                     (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                                                                                     (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                }
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+                ChartData[] chartDataArray = view.Chart.Data.Collection.ToArray();
+
+                var waternetZonesExtremeData = (ChartDataCollection)chartDataArray[waternetZonesExtremeIndex];
+                var waternetZonesDailyData = (ChartDataCollection)chartDataArray[waternetZonesDailyIndex];
+
+                CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
+                CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithEmptyWaternets_WhenWaternetSet_ThenChartDataSet()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+                view.Data = calculation;
+
+                // Precondition
+                ChartData[] chartDataArray = view.Chart.Data.Collection.ToArray();
+
+                var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
+                var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
+
+                CollectionAssert.IsEmpty(waternetZonesExtremeData.Collection);
+                CollectionAssert.IsEmpty(waternetZonesDailyData.Collection);
+
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    calculation.InputParameters.NotifyObservers();
+
+                    // Assert
+                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                    MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                                                                                     (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                                                                                     (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenViewWithWaternets_WhenObserversNotifiedAndWaternetSame_ThenChartDataNotUpdated()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsInputView())
+            {
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
+                var waternetDailyChartDataCollection = (ChartDataCollection)chartData[waternetZonesDailyIndex];
+
+                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                                                                                 waternetExtremeChartDataCollection);
+                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                                                                                 waternetDailyChartDataCollection);
+
+                IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;
+                IEnumerable<ChartData> waternetDailyChartData = waternetDailyChartDataCollection.Collection;
+
+                // Call
+                calculation.InputParameters.NotifyObservers();
+
+                // Assert
+               CollectionAssert.AreEqual(waternetExtremeChartData, ((ChartDataCollection)chartData[waternetZonesExtremeIndex]).Collection);
+               CollectionAssert.AreEqual(waternetDailyChartData, ((ChartDataCollection)chartData[waternetZonesDailyIndex]).Collection);
             }
         }
 

@@ -260,12 +260,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> that may intersect with 
         /// the <see cref="MacroStabilityInwardsWaternetLine.PhreaticLine"/> and by doing that restricts the
         /// drawn height of it.</param>
-        /// <returns>An array of points in 2D space or an empty array when <paramref name="waternetLine"/> or
-        /// <paramref name="surfaceLine"/> is <c>null</c>.</returns>
+        /// <returns>An array of points in 2D space or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="waternetLine"/> is <c>null</c>;</item>
+        /// <item><paramref name="surfaceLine"/> is <c>null</c>;</item>
+        /// <item>The geometry of the <see cref="MacroStabilityInwardsWaternetLine"/> is <c>empty</c>;</item>
+        /// <item>The geometry of the <see cref="MacroStabilityInwardsWaternetLine.PhreaticLine"/> is <c>empty</c>.</item>
+        /// </list>
+        /// </returns>
         public static IEnumerable<Point2D[]> CreateWaternetZonePoints(MacroStabilityInwardsWaternetLine waternetLine,
                                                                       MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            if (waternetLine == null || surfaceLine == null)
+            if (waternetLine == null || surfaceLine == null
+                || !waternetLine.Geometry.Any() || !waternetLine.PhreaticLine.Geometry.Any())
             {
                 return new Point2D[0][];
             }
