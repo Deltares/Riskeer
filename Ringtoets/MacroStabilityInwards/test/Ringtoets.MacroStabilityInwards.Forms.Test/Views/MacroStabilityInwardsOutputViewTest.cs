@@ -241,7 +241,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point2D(2.0, 4.0)
                 }), new List<Ring>())
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
@@ -250,7 +249,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point2D(8.0, 3.0)
                 }), new List<Ring>())
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
@@ -259,7 +257,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point2D(2.0, 8.0)
                 }), new List<Ring>())
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 }
             }, new List<MacroStabilityInwardsPreconsolidationStress>()));

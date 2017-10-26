@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 CreateRandomRing(random)
             })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     IsAquifer = random.NextBoolean(),
                     MaterialName = "MaterialName",
@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var random = new Random(31);
             var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), Enumerable.Empty<Ring>())
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     AbovePhreaticLevel =
                     {
@@ -223,7 +223,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 CreateRandomRing(random)
             })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     MaterialName = materialName
                 }

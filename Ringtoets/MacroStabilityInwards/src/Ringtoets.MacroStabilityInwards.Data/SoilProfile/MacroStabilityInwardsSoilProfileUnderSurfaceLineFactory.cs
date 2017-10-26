@@ -103,9 +103,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 foreach (Point2D[] soilLayerArea in GetSoilLayerWithSurfaceLineIntersection(surfaceLineGeometryArray, layer.OuterLoop))
                 {
-                    soilLayers.Add(new MacroStabilityInwardsSoilLayer2D(new Ring(soilLayerArea), Enumerable.Empty<Ring>())
+                    soilLayers.Add(new MacroStabilityInwardsSoilLayer2D(new Ring(soilLayerArea), Enumerable.Empty<Ring>(), layer.Data)
                     {
-                        Data = layer.Data,
                         NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                     });
                 }

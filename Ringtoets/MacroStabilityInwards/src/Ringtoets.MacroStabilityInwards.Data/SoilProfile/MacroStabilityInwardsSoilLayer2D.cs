@@ -39,18 +39,36 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// the layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes)
+            : this(outerRing, holes, new MacroStabilityInwardsSoilLayerData()) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
+        /// </summary>
+        /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
+        /// <param name="holes">The rings describing the holes within the outer boundaries of 
+        /// the layer.</param>
+        /// <param name="data">The data of the soil layer.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes, IMacroStabilityInwardsSoilLayerData data)
         {
             if (outerRing == null)
             {
                 throw new ArgumentNullException(nameof(outerRing));
             }
+
             if (holes == null)
             {
                 throw new ArgumentNullException(nameof(holes));
             }
 
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
             OuterRing = outerRing;
             Holes = holes.ToArray();
+            Data = data;
         }
 
         public Ring OuterRing { get; }
@@ -59,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         public IEnumerable<IMacroStabilityInwardsSoilLayer2D> NestedLayers { get; set; }
 
-        public IMacroStabilityInwardsSoilLayerData Data { get; set; }
+        public IMacroStabilityInwardsSoilLayerData Data { get; }
 
         public override bool Equals(object obj)
         {

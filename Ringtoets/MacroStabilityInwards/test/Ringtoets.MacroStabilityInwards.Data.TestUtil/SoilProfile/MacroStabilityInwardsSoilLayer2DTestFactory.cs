@@ -41,10 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
-            }), new Ring[0])
-            {
-                Data = new MacroStabilityInwardsSoilLayerData()
-            };
+            }), new Ring[0]);
         }
     }
 }

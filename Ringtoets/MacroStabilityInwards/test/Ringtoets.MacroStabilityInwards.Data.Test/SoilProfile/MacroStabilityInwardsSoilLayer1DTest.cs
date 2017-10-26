@@ -46,7 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithTop_ReturnsNewInstanceWithExpectedProperties()
+        public void Constructor_WithTop_ReturnsNewInstance()
         {
             // Setup
             double top = new Random(22).NextDouble();
@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithTopAndData_ReturnsNewInstanceWithExpectedProperties()
+        public void Constructor_WithTopAndData_ReturnsNewInstance()
         {
             // Setup
             double top = new Random(22).NextDouble();

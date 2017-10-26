@@ -49,7 +49,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     new Point2D(1, 1)
                 }), new Ring[0])
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
@@ -58,7 +57,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     new Point2D(2, 2)
                 }), new Ring[0])
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 }
             }, soilProfile.Layers);

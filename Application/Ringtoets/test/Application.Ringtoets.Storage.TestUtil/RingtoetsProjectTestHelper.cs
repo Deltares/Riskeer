@@ -1132,7 +1132,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 })
             })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     IsAquifer = false,
                     MaterialName = "GainsboroLayer",

@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
                                                                      CreateRing(22)
                                                                  })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     UsePop = random.NextBoolean(),
                     IsAquifer = random.NextBoolean(),
@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             {
                 new MacroStabilityInwardsSoilLayer2D(CreateRing(21), new Ring[0])
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData
+                    Data =
                     {
                         ShearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99
                     }
@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             {
                 new MacroStabilityInwardsSoilLayer2D(CreateRing(21), new Ring[0])
                 {
-                    Data = new MacroStabilityInwardsSoilLayerData
+                    Data =
                     {
                         ShearStrengthModel = originalShearStrengthModel
                     }

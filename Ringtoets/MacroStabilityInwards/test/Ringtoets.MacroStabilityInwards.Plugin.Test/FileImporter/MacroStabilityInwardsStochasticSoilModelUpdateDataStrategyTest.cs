@@ -572,7 +572,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                                                                            new Point2D(4, 5)
                                                                        }), Enumerable.Empty<Ring>())
                                                                        {
-                                                                           Data = new MacroStabilityInwardsSoilLayerData(),
                                                                            NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                                                                        }
                                                                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))

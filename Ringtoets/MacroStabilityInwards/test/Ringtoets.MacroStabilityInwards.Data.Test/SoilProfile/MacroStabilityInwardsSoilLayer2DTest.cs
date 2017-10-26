@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsSoilLayer2DTest
     {
         [Test]
-        public void Constructor_WithoutOuterRing_ArgumentNullException()
+        public void Constructor_OuterRingNullWithoutData_ThrowsArgumentNullException()
         {
             // Setup
             var holes = new[]
@@ -56,7 +56,28 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_WithoutHoles_ThrowsArgumentNullException()
+        public void Constructor_OuterRingNullWithData_ThrowsArgumentNullException()
+        {
+            // Setup
+            var holes = new[]
+            {
+                new Ring(new[]
+                {
+                    new Point2D(0, 2),
+                    new Point2D(2, 2)
+                })
+            };
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null, holes, new MacroStabilityInwardsSoilLayerData());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("outerRing", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_HolesNullWithoutData_ThrowsArgumentNullException()
         {
             // Setup
             var outerRing = new Ring(new[]
@@ -71,6 +92,43 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("holes", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_HolesNullWithData_ThrowsArgumentNullException()
+        {
+            // Setup
+            var outerRing = new Ring(new[]
+            {
+                new Point2D(0, 2),
+                new Point2D(2, 2)
+            });
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null, new MacroStabilityInwardsSoilLayerData());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("holes", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+            Ring outerRing = CreateRandomRing(random);
+            var holes = new[]
+            {
+                CreateRandomRing(random)
+            };
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("data", exception.ParamName);
         }
 
         [Test]
@@ -93,7 +151,31 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
-            Assert.Null(layer.Data);
+            Assert.IsNotNull(layer.Data);
+        }
+
+        [Test]
+        public void Constructor_WithOuterRingHolesAndData_ReturnsNewInstance()
+        {
+            // Setup
+            var random = new Random(39);
+            Ring outerRing = CreateRandomRing(random);
+            var holes = new[]
+            {
+                CreateRandomRing(random)
+            };
+            var data = new MacroStabilityInwardsSoilLayerData();
+
+            // Call
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes, data);
+
+            // Assert
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer2D>(layer);
+            Assert.NotNull(layer);
+            Assert.AreSame(outerRing, layer.OuterRing);
+            Assert.AreNotSame(holes, layer.Holes);
+            TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
+            Assert.AreSame(data, layer.Data);
         }
 
         [Test]
@@ -165,7 +247,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Blue
                 }
@@ -177,7 +259,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Blue
                 }
@@ -189,7 +271,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(32))
                 })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Blue
                 }
@@ -201,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     CreateRandomRing(new Random(22))
                 })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.Gold
                 }
@@ -260,7 +342,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomRing(random)
             })
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
                 },

@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                              }),
                                                              new Ring[0])
             {
-                Data = new MacroStabilityInwardsSoilLayerData
+                Data =
                 {
                     MaterialName = "Test Name",
                     IsAquifer = true
@@ -149,10 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                             new Point2D(20.210230, 26.00001),
                                                             new Point2D(3.830, 1.040506)
                                                         }),
-                                                        new Ring[0])
-            {
-                Data = new MacroStabilityInwardsSoilLayerData()
-            };
+                                                        new Ring[0]);
         }
     }
 }

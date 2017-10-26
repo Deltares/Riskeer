@@ -477,7 +477,7 @@ namespace Demo.Ringtoets.Commands
                                 })
                             })
                         {
-                            Data = new MacroStabilityInwardsSoilLayerData
+                            Data =
                             {
                                 MaterialName = "2D Layer"
                             }
