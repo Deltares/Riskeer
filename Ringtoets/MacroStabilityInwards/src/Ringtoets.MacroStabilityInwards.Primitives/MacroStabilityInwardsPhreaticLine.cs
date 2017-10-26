@@ -86,7 +86,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             unchecked
             {
                 int hashCode = Name.GetHashCode();
-                hashCode = (hashCode * 397) ^ Name.GetHashCode();
 
                 foreach (Point2D point in Geometry)
                 {

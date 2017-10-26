@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
@@ -73,5 +74,66 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the associated phreatic line.
         /// </summary>
         public MacroStabilityInwardsPhreaticLine PhreaticLine { get; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsWaternetLine) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Name.GetHashCode();
+
+                foreach (Point2D point in Geometry)
+                {
+                    hashCode = (hashCode * 397) ^ point.GetHashCode();
+                }
+
+                hashCode = (hashCode * 397) ^ PhreaticLine.GetHashCode();
+
+                return hashCode;
+            }
+        }
+
+        private bool Equals(MacroStabilityInwardsWaternetLine other)
+        {
+            return Name.Equals(other.Name)
+                   && PhreaticLine.Equals(other.PhreaticLine)
+                   && EqualGeometry(other.Geometry.ToArray());
+        }
+
+        private bool EqualGeometry(Point2D[] otherGeometry)
+        {
+            Point2D[] geometry = Geometry.ToArray();
+            int nrOfPoints = geometry.Length;
+            if (otherGeometry.Length != nrOfPoints)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < nrOfPoints; i++)
+            {
+                if (!geometry[i].Equals(otherGeometry[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -110,16 +110,16 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                           MacroStabilityInwardsPhreaticLine otherPhreaticLine)
         {
             // Call
-            bool isStructureEqualToOther = phreaticLine.Equals(otherPhreaticLine);
-            bool isOtherEqualToStructure = otherPhreaticLine.Equals(phreaticLine);
+            bool isPhreaticLineEqualToOther = phreaticLine.Equals(otherPhreaticLine);
+            bool isOtherEqualToPhreaticLine = otherPhreaticLine.Equals(phreaticLine);
 
             // Assert
-            Assert.IsFalse(isStructureEqualToOther);
-            Assert.IsFalse(isOtherEqualToStructure);
+            Assert.IsFalse(isPhreaticLineEqualToOther);
+            Assert.IsFalse(isOtherEqualToPhreaticLine);
         }
 
         [Test]
-        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        public void GetHashCode_EqualPhreaticLines_ReturnsSameHashCode()
         {
             // Setup
             MacroStabilityInwardsPhreaticLine phreaticLineX = CreatePhreaticLine();
