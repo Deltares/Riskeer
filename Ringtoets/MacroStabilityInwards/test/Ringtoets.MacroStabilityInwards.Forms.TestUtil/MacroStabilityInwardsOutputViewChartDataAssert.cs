@@ -46,7 +46,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int dikeToeAtRiverIndex = 11;
         private const int dikeTopAtRiverIndex = 12;
         private const int surfaceLevelOutsideIndex = 13;
-        private const int nrOfChartData = 14;
+        private const int waternetZonesExtremeIndex = 14;
+        private const int waternetZonesDailyIndex = 15;
+        private const int nrOfChartData = 16;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="calculationScenario"/>.
@@ -63,24 +65,60 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                                                 calculationScenario.InputParameters.StochasticSoilProfile.SoilProfile.Name,
                                                                                 true,
                                                                                 actual.Collection.ElementAt(soilProfileIndex));
+
+            MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculationScenario.InputParameters.WaternetExtreme,
+                                                                             (ChartDataCollection) actual.Collection.ElementAt(waternetZonesExtremeIndex));
+            MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculationScenario.InputParameters.WaternetDaily,
+                                                                             (ChartDataCollection) actual.Collection.ElementAt(waternetZonesDailyIndex));
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="chartDataCollection"/> contains empty data without
-        /// any soil layer chart data.
+        /// Asserts whether <paramref name="chartDataCollection"/> contains empty data,
+        /// empty soil layer chart data and empty waternet chart data.
         /// </summary>
         /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="chartDataCollection"/> is not empty;</item>
-        /// <item>the soil profile chart data contains chart data.</item>
+        /// <item>a soil layer chart data contains data;</item>
+        /// <item>a waternet layer chart data contains data.</item>
         /// </list>
         /// </exception>
-        public static void AssertEmptyChartDataWithoutSoilLayerData(ChartDataCollection chartDataCollection)
+        public static void AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(ChartDataCollection chartDataCollection)
         {
-            var soilProfileData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(soilProfileIndex);
-            CollectionAssert.IsEmpty(soilProfileData.Collection);
-            AssertEmptyChartData(chartDataCollection);
+            var waternetExtremeData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesExtremeIndex);
+            var waternetDailyData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesDailyIndex);
+
+            CollectionAssert.IsNotEmpty(waternetExtremeData.Collection);
+            CollectionAssert.IsNotEmpty(waternetDailyData.Collection);
+
+            Assert.IsFalse(waternetExtremeData.Collection.Any(c => c.HasData));
+            Assert.IsFalse(waternetDailyData.Collection.Any(c => c.HasData));
+
+            AssertEmptyChartDataWithEmptySoilLayerChartData(chartDataCollection);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains empty data and
+        /// empty soil layer chart data and no waternet chart data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="chartDataCollection"/> is not empty;</item>
+        /// <item>a soil layer chart data contains data;</item>
+        /// <item>a waternet layer is present.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(ChartDataCollection chartDataCollection)
+        {
+            var waternetExtremeData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesExtremeIndex);
+            var waternetDailyData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(waternetZonesDailyIndex);
+
+            CollectionAssert.IsEmpty(waternetExtremeData.Collection);
+            CollectionAssert.IsEmpty(waternetDailyData.Collection);
+
+            AssertEmptyChartDataWithEmptySoilLayerChartData(chartDataCollection);
         }
 
         /// <summary>
@@ -94,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// <item>a soil layer chart data contains data.</item>
         /// </list>
         /// </exception>
-        public static void AssertEmptyChartDataWithEmptySoilLayerChartData(ChartDataCollection chartDataCollection)
+        private static void AssertEmptyChartDataWithEmptySoilLayerChartData(ChartDataCollection chartDataCollection)
         {
             var soilProfileData = (ChartDataCollection) chartDataCollection.Collection.ElementAt(soilProfileIndex);
             CollectionAssert.IsNotEmpty(soilProfileData.Collection);
@@ -130,6 +168,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var dikeToeAtRiverData = (ChartPointData) chartDataArray[dikeToeAtRiverIndex];
             var dikeTopAtRiverData = (ChartPointData) chartDataArray[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDataArray[surfaceLevelOutsideIndex];
+            var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
+            var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
 
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
@@ -159,6 +199,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
             Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
+            Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
+            Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
         }
     }
 }

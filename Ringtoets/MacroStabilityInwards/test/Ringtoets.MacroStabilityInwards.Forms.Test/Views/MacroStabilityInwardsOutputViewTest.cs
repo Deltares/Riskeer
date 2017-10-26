@@ -179,7 +179,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
             }
         }
 
@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
 
                 // When
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();

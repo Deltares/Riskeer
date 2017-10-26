@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -42,6 +43,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     {
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
+        private readonly ChartDataCollection waternetZonesExtremeChartData;
+        private readonly ChartDataCollection waternetZonesDailyChartData;
         private readonly ChartLineData surfaceLineChartData;
         private readonly ChartPointData surfaceLevelInsideChartData;
         private readonly ChartPointData ditchPolderSideChartData;
@@ -60,6 +63,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private MacroStabilityInwardsCalculationScenario data;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
+
+        private MacroStabilityInwardsWaternet currentWaternetExtreme;
+        private MacroStabilityInwardsWaternet currentWaternetDaily;
+
+        private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineExtremeLookup;
+        private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineDailyLookup;
+        private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineExtremeLookup;
+        private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputChartControl"/>.
@@ -83,6 +94,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dikeToeAtRiverChartData = RingtoetsChartDataFactory.CreateDikeToeAtRiverChartData();
             dikeTopAtRiverChartData = MacroStabilityInwardsChartDataFactory.CreateDikeTopAtRiverChartData();
             surfaceLevelOutsideChartData = MacroStabilityInwardsChartDataFactory.CreateSurfaceLevelOutsideChartData();
+            waternetZonesExtremeChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesExtremeChartDataCollection();
+            waternetZonesDailyChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZonesDailyChartDataCollection();
 
             chartDataCollection.Add(soilProfileChartData);
             chartDataCollection.Add(surfaceLineChartData);
@@ -98,8 +111,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(dikeToeAtRiverChartData);
             chartDataCollection.Add(dikeTopAtRiverChartData);
             chartDataCollection.Add(surfaceLevelOutsideChartData);
+            chartDataCollection.Add(waternetZonesExtremeChartData);
+            chartDataCollection.Add(waternetZonesDailyChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
+
+            phreaticLineExtremeLookup = new Dictionary<MacroStabilityInwardsPhreaticLine, ChartLineData>();
+            phreaticLineDailyLookup = new Dictionary<MacroStabilityInwardsPhreaticLine, ChartLineData>();
+            waternetLineExtremeLookup = new Dictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData>();
+            waternetLineDailyLookup = new Dictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData>();
         }
 
         public IChartControl Chart
@@ -136,9 +156,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 return;
             }
 
-            MacroStabilityInwardsInput macroStabilityInwardsInput = data.InputParameters;
-            MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsInput.SurfaceLine;
-            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = macroStabilityInwardsInput.StochasticSoilProfile?.SoilProfile;
+            MacroStabilityInwardsInput input = data.InputParameters;
+            MacroStabilityInwardsSurfaceLine surfaceLine = input.SurfaceLine;
+            IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = input.StochasticSoilProfile?.SoilProfile;
 
             if (!ReferenceEquals(currentSoilProfile, soilProfile) || !ReferenceEquals(currentSurfaceLine, surfaceLine))
             {
@@ -148,19 +168,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 SetSoilProfileChartData();
             }
 
+            SetWaternetExtremeChartData(input.WaternetExtreme);
+            SetWaternetDailyChartData(input.WaternetDaily);
+
             if (data.Output != null)
             {
                 SetSurfaceLineChartData(surfaceLine);
                 SetSoilLayerAreas();
+                SetWaternetDatas(surfaceLine);
             }
             else
             {
                 SetSurfaceLineChartData(null);
                 SetEmptySoilLayerAreas();
+                SetEmptyWaternets();
             }
 
             chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
             soilProfileChartData.Collection.ForEachElementDo(sp => sp.NotifyObservers());
+            waternetZonesDailyChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
+            waternetZonesExtremeChartData.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
         private void SetSoilProfileChartData()
@@ -225,6 +252,89 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             return layers != null
                        ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
                        : new List<IMacroStabilityInwardsSoilLayer2D>();
+        }
+
+        private void SetWaternetDatas(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            foreach (KeyValuePair<MacroStabilityInwardsPhreaticLine, ChartLineData> dailyPhreaticLineData in phreaticLineDailyLookup)
+            {
+                dailyPhreaticLineData.Value.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(dailyPhreaticLineData.Key);
+            }
+            foreach (KeyValuePair<MacroStabilityInwardsPhreaticLine, ChartLineData> extremePhreaticLineData in phreaticLineExtremeLookup)
+            {
+                extremePhreaticLineData.Value.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(extremePhreaticLineData.Key);
+            }
+            foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> dailyWaternetLineData in waternetLineDailyLookup)
+            {
+                dailyWaternetLineData.Value.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(dailyWaternetLineData.Key, surfaceLine);
+            }
+            foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> extremeWaternetLineData in waternetLineExtremeLookup)
+            {
+                extremeWaternetLineData.Value.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(extremeWaternetLineData.Key, surfaceLine);
+            }
+        }
+
+        private void SetEmptyWaternets()
+        {
+            foreach (KeyValuePair<MacroStabilityInwardsPhreaticLine, ChartLineData> dailyPhreaticLineData in phreaticLineDailyLookup)
+            {
+                dailyPhreaticLineData.Value.Points = new Point2D[0];
+            }
+            foreach (KeyValuePair<MacroStabilityInwardsPhreaticLine, ChartLineData> extremePhreaticLineData in phreaticLineExtremeLookup)
+            {
+                extremePhreaticLineData.Value.Points = new Point2D[0];
+            }
+            foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> dailyWaternetLineData in waternetLineDailyLookup)
+            {
+                dailyWaternetLineData.Value.Areas = Enumerable.Empty<Point2D[]>();
+            }
+            foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> extremeWaternetLineData in waternetLineExtremeLookup)
+            {
+                extremeWaternetLineData.Value.Areas = Enumerable.Empty<Point2D[]>();
+            }
+        }
+
+        private void SetWaternetExtremeChartData(MacroStabilityInwardsWaternet waternet)
+        {
+            if (!waternet.Equals(currentWaternetExtreme))
+            {
+                currentWaternetExtreme = waternet;
+                SetWaternetZonesChartData(waternet, waternetZonesExtremeChartData,
+                                          phreaticLineExtremeLookup, waternetLineExtremeLookup);
+            }
+        }
+
+        private void SetWaternetDailyChartData(MacroStabilityInwardsWaternet waternet)
+        {
+            if (!waternet.Equals(currentWaternetDaily))
+            {
+                currentWaternetDaily = waternet;
+                SetWaternetZonesChartData(waternet, waternetZonesDailyChartData,
+                                          phreaticLineDailyLookup, waternetLineDailyLookup);
+            }
+        }
+
+        private static void SetWaternetZonesChartData(MacroStabilityInwardsWaternet waternet, ChartDataCollection chartData,
+                                                      IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineLookup,
+                                                      IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineLookup)
+        {
+            chartData.Clear();
+            phreaticLineLookup.Clear();
+            waternetLineLookup.Clear();
+
+            foreach (MacroStabilityInwardsPhreaticLine phreaticLine in waternet.PhreaticLines)
+            {
+                ChartLineData phreaticLineChartData = MacroStabilityInwardsChartDataFactory.CreatePhreaticLineChartData(phreaticLine.Name);
+                chartData.Add(phreaticLineChartData);
+                phreaticLineLookup.Add(phreaticLine, phreaticLineChartData);
+            }
+
+            foreach (MacroStabilityInwardsWaternetLine waternetLine in waternet.WaternetLines)
+            {
+                ChartMultipleAreaData waternetLineChartData = MacroStabilityInwardsChartDataFactory.CreateWaternetZoneChartData(waternetLine.Name);
+                chartData.Add(waternetLineChartData);
+                waternetLineLookup.Add(waternetLine, waternetLineChartData);
+            }
         }
     }
 }
