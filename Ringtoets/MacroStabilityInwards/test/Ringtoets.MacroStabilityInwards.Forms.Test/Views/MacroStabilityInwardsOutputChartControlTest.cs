@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
@@ -39,6 +40,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
     [TestFixture]
     public class MacroStabilityInwardsOutputChartControlTest
     {
+        private const int waternetZonesExtremeIndex = 14;
+        private const int waternetZonesDailyIndex = 15;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -151,7 +155,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(control.Chart.Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(GetChartControl(control).Data);
             }
         }
 
@@ -171,14 +175,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using(new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl
             {
                 Data = calculation
             })
             {
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(control.Chart.Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(GetChartControl(control).Data);
             }
         }
 
@@ -210,7 +214,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.Data = null;
 
                 // Assert
-                Assert.IsNull(control.Chart.Data);
+                Assert.IsNull(GetChartControl(control).Data);
             }
         }
 
@@ -229,14 +233,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using(new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl
             {
                 Data = calculation
             })
             {
+                ChartDataCollection chartData = GetChartControl(control).Data;
+
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(control.Chart.Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
 
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
@@ -244,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
             }
         }
 
@@ -270,8 +276,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Data = calculation
             })
             {
+                ChartDataCollection chartData = GetChartControl(control).Data;
+
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
 
                 calculation.ClearOutput();
 
@@ -279,7 +287,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(control.Chart.Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
             }
         }
 
@@ -304,8 +312,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Data = calculation
             })
             {
+                ChartDataCollection chartData = GetChartControl(control).Data;
+
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
 
                 calculation.ClearOutput();
 
@@ -313,7 +323,159 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(control.Chart.Data);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithStochasticSoilProfileAndSurfaceLine_WhenStochasticSoilProfileUpdate_ThenChartDataUpdated()
+        {
+            // Given
+            MacroStabilityInwardsStochasticSoilProfile originalSoilProfile = GetStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilProfile = originalSoilProfile,
+                    SurfaceLine = GetSurfaceLineWithGeometry()
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
+            using (var control = new MacroStabilityInwardsOutputChartControl
+            {
+                Data = calculation
+            })
+            {
+                ChartDataCollection chartData = GetChartControl(control).Data;
+
+                // Precondition
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+
+                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = GetStochasticSoilProfile2D();
+
+                // When
+                calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
+                control.UpdateChartData();
+
+                // Then
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithWaternets_WhenWaternetSetEmpty_ThenNoChartData()
+        {
+            // Setup
+            MacroStabilityInwardsStochasticSoilProfile originalSoilProfile = GetStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilProfile = originalSoilProfile,
+                    SurfaceLine = GetSurfaceLineWithGeometry()
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
+            using (var control = new MacroStabilityInwardsOutputChartControl())
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    control.Data = calculation;
+
+                    // Precondition
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                }
+
+                // Call
+                control.UpdateChartData();
+
+                // Assert
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(GetChartControl(control).Data);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithEmptyWaternets_WhenWaternetSet_ThenChartDataSet()
+        {
+            // Setup
+            MacroStabilityInwardsStochasticSoilProfile originalSoilProfile = GetStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilProfile = originalSoilProfile,
+                    SurfaceLine = GetSurfaceLineWithGeometry()
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
+            using (var control = new MacroStabilityInwardsOutputChartControl
+            {
+                Data = calculation
+            })
+            {
+                ChartDataCollection chartData = GetChartControl(control).Data;
+
+                // Precondition
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(chartData);
+
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    control.UpdateChartData();
+
+                    // Assert
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenViewWithWaternets_WhenObserversNotifiedAndWaternetSame_ThenChartDataNotUpdated()
+        {
+            // Setup
+            MacroStabilityInwardsStochasticSoilProfile originalSoilProfile = GetStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    StochasticSoilProfile = originalSoilProfile,
+                    SurfaceLine = GetSurfaceLineWithGeometry()
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var control = new MacroStabilityInwardsOutputChartControl
+            {
+                Data = calculation
+            })
+            {
+                // Precondition
+                ChartData[] chartData = GetChartControl(control).Data.Collection.ToArray();
+                var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
+                var waternetDailyChartDataCollection = (ChartDataCollection) chartData[waternetZonesDailyIndex];
+
+                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                                                                                 waternetExtremeChartDataCollection);
+                MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                                                                                 waternetDailyChartDataCollection);
+
+                IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;
+                IEnumerable<ChartData> waternetDailyChartData = waternetDailyChartDataCollection.Collection;
+
+                // Call
+                control.UpdateChartData();
+
+                // Assert
+                CollectionAssert.AreEqual(waternetExtremeChartData, ((ChartDataCollection) chartData[waternetZonesExtremeIndex]).Collection);
+                CollectionAssert.AreEqual(waternetDailyChartData, ((ChartDataCollection) chartData[waternetZonesDailyIndex]).Collection);
             }
         }
 
