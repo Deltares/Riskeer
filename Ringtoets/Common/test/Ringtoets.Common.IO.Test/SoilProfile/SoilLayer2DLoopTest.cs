@@ -30,6 +30,17 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
     public class SoilLayer2DLoopTest
     {
         [Test]
+        public void Constructor_SegmentsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new SoilLayer2DLoop(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("segments", paramName);
+        }
+
+        [Test]
         public void Constructor_ConnectedSegments_SetsSegments()
         {
             // Setup
@@ -94,6 +105,62 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        public void GetHashCode_EqualLoops_AreEqual()
+        {
+            // Setup
+            SoilLayer2DLoop loopA = CreateValidLoop();
+            SoilLayer2DLoop loopB = CreateValidLoop();
+
+            // Precondition
+            Assert.AreEqual(loopA, loopB);
+            Assert.AreEqual(loopB, loopA);
+
+            // Call & Assert
+            Assert.AreEqual(loopA.GetHashCode(), loopB.GetHashCode());
+            Assert.AreEqual(loopB.GetHashCode(), loopA.GetHashCode());
+        }
+
+        [Test]
+        public void Equals_DifferentType_ReturnsFalse()
+        {
+            // Setup
+            SoilLayer2DLoop loop = CreateValidLoop();
+
+            // Call
+            bool areEqual = loop.Equals(new object());
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        [Test]
+        public void Equals_Null_ReturnsFalse()
+        {
+            // Setup
+            SoilLayer2DLoop loop = CreateValidLoop();
+
+            // Call
+            bool areEqual = loop.Equals(null);
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
+
+        private static SoilLayer2DLoop CreateValidLoop()
+        {
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+
+            var segments = new[]
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
+            };
+
+            return new SoilLayer2DLoop(segments);
         }
     }
 }

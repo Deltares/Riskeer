@@ -631,7 +631,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         }
 
         /// <summary>
-        /// Takes a <paramref name="str"/> and returns an <see cref="Array"/> of <see cref="byte"/>
+        /// Takes <paramref name="str"/> and returns an <see cref="Array"/> of <see cref="byte"/>
         /// which contains the same information as the original <paramref name="str"/>.
         /// </summary>
         /// <param name="str">The <see cref="string"/> to convert to an <see cref="Array"/> of 

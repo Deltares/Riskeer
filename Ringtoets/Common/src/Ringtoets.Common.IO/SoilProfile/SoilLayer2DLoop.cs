@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.IO.Properties;
 
@@ -33,9 +34,15 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer2DLoop"/>.
         /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segments"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="segments"/> do not form a loop.</exception>
         public SoilLayer2DLoop(Segment2D[] segments)
         {
+            if (segments == null)
+            {
+                throw new ArgumentNullException(nameof(segments));
+            }
+
             CheckValidLoop(segments);
 
             Segments = segments;
@@ -81,6 +88,35 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             return true;
+        }
+
+        private bool Equals(SoilLayer2DLoop other)
+        {
+            return Segments.SequenceEqual(other.Segments);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+
+            return Equals((SoilLayer2DLoop) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = 0;
+
+                foreach (Segment2D segment in Segments)
+                {
+                    hashCode = (hashCode * 397) ^ segment.GetHashCode();
+                }
+
+                return hashCode;
+            }
         }
     }
 }
