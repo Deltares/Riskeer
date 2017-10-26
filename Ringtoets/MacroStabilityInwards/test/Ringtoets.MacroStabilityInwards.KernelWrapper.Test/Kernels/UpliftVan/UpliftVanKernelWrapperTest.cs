@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Xml.Schema;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Data.Geo;
+using Deltares.WTIStability.Data.Standard;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -47,6 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
             Assert.IsNull(kernel.SlidingCurveResult);
             Assert.IsNull(kernel.SlipPlaneResult);
+            Assert.IsNull(kernel.CalculationMessages);
         }
 
         [Test]
@@ -146,6 +149,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
             Assert.IsNull(kernel.SlidingCurveResult);
             Assert.IsNull(kernel.SlipPlaneResult);
+        }
+
+        [Test]
+        public void Calculate_ErrorInValidation_SetsCalculationMessages()
+        {
+            // Setup
+            UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
+
+            // Call
+            kernel.Calculate();
+
+            // Assert
+            LogMessage[] messages = kernel.CalculationMessages.ToArray();
+            Assert.AreEqual(2, messages.Length);
+
+            LogMessage firstMessage = messages.ElementAt(0);
+            Assert.AreEqual(LogMessageType.Error, firstMessage.MessageType);
+            Assert.AreEqual($"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}" +
+                            "Parameter name: index", firstMessage.Message);
+
+            LogMessage secondMessage = messages.ElementAt(1);
+            Assert.AreEqual(LogMessageType.Error, secondMessage.MessageType);
+            Assert.AreEqual("Fatale fout in Uplift-Van berekening", secondMessage.Message);
         }
 
         [Test]

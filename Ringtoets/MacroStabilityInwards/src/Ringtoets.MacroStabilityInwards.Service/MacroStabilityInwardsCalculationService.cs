@@ -121,7 +121,13 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     MacroStabilityInwardsKernelWrapperFactory.Instance);
                 UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
-                if (macroStabilityInwardsResult.CalculationMessages.Count(cm => cm.ResultType == UpliftVanKernelMessageType.Error) == 0)
+                if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
+                {
+                    CalculationServiceHelper.LogMessagesAsError(macroStabilityInwardsResult.CalculationMessages
+                                                                                           .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Error)
+                                                                                           .Select(cm => cm.Message).ToArray());
+                }
+                else
                 {
                     calculation.Output = new MacroStabilityInwardsOutput(
                         MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
@@ -133,12 +139,6 @@ namespace Ringtoets.MacroStabilityInwards.Service
                             ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
                             ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
                         });
-                }
-                else
-                {
-                    CalculationServiceHelper.LogMessagesAsError(macroStabilityInwardsResult.CalculationMessages
-                                                                                           .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Error)
-                                                                                           .Select(cm => cm.Message).ToArray());
                 }
 
                 if (macroStabilityInwardsResult.CalculationMessages.Count(cm => cm.ResultType == UpliftVanKernelMessageType.Warning) > 0)

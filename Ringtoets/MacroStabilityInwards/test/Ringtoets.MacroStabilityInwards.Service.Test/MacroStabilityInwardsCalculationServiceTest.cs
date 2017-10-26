@@ -52,6 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Setup()
         {
             testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            testCalculation.Name = "<very nice name>";
         }
 
         [Test]
@@ -69,10 +70,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
         {
             // Setup
-            const string name = "<very nice name>";
-
-            testCalculation.Name = name;
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
@@ -108,15 +105,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             var calculation = new MacroStabilityInwardsCalculation
             {
-                Name = name
+                Name = "<very nice name>"
             };
+            var isValid = false;
 
             // Call
-            var isValid = false;
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(calculation);
 
             // Assert
@@ -137,14 +132,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_HydraulicBoundaryLocationNotCalculated_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
-            testCalculation.Name = name;
             testCalculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             testCalculation.InputParameters.UseAssessmentLevelManualInput = false;
+            var isValid = false;
 
             // Call
-            var isValid = false;
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
 
             // Assert
@@ -166,14 +158,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_InvalidManualAssessmentLevel_LogsErrorAndReturnsFalse(double assessmentLevel)
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.UseAssessmentLevelManualInput = true;
             testCalculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
-            testCalculation.Name = name;
+            var isValid = false;
 
             // Call
-            var isValid = false;
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
 
             // Assert
@@ -192,13 +181,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_WithoutSurfaceLine_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.SurfaceLine = null;
-            testCalculation.Name = name;
+            var isValid = false;
 
             // Call
-            var isValid = false;
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
 
             // Assert
@@ -217,12 +203,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_WithoutStochasticSoilProfile_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-
             testCalculation.InputParameters.StochasticSoilProfile = null;
-            testCalculation.Name = name;
-
             var isValid = false;
+
             // Call
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
 
@@ -439,16 +422,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_KernelReturnsValidationError_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-            testCalculation.Name = name;
-
             var isValid = false;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
+
                 // Call
                 Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -467,16 +448,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_KernelReturnsValidationWarning_LogsWarningAndReturnsTrue()
         {
             // Setup
-            const string name = "<very nice name>";
-            testCalculation.Name = name;
-
             var isValid = false;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
+
                 // Call
                 Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -495,17 +474,15 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_KernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-            testCalculation.Name = name;
-
             var isValid = false;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
+
+                // Call
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -559,10 +536,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_ValidCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
         {
             // Setup
-            const string name = "<very nice name>";
-
-            testCalculation.Name = name;
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 Action call = () =>
@@ -775,10 +748,17 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
                 {
-                    Tuple<string, Level, Exception> tuple = tuples.ElementAt(1);
-                    Assert.AreEqual("Macrostabiliteit binnenwaarts berekening mislukt.", tuple.Item1);
-                    Assert.AreEqual(Level.Error, tuple.Item2);
-                    Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
+                    Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
+                    Assert.AreEqual(3, messages.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[0].Item1);
+
+                    Tuple<string, Level, Exception> tuple1 = messages[1];
+                    Assert.AreEqual("Macrostabiliteit binnenwaarts berekening mislukt.", tuple1.Item1);
+                    Assert.AreEqual(Level.Error, tuple1.Item2);
+                    Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple1.Item3);
+
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[2].Item1);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(testCalculation.Output);
@@ -789,15 +769,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_KernelReturnsCalculationError_LogsErrorAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-            testCalculation.Name = name;
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
+
                 // Call
                 Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -815,15 +793,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_KernelReturnsCalculationWarning_LogsWarningAndReturnsTrue()
         {
             // Setup
-            const string name = "<very nice name>";
-            testCalculation.Name = name;
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
+
                 // Call
                 Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -833,7 +809,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
                                     $"{Environment.NewLine}" +
-                                    "* Calculation Warning", msgs[1]);
+                                    "* Calculation Warning 1" +
+                                    $"{Environment.NewLine}" +
+                                    "* Calculation Warning 2", msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
             }
@@ -843,16 +821,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_KernelReturnsCalculationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
         {
             // Setup
-            const string name = "<very nice name>";
-            testCalculation.Name = name;
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
+
+                // Call
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -863,7 +839,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     Assert.AreEqual("Calculation Error", msgs[1]);
                     Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
                                     $"{Environment.NewLine}" +
-                                    "* Calculation Warning", msgs[2]);
+                                    "* Calculation Warning 1" +
+                                    $"{Environment.NewLine}" +
+                                    "* Calculation Warning 2", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
             }

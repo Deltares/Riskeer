@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Deltares.WTIStability;
 using Deltares.WTIStability.Calculation.Wrapper;
 using Deltares.WTIStability.Data.Geo;
@@ -234,7 +235,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             SlidingCurveResult = (SlidingDualCircle) convertedResult.Curve;
             SlipPlaneResult = convertedResult.SlipPlaneUpliftVan;
 
-            CalculationMessages = convertedResult.Messages;
+            CalculationMessages = convertedResult.Messages ?? Enumerable.Empty<LogMessage>();
         }
     }
 }

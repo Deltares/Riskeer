@@ -200,23 +200,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Assert
             Assert.AreEqual(6, upliftVanKernel.CalculationMessages.Count());
-            Assert.AreEqual("Calculation Trace", upliftVanKernel.CalculationMessages.ElementAt(0).Message);
-            Assert.AreEqual(LogMessageType.Trace, upliftVanKernel.CalculationMessages.ElementAt(0).MessageType);
+            LogMessage firstMessage = upliftVanKernel.CalculationMessages.ElementAt(0);
+            Assert.AreEqual("Calculation Trace", firstMessage.Message);
+            Assert.AreEqual(LogMessageType.Trace, firstMessage.MessageType);
 
-            Assert.AreEqual("Calculation Debug", upliftVanKernel.CalculationMessages.ElementAt(1).Message);
-            Assert.AreEqual(LogMessageType.Debug, upliftVanKernel.CalculationMessages.ElementAt(1).MessageType);
+            LogMessage secondMessage = upliftVanKernel.CalculationMessages.ElementAt(1);
+            Assert.AreEqual("Calculation Debug", secondMessage.Message);
+            Assert.AreEqual(LogMessageType.Debug, secondMessage.MessageType);
 
-            Assert.AreEqual("Calculation Info", upliftVanKernel.CalculationMessages.ElementAt(2).Message);
-            Assert.AreEqual(LogMessageType.Info, upliftVanKernel.CalculationMessages.ElementAt(2).MessageType);
+            LogMessage thirdMessage = upliftVanKernel.CalculationMessages.ElementAt(2);
+            Assert.AreEqual("Calculation Info", thirdMessage.Message);
+            Assert.AreEqual(LogMessageType.Info, thirdMessage.MessageType);
 
-            Assert.AreEqual("Calculation Warning", upliftVanKernel.CalculationMessages.ElementAt(3).Message);
-            Assert.AreEqual(LogMessageType.Warning, upliftVanKernel.CalculationMessages.ElementAt(3).MessageType);
+            LogMessage fourthMessage = upliftVanKernel.CalculationMessages.ElementAt(3);
+            Assert.AreEqual("Calculation Warning", fourthMessage.Message);
+            Assert.AreEqual(LogMessageType.Warning, fourthMessage.MessageType);
 
-            Assert.AreEqual("Calculation Error", upliftVanKernel.CalculationMessages.ElementAt(4).Message);
-            Assert.AreEqual(LogMessageType.Error, upliftVanKernel.CalculationMessages.ElementAt(4).MessageType);
+            LogMessage fifthMessage = upliftVanKernel.CalculationMessages.ElementAt(4);
+            Assert.AreEqual("Calculation Error", fifthMessage.Message);
+            Assert.AreEqual(LogMessageType.Error, fifthMessage.MessageType);
 
-            Assert.AreEqual("Calculation Fatal Error", upliftVanKernel.CalculationMessages.ElementAt(5).Message);
-            Assert.AreEqual(LogMessageType.FatalError, upliftVanKernel.CalculationMessages.ElementAt(5).MessageType);
+            LogMessage sixthMessage = upliftVanKernel.CalculationMessages.ElementAt(5);
+            Assert.AreEqual("Calculation Fatal Error", sixthMessage.Message);
+            Assert.AreEqual(LogMessageType.FatalError, sixthMessage.MessageType);
         }
 
         [Test]
@@ -280,10 +286,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             // Assert
             Assert.AreEqual(2, kernelMessages.Count());
-            Assert.AreEqual("Validation Warning", kernelMessages.ElementAt(0).Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, kernelMessages.ElementAt(0).ResultType);
-            Assert.AreEqual("Validation Error", kernelMessages.ElementAt(1).Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessages.ElementAt(1).ResultType);
+            UpliftVanKernelMessage firstMessage = kernelMessages.ElementAt(0);
+            Assert.AreEqual("Validation Warning", firstMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, firstMessage.ResultType);
+            UpliftVanKernelMessage secondMessage = kernelMessages.ElementAt(1);
+            Assert.AreEqual("Validation Error", secondMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, secondMessage.ResultType);
         }
 
         [Test]

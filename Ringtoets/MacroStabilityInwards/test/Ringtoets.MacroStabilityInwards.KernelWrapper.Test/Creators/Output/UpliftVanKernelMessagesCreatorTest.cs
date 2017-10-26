@@ -33,10 +33,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
     public class UpliftVanKernelMessagesCreatorTest
     {
         [Test]
-        public void Create_LogMessagesNull_ThrowsArgumentNullException()
+        public void CreateFromLogMessages_LogMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanKernelMessagesCreator.Create(null).ToList();
+            TestDelegate call = () => UpliftVanKernelMessagesCreator.CreateFromLogMessages(null).ToList();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_WithLogMessages_ReturnUpliftVanKernelMessages()
+        public void CreateFromLogMessages_WithLogMessages_ReturnOnlyWarningAndErrorUpliftVanKernelMessages()
         {
             // Setup
             var logMessages = new[]
@@ -58,7 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             };
 
             // Call
-            IEnumerable<UpliftVanKernelMessage> kernelMessages = UpliftVanKernelMessagesCreator.Create(logMessages).ToList();
+            IEnumerable<UpliftVanKernelMessage> kernelMessages = UpliftVanKernelMessagesCreator.CreateFromLogMessages(logMessages).ToList();
 
             // Assert
             Assert.AreEqual(3, kernelMessages.Count());
@@ -68,6 +68,76 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessages.ElementAt(1).ResultType);
             Assert.AreEqual("Calculation Fatal Error", kernelMessages.ElementAt(2).Message);
             Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessages.ElementAt(2).ResultType);
+        }
+
+        [Test]
+        public void CreateFromLogMessages_LogMessageTextNull_ReturnsUpliftVanKernelMessageWithUnknownText()
+        {
+            // Setup
+            var logMessages = new[]
+            {
+                new LogMessage(LogMessageType.Error, "subject", null)
+            };
+
+            // Call
+            IEnumerable<UpliftVanKernelMessage> kernelMessages = UpliftVanKernelMessagesCreator.CreateFromLogMessages(logMessages).ToList();
+
+            // Assert
+            UpliftVanKernelMessage kernelMessage = kernelMessages.Single();
+            Assert.AreEqual("Onbekend", kernelMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessage.ResultType);
+        }
+
+        [Test]
+        public void CreateFromValidationResults_ValidationResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => UpliftVanKernelMessagesCreator.CreateFromValidationResults(null).ToList();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("validationResults", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFromValidationResults_WithValidationResults_ReturnsOnlyWarningAndErrorUpliftVanKernelMessages()
+        {
+            // Setup
+            var validationResults = new[]
+            {
+                new ValidationResult(ValidationResultType.Debug, "Validation Debug"),
+                new ValidationResult(ValidationResultType.Info, "Validation Info"),
+                new ValidationResult(ValidationResultType.Warning, "Validation Warning"),
+                new ValidationResult(ValidationResultType.Error, "Validation Error")
+            };
+
+            // Call
+            IEnumerable<UpliftVanKernelMessage> kernelMessages = UpliftVanKernelMessagesCreator.CreateFromValidationResults(validationResults).ToList();
+
+            // Assert
+            Assert.AreEqual(2, kernelMessages.Count());
+            Assert.AreEqual("Validation Warning", kernelMessages.ElementAt(0).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, kernelMessages.ElementAt(0).ResultType);
+            Assert.AreEqual("Validation Error", kernelMessages.ElementAt(1).Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessages.ElementAt(1).ResultType);
+        }
+
+        [Test]
+        public void CreateFromValidationResults_ValidationResultMessageNull_ReturnsUpliftVanKernelMessageWithUnknownText()
+        {
+            // Setup
+            var validationResults = new[]
+            {
+                new ValidationResult(ValidationResultType.Error, null)
+            };
+
+            // Call
+            IEnumerable<UpliftVanKernelMessage> kernelMessages = UpliftVanKernelMessagesCreator.CreateFromValidationResults(validationResults).ToList();
+
+            // Assert
+            UpliftVanKernelMessage kernelMessage = kernelMessages.Single();
+            Assert.AreEqual("Onbekend", kernelMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, kernelMessage.ResultType);
         }
     }
 }

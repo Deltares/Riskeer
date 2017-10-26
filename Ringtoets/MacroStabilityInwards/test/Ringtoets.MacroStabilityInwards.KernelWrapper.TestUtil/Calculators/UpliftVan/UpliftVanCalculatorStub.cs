@@ -87,7 +87,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             }
             if (ReturnCalculationWarning)
             {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning"));
+                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 1"));
+                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 2"));
             }
 
             return Output ?? (Output = CreateUpliftVanCalculatorResult(calculationMessages));

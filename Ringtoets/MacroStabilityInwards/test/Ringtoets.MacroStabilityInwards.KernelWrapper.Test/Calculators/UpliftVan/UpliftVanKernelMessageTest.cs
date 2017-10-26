@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
@@ -43,7 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
         public void Constructor_ValidArguments_ReturnsExpectedValues()
         {
             // Setup
-            const UpliftVanKernelMessageType resultType = UpliftVanKernelMessageType.Error;
+            var random = new Random(39);
+            var resultType = random.NextEnumValue<UpliftVanKernelMessageType>();
             const string message = "Error in validation";
 
             // Call

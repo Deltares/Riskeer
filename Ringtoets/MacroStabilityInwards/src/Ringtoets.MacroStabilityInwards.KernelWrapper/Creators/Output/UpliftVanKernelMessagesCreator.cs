@@ -33,14 +33,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
     {
         /// <summary>
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> 
-        /// based on the information given in the <paramref name="logMessages"/>.
+        /// based on the <see cref="LogMessage"/> given in the <paramref name="logMessages"/>.
         /// </summary>
-        /// <param name="logMessages">The log messages to create the result for.</param>
+        /// <param name="logMessages">The log messages to create the Uplift Van kernel messages for.</param>
         /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> with information
         /// taken from the <paramref name="logMessages"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="logMessages"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<UpliftVanKernelMessage> Create(IEnumerable<LogMessage> logMessages)
+        public static IEnumerable<UpliftVanKernelMessage> CreateFromLogMessages(IEnumerable<LogMessage> logMessages)
         {
             if (logMessages == null)
             {
@@ -62,7 +62,41 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
                     default:
                         continue;
                 }
-                yield return new UpliftVanKernelMessage(type, logMessage.Message);
+                yield return new UpliftVanKernelMessage(type, logMessage.Message ?? "Onbekend");
+            }
+        }
+
+        /// <summary>
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> 
+        /// based on the <see cref="ValidationResult"/> given in the <paramref name="validationResults"/>.
+        /// </summary>
+        /// <param name="validationResults">The validation results to create the Uplift Van kernel messages for.</param>
+        /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> with information
+        /// taken from the <paramref name="validationResults"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="validationResults"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<UpliftVanKernelMessage> CreateFromValidationResults(IEnumerable<ValidationResult> validationResults)
+        {
+            if (validationResults == null)
+            {
+                throw new ArgumentNullException(nameof(validationResults));
+            }
+
+            foreach (ValidationResult logMessage in validationResults)
+            {
+                UpliftVanKernelMessageType type;
+                switch (logMessage.MessageType)
+                {
+                    case ValidationResultType.Error:
+                        type = UpliftVanKernelMessageType.Error;
+                        break;
+                    case ValidationResultType.Warning:
+                        type = UpliftVanKernelMessageType.Warning;
+                        break;
+                    default:
+                        continue;
+                }
+                yield return new UpliftVanKernelMessage(type, logMessage.Text ?? "Onbekend");
             }
         }
     }

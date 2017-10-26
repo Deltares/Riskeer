@@ -78,11 +78,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             IEnumerable<UpliftVanKernelMessage> messages = calculator.Output.CalculationMessages.ToList();
-            Assert.AreEqual(2, messages.Count());
-            Assert.AreEqual("Calculation Error", messages.ElementAt(0).Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, messages.ElementAt(0).ResultType);
-            Assert.AreEqual("Calculation Warning", messages.ElementAt(1).Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, messages.ElementAt(1).ResultType);
+            Assert.AreEqual(3, messages.Count());
+
+            UpliftVanKernelMessage firstMessage = messages.ElementAt(0);
+            Assert.AreEqual("Calculation Error", firstMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, firstMessage.ResultType);
+
+            UpliftVanKernelMessage secondMessage = messages.ElementAt(1);
+            Assert.AreEqual("Calculation Warning 1", secondMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, secondMessage.ResultType);
+
+            UpliftVanKernelMessage thirdMessage = messages.ElementAt(2);
+            Assert.AreEqual("Calculation Warning 2", thirdMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, thirdMessage.ResultType);
         }
 
         [Test]
@@ -150,10 +158,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             Assert.AreEqual(2, messages.Count());
-            Assert.AreEqual("Validation Error", messages.ElementAt(0).Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, messages.ElementAt(0).ResultType);
-            Assert.AreEqual("Validation Warning", messages.ElementAt(1).Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, messages.ElementAt(1).ResultType);
+
+            UpliftVanKernelMessage firstMessage = messages.ElementAt(0);
+            Assert.AreEqual("Validation Error", firstMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, firstMessage.ResultType);
+
+            UpliftVanKernelMessage secondMessage = messages.ElementAt(1);
+            Assert.AreEqual("Validation Warning", secondMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, secondMessage.ResultType);
         }
 
         [Test]
