@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -51,54 +50,47 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             {
                 new Point2D(0.0, 1.0),
                 new Point2D(2.0, 4.0)
-            }), new List<Ring>())
-            {
-                NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
-            };
+            }), new List<Ring>());
 
             var doubleNestedLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
             {
                 new Point2D(4.0, 2.0),
                 new Point2D(0.0, 2.5)
-            }), new List<Ring>())
-            {
-                NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
-            };
+            }), new List<Ring>());
 
             var nestedLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-            {
-                new Point2D(4.0, 2.0),
-                new Point2D(0.0, 2.5)
-            }), new List<Ring>())
-            {
-                NestedLayers = new[]
-                {
-                    doubleNestedLayer
-                }
-            };
+                                                                   {
+                                                                       new Point2D(4.0, 2.0),
+                                                                       new Point2D(0.0, 2.5)
+                                                                   }),
+                                                                   new List<Ring>(),
+                                                                   new MacroStabilityInwardsSoilLayerData(),
+                                                                   new[]
+                                                                   {
+                                                                       doubleNestedLayer
+                                                                   });
 
             var topLevelLayer2 = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-            {
-                new Point2D(3.0, 1.0),
-                new Point2D(8.0, 3.0)
-            }), new List<Ring>())
-            {
-                NestedLayers = new[]
-                {
-                    nestedLayer
-                }
-            };
+                                                                      {
+                                                                          new Point2D(3.0, 1.0),
+                                                                          new Point2D(8.0, 3.0)
+                                                                      }), new List<Ring>(),
+                                                                      new MacroStabilityInwardsSoilLayerData(),
+                                                                      new[]
+                                                                      {
+                                                                          nestedLayer
+                                                                      });
             var layers = new[]
             {
-               topLevelLayer1,
-               topLevelLayer2
+                topLevelLayer1,
+                topLevelLayer2
             };
 
             // Call
             IEnumerable<IMacroStabilityInwardsSoilLayer2D> flatLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
 
             // Assert
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
                 topLevelLayer1,
                 topLevelLayer2,

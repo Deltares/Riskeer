@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// the layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes)
-            : this(outerRing, holes, new MacroStabilityInwardsSoilLayerData()) {}
+            : this(outerRing, holes, new MacroStabilityInwardsSoilLayerData(), Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
@@ -48,8 +48,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="holes">The rings describing the holes within the outer boundaries of 
         /// the layer.</param>
         /// <param name="data">The data of the soil layer.</param>
+        /// <param name="nestedLayers">The nested <see cref="IMacroStabilityInwardsSoilLayer2D"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes, IMacroStabilityInwardsSoilLayerData data)
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes, IMacroStabilityInwardsSoilLayerData data, IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers)
         {
             if (outerRing == null)
             {
@@ -66,16 +67,22 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 throw new ArgumentNullException(nameof(data));
             }
 
+            if (nestedLayers == null)
+            {
+                throw new ArgumentNullException(nameof(nestedLayers));
+            }
+
             OuterRing = outerRing;
             Holes = holes.ToArray();
             Data = data;
+            NestedLayers = nestedLayers;
         }
 
         public Ring OuterRing { get; }
 
         public Ring[] Holes { get; }
 
-        public IEnumerable<IMacroStabilityInwardsSoilLayer2D> NestedLayers { get; set; }
+        public IEnumerable<IMacroStabilityInwardsSoilLayer2D> NestedLayers { get; }
 
         public IMacroStabilityInwardsSoilLayerData Data { get; }
 

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -44,18 +43,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }), new Ring[0])
-                {
-                    NestedLayers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()
-                },
+                }), new Ring[0]),
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                 {
                     new Point2D(1, 1),
                     new Point2D(2, 2)
                 }), new Ring[0])
-                {
-                    NestedLayers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()
-                }
             }, new MacroStabilityInwardsPreconsolidationStress[0]);
         }
     }

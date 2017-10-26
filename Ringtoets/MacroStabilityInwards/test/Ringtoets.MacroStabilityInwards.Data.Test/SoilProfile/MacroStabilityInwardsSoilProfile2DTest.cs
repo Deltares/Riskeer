@@ -320,8 +320,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
-                },
-                NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                }
             };
         }
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -35,7 +36,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsSoilLayer2DTest
     {
         [Test]
-        public void Constructor_OuterRingNullWithoutData_ThrowsArgumentNullException()
+        public void Constructor_OuterRingNullWithoutDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Setup
             var holes = new[]
@@ -56,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_OuterRingNullWithData_ThrowsArgumentNullException()
+        public void Constructor_OuterRingNullWithDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Setup
             var holes = new[]
@@ -69,7 +70,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null, holes, new MacroStabilityInwardsSoilLayerData());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null,
+                                                                           holes,
+                                                                           new MacroStabilityInwardsSoilLayerData(),
+                                                                           Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -77,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_HolesNullWithoutData_ThrowsArgumentNullException()
+        public void Constructor_HolesNullWithoutDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Setup
             var outerRing = new Ring(new[]
@@ -95,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         }
 
         [Test]
-        public void Constructor_HolesNullWithData_ThrowsArgumentNullException()
+        public void Constructor_HolesNullWithDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Setup
             var outerRing = new Ring(new[]
@@ -105,7 +109,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             });
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, null, new MacroStabilityInwardsSoilLayerData());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing,
+                                                                           null,
+                                                                           new MacroStabilityInwardsSoilLayerData(),
+                                                                           Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -124,11 +131,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null);
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null, Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("data", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_NestedLayersNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+            Ring outerRing = CreateRandomRing(random);
+            var holes = new[]
+            {
+                CreateRandomRing(random)
+            };
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, new MacroStabilityInwardsSoilLayerData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("nestedLayers", exception.ParamName);
         }
 
         [Test]
@@ -152,10 +178,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.IsNotNull(layer.Data);
+            Assert.IsEmpty(layer.NestedLayers);
         }
 
         [Test]
-        public void Constructor_WithOuterRingHolesAndData_ReturnsNewInstance()
+        public void Constructor_WithOuterRingHolesDataAndNestedLayers_ReturnsNewInstance()
         {
             // Setup
             var random = new Random(39);
@@ -165,9 +192,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomRing(random)
             };
             var data = new MacroStabilityInwardsSoilLayerData();
+            IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>();
 
             // Call
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes, data);
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes, data, nestedLayers);
 
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer2D>(layer);
@@ -176,6 +204,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
             Assert.AreSame(data, layer.Data);
+            Assert.AreSame(nestedLayers, layer.NestedLayers);
         }
 
         [Test]
@@ -345,8 +374,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 Data =
                 {
                     Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
-                },
-                NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                }
             };
         }
 

@@ -58,21 +58,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                  new Point2D(20.210230, 26.00001),
                                                                  new Point2D(3.830, 1.040506)
                                                              }),
-                                                             new Ring[0])
-            {
-                Data =
-                {
-                    IsAquifer = true
-                },
-                NestedLayers = new[]
-                {
-                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                    {
-                        new Point2D(12.987, 12.821),
-                        new Point2D(4.23, 1.02)
-                    }), new Ring[0])
-                }
-            };
+                                                             new Ring[0],
+                                                             new MacroStabilityInwardsSoilLayerData
+                                                             {
+                                                                 IsAquifer = true
+                                                             },
+                                                             new[]
+                                                             {
+                                                                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                                 {
+                                                                     new Point2D(12.987, 12.821),
+                                                                     new Point2D(4.23, 1.02)
+                                                                 }), new Ring[0])
+                                                             });
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer);

@@ -63,8 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         }
 
         /// <summary>
-        /// Converts <see cref="IMacroStabilityInwardsSoilLayerData"/>
-        /// into <see cref="SoilLayer"/>.
+        /// Converts <see cref="IMacroStabilityInwardsSoilLayer2D"/> objects into <see cref="SoilLayer"/> objects.
         /// </summary>
         /// <param name="layers">The layers to convert.</param>
         /// <returns>The converted <see cref="SoilLayer"/>.</returns>
