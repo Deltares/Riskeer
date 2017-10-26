@@ -27,17 +27,17 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
+using Ringtoets.MacroStabilityInwards.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="MacroStabilityInwardsSoilLayer2D"/> for properties panel.
+    /// ViewModel of <see cref="IMacroStabilityInwardsSoilLayer2D"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class MacroStabilityInwardsSoilLayer2DProperties : ObjectProperties<MacroStabilityInwardsSoilLayer2D>
+    public class MacroStabilityInwardsSoilLayer2DProperties : ObjectProperties<IMacroStabilityInwardsSoilLayer2D>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2DProperties"/>.
@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="soilLayer">The 2D soil layer for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2DProperties(MacroStabilityInwardsSoilLayer2D soilLayer)
+        public MacroStabilityInwardsSoilLayer2DProperties(IMacroStabilityInwardsSoilLayer2D soilLayer)
         {
             if (soilLayer == null)
             {
@@ -84,13 +84,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Holes_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_Holes_Description))]
-        public RingProperties[] Holes
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_NestedLayers_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SoilLayer_NestedLayers_Description))]
+        public MacroStabilityInwardsSoilLayer2DProperties[] NestedLayers
         {
             get
             {
-                return data.Holes.Select(ring => new RingProperties(ring)).ToArray();
+                return data.NestedLayers.Select(nestedLayer => new MacroStabilityInwardsSoilLayer2DProperties(nestedLayer)).ToArray();
             }
         }
 

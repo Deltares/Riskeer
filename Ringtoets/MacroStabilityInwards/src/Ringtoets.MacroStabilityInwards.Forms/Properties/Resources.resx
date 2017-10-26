@@ -523,11 +523,11 @@
   <data name="LeakageLengthOutwardsPhreaticLine4_Description" xml:space="preserve">
     <value>Lengtemaat die uitdrukking geeft aan de afstand waarover de stijghoogte verloopt in de tussenzandlaag ter hoogte van het voorland.</value>
   </data>
-  <data name="SoilLayer_Holes_Description" xml:space="preserve">
-    <value>De binnenringen van deze grondlaag.</value>
+  <data name="SoilLayer_NestedLayers_Description" xml:space="preserve">
+    <value>De geneste lagen binnen deze grondlaag.</value>
   </data>
-  <data name="SoilLayer_Holes_DisplayName" xml:space="preserve">
-    <value>Binnenringen</value>
+  <data name="SoilLayer_NestedLayers_DisplayName" xml:space="preserve">
+    <value>Geneste lagen</value>
   </data>
   <data name="SoilLayer_OuterRing_Description" xml:space="preserve">
     <value>De geometrie van de buitenring van deze grondlaag.</value>

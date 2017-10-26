@@ -82,7 +82,6 @@
     <Compile Include="PropertyClasses\MacroStabilityInwardsSemiProbabilisticOutputProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSlipPlaneSettingsProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputBaseProperties.cs" />
-    <Compile Include="PropertyClasses\RingProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSoilLayer2DProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsSurfaceLineCollectionProperties.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsStochasticSoilModelCollectionProperties.cs" />

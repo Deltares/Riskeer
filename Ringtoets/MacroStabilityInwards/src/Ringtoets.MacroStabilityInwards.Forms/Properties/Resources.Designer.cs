@@ -1263,20 +1263,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De binnenringen van deze grondlaag..
+        ///   Looks up a localized string similar to De geneste lagen binnen deze grondlaag..
         /// </summary>
-        public static string SoilLayer_Holes_Description {
+        public static string SoilLayer_NestedLayers_Description {
             get {
-                return ResourceManager.GetString("SoilLayer_Holes_Description", resourceCulture);
+                return ResourceManager.GetString("SoilLayer_NestedLayers_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Binnenringen.
+        ///   Looks up a localized string similar to Geneste lagen.
         /// </summary>
-        public static string SoilLayer_Holes_DisplayName {
+        public static string SoilLayer_NestedLayers_DisplayName {
             get {
-                return ResourceManager.GetString("SoilLayer_Holes_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SoilLayer_NestedLayers_DisplayName", resourceCulture);
             }
         }
         

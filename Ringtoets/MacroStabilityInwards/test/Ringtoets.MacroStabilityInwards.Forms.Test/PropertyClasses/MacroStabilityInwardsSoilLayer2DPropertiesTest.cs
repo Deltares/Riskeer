@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -55,11 +56,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsSoilLayer2DProperties(soilLayer);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSoilLayer2D>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IMacroStabilityInwardsSoilLayer2D>>(properties);
             TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties,
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.OuterRing));
             TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DProperties,
-                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.Holes));
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DProperties.NestedLayers));
             Assert.AreSame(soilLayer, properties.Data);
         }
 
@@ -67,24 +68,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var nestedLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+            {
+                new Point2D(12.987, 12.821),
+                new Point2D(4.23, 1.02)
+            }), new Ring[0]);
             var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                                                              {
                                                                  new Point2D(20.210230, 26.00001),
                                                                  new Point2D(3.830, 1.040506)
                                                              }),
-                                                             new[]
-                                                             {
-                                                                 new Ring(new[]
-                                                                 {
-                                                                     new Point2D(12.987, 12.821),
-                                                                     new Point2D(4.23, 1.02)
-                                                                 })
-                                                             })
+                                                             new Ring[0])
             {
                 Data = new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Test Name",
                     IsAquifer = true
+                },
+                NestedLayers = new[]
+                {
+                    nestedLayer
                 }
             };
 
@@ -95,8 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(layer.Data.MaterialName, properties.Name);
             Assert.AreEqual(layer.Data.IsAquifer, properties.IsAquifer);
             CollectionAssert.AreEqual(layer.OuterRing.Points, properties.OuterRing);
-            Assert.AreEqual(1, properties.Holes.Length);
-            Assert.AreSame(layer.Holes[0], properties.Holes[0].Data);
+            Assert.AreEqual(1, properties.NestedLayers.Length);
+            Assert.AreSame(layer.NestedLayers.Single(), properties.NestedLayers[0].Data);
         }
 
         [Test]
@@ -145,11 +148,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "De geometrie van de buitenring van deze grondlaag.",
                                                                             true);
 
-            PropertyDescriptor holesProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(holesProperty,
+            PropertyDescriptor nestedLayersProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nestedLayersProperty,
                                                                             generalCategoryName,
-                                                                            "Binnenringen",
-                                                                            "De binnenringen van deze grondlaag.",
+                                                                            "Geneste lagen",
+                                                                            "De geneste lagen binnen deze grondlaag.",
                                                                             true);
 
             PropertyDescriptor isAquiferProperty = dynamicProperties[3];
