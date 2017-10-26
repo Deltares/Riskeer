@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -69,6 +71,132 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             // Assert
             Assert.AreSame(phreaticLine, waternet.PhreaticLines.Single());
             Assert.AreSame(waternetLine, waternet.WaternetLines.Single());
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("string")]
+        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        {
+            // Setup
+            MacroStabilityInwardsWaternet waternet = CreateWaternet();
+
+            // Call
+            bool isEqualToDifferentObject = waternet.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqualToDifferentObject);
+        }
+
+        [Test]
+        public void Equals_AllPropertiesEqual_ReturnsTrue()
+        {
+            // Setup
+            MacroStabilityInwardsWaternet waternetX = CreateWaternet();
+            MacroStabilityInwardsWaternet waternetY = CreateWaternet();
+
+            // Call
+            bool isXEqualToY = waternetX.Equals(waternetY);
+            bool isYEqualToZ = waternetY.Equals(waternetX);
+
+            // Assert
+            Assert.IsTrue(isXEqualToY);
+            Assert.IsTrue(isYEqualToZ);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetWaternetCombinations))]
+        public void Equals_DifferentProperty_ReturnsFalse(MacroStabilityInwardsWaternet waternet,
+                                                          MacroStabilityInwardsWaternet otherWaternet)
+        {
+            // Call
+            bool isWaternetEqualToOther = waternet.Equals(otherWaternet);
+            bool isOtherEqualToWaternet = otherWaternet.Equals(waternet);
+
+            // Assert
+            Assert.IsFalse(isWaternetEqualToOther);
+            Assert.IsFalse(isOtherEqualToWaternet);
+        }
+
+        [Test]
+        public void GetHashCode_EqualWaternet_ReturnsSameHashCode()
+        {
+            // Setup
+            MacroStabilityInwardsWaternet waternetLineX = CreateWaternet();
+            MacroStabilityInwardsWaternet waternetLineY = CreateWaternet();
+
+            // Call
+            int hashCodeOne = waternetLineX.GetHashCode();
+            int hashCodeTwo = waternetLineY.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static IEnumerable<TestCaseData> GetWaternetCombinations()
+        {
+            yield return new TestCaseData(
+                CreateWaternet(),
+                new MacroStabilityInwardsWaternet(
+                    new[]
+                    {
+                        new MacroStabilityInwardsPhreaticLine("Test", new Point2D[0])
+                    },
+                    new MacroStabilityInwardsWaternetLine[]
+                    {
+                        new TestMacroStabilityInwardsWaternetLine()
+                    })).SetName("Other phreatic line");
+
+            yield return new TestCaseData(
+                CreateWaternet(),
+                new MacroStabilityInwardsWaternet(
+                    new[]
+                    {
+                        new TestMacroStabilityInwardsPhreaticLine(),
+                        new TestMacroStabilityInwardsPhreaticLine()
+                    },
+                    new MacroStabilityInwardsWaternetLine[]
+                    {
+                        new TestMacroStabilityInwardsWaternetLine()
+                    })).SetName("Other phreatic line count");
+
+            yield return new TestCaseData(
+                CreateWaternet(),
+                new MacroStabilityInwardsWaternet(
+                    new[]
+                    {
+                        new TestMacroStabilityInwardsPhreaticLine()
+                    },
+                    new[]
+                    {
+                        new MacroStabilityInwardsWaternetLine("Test", new Point2D[0], new TestMacroStabilityInwardsPhreaticLine())
+                    })).SetName("Other waternet line");
+
+            yield return new TestCaseData(
+                CreateWaternet(),
+                new MacroStabilityInwardsWaternet(
+                    new[]
+                    {
+                        new TestMacroStabilityInwardsPhreaticLine()
+                    },
+                    new MacroStabilityInwardsWaternetLine[]
+                    {
+                        new TestMacroStabilityInwardsWaternetLine(),
+                        new TestMacroStabilityInwardsWaternetLine()
+                    })).SetName("Other waternet line count");
+        }
+
+        private static MacroStabilityInwardsWaternet CreateWaternet()
+        {
+            return new MacroStabilityInwardsWaternet(
+                new MacroStabilityInwardsPhreaticLine[]
+                {
+                    new TestMacroStabilityInwardsPhreaticLine()
+                },
+                new MacroStabilityInwardsWaternetLine[]
+                {
+                    new TestMacroStabilityInwardsWaternetLine()
+                });
         }
     }
 }

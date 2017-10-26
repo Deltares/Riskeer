@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
 {
@@ -62,5 +63,88 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the collection of waternet lines.
         /// </summary>
         public IEnumerable<MacroStabilityInwardsWaternetLine> WaternetLines { get; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsWaternet)obj);
+        }
+
+        private bool Equals(MacroStabilityInwardsWaternet other)
+        {
+            return EqualPhreaticLines(other.PhreaticLines.ToArray())
+                   && EqualWaternetLines(other.WaternetLines.ToArray());
+        }
+
+        private bool EqualPhreaticLines(MacroStabilityInwardsPhreaticLine[] otherPhreaticLines)
+        {
+            MacroStabilityInwardsPhreaticLine[] phreaticLines = PhreaticLines.ToArray();
+            int nrOfLines = phreaticLines.Length;
+            if (otherPhreaticLines.Length != nrOfLines)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < nrOfLines; i++)
+            {
+                if (!phreaticLines[i].Equals(otherPhreaticLines[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool EqualWaternetLines(MacroStabilityInwardsWaternetLine[] otherWaternetLines)
+        {
+            MacroStabilityInwardsWaternetLine[] waternetLines = WaternetLines.ToArray();
+            int nrOfLines = waternetLines.Length;
+            if (otherWaternetLines.Length != nrOfLines)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < nrOfLines; i++)
+            {
+                if (!waternetLines[i].Equals(otherWaternetLines[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = 0;
+
+                foreach (MacroStabilityInwardsPhreaticLine phreaticLine in PhreaticLines)
+                {
+                    hashCode = (hashCode * 397) ^ phreaticLine.GetHashCode();
+                }
+
+                foreach (MacroStabilityInwardsWaternetLine waternetLine in WaternetLines)
+                {
+                    hashCode = (hashCode * 397) ^ waternetLine.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
     }
 }
