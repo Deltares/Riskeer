@@ -46,10 +46,10 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters;</item>
-        /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// <item>the <paramref name="databaseFilePath"/> contains invalid characters;</item>
+        /// <item>no file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
         public SoilProfile2DReader(string databaseFilePath) : base(databaseFilePath) {}
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next soil profile from the database and creates a 
-        /// <see cref="SoilProfile2D"/> instance of the information.
+        /// <see cref="SoilProfile2D"/> instance from the information.
         /// </summary>
         /// <returns>The next <see cref="SoilProfile2D"/> from the database, or <c>null</c> 
         /// if no more soil profile can be read.</returns>
@@ -170,12 +170,12 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the profile failed.</exception>
         private SoilProfile2D TryReadSoilProfile()
         {
+            RequiredProfileProperties properties;
             var criticalProperties = new CriticalProfileProperties(this);
             var soilLayerGeometryLookup = new Dictionary<SoilLayer2DGeometry, Layer2DProperties>();
             var stresses = new List<PreconsolidationStress>();
-            long soilProfileId = criticalProperties.ProfileId;
 
-            RequiredProfileProperties properties;
+            long soilProfileId = criticalProperties.ProfileId;
 
             try
             {
@@ -199,7 +199,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return new SoilProfile2D(soilProfileId,
                                          criticalProperties.ProfileName,
-                                         GetSoilLayers(soilLayerGeometryLookup),
+                                         GetHierarchicallyOrderedSoilLayers(soilLayerGeometryLookup),
                                          stresses)
                 {
                     IntersectionX = properties.IntersectionX
@@ -232,7 +232,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             return preconsolidationStressReader.ReadPreconsolidationStresses().ToArray();
         }
 
-        private static IEnumerable<SoilLayer2D> GetSoilLayers(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup)
+        private static IEnumerable<SoilLayer2D> GetHierarchicallyOrderedSoilLayers(Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometryLookup)
         {
             SoilLayer2DGeometry[] soilLayerGeometries = soilLayerGeometryLookup.Keys.ToArray();
             SoilLayer2DLoop[] innerLoops = soilLayerGeometries.SelectMany(slg => slg.InnerLoops).ToArray();
@@ -313,8 +313,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// <summary>
         /// Reads a <see cref="SoilLayer2DGeometry"/> from the given <paramref name="reader"/>.
         /// </summary>
-        /// <param name="reader">The reader to read the geometry from.</param>
-        /// <param name="profileName">The name of the profile to read the geometry for.</param>
+        /// <param name="reader">The reader to read a geometry from.</param>
+        /// <param name="profileName">The name of the profile to read a geometry for.</param>
         /// <param name="soilLayerGeometriesLookup">The lookup to add the read data to.</param>
         /// <exception cref="SoilProfileReadException">Thrown when reading properties of the geometry failed.</exception>
         private static void ReadSoilLayerGeometryFrom(IRowBasedDatabaseReader reader, string profileName, Dictionary<SoilLayer2DGeometry, Layer2DProperties> soilLayerGeometriesLookup)
