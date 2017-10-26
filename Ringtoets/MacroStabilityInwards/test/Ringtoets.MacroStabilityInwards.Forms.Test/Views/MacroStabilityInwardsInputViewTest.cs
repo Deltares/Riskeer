@@ -484,9 +484,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedShoulderBaseInsideIndex = shoulderBaseInsideIndex - 1;
             const int updatedDikeTopAtPolderIndex = dikeTopAtPolderIndex - 1;
             const int updatedDikeToeAtRiverIndex = dikeToeAtRiverIndex - 1;
+            const int updatedDikeTopAtRiverIndex = dikeTopAtRiverIndex - 1;
             const int updatedSurfaceLevelOutsideIndex = surfaceLevelOutsideIndex - 1;
             const int updatedLeftGridIndex = leftGridIndex - 1;
             const int updatedRightGridIndex = rightGridIndex - 1;
+            const int updatedWaternetZonesExtremeIndex = waternetZonesExtremeIndex - 1;
+            const int updatedWaternetZonesDailyIndex = waternetZonesDailyIndex - 1;
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
@@ -515,9 +518,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var shoulderBaseInsideData = (ChartPointData) chartDataList[updatedShoulderBaseInsideIndex];
                 var dikeTopAtPolderData = (ChartPointData) chartDataList[updatedDikeTopAtPolderIndex];
                 var dikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
+                var dikeTopAtRiverData = (ChartPointData) chartDataList[updatedDikeTopAtRiverIndex];
                 var surfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
                 var leftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
                 var rightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
+                var waternetZoneExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
+                var waternetZoneDailyeData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
+
 
                 Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
@@ -531,9 +538,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Insteek binnenberm", shoulderBaseInsideData.Name);
                 Assert.AreEqual("Kruin binnentalud", dikeTopAtPolderData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
+                Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
                 Assert.AreEqual("Linker grid", leftGridData.Name);
                 Assert.AreEqual("Rechter grid", rightGridData.Name);
+                Assert.AreEqual("Zones extreem", waternetZoneExtremeData.Name);
+                Assert.AreEqual("Zones dagelijks", waternetZoneDailyeData.Name);
 
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 calculation.InputParameters.SurfaceLine = surfaceLine;
@@ -556,9 +566,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualShoulderBaseInsideData = (ChartPointData) chartDataList[updatedShoulderBaseInsideIndex];
                 var actualDikeTopAtPolderData = (ChartPointData) chartDataList[updatedDikeTopAtPolderIndex];
                 var actualDikeToeAtRiverData = (ChartPointData) chartDataList[updatedDikeToeAtRiverIndex];
+                var actualDikeTopAtRiverData = (ChartPointData) chartDataList[updatedDikeTopAtRiverIndex];
                 var actualSurfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
                 var actualLeftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
                 var actualRightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
+                var actualWaternetZoneExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
+                var actualWaternetZoneDailyeData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
 
                 Assert.AreEqual(surfaceLine.Name, actualSurfaceLineData.Name);
                 Assert.AreEqual("Ondergrondschematisatie", actualSoilProfileData.Name);
@@ -572,9 +585,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Insteek binnenberm", actualShoulderBaseInsideData.Name);
                 Assert.AreEqual("Kruin binnentalud", actualDikeTopAtPolderData.Name);
                 Assert.AreEqual("Teen dijk buitenwaarts", actualDikeToeAtRiverData.Name);
+                Assert.AreEqual("Kruin buitentalud", actualDikeTopAtRiverData.Name);
                 Assert.AreEqual("Maaiveld buitenwaarts", actualSurfaceLevelOutsideData.Name);
                 Assert.AreEqual("Linker grid", actualLeftGridData.Name);
                 Assert.AreEqual("Rechter grid", actualRightGridData.Name);
+                Assert.AreEqual("Zones extreem", actualWaternetZoneExtremeData.Name);
+                Assert.AreEqual("Zones dagelijks", actualWaternetZoneDailyeData.Name);
             }
         }
 
