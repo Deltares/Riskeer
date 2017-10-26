@@ -215,7 +215,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_WithSurfaceLineAndSoilProfile1D_DataUpdatedToCollectionOfFilledChartData()
+        public void Data_WithSurfaceLineAndStochasticSoilProfile1D_DataUpdatedToCollectionOfFilledChartData()
         {
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
@@ -244,7 +244,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_WithSurfaceLineAndSoilProfile2D_DataUpdatedToCollectionOfFilledChartData()
+        public void Data_WithSurfaceLineAndStochasticSoilProfile2D_DataUpdatedToCollectionOfFilledChartData()
         {
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
@@ -522,9 +522,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var surfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
                 var leftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
                 var rightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
-                var waternetZoneExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
-                var waternetZoneDailyeData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
-
+                var waternetZonesExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
+                var waternetZonesDailyData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
 
                 Assert.AreEqual("Profielschematisatie", surfaceLineData.Name);
                 Assert.AreEqual("Ondergrondschematisatie", soilProfileData.Name);
@@ -542,8 +541,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
                 Assert.AreEqual("Linker grid", leftGridData.Name);
                 Assert.AreEqual("Rechter grid", rightGridData.Name);
-                Assert.AreEqual("Zones extreem", waternetZoneExtremeData.Name);
-                Assert.AreEqual("Zones dagelijks", waternetZoneDailyeData.Name);
+                Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
+                Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
 
                 MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 calculation.InputParameters.SurfaceLine = surfaceLine;
@@ -570,8 +569,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualSurfaceLevelOutsideData = (ChartPointData) chartDataList[updatedSurfaceLevelOutsideIndex];
                 var actualLeftGridData = (ChartPointData) chartDataList[updatedLeftGridIndex];
                 var actualRightGridData = (ChartPointData) chartDataList[updatedRightGridIndex];
-                var actualWaternetZoneExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
-                var actualWaternetZoneDailyeData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
+                var actualWaternetZonesExtremeData = (ChartDataCollection) chartDataList[updatedWaternetZonesExtremeIndex];
+                var actualWaternetZonesDailyData = (ChartDataCollection) chartDataList[updatedWaternetZonesDailyIndex];
 
                 Assert.AreEqual(surfaceLine.Name, actualSurfaceLineData.Name);
                 Assert.AreEqual("Ondergrondschematisatie", actualSoilProfileData.Name);
@@ -589,8 +588,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Maaiveld buitenwaarts", actualSurfaceLevelOutsideData.Name);
                 Assert.AreEqual("Linker grid", actualLeftGridData.Name);
                 Assert.AreEqual("Rechter grid", actualRightGridData.Name);
-                Assert.AreEqual("Zones extreem", actualWaternetZoneExtremeData.Name);
-                Assert.AreEqual("Zones dagelijks", actualWaternetZoneDailyeData.Name);
+                Assert.AreEqual("Zones extreem", actualWaternetZonesExtremeData.Name);
+                Assert.AreEqual("Zones dagelijks", actualWaternetZonesDailyData.Name);
             }
         }
 
@@ -859,7 +858,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private static MacroStabilityInwardsStochasticSoilProfile GetStochasticSoilProfile2D()
         {
-            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D("profile 2D", new[]
+            var layers = new[]
             {
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
@@ -877,7 +876,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }), new List<Ring>())
                 {
                     Data = new MacroStabilityInwardsSoilLayerData(),
-                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                    NestedLayers = new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                        {
+                            new Point2D(4.0, 2.0),
+                            new Point2D(0.0, 2.5)
+                        }), new List<Ring>())
+                        {
+                            Data = new MacroStabilityInwardsSoilLayerData(),
+                            NestedLayers = new[]
+                            {
+                                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                                {
+                                    new Point2D(4.0, 2.0),
+                                    new Point2D(0.0, 2.5)
+                                }), new List<Ring>())
+                                {
+                                    Data = new MacroStabilityInwardsSoilLayerData(),
+                                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                                }
+                            }
+                        }
+                    }
                 },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
@@ -888,10 +909,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 }
-            }, new List<MacroStabilityInwardsPreconsolidationStress>()));
+            };
+
+            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D("profile 2D",
+                                                                                                              layers,
+                                                                                                              new List<MacroStabilityInwardsPreconsolidationStress>()));
         }
 
-        private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
+        MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -902,7 +927,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        private static MacroStabilityInwardsSurfaceLine GetSecondSurfaceLineWithGeometry()
+        MacroStabilityInwardsSurfaceLine GetSecondSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -913,7 +938,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        private static MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
+        MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
         {
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
             surfaceLine.SetGeometry(points);

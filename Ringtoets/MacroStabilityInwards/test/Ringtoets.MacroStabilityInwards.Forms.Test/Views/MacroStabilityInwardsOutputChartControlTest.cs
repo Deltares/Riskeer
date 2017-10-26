@@ -259,7 +259,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private static MacroStabilityInwardsStochasticSoilProfile GetStochasticSoilProfile2D()
         {
-            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D("Ondergrondschematisatie", new[]
+            var layers = new[]
             {
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
@@ -277,7 +277,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }), new List<Ring>())
                 {
                     Data = new MacroStabilityInwardsSoilLayerData(),
-                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                    NestedLayers = new[]
+                    {
+                        new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                        {
+                            new Point2D(4.0, 2.0),
+                            new Point2D(0.0, 2.5)
+                        }), new List<Ring>())
+                        {
+                            Data = new MacroStabilityInwardsSoilLayerData(),
+                            NestedLayers = new[]
+                            {
+                                new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
+                                {
+                                    new Point2D(4.0, 2.0),
+                                    new Point2D(0.0, 2.5)
+                                }), new List<Ring>())
+                                {
+                                    Data = new MacroStabilityInwardsSoilLayerData(),
+                                    NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
+                                }
+                            }
+                        }
+                    }
                 },
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
                 {
@@ -288,7 +310,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     Data = new MacroStabilityInwardsSoilLayerData(),
                     NestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()
                 }
-            }, new List<MacroStabilityInwardsPreconsolidationStress>()));
+            };
+
+            return new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D("Ondergrondschematisatie",
+                                                                                                              layers,
+                                                                                                              new List<MacroStabilityInwardsPreconsolidationStress>()));
         }
 
         private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
