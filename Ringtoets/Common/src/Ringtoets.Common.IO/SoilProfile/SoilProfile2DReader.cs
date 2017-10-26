@@ -259,7 +259,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
             foreach (SoilLayer2DLoop innerLoop in soilLayerGeometry.InnerLoops)
             {
-                SoilLayer2DGeometry nestedSoilLayerGeometry = soilLayerGeometries.First(slg => slg.OuterLoop.Segments.SequenceEqual(innerLoop.Segments));
+                SoilLayer2DGeometry nestedSoilLayerGeometry = soilLayerGeometries.First(slg => slg.OuterLoop.Equals(innerLoop));
                 SoilLayer2D nestedSoilLayer = CreateSoilLayer2D(nestedSoilLayerGeometry, soilLayerGeometryLookup[nestedSoilLayerGeometry]);
 
                 CreateNestedSoilLayersRecursively(soilLayerGeometryLookup, nestedSoilLayerGeometry, nestedSoilLayer);
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.IO.SoilProfile
 
         private static bool IsNestedLayer(IEnumerable<SoilLayer2DLoop> innerLoops, SoilLayer2DGeometry soilLayerGeometry)
         {
-            return innerLoops.Any(il => il.Segments.SequenceEqual(soilLayerGeometry.OuterLoop.Segments));
+            return innerLoops.Any(il => il.Equals(soilLayerGeometry.OuterLoop));
         }
 
         private static IEnumerable<SoilLayer2D> StripDuplicateNestedLayers(List<SoilLayer2D> nestedLayers)
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                                                                  nl
                                                              })
                                                          .SelectMany(GetLayersRecursively)
-                                                         .Any(l => l.OuterLoop.Segments.SequenceEqual(nl.OuterLoop.Segments)));
+                                                         .Any(l => l.OuterLoop.Equals(nl.OuterLoop)));
         }
 
         private static IEnumerable<SoilLayer2D> GetLayersRecursively(SoilLayer2D soilLayer)

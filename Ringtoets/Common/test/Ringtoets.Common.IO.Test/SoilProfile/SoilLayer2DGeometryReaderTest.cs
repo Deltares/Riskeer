@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -252,34 +251,34 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Read_NLXmlDocumentWithSegmentsInOuterLoop_ReturnsLayerGeometryWithOuterLoopWithSegments()
+        public void Read_NLXmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop()
         {
-            Read_XmlDocumentWithSegmentsInOuterLoop_ReturnsLayerGeometryWithOuterLoopWithSegments();
+            Read_XmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop();
         }
 
         [Test]
         [SetCulture("en-US")]
-        public void Read_ENXmlDocumentWithSegmentsInOuterLoop_ReturnsLayerGeometryWithOuterLoopWithSegments()
+        public void Read_ENXmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop()
         {
-            Read_XmlDocumentWithSegmentsInOuterLoop_ReturnsLayerGeometryWithOuterLoopWithSegments();
+            Read_XmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop();
         }
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Read_NLXmlDocumentWithSegmentsInInnerLoop_ReturnsLayerGeometryWithInnerLoopWithSegments()
+        public void Read_NLXmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop()
         {
-            Read_XmlDocumentWithSegmentsInInnerLoop_ReturnsLayerGeometryWithInnerLoopWithSegments();
+            Read_XmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop();
         }
 
         [Test]
         [SetCulture("en-US")]
-        public void Read_ENXmlDocumentWithSegmentsInInnerLoop_ReturnsLayerGeometryWithInnerLoopWithSegments()
+        public void Read_ENXmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop()
         {
-            Read_XmlDocumentWithSegmentsInInnerLoop_ReturnsLayerGeometryWithInnerLoopWithSegments();
+            Read_XmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop();
         }
 
         [Test]
-        public static void Read_XmlDocumentWithTwoEqualSegmentsInOuterLoop_ReturnsLayerGeometryWithOuterLoopWithSegments()
+        public static void Read_XmlDocumentWithTwoEqualSegmentsInOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop()
         {
             // Setup
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
@@ -307,15 +306,15 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(geometry);
-            CollectionAssert.AreEqual(new List<Segment2D>
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
                 new Segment2D(new Point2D(point2, point2), new Point2D(point1, point1))
-            }, geometry.OuterLoop.Segments);
+            }), geometry.OuterLoop);
         }
 
         [Test]
-        public static void Read_XmlDocumentWithTwoEqualSegmentsInInnerLoop_ReturnsLayerGeometryWithInnerLoopWithSegments()
+        public static void Read_XmlDocumentWithTwoEqualSegmentsInInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop()
         {
             // Setup
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
@@ -344,11 +343,11 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(geometry);
-            CollectionAssert.AreEqual(new List<Segment2D>
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
                 new Segment2D(new Point2D(point2, point2), new Point2D(point1, point1))
-            }, geometry.InnerLoops.ElementAt(0).Segments);
+            }), geometry.InnerLoops.ElementAt(0));
         }
 
         [Test]
@@ -395,12 +394,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(geometry);
-            CollectionAssert.AreEqual(new List<Segment2D>
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)),
                 new Segment2D(new Point2D(2.2, 2.2), new Point2D(3.3, 3.3)),
                 new Segment2D(new Point2D(3.3, 3.3), new Point2D(1.1, 1.1))
-            }, geometry.OuterLoop.Segments);
+            }), geometry.OuterLoop);
         }
 
         [Test]
@@ -447,12 +446,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(geometry);
-            CollectionAssert.AreEqual(new List<Segment2D>
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(new Point2D(1.1, 1.1), new Point2D(2.2, 2.2)),
                 new Segment2D(new Point2D(2.2, 2.2), new Point2D(3.3, 3.3)),
                 new Segment2D(new Point2D(3.3, 3.3), new Point2D(1.1, 1.1))
-            }, geometry.InnerLoops.ElementAt(0).Segments);
+            }), geometry.InnerLoops.ElementAt(0));
         }
 
         [Test]
@@ -531,7 +530,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
-        private static void Read_XmlDocumentWithSegmentsInOuterLoop_ReturnsLayerGeometryWithOuterLoopWithSegments()
+        private static void Read_XmlDocumentWithOuterLoop_ReturnsLayerGeometryWithExpectedOuterLoop()
         {
             // Setup
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
@@ -564,15 +563,15 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(geometry);
-            CollectionAssert.AreEqual(new List<Segment2D>
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
                 new Segment2D(new Point2D(point2, point2), new Point2D(point3, point3)),
                 new Segment2D(new Point2D(point3, point3), new Point2D(point1, point1))
-            }, geometry.OuterLoop.Segments);
+            }), geometry.OuterLoop);
         }
 
-        private static void Read_XmlDocumentWithSegmentsInInnerLoop_ReturnsLayerGeometryWithInnerLoopWithSegments()
+        private static void Read_XmlDocumentWithInnerLoop_ReturnsLayerGeometryWithExpectedInnerLoop()
         {
             // Setup
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
@@ -608,12 +607,12 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(geometry);
-            CollectionAssert.AreEqual(new List<Segment2D>
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(new Point2D(point1, point1), new Point2D(point2, point2)),
                 new Segment2D(new Point2D(point2, point2), new Point2D(point3, point3)),
                 new Segment2D(new Point2D(point3, point3), new Point2D(point1, point1))
-            }, geometry.InnerLoops.ElementAt(0).Segments);
+            }), geometry.InnerLoops.ElementAt(0));
         }
 
         /// <summary>
