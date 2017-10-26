@@ -32,6 +32,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     public partial class MacroStabilityInwardsOutputView : UserControl, IChartView
     {
         private readonly Observer outputObserver;
+        private readonly Observer inputObserver;
 
         private MacroStabilityInwardsCalculationScenario data;
 
@@ -43,6 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             InitializeComponent();
 
             outputObserver = new Observer(UpdateChartData);
+            inputObserver = new Observer(UpdateChartData);
         }
 
         public object Data
@@ -56,6 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 data = value as MacroStabilityInwardsCalculationScenario;
 
                 outputObserver.Observable = data;
+                inputObserver.Observable = data?.InputParameters;
 
                 macroStabilityInwardsOutputChartControl.Data = data;
             }
@@ -72,6 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         protected override void Dispose(bool disposing)
         {
             outputObserver.Dispose();
+            inputObserver.Dispose();
 
             if (disposing)
             {

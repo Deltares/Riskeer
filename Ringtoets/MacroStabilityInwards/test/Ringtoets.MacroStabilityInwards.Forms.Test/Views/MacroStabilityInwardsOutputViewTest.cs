@@ -221,6 +221,87 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenViewWithOutputSet_WhenInputChangedAndObserversNotified_ThenChartDataUpdated()
+        {
+            // Given
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
+
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                };
+
+                view.Data = calculation;
+
+                ChartDataCollection chartData = GetChartControl(chartControl).Data;
+
+                // Precondition
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+
+                // When
+                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = GetStochasticSoilProfile2D();
+                calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithoutOutputSet_WhenInputChangedAndObserversNotified_ThenChartDataUpdated()
+        {
+            // Given
+            using (var form = new Form())
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
+
+                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = GetStochasticSoilProfile2D();
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine,
+                        StochasticSoilProfile = stochasticSoilProfile
+                    }
+                };
+
+                view.Data = calculation;
+
+                ChartDataCollection chartData = GetChartControl(chartControl).Data;
+
+                // Precondition
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+
+                // When
+                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = GetStochasticSoilProfile2D();
+                calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+            }
+        }
+
         private static MacroStabilityInwardsOutputChartControl GetChartControl(Form form)
         {
             return ControlTestHelper.GetControls<MacroStabilityInwardsOutputChartControl>(form, "macroStabilityInwardsOutputChartControl").Single();
