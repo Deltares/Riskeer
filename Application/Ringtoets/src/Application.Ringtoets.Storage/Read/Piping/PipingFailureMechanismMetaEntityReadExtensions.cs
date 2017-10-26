@@ -40,8 +40,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="probabilityAssessmentInput">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
         /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity, 
-            PipingProbabilityAssessmentInput probabilityAssessmentInput)
+        public static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity,
+                                                          PipingProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)
             {
@@ -64,8 +64,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="generalPipingInput">The <see cref="GeneralPipingInput"/> to set the 
         /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity, 
-            GeneralPipingInput generalPipingInput)
+        public static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity,
+                                                  GeneralPipingInput generalPipingInput)
         {
             if (entity == null)
             {

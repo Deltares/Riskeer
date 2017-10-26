@@ -28,12 +28,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Application.Ringtoets.Storage.DbContext
 {
     public class MacroStabilityInwardsSoilLayerTwoDEntity
     {
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MacroStabilityInwardsSoilLayerTwoDEntity()
+        {
+            MacroStabilityInwardsSoilLayerTwoDEntity1 = new HashSet<MacroStabilityInwardsSoilLayerTwoDEntity>();
+            MacroStabilityInwardsSoilProfileTwoDEntities = new HashSet<MacroStabilityInwardsSoilProfileTwoDEntity>();
+        }
+
         public long MacroStabilityInwardsSoilLayerTwoDEntityId { get; set; }
-        public long MacroStabilityInwardsSoilProfileTwoDEntityId { get; set; }
+        public long? ParentMacroStabilityInwardsSoilLayerTwoDEntityId { get; set; }
         public byte IsAquifer { get; set; }
         public long? Color { get; set; }
         public string MaterialName { get; set; }
@@ -58,6 +68,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public string OuterRingXml { get; set; }
         public int Order { get; set; }
 
-        public virtual MacroStabilityInwardsSoilProfileTwoDEntity MacroStabilityInwardsSoilProfileTwoDEntity { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacroStabilityInwardsSoilLayerTwoDEntity> MacroStabilityInwardsSoilLayerTwoDEntity1 { get; set; }
+
+        public virtual MacroStabilityInwardsSoilLayerTwoDEntity MacroStabilityInwardsSoilLayerTwoDEntity2 { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MacroStabilityInwardsSoilProfileTwoDEntity> MacroStabilityInwardsSoilProfileTwoDEntities { get; set; }
     }
 }

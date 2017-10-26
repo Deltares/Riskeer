@@ -87,7 +87,8 @@ namespace Application.Ringtoets.Storage.DbContext
             MacroStabilityInwardsFailureMechanismMetaEntities.Load();
             MacroStabilityInwardsSoilProfileOneDEntities.Load();
             MacroStabilityInwardsSoilLayerOneDEntities.Load();
-            MacroStabilityInwardsSoilProfileTwoDEntities.Load();
+            MacroStabilityInwardsSoilProfileTwoDEntities.Include(e => e.MacroStabilityInwardsSoilLayerTwoDEntities)
+                                                        .Load();
             MacroStabilityInwardsSoilLayerTwoDEntities.Load();
             MacroStabilityInwardsStochasticSoilProfileEntities.Load();
             MacroStabilityInwardsPreconsolidationStressEntities.Load();

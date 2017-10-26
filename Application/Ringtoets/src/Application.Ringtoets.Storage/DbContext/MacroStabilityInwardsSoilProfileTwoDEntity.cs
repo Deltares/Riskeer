@@ -39,8 +39,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public MacroStabilityInwardsSoilProfileTwoDEntity()
         {
             MacroStabilityInwardsPreconsolidationStressEntities = new HashSet<MacroStabilityInwardsPreconsolidationStressEntity>();
-            MacroStabilityInwardsSoilLayerTwoDEntities = new HashSet<MacroStabilityInwardsSoilLayerTwoDEntity>();
             MacroStabilityInwardsStochasticSoilProfileEntities = new HashSet<MacroStabilityInwardsStochasticSoilProfileEntity>();
+            MacroStabilityInwardsSoilLayerTwoDEntities = new HashSet<MacroStabilityInwardsSoilLayerTwoDEntity>();
         }
 
         public long MacroStabilityInwardsSoilProfileTwoDEntityId { get; set; }
@@ -50,9 +50,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<MacroStabilityInwardsPreconsolidationStressEntity> MacroStabilityInwardsPreconsolidationStressEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MacroStabilityInwardsSoilLayerTwoDEntity> MacroStabilityInwardsSoilLayerTwoDEntities { get; set; }
+        public virtual ICollection<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
+        public virtual ICollection<MacroStabilityInwardsSoilLayerTwoDEntity> MacroStabilityInwardsSoilLayerTwoDEntities { get; set; }
     }
 }
