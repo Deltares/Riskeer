@@ -436,11 +436,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             }
 
             IEnumerable<double> allXCoordinates = waternetZoneAsPolygon.Select(p => p.X)
-                                                                          .Concat(surfaceLineLocalGeometry.Select(p => p.X)
-                                                                          .Concat(intersectionPoints.Select(p => p.X))
-                                                                          .Where(x => x >= leftX && x <= rightX))
-                                                                          .OrderBy(d => d)
-                                                                          .Distinct();
+                                                                       .Concat(surfaceLineLocalGeometry.Select(p => p.X))
+                                                                       .Concat(intersectionPoints.Select(p => p.X))
+                                                                       .Where(x => x >= leftX && x <= rightX)
+                                                                       .OrderBy(d => d)
+                                                                       .Distinct();
 
             var topLine = new List<Point2D>();
             var bottomLine = new List<Point2D>();
@@ -530,8 +530,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
             foreach (double xCoordinate in allXCoordinates)
             {
-                Point2D phreaticLineIntersection = Math2D.SegmentsIntersectionWithVerticalLine(phreaticLineSegments, xCoordinate).First();
-                Point2D waternetLineIntersection = Math2D.SegmentsIntersectionWithVerticalLine(waternetLineSegments, xCoordinate).First();
+                IEnumerable<Point2D> phreaticLineIntersections = Math2D.SegmentsIntersectionWithVerticalLine(phreaticLineSegments, xCoordinate);
+                IEnumerable<Point2D> waternetLineIntersections = Math2D.SegmentsIntersectionWithVerticalLine(waternetLineSegments, xCoordinate);
+
+                if (!phreaticLineIntersections.Any() || !waternetLineIntersections.Any())
+                {
+                    continue;
+                }
+
+                Point2D phreaticLineIntersection = phreaticLineIntersections.First();
+                Point2D waternetLineIntersection = waternetLineIntersections.First();
 
                 waternetLineArea.Add(new Point2D(xCoordinate, waternetLineIntersection.Y));
                 phreaticLineArea.Add(new Point2D(xCoordinate, phreaticLineIntersection.Y));

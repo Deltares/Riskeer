@@ -830,7 +830,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        // TODO Robert: Not sure if this is possible
         public void CreateWaternetZonePoints_WaterNetAndPhreaticLinesIntersectSurfaceLine_ReturnsPointsArray()
         {
             // Setup
@@ -874,7 +873,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePoints_ReturnsPointArray()
+        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePoints_ReturnsPointsArray()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -925,7 +924,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePointsAndIntersectsWaterNetLine_ReturnsPointArray()
+        public void CreateWaternetZonePoints_PhreaticLineIntersectsSurfaceLineAtMultiplePointsAndIntersectsWaterNetLine_ReturnsPointsArray()
         {
             // Setup
             var waternetLineGeometry = new[]
@@ -983,6 +982,36 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(13, -2),
                 new Point2D(13, -2)
             }, zones[1], new Point2DComparerWithTolerance(1e-2));
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineWithDifferentLengths))]
+        public void CreateWaternetZonePoints_PhreaticLineNotSameLength_ReturnsPointArray(IEnumerable<Point2D> waternetLineGeometry,
+                                                                            IEnumerable<Point2D> phreaticLineGeometry)
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 2, 5),
+                new Point3D(10, 2, 5)
+            });
+
+            MacroStabilityInwardsWaternetLine waternetLine = CreateWaterNetLine(waternetLineGeometry, phreaticLineGeometry);
+
+            // Call
+            Point2D[][] zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, zones.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(5, 0),
+                new Point2D(5, -2),
+                new Point2D(0, -2),
+                new Point2D(0, 0)
+            }, zones[0], new Point2DComparerWithTolerance(1e-2));
         }
 
         private static MacroStabilityInwardsWaternetLine CreateWaterNetLine(IEnumerable<Point2D> waternetLineGeometry,
@@ -1129,6 +1158,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         #endregion
 
         #region WaterNet Configurations
+
+        private static IEnumerable<TestCaseData> GetPhreaticLineAndWaternetLineWithDifferentLengths()
+        {
+            yield return new TestCaseData(new[]
+                                          {
+                                              new Point2D(0, -2),
+                                              new Point2D(10, -2)
+                                          },
+                                          new[]
+                                          {
+                                              new Point2D(0, 0),
+                                              new Point2D(5, 0)
+                                          }).SetName("PhreaticLine not same length");
+
+            yield return new TestCaseData(new[]
+                                          {
+                                              new Point2D(0, -2),
+                                              new Point2D(5, -2)
+                                          },
+                                          new[]
+                                          {
+                                              new Point2D(0, 0),
+                                              new Point2D(10, 0)
+                                          }).SetName("WaternetLine not same length");
+        }
 
         private static IEnumerable<TestCaseData> GetPhreaticLineAndWaternetLineConfigurationsBelowSurfaceLine()
         {
