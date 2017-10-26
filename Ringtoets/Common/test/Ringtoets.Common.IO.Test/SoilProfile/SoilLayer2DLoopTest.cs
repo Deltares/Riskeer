@@ -111,8 +111,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void GetHashCode_EqualLoops_AreEqual()
         {
             // Setup
-            SoilLayer2DLoop loopA = CreateValidLoop();
-            SoilLayer2DLoop loopB = CreateValidLoop();
+            SoilLayer2DLoop loopA = CreateValidLoop(1.0);
+            SoilLayer2DLoop loopB = CreateValidLoop(1.0);
 
             // Precondition
             Assert.AreEqual(loopA, loopB);
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
-            SoilLayer2DLoop loop = CreateValidLoop();
+            SoilLayer2DLoop loop = CreateValidLoop(1.0);
 
             // Call
             bool areEqual = loop.Equals(new object());
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Equals_Null_ReturnsFalse()
         {
             // Setup
-            SoilLayer2DLoop loop = CreateValidLoop();
+            SoilLayer2DLoop loop = CreateValidLoop(1.0);
 
             // Call
             bool areEqual = loop.Equals(null);
@@ -149,10 +149,25 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             Assert.IsFalse(areEqual);
         }
 
-        private static SoilLayer2DLoop CreateValidLoop()
+        [Test]
+        [TestCaseSource(nameof(LoopCombinations))]
+        public void Equals_DifferentScenarios_ReturnsExpectedResult(SoilLayer2DLoop loop,
+                                                                    SoilLayer2DLoop otherLoop,
+                                                                    bool expectedEqual)
+        {
+            // Call
+            bool areEqualOne = loop.Equals(otherLoop);
+            bool areEqualTwo = otherLoop.Equals(loop);
+
+            // Assert
+            Assert.AreEqual(expectedEqual, areEqualOne);
+            Assert.AreEqual(expectedEqual, areEqualTwo);
+        }
+
+        private static SoilLayer2DLoop CreateValidLoop(double x)
         {
             var pointA = new Point2D(0.0, 0.0);
-            var pointB = new Point2D(1.0, 0.0);
+            var pointB = new Point2D(x, 0.0);
 
             var segments = new[]
             {
@@ -161,6 +176,29 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             };
 
             return new SoilLayer2DLoop(segments);
+        }
+
+        private static TestCaseData[] LoopCombinations()
+        {
+            SoilLayer2DLoop loopA = CreateValidLoop(1.0);
+            SoilLayer2DLoop loopB = CreateValidLoop(1.0);
+            SoilLayer2DLoop loopC = CreateValidLoop(2.0);
+
+            return new[]
+            {
+                new TestCaseData(loopA, loopA, true)
+                {
+                    TestName = "Equals_LoopALoopA_True"
+                },
+                new TestCaseData(loopA, loopB, true)
+                {
+                    TestName = "Equals_LoopALoopB_True"
+                },
+                new TestCaseData(loopA, loopC, false)
+                {
+                    TestName = "Equals_LoopALoopC_False"
+                }
+            };
         }
     }
 }
