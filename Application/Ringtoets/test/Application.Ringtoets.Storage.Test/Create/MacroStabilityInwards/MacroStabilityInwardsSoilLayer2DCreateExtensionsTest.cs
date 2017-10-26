@@ -137,7 +137,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             Assert.AreEqual(order, entity.Order);
 
             AssertOuterRing(soilLayer.OuterRing, entity);
-            AssertHoles(soilLayer, entity);
         }
 
         [Test]
@@ -235,12 +234,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(materialName, entity.MaterialName);
-        }
-
-        private static void AssertHoles(MacroStabilityInwardsSoilLayer2D soilLayer, MacroStabilityInwardsSoilLayerTwoDEntity entity)
-        {
-            string expectedHolesXml = new RingXmlSerializer().ToXml(soilLayer.Holes);
-            Assert.AreEqual(expectedHolesXml, entity.HolesXml);
         }
 
         private static void AssertOuterRing(Ring outerRing, MacroStabilityInwardsSoilLayerTwoDEntity entity)

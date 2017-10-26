@@ -24,8 +24,6 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test.MacroStabilityInwards
 {
@@ -41,9 +39,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.MacroStabilityInwards
             // Assert
             Point2D[] outerRing = new Point2DXmlSerializer().FromXml(entity.OuterRingXml);
             Assert.AreEqual(2, outerRing.Length);
-
-            Ring[] holes = new RingXmlSerializer().FromXml(entity.HolesXml);
-            Assert.AreEqual(0, holes.Length);
         }
     }
 }

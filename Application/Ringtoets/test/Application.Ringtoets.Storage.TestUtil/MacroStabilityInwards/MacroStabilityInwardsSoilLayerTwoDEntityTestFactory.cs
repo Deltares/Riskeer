@@ -23,8 +23,6 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
 {
@@ -41,16 +39,15 @@ namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
         public static MacroStabilityInwardsSoilLayerTwoDEntity CreateMacroStabilityInwardsSoilLayerTwoDEntity()
         {
             var random = new Random(31);
-            var outerRing = new Ring(new[]
+            var points = new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
-            });
+            };
 
             return new MacroStabilityInwardsSoilLayerTwoDEntity
             {
-                OuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points),
-                HolesXml = new RingXmlSerializer().ToXml(new Ring[0])
+                OuterRingXml = new Point2DXmlSerializer().ToXml(points)
             };
         }
     }

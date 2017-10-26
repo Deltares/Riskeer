@@ -56,7 +56,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? PopMean { get; set; }
         public double? PopCoefficientOfVariation { get; set; }
         public string OuterRingXml { get; set; }
-        public string HolesXml { get; set; }
         public int Order { get; set; }
 
         public virtual MacroStabilityInwardsSoilProfileTwoDEntity MacroStabilityInwardsSoilProfileTwoDEntity { get; set; }

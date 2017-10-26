@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Checkout\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\WTI\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -887,7 +887,6 @@
           <Property Name="PopMean" Type="real" />
           <Property Name="PopCoefficientOfVariation" Type="real" />
           <Property Name="OuterRingXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="HolesXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilProfileOneDEntity">
@@ -5295,7 +5294,6 @@
           <Property Name="PopMean" Type="Double" />
           <Property Name="PopCoefficientOfVariation" Type="Double" />
           <Property Name="OuterRingXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="HolesXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayerTwoDEntity_0_0" FromRole="MacroStabilityInwardsSoilLayerTwoDEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
         </EntityType>
@@ -8337,7 +8335,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilLayerTwoDEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="HolesXml" ColumnName="HolesXml" />
                 <ScalarProperty Name="OuterRingXml" ColumnName="OuterRingXml" />
                 <ScalarProperty Name="PopCoefficientOfVariation" ColumnName="PopCoefficientOfVariation" />
                 <ScalarProperty Name="PopMean" ColumnName="PopMean" />

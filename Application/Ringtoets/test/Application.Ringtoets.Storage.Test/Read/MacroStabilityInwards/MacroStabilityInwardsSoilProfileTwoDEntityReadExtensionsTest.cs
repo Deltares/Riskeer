@@ -93,7 +93,6 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             };
 
             var point2DXmlSerializer = new Point2DXmlSerializer();
-            var ringXmlSerializer = new RingXmlSerializer();
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
                 Name = nameof(MacroStabilityInwardsSoilProfileTwoDEntity),
@@ -103,14 +102,12 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                     {
                         MaterialName = "A",
                         OuterRingXml = point2DXmlSerializer.ToXml(outerRingA.Points),
-                        HolesXml = ringXmlSerializer.ToXml(new Ring[0]),
                         Order = 1
                     },
                     new MacroStabilityInwardsSoilLayerTwoDEntity
                     {
                         MaterialName = "B",
                         OuterRingXml = point2DXmlSerializer.ToXml(outerRingB.Points),
-                        HolesXml = ringXmlSerializer.ToXml(new Ring[0]),
                         Order = 0
                     }
                 },

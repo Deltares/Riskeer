@@ -1505,7 +1505,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                  MacroStabilityInwardsSoilLayer2D actualLayer)
         {
             Assert.AreEqual(expectedLayer.OuterRing, actualLayer.OuterRing);
-            CollectionAssert.AreEqual(expectedLayer.Holes, actualLayer.Holes);
             AssertMacroStabilityInwardsSoilLayerData(expectedLayer.Data, actualLayer.Data);
         }
 
