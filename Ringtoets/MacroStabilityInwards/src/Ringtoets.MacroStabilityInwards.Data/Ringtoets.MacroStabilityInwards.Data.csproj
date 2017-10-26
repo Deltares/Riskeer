@@ -77,7 +77,6 @@
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile1D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2DLayersHelper.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModel.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsStochasticSoilModelCollection.cs" />

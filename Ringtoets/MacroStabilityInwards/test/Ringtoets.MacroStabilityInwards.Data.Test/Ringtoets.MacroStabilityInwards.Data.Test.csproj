@@ -87,7 +87,6 @@
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer2DTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayerDataTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile1DTest.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2DLayersHelperTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2DTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineFactoryTest.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLineTest.cs" />

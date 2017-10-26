@@ -322,7 +322,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers = data?.InputParameters.SoilProfileUnderSurfaceLine?.Layers;
             return layers != null
-                       ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
+                       ? MacroStabilityInwardsSoilProfile2DLayerHelper.GetLayersRecursively(layers)
                        : new List<IMacroStabilityInwardsSoilLayer2D>();
         }
     }

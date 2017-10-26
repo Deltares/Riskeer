@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -250,7 +249,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers = data?.InputParameters.SoilProfileUnderSurfaceLine?.Layers;
             return layers != null
-                       ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
+                       ? MacroStabilityInwardsSoilProfile2DLayerHelper.GetLayersRecursively(layers)
                        : new List<IMacroStabilityInwardsSoilLayer2D>();
         }
 

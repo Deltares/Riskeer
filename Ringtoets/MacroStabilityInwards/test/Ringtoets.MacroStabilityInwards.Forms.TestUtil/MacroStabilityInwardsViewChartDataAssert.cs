@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
@@ -69,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var soilProfileChartData = (ChartDataCollection) actual;
 
             IMacroStabilityInwardsSoilLayer2D[] layers = soilProfileUnderSurface?.Layers != null
-                                                             ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
+                                                             ? MacroStabilityInwardsSoilProfile2DLayerHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
                                                              : new IMacroStabilityInwardsSoilLayer2D[0];
             int expectedLayerCount = layers.Length;
 
@@ -107,13 +105,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             {
                 if (i < phreaticLines.Length)
                 {
-                    ChartLineData phreaticLineChartData = (ChartLineData) waternetChartData[i];
+                    var phreaticLineChartData = (ChartLineData) waternetChartData[i];
                     Assert.AreEqual(phreaticLines[i].Name, phreaticLineChartData.Name);
                     Assert.AreEqual(phreaticLines[i].Geometry, phreaticLineChartData.Points);
                 }
                 else
                 {
-                    ChartMultipleAreaData waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
+                    var waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
                     MacroStabilityInwardsWaternetLine waternetLine = waternetLines[i - waternetLines.Length];
                     Assert.AreEqual(waternetLine.Name, waternetLineChartData.Name);
                     Assert.IsTrue(waternetLineChartData.HasData);
