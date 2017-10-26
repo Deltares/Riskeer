@@ -78,7 +78,27 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
-            return Equals((MacroStabilityInwardsWaternet)obj);
+            return Equals((MacroStabilityInwardsWaternet) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = 0;
+
+                foreach (MacroStabilityInwardsPhreaticLine phreaticLine in PhreaticLines)
+                {
+                    hashCode = (hashCode * 397) ^ phreaticLine.GetHashCode();
+                }
+
+                foreach (MacroStabilityInwardsWaternetLine waternetLine in WaternetLines)
+                {
+                    hashCode = (hashCode * 397) ^ waternetLine.GetHashCode();
+                }
+
+                return hashCode;
+            }
         }
 
         private bool Equals(MacroStabilityInwardsWaternet other)
@@ -125,26 +145,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             }
 
             return true;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = 0;
-
-                foreach (MacroStabilityInwardsPhreaticLine phreaticLine in PhreaticLines)
-                {
-                    hashCode = (hashCode * 397) ^ phreaticLine.GetHashCode();
-                }
-
-                foreach (MacroStabilityInwardsWaternetLine waternetLine in WaternetLines)
-                {
-                    hashCode = (hashCode * 397) ^ waternetLine.GetHashCode();
-                }
-
-                return hashCode;
-            }
         }
     }
 }
