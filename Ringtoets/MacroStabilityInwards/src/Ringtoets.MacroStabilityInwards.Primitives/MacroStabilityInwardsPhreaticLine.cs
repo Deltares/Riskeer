@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives
@@ -62,5 +63,64 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Gets the geometry points of the phreatic line.
         /// </summary>
         public IEnumerable<Point2D> Geometry { get; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((MacroStabilityInwardsPhreaticLine) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Name.GetHashCode();
+                hashCode = (hashCode * 397) ^ Name.GetHashCode();
+
+                foreach (Point2D point in Geometry)
+                {
+                    hashCode = (hashCode * 397) ^ point.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+
+        private bool Equals(MacroStabilityInwardsPhreaticLine other)
+        {
+            return Name.Equals(other.Name)
+                   && EqualGeometry(other.Geometry.ToArray());
+        }
+
+        private bool EqualGeometry(Point2D[] otherGeometry)
+        {
+            Point2D[] geometry = Geometry.ToArray();
+            int nrOfPoints = geometry.Length;
+            if (otherGeometry.Length != nrOfPoints)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < nrOfPoints; i++)
+            {
+                if (!geometry[i].Equals(otherGeometry[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

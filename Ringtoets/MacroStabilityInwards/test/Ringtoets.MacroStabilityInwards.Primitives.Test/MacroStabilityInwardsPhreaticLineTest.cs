@@ -72,5 +72,101 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 new Point2D(15.0, 15.0)
             }, phreaticLine.Geometry);
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("string")]
+        public void Equals_ToDifferentTypeOrNull_ReturnsFalse(object other)
+        {
+            // Setup
+            MacroStabilityInwardsPhreaticLine phreaticLine = CreatePhreaticLine();
+
+            // Call
+            bool isEqualToDifferentObject = phreaticLine.Equals(other);
+
+            // Assert
+            Assert.IsFalse(isEqualToDifferentObject);
+        }
+
+        [Test]
+        public void Equals_AllPropertiesEqual_ReturnsTrue()
+        {
+            // Setup
+            MacroStabilityInwardsPhreaticLine phreaticLineX = CreatePhreaticLine();
+            MacroStabilityInwardsPhreaticLine phreaticLineY = CreatePhreaticLine();
+
+            // Call
+            bool isXEqualToY = phreaticLineX.Equals(phreaticLineY);
+            bool isYEqualToZ = phreaticLineY.Equals(phreaticLineX);
+
+            // Assert
+            Assert.IsTrue(isXEqualToY);
+            Assert.IsTrue(isYEqualToZ);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetPhreaticLineCombinations))]
+        public void Equals_DifferentProperty_ReturnsFalse(MacroStabilityInwardsPhreaticLine phreaticLine,
+                                                          MacroStabilityInwardsPhreaticLine otherPhreaticLine)
+        {
+            // Call
+            bool isStructureEqualToOther = phreaticLine.Equals(otherPhreaticLine);
+            bool isOtherEqualToStructure = otherPhreaticLine.Equals(phreaticLine);
+
+            // Assert
+            Assert.IsFalse(isStructureEqualToOther);
+            Assert.IsFalse(isOtherEqualToStructure);
+        }
+
+        [Test]
+        public void GetHashCode_EqualStructures_ReturnsSameHashCode()
+        {
+            // Setup
+            MacroStabilityInwardsPhreaticLine phreaticLineX = CreatePhreaticLine();
+            MacroStabilityInwardsPhreaticLine phreaticLineY = CreatePhreaticLine();
+
+            // Call
+            int hashCodeOne = phreaticLineX.GetHashCode();
+            int hashCodeTwo = phreaticLineY.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hashCodeOne, hashCodeTwo);
+        }
+
+        private static IEnumerable<TestCaseData> GetPhreaticLineCombinations()
+        {
+            yield return new TestCaseData(CreatePhreaticLine(),
+                                          new MacroStabilityInwardsPhreaticLine("Other name", new[]
+                                          {
+                                              new Point2D(0, 0),
+                                              new Point2D(1, 1)
+                                          })).SetName("Other name");
+
+            yield return new TestCaseData(CreatePhreaticLine(),
+                                          new MacroStabilityInwardsPhreaticLine("Test", new[]
+                                          {
+                                              new Point2D(0, 0),
+                                              new Point2D(1, 1),
+                                              new Point2D(1, 1)
+                                          })).SetName("Geometry not same length");
+
+            yield return new TestCaseData(CreatePhreaticLine(),
+                                          new MacroStabilityInwardsPhreaticLine("Test", new[]
+                                          {
+                                              new Point2D(0, 0),
+                                              new Point2D(2, 2)
+                                          })).SetName("Geometry not same coordinates");
+        }
+
+        private static MacroStabilityInwardsPhreaticLine CreatePhreaticLine()
+        {
+            return new MacroStabilityInwardsPhreaticLine(
+                "Test",
+                new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                });
+        }
     }
 }
