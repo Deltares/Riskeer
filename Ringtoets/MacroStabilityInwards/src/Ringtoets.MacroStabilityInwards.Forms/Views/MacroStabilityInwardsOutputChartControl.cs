@@ -147,7 +147,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 data = value as MacroStabilityInwardsCalculationScenario;
 
                 chartControl.Data = data != null ? chartDataCollection : null;
-
                 UpdateChartData();
             }
         }
@@ -157,15 +156,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// </summary>
         public void UpdateChartData()
         {
-            if (data == null)
+            Chart.ChartTitle = data != null ? data.Name : string.Empty;
+
+            if (data != null)
             {
-                return;
+                UpdateInputChartData();
+                UpdateOutputChartData();
+
+                chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
             }
-
-            UpdateInputChartData();
-            UpdateOutputChartData();
-
-            chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 
         private void UpdateOutputChartData()

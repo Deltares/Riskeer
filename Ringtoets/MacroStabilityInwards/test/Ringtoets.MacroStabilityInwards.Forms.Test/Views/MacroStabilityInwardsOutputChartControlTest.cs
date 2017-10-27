@@ -72,6 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
                 Assert.IsNull(chartControl.Data);
+                Assert.IsNull(chartControl.ChartTitle);
             }
         }
 
@@ -128,9 +129,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.Data = calculation;
 
                 // Assert
-                ChartDataCollection chartData = GetChartControl(control).Data;
+                IChartControl chartControl = GetChartControl(control);
+                ChartDataCollection chartData = chartControl.Data;
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
+                Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
             }
         }
 
@@ -156,9 +159,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Assert
-                ChartDataCollection chartData = GetChartControl(control).Data;
+                IChartControl chartControl = GetChartControl(control);
+                ChartDataCollection chartData = chartControl.Data;
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
+                Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
             }
         }
 
@@ -185,9 +190,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Assert
-                ChartDataCollection chartData = GetChartControl(control).Data;
+                IChartControl chartControl = GetChartControl(control);
+                ChartDataCollection chartData = chartControl.Data;
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
+                Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
             }
         }
 
@@ -213,15 +220,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Precondition
-                ChartDataCollection chartData = GetChartControl(control).Data;
+                IChartControl chartControl = GetChartControl(control);
+                ChartDataCollection chartData = chartControl.Data;
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
+                Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
 
                 // Call
                 control.Data = null;
 
                 // Assert
-                Assert.IsNull(GetChartControl(control).Data);
+                Assert.IsNull(chartControl.Data);
+                Assert.AreEqual(string.Empty, chartControl.ChartTitle);
             }
         }
 
@@ -337,6 +347,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
+            }
+        }
+
+        [Test]
+        public void UpdateChartData_CalculationNameChanged_ChartTitleUpdated()
+        {
+            // Setup
+            const string newCalculationName = "Test name";
+
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            using (var control = new MacroStabilityInwardsOutputChartControl
+            {
+                Data = calculation
+            })
+            {
+                IChartControl chartControl = GetChartControl(control);
+
+                // Precondition
+                Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
+
+                // Call
+                calculation.Name = newCalculationName;
+                control.UpdateChartData();
+
+                // Assert
+                Assert.AreEqual(newCalculationName, chartControl.ChartTitle);
             }
         }
 

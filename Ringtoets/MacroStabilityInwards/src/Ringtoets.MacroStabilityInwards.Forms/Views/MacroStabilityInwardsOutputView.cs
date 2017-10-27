@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsOutputView : UserControl, IChartView
     {
-        private readonly Observer outputObserver;
+        private readonly Observer calculationObserver;
         private readonly Observer inputObserver;
 
         private MacroStabilityInwardsCalculationScenario data;
@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             InitializeComponent();
 
-            outputObserver = new Observer(UpdateChartData);
+            calculationObserver = new Observer(UpdateChartData);
             inputObserver = new Observer(UpdateChartData);
         }
 
@@ -57,16 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 data = value as MacroStabilityInwardsCalculationScenario;
 
-                if (data != null)
-                {
-                    UpdateChartTitle();
-                }
-                else
-                {
-                    macroStabilityInwardsOutputChartControl.Chart.ChartTitle = string.Empty;
-                }
-
-                outputObserver.Observable = data;
+                calculationObserver.Observable = data;
                 inputObserver.Observable = data?.InputParameters;
 
                 macroStabilityInwardsOutputChartControl.Data = data;
@@ -83,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            outputObserver.Dispose();
+            calculationObserver.Dispose();
             inputObserver.Dispose();
 
             if (disposing)
@@ -96,12 +87,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void UpdateChartData()
         {
             macroStabilityInwardsOutputChartControl.UpdateChartData();
-            UpdateChartTitle();
-        }
-
-        private void UpdateChartTitle()
-        {
-            macroStabilityInwardsOutputChartControl.Chart.ChartTitle = data.Name;
         }
     }
 }
