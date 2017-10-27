@@ -70,9 +70,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             Assert.AreEqual("Calculation Error", secondMessage.Message);
             Assert.AreEqual(UpliftVanKernelMessageType.Error, secondMessage.ResultType);
 
-            UpliftVanKernelMessage upliftVanKernelMessage = kernelMessages.ElementAt(2);
-            Assert.AreEqual("Calculation Fatal Error", upliftVanKernelMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, upliftVanKernelMessage.ResultType);
+            UpliftVanKernelMessage thirdMessage = kernelMessages.ElementAt(2);
+            Assert.AreEqual("Calculation Fatal Error", thirdMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, thirdMessage.ResultType);
         }
 
         [Test]
