@@ -34,6 +34,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("profielschematisatie", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement);
             Assert.AreEqual("ondergrondmodel", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
+            Assert.AreEqual("bepalingtangentlijnen", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeElement);
+            Assert.AreEqual("laagscheiding", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeLayerSeparated);
+            Assert.AreEqual("gespecificeerd", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeSpecified);
         }
     }
 }

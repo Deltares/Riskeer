@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.MacroStabilityInwards.Data;
+
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
@@ -45,5 +47,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// The identifier for stochastic soil profile elements.
         /// </summary>
         public const string StochasticSoilProfileElement = "ondergrondschematisatie";
+
+        /// <summary>
+        /// The identifier for the tangent line determination type elements.
+        /// </summary>
+        public const string TangentLineDeterminationTypeElement = "bepalingtangentlijnen";
+
+        /// <summary>
+        /// The possible content of the <see cref="MacroStabilityInwardsTangentLineDeterminationType"/> 
+        /// element indicating layer separated.
+        /// </summary>
+        public const string TangentLineDeterminationTypeLayerSeparated = "laagscheiding";
+
+        /// <summary>
+        /// The possible content of the <see cref="MacroStabilityInwardsTangentLineDeterminationType"/> 
+        /// element indicating specified.
+        /// </summary>
+        public const string TangentLineDeterminationTypeSpecified = "gespecificeerd";
     }
 }
