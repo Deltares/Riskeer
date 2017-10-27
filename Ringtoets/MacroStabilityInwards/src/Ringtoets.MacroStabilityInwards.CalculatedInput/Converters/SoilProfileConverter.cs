@@ -44,10 +44,10 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
         public static SoilProfile Convert(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile)
         {
@@ -68,16 +68,16 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// <param name="layers">The layers to convert.</param>
         /// <returns>The converted <see cref="SoilLayer"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when 
-        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when 
-        /// <see cref="IMacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
+        /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
         private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers)
         {
             return layers.Select(l =>
             {
-                IMacroStabilityInwardsSoilLayerData data = l.Data;
+                MacroStabilityInwardsSoilLayerData data = l.Data;
 
                 return new SoilLayer(RingToPoints(l.OuterRing),
                                      new SoilLayer.ConstructionProperties

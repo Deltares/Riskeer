@@ -23,14 +23,13 @@ using System;
 using System.Drawing;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// Data of a soil layer.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayerData : IMacroStabilityInwardsSoilLayerData
+    public class MacroStabilityInwardsSoilLayerData
     {
         private readonly VariationCoefficientLogNormalDistribution abovePhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution belowPhreaticLevel;
@@ -87,8 +86,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the layer is an aquifer.
+        /// </summary>
         public bool IsAquifer { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the material that was assigned to the layer.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
         public string MaterialName
         {
             get
@@ -105,12 +111,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Color"/> that was used to represent the layer.
+        /// </summary>
         public Color Color { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to use POP for the layer.
+        /// </summary>
         public bool UsePop { get; set; }
 
+        /// <summary>
+        /// Gets or sets the shear strength model to use for the layer.
+        /// </summary>
         public MacroStabilityInwardsShearStrengthModel ShearStrengthModel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the volumic weight of the layer above the phreatic level.
+        /// [kN/m³]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution AbovePhreaticLevel
         {
             get
@@ -125,6 +144,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the volumic weight of the layer below the phreatic level.
+        /// [kN/m³]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution BelowPhreaticLevel
         {
             get
@@ -139,6 +162,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the cohesion.
+        /// [kN/m³]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution Cohesion
         {
             get
@@ -152,6 +179,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the friction angle.
+        /// [°]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution FrictionAngle
         {
             get
@@ -165,6 +196,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the strength increase component.
+        /// [-]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution StrengthIncreaseExponent
         {
             get
@@ -178,6 +213,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the shear strength ratio.
+        /// [-]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution ShearStrengthRatio
         {
             get
@@ -191,6 +230,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             }
         }
 
+        /// <summary>
+        /// Gets or sets the POP.
+        /// [kN/m²]
+        /// </summary>
         public VariationCoefficientLogNormalDistribution Pop
         {
             get

@@ -32,18 +32,18 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="IMacroStabilityInwardsSoilLayerData"/>.
+    /// This class represents a row of <see cref="MacroStabilityInwardsSoilLayerData"/>.
     /// </summary>
     public class MacroStabilityInwardsFormattedSoilLayerDataRow
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFormattedSoilLayerDataRow"/>.
         /// </summary>
-        /// <param name="layerData">The <see cref="IMacroStabilityInwardsSoilLayerData"/> to format.</param>
+        /// <param name="layerData">The <see cref="MacroStabilityInwardsSoilLayerData"/> to format.</param>
         /// <param name="layerIndex">The index of the soil layer within the soil profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layerData"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsFormattedSoilLayerDataRow(IMacroStabilityInwardsSoilLayerData layerData, int layerIndex)
+        public MacroStabilityInwardsFormattedSoilLayerDataRow(MacroStabilityInwardsSoilLayerData layerData, int layerIndex)
         {
             if (layerData == null)
             {

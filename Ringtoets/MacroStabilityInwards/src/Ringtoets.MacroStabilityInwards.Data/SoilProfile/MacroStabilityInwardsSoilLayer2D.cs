@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="data">The data of the soil layer.</param>
         /// <param name="nestedLayers">The nested <see cref="IMacroStabilityInwardsSoilLayer2D"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes, IMacroStabilityInwardsSoilLayerData data, IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers)
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes, MacroStabilityInwardsSoilLayerData data, IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers)
         {
             if (outerRing == null)
             {
@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         public IEnumerable<IMacroStabilityInwardsSoilLayer2D> NestedLayers { get; }
 
-        public IMacroStabilityInwardsSoilLayerData Data { get; }
+        public MacroStabilityInwardsSoilLayerData Data { get; }
 
         public override bool Equals(object obj)
         {

@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// <param name="top">The top level of the soil layer.</param>
         /// <param name="data">The data of the soil layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer1D(double top, IMacroStabilityInwardsSoilLayerData data)
+        public MacroStabilityInwardsSoilLayer1D(double top, MacroStabilityInwardsSoilLayerData data)
         {
             if (data == null)
             {
@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// </summary>
         public double Top { get; }
 
-        public IMacroStabilityInwardsSoilLayerData Data { get; }
+        public MacroStabilityInwardsSoilLayerData Data { get; }
 
         public override bool Equals(object obj)
         {

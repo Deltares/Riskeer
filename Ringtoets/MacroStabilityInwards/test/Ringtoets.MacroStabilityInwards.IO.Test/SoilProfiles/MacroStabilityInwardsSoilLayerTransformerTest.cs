@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(top, soilLayer1D.Top);
 
-            IMacroStabilityInwardsSoilLayerData data = soilLayer1D.Data;
+            MacroStabilityInwardsSoilLayerData data = soilLayer1D.Data;
 
             Assert.AreEqual(materialName, data.MaterialName);
             bool expectedIsAquifer = isAquifer.Equals(1.0);
@@ -376,7 +376,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            IMacroStabilityInwardsSoilLayerData data = soilLayer2D.Data;
+            MacroStabilityInwardsSoilLayerData data = soilLayer2D.Data;
 
             Assert.AreEqual(materialName, data.MaterialName);
             bool expectedIsAquifer = isAquifer.Equals(1.0);

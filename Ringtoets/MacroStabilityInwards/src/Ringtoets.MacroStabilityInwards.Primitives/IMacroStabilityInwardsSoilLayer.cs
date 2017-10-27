@@ -29,6 +29,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the data of the soil layer.
         /// </summary>
-        IMacroStabilityInwardsSoilLayerData Data { get; }
+        MacroStabilityInwardsSoilLayerData Data { get; }
     }
 }

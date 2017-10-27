@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(layer);
             Assert.AreEqual(top, layer.Top);
-            IMacroStabilityInwardsSoilLayerData data = layer.Data;
+            MacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(isAquifer, data.IsAquifer);
             Assert.AreEqual(Color.FromArgb(color), data.Color);
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(layer);
-            IMacroStabilityInwardsSoilLayerData data = layer.Data;
+            MacroStabilityInwardsSoilLayerData data = layer.Data;
             Assert.AreEqual(entity.MaterialName, data.MaterialName);
 
             Assert.IsNaN(layer.Top);

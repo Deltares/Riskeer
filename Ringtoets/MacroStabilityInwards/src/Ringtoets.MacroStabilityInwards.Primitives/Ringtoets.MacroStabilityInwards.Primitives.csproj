@@ -49,12 +49,12 @@
     <Compile Include="IMacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="IMacroStabilityInwardsWaternetInput.cs" />
     <Compile Include="IMacroStabilityInwardsPreconsolidationStress.cs" />
-    <Compile Include="IMacroStabilityInwardsSoilLayerData.cs" />
     <Compile Include="IMacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
     <Compile Include="MacroStabilityInwardsDikeSoilScenario.cs" />
     <Compile Include="MacroStabilityInwardsPhreaticLine.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.cs" />
     <Compile Include="MacroStabilityInwardsShearStrengthModel.cs" />
+    <Compile Include="MacroStabilityInwardsSoilLayerData.cs" />
     <Compile Include="MacroStabilityInwardsWaternet.cs" />
     <Compile Include="MacroStabilityInwardsWaternetLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

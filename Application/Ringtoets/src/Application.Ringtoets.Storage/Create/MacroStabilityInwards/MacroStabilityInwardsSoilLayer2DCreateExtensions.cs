@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            IMacroStabilityInwardsSoilLayerData data = soilLayer.Data;
+            MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 OuterRingXml = new Point2DXmlSerializer().ToXml(soilLayer.OuterRing.Points),

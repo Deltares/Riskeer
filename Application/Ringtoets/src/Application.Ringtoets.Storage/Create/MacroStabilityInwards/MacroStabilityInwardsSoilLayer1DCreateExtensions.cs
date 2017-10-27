@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(soilLayer));
             }
 
-            IMacroStabilityInwardsSoilLayerData data = soilLayer.Data;
+            MacroStabilityInwardsSoilLayerData data = soilLayer.Data;
             return new MacroStabilityInwardsSoilLayerOneDEntity
             {
                 Top = soilLayer.Top.ToNaNAsNull(),

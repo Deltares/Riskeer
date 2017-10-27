@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         private class TempSoilLayerGeometry
         {
-            public TempSoilLayerGeometry(Point2D[] outerLoop, IMacroStabilityInwardsSoilLayerData data)
+            public TempSoilLayerGeometry(Point2D[] outerLoop, MacroStabilityInwardsSoilLayerData data)
             {
                 OuterLoop = outerLoop;
                 Data = data;
@@ -142,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
             public Point2D[] OuterLoop { get; }
 
-            public IMacroStabilityInwardsSoilLayerData Data { get; }
+            public MacroStabilityInwardsSoilLayerData Data { get; }
         }
     }
 }

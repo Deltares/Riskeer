@@ -116,7 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
 
                 AssertLayers(original[i].NestedLayers.ToArray(), actual[i].NestedLayers.ToArray());
 
-                IMacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
+                MacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
                 Assert.AreEqual(expectedData.MaterialName, actual[i].MaterialName);
                 Assert.AreEqual(expectedData.UsePop, actual[i].UsePop);
                 Assert.AreEqual(expectedData.IsAquifer, actual[i].IsAquifer);

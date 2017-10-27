@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// This class defines a table in which properties of <see cref="IMacroStabilityInwardsSoilLayerData"/> instances
+    /// This class defines a table in which properties of <see cref="MacroStabilityInwardsSoilLayerData"/> instances
     /// are shown as rows.
     /// </summary>
     public class MacroStabilityInwardsSoilLayerDataTable : DataGridViewControl
@@ -46,11 +46,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// are shown in the table.
         /// </summary>
         /// <param name="layerData">The collection of layer data to show.</param>
-        public void SetData(IEnumerable<IMacroStabilityInwardsSoilLayerData> layerData)
+        public void SetData(IEnumerable<MacroStabilityInwardsSoilLayerData> layerData)
         {
             if (layerData != null)
             {
-                IEnumerable<IMacroStabilityInwardsSoilLayerData> macroStabilityInwardsSoilLayerData = layerData.ToArray();
+                IEnumerable<MacroStabilityInwardsSoilLayerData> macroStabilityInwardsSoilLayerData = layerData.ToArray();
                 int layerIndex = macroStabilityInwardsSoilLayerData.Count();
                 SetDataSource(macroStabilityInwardsSoilLayerData.Select(soilLayerData => new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, layerIndex--)).ToArray());
             }
