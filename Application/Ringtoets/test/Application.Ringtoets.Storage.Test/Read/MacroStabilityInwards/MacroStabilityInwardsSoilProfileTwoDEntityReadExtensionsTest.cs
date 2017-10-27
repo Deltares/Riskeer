@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Extensions;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -140,11 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 outerRingA
             }, profile.Layers.Select(l => l.OuterRing));
 
-            CollectionAssert.AreEqual(new[]
-            {
-                new Ring[0],
-                new Ring[0]
-            }, profile.Layers.Select(l => l.Holes));
+            profile.Layers.Select(l => l.NestedLayers).ForEachElementDo(CollectionAssert.IsEmpty);
 
             CollectionAssert.AreEqual(new[]
             {
