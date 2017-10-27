@@ -28,7 +28,7 @@ All rights reserved.
     <xs:complexType>
       <xs:all>
         <xs:element ref="verplaatsgrid" minOccurs="0"/>
-        <xs:element ref="bepalinggrids" minOccurs="0"/>
+        <xs:element ref="bepaling" minOccurs="0"/>
         <xs:element ref="tangentlijnen" minOccurs="0"/>
         <xs:element name="linkergrid" type="slopestabilitygrid" minOccurs="0"/>
         <xs:element name="rechtergrid" type="slopestabilitygrid" minOccurs="0"/>
@@ -44,7 +44,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert of rekengrids automatisch bepaald of handmatig ingevuld moeten worden.-->
-  <xs:element name="bepalinggrids">
+  <xs:element name="bepaling">
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value="automatisch"/>

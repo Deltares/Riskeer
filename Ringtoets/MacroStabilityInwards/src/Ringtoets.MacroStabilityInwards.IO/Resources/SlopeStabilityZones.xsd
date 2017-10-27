@@ -27,15 +27,9 @@ All rights reserved.
   <xs:element name="zonering">
     <xs:complexType>
       <xs:all>
-        <xs:element ref="bepalingzonering" minOccurs="0"/>
+        <!--Specificeert of zonering automatisch moet worden toegepast op het intredepunt van het glijvlak.-->
+        <xs:element name="bepaling" type="xs:boolean" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
-  </xs:element>
-
-  <!--Specificeert of zonering automatisch moet worden toegepast op het intredepunt van het glijvlak.-->
-  <xs:element name="bepalingzonering">
-    <xs:simpleType>
-      <xs:restriction base="xs:boolean"/>
-    </xs:simpleType>
   </xs:element>
 </xs:schema>
