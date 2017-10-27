@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_SoilLayerDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null);
+            TestDelegate test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -97,13 +97,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData);
+            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, 4);
 
             // Assert
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFormattedSoilLayerDataRow, EnumTypeConverter>(
                 nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel));
 
-            Assert.AreEqual(soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
+            Assert.AreEqual("4 " + soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
             Assert.AreEqual(soilLayerData.Color, formattedSoilLayerDataRow.Color);
             Assert.AreEqual(soilLayerData.IsAquifer, formattedSoilLayerDataRow.IsAquifer);
             Assert.AreEqual("0,85 (Verwachtingswaarde = 1,00, Variatiecoëfficiënt = 1,00, Verschuiving = 0,50)", formattedSoilLayerDataRow.AbovePhreaticLevel);
@@ -115,6 +115,76 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("0,04 (Verwachtingswaarde = 6,00, Variatiecoëfficiënt = 6,00)", formattedSoilLayerDataRow.StrengthIncreaseExponent);
             Assert.AreEqual(soilLayerData.UsePop, formattedSoilLayerDataRow.UsePop);
             Assert.AreEqual("0,04 (Verwachtingswaarde = 7,00, Variatiecoëfficiënt = 7,00)", formattedSoilLayerDataRow.Pop);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void Constructor_WithSoilLayerDataNaN_ExpectedValues()
+        {
+            // Setup
+            var soilLayerData = new MacroStabilityInwardsSoilLayerData
+            {
+                MaterialName = "Sand",
+                Color = Color.Black,
+                IsAquifer = true,
+                AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                },
+                BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                },
+                ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
+                ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                },
+                Cohesion = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                },
+                FrictionAngle = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                },
+                StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                },
+                UsePop = true,
+                Pop = new VariationCoefficientLogNormalDistribution
+                {
+                    CoefficientOfVariation = (RoundedDouble) double.NaN,
+                    Mean = (RoundedDouble) double.NaN
+                }
+            };
+
+            // Call
+            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, 2);
+
+            // Assert
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsFormattedSoilLayerDataRow, EnumTypeConverter>(
+                nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel));
+
+            Assert.AreEqual("2 " + soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
+            Assert.AreEqual(soilLayerData.Color, formattedSoilLayerDataRow.Color);
+            Assert.AreEqual(soilLayerData.IsAquifer, formattedSoilLayerDataRow.IsAquifer);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.AbovePhreaticLevel);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.BelowPhreaticLevel);
+            Assert.AreEqual(soilLayerData.ShearStrengthModel, formattedSoilLayerDataRow.ShearStrengthModel);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.ShearStrengthRatio);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.Cohesion);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.FrictionAngle);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.StrengthIncreaseExponent);
+            Assert.AreEqual(soilLayerData.UsePop, formattedSoilLayerDataRow.UsePop);
+            Assert.AreEqual("NaN", formattedSoilLayerDataRow.Pop);
         }
     }
 }

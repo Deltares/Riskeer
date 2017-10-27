@@ -58,6 +58,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Naam", nameColumn.HeaderText);
                 DataGridViewColumn colorColumn = table.GetColumnFromIndex(colorColumnIndex);
                 Assert.AreEqual("Kleur", colorColumn.HeaderText);
+                DataGridViewColumn isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
+                Assert.AreEqual("Is aquifer", isAquiferColumn.HeaderText);
                 DataGridViewColumn abovePhreaticLevelColumn = table.GetColumnFromIndex(abovePhreaticLevelColumnIndex);
                 Assert.AreEqual("Onverzadigd gewicht [kN/m³]", abovePhreaticLevelColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelColumn = table.GetColumnFromIndex(belowPhreaticLevelColumnIndex);
@@ -75,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewColumn usePopColumn = table.GetColumnFromIndex(usePopColumnIndex);
                 Assert.AreEqual("Gebruik POP", usePopColumn.HeaderText);
                 DataGridViewColumn popColumn = table.GetColumnFromIndex(popColumnIndex);
-                Assert.AreEqual("POP [kN/m³]", popColumn.HeaderText);
+                Assert.AreEqual("POP [kN/m²]", popColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(popColumnIndex + 1));
 
@@ -177,7 +179,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     MacroStabilityInwardsSoilLayerData soilLayerData = layers[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
-                    Assert.AreEqual(soilLayerData.MaterialName,
+                    Assert.AreEqual((table.Rows.Count - i) + " " + soilLayerData.MaterialName,
                                     rowCells[nameColumnIndex].Value);
                     Assert.AreEqual(soilLayerData.Color,
                                     rowCells[colorColumnIndex].Value);

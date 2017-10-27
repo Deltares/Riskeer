@@ -804,7 +804,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to POP [kN/m³].
+        ///   Looks up a localized string similar to POP [kN/m²].
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop {
             get {

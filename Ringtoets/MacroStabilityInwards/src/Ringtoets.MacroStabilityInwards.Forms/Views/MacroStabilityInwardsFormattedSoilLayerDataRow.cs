@@ -22,6 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
+using Core.Common.Base.Data;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -38,16 +40,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsFormattedSoilLayerDataRow"/>.
         /// </summary>
         /// <param name="layerData">The <see cref="IMacroStabilityInwardsSoilLayerData"/> to format.</param>
+        /// <param name="layerIndex">The index of the soil layer within the soil profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layerData"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsFormattedSoilLayerDataRow(IMacroStabilityInwardsSoilLayerData layerData)
+        public MacroStabilityInwardsFormattedSoilLayerDataRow(IMacroStabilityInwardsSoilLayerData layerData, int layerIndex)
         {
             if (layerData == null)
             {
                 throw new ArgumentNullException(nameof(layerData));
             }
 
-            MaterialName = layerData.MaterialName;
+            MaterialName = $"{layerIndex} {layerData.MaterialName}";
             Color = layerData.Color;
             IsAquifer = layerData.IsAquifer;
             AbovePhreaticLevel = FormatVariationCoefficientDesignVariableWithShift(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData));
@@ -124,16 +127,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private static string FormatVariationCoefficientDesignVariable(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
+            RoundedDouble designValue = designVariable.GetDesignValue();
+            if (double.IsNaN(designValue))
+            {
+                return double.NaN.ToString(CultureInfo.CurrentCulture);
+            }
+
             return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2,
-                                 designVariable.GetDesignValue(),
+                                 designValue,
                                  designVariable.Distribution.Mean,
                                  designVariable.Distribution.CoefficientOfVariation);
         }
 
         private static string FormatVariationCoefficientDesignVariableWithShift(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
+            RoundedDouble designValue = designVariable.GetDesignValue();
+            if (double.IsNaN(designValue))
+            {
+                return double.NaN.ToString(CultureInfo.CurrentCulture);
+            }
+
             return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3,
-                                 designVariable.GetDesignValue(),
+                                 designValue,
                                  designVariable.Distribution.Mean,
                                  designVariable.Distribution.CoefficientOfVariation,
                                  designVariable.Distribution.Shift);

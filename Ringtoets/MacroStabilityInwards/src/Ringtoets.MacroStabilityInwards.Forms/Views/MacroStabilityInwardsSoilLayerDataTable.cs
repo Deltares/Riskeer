@@ -22,14 +22,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// This class defines a table in which properties of <see cref="MacroStabilityInwardsSoilLayerData"/> instances
+    /// This class defines a table in which properties of <see cref="IMacroStabilityInwardsSoilLayerData"/> instances
     /// are shown as rows.
     /// </summary>
     public class MacroStabilityInwardsSoilLayerDataTable : DataGridViewControl
@@ -43,13 +42,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         /// <summary>
-        /// Sets the given <paramref name="layers"/> for which the properties
+        /// Sets the given <paramref name="layerData"/> for which the properties
         /// are shown in the table.
         /// </summary>
-        /// <param name="layers">The collection of layers to show.</param>
-        public void SetData(IEnumerable<IMacroStabilityInwardsSoilLayerData> layers)
+        /// <param name="layerData">The collection of layer data to show.</param>
+        public void SetData(IEnumerable<IMacroStabilityInwardsSoilLayerData> layerData)
         {
-            SetDataSource(layers?.Select(l => new MacroStabilityInwardsFormattedSoilLayerDataRow(l)).ToArray());
+            if (layerData != null)
+            {
+                IEnumerable<IMacroStabilityInwardsSoilLayerData> macroStabilityInwardsSoilLayerData = layerData.ToArray();
+                int layerIndex = macroStabilityInwardsSoilLayerData.Count();
+                SetDataSource(macroStabilityInwardsSoilLayerData.Select(soilLayerData => new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, layerIndex--)).ToArray());
+            }
+            else
+            {
+                SetDataSource(null);
+            }
         }
 
         private void AddColumns()
@@ -83,9 +91,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.StrengthIncreaseExponent),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_StrengthIncreaseExponent,
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.UsePop),
-                             Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop,
-                             true);
+            AddCheckBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.UsePop),
+                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_UsePop,
+                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Pop),
                              Resources.MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Pop,
                              true);
