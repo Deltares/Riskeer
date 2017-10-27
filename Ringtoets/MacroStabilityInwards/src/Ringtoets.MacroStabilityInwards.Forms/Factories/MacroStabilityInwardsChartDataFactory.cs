@@ -73,7 +73,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             return new ChartMultipleAreaData(name, new ChartAreaStyle
             {
                 StrokeThickness = 0,
-                FillColor = Color.FromArgb(60, Color.DeepSkyBlue)
+                FillColor = Color.FromArgb(60, Color.DeepSkyBlue),
+                IsEditable = true
             });
         }
 

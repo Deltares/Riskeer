@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -81,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual(name, data.Name);
-            AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Empty, 0);
+            AssertEqualStyle(data.Style, Color.FromArgb(60, Color.DeepSkyBlue), Color.Empty, 0, true);
         }
 
         [Test]
@@ -219,7 +216,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
             Assert.AreEqual(name, data.Name);
-            AssertEqualStyle(data.Style, fillColor, Color.Black, 1);
+            AssertEqualStyle(data.Style, fillColor, Color.Black, 1, false);
         }
 
         [Test]
@@ -290,12 +287,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             Assert.IsTrue(pointStyle.IsEditable);
         }
 
-        private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width)
+        private static void AssertEqualStyle(ChartAreaStyle areaStyle, Color fillColor, Color strokeColor, int width, bool isEditable)
         {
             Assert.AreEqual(fillColor, areaStyle.FillColor);
             Assert.AreEqual(strokeColor, areaStyle.StrokeColor);
             Assert.AreEqual(width, areaStyle.StrokeThickness);
-            Assert.IsFalse(areaStyle.IsEditable);
+            Assert.AreEqual(isEditable, areaStyle.IsEditable);
         }
 
         private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, ChartLineDashStyle dashStyle)
