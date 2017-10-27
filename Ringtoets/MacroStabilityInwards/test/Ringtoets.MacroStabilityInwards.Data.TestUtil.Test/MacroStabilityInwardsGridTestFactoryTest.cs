@@ -38,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(2.0, grid.XRight, grid.XRight.GetAccuracy());
             Assert.AreEqual(4.0, grid.ZTop, grid.ZTop.GetAccuracy());
             Assert.AreEqual(3.0, grid.ZBottom, grid.ZBottom.GetAccuracy());
-            Assert.AreEqual(1, grid.NumberOfHorizontalPoints);
+            Assert.AreEqual(2, grid.NumberOfHorizontalPoints);
             Assert.AreEqual(2, grid.NumberOfVerticalPoints);
         }
     }

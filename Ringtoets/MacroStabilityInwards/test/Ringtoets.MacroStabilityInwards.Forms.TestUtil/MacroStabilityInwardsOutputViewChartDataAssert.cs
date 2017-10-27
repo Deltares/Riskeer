@@ -48,16 +48,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         private const int surfaceLevelOutsideIndex = 13;
         private const int waternetZonesExtremeIndex = 14;
         private const int waternetZonesDailyIndex = 15;
-        private const int nrOfChartData = 16;
+        private const int leftGridIndex = 16;
+        private const int rightGridIndex = 17;
+        private const int nrOfChartData = 18;
 
         /// <summary>
-        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="calculationScenario"/>.
+        /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
         /// </summary>
         /// <param name="calculationScenario">The original <see cref="MacroStabilityInwardsCalculationScenario"/>.</param>
         /// <param name="actual">The actual <see cref="ChartDataCollection"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="calculationScenario"/>.</exception>
-        public static void AssertChartData(MacroStabilityInwardsCalculationScenario calculationScenario, ChartDataCollection actual)
+        public static void AssertInputChartData(MacroStabilityInwardsCalculationScenario calculationScenario, ChartDataCollection actual)
         {
             Assert.AreEqual(nrOfChartData, actual.Collection.Count());
             MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(calculationScenario.InputParameters.SurfaceLine, actual.Collection.ElementAt(surfaceLineIndex));
@@ -70,6 +72,42 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                                              (ChartDataCollection) actual.Collection.ElementAt(waternetZonesExtremeIndex));
             MacroStabilityInwardsViewChartDataAssert.AssertWaternetChartData(calculationScenario.InputParameters.WaternetDaily,
                                                                              (ChartDataCollection) actual.Collection.ElementAt(waternetZonesDailyIndex));
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to the output of <paramref name="calculationScenario"/>.
+        /// </summary>
+        /// <param name="calculationScenario">The original <see cref="MacroStabilityInwardsCalculationScenario"/>.</param>
+        /// <param name="actual">The actual <see cref="ChartDataCollection"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="calculationScenario"/>.</exception>
+        public static void AssertOutputChartData(MacroStabilityInwardsCalculationScenario calculationScenario, ChartDataCollection actual)
+        {
+            Assert.AreEqual(nrOfChartData, actual.Collection.Count());
+
+            MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.LeftGrid, (ChartPointData) actual.Collection.ElementAt(leftGridIndex));
+            MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(calculationScenario.Output.SlipPlane.RightGrid, (ChartPointData) actual.Collection.ElementAt(rightGridIndex));
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="chartDataCollection"/> contains empty output data.
+        /// </summary>
+        /// <param name="chartDataCollection">The actual <see cref="ChartData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="chartDataCollection"/>
+        /// is not empty.</exception>
+        public static void AssertEmptyOutputChartData(ChartDataCollection chartDataCollection)
+        {
+            ChartData[] chartDataArray = chartDataCollection.Collection.ToArray();
+
+            Assert.AreEqual(nrOfChartData, chartDataArray.Length);
+            var leftGridData = (ChartPointData)chartDataArray[leftGridIndex];
+            var rightGridData = (ChartPointData)chartDataArray[rightGridIndex];
+
+            CollectionAssert.IsEmpty(leftGridData.Points);
+            CollectionAssert.IsEmpty(rightGridData.Points);
+            
+            Assert.AreEqual("Linker grid", leftGridData.Name);
+            Assert.AreEqual("Rechter grid", rightGridData.Name);
         }
 
         /// <summary>
@@ -210,6 +248,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
             Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
             Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
+
+            AssertEmptyOutputChartData(chartDataCollection);
         }
     }
 }

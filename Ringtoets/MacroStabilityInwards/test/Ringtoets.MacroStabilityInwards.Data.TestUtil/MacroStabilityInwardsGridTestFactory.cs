@@ -35,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             return new MacroStabilityInwardsGrid(1.0, 2.0, 4.0, 3.0)
             {
-                NumberOfHorizontalPoints = 1,
+                NumberOfHorizontalPoints = 2,
                 NumberOfVerticalPoints = 2
             };
         }

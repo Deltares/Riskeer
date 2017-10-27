@@ -172,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
 
                 // When
                 calculation.ClearOutput();
@@ -217,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
             }
         }
 
@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
 
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
 
                 // When
                 MacroStabilityInwardsStochasticSoilProfile newSoilProfile = GetStochasticSoilProfile2D();
@@ -258,7 +258,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
             }
         }
 

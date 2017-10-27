@@ -714,8 +714,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var actualLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
                 var actualRightGridData = (ChartPointData) chartDataList[rightGridIndex];
 
-                AssertGridPoints(input.LeftGrid, actualLeftGridData.Points);
-                AssertGridPoints(input.RightGrid, actualRightGridData.Points);
+                MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, actualLeftGridData);
+                MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, actualRightGridData);
             }
         }
 
@@ -793,8 +793,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var leftGridData = (ChartPointData) chartDataList[leftGridIndex];
                 var rightGridData = (ChartPointData) chartDataList[rightGridIndex];
 
-                AssertGridPoints(input.LeftGrid, leftGridData.Points);
-                AssertGridPoints(input.RightGrid, rightGridData.Points);
+                MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, leftGridData);
+                MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, rightGridData);
 
                 // When
                 input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
@@ -988,19 +988,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             grid.NumberOfVerticalPoints = 2;
             grid.ZBottom = (RoundedDouble) 1;
             grid.ZTop = (RoundedDouble) 2;
-        }
-
-        private static void AssertGridPoints(MacroStabilityInwardsGrid grid, Point2D[] actualPoints)
-        {
-            var expectedPoints = new[]
-            {
-                new Point2D(grid.XLeft, grid.ZBottom),
-                new Point2D(grid.XRight, grid.ZBottom),
-                new Point2D(grid.XLeft, grid.ZTop),
-                new Point2D(grid.XRight, grid.ZTop)
-            };
-
-            CollectionAssert.AreEqual(expectedPoints, actualPoints);
         }
 
         private static IChartControl GetChartControl(MacroStabilityInwardsInputView view)

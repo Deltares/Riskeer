@@ -128,7 +128,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.Data = calculation;
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                ChartDataCollection chartData = GetChartControl(control).Data;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
             }
         }
 
@@ -148,14 +150,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-
             using (var control = new MacroStabilityInwardsOutputChartControl
             {
                 Data = calculation
             })
             {
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(GetChartControl(control).Data);
+                ChartDataCollection chartData = GetChartControl(control).Data;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
             }
         }
 
@@ -182,7 +185,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(GetChartControl(control).Data);
+                ChartDataCollection chartData = GetChartControl(control).Data;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
             }
         }
 
@@ -208,7 +213,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             })
             {
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                ChartDataCollection chartData = GetChartControl(control).Data;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
 
                 // Call
                 control.Data = null;
@@ -243,6 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
 
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
@@ -250,7 +258,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
             }
         }
 
@@ -279,7 +288,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
 
                 calculation.ClearOutput();
 
@@ -288,6 +298,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndWithWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
             }
         }
 
@@ -315,7 +326,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertOutputChartData(calculation, chartData);
 
                 calculation.ClearOutput();
 
@@ -324,6 +336,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
             }
         }
 
@@ -351,7 +364,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
                 // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
 
                 MacroStabilityInwardsStochasticSoilProfile newSoilProfile = GetStochasticSoilProfile2D();
 
@@ -360,7 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 control.UpdateChartData();
 
                 // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
             }
         }
 
@@ -387,7 +400,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     control.Data = calculation;
 
                     // Precondition
-                    MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, GetChartControl(control).Data);
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
                 }
 
                 // Call
@@ -430,7 +443,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     control.UpdateChartData();
 
                     // Assert
-                    MacroStabilityInwardsOutputViewChartDataAssert.AssertChartData(calculation, chartData);
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
                 }
             }
         }

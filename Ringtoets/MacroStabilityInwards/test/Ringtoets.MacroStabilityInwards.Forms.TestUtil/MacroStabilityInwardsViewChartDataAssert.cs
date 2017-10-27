@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
@@ -105,18 +107,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             {
                 if (i < phreaticLines.Length)
                 {
-                    var phreaticLineChartData = (ChartLineData) waternetChartData[i];
+                    ChartLineData phreaticLineChartData = (ChartLineData) waternetChartData[i];
                     Assert.AreEqual(phreaticLines[i].Name, phreaticLineChartData.Name);
                     Assert.AreEqual(phreaticLines[i].Geometry, phreaticLineChartData.Points);
                 }
                 else
                 {
-                    var waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
+                    ChartMultipleAreaData waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
                     MacroStabilityInwardsWaternetLine waternetLine = waternetLines[i - waternetLines.Length];
                     Assert.AreEqual(waternetLine.Name, waternetLineChartData.Name);
                     Assert.IsTrue(waternetLineChartData.HasData);
                 }
             }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="MacroStabilityInwardsGrid"/>.</param>
+        /// <param name="actual">The actual <see cref="ChartPointData"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        public static void AssertGridChartData(MacroStabilityInwardsGrid original, ChartPointData actual)
+        {
+            var expectedPoints = new[]
+            {
+                new Point2D(original.XLeft, original.ZBottom),
+                new Point2D(original.XRight, original.ZBottom),
+                new Point2D(original.XLeft, original.ZTop),
+                new Point2D(original.XRight, original.ZTop)
+            };
+
+            CollectionAssert.AreEqual(expectedPoints, actual.Points);
         }
     }
 }
