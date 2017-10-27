@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
 
         /// <summary>
         /// Gets the messages returned by the kernel during
-        /// the calculation.
+        /// the calculation, if any.
         /// </summary>
         public IEnumerable<UpliftVanKernelMessage> CalculationMessages { get; }
 

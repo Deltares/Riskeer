@@ -109,7 +109,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             {
                 Name = "<very nice name>"
             };
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(calculation);
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             testCalculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             testCalculation.InputParameters.UseAssessmentLevelManualInput = false;
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
@@ -160,7 +160,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             testCalculation.InputParameters.UseAssessmentLevelManualInput = true;
             testCalculation.InputParameters.AssessmentLevel = (RoundedDouble) assessmentLevel;
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
@@ -182,7 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             testCalculation.InputParameters.SurfaceLine = null;
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
@@ -204,7 +204,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             testCalculation.InputParameters.StochasticSoilProfile = null;
-            var isValid = false;
+            var isValid = true;
 
             // Call
             Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation);
@@ -422,10 +422,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_KernelReturnsValidationError_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var isValid = false;
+            var isValid = true;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
@@ -451,7 +451,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var isValid = false;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
 
                 // Call
@@ -474,10 +474,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_KernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
         {
             // Setup
-            var isValid = false;
+            var isValid = true;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
@@ -771,7 +771,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
                 // Call
@@ -795,7 +795,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
 
                 // Call
@@ -823,7 +823,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 

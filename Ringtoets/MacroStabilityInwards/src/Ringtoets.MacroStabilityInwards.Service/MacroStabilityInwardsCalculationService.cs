@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                         });
                 }
 
-                if (macroStabilityInwardsResult.CalculationMessages.Count(cm => cm.ResultType == UpliftVanKernelMessageType.Warning) > 0)
+                if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Warning))
                 {
                     CalculationServiceHelper.LogMessagesAsWarning(new[]
                     {

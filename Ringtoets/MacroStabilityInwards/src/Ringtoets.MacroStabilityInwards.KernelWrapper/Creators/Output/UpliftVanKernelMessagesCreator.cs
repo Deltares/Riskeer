@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Properties;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
 {
@@ -62,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
                     default:
                         continue;
                 }
-                yield return new UpliftVanKernelMessage(type, logMessage.Message ?? "Onbekend");
+                yield return new UpliftVanKernelMessage(type, logMessage.Message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
             }
         }
 
@@ -96,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
                     default:
                         continue;
                 }
-                yield return new UpliftVanKernelMessage(type, logMessage.Text ?? "Onbekend");
+                yield return new UpliftVanKernelMessage(type, logMessage.Text ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
             }
         }
     }
