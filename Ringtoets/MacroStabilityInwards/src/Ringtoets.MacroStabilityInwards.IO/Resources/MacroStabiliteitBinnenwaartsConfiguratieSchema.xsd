@@ -40,6 +40,13 @@ All rights reserved.
             <xs:element ref="profielschematisatie" minOccurs="0"/>
             <xs:element ref="ondergrondmodel" minOccurs="0"/>
             <xs:element ref="ondergrondschematisatie" minOccurs="0"/>
+            <xs:element ref="dijktype" minOccurs="0"/>
+            <xs:element ref="waterspanningen" minOccurs="0"/>
+            <xs:element ref="zonering" minOccurs="0"/>
+            <xs:element ref="grids" minOccurs="0"/>
+            <xs:element ref="minimaleglijvlakdiepte" minOccurs="0"/>
+            <xs:element ref="minimaleglijvlaklengte" minOccurs="0"/>
+            <xs:element ref="maximalelamelbreedte" minOccurs="0"/>
             <xs:element ref="scenario" minOccurs="0"/>
           </xs:all>
         </xs:extension>
@@ -47,10 +54,19 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
+  <!--Definitie voor de invoer van waterspanningen.-->
+  <xs:include schemaLocation="WaternetCreatorSchema.xsd"/>
+
+  <!--Definitie voor de invoer van zonering van het glijvlak.-->
+  <xs:include schemaLocation="SlopeStabilityZones.xsd"/>
+  
+  <!--Definitie voor de invoer van grids en rekeninstellingen voor macrostabiliteitsberekeningen.-->
+  <xs:include schemaLocation="SlopeStabilityGrids.xsd"/>
+  
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
   
   <!--Specificeert de keus van een HR locatie of een toetspeil.-->
-  <xs:element name="hrlocatie-of-toetspeil" abstract="true" />
+  <xs:element name="hrlocatie-of-toetspeil" abstract="true" /> <!--TODO: Merge with piping implementation. This should always be the same.-->
   
   <!--Specificeert het handmatig ingevoerde toetspeil. Indien dit element is
   opgenomen, mag geen HR locatie element worden opgenomen (en andersom).-->
@@ -100,4 +116,36 @@ All rights reserved.
     </xs:simpleType>
   </xs:element>
 
+  <!--In dit element moet het type dijk worden opgenomen zoals in Ringtoets weergegeven onder de naam "Dijk/bodem materiaal".-->
+  <xs:element name="dijktype">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="1A" />
+        <xs:enumeration value="2A"/>
+        <xs:enumeration value="1B"/>
+        <xs:enumeration value="2B"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de minimale glijvlakdiepte.-->
+  <xs:element name="minimaleglijvlakdiepte">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert de minimale glijvlaklengte.-->
+  <xs:element name="minimaleglijvlaklengte">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+  
+  <!--Specificeert de maximale lamelbreedte.-->
+  <xs:element name="maximalelamelbreedte">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
 </xs:schema>

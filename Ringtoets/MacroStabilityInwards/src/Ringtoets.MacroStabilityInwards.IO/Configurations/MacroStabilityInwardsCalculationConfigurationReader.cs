@@ -39,6 +39,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         : CalculationConfigurationReader<MacroStabilityInwardsCalculationConfiguration>
     {
         private const string scenarioSchemaName = "ScenarioSchema.xsd";
+        private const string waternetCreatorSchemaSchemaName = "WaternetCreatorSchema.xsd";
+        private const string slopeStabilityZonesSchemaName = "SlopeStabilityZones.xsd";
+        private const string slopeStabilityGridsSchemaName = "SlopeStabilityGrids.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationConfigurationReader"/>.
@@ -60,6 +63,15 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                    {
                        {
                            scenarioSchemaName, RingtoetsCommonIOResources.ScenarioSchema
+                       },
+                       {
+                           waternetCreatorSchemaSchemaName, Resources.WaternetCreatorSchema
+                       },
+                       {
+                           slopeStabilityZonesSchemaName, Resources.SlopeStabilityZones
+                       },
+                       {
+                           slopeStabilityGridsSchemaName, Resources.SlopeStabilityGrids
                        }
                    }) {}
 

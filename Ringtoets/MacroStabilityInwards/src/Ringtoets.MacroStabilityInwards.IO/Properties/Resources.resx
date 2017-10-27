@@ -210,13 +210,10 @@
   <data name="SurfaceLinesCsvImporter_SurfaceLine_0_skipped_cause_1_CharacteristicPoint_mandatory" xml:space="preserve">
     <value>Profielschematisatie '{0}' kan niet gebruikt worden. {1} Dit karakteristieke punt is verplicht.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="XmlGeometrySchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\XmlGeometrySchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="MacroStabilityInwardsCalculationConfigurationImporter_ReadStochasticSoilProfile_No_soil_model_provided_for_soil_profile_with_name_0" xml:space="preserve">
     <value>Er is geen stochastisch ondergrondmodel opgegeven bij ondergrondschematisatie '{0}'.</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MacroStabiliteitBinnenwaartsConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -258,5 +255,14 @@
   </data>
   <data name="PreconsolidationStress_DisplayName" xml:space="preserve">
     <value>Grensspanning</value>
+  </data>
+  <data name="SlopeStabilityGrids" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SlopeStabilityGrids.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SlopeStabilityZones" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SlopeStabilityZones.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="WaternetCreatorSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WaternetCreatorSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

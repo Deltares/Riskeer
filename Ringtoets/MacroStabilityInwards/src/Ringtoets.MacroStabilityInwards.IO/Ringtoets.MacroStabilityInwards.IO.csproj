@@ -112,7 +112,13 @@
     <None Include="Resources\MacroStabiliteitBinnenwaartsConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\XmlGeometrySchema.xsd">
+    <None Include="Resources\SlopeStabilityGrids.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\SlopeStabilityZones.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\WaternetCreatorSchema.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

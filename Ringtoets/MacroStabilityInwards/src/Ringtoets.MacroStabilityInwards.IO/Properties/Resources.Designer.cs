@@ -255,6 +255,46 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2017. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SlopeStabilityGrids {
+            get {
+                return ResourceManager.GetString("SlopeStabilityGrids", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2017. All rights reserved.
+        ///
+        ///This file is part of Ringtoets.
+        ///
+        ///Ringtoets is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SlopeStabilityZones {
+            get {
+                return ResourceManager.GetString("SlopeStabilityZones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen ondergrondmodellen lezen. Mogelijk bestaat de &apos;{0}&apos; tabel niet..
         /// </summary>
         public static string SoilDatabaseConstraintsReader_VerifyConstraints_Can_not_read_StochasticSoilModel_Perhaps_table_missing {
@@ -528,7 +568,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;&lt;!--
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///
         ///This file is part of Ringtoets.
@@ -539,12 +579,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Properties {
         ///(at your option) any later version.
         ///
         ///This program is distributed in the hope that it will be useful,
-        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
-        ///MERCHANTABILITY [rest of string was truncated]&quot;;.
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string XmlGeometrySchema {
+        public static string WaternetCreatorSchema {
             get {
-                return ResourceManager.GetString("XmlGeometrySchema", resourceCulture);
+                return ResourceManager.GetString("WaternetCreatorSchema", resourceCulture);
             }
         }
     }
