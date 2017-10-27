@@ -21,11 +21,11 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {

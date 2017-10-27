@@ -1130,6 +1130,80 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new Point2D(2, 2),
                     new Point2D(3, 3)
                 })
+            }, new MacroStabilityInwardsSoilLayerData(), new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(3, 3),
+                    new Point2D(4, 4)
+                }), new[]
+                {
+                    new Ring(new[]
+                    {
+                        new Point2D(5, 5),
+                        new Point2D(6, 6)
+                    })
+                })
+                {
+                    Data =
+                    {
+                        IsAquifer = true,
+                        MaterialName = "Navy",
+                        Color = Color.Navy,
+                        UsePop = true,
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi,
+                        AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 15.901,
+                            CoefficientOfVariation = (RoundedDouble) 5.902,
+                            Shift = (RoundedDouble) 5.903
+                        },
+                        BelowPhreaticLevel = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 5.906,
+                            CoefficientOfVariation = (RoundedDouble) 5.905,
+                            Shift = (RoundedDouble) 5.904
+                        },
+                        Cohesion = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 5.907,
+                            CoefficientOfVariation = (RoundedDouble) 5.908
+                        },
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 5.909,
+                            CoefficientOfVariation = (RoundedDouble) 5.91
+                        },
+                        ShearStrengthRatio = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 5.911,
+                            CoefficientOfVariation = (RoundedDouble) 5.912
+                        },
+                        StrengthIncreaseExponent = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 5.913,
+                            CoefficientOfVariation = (RoundedDouble) 5.914
+                        },
+                        Pop = new VariationCoefficientLogNormalDistribution
+                        {
+                            Mean = (RoundedDouble) 5.915,
+                            CoefficientOfVariation = (RoundedDouble) 5.916
+                        }
+                    }
+                },
+                new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                {
+                    new Point2D(-10, -100),
+                    new Point2D(10, 100)
+                }), new Ring[0])
+                {
+                    Data =
+                    {
+                        MaterialName = "HotPink",
+                        Color = Color.HotPink,
+                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.SuCalculated
+                    }
+                }
             })
             {
                 Data =

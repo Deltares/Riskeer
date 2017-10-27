@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
@@ -51,7 +52,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
             }
 
             IMacroStabilityInwardsSoilLayerData data = soilLayer.Data;
-            return new MacroStabilityInwardsSoilLayerTwoDEntity
+            var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 OuterRingXml = new Point2DXmlSerializer().ToXml(soilLayer.OuterRing.Points),
                 IsAquifer = Convert.ToByte(data.IsAquifer),
@@ -77,6 +78,19 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
                 PopCoefficientOfVariation = data.Pop.CoefficientOfVariation.ToNaNAsNull(),
                 Order = order
             };
+
+            AddNestedLayers(entity, soilLayer);
+
+            return entity;
+        }
+
+        private static void AddNestedLayers(MacroStabilityInwardsSoilLayerTwoDEntity entity,
+                                            IMacroStabilityInwardsSoilLayer2D soilLayer)
+        {
+            for (var i = 0; i < soilLayer.NestedLayers.Count(); i++)
+            {
+                entity.MacroStabilityInwardsSoilLayerTwoDEntity1.Add(((MacroStabilityInwardsSoilLayer2D) soilLayer.NestedLayers.ElementAt(i)).Create(i));
+            }
         }
     }
 }

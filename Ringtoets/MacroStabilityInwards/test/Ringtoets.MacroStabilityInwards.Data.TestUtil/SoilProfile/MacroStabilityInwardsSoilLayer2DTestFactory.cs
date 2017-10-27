@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -37,11 +38,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// <returns>The created <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
         public static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
         {
+            return CreateMacroStabilityInwardsSoilLayer2D(new IMacroStabilityInwardsSoilLayer2D[0]);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
+        /// </summary>
+        /// <param name="nestedLayers">The nested <see cref="IMacroStabilityInwardsSoilLayer2D"/>.</param>
+        /// <returns>The created <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
+        public static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D(IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers)
+        {
             return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }), new Ring[0]);
+                                                        {
+                                                            new Point2D(0, 0),
+                                                            new Point2D(1, 1)
+                                                        }), new Ring[0],
+                                                        new MacroStabilityInwardsSoilLayerData(),
+                                                        nestedLayers);
         }
     }
 }

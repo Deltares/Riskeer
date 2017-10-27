@@ -27,7 +27,6 @@ using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;

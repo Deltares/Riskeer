@@ -1501,11 +1501,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertMacroStabilityInwardsSoilLayerData(expectedLayer.Data, actualLayer.Data);
         }
 
-        private static void AssertMacroStabilityInwardsSoilLayer(MacroStabilityInwardsSoilLayer2D expectedLayer,
-                                                                 MacroStabilityInwardsSoilLayer2D actualLayer)
+        private static void AssertMacroStabilityInwardsSoilLayer(IMacroStabilityInwardsSoilLayer2D expectedLayer,
+                                                                 IMacroStabilityInwardsSoilLayer2D actualLayer)
         {
             Assert.AreEqual(expectedLayer.OuterRing, actualLayer.OuterRing);
             AssertMacroStabilityInwardsSoilLayerData(expectedLayer.Data, actualLayer.Data);
+
+            AssertCollectionAndItems(expectedLayer.NestedLayers.Cast<MacroStabilityInwardsSoilLayer2D>(),
+                                     actualLayer.NestedLayers.Cast<MacroStabilityInwardsSoilLayer2D>(),
+                                     AssertMacroStabilityInwardsSoilLayer);
         }
 
         private static void AssertMacroStabilityInwardsSoilLayerData(IMacroStabilityInwardsSoilLayerData expectedData,

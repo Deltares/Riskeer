@@ -44,7 +44,30 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }), soilLayer.OuterRing);
-            CollectionAssert.IsEmpty(soilLayer.Holes);
+            CollectionAssert.IsEmpty(soilLayer.NestedLayers);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsSoilLayer2D_WithNestedLayers_ReturnsExpectedMacroStabilityInwardsSoilLayer2D()
+        {
+            // Setup
+            var nestedLayers = new[]
+            {
+                MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
+            };
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D(nestedLayers);
+
+            // Assert
+            Assert.IsNotNull(soilLayer);
+            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer2D), soilLayer.GetType());
+            Assert.AreEqual(new Ring(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }), soilLayer.OuterRing);
+            Assert.AreSame(nestedLayers, soilLayer.NestedLayers);
         }
     }
 }

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
@@ -52,7 +54,10 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
 
             var outerRing = new Ring(new Point2DXmlSerializer().FromXml(entity.OuterRingXml));
 
-            return new MacroStabilityInwardsSoilLayer2D(outerRing, new Ring[0])
+            return new MacroStabilityInwardsSoilLayer2D(outerRing,
+                                                        new Ring[0],
+                                                        new MacroStabilityInwardsSoilLayerData(),
+                                                        ReadNestedLayers(entity).ToArray())
             {
                 Data =
                 {
@@ -100,6 +105,13 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
                     }
                 }
             };
+        }
+
+        private static IEnumerable<MacroStabilityInwardsSoilLayer2D> ReadNestedLayers(MacroStabilityInwardsSoilLayerTwoDEntity entity)
+        {
+            return entity.MacroStabilityInwardsSoilLayerTwoDEntity1
+                         .OrderBy(e => e.Order)
+                         .Select(e => e.Read());
         }
     }
 }
