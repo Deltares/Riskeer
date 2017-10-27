@@ -113,7 +113,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
             for (var i = 0; i < original.Length; i++)
             {
                 CollectionAssert.AreEqual(original[i].OuterRing.Points, actual[i].OuterRing);
-                CollectionAssert.AreEqual(original[i].Holes.Select(h => h.Points), actual[i].Holes);
+
+                AssertLayers(original[i].NestedLayers.ToArray(), actual[i].NestedLayers.ToArray());
 
                 IMacroStabilityInwardsSoilLayerData expectedData = original[i].Data;
                 Assert.AreEqual(expectedData.MaterialName, actual[i].MaterialName);

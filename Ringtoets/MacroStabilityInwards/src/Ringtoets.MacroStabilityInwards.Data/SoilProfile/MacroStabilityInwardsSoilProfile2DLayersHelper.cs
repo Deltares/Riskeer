@@ -22,13 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives
+namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 {
     /// <summary>
-    /// Helper methods for dealing with 2D layers.
+    /// Helper methods for dealing with 2D layers in <see cref="IMacroStabilityInwardsSoilProfile{T}"/>.
     /// </summary>
-    public static class MacroStabilityInwardsSoilProfile2DLayerHelper
+    public static class MacroStabilityInwardsSoilProfile2DLayersHelper
     {
         /// <summary>
         /// Method for obtaining all <see cref="IMacroStabilityInwardsSoilLayer2D"/> in <paramref name="layers"/> recursively.

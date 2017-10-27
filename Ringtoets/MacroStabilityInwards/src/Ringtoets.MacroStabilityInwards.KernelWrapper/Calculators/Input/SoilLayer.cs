@@ -33,29 +33,29 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer"/>.
         /// </summary>
-        /// <param name="outerRing">The outer ring of the geometry of the soil layer.</param>
-        /// <param name="holes">The holes of the geometry of the soil layer.</param>
+        /// <param name="outerRing">The outer ring of the soil layer.</param>
+        /// <param name="nestedLayers">The nested layers of the soil layer.</param>
         /// <param name="properties">The object containing the values for
-        /// the properties of the new <see cref="SoilLayer"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
-        /// is <c>null</c>.</exception>
-        public SoilLayer(Point2D[] outerRing, IEnumerable<Point2D[]> holes, ConstructionProperties properties)
+        /// the soil data properties of the new <see cref="SoilLayer"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public SoilLayer(Point2D[] outerRing, ConstructionProperties properties, IEnumerable<SoilLayer> nestedLayers)
         {
             if (outerRing == null)
             {
                 throw new ArgumentNullException(nameof(outerRing));
             }
-            if (holes == null)
-            {
-                throw new ArgumentNullException(nameof(holes));
-            }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
 
+            if (nestedLayers == null)
+            {
+                throw new ArgumentNullException(nameof(nestedLayers));
+            }
+
             OuterRing = outerRing;
-            Holes = holes;
 
             IsAquifer = properties.IsAquifer;
             UsePop = properties.UsePop;
@@ -70,17 +70,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
             Pop = properties.Pop;
             DilatancyType = properties.DilatancyType;
             WaterPressureInterpolationModel = properties.WaterPressureInterpolationModel;
+
+            NestedLayers = nestedLayers;
         }
 
         /// <summary>
-        /// Gets the outer ring of the geometry.
+        /// Gets the outer ring of the soil layer.
         /// </summary>
         public Point2D[] OuterRing { get; }
 
         /// <summary>
-        /// Gets the holes of the geometry.
+        /// Gets any nested layers of the soil layer.
         /// </summary>
-        public IEnumerable<Point2D[]> Holes { get; }
+        public IEnumerable<SoilLayer> NestedLayers { get; }
 
         /// <summary>
         /// Gets a value indicating whether the layer is an aquifer.

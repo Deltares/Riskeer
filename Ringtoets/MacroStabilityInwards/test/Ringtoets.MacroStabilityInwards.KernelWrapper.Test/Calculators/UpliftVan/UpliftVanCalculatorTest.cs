@@ -134,18 +134,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
             Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
-            Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
-                input.SoilProfile.Layers
-                     .Zip(soils, (layer, soil) => new
-                     {
-                         layer,
-                         soil
-                     })
-                     .ToDictionary(x => x.layer, x => x.soil);
+            LayerWithSoil[] layersWithSoils = LayerWithSoilCreator.Create(input.SoilProfile);
 
-            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), upliftVanKernel.SoilModel);
-            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), upliftVanKernel.SoilProfile);
+            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoils.Select(lws => lws.Soil).ToArray()), upliftVanKernel.SoilModel);
+            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoils), upliftVanKernel.SoilProfile);
             KernelInputAssert.AssertStabilityLocations(UpliftVanStabilityLocationCreator.CreateExtreme(input), upliftVanKernel.LocationExtreme);
             KernelInputAssert.AssertStabilityLocations(UpliftVanStabilityLocationCreator.CreateDaily(input), upliftVanKernel.LocationDaily);
             KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), upliftVanKernel.SurfaceLine);
@@ -377,35 +369,35 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
-                    new SoilLayer.ConstructionProperties()),
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
                     new SoilLayer.ConstructionProperties
                     {
                         IsAquifer = true
-                    }),
+                    },
+                    Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
-                    new SoilLayer.ConstructionProperties()),
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
-                    new SoilLayer.ConstructionProperties())
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>())
             }, new[]
             {
                 new PreconsolidationStress(new Point2D(0, 0), 1.1)

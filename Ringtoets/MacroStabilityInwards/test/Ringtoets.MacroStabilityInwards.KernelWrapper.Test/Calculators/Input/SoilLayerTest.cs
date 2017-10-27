@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
@@ -32,21 +32,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
     public class SoilLayerTest
     {
         [Test]
-        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SoilLayer(new Point2D[0], new Point2D[0][], null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("properties", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_OuterRingNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilLayer(null, new Point2D[0][], new SoilLayer.ConstructionProperties());
+            TestDelegate call = () => new SoilLayer(null, new SoilLayer.ConstructionProperties(), Enumerable.Empty<SoilLayer>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,47 +43,47 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         }
 
         [Test]
-        public void Constructor_HolesNull_ThrowsArgumentNullException()
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilLayer(new Point2D[0], null, new SoilLayer.ConstructionProperties());
+            TestDelegate call = () => new SoilLayer(new Point2D[0], null, Enumerable.Empty<SoilLayer>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("holes", exception.ParamName);
+            Assert.AreEqual("properties", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_NestedLayersNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SoilLayer(new Point2D[0], new SoilLayer.ConstructionProperties(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("nestedLayers", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WithAllParameters_ExpectedValues()
         {
             // Setup
-            var outerRing = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            };
-            var holes = new[]
-            {
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }
-            };
+            var outerRing = new Point2D[0];
+            var nestedLayers = new SoilLayer[0];
 
             // Call
-            var layer = new SoilLayer(outerRing, holes, new SoilLayer.ConstructionProperties());
+            var layer = new SoilLayer(outerRing, new SoilLayer.ConstructionProperties(), nestedLayers);
 
             // Assert
             Assert.AreSame(outerRing, layer.OuterRing);
-            CollectionAssert.AreEqual(holes, layer.Holes);
+            Assert.AreSame(nestedLayers, layer.NestedLayers);
         }
 
         [Test]
         public void Constructor_EmptyConstructionProperties_ExpectedValues()
         {
             // Call
-            var layer = new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties());
+            var layer = new SoilLayer(new Point2D[0], new SoilLayer.ConstructionProperties(), Enumerable.Empty<SoilLayer>());
 
             // Assert
             Assert.IsFalse(layer.IsAquifer);
@@ -132,22 +121,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             var waterPressureInterpolationModel = random.NextEnumValue<WaterPressureInterpolationModel>();
 
             // Call
-            var layer = new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties
-            {
-                MaterialName = materialName,
-                IsAquifer = isAquifer,
-                UsePop = usePop,
-                ShearStrengthModel = shearStrengthModel,
-                AbovePhreaticLevel = abovePhreaticLevel,
-                BelowPhreaticLevel = belowPhreaticLevel,
-                Cohesion = cohesion,
-                FrictionAngle = frictionAngle,
-                ShearStrengthRatio = shearStrengthRatio,
-                StrengthIncreaseExponent = strengthIncreaseExponent,
-                Pop = pop,
-                DilatancyType = dilatancyType,
-                WaterPressureInterpolationModel = waterPressureInterpolationModel
-            });
+            var layer = new SoilLayer(new Point2D[0],
+                                      new SoilLayer.ConstructionProperties
+                                      {
+                                          MaterialName = materialName,
+                                          IsAquifer = isAquifer,
+                                          UsePop = usePop,
+                                          ShearStrengthModel = shearStrengthModel,
+                                          AbovePhreaticLevel = abovePhreaticLevel,
+                                          BelowPhreaticLevel = belowPhreaticLevel,
+                                          Cohesion = cohesion,
+                                          FrictionAngle = frictionAngle,
+                                          ShearStrengthRatio = shearStrengthRatio,
+                                          StrengthIncreaseExponent = strengthIncreaseExponent,
+                                          Pop = pop,
+                                          DilatancyType = dilatancyType,
+                                          WaterPressureInterpolationModel = waterPressureInterpolationModel
+                                      },
+                                      Enumerable.Empty<SoilLayer>());
 
             // Assert
             Assert.AreEqual(materialName, layer.MaterialName);

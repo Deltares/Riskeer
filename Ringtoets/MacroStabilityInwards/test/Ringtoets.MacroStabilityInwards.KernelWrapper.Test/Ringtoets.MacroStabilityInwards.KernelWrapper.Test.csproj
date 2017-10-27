@@ -85,6 +85,8 @@
     <Compile Include="Calculators\Waternet\WaternetCalculatorTest.cs" />
     <Compile Include="Calculators\Waternet\WaternetDailyCalculatorTest.cs" />
     <Compile Include="Calculators\Waternet\WaternetExtremeCalculatorTest.cs" />
+    <Compile Include="Creators\Input\LayerWithSoilCreatorTest.cs" />
+    <Compile Include="Creators\Input\LayerWithSoilTest.cs" />
     <Compile Include="Creators\Input\SlipPlaneUpliftVanCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilProfileCreatorTest.cs" />
     <Compile Include="Creators\Input\StabilityLocationCreatorHelperTest.cs" />
@@ -93,7 +95,6 @@
     <Compile Include="Calculators\UpliftVan\Input\UpliftVanCalculatorInputTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanCalculatorResultTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanCalculatorTest.cs" />
-    <Compile Include="Creators\Input\SoilCreatorTest.cs" />
     <Compile Include="Creators\Input\SoilModelCreatorTest.cs" />
     <Compile Include="Calculators\UpliftVan\UpliftVanGridTest.cs" />
     <Compile Include="Calculators\UpliftVan\Output\UpliftVanSliceResultTest.cs" />

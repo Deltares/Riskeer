@@ -93,35 +93,35 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
-                    new SoilLayer.ConstructionProperties()),
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
                     new SoilLayer.ConstructionProperties
                     {
                         IsAquifer = true
-                    }),
+                    },
+                    Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
-                    new SoilLayer.ConstructionProperties()),
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
                         surfaceLine.LocalGeometry.Last()
                     },
-                    Enumerable.Empty<Point2D[]>(),
-                    new SoilLayer.ConstructionProperties())
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>())
             }, new[]
             {
                 new PreconsolidationStress(new Point2D(0, 0), 1.1)

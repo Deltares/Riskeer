@@ -24,17 +24,18 @@ using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Primitives.Test
+namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilProfile2DLayerHelperTest
+    public class MacroStabilityInwardsSoilProfile2DLayersHelperTest
     {
         [Test]
         public void GetLayersRecursively_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilProfile2DLayerHelper.GetLayersRecursively(null);
+            TestDelegate call = () => MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -98,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
 
             // Call
-            IEnumerable<IMacroStabilityInwardsSoilLayer2D> flatLayers = MacroStabilityInwardsSoilProfile2DLayerHelper.GetLayersRecursively(layers);
+            IEnumerable<IMacroStabilityInwardsSoilLayer2D> flatLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
 
             // Assert
             CollectionAssert.AreEqual(new[]

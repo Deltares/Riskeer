@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.AreEqual(1, profile.Layers.Count());
             SoilLayer layer = profile.Layers.First();
             CollectionAssert.IsEmpty(layer.OuterRing);
-            CollectionAssert.IsEmpty(layer.Holes);
+            CollectionAssert.IsEmpty(layer.NestedLayers);
             CollectionAssert.IsEmpty(profile.PreconsolidationStresses);
         }
     }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using NUnit.Framework;
@@ -32,7 +31,6 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waterne
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
@@ -72,18 +70,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             new WaternetDailyCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
-            Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
-                input.SoilProfile.Layers
-                     .Zip(soils, (layer, soil) => new
-                     {
-                         layer,
-                         soil
-                     })
-                     .ToDictionary(x => x.layer, x => x.soil);
+            LayerWithSoil[] layersWithSoils = LayerWithSoilCreator.Create(input.SoilProfile);
 
-            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), waternetKernel.SoilModel);
-            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), waternetKernel.SoilProfile);
+            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoils.Select(lws => lws.Soil).ToArray()), waternetKernel.SoilModel);
+            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoils), waternetKernel.SoilProfile);
             KernelInputAssert.AssertStabilityLocations(WaternetStabilityLocationCreator.Create(input), waternetKernel.Location);
             KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), waternetKernel.SurfaceLine);
         }

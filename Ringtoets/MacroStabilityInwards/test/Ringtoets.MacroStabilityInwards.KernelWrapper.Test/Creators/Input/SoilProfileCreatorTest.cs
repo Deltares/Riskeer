@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -31,8 +29,6 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
-using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
@@ -41,60 +37,26 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
     public class SoilProfileCreatorTest
     {
         [Test]
-        public void Create_SoilProfileNull_ThrowsArgumentNullException()
+        public void Create_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null, new Dictionary<SoilLayer, Soil>());
+            TestDelegate call = () => SoilProfileCreator.Create(null, Enumerable.Empty<LayerWithSoil>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("soilProfile", exception.ParamName);
+            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
         }
 
         [Test]
         public void Create_SoilDictionaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(new SoilProfile(Enumerable.Empty<SoilLayer>(),
-                                                                                Enumerable.Empty<PreconsolidationStress>()),
+            TestDelegate call = () => SoilProfileCreator.Create(Enumerable.Empty<PreconsolidationStress>(),
                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("layersWithSoils", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_InvalidWaterPressureInterpolationModel_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            var layer = new SoilLayer(
-                new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                }, Enumerable.Empty<Point2D[]>(),
-                new SoilLayer.ConstructionProperties
-                {
-                    WaterPressureInterpolationModel = (WaterPressureInterpolationModel) 99
-                });
-
-            var soilProfile = new SoilProfile(new[]
-            {
-                layer
-            }, Enumerable.Empty<PreconsolidationStress>());
-
-            // Call
-            TestDelegate test = () => SoilProfileCreator.Create(soilProfile, new Dictionary<SoilLayer, Soil>
-            {
-                {
-                    layer, new Soil()
-                }
-            });
-
-            // Assert
-            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{typeof(WaterPressureInterpolationModel).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            Assert.AreEqual("layersWithSoil", exception.ParamName);
         }
 
         /// <remarks>
@@ -114,10 +76,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         ///   0    # # # # # # # # # # #       
         ///                                    
         ///        0 1 2 3 4 5 6 7 8 9 10      
-        /// </remarks>>
-        [TestCase(WaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
-        [TestCase(WaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
-        public void Create_WithAllData_ReturnSoilProfile2D(WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel waterpressureInterpolationModel)
+        /// </remarks>
+        [Test]
+        public void Create_WithAllData_ReturnSoilProfile2D()
         {
             // Setup
             var random = new Random(11);
@@ -157,57 +118,71 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 new Point2D(8, 7)
             };
 
-            var layer1 = new SoilLayer(
-                layer1Points, Enumerable.Empty<Point2D[]>(),
-                new SoilLayer.ConstructionProperties
-                {
-                    MaterialName = "Clay",
-                    IsAquifer = false,
-                    WaterPressureInterpolationModel = waterPressureInterpolationModel
-                });
-
-            var layer2 = new SoilLayer(
-                layer2Points, new[]
-                {
-                    layer2Hole1Points,
-                    layer2Hole2Points
-                },
-                new SoilLayer.ConstructionProperties
-                {
-                    MaterialName = "Sand",
-                    IsAquifer = true,
-                    WaterPressureInterpolationModel = waterPressureInterpolationModel
-                });
-
             var soil1 = new Soil
             {
-                Name = layer1.MaterialName
+                Name = "Clay"
             };
 
             var soil2 = new Soil
             {
-                Name = layer2.MaterialName
+                Name = "Sand"
             };
 
-            var soilProfile = new SoilProfile(new[]
+            var soil3 = new Soil
             {
-                layer1,
-                layer2
-            }, new[]
+                Name = "Nested clay"
+            };
+
+            var soil4 = new Soil
             {
-                new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
-            });
+                Name = "Nested sand"
+            };
+
+            var layerWithSoil1 = new LayerWithSoil(
+                layer1Points,
+                new Point2D[0][],
+                soil1,
+                false,
+                WaterpressureInterpolationModel.Automatic);
+
+            var layerWithSoil2 = new LayerWithSoil(
+                layer2Points,
+                new[]
+                {
+                    layer2Hole1Points,
+                    layer2Hole2Points
+                },
+                soil2,
+                true,
+                WaterpressureInterpolationModel.Hydrostatic);
+
+            var layerWithSoil3 = new LayerWithSoil(
+                layer2Hole1Points,
+                new Point2D[0][],
+                soil3,
+                false,
+                WaterpressureInterpolationModel.Automatic);
+
+            var layerWithSoil4 = new LayerWithSoil(
+                layer2Hole2Points,
+                new Point2D[0][],
+                soil4,
+                true,
+                WaterpressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(soilProfile, new Dictionary<SoilLayer, Soil>
-            {
+            SoilProfile2D profile = SoilProfileCreator.Create(
+                new[]
                 {
-                    layer1, soil1
+                    new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
                 },
+                new[]
                 {
-                    layer2, soil2
-                }
-            });
+                    layerWithSoil1,
+                    layerWithSoil2,
+                    layerWithSoil3,
+                    layerWithSoil4
+                });
 
             // Assert
             Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
@@ -218,17 +193,31 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
             Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
 
-            Assert.AreEqual(2, profile.Surfaces.Count);
+            Assert.AreEqual(4, profile.Surfaces.Count);
+
             SoilLayer2D surface1 = profile.Surfaces.ElementAt(0);
             Assert.AreSame(soil1, surface1.Soil);
-            Assert.AreEqual(layer1.MaterialName, surface1.Name);
-            Assert.AreEqual(layer1.IsAquifer, surface1.IsAquifer);
-            Assert.AreEqual(waterpressureInterpolationModel, surface1.WaterpressureInterpolationModel);
+            Assert.AreEqual(soil1.Name, surface1.Name);
+            Assert.AreEqual(layerWithSoil1.IsAquifer, surface1.IsAquifer);
+            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterpressureInterpolationModel);
+
             SoilLayer2D surface2 = profile.Surfaces.ElementAt(1);
             Assert.AreSame(soil2, surface2.Soil);
-            Assert.AreEqual(layer2.MaterialName, surface2.Name);
-            Assert.AreEqual(layer2.IsAquifer, surface2.IsAquifer);
-            Assert.AreEqual(waterpressureInterpolationModel, surface2.WaterpressureInterpolationModel);
+            Assert.AreEqual(soil2.Name, surface2.Name);
+            Assert.AreEqual(layerWithSoil2.IsAquifer, surface2.IsAquifer);
+            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterpressureInterpolationModel);
+
+            SoilLayer2D surface3 = profile.Surfaces.ElementAt(2);
+            Assert.AreSame(soil3, surface3.Soil);
+            Assert.AreEqual(soil3.Name, surface3.Name);
+            Assert.AreEqual(layerWithSoil3.IsAquifer, surface3.IsAquifer);
+            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterpressureInterpolationModel);
+
+            SoilLayer2D surface4 = profile.Surfaces.ElementAt(3);
+            Assert.AreSame(soil4, surface4.Soil);
+            Assert.AreEqual(soil4.Name, surface4.Name);
+            Assert.AreEqual(layerWithSoil4.IsAquifer, surface4.IsAquifer);
+            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterpressureInterpolationModel);
 
             var outerLoopPoint1 = new WtiStabilityPoint2D(0, 0);
             var outerLoopPoint2 = new WtiStabilityPoint2D(0, 3);

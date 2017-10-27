@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -55,57 +56,19 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var random = new Random(22);
 
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRing(21),
-                                                                 new[]
-                                                                 {
-                                                                     CreateRing(11),
-                                                                     CreateRing(22)
-                                                                 })
+            MacroStabilityInwardsSoilLayer2D soilLayer1 = CreateRandomSoilLayer(22, new[]
             {
-                Data =
+                CreateRandomSoilLayer(23, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
+                CreateRandomSoilLayer(24, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
+            });
+
+            MacroStabilityInwardsSoilLayer2D soilLayer2 = CreateRandomSoilLayer(25, new[]
+            {
+                CreateRandomSoilLayer(26, new[]
                 {
-                    UsePop = random.NextBoolean(),
-                    IsAquifer = random.NextBoolean(),
-                    MaterialName = "Test",
-                    AbovePhreaticLevel =
-                    {
-                        Mean = (RoundedDouble) 10,
-                        CoefficientOfVariation = (RoundedDouble) 0.3,
-                        Shift = (RoundedDouble) 0.1
-                    },
-                    BelowPhreaticLevel =
-                    {
-                        Mean = (RoundedDouble) 5,
-                        CoefficientOfVariation = (RoundedDouble) 0.8,
-                        Shift = (RoundedDouble) 0.3
-                    },
-                    Cohesion =
-                    {
-                        Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    },
-                    FrictionAngle =
-                    {
-                        Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    },
-                    StrengthIncreaseExponent =
-                    {
-                        Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    },
-                    ShearStrengthRatio =
-                    {
-                        Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    },
-                    Pop =
-                    {
-                        Mean = random.NextRoundedDouble(),
-                        CoefficientOfVariation = random.NextRoundedDouble()
-                    }
-                }
-            };
+                    CreateRandomSoilLayer(27, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
+                })
+            });
 
             var preconsolidationStress = new MacroStabilityInwardsPreconsolidationStress(new Point2D(random.NextDouble(), random.NextDouble()),
                                                                                          new VariationCoefficientLogNormalDistribution
@@ -117,7 +80,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
                 new[]
                 {
-                    soilLayer
+                    soilLayer1,
+                    soilLayer2
                 },
                 new[]
                 {
@@ -178,6 +142,63 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
 
             // Assert
             Assert.AreEqual(expectedShearStrengthModel, soilProfile.Layers.First().ShearStrengthModel);
+        }
+
+        private static MacroStabilityInwardsSoilLayer2D CreateRandomSoilLayer(int seed, IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers)
+        {
+            return new MacroStabilityInwardsSoilLayer2D(CreateRing(seed),
+                                                        Enumerable.Empty<Ring>(),
+                                                        CreateRandomSoilLayerData(seed),
+                                                        nestedLayers);
+        }
+
+        private static MacroStabilityInwardsSoilLayerData CreateRandomSoilLayerData(int seed)
+        {
+            var random = new Random(seed);
+
+            return new MacroStabilityInwardsSoilLayerData
+            {
+                UsePop = random.NextBoolean(),
+                IsAquifer = random.NextBoolean(),
+                MaterialName = "Test",
+                AbovePhreaticLevel =
+                {
+                    Mean = random.NextRoundedDouble(1, 10),
+                    CoefficientOfVariation = random.NextRoundedDouble(0, 1),
+                    Shift = random.NextRoundedDouble(0, 1)
+                },
+                BelowPhreaticLevel =
+                {
+                    Mean = random.NextRoundedDouble(1, 10),
+                    CoefficientOfVariation = random.NextRoundedDouble(0, 1),
+                    Shift = random.NextRoundedDouble(0, 1)
+                },
+                Cohesion =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                FrictionAngle =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                StrengthIncreaseExponent =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                ShearStrengthRatio =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                },
+                Pop =
+                {
+                    Mean = random.NextRoundedDouble(),
+                    CoefficientOfVariation = random.NextRoundedDouble()
+                }
+            };
         }
 
         private static Ring CreateRing(int seed)

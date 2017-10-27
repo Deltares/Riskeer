@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
                     surfaceLine.LocalGeometry.First(),
                     surfaceLine.LocalGeometry.Last()
                 }, layer.OuterRing);
-                CollectionAssert.IsEmpty(layer.Holes);
+                CollectionAssert.IsEmpty(layer.NestedLayers);
             }
 
             CollectionAssert.AreEqual(new[]

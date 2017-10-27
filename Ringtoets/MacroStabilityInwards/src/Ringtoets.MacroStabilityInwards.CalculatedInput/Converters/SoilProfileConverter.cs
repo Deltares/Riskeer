@@ -78,8 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
             return layers.Select(l =>
             {
                 IMacroStabilityInwardsSoilLayerData data = l.Data;
+
                 return new SoilLayer(RingToPoints(l.OuterRing),
-                                     l.Holes.Select(RingToPoints).ToArray(),
                                      new SoilLayer.ConstructionProperties
                                      {
                                          MaterialName = data.MaterialName,
@@ -95,7 +95,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
                                          Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(data).GetDesignValue(),
                                          DilatancyType = DilatancyType.Zero,
                                          WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic
-                                     });
+                                     },
+                                     ConvertLayers(l.NestedLayers));
             }).ToArray();
         }
 

@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
@@ -110,22 +108,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
-            Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
-                input.SoilProfile.Layers
-                     .Zip(soils, (layer, soil) => new
-                     {
-                         layer,
-                         soil
-                     })
-                     .ToDictionary(x => x.layer, x => x.soil);
+            LayerWithSoil[] layersWithSoils = LayerWithSoilCreator.Create(input.SoilProfile);
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
 
             upliftVanKernel.MoveGrid = input.MoveGrid;
             upliftVanKernel.MaximumSliceWidth = input.MaximumSliceWidth;
-            upliftVanKernel.SoilModel = SoilModelCreator.Create(soils);
-            upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile, layersWithSoils);
+            upliftVanKernel.SoilModel = SoilModelCreator.Create(layersWithSoils.Select(lws => lws.Soil).ToArray());
+            upliftVanKernel.SoilProfile = SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoils);
             upliftVanKernel.LocationExtreme = UpliftVanStabilityLocationCreator.CreateExtreme(input);
             upliftVanKernel.LocationDaily = UpliftVanStabilityLocationCreator.CreateDaily(input);
             upliftVanKernel.SurfaceLine = SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection);

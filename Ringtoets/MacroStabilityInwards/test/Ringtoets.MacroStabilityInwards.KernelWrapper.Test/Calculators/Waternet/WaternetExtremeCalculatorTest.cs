@@ -72,18 +72,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waterne
             new WaternetExtremeCalculator(input, testMacroStabilityInwardsKernelFactory).Calculate();
 
             // Assert
-            Soil[] soils = SoilCreator.Create(input.SoilProfile);
-            Dictionary<SoilLayer, Soil> layersWithSoils =
-                input.SoilProfile.Layers
-                     .Zip(soils, (layer, soil) => new
-                     {
-                         layer,
-                         soil
-                     })
-                     .ToDictionary(x => x.layer, x => x.soil);
+            LayerWithSoil[] layersWithSoils = LayerWithSoilCreator.Create(input.SoilProfile);
 
-            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(soils), waternetKernel.SoilModel);
-            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile, layersWithSoils), waternetKernel.SoilProfile);
+            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoils.Select(lws => lws.Soil).ToArray()), waternetKernel.SoilModel);
+            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoils), waternetKernel.SoilProfile);
             KernelInputAssert.AssertStabilityLocations(WaternetStabilityLocationCreator.Create(input), waternetKernel.Location);
             KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), waternetKernel.SurfaceLine);
         }

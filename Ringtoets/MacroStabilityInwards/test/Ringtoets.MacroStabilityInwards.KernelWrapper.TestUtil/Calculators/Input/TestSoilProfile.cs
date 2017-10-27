@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
@@ -34,7 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Inp
         /// </summary>
         public TestSoilProfile() : base(new[]
         {
-            new SoilLayer(new Point2D[0], new Point2D[0][], new SoilLayer.ConstructionProperties())
+            new SoilLayer(new Point2D[0], new SoilLayer.ConstructionProperties(), Enumerable.Empty<SoilLayer>())
         }, new PreconsolidationStress[0]) {}
     }
 }

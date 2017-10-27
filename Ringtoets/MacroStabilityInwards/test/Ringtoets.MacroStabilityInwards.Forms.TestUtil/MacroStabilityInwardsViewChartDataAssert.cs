@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
@@ -69,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var soilProfileChartData = (ChartDataCollection) actual;
 
             IMacroStabilityInwardsSoilLayer2D[] layers = soilProfileUnderSurface?.Layers != null
-                                                             ? MacroStabilityInwardsSoilProfile2DLayerHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
+                                                             ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
                                                              : new IMacroStabilityInwardsSoilLayer2D[0];
             int expectedLayerCount = layers.Length;
 

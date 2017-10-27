@@ -21,14 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Deltares.WTIStability.Data.Geo;
 using Deltares.WTIStability.Data.Standard;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using SoilLayer = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
-using SoilProfile = Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
 
 namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
@@ -39,43 +36,40 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
     internal static class SoilProfileCreator
     {
         /// <summary>
-        /// Creates a <see cref="SoilProfile2D"/> with the given <paramref name="layersWithSoils"/>
-        /// which can be used in a calculation.
+        /// Creates a <see cref="SoilProfile2D"/> based on <paramref name="preconsolidationStresses"/> and
+        /// <paramref name="layersWithSoil"/>.
         /// </summary>
-        /// <param name="soilProfile">The soil profile to create the <see cref="SoilProfile2D"/> for.</param>
-        /// <param name="layersWithSoils">The data to use in the <see cref="SoilProfile2D"/>.</param>
-        /// <returns>A new <see cref="SoilProfile2D"/> with the <paramref name="layersWithSoils"/>.</returns>
+        /// <param name="preconsolidationStresses">The preconsolidation stresses to use in the <see cref="SoilProfile2D"/>.</param>
+        /// <param name="layersWithSoil">The layer data to use in the <see cref="SoilProfile2D"/>.</param>
+        /// <returns>A new <see cref="SoilProfile2D"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SoilLayer.WaterPressureInterpolationModel"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="SoilLayer.WaterPressureInterpolationModel"/>
-        /// is a valid value but unsupported.</exception>
-        public static SoilProfile2D Create(SoilProfile soilProfile,
-                                           IDictionary<SoilLayer, Soil> layersWithSoils)
+        public static SoilProfile2D Create(IEnumerable<PreconsolidationStress> preconsolidationStresses,
+                                           IEnumerable<LayerWithSoil> layersWithSoil)
         {
-            if (soilProfile == null)
+            if (preconsolidationStresses == null)
             {
-                throw new ArgumentNullException(nameof(soilProfile));
+                throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
-            if (layersWithSoils == null)
+            if (layersWithSoil == null)
             {
-                throw new ArgumentNullException(nameof(layersWithSoils));
+                throw new ArgumentNullException(nameof(layersWithSoil));
             }
 
             var profile = new SoilProfile2D();
-            profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(soilProfile));
+            profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(preconsolidationStresses));
 
             var alreadyCreatedPoints = new List<WtiStabilityPoint2D>();
             var alreadyCreatedCurves = new List<GeometryCurve>();
+            var alreadyCreatedLoops = new List<GeometryLoop>();
 
-            foreach (KeyValuePair<SoilLayer, Soil> layerWithSoil in layersWithSoils)
+            foreach (LayerWithSoil layerWithSoil in layersWithSoil)
             {
                 profile.Surfaces.Add(new SoilLayer2D
                 {
-                    IsAquifer = layerWithSoil.Key.IsAquifer,
-                    Soil = layerWithSoil.Value,
-                    GeometrySurface = CreateGeometrySurface(layerWithSoil.Key, alreadyCreatedPoints, alreadyCreatedCurves),
-                    WaterpressureInterpolationModel = ConvertWaterPressureInterpolationModel(layerWithSoil.Key.WaterPressureInterpolationModel)
+                    IsAquifer = layerWithSoil.IsAquifer,
+                    Soil = layerWithSoil.Soil,
+                    GeometrySurface = CreateGeometrySurface(layerWithSoil, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops),
+                    WaterpressureInterpolationModel = layerWithSoil.WaterPressureInterpolationModel
                 });
             }
 
@@ -84,9 +78,9 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             return profile;
         }
 
-        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(SoilProfile soilProfile)
+        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
-            return soilProfile.PreconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
+            return preconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
             {
                 StressValue = preconsolidationStress.Stress,
                 X = preconsolidationStress.Coordinate.X,
@@ -94,23 +88,31 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             }).ToArray();
         }
 
-        private static GeometrySurface CreateGeometrySurface(SoilLayer layer, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
+        private static GeometrySurface CreateGeometrySurface(LayerWithSoil layer, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
         {
             var surface = new GeometrySurface
             {
-                OuterLoop = CreateGeometryLoop(layer.OuterRing, alreadyCreatedPoints, alreadyCreatedCurves)
+                OuterLoop = CreateGeometryLoop(layer.OuterRing, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops)
             };
 
-            surface.InnerLoops.AddRange(layer.Holes.Select(h => CreateGeometryLoop(h, alreadyCreatedPoints, alreadyCreatedCurves)).ToArray());
+            surface.InnerLoops.AddRange(layer.InnerRings.Select(ir => CreateGeometryLoop(ir, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops)).ToArray());
 
             return surface;
         }
 
-        private static GeometryLoop CreateGeometryLoop(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
+        private static GeometryLoop CreateGeometryLoop(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
         {
-            var loop = new GeometryLoop();
+            GeometryLoop loop = alreadyCreatedLoops.FirstOrDefault(l => l.CurveList.Select(cl => cl.HeadPoint.X).SequenceEqual(points.Select(p => p.X))
+                                                                        && l.CurveList.Select(cl => cl.HeadPoint.Z).SequenceEqual(points.Select(p => p.Y)));
 
-            loop.CurveList.AddRange(CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves));
+            if (loop == null)
+            {
+                loop = new GeometryLoop();
+
+                loop.CurveList.AddRange(CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves));
+
+                alreadyCreatedLoops.Add(loop);
+            }
 
             return loop;
         }
@@ -172,10 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             geometryData.Surfaces.AddRange(profile.Surfaces
                                                   .Select(s => s.GeometrySurface));
             geometryData.Loops.AddRange(geometryData.Surfaces
-                                                    .SelectMany(gs => new[]
-                                                    {
-                                                        gs.OuterLoop
-                                                    }.Concat(gs.InnerLoops)));
+                                                    .Select(gs => gs.OuterLoop));
             geometryData.Curves.AddRange(geometryData.Loops
                                                      .SelectMany(l => l.CurveList)
                                                      .Distinct());
@@ -189,35 +188,6 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             geometryData.Rebox();
 
             return geometryData;
-        }
-
-        /// <summary>
-        /// Converts a <see cref="WaterPressureInterpolationModel"/> into a <see cref="WaterpressureInterpolationModel"/>.
-        /// </summary>
-        /// <param name="waterPressureInterpolationModel">The <see cref="WaterPressureInterpolationModel"/> to convert.</param>
-        /// <returns>A <see cref="WaterpressureInterpolationModel"/> based on <paramref name="waterPressureInterpolationModel"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waterPressureInterpolationModel"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="waterPressureInterpolationModel"/>
-        /// is a valid value but unsupported.</exception>
-        private static WaterpressureInterpolationModel ConvertWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel)
-        {
-            if (!Enum.IsDefined(typeof(WaterPressureInterpolationModel), waterPressureInterpolationModel))
-            {
-                throw new InvalidEnumArgumentException(nameof(waterPressureInterpolationModel),
-                                                       (int) waterPressureInterpolationModel,
-                                                       typeof(WaterPressureInterpolationModel));
-            }
-
-            switch (waterPressureInterpolationModel)
-            {
-                case WaterPressureInterpolationModel.Automatic:
-                    return WaterpressureInterpolationModel.Automatic;
-                case WaterPressureInterpolationModel.Hydrostatic:
-                    return WaterpressureInterpolationModel.Hydrostatic;
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }
