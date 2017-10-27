@@ -107,13 +107,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             {
                 if (i < phreaticLines.Length)
                 {
-                    ChartLineData phreaticLineChartData = (ChartLineData) waternetChartData[i];
+                    var phreaticLineChartData = (ChartLineData) waternetChartData[i];
                     Assert.AreEqual(phreaticLines[i].Name, phreaticLineChartData.Name);
                     Assert.AreEqual(phreaticLines[i].Geometry, phreaticLineChartData.Points);
                 }
                 else
                 {
-                    ChartMultipleAreaData waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
+                    var waternetLineChartData = (ChartMultipleAreaData) waternetChartData[i];
                     MacroStabilityInwardsWaternetLine waternetLine = waternetLines[i - waternetLines.Length];
                     Assert.AreEqual(waternetLine.Name, waternetLineChartData.Name);
                     Assert.IsTrue(waternetLineChartData.HasData);

@@ -166,6 +166,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
 
             CollectionAssert.IsEmpty(waternetExtremeData.Collection);
             CollectionAssert.IsEmpty(waternetDailyData.Collection);
+
+            Assert.AreEqual("Zones extreem", waternetExtremeData.Name);
+            Assert.AreEqual("Zones dagelijks", waternetDailyData.Name);
         }
 
         /// <summary>
@@ -215,8 +218,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             var dikeToeAtRiverData = (ChartPointData) chartDataArray[dikeToeAtRiverIndex];
             var dikeTopAtRiverData = (ChartPointData) chartDataArray[dikeTopAtRiverIndex];
             var surfaceLevelOutsideData = (ChartPointData) chartDataArray[surfaceLevelOutsideIndex];
-            var waternetZonesExtremeData = (ChartDataCollection) chartDataArray[waternetZonesExtremeIndex];
-            var waternetZonesDailyData = (ChartDataCollection) chartDataArray[waternetZonesDailyIndex];
 
             CollectionAssert.IsEmpty(surfaceLineData.Points);
             CollectionAssert.IsEmpty(surfaceLevelInsideData.Points);
@@ -246,8 +247,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverData.Name);
             Assert.AreEqual("Kruin buitentalud", dikeTopAtRiverData.Name);
             Assert.AreEqual("Maaiveld buitenwaarts", surfaceLevelOutsideData.Name);
-            Assert.AreEqual("Zones extreem", waternetZonesExtremeData.Name);
-            Assert.AreEqual("Zones dagelijks", waternetZonesDailyData.Name);
 
             AssertEmptyOutputChartData(chartDataCollection);
         }
