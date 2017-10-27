@@ -103,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+                calculation.Name = "Initial name";
 
                 // Call
                 view.Data = calculation;
@@ -110,6 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.AreSame(calculation, view.Data);
                 Assert.AreSame(calculation, chartControl.Data);
+                Assert.AreSame(calculation.Name, chartControl.Chart.ChartTitle);
             }
         }
 
@@ -119,6 +121,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+            calculation.Name = "Initial name";
 
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView
@@ -141,6 +144,72 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.IsNull(view.Data);
                 Assert.IsNull(chartControl.Data);
+                Assert.AreEqual(string.Empty, chartControl.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                const string initialName = "Initial name";
+                const string updatedName = "Updated name";
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = initialName
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+
+                calculation.Name = updatedName;
+
+                // Call
+                calculation.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(updatedName, view.Chart.ChartTitle);
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_OtherCalculationUpdated_ChartTitleNotUpdated()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsOutputView())
+            {
+                const string initialName = "Initial name";
+                const string updatedName = "Updated name";
+
+                var calculation = new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = initialName
+                };
+
+                view.Data = calculation;
+
+                // Precondition
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
+
+                var calculation2 = new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = initialName
+                };
+
+                view.Data = calculation2;
+
+                calculation.Name = updatedName;
+
+                // Call
+                calculation.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(initialName, view.Chart.ChartTitle);
             }
         }
 

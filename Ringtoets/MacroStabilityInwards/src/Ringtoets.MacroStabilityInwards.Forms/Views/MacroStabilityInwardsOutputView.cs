@@ -57,6 +57,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 data = value as MacroStabilityInwardsCalculationScenario;
 
+                if (data != null)
+                {
+                    UpdateChartTitle();
+                }
+                else
+                {
+                    macroStabilityInwardsOutputChartControl.Chart.ChartTitle = string.Empty;
+                }
+
                 outputObserver.Observable = data;
                 inputObserver.Observable = data?.InputParameters;
 
@@ -87,6 +96,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void UpdateChartData()
         {
             macroStabilityInwardsOutputChartControl.UpdateChartData();
+            UpdateChartTitle();
+        }
+
+        private void UpdateChartTitle()
+        {
+            macroStabilityInwardsOutputChartControl.Chart.ChartTitle = data.Name;
         }
     }
 }
