@@ -759,7 +759,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cohesie [kN/m³].
+        ///   Looks up a localized string similar to Cohesie [kN/m²].
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion {
             get {

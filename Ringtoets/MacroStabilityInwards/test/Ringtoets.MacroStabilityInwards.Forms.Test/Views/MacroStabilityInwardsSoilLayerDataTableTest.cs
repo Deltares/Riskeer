@@ -67,7 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewColumn shearStrengthModelColumn = table.GetColumnFromIndex(shearStrengthModelColumnIndex);
                 Assert.AreEqual("Schuifsterkte model", shearStrengthModelColumn.HeaderText);
                 DataGridViewColumn cohesionColumn = table.GetColumnFromIndex(cohesionColumnIndex);
-                Assert.AreEqual("Cohesie [kN/m³]", cohesionColumn.HeaderText);
+                Assert.AreEqual("Cohesie [kN/m²]", cohesionColumn.HeaderText);
                 DataGridViewColumn frictionAngleColumn = table.GetColumnFromIndex(frictionAngleColumnIndex);
                 Assert.AreEqual("Wrijvingshoek [°]", frictionAngleColumn.HeaderText);
                 DataGridViewColumn shrearStrengthRatioColumn = table.GetColumnFromIndex(shrearStrengthRatioColumnIndex);

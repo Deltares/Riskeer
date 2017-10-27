@@ -245,7 +245,7 @@
     <value>Schuifsterkte model</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_Cohesion" xml:space="preserve">
-    <value>Cohesie [kN/m³]</value>
+    <value>Cohesie [kN/m²]</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerDataTable_ColumnHeader_FrictionAngle" xml:space="preserve">
     <value>Wrijvingshoek [°]</value>
