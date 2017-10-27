@@ -286,6 +286,59 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                        : GetWaternetZoneWithSurfaceLineIntersection(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry);
         }
 
+        /// <summary>
+        /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="grid">The grid to create the grid points for.</param>
+        /// <param name="gridDeterminationType">The grid determination type.</param>
+        /// <returns>An array of interpolated points in 2D space based on the provided 
+        /// <paramref name="grid"/> or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="grid"/> is <c>null</c>;</item>
+        /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
+        /// <item>The grid boundaries are <see cref="double.NaN"/>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
+        {
+            return gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic
+                       ? new Point2D[0]
+                       : CreateGridPoints(grid);
+        }
+
+        /// <summary>
+        /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
+        /// </summary>
+        /// <param name="grid">The grid to create the grid points for.</param>
+        /// <returns>An array of interpolated points in 2D space based on the provided 
+        /// <paramref name="grid"/> or an empty array when:
+        /// <list type="bullet">
+        /// <item><paramref name="grid"/> is <c>null</c>;</item>
+        /// <item>The grid boundaries are <see cref="double.NaN"/>.</item>
+        /// </list>
+        /// </returns>
+        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid)
+        {
+            if (grid == null || !AreGridSettingsValid(grid))
+            {
+                return new Point2D[0];
+            }
+
+            var points = new List<Point2D>();
+            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterPolatedVerticalPositions(grid.ZBottom,
+                                                                                                        grid.ZTop,
+                                                                                                        grid.NumberOfVerticalPoints);
+            foreach (RoundedDouble interPolatedVerticalPosition in interPolatedVerticalPositions)
+            {
+                points.AddRange(GetInterPolatedHorizontalPoints(grid.XLeft,
+                                                                grid.XRight,
+                                                                interPolatedVerticalPosition,
+                                                                grid.NumberOfHorizontalPoints));
+            }
+
+            return points.ToArray();
+        }
+
         #region SoilLayers and Surface Line Helpers
 
         private static Point2D[] GetLocalPointsFromGeometry(MacroStabilityInwardsSurfaceLine surfaceLine,
@@ -305,43 +358,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         #endregion
 
         #region Grid Helpers
-
-        /// <summary>
-        /// Creates grid points in 2D space based on the provided <paramref name="grid"/>.
-        /// </summary>
-        /// <param name="grid">The grid to create the grid points for.</param>
-        /// <param name="gridDeterminationType">The grid determination type.</param>
-        /// <returns>An array of interpolated points in 2D space based on the provided 
-        /// <paramref name="grid"/> or an empty array when:
-        /// <list type="bullet">
-        /// <item><paramref name="grid"/> is <c>null</c>;</item>
-        /// <item><paramref name="gridDeterminationType"/> is <see cref="MacroStabilityInwardsGridDeterminationType.Automatic"/>;</item>
-        /// <item>The grid boundaries are <see cref="double.NaN"/>.</item>
-        /// </list>
-        /// </returns>
-        public static Point2D[] CreateGridPoints(MacroStabilityInwardsGrid grid, MacroStabilityInwardsGridDeterminationType gridDeterminationType)
-        {
-            if (grid == null
-                || gridDeterminationType == MacroStabilityInwardsGridDeterminationType.Automatic
-                || !AreGridSettingsValid(grid))
-            {
-                return new Point2D[0];
-            }
-
-            var points = new List<Point2D>();
-            IEnumerable<RoundedDouble> interPolatedVerticalPositions = GetInterPolatedVerticalPositions(grid.ZBottom,
-                                                                                                        grid.ZTop,
-                                                                                                        grid.NumberOfVerticalPoints);
-            foreach (RoundedDouble interPolatedVerticalPosition in interPolatedVerticalPositions)
-            {
-                points.AddRange(GetInterPolatedHorizontalPoints(grid.XLeft,
-                                                                grid.XRight,
-                                                                interPolatedVerticalPosition,
-                                                                grid.NumberOfHorizontalPoints));
-            }
-
-            return points.ToArray();
-        }
 
         private static bool AreGridSettingsValid(MacroStabilityInwardsGrid grid)
         {

@@ -529,7 +529,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateGridPoints_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
+        public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
         {
             // Call
             Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null, MacroStabilityInwardsGridDeterminationType.Manual);
@@ -539,7 +539,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateGridPoints_MacroStabilityInwardsGridDeterminationTypeAutomatic_ReturnsEmptyPoints()
+        public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridDeterminationTypeAutomatic_ReturnsEmptyPoints()
         {
             // Setup
             var random = new Random(21);
@@ -560,8 +560,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsNoGridPoints))]
-        public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
+        [TestCaseSource(nameof(GetGridSettingsNoGridPoints), new object[] { "CreateGridPointsWithGridDeterminationType" })]
+        public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
         {
             // Call
             Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
@@ -571,8 +571,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnePoint))]
-        public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsOnePoint_AlwaysReturnsBottomLeftPoint(
+        [TestCaseSource(nameof(GetGridSettingsOnePoint), new object[] { "CreateGridPointsWithGridDeterminationType" })]
+        public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridNumberOfPointsOnePoint_AlwaysReturnsBottomLeftPoint(
             MacroStabilityInwardsGrid grid)
         {
             // Call
@@ -586,8 +586,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints))]
-        public void CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
+        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints), new object[] { "CreateGridPointsWithGridDeterminationType" })]
+        public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
             MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
@@ -598,8 +598,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints))]
-        public void CreateGridPoints_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
+        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints), new object[] { "CreateGridPointsWithGridDeterminationType" })]
+        public void CreateGridPointsWithGridDeterminationType_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
             (MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
@@ -610,12 +610,84 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWellDefinedGridSettings))]
-        public void CreateGridPoints_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
+        [TestCaseSource(nameof(GetWellDefinedGridSettings), new object[] { "CreateGridPointsWithGridDeterminationType" })]
+        public void CreateGridPointsWithGridDeterminationType_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
             MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
         {
             // Call
             Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid, MacroStabilityInwardsGridDeterminationType.Manual);
+
+            // Assert
+            AssertEqualPointCollection(expectedPoints, gridPoints);
+        }
+
+        [Test]
+        public void CreateGridPoints_MacroStabilityInwardsGridNull_ReturnsEmptyPoints()
+        {
+            // Call
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(gridPoints);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetGridSettingsNoGridPoints), new object[] { "CreateGridPoints" })]
+        public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsNoGrid_ReturnsEmptyPoints(MacroStabilityInwardsGrid grid)
+        {
+            // Call
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+
+            // Assert
+            CollectionAssert.IsEmpty(gridPoints);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetGridSettingsOnePoint), new object[] { "CreateGridPoints" })]
+        public void CreateGridPoints_MacroStabilityInwardsGridNumberOfPointsOnePoint_AlwaysReturnsBottomLeftPoint(
+            MacroStabilityInwardsGrid grid)
+        {
+            // Call
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+
+            // Assert
+            AssertEqualPointCollection(new[]
+            {
+                new Point2D(grid.XLeft, grid.ZBottom)
+            }, gridPoints);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetGridSettingsOnlyHorizontalPoints), new object[] { "CreateGridPoints" })]
+        public void CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyHorizontalPoints_ReturnsGridPointsAtBottomSide(
+            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+        {
+            // Call
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+
+            // Assert
+            AssertEqualPointCollection(expectedPoints, gridPoints);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetGridSettingsOnlyVerticalPoints), new object[] { "CreateGridPoints" })]
+        public void CreateGridPoints_CreateGridPoints_MacroStabilityInwardsGridSettingsOnlyVerticallPoints_ReturnsGridPointsAtLeftSide
+            (MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+        {
+            // Call
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
+
+            // Assert
+            AssertEqualPointCollection(expectedPoints, gridPoints);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetWellDefinedGridSettings), new object[] { "CreateGridPoints" })]
+        public void CreateGridPoints_MacroStabilityInwardsWellDefinedGrid_ReturnsExpectedGridPoints(
+            MacroStabilityInwardsGrid grid, Point2D[] expectedPoints)
+        {
+            // Call
+            Point2D[] gridPoints = MacroStabilityInwardsChartDataPointsFactory.CreateGridPoints(grid);
 
             // Assert
             AssertEqualPointCollection(expectedPoints, gridPoints);
@@ -1117,7 +1189,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
 
         #region Grid Settings
 
-        private static IEnumerable<TestCaseData> GetGridSettingsNoGridPoints()
+        private static IEnumerable<TestCaseData> GetGridSettingsNoGridPoints(string prefix)
         {
             var random = new Random(21);
 
@@ -1130,25 +1202,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName("XLeftNaN");
+            }).SetName($"{prefix} - XLeftNaN");
             yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, double.NaN, zTop, zBottom)
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName("XRightNaN");
+            }).SetName($"{prefix} - XRightNaN");
             yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, double.NaN, zBottom)
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName("ZTopNaN");
+            }).SetName($"{prefix} - ZTopNaN");
             yield return new TestCaseData(new MacroStabilityInwardsGrid(xLeft, xRight, zTop, double.NaN)
             {
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
-            }).SetName("ZBottomNaN");
+            }).SetName($"{prefix} - ZBottomNaN");
         }
 
-        private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints()
+        private static IEnumerable<TestCaseData> GetGridSettingsOnlyHorizontalPoints(string prefix)
         {
             var gridRightLargerThanLeft = new MacroStabilityInwardsGrid(1, 4, 3, 1)
             {
@@ -1161,10 +1233,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(2, gridRightLargerThanLeft.ZBottom),
                 new Point2D(3, gridRightLargerThanLeft.ZBottom),
                 new Point2D(gridRightLargerThanLeft.XRight, gridRightLargerThanLeft.ZBottom)
-            }).SetName("XRight > XLeft");
+            }).SetName($"{prefix} - XRight > XLeft");
         }
 
-        private static IEnumerable<TestCaseData> GetGridSettingsOnlyVerticalPoints()
+        private static IEnumerable<TestCaseData> GetGridSettingsOnlyVerticalPoints(string prefix)
         {
             var gridTopLargerThanBottom = new MacroStabilityInwardsGrid(1, 3, 4, 1)
             {
@@ -1177,10 +1249,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(gridTopLargerThanBottom.XLeft, 2),
                 new Point2D(gridTopLargerThanBottom.XLeft, 3),
                 new Point2D(gridTopLargerThanBottom.XLeft, gridTopLargerThanBottom.ZTop)
-            }).SetName("ZTop > ZBottom");
+            }).SetName($"{prefix} - ZTop > ZBottom");
         }
 
-        private static IEnumerable<TestCaseData> GetGridSettingsOnePoint()
+        private static IEnumerable<TestCaseData> GetGridSettingsOnePoint(string prefix)
         {
             const double zBottom = 1.0;
 
@@ -1189,10 +1261,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 NumberOfHorizontalPoints = 1,
                 NumberOfVerticalPoints = 1
             };
-            yield return new TestCaseData(grid).SetName("XRight > XLeft, ZTop > ZBottom");
+            yield return new TestCaseData(grid).SetName($"{prefix} - XRight > XLeft, ZTop > ZBottom");
         }
 
-        private static IEnumerable<TestCaseData> GetWellDefinedGridSettings()
+        private static IEnumerable<TestCaseData> GetWellDefinedGridSettings(string prefix)
         {
             var grid = new MacroStabilityInwardsGrid(1, 3, 3, 1)
             {
@@ -1210,7 +1282,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(grid.XLeft, grid.ZTop),
                 new Point2D(2, grid.ZTop),
                 new Point2D(grid.XRight, grid.ZTop)
-            }).SetName("XRight > XLeft, ZTop > ZBottom");
+            }).SetName($"{prefix} - XRight > XLeft, ZTop > ZBottom");
         }
 
         #endregion
