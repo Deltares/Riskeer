@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -278,12 +279,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             }
 
             Point2D[] surfaceLineLocalGeometry = surfaceLine.LocalGeometry.ToArray();
-            Point2D[] phreaticLineGeometry = waternetLine.PhreaticLine.Geometry.ToArray();
-            Point2D[] waternetLineGeometry = waternetLine.Geometry.ToArray();
+            Point2D[] phreaticLineGeometry = new RoundedPoint2DCollection(2, waternetLine.PhreaticLine.Geometry).ToArray();
+            Point2D[] waternetLineGeometry = new RoundedPoint2DCollection(2, waternetLine.Geometry).ToArray();
 
             return IsSurfaceLineAboveWaternetZone(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry)
-                       ? CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry)
-                       : GetWaternetZoneWithSurfaceLineIntersection(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry);
+                       ? CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry).ToArray()
+                       : GetWaternetZoneWithSurfaceLineIntersection(surfaceLineLocalGeometry, waternetLineGeometry, phreaticLineGeometry).ToArray();
         }
 
         /// <summary>
@@ -432,7 +433,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         {
             IEnumerable<Point2D[]> waternetZoneAsPolygons = CreateZoneAreas(waternetLineGeometry, phreaticLineGeometry);
 
-            return waternetZoneAsPolygons.Select(waternetZoneAsPolygon => ClipWaternetZoneToSurfaceLine(surfaceLineLocalGeometry, waternetZoneAsPolygon)).ToArray();
+            foreach (Point2D[] waternetZoneAsPolygon in waternetZoneAsPolygons)
+            {
+                Point2D[] areaPoints = ClipWaternetZoneToSurfaceLine(surfaceLineLocalGeometry, waternetZoneAsPolygon);
+                if (areaPoints.Any())
+                {
+                    yield return areaPoints;
+                }
+            }
         }
 
         private static Point2D[] ClipWaternetZoneToSurfaceLine(Point2D[] surfaceLineLocalGeometry, Point2D[] waternetZoneAsPolygon)
@@ -478,20 +486,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     double waternetZoneTop = waternetZoneIntersection.Max(p => p.Y);
                     double waternetZoneBottom = waternetZoneIntersection.Min(p => p.Y);
 
-                    if (waternetZoneBottom >= surfaceLineIntersection.Y)
+                    double waternetBottomDelta = waternetZoneBottom - surfaceLineIntersection.Y;
+                    double waternetTopDelta = waternetZoneTop - surfaceLineIntersection.Y;
+
+                    if ((Math.Abs(waternetBottomDelta) < 1e-6 || waternetBottomDelta > 0) && !intersectionPoints.Any(c => c.X.Equals(xCoordinate)))
                     {
                         continue;
                     }
-                    if (waternetZoneTop <= surfaceLineIntersection.Y)
+                    if (Math.Abs(waternetTopDelta) < 1e-6 || waternetTopDelta < 0)
                     {
                         Point2D[] waternetZonePoints = waternetZoneIntersection.OrderBy(p => p.Y).ToArray();
 
                         bottomLine.Add(waternetZonePoints.First());
                         topLine.Add(waternetZonePoints.Last());
                     }
-
-                    if (waternetZoneTop > surfaceLineIntersection.Y &&
-                        waternetZoneBottom < surfaceLineIntersection.Y)
+                    else if (waternetTopDelta > 0 && waternetBottomDelta < 0)
                     {
                         Point2D[] waternetZonePoints = waternetZoneIntersection.OrderBy(p => p.Y).ToArray();
                         bottomLine.Add(waternetZonePoints.First());
@@ -501,14 +510,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             }
 
             var area = new List<Point2D>();
-            area.AddRange(topLine);
-            area.AddRange(bottomLine.OrderByDescending(p => p.X));
-            if (topLine.Any())
+            if (AreaIsNotFlatLine(topLine, bottomLine))
             {
-                area.Add(topLine.First());
+                area.AddRange(topLine);
+                area.AddRange(bottomLine.OrderByDescending(p => p.X));
+                if (topLine.Any())
+                {
+                    area.Add(topLine.First());
+                }
             }
-
             return area.ToArray();
+        }
+
+        private static bool AreaIsNotFlatLine(List<Point2D> topLine, List<Point2D> bottomLine)
+        {
+            Point2D[] topLineCoordinates = topLine.ToArray();
+            Point2D[] bottomLineCoordinates = bottomLine.ToArray();
+
+            return topLineCoordinates.Length != bottomLineCoordinates.Length
+                   || topLineCoordinates.Where((t, i) => !(Math.Abs(t.X - bottomLineCoordinates[i].X) < 1e-6)
+                                                         || !(Math.Abs(t.Y - bottomLineCoordinates[i].Y) < 1e-6)).Any();
         }
 
         private static bool IsSurfaceLineAboveWaternetZone(Point2D[] surfaceLineLocalGeometry, Point2D[] waternetLineGeometry, Point2D[] phreaticLineGeometry)
