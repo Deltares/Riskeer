@@ -37,6 +37,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(MacroStabilityInwardsTangentLineDeterminationType)
+                   || base.CanConvertTo(context, sourceType);
+        }
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -66,6 +72,37 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            var text = value as string;
+            if (text != null)
+            {
+                switch (text)
+                {
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeLayerSeparated:
+                        return ConfigurationTangentLineDeterminationType.LayerSeparated;
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeSpecified:
+                        return ConfigurationTangentLineDeterminationType.Specified;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            var tangentLineDeterminationType = value as MacroStabilityInwardsTangentLineDeterminationType?;
+            if (tangentLineDeterminationType != null)
+            {
+                switch (tangentLineDeterminationType)
+                {
+                    case MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated:
+                        return ConfigurationTangentLineDeterminationType.LayerSeparated;
+                    case MacroStabilityInwardsTangentLineDeterminationType.Specified:
+                        return ConfigurationTangentLineDeterminationType.Specified;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            return base.ConvertFrom(context, culture, value);
         }
     }
 }

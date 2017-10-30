@@ -37,6 +37,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(MacroStabilityInwardsGridDeterminationType)
+                   || base.CanConvertTo(context, sourceType);
+        }
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -66,6 +72,37 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            var text = value as string;
+            if (text != null)
+            {
+                switch (text)
+                {
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeAutomatic:
+                        return ConfigurationGridDeterminationType.Automatic;
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeManual:
+                        return ConfigurationGridDeterminationType.Manual;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            var gridDeterminationType = value as MacroStabilityInwardsGridDeterminationType?;
+            if (gridDeterminationType != null)
+            {
+                switch (gridDeterminationType)
+                {
+                    case MacroStabilityInwardsGridDeterminationType.Automatic:
+                        return ConfigurationGridDeterminationType.Automatic;
+                    case MacroStabilityInwardsGridDeterminationType.Manual:
+                        return ConfigurationGridDeterminationType.Manual;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            return base.ConvertFrom(context, culture, value);
         }
     }
 }

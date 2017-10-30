@@ -37,6 +37,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                    || base.CanConvertTo(context, destinationType);
         }
 
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof(MacroStabilityInwardsDikeSoilScenario)
+                   || base.CanConvertTo(context, sourceType);
+        }
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -74,6 +80,45 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            var text = value as string;
+            if (text != null)
+            {
+                switch (text)
+                {
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnClay:
+                        return ConfigurationDikeSoilScenario.ClayDikeOnClay;
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnClay:
+                        return ConfigurationDikeSoilScenario.SandDikeOnClay;
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioClayDikeOnSand:
+                        return ConfigurationDikeSoilScenario.ClayDikeOnSand;
+                    case MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioSandDikeOnSand:
+                        return ConfigurationDikeSoilScenario.SandDikeOnSand;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            var dikeSoilScenario = value as MacroStabilityInwardsDikeSoilScenario?;
+            if (dikeSoilScenario != null)
+            {
+                switch (dikeSoilScenario)
+                {
+                    case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay:
+                        return ConfigurationDikeSoilScenario.ClayDikeOnClay;
+                    case MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay:
+                        return ConfigurationDikeSoilScenario.SandDikeOnClay;
+                    case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand:
+                        return ConfigurationDikeSoilScenario.ClayDikeOnSand;
+                    case MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand:
+                        return ConfigurationDikeSoilScenario.SandDikeOnSand;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            return base.ConvertFrom(context, culture, value);
         }
     }
 }

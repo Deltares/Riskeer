@@ -43,17 +43,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetConvertToSupportedTypes))]
-        public void CanConvertTo_String_ReturnTrue(Type supportedType)
+        [TestCaseSource(nameof(GetSupportedTypes), new object[]
+        {
+            "CanConvertTo_{0}_ReturnTrue"
+        })]
+        public void CanConvertTo_SupportedType_ReturnTrue(Type supportedType)
         {
             // Setup
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
 
             // Call
-            bool convertTo = converter.CanConvertTo(supportedType);
+            bool canConvertTo = converter.CanConvertTo(supportedType);
 
             // Assert
-            Assert.IsTrue(convertTo);
+            Assert.IsTrue(canConvertTo);
         }
 
         [Test]
@@ -70,16 +73,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(SupporterConvertions), new object[]
+        [TestCaseSource(nameof(SupportedConvertions), new object[]
         {
-            "ConvertTo_{2}_Returns{1}"
+            "ConvertTo_{1}_ReturnsExpectedResult"
         })]
         public void ConvertTo_VariousCases_ReturnExpectedResult(ConfigurationTangentLineDeterminationType value,
-                                                                Type convertToType,
                                                                 object expectedResult)
         {
             // Setup
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+            Type convertToType = expectedResult.GetType();
 
             // Call
             object result = converter.ConvertTo(value, convertToType);
@@ -98,7 +101,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         {
             // Setup
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
-            ;
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, convertToType);
@@ -107,36 +109,92 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
             Assert.Throws<NotSupportedException>(call);
         }
 
-        private static IEnumerable<TestCaseData> GetConvertToSupportedTypes()
+        [Test]
+        [TestCaseSource(nameof(GetSupportedTypes), new object[]
         {
-            const string testName = "CanConvertTo_{0}_ReturnTrue";
+            "CanConvertFrom_{0}_ReturnTrue"
+        })]
+        public void CanConvertFrom_SupportedType_ReturnTrue(Type supportedType)
+        {
+            // Setup
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
 
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(supportedType);
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertFrom);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(SupportedConvertions), new object[]
+        {
+            "ConvertFrom_{1}_ReturnExpectedConfigurationTangentLineDeterminationType"
+        })]
+        public void ConvertFrom_VariousCases_ReturnExpectedConfigurationTangentLineDeterminationType(ConfigurationTangentLineDeterminationType expectedResult,
+                                                                                                     object value)
+        {
+            // Setup
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+
+            // Call
+            object result = converter.ConvertFrom(value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InvalidConvertFrom), new object[]
+        {
+            "ConvertFrom_{0}_ThrowsNotSupportedException"
+        })]
+        public void ConvertFrom_InvalidValue_ThrowsNotSupportedException(object invalidValue)
+        {
+            // Setup
+            var converter = new ConfigurationTangentLineDeterminationTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
+        }
+
+        private static IEnumerable<TestCaseData> GetSupportedTypes(string testName)
+        {
             yield return new TestCaseData(typeof(string))
                 .SetName(testName);
             yield return new TestCaseData(typeof(MacroStabilityInwardsTangentLineDeterminationType))
                 .SetName(testName);
         }
 
-        private static IEnumerable<TestCaseData> SupporterConvertions(string testName)
+        private static IEnumerable<TestCaseData> SupportedConvertions(string testName)
         {
-            Type stringType = typeof(string);
-            Type tangentLineDeterminationType = typeof(MacroStabilityInwardsTangentLineDeterminationType);
-
             yield return new TestCaseData(ConfigurationTangentLineDeterminationType.LayerSeparated,
-                                          stringType,
                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeLayerSeparated)
                 .SetName(testName);
             yield return new TestCaseData(ConfigurationTangentLineDeterminationType.Specified,
-                                          stringType,
                                           MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.TangentLineDeterminationTypeSpecified)
                 .SetName(testName);
 
             yield return new TestCaseData(ConfigurationTangentLineDeterminationType.LayerSeparated,
-                                          tangentLineDeterminationType,
                                           MacroStabilityInwardsTangentLineDeterminationType.LayerSeparated)
                 .SetName(testName);
             yield return new TestCaseData(ConfigurationTangentLineDeterminationType.Specified,
-                                          tangentLineDeterminationType,
                                           MacroStabilityInwardsTangentLineDeterminationType.Specified)
                 .SetName(testName);
         }
@@ -149,6 +207,22 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
 
             yield return new TestCaseData((ConfigurationTangentLineDeterminationType) 99999,
                                           typeof(MacroStabilityInwardsTangentLineDeterminationType))
+                .SetName(testName);
+
+            yield return new TestCaseData((ConfigurationTangentLineDeterminationType) 99999,
+                                          typeof(object))
+                .SetName(testName);
+        }
+
+        private static IEnumerable<TestCaseData> InvalidConvertFrom(string testName)
+        {
+            yield return new TestCaseData("invalid value")
+                .SetName(testName);
+
+            yield return new TestCaseData((MacroStabilityInwardsTangentLineDeterminationType) 99999)
+                .SetName(testName);
+
+            yield return new TestCaseData(new object())
                 .SetName(testName);
         }
     }
