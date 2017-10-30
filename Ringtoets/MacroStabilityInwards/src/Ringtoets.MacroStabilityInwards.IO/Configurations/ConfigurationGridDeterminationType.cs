@@ -22,18 +22,18 @@
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Defines the various tangent line determination types in a read calculation configuration.
+    /// Defines the various grid determination types in a read calculation configuration.
     /// </summary>
-    public enum ConfigurationTangentLineDeterminationType
+    public enum ConfigurationGridDeterminationType
     {
         /// <summary>
-        /// Specified tangent line determination.
+        /// Automatic grid determination.
         /// </summary>
-        Specified = 1,
+        Automatic = 1,
 
         /// <summary>
-        /// Layer separated tangent line determination.
+        /// Manual grid determination.
         /// </summary>
-        LayerSeparated = 2
+        Manual = 2
     }
 }

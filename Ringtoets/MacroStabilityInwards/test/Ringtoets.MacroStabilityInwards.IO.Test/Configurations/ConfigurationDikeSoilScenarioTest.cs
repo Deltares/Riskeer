@@ -19,21 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.MacroStabilityInwards.IO.Configurations
-{
-    /// <summary>
-    /// Defines the various tangent line determination types in a read calculation configuration.
-    /// </summary>
-    public enum ConfigurationTangentLineDeterminationType
-    {
-        /// <summary>
-        /// Specified tangent line determination.
-        /// </summary>
-        Specified = 1,
+using System.Collections.Generic;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.IO.Configurations;
 
-        /// <summary>
-        /// Layer separated tangent line determination.
-        /// </summary>
-        LayerSeparated = 2
+namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
+{
+    [TestFixture]
+    public class ConfigurationDikeSoilScenarioTest : EnumValuesTestFixture<ConfigurationDikeSoilScenario, int>
+    {
+        protected override IDictionary<ConfigurationDikeSoilScenario, int> ExpectedValueForEnumValues => new Dictionary<ConfigurationDikeSoilScenario, int>
+        {
+            {
+                ConfigurationDikeSoilScenario.ClayDikeOnClay, 1
+            },
+            {
+                ConfigurationDikeSoilScenario.SandDikeOnClay, 2
+            },
+            {
+                ConfigurationDikeSoilScenario.ClayDikeOnSand, 3
+            },
+            {
+                ConfigurationDikeSoilScenario.SandDikeOnSand, 4
+            }
+        };
     }
 }

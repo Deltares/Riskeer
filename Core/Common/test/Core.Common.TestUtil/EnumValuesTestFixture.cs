@@ -21,42 +21,32 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Core.Common.Utils.Attributes;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil
 {
     [TestFixture]
-    public abstract class EnumTestFixture<TEnum>: EnumValuesTestFixture<TEnum, byte>
+    public abstract class EnumValuesTestFixture<TEnum, TInnerValue>
     {
-        protected abstract IDictionary<TEnum, string> ExpectedDisplayNameForEnumValues { get; }
-
         [Test]
-        public void DisplayName_Always_ReturnExpectedValues()
+        public void ConvertToInnerValueType_AllEnumValues_ReturnExpectedValues()
         {
             // Setup
             foreach (TEnum value in Enum.GetValues(typeof(TEnum)))
             {
                 // Call
-                string displayName = GetDisplayName(value);
+                object actual = Convert.ChangeType(value, typeof(TInnerValue));
 
                 // Assert
-                Assert.AreEqual(ExpectedDisplayNameForEnumValues[value], displayName,
-                                $"Display name for {value} incorrect.");
+                if (!ExpectedValueForEnumValues.ContainsKey(value))
+                {
+                    Assert.Fail($"Missing test case for value '{typeof(TEnum)}.{value}'.");
+                }
+                Assert.AreEqual(ExpectedValueForEnumValues[value], actual,
+                                $"Value for {value} incorrect.");
             }
         }
 
-        private static string GetDisplayName(TEnum value)
-        {
-            Type type = typeof(TEnum);
-            MemberInfo[] memInfo = type.GetMember(value.ToString());
-            object[] attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
-            if (attributes.Length > 0)
-            {
-                return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
-            }
-            return null;
-        }
+        protected abstract IDictionary<TEnum, TInnerValue> ExpectedValueForEnumValues { get; }
     }
 }

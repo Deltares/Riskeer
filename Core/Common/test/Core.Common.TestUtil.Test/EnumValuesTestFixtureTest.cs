@@ -20,55 +20,43 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.TestUtil.Test.Properties;
-using Core.Common.Utils.Attributes;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test
 {
     [TestFixture]
-    public class EnumTestFixtureTest
+    public class EnumValuesTestFixtureTest
     {
-        [Test]
-        public void Constructor_ExpectedResult()
+        [TestFixture]
+        private class IntEnumTest : EnumValuesTestFixture<SomeEnum, int>
         {
-            // Call
-            var displayNameEnumTest = new DisplayNameEnumTest();
-
-            // Assert
-            Assert.IsInstanceOf<EnumValuesTestFixture<EnumDisplayName, byte>>(displayNameEnumTest);
+            protected override IDictionary<SomeEnum, int> ExpectedValueForEnumValues => new Dictionary<SomeEnum, int>
+            {
+                {
+                    SomeEnum.Value, int.MaxValue
+                }
+            };
         }
 
         [TestFixture]
-        private class DisplayNameEnumTest : EnumTestFixture<EnumDisplayName>
+        private class LongEnumTest : EnumValuesTestFixture<LongEnum, long>
         {
-            protected override IDictionary<EnumDisplayName, string> ExpectedDisplayNameForEnumValues => new Dictionary<EnumDisplayName, string>
+            protected override IDictionary<LongEnum, long> ExpectedValueForEnumValues => new Dictionary<LongEnum, long>
             {
                 {
-                    EnumDisplayName.NoDisplayName, null
-                },
-                {
-                    EnumDisplayName.HasResourcesDisplayName, Resources.SomeDisplayName
-                }
-            };
-
-            protected override IDictionary<EnumDisplayName, byte> ExpectedValueForEnumValues => new Dictionary<EnumDisplayName, byte>
-            {
-                {
-                    EnumDisplayName.NoDisplayName, 0
-                },
-                {
-                    EnumDisplayName.HasResourcesDisplayName, 4
+                    LongEnum.Value, long.MaxValue
                 }
             };
         }
 
-        private enum EnumDisplayName
+        private enum SomeEnum
         {
-            NoDisplayName,
+            Value = int.MaxValue
+        }
 
-            [ResourcesDisplayName(typeof(Resources), nameof(Resources.SomeDisplayName))]
-            HasResourcesDisplayName = 4
+        private enum LongEnum : long
+        {
+            Value = long.MaxValue
         }
     }
 }

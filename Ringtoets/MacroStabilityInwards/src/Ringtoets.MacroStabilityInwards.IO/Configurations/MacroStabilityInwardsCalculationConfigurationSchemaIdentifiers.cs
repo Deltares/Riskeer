@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.MacroStabilityInwards.Data;
-
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
@@ -54,15 +52,61 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string TangentLineDeterminationTypeElement = "bepalingtangentlijnen";
 
         /// <summary>
-        /// The possible content of the <see cref="MacroStabilityInwardsTangentLineDeterminationType"/> 
+        /// The possible content of the <see cref="ConfigurationTangentLineDeterminationType"/> 
         /// element indicating layer separated.
         /// </summary>
         public const string TangentLineDeterminationTypeLayerSeparated = "laagscheiding";
 
         /// <summary>
-        /// The possible content of the <see cref="MacroStabilityInwardsTangentLineDeterminationType"/> 
+        /// The possible content of the <see cref="ConfigurationTangentLineDeterminationType"/> 
         /// element indicating specified.
         /// </summary>
         public const string TangentLineDeterminationTypeSpecified = "gespecificeerd";
+
+        /// <summary>
+        /// The identifier for the dike soil scenario type elements.
+        /// </summary>
+        public const string DikeSoilScenarioElement = "dijktype";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
+        /// element indicating a clay dike on clay.
+        /// </summary>
+        public const string DikeSoilScenarioClayDikeOnClay = "1A";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
+        /// element indicating a sand dike on clay.
+        /// </summary>
+        public const string DikeSoilScenarioSandDikeOnClay = "2A";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
+        /// element indicating a clay dike on sand
+        /// </summary>
+        public const string DikeSoilScenarioClayDikeOnSand = "1B";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationDikeSoilScenario"/> 
+        /// element indicating a sand dike on sand.
+        /// </summary>
+        public const string DikeSoilScenarioSandDikeOnSand = "2B";
+
+        /// <summary>
+        /// The identifier for the grid determination type elements.
+        /// </summary>
+        public const string GridDeterminationTypeElement = "bepaling";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationGridDeterminationType"/> 
+        /// element indicating automatic grid determination.
+        /// </summary>
+        public const string GridDeterminationTypeAutomatic = "automatisch";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationGridDeterminationType"/> 
+        /// element indicating manual grid determination.
+        /// </summary>
+        public const string GridDeterminationTypeManual = "handmatig";
     }
 }

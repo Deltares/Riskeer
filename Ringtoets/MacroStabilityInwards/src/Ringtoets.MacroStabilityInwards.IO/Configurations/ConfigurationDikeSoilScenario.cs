@@ -22,18 +22,28 @@
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
     /// <summary>
-    /// Defines the various tangent line determination types in a read calculation configuration.
+    /// Defines the various dike soil scenario types in a read calculation configuration.
     /// </summary>
-    public enum ConfigurationTangentLineDeterminationType
+    public enum ConfigurationDikeSoilScenario
     {
         /// <summary>
-        /// Specified tangent line determination.
+        /// Dike soil scenario clay dike on clay.
         /// </summary>
-        Specified = 1,
+        ClayDikeOnClay = 1,
 
         /// <summary>
-        /// Layer separated tangent line determination.
+        /// Dike soil scenario sand dike on clay.
         /// </summary>
-        LayerSeparated = 2
+        SandDikeOnClay = 2,
+
+        /// <summary>
+        /// Dike soil scenario clay dike on sand.
+        /// </summary>
+        ClayDikeOnSand = 3,
+
+        /// <summary>
+        /// Dike soil scenario sand dike on sand.
+        /// </summary>
+        SandDikeOnSand = 4
     }
 }
