@@ -31,7 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// <summary>
         /// Gets the layers in the profile.
         /// </summary>
-        IEnumerable<IMacroStabilityInwardsSoilLayer2D> Layers { get; }
+        IEnumerable<MacroStabilityInwardsSoilLayer2D> Layers { get; }
 
         /// <summary>
         /// Gets the preconsolidation stresses in the profile.

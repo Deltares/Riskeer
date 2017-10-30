@@ -32,7 +32,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
@@ -153,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         private static void AssertMacroStabilityInwardsSoilLayer2D(MacroStabilityInwardsSoilLayerTwoDEntity entity,
-                                                                   IMacroStabilityInwardsSoilLayer2D layer)
+                                                                   MacroStabilityInwardsSoilLayer2D layer)
         {
             Assert.IsNotNull(layer);
             MacroStabilityInwardsSoilLayerData data = layer.Data;

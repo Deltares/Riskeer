@@ -26,7 +26,6 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -55,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(soilLayer);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IMacroStabilityInwardsSoilLayer2D>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSoilLayer2D>>(properties);
             TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DBaseProperties,
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DBaseProperties.Geometry));
             Assert.AreSame(soilLayer, properties.Data);

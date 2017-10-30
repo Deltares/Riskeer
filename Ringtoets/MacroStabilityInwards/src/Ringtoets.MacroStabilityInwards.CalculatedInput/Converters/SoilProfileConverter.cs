@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         }
 
         /// <summary>
-        /// Converts <see cref="IMacroStabilityInwardsSoilLayer2D"/> objects into <see cref="SoilLayer"/> objects.
+        /// Converts <see cref="MacroStabilityInwardsSoilLayer2D"/> objects into <see cref="SoilLayer"/> objects.
         /// </summary>
         /// <param name="layers">The layers to convert.</param>
         /// <returns>The converted <see cref="SoilLayer"/>.</returns>
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Converters
         /// <exception cref="NotSupportedException">Thrown when 
         /// <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthModel"/>
         /// is a valid value but unsupported.</exception>
-        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers)
+        private static IEnumerable<SoilLayer> ConvertLayers(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
         {
             return layers.Select(l =>
             {

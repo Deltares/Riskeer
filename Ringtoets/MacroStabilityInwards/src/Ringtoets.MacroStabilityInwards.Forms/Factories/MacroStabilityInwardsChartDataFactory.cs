@@ -199,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="IMacroStabilityInwardsSoilLayer2D"/>.
+        /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="ChartData"/>.</param>
         /// <param name="fillColor">The fill color of the <see cref="ChartData"/>.</param>

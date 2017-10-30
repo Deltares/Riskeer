@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(null,
                                                                            holes,
                                                                            new MacroStabilityInwardsSoilLayerData(),
-                                                                           Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>());
+                                                                           Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -110,7 +110,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing,
                                                                            null,
                                                                            new MacroStabilityInwardsSoilLayerData(),
-                                                                           Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>());
+                                                                           Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null, Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>());
+            TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing, holes, null, Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -170,8 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes);
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer2D>(layer);
-            Assert.NotNull(layer);
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());
@@ -190,14 +189,13 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 CreateRandomRing(random)
             };
             var data = new MacroStabilityInwardsSoilLayerData();
-            IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers = Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>();
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>();
 
             // Call
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, holes, data, nestedLayers);
 
             // Assert
-            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer2D>(layer);
-            Assert.NotNull(layer);
+            Assert.IsInstanceOf<IMacroStabilityInwardsSoilLayer>(layer);
             Assert.AreSame(outerRing, layer.OuterRing);
             Assert.AreNotSame(holes, layer.Holes);
             TestHelper.AssertCollectionsAreEqual(holes, layer.Holes, new ReferenceEqualityComparer<Ring>());

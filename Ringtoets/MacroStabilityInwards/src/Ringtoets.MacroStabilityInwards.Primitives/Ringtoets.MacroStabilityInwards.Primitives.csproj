@@ -46,7 +46,6 @@
     <Compile Include="IMacroStabilityInwardsLocationInputDaily.cs" />
     <Compile Include="IMacroStabilityInwardsLocationInputExtreme.cs" />
     <Compile Include="IMacroStabilityInwardsSoilLayer.cs" />
-    <Compile Include="IMacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="IMacroStabilityInwardsWaternetInput.cs" />
     <Compile Include="IMacroStabilityInwardsPreconsolidationStress.cs" />
     <Compile Include="IMacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />

@@ -32,12 +32,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
     public static class MacroStabilityInwardsSoilProfile2DLayersHelper
     {
         /// <summary>
-        /// Method for obtaining all <see cref="IMacroStabilityInwardsSoilLayer2D"/> in <paramref name="layers"/> recursively.
+        /// Method for obtaining all <see cref="MacroStabilityInwardsSoilLayer2D"/> in <paramref name="layers"/> recursively.
         /// </summary>
         /// <param name="layers">The collection of layers to recursively get the layers from.</param>
-        /// <returns>An enumerable with <see cref="IMacroStabilityInwardsSoilLayer2D"/>.</returns>
+        /// <returns>An enumerable with <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        public static IEnumerable<IMacroStabilityInwardsSoilLayer2D> GetLayersRecursively(IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers)
+        public static IEnumerable<MacroStabilityInwardsSoilLayer2D> GetLayersRecursively(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
         {
             if (layers == null)
             {
@@ -47,14 +47,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             return layers.SelectMany(GetLayersRecursively);
         }
 
-        private static IEnumerable<IMacroStabilityInwardsSoilLayer2D> GetLayersRecursively(IMacroStabilityInwardsSoilLayer2D layer)
+        private static IEnumerable<MacroStabilityInwardsSoilLayer2D> GetLayersRecursively(MacroStabilityInwardsSoilLayer2D layer)
         {
-            var layers = new List<IMacroStabilityInwardsSoilLayer2D>
+            var layers = new List<MacroStabilityInwardsSoilLayer2D>
             {
                 layer
             };
 
-            foreach (IMacroStabilityInwardsSoilLayer2D nestedLayer in layer.NestedLayers)
+            foreach (MacroStabilityInwardsSoilLayer2D nestedLayer in layer.NestedLayers)
             {
                 layers.AddRange(GetLayersRecursively(nestedLayer));
             }

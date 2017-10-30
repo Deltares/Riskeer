@@ -69,9 +69,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.IsInstanceOf<ChartDataCollection>(actual);
             var soilProfileChartData = (ChartDataCollection) actual;
 
-            IMacroStabilityInwardsSoilLayer2D[] layers = soilProfileUnderSurface?.Layers != null
-                                                             ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
-                                                             : new IMacroStabilityInwardsSoilLayer2D[0];
+            MacroStabilityInwardsSoilLayer2D[] layers = soilProfileUnderSurface?.Layers != null
+                                                            ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
+                                                            : new MacroStabilityInwardsSoilLayer2D[0];
             int expectedLayerCount = layers.Length;
 
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());

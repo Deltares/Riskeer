@@ -32,19 +32,19 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a top level <see cref="IMacroStabilityInwardsSoilLayer2D"/> for properties panel.
+    /// ViewModel of a top level <see cref="MacroStabilityInwardsSoilLayer2D"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MacroStabilityInwardsSoilLayer2DTopLevelProperties : MacroStabilityInwardsSoilLayer2DBaseProperties
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2DTopLevelProperties"/> for
-        /// the top level properties of a <see cref="IMacroStabilityInwardsSoilLayer2D"/>.
+        /// the top level properties of a <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="soilLayer">The 2D soil layer for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2DTopLevelProperties(IMacroStabilityInwardsSoilLayer2D soilLayer) : base(soilLayer) {}
+        public MacroStabilityInwardsSoilLayer2DTopLevelProperties(MacroStabilityInwardsSoilLayer2D soilLayer) : base(soilLayer) {}
 
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableArrayConverter))]

@@ -24,7 +24,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Utils.Extensions;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
@@ -85,11 +84,11 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         }
 
         private static void AddNestedLayers(MacroStabilityInwardsSoilLayerTwoDEntity entity,
-                                            IMacroStabilityInwardsSoilLayer2D soilLayer)
+                                            MacroStabilityInwardsSoilLayer2D soilLayer)
         {
             for (var i = 0; i < soilLayer.NestedLayers.Count(); i++)
             {
-                entity.MacroStabilityInwardsSoilLayerTwoDEntity1.Add(((MacroStabilityInwardsSoilLayer2D) soilLayer.NestedLayers.ElementAt(i)).Create(i));
+                entity.MacroStabilityInwardsSoilLayerTwoDEntity1.Add(soilLayer.NestedLayers.ElementAt(i).Create(i));
             }
         }
     }

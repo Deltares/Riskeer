@@ -707,7 +707,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         public void CreateOuterRingArea_WithSoilLayer_ReturnsOuterRingArea()
         {
             // Setup
-            var mocks = new MockRepository();
             var outerRing = new Ring(new[]
             {
                 new Point2D(0.0, 10.0),
@@ -715,11 +714,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(10.0, 0.0),
                 new Point2D(0.0, 0.0)
             });
-
-            var layer = mocks.Stub<IMacroStabilityInwardsSoilLayer2D>();
-            layer.Stub(l => l.OuterRing).Return(outerRing);
-
-            mocks.ReplayAll();
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>());
 
             // Call
             IEnumerable<Point2D[]> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(layer);
@@ -729,8 +724,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             {
                 outerRing.Points
             }, outerRingChartData);
-
-            mocks.VerifyAll();
         }
 
         [Test]

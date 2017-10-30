@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     soilLayers.Add(new MacroStabilityInwardsSoilLayer2D(new Ring(soilLayerArea),
                                                                         Enumerable.Empty<Ring>(),
                                                                         layer.Data,
-                                                                        Enumerable.Empty<IMacroStabilityInwardsSoilLayer2D>()));
+                                                                        Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()));
                 }
             }
 

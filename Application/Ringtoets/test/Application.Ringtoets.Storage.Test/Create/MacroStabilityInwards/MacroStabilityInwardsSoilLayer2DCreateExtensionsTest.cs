@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             };
         }
 
-        private static void AssertMacroStabilityInwardsSoilLayerTwoDEntity(IMacroStabilityInwardsSoilLayer2D soilLayer,
+        private static void AssertMacroStabilityInwardsSoilLayerTwoDEntity(MacroStabilityInwardsSoilLayer2D soilLayer,
                                                                            MacroStabilityInwardsSoilLayerTwoDEntity entity, int order)
         {
             Assert.IsNotNull(entity);

@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         /// <param name="soilLayer">The soil layer to create the outer ring for.</param>
         /// <returns>A collection containing a single array of points in 2D space 
         /// or an empty collection when <paramref name="soilLayer"/> is <c>null</c>.</returns>
-        public static IEnumerable<Point2D[]> CreateOuterRingArea(IMacroStabilityInwardsSoilLayer2D soilLayer)
+        public static IEnumerable<Point2D[]> CreateOuterRingArea(MacroStabilityInwardsSoilLayer2D soilLayer)
         {
             return soilLayer != null
                        ? new List<Point2D[]>

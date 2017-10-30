@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
@@ -38,15 +37,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// <returns>The created <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
         public static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
         {
-            return CreateMacroStabilityInwardsSoilLayer2D(new IMacroStabilityInwardsSoilLayer2D[0]);
+            return CreateMacroStabilityInwardsSoilLayer2D(new MacroStabilityInwardsSoilLayer2D[0]);
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
-        /// <param name="nestedLayers">The nested <see cref="IMacroStabilityInwardsSoilLayer2D"/>.</param>
+        /// <param name="nestedLayers">The nested <see cref="MacroStabilityInwardsSoilLayer2D"/>.</param>
         /// <returns>The created <see cref="MacroStabilityInwardsSoilLayer2D"/>.</returns>
-        public static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D(IEnumerable<IMacroStabilityInwardsSoilLayer2D> nestedLayers)
+        public static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D(IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers)
         {
             return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                                                         {

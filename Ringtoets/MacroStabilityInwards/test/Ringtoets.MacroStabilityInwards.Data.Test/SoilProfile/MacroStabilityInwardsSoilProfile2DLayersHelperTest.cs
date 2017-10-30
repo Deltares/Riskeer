@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            IEnumerable<IMacroStabilityInwardsSoilLayer2D> flatLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> flatLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
 
             // Assert
             CollectionAssert.AreEqual(new[]

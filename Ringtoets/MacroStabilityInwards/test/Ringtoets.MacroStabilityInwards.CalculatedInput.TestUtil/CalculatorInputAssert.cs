@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// does not correspond to <paramref name="original"/>.</exception>
         public static void AssertSoilProfile(IMacroStabilityInwardsSoilProfileUnderSurfaceLine original, SoilProfile actual)
         {
-            IMacroStabilityInwardsSoilLayer2D[] expectedLayers = original.Layers.ToArray();
+            MacroStabilityInwardsSoilLayer2D[] expectedLayers = original.Layers.ToArray();
             SoilLayer[] actualLayers = actual.Layers.ToArray();
 
             IMacroStabilityInwardsPreconsolidationStress[] expectedPreconsolidationStresses = original.PreconsolidationStresses.ToArray();
@@ -102,11 +102,11 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="IMacroStabilityInwardsSoilLayer2D"/> array.</param>
+        /// <param name="original">The original <see cref="MacroStabilityInwardsSoilLayer2D"/> array.</param>
         /// <param name="actual">The actual <see cref="SoilLayer"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// does not correspond to <paramref name="original"/>.</exception>
-        private static void AssertLayers(IMacroStabilityInwardsSoilLayer2D[] original, SoilLayer[] actual)
+        private static void AssertLayers(MacroStabilityInwardsSoilLayer2D[] original, SoilLayer[] actual)
         {
             Assert.AreEqual(original.Length, actual.Length);
 

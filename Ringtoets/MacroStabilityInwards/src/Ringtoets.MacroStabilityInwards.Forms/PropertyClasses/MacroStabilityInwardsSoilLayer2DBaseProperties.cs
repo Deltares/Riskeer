@@ -34,10 +34,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// Base ViewModel of <see cref="IMacroStabilityInwardsSoilLayer2D"/> for properties panel.
+    /// Base ViewModel of <see cref="MacroStabilityInwardsSoilLayer2D"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class MacroStabilityInwardsSoilLayer2DBaseProperties : ObjectProperties<IMacroStabilityInwardsSoilLayer2D>
+    public class MacroStabilityInwardsSoilLayer2DBaseProperties : ObjectProperties<MacroStabilityInwardsSoilLayer2D>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2DBaseProperties"/>.
@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         /// <param name="soilLayer">The 2D soil layer for which the properties are shown.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2DBaseProperties(IMacroStabilityInwardsSoilLayer2D soilLayer)
+        public MacroStabilityInwardsSoilLayer2DBaseProperties(MacroStabilityInwardsSoilLayer2D soilLayer)
         {
             if (soilLayer == null)
             {

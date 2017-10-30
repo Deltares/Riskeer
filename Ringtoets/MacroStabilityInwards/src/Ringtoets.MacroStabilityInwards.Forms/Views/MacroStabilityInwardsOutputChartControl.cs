@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -214,7 +213,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             soilProfileChartData.Clear();
             soilLayerChartDataLookup.Clear();
 
-            IEnumerable<IMacroStabilityInwardsSoilLayer2D> soilLayers = GetSoilLayers().Reverse();
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> soilLayers = GetSoilLayers().Reverse();
 
             soilLayers.Select((layer, layerIndex) => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(
                                   $"{layerIndex + 1} {layer.Data.MaterialName}",
@@ -250,7 +249,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void SetSoilLayerAreas()
         {
             var i = 0;
-            foreach (IMacroStabilityInwardsSoilLayer2D soilLayer in GetSoilLayers().Reverse())
+            foreach (MacroStabilityInwardsSoilLayer2D soilLayer in GetSoilLayers().Reverse())
             {
                 ChartMultipleAreaData soilLayerData = soilLayerChartDataLookup[i++];
                 soilLayerData.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(soilLayer);
@@ -265,12 +264,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
         }
 
-        private IEnumerable<IMacroStabilityInwardsSoilLayer2D> GetSoilLayers()
+        private IEnumerable<MacroStabilityInwardsSoilLayer2D> GetSoilLayers()
         {
-            IEnumerable<IMacroStabilityInwardsSoilLayer2D> layers = data?.InputParameters.SoilProfileUnderSurfaceLine?.Layers;
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = data?.InputParameters.SoilProfileUnderSurfaceLine?.Layers;
             return layers != null
                        ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
-                       : new List<IMacroStabilityInwardsSoilLayer2D>();
+                       : new List<MacroStabilityInwardsSoilLayer2D>();
         }
 
         private void SetWaternetDatas(MacroStabilityInwardsSurfaceLine surfaceLine)
