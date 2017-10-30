@@ -29,7 +29,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -191,11 +190,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D(Random random)
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new[]
-            {
-                CreateRandomRing(random),
-                CreateRandomRing(random)
-            })
+            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new Ring[0])
             {
                 Data =
                 {
