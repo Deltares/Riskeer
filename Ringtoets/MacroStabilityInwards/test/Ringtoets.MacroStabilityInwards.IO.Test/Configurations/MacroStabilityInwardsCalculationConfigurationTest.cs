@@ -58,6 +58,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.StochasticSoilProfileName);
             Assert.IsNull(configuration.Scenario);
             Assert.IsNull(configuration.DikeSoilScenario);
+            Assert.IsNull(configuration.SlipPlaneMinimumDepth);
+            Assert.IsNull(configuration.SlipPlaneMinimumLength);
+            Assert.IsNull(configuration.MaximumSliceWidth);
         }
 
         [Test]
@@ -71,6 +74,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
             const ConfigurationDikeSoilScenario dikeSoilScenario = ConfigurationDikeSoilScenario.SandDikeOnSand;
+            const double slipPlaneMinimumDepth = 2.2;
+            const double slipPlaneMinimumLength = 3.3;
+            const double maximumSliceWidth = 4.4;
 
             var scenarioConfiguration = new ScenarioConfiguration();
 
@@ -83,7 +89,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 StochasticSoilModelName = stochasticSoilModel,
                 StochasticSoilProfileName = stochasticSoilProfile,
                 Scenario = scenarioConfiguration,
-                DikeSoilScenario = dikeSoilScenario
+                DikeSoilScenario = dikeSoilScenario,
+                SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
+                SlipPlaneMinimumLength = slipPlaneMinimumLength,
+                MaximumSliceWidth = maximumSliceWidth
             };
 
             // Assert
@@ -95,6 +104,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(stochasticSoilProfile, configuration.StochasticSoilProfileName);
             Assert.AreSame(scenarioConfiguration, configuration.Scenario);
             Assert.AreEqual(dikeSoilScenario, configuration.DikeSoilScenario);
+            Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
+            Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
+            Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);
         }
 
         [Test]

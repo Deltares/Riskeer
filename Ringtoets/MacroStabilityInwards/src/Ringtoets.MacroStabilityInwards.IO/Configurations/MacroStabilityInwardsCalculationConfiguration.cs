@@ -77,6 +77,21 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public ConfigurationDikeSoilScenario? DikeSoilScenario { get; set; }
 
         /// <summary>
+        /// Gets or sets the minimum depth of the slip plane.
+        /// </summary>
+        public double? SlipPlaneMinimumDepth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum length of the slip plane.
+        /// </summary>
+        public double? SlipPlaneMinimumLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum slice width.
+        /// </summary>
+        public double? MaximumSliceWidth { get; set; }
+
+        /// <summary>
         /// Gets or sets the name for the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
