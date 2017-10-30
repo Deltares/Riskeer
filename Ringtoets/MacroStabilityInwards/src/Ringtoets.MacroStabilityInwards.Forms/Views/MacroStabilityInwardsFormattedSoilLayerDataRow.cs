@@ -40,17 +40,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsFormattedSoilLayerDataRow"/>.
         /// </summary>
         /// <param name="layerData">The <see cref="MacroStabilityInwardsSoilLayerData"/> to format.</param>
-        /// <param name="layerIndex">The index of the soil layer within the soil profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layerData"/>
         /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsFormattedSoilLayerDataRow(MacroStabilityInwardsSoilLayerData layerData, int layerIndex)
+        public MacroStabilityInwardsFormattedSoilLayerDataRow(MacroStabilityInwardsSoilLayerData layerData)
         {
             if (layerData == null)
             {
                 throw new ArgumentNullException(nameof(layerData));
             }
 
-            MaterialName = $"{layerIndex} {layerData.MaterialName}";
+            MaterialName = layerData.MaterialName;
             Color = layerData.Color;
             IsAquifer = layerData.IsAquifer;
             AbovePhreaticLevel = FormatVariationCoefficientDesignVariableWithShift(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData));
@@ -81,11 +80,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         /// <summary>
         /// Gets the above phreatic level of the layer.
+        /// [kN/m³]
         /// </summary>
         public string AbovePhreaticLevel { get; }
 
         /// <summary>
         /// Gets the below phreatic level of the layer.
+        /// [kN/m³]
         /// </summary>
         public string BelowPhreaticLevel { get; }
 
@@ -97,21 +98,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         /// <summary>
         /// Gets the cohesion of the layer.
+        /// [kN/m²]
         /// </summary>
         public string Cohesion { get; }
 
         /// <summary>
         /// Gets the friction angle of the layer.
+        /// [°]
         /// </summary>
         public string FrictionAngle { get; }
 
         /// <summary>
         /// Gets the shear strength ratio of the layer.
+        /// [-]
         /// </summary>
         public string ShearStrengthRatio { get; }
 
         /// <summary>
         /// Gets the strength increase exponent of the layer.
+        /// [-]
         /// </summary>
         public string StrengthIncreaseExponent { get; }
 
@@ -122,36 +127,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         /// <summary>
         /// Gets the POP of the layer.
+        /// [kN/m²]
         /// </summary>
         public string Pop { get; }
 
         private static string FormatVariationCoefficientDesignVariable(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
             RoundedDouble designValue = designVariable.GetDesignValue();
-            if (double.IsNaN(designValue))
-            {
-                return double.NaN.ToString(CultureInfo.CurrentCulture);
-            }
-
-            return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2,
-                                 designValue,
-                                 designVariable.Distribution.Mean,
-                                 designVariable.Distribution.CoefficientOfVariation);
+            return double.IsNaN(designValue)
+                       ? double.NaN.ToString(CultureInfo.CurrentCulture)
+                       : string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2,
+                                       designValue,
+                                       designVariable.Distribution.Mean,
+                                       designVariable.Distribution.CoefficientOfVariation);
         }
 
         private static string FormatVariationCoefficientDesignVariableWithShift(VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> designVariable)
         {
             RoundedDouble designValue = designVariable.GetDesignValue();
-            if (double.IsNaN(designValue))
-            {
-                return double.NaN.ToString(CultureInfo.CurrentCulture);
-            }
-
-            return string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3,
-                                 designValue,
-                                 designVariable.Distribution.Mean,
-                                 designVariable.Distribution.CoefficientOfVariation,
-                                 designVariable.Distribution.Shift);
+            return double.IsNaN(designValue)
+                       ? double.NaN.ToString(CultureInfo.CurrentCulture)
+                       : string.Format(RingtoetsCommonFormsResources.VariationCoefficientDesignVariable_0_Mean_1_CoefficientOfVariation_2_Shift_3,
+                                       designValue,
+                                       designVariable.Distribution.Mean,
+                                       designVariable.Distribution.CoefficientOfVariation,
+                                       designVariable.Distribution.Shift);
         }
     }
 }

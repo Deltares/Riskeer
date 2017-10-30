@@ -164,7 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
 
         /// <summary>
         /// Gets or sets the cohesion.
-        /// [kN/m³]
+        /// [kN/m²]
         /// </summary>
         public VariationCoefficientLogNormalDistribution Cohesion
         {

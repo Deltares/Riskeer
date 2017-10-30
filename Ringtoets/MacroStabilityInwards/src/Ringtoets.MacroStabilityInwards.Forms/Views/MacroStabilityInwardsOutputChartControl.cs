@@ -61,17 +61,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData rightGridChartData;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+
+        private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineExtremeLookup;
+        private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineDailyLookup;
+        private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineExtremeLookup;
+        private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
         private MacroStabilityInwardsCalculationScenario data;
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
 
         private MacroStabilityInwardsWaternet currentWaternetExtreme;
         private MacroStabilityInwardsWaternet currentWaternetDaily;
-
-        private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineExtremeLookup;
-        private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineDailyLookup;
-        private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineExtremeLookup;
-        private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputChartControl"/>.
@@ -215,9 +215,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> soilLayers = GetSoilLayers().Reverse();
 
-            soilLayers.Select((layer, layerIndex) => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(
-                                  $"{layerIndex + 1} {layer.Data.MaterialName}",
-                                  layer.Data.Color))
+            soilLayers.Select((layer, layerIndex) => MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layer.Data.MaterialName,
+                                                                                                                    layer.Data.Color))
                       .ForEachElementDo(sl =>
                       {
                           soilProfileChartData.Insert(0, sl);

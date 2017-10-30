@@ -315,6 +315,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 {
                     Data =
                     {
+                        MaterialName = "Clay",
                         IsAquifer = false,
                         Cohesion = new VariationCoefficientLogNormalDistribution(),
                         FrictionAngle = new VariationCoefficientLogNormalDistribution(),
@@ -336,6 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 {
                     Data =
                     {
+                        MaterialName = "Sand",
                         IsAquifer = true,
                         Cohesion = new VariationCoefficientLogNormalDistribution(),
                         FrictionAngle = new VariationCoefficientLogNormalDistribution(),
@@ -357,6 +359,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
                 {
                     Data =
                     {
+                        MaterialName = "Soil",
                         IsAquifer = false,
                         Cohesion = new VariationCoefficientLogNormalDistribution(),
                         FrictionAngle = new VariationCoefficientLogNormalDistribution(),

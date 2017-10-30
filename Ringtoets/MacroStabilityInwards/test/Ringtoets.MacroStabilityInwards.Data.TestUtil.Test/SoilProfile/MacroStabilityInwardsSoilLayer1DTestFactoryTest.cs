@@ -19,54 +19,46 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
 {
     [TestFixture]
-    public class MacroStabilityInwardsSoilLayer2DTestFactoryTest
+    public class MacroStabilityInwardsSoilLayer1DTestFactoryTest
     {
         [Test]
-        public void CreateMacroStabilityInwardsSoilLayer2D_ReturnsExpectedMacroStabilityInwardsSoilLayer2D()
+        public void CreateMacroStabilityInwardsSoilLayer1D_DefaultTop_ReturnsExpectedMacroStabilityInwardsSoilLayer1D()
         {
             // Call
-            MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer1D soilLayer = MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D();
 
             // Assert
             Assert.IsNotNull(soilLayer);
-            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer2D), soilLayer.GetType());
-            Assert.AreEqual(new Ring(new[]
+            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer1D), soilLayer.GetType());
+            Assert.AreEqual(0.0, soilLayer.Top);
+            Assert.AreEqual(new MacroStabilityInwardsSoilLayerData
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }), soilLayer.OuterRing);
-            CollectionAssert.IsEmpty(soilLayer.NestedLayers);
+                MaterialName = "Valid"
+            }, soilLayer.Data);
         }
 
         [Test]
-        public void CreateMacroStabilityInwardsSoilLayer2D_WithNestedLayers_ReturnsExpectedMacroStabilityInwardsSoilLayer2D()
+        public void CreateMacroStabilityInwardsSoilLayer1D_WithTop_ReturnsExpectedMacroStabilityInwardsSoilLayer1D()
         {
-            // Setup
-            var nestedLayers = new[]
-            {
-                MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
-            };
-
             // Call
-            MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D(nestedLayers);
+            MacroStabilityInwardsSoilLayer1D soilLayer = MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(4.5);
 
             // Assert
             Assert.IsNotNull(soilLayer);
-            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer2D), soilLayer.GetType());
-            Assert.AreEqual(new Ring(new[]
+            Assert.AreEqual(typeof(MacroStabilityInwardsSoilLayer1D), soilLayer.GetType());
+            Assert.AreEqual(4.5, soilLayer.Top);
+            Assert.AreEqual(new MacroStabilityInwardsSoilLayerData
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }), soilLayer.OuterRing);
-            Assert.AreSame(nestedLayers, soilLayer.NestedLayers);
+                MaterialName = "Valid"
+            }, soilLayer.Data);
         }
     }
 }

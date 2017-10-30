@@ -48,16 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="layerData">The collection of layer data to show.</param>
         public void SetData(IEnumerable<MacroStabilityInwardsSoilLayerData> layerData)
         {
-            if (layerData != null)
-            {
-                IEnumerable<MacroStabilityInwardsSoilLayerData> macroStabilityInwardsSoilLayerData = layerData.ToArray();
-                int layerIndex = macroStabilityInwardsSoilLayerData.Count();
-                SetDataSource(macroStabilityInwardsSoilLayerData.Select(soilLayerData => new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, layerIndex--)).ToArray());
-            }
-            else
-            {
-                SetDataSource(null);
-            }
+            SetDataSource(layerData?.Select(data => new MacroStabilityInwardsFormattedSoilLayerDataRow(data)).ToArray());
         }
 
         private void AddColumns()

@@ -77,14 +77,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
             Assert.AreEqual(expectedName, soilProfileChartData.Name);
 
-            string[] expectedSoilLayerNames = layers.Select((l, i) => $"{i + 1} {l.Data.MaterialName}").Reverse().ToArray();
-
             for (var i = 0; i < expectedLayerCount; i++)
             {
                 var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
 
                 Assert.IsNotNull(chartMultipleAreaData);
-                Assert.AreEqual(expectedSoilLayerNames[i], chartMultipleAreaData.Name);
+                Assert.AreEqual(layers.ElementAt(i).Data.MaterialName, chartMultipleAreaData.Name);
                 Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
             }
         }

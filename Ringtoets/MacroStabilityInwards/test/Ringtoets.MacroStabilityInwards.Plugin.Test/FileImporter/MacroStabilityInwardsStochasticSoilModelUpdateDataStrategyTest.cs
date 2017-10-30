@@ -555,23 +555,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         {
             return new List<MacroStabilityInwardsStochasticSoilProfile>
             {
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile1D(
-                                                                   "A",
-                                                                   0.0,
-                                                                   new[]
-                                                                   {
-                                                                       new MacroStabilityInwardsSoilLayer1D(0.0)
-                                                                   })),
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, new MacroStabilityInwardsSoilProfile2D(
-                                                                   "B",
-                                                                   new[]
-                                                                   {
-                                                                       new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                                       {
-                                                                           new Point2D(3, 2),
-                                                                           new Point2D(4, 5)
-                                                                       }), Enumerable.Empty<Ring>())
-                                                                   }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()),
+                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D())
             };
         }
 

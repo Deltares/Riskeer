@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -39,7 +38,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_SoilLayerDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null, 0);
+            TestDelegate test = () => new MacroStabilityInwardsFormattedSoilLayerDataRow(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -97,13 +96,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, 4);
+            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData);
 
             // Assert
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFormattedSoilLayerDataRow, EnumTypeConverter>(
                 nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel));
 
-            Assert.AreEqual("4 " + soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
+            Assert.AreEqual(soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
             Assert.AreEqual(soilLayerData.Color, formattedSoilLayerDataRow.Color);
             Assert.AreEqual(soilLayerData.IsAquifer, formattedSoilLayerDataRow.IsAquifer);
             Assert.AreEqual("0,85 (Verwachtingswaarde = 1,00, Variatiecoëfficiënt = 1,00, Verschuiving = 0,50)", formattedSoilLayerDataRow.AbovePhreaticLevel);
@@ -167,13 +166,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData, 2);
+            var formattedSoilLayerDataRow = new MacroStabilityInwardsFormattedSoilLayerDataRow(soilLayerData);
 
             // Assert
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFormattedSoilLayerDataRow, EnumTypeConverter>(
                 nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel));
 
-            Assert.AreEqual("2 " + soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
+            Assert.AreEqual(soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
             Assert.AreEqual(soilLayerData.Color, formattedSoilLayerDataRow.Color);
             Assert.AreEqual(soilLayerData.IsAquifer, formattedSoilLayerDataRow.IsAquifer);
             Assert.AreEqual("NaN", formattedSoilLayerDataRow.AbovePhreaticLevel);

@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
         {
             return new MacroStabilityInwardsSoilProfile1D(name, 0.0, new[]
             {
-                new MacroStabilityInwardsSoilLayer1D(0.0)
+                MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D()
             });
         }
     }

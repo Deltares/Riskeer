@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -179,7 +178,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 {
                     MacroStabilityInwardsSoilLayerData soilLayerData = layers[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
-                    Assert.AreEqual((table.Rows.Count - i) + " " + soilLayerData.MaterialName,
+                    Assert.AreEqual(soilLayerData.MaterialName,
                                     rowCells[nameColumnIndex].Value);
                     Assert.AreEqual(soilLayerData.Color,
                                     rowCells[colorColumnIndex].Value);

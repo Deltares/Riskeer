@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Extensions;
 using Core.Components.Chart.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
