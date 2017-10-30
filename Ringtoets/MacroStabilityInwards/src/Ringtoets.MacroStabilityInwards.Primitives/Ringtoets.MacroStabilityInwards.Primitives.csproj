@@ -54,6 +54,7 @@
     <Compile Include="MacroStabilityInwardsPhreaticLine.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.cs" />
     <Compile Include="MacroStabilityInwardsShearStrengthModel.cs" />
+    <Compile Include="MacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayerData.cs" />
     <Compile Include="MacroStabilityInwardsWaternet.cs" />
     <Compile Include="MacroStabilityInwardsWaternetLine.cs" />

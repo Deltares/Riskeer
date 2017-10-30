@@ -22,9 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
+namespace Ringtoets.MacroStabilityInwards.Primitives
 {
     /// <summary>
     /// This class represents a 2D layer that was imported from D-Soil Model.

@@ -56,6 +56,7 @@
     <Compile Include="MacroStabilityInwardsDikeSoilScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsPhreaticLineTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticDesignVariableFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsSoilLayer2DTest.cs" />
     <Compile Include="MacroStabilityInwardsSoilLayerDataTest.cs" />
     <Compile Include="MacroStabilityInwardsWaternetLineTest.cs" />
     <Compile Include="MacroStabilityInwardsWaternetTest.cs" />

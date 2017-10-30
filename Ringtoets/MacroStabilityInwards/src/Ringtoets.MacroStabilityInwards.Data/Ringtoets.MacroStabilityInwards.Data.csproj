@@ -72,7 +72,6 @@
     <Compile Include="SoilProfile\IMacroStabilityInwardsSoilProfile.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStress.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer1D.cs" />
-    <Compile Include="SoilProfile\MacroStabilityInwardsSoilLayer2D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile1D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfile2D.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsSoilProfileUnderSurfaceLine.cs" />
