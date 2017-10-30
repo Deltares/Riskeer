@@ -46,17 +46,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string name = "some name";
 
             // Call
-            var readCalculation = new MacroStabilityInwardsCalculationConfiguration(name);
+            var configuration = new MacroStabilityInwardsCalculationConfiguration(name);
 
             // Assert
-            Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
-            Assert.AreEqual(name, readCalculation.Name);
-            Assert.IsNull(readCalculation.AssessmentLevel);
-            Assert.IsNull(readCalculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(readCalculation.SurfaceLineName);
-            Assert.IsNull(readCalculation.StochasticSoilModelName);
-            Assert.IsNull(readCalculation.StochasticSoilProfileName);
-            Assert.IsNull(readCalculation.Scenario);
+            Assert.IsInstanceOf<IConfigurationItem>(configuration);
+            Assert.AreEqual(name, configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.IsNull(configuration.StochasticSoilProfileName);
+            Assert.IsNull(configuration.Scenario);
+            Assert.IsNull(configuration.DikeSoilScenario);
         }
 
         [Test]
@@ -69,28 +70,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const string surfaceLine = "Name of the surface line";
             const string stochasticSoilModel = "Name of the stochastic soil model";
             const string stochasticSoilProfile = "Name of the stochastic soil profile";
+            const ConfigurationDikeSoilScenario dikeSoilScenario = ConfigurationDikeSoilScenario.SandDikeOnSand;
 
             var scenarioConfiguration = new ScenarioConfiguration();
 
             // Call
-            var readCalculation = new MacroStabilityInwardsCalculationConfiguration(calculationName)
+            var configuration = new MacroStabilityInwardsCalculationConfiguration(calculationName)
             {
                 AssessmentLevel = assessmentLevel,
                 HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
                 SurfaceLineName = surfaceLine,
                 StochasticSoilModelName = stochasticSoilModel,
                 StochasticSoilProfileName = stochasticSoilProfile,
-                Scenario = scenarioConfiguration
+                Scenario = scenarioConfiguration,
+                DikeSoilScenario = dikeSoilScenario
             };
 
             // Assert
-            Assert.AreEqual(calculationName, readCalculation.Name);
-            Assert.AreEqual(assessmentLevel, readCalculation.AssessmentLevel);
-            Assert.AreEqual(hydraulicBoundaryLocation, readCalculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual(surfaceLine, readCalculation.SurfaceLineName);
-            Assert.AreEqual(stochasticSoilModel, readCalculation.StochasticSoilModelName);
-            Assert.AreEqual(stochasticSoilProfile, readCalculation.StochasticSoilProfileName);
-            Assert.AreSame(scenarioConfiguration, readCalculation.Scenario);
+            Assert.AreEqual(calculationName, configuration.Name);
+            Assert.AreEqual(assessmentLevel, configuration.AssessmentLevel);
+            Assert.AreEqual(hydraulicBoundaryLocation, configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual(surfaceLine, configuration.SurfaceLineName);
+            Assert.AreEqual(stochasticSoilModel, configuration.StochasticSoilModelName);
+            Assert.AreEqual(stochasticSoilProfile, configuration.StochasticSoilProfileName);
+            Assert.AreSame(scenarioConfiguration, configuration.Scenario);
+            Assert.AreEqual(dikeSoilScenario, configuration.DikeSoilScenario);
         }
 
         [Test]

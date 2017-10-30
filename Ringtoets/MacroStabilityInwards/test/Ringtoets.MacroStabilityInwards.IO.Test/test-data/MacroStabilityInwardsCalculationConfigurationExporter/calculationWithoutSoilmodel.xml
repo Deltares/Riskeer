@@ -3,6 +3,7 @@
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <hrlocatie>PUNT_KAT_18</hrlocatie>
     <profielschematisatie>PK001_0001</profielschematisatie>
+    <dijktype>1A</dijktype>
     <scenario>
       <gebruik>true</gebruik>
       <bijdrage>100</bijdrage>

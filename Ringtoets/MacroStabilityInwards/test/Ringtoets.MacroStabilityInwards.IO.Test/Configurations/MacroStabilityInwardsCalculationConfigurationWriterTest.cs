@@ -89,7 +89,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 {
                     IsRelevant = true,
                     Contribution = 0.3
-                }
+                },
+                DikeSoilScenario = ConfigurationDikeSoilScenario.ClayDikeOnSand
             };
         }
 

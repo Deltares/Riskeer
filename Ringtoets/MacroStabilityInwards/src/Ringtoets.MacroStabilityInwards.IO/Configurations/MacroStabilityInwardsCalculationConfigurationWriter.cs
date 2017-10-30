@@ -23,6 +23,7 @@ using System;
 using System.Xml;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
@@ -80,7 +81,36 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
                                              configuration.StochasticSoilProfileName);
 
+            WriteDikeSoilScenarioWhenAvailable(
+                writer,
+                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
+                configuration.DikeSoilScenario);
+
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
+        }
+
+        /// <summary>
+        /// Writes the <paramref name="dikeSoilScenario"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The XML element name.</param>
+        /// <param name="dikeSoilScenario">The dike soil scenario to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of
+        /// <paramref name="dikeSoilScenario"/> cannot be performed.</exception>
+        private static void WriteDikeSoilScenarioWhenAvailable(XmlWriter writer,
+                                                               string elementName,
+                                                               ConfigurationDikeSoilScenario? dikeSoilScenario)
+        {
+            if (!dikeSoilScenario.HasValue)
+            {
+                return;
+            }
+
+            var typeConverter = new ConfigurationDikeSoilScenarioTypeConverter();
+            writer.WriteElementString(elementName,
+                                      typeConverter.ConvertToInvariantString(dikeSoilScenario.Value));
         }
     }
 }

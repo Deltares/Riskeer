@@ -25,6 +25,8 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 {
@@ -56,7 +58,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         {
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            var calculationConfiguration = new MacroStabilityInwardsCalculationConfiguration(calculation.Name);
+            var calculationConfiguration = new MacroStabilityInwardsCalculationConfiguration(calculation.Name)
+            {
+                Scenario = calculation.ToScenarioConfiguration()
+            };
 
             if (input.HydraulicBoundaryLocation != null)
             {
@@ -78,7 +83,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 calculationConfiguration.StochasticSoilProfileName = input.StochasticSoilProfile?.SoilProfile.Name;
             }
 
-            calculationConfiguration.Scenario = calculation.ToScenarioConfiguration();
+            if (Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario))
+            {
+                calculationConfiguration.DikeSoilScenario = (ConfigurationDikeSoilScenario?)
+                    new ConfigurationDikeSoilScenarioTypeConverter().ConvertFrom(input.DikeSoilScenario);
+            }
 
             return calculationConfiguration;
         }

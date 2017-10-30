@@ -72,6 +72,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public ScenarioConfiguration Scenario { get; set; }
 
         /// <summary>
+        /// Gets or sets the dike soil scenario of the calculation.
+        /// </summary>
+        public ConfigurationDikeSoilScenario? DikeSoilScenario { get; set; }
+
+        /// <summary>
         /// Gets or sets the name for the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
