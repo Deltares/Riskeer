@@ -50,6 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
+
             if (layersWithSoil == null)
             {
                 throw new ArgumentNullException(nameof(layersWithSoil));
@@ -102,14 +103,14 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
 
         private static GeometryLoop CreateGeometryLoop(Point2D[] points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
         {
-            GeometryLoop loop = alreadyCreatedLoops.FirstOrDefault(l => l.CurveList.Select(cl => cl.HeadPoint.X).SequenceEqual(points.Select(p => p.X))
-                                                                        && l.CurveList.Select(cl => cl.HeadPoint.Z).SequenceEqual(points.Select(p => p.Y)));
+            GeometryCurve[] geometryCurves = CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves);
+            GeometryLoop loop = alreadyCreatedLoops.FirstOrDefault(l => l.CurveList.SequenceEqual(geometryCurves));
 
             if (loop == null)
             {
                 loop = new GeometryLoop();
 
-                loop.CurveList.AddRange(CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves));
+                loop.CurveList.AddRange(geometryCurves);
 
                 alreadyCreatedLoops.Add(loop);
             }

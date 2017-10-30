@@ -134,10 +134,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
             Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
-            LayerWithSoil[] layersWithSoils = LayerWithSoilCreator.Create(input.SoilProfile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile);
 
-            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoils.Select(lws => lws.Soil).ToArray()), upliftVanKernel.SoilModel);
-            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoils), upliftVanKernel.SoilProfile);
+            KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()), upliftVanKernel.SoilModel);
+            KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil), upliftVanKernel.SoilProfile);
             KernelInputAssert.AssertStabilityLocations(UpliftVanStabilityLocationCreator.CreateExtreme(input), upliftVanKernel.LocationExtreme);
             KernelInputAssert.AssertStabilityLocations(UpliftVanStabilityLocationCreator.CreateDaily(input), upliftVanKernel.LocationDaily);
             KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection), upliftVanKernel.SurfaceLine);

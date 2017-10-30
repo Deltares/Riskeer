@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_SoilDictionaryNull_ThrowsArgumentNullException()
+        public void Create_LayersWithSoilNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => SoilProfileCreator.Create(Enumerable.Empty<PreconsolidationStress>(),
@@ -185,39 +185,19 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Assert
+
+            #region Preconsolidation stresses
+
             Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
             PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
-
             Assert.IsTrue(string.IsNullOrEmpty(preconsolidationStress.Name)); // Unused property
             Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
             Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
             Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
 
-            Assert.AreEqual(4, profile.Surfaces.Count);
+            #endregion
 
-            SoilLayer2D surface1 = profile.Surfaces.ElementAt(0);
-            Assert.AreSame(soil1, surface1.Soil);
-            Assert.AreEqual(soil1.Name, surface1.Name);
-            Assert.AreEqual(layerWithSoil1.IsAquifer, surface1.IsAquifer);
-            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterpressureInterpolationModel);
-
-            SoilLayer2D surface2 = profile.Surfaces.ElementAt(1);
-            Assert.AreSame(soil2, surface2.Soil);
-            Assert.AreEqual(soil2.Name, surface2.Name);
-            Assert.AreEqual(layerWithSoil2.IsAquifer, surface2.IsAquifer);
-            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterpressureInterpolationModel);
-
-            SoilLayer2D surface3 = profile.Surfaces.ElementAt(2);
-            Assert.AreSame(soil3, surface3.Soil);
-            Assert.AreEqual(soil3.Name, surface3.Name);
-            Assert.AreEqual(layerWithSoil3.IsAquifer, surface3.IsAquifer);
-            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterpressureInterpolationModel);
-
-            SoilLayer2D surface4 = profile.Surfaces.ElementAt(3);
-            Assert.AreSame(soil4, surface4.Soil);
-            Assert.AreEqual(soil4.Name, surface4.Name);
-            Assert.AreEqual(layerWithSoil4.IsAquifer, surface4.IsAquifer);
-            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterpressureInterpolationModel);
+            #region Geometry
 
             var outerLoopPoint1 = new WtiStabilityPoint2D(0, 0);
             var outerLoopPoint2 = new WtiStabilityPoint2D(0, 3);
@@ -332,6 +312,52 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, profile.Geometry.Left);
             Assert.AreEqual(0, profile.Geometry.Bottom);
             Assert.AreEqual(10, profile.Geometry.Right);
+
+            Assert.AreEqual(4, profile.Surfaces.Count);
+            Assert.AreEqual(4, profile.Geometry.Surfaces.Count);
+            CollectionAssert.AreEqual(profile.Surfaces.Select(s => s.GeometrySurface), profile.Geometry.Surfaces);
+
+            #endregion
+
+            #region Surfaces
+
+            SoilLayer2D surface1 = profile.Surfaces.ElementAt(0);
+            Assert.AreSame(soil1, surface1.Soil);
+            Assert.AreEqual(soil1.Name, surface1.Name);
+            Assert.AreEqual(layerWithSoil1.IsAquifer, surface1.IsAquifer);
+            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterpressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops[0], surface1.GeometrySurface.OuterLoop);
+            CollectionAssert.IsEmpty(surface1.GeometrySurface.InnerLoops);
+
+            SoilLayer2D surface2 = profile.Surfaces.ElementAt(1);
+            Assert.AreSame(soil2, surface2.Soil);
+            Assert.AreEqual(soil2.Name, surface2.Name);
+            Assert.AreEqual(layerWithSoil2.IsAquifer, surface2.IsAquifer);
+            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterpressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops[1], surface2.GeometrySurface.OuterLoop);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Geometry.Loops[2],
+                profile.Geometry.Loops[3]
+            }, surface2.GeometrySurface.InnerLoops);
+
+            SoilLayer2D surface3 = profile.Surfaces.ElementAt(2);
+            Assert.AreSame(soil3, surface3.Soil);
+            Assert.AreEqual(soil3.Name, surface3.Name);
+            Assert.AreEqual(layerWithSoil3.IsAquifer, surface3.IsAquifer);
+            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterpressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops[2], surface3.GeometrySurface.OuterLoop);
+            CollectionAssert.IsEmpty(surface3.GeometrySurface.InnerLoops);
+
+            SoilLayer2D surface4 = profile.Surfaces.ElementAt(3);
+            Assert.AreSame(soil4, surface4.Soil);
+            Assert.AreEqual(soil4.Name, surface4.Name);
+            Assert.AreEqual(layerWithSoil4.IsAquifer, surface4.IsAquifer);
+            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterpressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops[3], surface4.GeometrySurface.OuterLoop);
+            CollectionAssert.IsEmpty(surface4.GeometrySurface.InnerLoops);
+
+            #endregion
         }
     }
 }

@@ -102,10 +102,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 
         private void SetInputOnKernel(IWaternetKernel waternetKernel)
         {
-            LayerWithSoil[] layersWithSoils = LayerWithSoilCreator.Create(Input.SoilProfile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(Input.SoilProfile);
 
-            waternetKernel.SoilModel = SoilModelCreator.Create(layersWithSoils.Select(lws => lws.Soil).ToArray());
-            waternetKernel.SoilProfile = SoilProfileCreator.Create(Input.SoilProfile.PreconsolidationStresses, layersWithSoils);
+            waternetKernel.SoilModel = SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray());
+            waternetKernel.SoilProfile = SoilProfileCreator.Create(Input.SoilProfile.PreconsolidationStresses, layersWithSoil);
             waternetKernel.Location = WaternetStabilityLocationCreator.Create(Input);
             waternetKernel.SurfaceLine = SurfaceLineCreator.Create(Input.SurfaceLine, Input.LandwardDirection);
         }
