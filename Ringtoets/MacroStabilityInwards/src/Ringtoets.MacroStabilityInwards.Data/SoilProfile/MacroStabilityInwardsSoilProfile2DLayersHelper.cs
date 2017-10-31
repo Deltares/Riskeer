@@ -34,7 +34,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
         /// Method for obtaining all <see cref="MacroStabilityInwardsSoilLayer2D"/> in <paramref name="layers"/> recursively.
         /// </summary>
         /// <param name="layers">The collection of layers to recursively get the layers from.</param>
-        /// <returns>An enumerable with <see cref="MacroStabilityInwardsSoilLayer2D"/>, if there are any.</returns>
+        /// <returns>An enumerable with <see cref="MacroStabilityInwardsSoilLayer2D"/> or an empty enumerable
+        /// when <paramref name="layers"/> is <c>null</c>.</returns>
         public static IEnumerable<MacroStabilityInwardsSoilLayer2D> GetLayersRecursively(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
         {
             return layers?.SelectMany(GetLayersRecursively) ?? Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>();
