@@ -67,6 +67,7 @@
     <Compile Include="MacroStabilityInwardsCalculationServiceTest.cs" />
     <Compile Include="MacroStabilityInwardsDataSynchronizationServiceTest.cs" />
     <Compile Include="MacroStabilityInwardsInputServiceTest.cs" />
+    <Compile Include="MacroStabilityInwardsInputValidatorTest.cs" />
     <Compile Include="MacroStabilityInwardsSemiProbabilisticCalculationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
