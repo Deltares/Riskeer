@@ -61,27 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string MaximumSliceWidthElement = "maximalelamelbreedte";
 
-        #region Tangent line determination type
-
-        /// <summary>
-        /// The identifier for the tangent line determination type elements.
-        /// </summary>
-        public const string TangentLineDeterminationTypeElement = "bepalingtangentlijnen";
-
-        /// <summary>
-        /// The possible content of the <see cref="ConfigurationTangentLineDeterminationType"/> 
-        /// element indicating layer separated.
-        /// </summary>
-        public const string TangentLineDeterminationTypeLayerSeparated = "laagscheiding";
-
-        /// <summary>
-        /// The possible content of the <see cref="ConfigurationTangentLineDeterminationType"/> 
-        /// element indicating specified.
-        /// </summary>
-        public const string TangentLineDeterminationTypeSpecified = "gespecificeerd";
-
-        #endregion
-
         #region Dike soil scenario
 
         /// <summary>
@@ -123,6 +102,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string GridElement = "grids";
 
         /// <summary>
+        /// The tag of the element containing the value whether the grid should be moved.
+        /// </summary>
+        public const string MoveGrid = "verplaatsgrid";
+
+        /// <summary>
         /// The identifier for the grid determination type elements.
         /// </summary>
         public const string GridDeterminationTypeElement = "bepaling";
@@ -139,10 +123,46 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string GridDeterminationTypeManual = "handmatig";
 
+        #region Tangent lines
+
         /// <summary>
-        /// The tag of the element containing the value whether the grid should be moved.
+        /// The identifier for tangent line elements.
         /// </summary>
-        public const string MoveGrid = "verplaatsgrid";
+        public const string TangentLineElement = "tangentlijnen";
+
+        /// <summary>
+        /// The identifier for the tangent line determination type elements.
+        /// </summary>
+        public const string TangentLineDeterminationTypeElement = "bepalingtangentlijnen";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationTangentLineDeterminationType"/> 
+        /// element indicating layer separated.
+        /// </summary>
+        public const string TangentLineDeterminationTypeLayerSeparated = "laagscheiding";
+
+        /// <summary>
+        /// The possible content of the <see cref="ConfigurationTangentLineDeterminationType"/> 
+        /// element indicating specified.
+        /// </summary>
+        public const string TangentLineDeterminationTypeSpecified = "gespecificeerd";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the top z of the tangent line.
+        /// </summary>
+        public const string TangentLineZTop = "zboven";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the bottom z of the tangent line.
+        /// </summary>
+        public const string TangentLineZBottom = "zonder";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the number of tangent lines.
+        /// </summary>
+        public const string TangentLineNumber = "aantal";
+
+        #endregion
 
         /// <summary>
         /// The identifier for left grid elements.

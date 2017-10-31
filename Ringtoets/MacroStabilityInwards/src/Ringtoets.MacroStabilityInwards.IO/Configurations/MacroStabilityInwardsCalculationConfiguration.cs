@@ -92,15 +92,35 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public double? MaximumSliceWidth { get; set; }
 
         /// <summary>
+        /// Gets or sets the grid determination type.
+        /// </summary>
+        public ConfigurationGridDeterminationType? GridDeterminationType { get; set; }
+
+        /// <summary>
         /// Gets or sets the value whether the grid should be moved.
         /// </summary>
         public bool? MoveGrid { get; set; }
 
         /// <summary>
-        /// Gets or sets the grid determination type.
+        /// Gets or sets the tangent line determination type.
         /// </summary>
-        public ConfigurationGridDeterminationType? GridDeterminationType { get; set; }
+        public ConfigurationTangentLineDeterminationType? TangentLineDeterminationType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tangent line z top.
+        /// </summary>
+        public double? TangentLineZTop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tangent line z bottom.
+        /// </summary>
+        public double? TangentLineZBottom { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of tangent lines.
+        /// </summary>
+        public int? TangentLineNumber { get; set; }
+        
         /// <summary>
         /// Gets or sets the left grid.
         /// </summary>

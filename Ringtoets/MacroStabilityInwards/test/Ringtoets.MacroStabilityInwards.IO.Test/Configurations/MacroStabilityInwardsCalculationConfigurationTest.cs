@@ -61,8 +61,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
-            Assert.IsNull(configuration.MoveGrid);
             Assert.IsNull(configuration.GridDeterminationType);
+            Assert.IsNull(configuration.MoveGrid);
+            Assert.IsNull(configuration.TangentLineDeterminationType);
+            Assert.IsNull(configuration.TangentLineZTop);
+            Assert.IsNull(configuration.TangentLineZBottom);
+            Assert.IsNull(configuration.TangentLineNumber);
             Assert.IsNull(configuration.LeftGrid);
             Assert.IsNull(configuration.RightGrid);
         }
@@ -85,6 +89,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var scenarioConfiguration = new ScenarioConfiguration();
             const bool movegrid = true;
             const ConfigurationGridDeterminationType gridDeterminationType = ConfigurationGridDeterminationType.Manual;
+            const ConfigurationTangentLineDeterminationType tangentLineDeterminationType = ConfigurationTangentLineDeterminationType.Specified;
+            const double tangentLineZTop = 5.5;
+            const double tangentLineZBottom = 6.6;
+            const int tangentLineNumber = 7;
             var leftGrid = new MacroStabilityInwardsGridConfiguration();
             var rightGrid = new MacroStabilityInwardsGridConfiguration();
 
@@ -103,6 +111,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 MaximumSliceWidth = maximumSliceWidth,
                 MoveGrid = movegrid,
                 GridDeterminationType = gridDeterminationType,
+                TangentLineDeterminationType = tangentLineDeterminationType,
+                TangentLineZTop = tangentLineZTop,
+                TangentLineZBottom = tangentLineZBottom,
+                TangentLineNumber = tangentLineNumber,
                 LeftGrid = leftGrid,
                 RightGrid = rightGrid
             };
@@ -121,6 +133,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);
             Assert.AreEqual(movegrid, configuration.MoveGrid);
             Assert.AreEqual(gridDeterminationType, configuration.GridDeterminationType);
+            Assert.AreEqual(tangentLineDeterminationType, configuration.TangentLineDeterminationType);
+            Assert.AreEqual(tangentLineZTop, configuration.TangentLineZTop);
+            Assert.AreEqual(tangentLineZBottom, configuration.TangentLineZBottom);
+            Assert.AreEqual(tangentLineNumber, configuration.TangentLineNumber);
             Assert.AreSame(leftGrid, configuration.LeftGrid);
             Assert.AreSame(rightGrid, configuration.RightGrid);
         }
