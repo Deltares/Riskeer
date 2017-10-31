@@ -6,6 +6,9 @@
     <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
     <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
     <dijktype>1A</dijktype>
+    <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>
+    <minimaleglijvlaklengte>INF</minimaleglijvlaklengte>
+    <maximalelamelbreedte>-INF</maximalelamelbreedte>
     <scenario>
       <gebruik>true</gebruik>
       <bijdrage>INF</bijdrage>

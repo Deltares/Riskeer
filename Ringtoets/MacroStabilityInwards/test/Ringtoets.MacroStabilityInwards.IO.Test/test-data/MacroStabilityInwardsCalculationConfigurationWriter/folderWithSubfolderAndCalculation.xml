@@ -8,6 +8,9 @@
       <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
       <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
       <dijktype>1B</dijktype>
+      <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
+      <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
+      <maximalelamelbreedte>0.6</maximalelamelbreedte>
       <scenario>
         <gebruik>true</gebruik>
         <bijdrage>0.3</bijdrage>

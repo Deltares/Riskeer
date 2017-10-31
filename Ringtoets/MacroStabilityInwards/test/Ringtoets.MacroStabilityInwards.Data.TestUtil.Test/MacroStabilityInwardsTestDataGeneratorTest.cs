@@ -153,12 +153,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsTrue(calculation.IsRelevant);
-            Assert.AreEqual(double.NaN, calculation.Contribution);
+            Assert.IsNaN(calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
-            Assert.AreEqual(double.NaN, calculation.InputParameters.AssessmentLevel.Value);
-            Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
-            Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
-            Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
+
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            Assert.IsNaN(input.AssessmentLevel.Value);
+            Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
+            Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
+            Assert.AreEqual("W1-6_0_1D1", input.StochasticSoilProfile.SoilProfile.Name);
+            Assert.IsNaN(input.SlipPlaneMinimumDepth);
+            Assert.IsNaN(input.SlipPlaneMinimumLength);
+            Assert.IsNaN(input.MaximumSliceWidth);
         }
 
         [Test]
@@ -172,10 +177,15 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.IsTrue(calculation.IsRelevant);
             Assert.AreEqual(double.PositiveInfinity, calculation.Contribution);
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
-            Assert.AreEqual(double.NegativeInfinity, calculation.InputParameters.AssessmentLevel.Value);
-            Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
-            Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
-            Assert.AreEqual("W1-6_0_1D1", calculation.InputParameters.StochasticSoilProfile.SoilProfile.Name);
+
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            Assert.AreEqual(double.NegativeInfinity, input.AssessmentLevel.Value);
+            Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
+            Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
+            Assert.AreEqual("W1-6_0_1D1", input.StochasticSoilProfile.SoilProfile.Name);
+            Assert.AreEqual(double.NegativeInfinity, input.SlipPlaneMinimumDepth);
+            Assert.AreEqual(double.PositiveInfinity, input.SlipPlaneMinimumLength);
+            Assert.AreEqual(double.NegativeInfinity, input.MaximumSliceWidth);
         }
 
         private static void AssertCalculation(MacroStabilityInwardsCalculationScenario calculation,
@@ -189,54 +199,59 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             Assert.AreEqual(1.0, calculation.Contribution, calculation.Contribution.GetAccuracy());
             Assert.AreEqual("PK001_0001 W1-6_0_1D1", calculation.Name);
 
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            Assert.AreEqual(0.4, input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
+            Assert.AreEqual(0.5, input.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
+            Assert.AreEqual(0.6, input.MaximumSliceWidth, input.MaximumSliceWidth.GetAccuracy());
+
             if (hasHydraulicLocation)
             {
-                Assert.AreEqual(1, calculation.InputParameters.HydraulicBoundaryLocation.Id);
-                Assert.AreEqual("PUNT_KAT_18", calculation.InputParameters.HydraulicBoundaryLocation.Name);
+                Assert.AreEqual(1, input.HydraulicBoundaryLocation.Id);
+                Assert.AreEqual("PUNT_KAT_18", input.HydraulicBoundaryLocation.Name);
             }
             else
             {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.IsNull(input.HydraulicBoundaryLocation);
             }
 
             if (hasAssessmentLevel)
             {
-                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.IsTrue(calculation.InputParameters.UseAssessmentLevelManualInput);
-                Assert.AreEqual(3, calculation.InputParameters.AssessmentLevel,
-                                calculation.InputParameters.AssessmentLevel.GetAccuracy());
+                Assert.IsNull(input.HydraulicBoundaryLocation);
+                Assert.IsTrue(input.UseAssessmentLevelManualInput);
+                Assert.AreEqual(3, input.AssessmentLevel,
+                                input.AssessmentLevel.GetAccuracy());
             }
 
             if (hasSurfaceLine)
             {
-                Assert.AreEqual("PK001_0001", calculation.InputParameters.SurfaceLine.Name);
+                Assert.AreEqual("PK001_0001", input.SurfaceLine.Name);
             }
             else
             {
-                Assert.IsNull(calculation.InputParameters.SurfaceLine);
+                Assert.IsNull(input.SurfaceLine);
             }
 
             if (hasSoilModel)
             {
-                Assert.AreEqual("PK001_0001_Macrostabiliteit", calculation.InputParameters.StochasticSoilModel.Name);
+                Assert.AreEqual("PK001_0001_Macrostabiliteit", input.StochasticSoilModel.Name);
 
                 if (hasSoilProfile)
                 {
-                    Assert.IsNotNull(calculation.InputParameters.StochasticSoilProfile);
-                    var soilProfile = calculation.InputParameters.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
+                    Assert.IsNotNull(input.StochasticSoilProfile);
+                    var soilProfile = input.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
                     Assert.NotNull(soilProfile);
                     Assert.AreEqual("W1-6_0_1D1", soilProfile.Name);
                     Assert.AreEqual(1, soilProfile.Layers.Count());
                 }
                 else
                 {
-                    Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
+                    Assert.IsNull(input.StochasticSoilProfile);
                 }
             }
             else
             {
-                Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
-                Assert.IsNull(calculation.InputParameters.StochasticSoilProfile);
+                Assert.IsNull(input.StochasticSoilModel);
+                Assert.IsNull(input.StochasticSoilProfile);
             }
         }
 

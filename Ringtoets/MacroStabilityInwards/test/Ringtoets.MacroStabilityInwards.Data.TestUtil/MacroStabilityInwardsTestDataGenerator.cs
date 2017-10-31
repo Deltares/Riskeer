@@ -152,7 +152,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0, new MacroStabilityInwardsSoilProfile1D("W1-6_0_1D1", 0, new[]
                     {
                         new MacroStabilityInwardsSoilLayer1D(0)
-                    }))
+                    })),
+                    SlipPlaneMinimumDepth = (RoundedDouble) 0.4,
+                    SlipPlaneMinimumLength = (RoundedDouble) 0.5,
+                    MaximumSliceWidth = (RoundedDouble) 0.6
                 }
             };
 
@@ -167,7 +170,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         {
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
             calculation.Contribution = RoundedDouble.NaN;
-            calculation.InputParameters.AssessmentLevel = RoundedDouble.NaN;
+
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            input.AssessmentLevel = RoundedDouble.NaN;
+            input.SlipPlaneMinimumDepth = RoundedDouble.NaN;
+            input.SlipPlaneMinimumLength = RoundedDouble.NaN;
+            input.MaximumSliceWidth = RoundedDouble.NaN;
 
             return calculation;
         }
@@ -183,13 +191,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenarioWithAssessmentLevel();
             calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
 
-            calculation.InputParameters.SurfaceLine.SetGeometry(new[]
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            input.SurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, double.NegativeInfinity, 0),
                 new Point3D(0, double.PositiveInfinity, 0)
             });
 
-            calculation.InputParameters.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
+            input.AssessmentLevel = (RoundedDouble) double.NegativeInfinity;
+
+            input.SlipPlaneMinimumDepth = (RoundedDouble) double.NegativeInfinity;
+            input.SlipPlaneMinimumLength = (RoundedDouble) double.PositiveInfinity;
+            input.MaximumSliceWidth = (RoundedDouble) double.NegativeInfinity;
 
             return calculation;
         }

@@ -90,7 +90,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                     IsRelevant = true,
                     Contribution = 0.3
                 },
-                DikeSoilScenario = ConfigurationDikeSoilScenario.ClayDikeOnSand
+                DikeSoilScenario = ConfigurationDikeSoilScenario.ClayDikeOnSand,
+                SlipPlaneMinimumDepth = 0.4,
+                SlipPlaneMinimumLength = 0.5,
+                MaximumSliceWidth = 0.6
             };
         }
 

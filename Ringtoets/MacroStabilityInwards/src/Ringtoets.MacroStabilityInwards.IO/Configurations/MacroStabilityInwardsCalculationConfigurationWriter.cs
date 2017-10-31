@@ -86,6 +86,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
                 configuration.DikeSoilScenario);
 
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement,
+                                             configuration.SlipPlaneMinimumDepth);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement,
+                                             configuration.SlipPlaneMinimumLength);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement,
+                                             configuration.MaximumSliceWidth);
+
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
         }
 

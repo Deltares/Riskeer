@@ -108,5 +108,20 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// element indicating manual grid determination.
         /// </summary>
         public const string GridDeterminationTypeManual = "handmatig";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the minimum depth of the slip plane.
+        /// </summary>
+        public const string SlipPlaneMinimumDepthElement = "minimaleglijvlakdiepte";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the minimum length of the slip plane.
+        /// </summary>
+        public const string SlipPlaneMinimumLengthElement = "minimaleglijvlaklengte";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the maximum slice width.
+        /// </summary>
+        public const string MaximumSliceWidthElement = "maximalelamelbreedte";
     }
 }
