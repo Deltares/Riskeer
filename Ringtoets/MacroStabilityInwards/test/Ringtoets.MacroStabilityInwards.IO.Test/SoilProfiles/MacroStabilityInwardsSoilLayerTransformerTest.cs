@@ -328,107 +328,53 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
         public void SoilLayer2DTransform_PropertiesSetAndValid_ReturnMacroStabilityInwardSoilLayer2D()
         {
             // Setup
-            var random = new Random(22);
+            var nestedLayer1 = new SoilLayer2D(CreateRandomLoop(21), Enumerable.Empty<SoilLayer2DLoop>())
+            {
+                NestedLayers = Enumerable.Empty<SoilLayer2D>()
+            };
+            var nestedLayer2 = new SoilLayer2D(CreateRandomLoop(22), Enumerable.Empty<SoilLayer2DLoop>())
+            {
+                NestedLayers = Enumerable.Empty<SoilLayer2D>()
+            };
+            var nestedLayer3 = new SoilLayer2D(CreateRandomLoop(22), Enumerable.Empty<SoilLayer2DLoop>())
+            {
+                NestedLayers = new[]
+                {
+                    nestedLayer2
+                }
+            };
+            var layer = new SoilLayer2D(CreateRandomLoop(23), Enumerable.Empty<SoilLayer2DLoop>())
+            {
+                NestedLayers = new[]
+                {
+                    nestedLayer1,
+                    nestedLayer3
+                }
+            };
 
-            double isAquifer = random.Next(0, 2);
-            const string materialName = "materialX";
-            double color = random.NextDouble();
-
-            double abovePhreaticLevelMean = random.NextDouble();
-            double abovePhreaticLevelCoefficientOfVariation = random.NextDouble();
-            double abovePhreaticLevelShift = random.NextDouble();
-            double belowPhreaticLevelMean = random.NextDouble();
-            double belowPhreaticLevelCoefficientOfVariation = random.NextDouble();
-            double belowPhreaticLevelShift = random.NextDouble();
-            double cohesionMean = random.NextDouble();
-            double cohesionCoefficientOfVariation = random.NextDouble();
-            double frictionAngleMean = random.NextDouble();
-            double frictionAngleCoefficientOfVariation = random.NextDouble();
-            double shearStrengthRatioMean = random.NextDouble();
-            double shearStrengthRatioCoefficientOfVariation = random.NextDouble();
-            double strengthIncreaseExponentMean = random.NextDouble();
-            double strengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
-            double popMean = random.NextDouble();
-            double popCoefficientOfVariation = random.NextDouble();
-
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D();
-            layer.IsAquifer = isAquifer;
-            layer.MaterialName = materialName;
-            layer.Color = color;
-            layer.AbovePhreaticLevelMean = abovePhreaticLevelMean;
-            layer.AbovePhreaticLevelCoefficientOfVariation = abovePhreaticLevelCoefficientOfVariation;
-            layer.AbovePhreaticLevelShift = abovePhreaticLevelShift;
-            layer.BelowPhreaticLevelMean = belowPhreaticLevelMean;
-            layer.BelowPhreaticLevelCoefficientOfVariation = belowPhreaticLevelCoefficientOfVariation;
-            layer.BelowPhreaticLevelShift = belowPhreaticLevelShift;
-            layer.CohesionMean = cohesionMean;
-            layer.CohesionCoefficientOfVariation = cohesionCoefficientOfVariation;
-            layer.FrictionAngleMean = frictionAngleMean;
-            layer.FrictionAngleCoefficientOfVariation = frictionAngleCoefficientOfVariation;
-            layer.ShearStrengthRatioMean = shearStrengthRatioMean;
-            layer.ShearStrengthRatioCoefficientOfVariation = shearStrengthRatioCoefficientOfVariation;
-            layer.StrengthIncreaseExponentMean = strengthIncreaseExponentMean;
-            layer.StrengthIncreaseExponentCoefficientOfVariation = strengthIncreaseExponentCoefficientOfVariation;
-            layer.PopMean = popMean;
-            layer.PopCoefficientOfVariation = popCoefficientOfVariation;
+            SetRandomSoilData(nestedLayer1, 21, "Nested sand");
+            SetRandomSoilData(nestedLayer2, 22, "Nested gold");
+            SetRandomSoilData(nestedLayer3, 23, "Nested clay");
+            SetRandomSoilData(layer, 24, "Sand");
 
             // Call
-            MacroStabilityInwardsSoilLayer2D soilLayer2D = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
+            MacroStabilityInwardsSoilLayer2D transformedLayer = MacroStabilityInwardsSoilLayerTransformer.Transform(layer);
 
             // Assert
-            MacroStabilityInwardsSoilLayerData data = soilLayer2D.Data;
+            AssertSoilLayer(layer, transformedLayer);
+            Assert.AreEqual(2, transformedLayer.NestedLayers.Count());
 
-            Assert.AreEqual(materialName, data.MaterialName);
-            bool expectedIsAquifer = isAquifer.Equals(1.0);
-            Assert.AreEqual(expectedIsAquifer, data.IsAquifer);
-            Color expectedColor = Color.FromArgb(Convert.ToInt32(color));
-            Assert.AreEqual(expectedColor, data.Color);
+            MacroStabilityInwardsSoilLayer2D transformedNestedLayer1 = transformedLayer.NestedLayers.ElementAt(0);
+            AssertSoilLayer(nestedLayer1, transformedNestedLayer1);
+            CollectionAssert.IsEmpty(transformedNestedLayer1.NestedLayers);
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) abovePhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) abovePhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, data.AbovePhreaticLevel);
+            MacroStabilityInwardsSoilLayer2D transformedNestedLayer3 = transformedLayer.NestedLayers.ElementAt(1);
+            AssertSoilLayer(nestedLayer3, transformedNestedLayer3);
+            Assert.AreEqual(1, transformedNestedLayer3.NestedLayers.Count());
 
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) belowPhreaticLevelMean,
-                CoefficientOfVariation = (RoundedDouble) belowPhreaticLevelCoefficientOfVariation,
-                Shift = (RoundedDouble) abovePhreaticLevelShift
-            }, data.BelowPhreaticLevel);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) cohesionMean,
-                CoefficientOfVariation = (RoundedDouble) cohesionCoefficientOfVariation
-            }, data.Cohesion);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) frictionAngleMean,
-                CoefficientOfVariation = (RoundedDouble) frictionAngleCoefficientOfVariation
-            }, data.FrictionAngle);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) shearStrengthRatioMean,
-                CoefficientOfVariation = (RoundedDouble) shearStrengthRatioCoefficientOfVariation
-            }, data.ShearStrengthRatio);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) strengthIncreaseExponentMean,
-                CoefficientOfVariation = (RoundedDouble) strengthIncreaseExponentCoefficientOfVariation
-            }, data.StrengthIncreaseExponent);
-
-            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) popMean,
-                CoefficientOfVariation = (RoundedDouble) popCoefficientOfVariation
-            }, data.Pop);
-
-            AssertRings(layer, soilLayer2D);
+            MacroStabilityInwardsSoilLayer2D transformedNestedLayer2 = transformedNestedLayer3.NestedLayers.ElementAt(0);
+            AssertSoilLayer(nestedLayer2, transformedNestedLayer2);
+            CollectionAssert.IsEmpty(transformedNestedLayer2.NestedLayers);
         }
 
         [Test]
@@ -598,15 +544,61 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
-        private static void AssertRings(SoilLayer2D soilLayer, MacroStabilityInwardsSoilLayer2D macroStabilityInwardsSoilLayer)
+        private static SoilLayer2DLoop CreateRandomLoop(int seed)
         {
-            Assert.AreEqual(GetRingFromSegments(soilLayer.OuterLoop.Segments), macroStabilityInwardsSoilLayer.OuterRing);
-            CollectionAssert.AreEqual(soilLayer.InnerLoops.Select(il => GetRingFromSegments(il.Segments)), macroStabilityInwardsSoilLayer.Holes);
+            var random = new Random(seed);
+            var pointA = new Point2D(random.NextDouble(), random.NextDouble());
+            var pointB = new Point2D(random.NextDouble(), random.NextDouble());
+            var pointC = new Point2D(random.NextDouble(), random.NextDouble());
+
+            return new SoilLayer2DLoop(new[]
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC),
+                new Segment2D(pointC, pointA)
+            });
+        }
+
+        private static void SetRandomSoilData(SoilLayer2D layer, int seed, string materialName)
+        {
+            var random = new Random(seed);
+
+            layer.MaterialName = materialName;
+            layer.IsAquifer = random.Next(0, 2);
+            layer.Color = random.NextDouble();
+            layer.AbovePhreaticLevelMean = random.NextDouble() + 1;
+            layer.AbovePhreaticLevelCoefficientOfVariation = random.NextDouble();
+            layer.AbovePhreaticLevelShift = random.NextDouble();
+            layer.BelowPhreaticLevelMean = random.NextDouble() + 1;
+            layer.BelowPhreaticLevelCoefficientOfVariation = random.NextDouble();
+            layer.BelowPhreaticLevelShift = random.NextDouble();
+            layer.CohesionMean = random.NextDouble();
+            layer.CohesionCoefficientOfVariation = random.NextDouble();
+            layer.FrictionAngleMean = random.NextDouble();
+            layer.FrictionAngleCoefficientOfVariation = random.NextDouble();
+            layer.ShearStrengthRatioMean = random.NextDouble();
+            layer.ShearStrengthRatioCoefficientOfVariation = random.NextDouble();
+            layer.StrengthIncreaseExponentMean = random.NextDouble();
+            layer.StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble();
+            layer.PopMean = random.NextDouble();
+            layer.PopCoefficientOfVariation = random.NextDouble();
+        }
+
+        private static void AssertSoilLayer(SoilLayer2D original, MacroStabilityInwardsSoilLayer2D actual)
+        {
+            AssertOuterRing(original, actual);
+            AssertSoilData(original, actual);
+        }
+
+        private static void AssertOuterRing(SoilLayer2D original, MacroStabilityInwardsSoilLayer2D actual)
+        {
+            Assert.AreEqual(GetRingFromSegments(original.OuterLoop.Segments), actual.OuterRing);
         }
 
         private static Ring GetRingFromSegments(IEnumerable<Segment2D> loop)
         {
             var points = new List<Point2D>();
+
             foreach (Segment2D segment in loop)
             {
                 points.AddRange(new[]
@@ -615,7 +607,59 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
                     segment.SecondPoint
                 });
             }
+
             return new Ring(points.Distinct());
+        }
+
+        private static void AssertSoilData(SoilLayer2D original, MacroStabilityInwardsSoilLayer2D actual)
+        {
+            Assert.AreEqual(original.MaterialName, actual.Data.MaterialName);
+            Assert.AreEqual(original.IsAquifer.Equals(1.0), actual.Data.IsAquifer);
+            Assert.AreEqual(Color.FromArgb(Convert.ToInt32(original.Color)), actual.Data.Color);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.AbovePhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) original.AbovePhreaticLevelCoefficientOfVariation,
+                Shift = (RoundedDouble) original.AbovePhreaticLevelShift
+            }, actual.Data.AbovePhreaticLevel);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.BelowPhreaticLevelMean,
+                CoefficientOfVariation = (RoundedDouble) original.BelowPhreaticLevelCoefficientOfVariation,
+                Shift = (RoundedDouble) original.BelowPhreaticLevelShift
+            }, actual.Data.BelowPhreaticLevel);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.CohesionMean,
+                CoefficientOfVariation = (RoundedDouble) original.CohesionCoefficientOfVariation
+            }, actual.Data.Cohesion);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.FrictionAngleMean,
+                CoefficientOfVariation = (RoundedDouble) original.FrictionAngleCoefficientOfVariation
+            }, actual.Data.FrictionAngle);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.ShearStrengthRatioMean,
+                CoefficientOfVariation = (RoundedDouble) original.ShearStrengthRatioCoefficientOfVariation
+            }, actual.Data.ShearStrengthRatio);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.StrengthIncreaseExponentMean,
+                CoefficientOfVariation = (RoundedDouble) original.StrengthIncreaseExponentCoefficientOfVariation
+            }, actual.Data.StrengthIncreaseExponent);
+
+            DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) original.PopMean,
+                CoefficientOfVariation = (RoundedDouble) original.PopCoefficientOfVariation
+            }, actual.Data.Pop);
         }
 
         #region Test Data: Color test cases
@@ -690,7 +734,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
         #endregion
 
-        #region Test Data:NonShifted Log Normal Distributions
+        #region Test Data: NonShifted Log Normal Distributions
 
         private static IEnumerable<TestCaseData> IncorrectNonShiftedLogNormalDistributionsSoilLayer1D()
         {
