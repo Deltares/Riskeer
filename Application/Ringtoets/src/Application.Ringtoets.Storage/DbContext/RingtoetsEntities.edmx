@@ -866,7 +866,7 @@
           <Property Name="MacroStabilityInwardsSoilLayerTwoDEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentMacroStabilityInwardsSoilLayerTwoDEntityId" Type="integer" />
           <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
-          <Property Name="Color" Type="integer" />
+          <Property Name="Color" Type="integer" Nullable="false" />
           <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="ShearStrengthModel" Type="tinyint" Nullable="false" />
           <Property Name="UsePop" Type="tinyint" Nullable="false" />
@@ -5318,7 +5318,7 @@
           <Property Name="MacroStabilityInwardsSoilLayerTwoDEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentMacroStabilityInwardsSoilLayerTwoDEntityId" Type="Int64" />
           <Property Name="IsAquifer" Type="Byte" Nullable="false" />
-          <Property Name="Color" Type="Int64" />
+          <Property Name="Color" Type="Int64" Nullable="false" />
           <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="ShearStrengthModel" Type="Byte" Nullable="false" />
           <Property Name="UsePop" Type="Byte" Nullable="false" />
