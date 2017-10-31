@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -67,10 +68,10 @@ namespace Ringtoets.Piping.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(layer));
             }
-            return new ChartMultipleAreaData(layer.MaterialName,
+            return new ChartMultipleAreaData(SoilLayerVisualizationHelper.GetDisplayName(layer.MaterialName),
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = layer.Color,
+                                                 FillColor = SoilLayerVisualizationHelper.GetDisplayColor(layer.Color),
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

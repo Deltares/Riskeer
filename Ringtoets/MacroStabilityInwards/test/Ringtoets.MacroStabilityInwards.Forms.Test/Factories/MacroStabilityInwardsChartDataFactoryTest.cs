@@ -236,6 +236,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateSoilLayerChartData_LayerWithEmptyNameAndColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
+        {
+            // Call
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
+            layer.Data.MaterialName = string.Empty;
+            layer.Data.Color = Color.Empty;
+
+            ChartMultipleAreaData data = MacroStabilityInwardsChartDataFactory.CreateSoilLayerChartData(layer);
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Areas);
+            Assert.AreEqual("Onbekend", data.Name);
+            AssertEqualStyle(data.Style, Color.White, Color.Black, 1, false);
+        }
+
+        [Test]
         public void UpdateSurfaceLineChartDataName_SurfaceLineNull_NameSetToDefaultSurfaceLineName()
         {
             // Setup

@@ -191,6 +191,45 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void SetData_WithEmptyNameAndColor_ExpectedValuesInTable()
+        {
+            // Setup
+            using (var table = new PipingSoilLayerTable())
+            {
+                PipingSoilLayer soilLayer = CreatePipingSoilLayer();
+                soilLayer.MaterialName = string.Empty;
+                soilLayer.Color = Color.Empty;
+
+                var layers = new[]
+                {
+                    soilLayer
+                };
+                table.SetData(new[]
+                {
+                    new PipingSoilLayer(1.0)
+                });
+
+                // Call
+                table.SetData(layers);
+
+                // Assert
+                PipingSoilLayer pipingSoilLayer = layers[0];
+                DataGridViewCellCollection rowCells = table.Rows[0].Cells;
+                AssertColumnValueEqual("Onbekend", rowCells[nameColumnIndex].Value);
+                AssertColumnValueEqual(Color.White, rowCells[colorColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.Top, rowCells[topColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.IsAquifer, rowCells[isAquiferColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.PermeabilityMean, rowCells[permeabilityMeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.PermeabilityCoefficientOfVariation, rowCells[permeabilityCoefficientOfVariationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.DiameterD70Mean, rowCells[d70MeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.DiameterD70CoefficientOfVariation, rowCells[d70CoefficientOfVariationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelMean, rowCells[belowPhreaticLevelWeightMeanColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelDeviation, rowCells[belowPhreaticLevelWeightDeviationColumnIndex].Value);
+                AssertColumnValueEqual(pipingSoilLayer.BelowPhreaticLevelShift, rowCells[belowPhreaticLevelWeightShiftColumnIndex].Value);
+            }
+        }
+
         private void AssertColumnValueEqual(object expectedValue, object actualValue)
         {
             if (expectedValue is string || expectedValue is Color)

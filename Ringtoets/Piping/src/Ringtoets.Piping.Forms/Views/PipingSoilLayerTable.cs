@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -72,8 +73,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             public FormattedPipingSoilLayerRow(PipingSoilLayer layer)
             {
-                MaterialName = layer.MaterialName;
-                Color = layer.Color;
+                MaterialName = SoilLayerVisualizationHelper.GetDisplayName(layer.MaterialName);
+                Color = SoilLayerVisualizationHelper.GetDisplayColor(layer.Color);
                 Top = new RoundedDouble(2, layer.Top);
                 IsAquifer = layer.IsAquifer;
                 PermeabilityMean = new RoundedDouble(6, layer.PermeabilityMean);

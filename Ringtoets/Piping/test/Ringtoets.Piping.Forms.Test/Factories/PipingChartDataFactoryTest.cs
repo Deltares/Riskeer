@@ -88,6 +88,22 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateSoilLayerChartData_LayerWithEmptyNameAndColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
+        {
+            // Call
+            ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(new PipingSoilLayer(0)
+            {
+                MaterialName = string.Empty,
+                Color = Color.Empty
+            });
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Areas);
+            Assert.AreEqual("Onbekend", data.Name);
+            AssertEqualStyle(data.Style, Color.White, Color.Black, 1);
+        }
+
+        [Test]
         public void UpdateSurfaceLineChartDataName_SurfaceLineNull_NameSetToDefaultSurfaceLineName()
         {
             // Setup

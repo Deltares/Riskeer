@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -211,10 +212,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 throw new ArgumentNullException(nameof(layer));
             }
             MacroStabilityInwardsSoilLayerData data = layer.Data;
-            return new ChartMultipleAreaData(data.MaterialName,
+            return new ChartMultipleAreaData(SoilLayerVisualizationHelper.GetDisplayName(data.MaterialName),
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = data.Color,
+                                                 FillColor = SoilLayerVisualizationHelper.GetDisplayColor(data.Color),
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

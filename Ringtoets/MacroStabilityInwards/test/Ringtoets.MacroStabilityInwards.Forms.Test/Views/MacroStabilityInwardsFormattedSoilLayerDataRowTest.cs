@@ -118,13 +118,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void Constructor_WithSoilLayerDataNaN_ExpectedValues()
+        public void Constructor_WithSoilLayerDataEmptyAndNaN_ExpectedValues()
         {
             // Setup
             var soilLayerData = new MacroStabilityInwardsSoilLayerData
             {
-                MaterialName = "Sand",
-                Color = Color.Black,
+                MaterialName = string.Empty,
+                Color = Color.Empty,
                 IsAquifer = true,
                 AbovePhreaticLevel = new VariationCoefficientLogNormalDistribution
                 {
@@ -172,8 +172,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFormattedSoilLayerDataRow, EnumTypeConverter>(
                 nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel));
 
-            Assert.AreEqual(soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
-            Assert.AreEqual(soilLayerData.Color, formattedSoilLayerDataRow.Color);
+            Assert.AreEqual("Onbekend", formattedSoilLayerDataRow.MaterialName);
+            Assert.AreEqual(Color.White, formattedSoilLayerDataRow.Color);
             Assert.AreEqual(soilLayerData.IsAquifer, formattedSoilLayerDataRow.IsAquifer);
             Assert.AreEqual("NaN", formattedSoilLayerDataRow.AbovePhreaticLevel);
             Assert.AreEqual("NaN", formattedSoilLayerDataRow.BelowPhreaticLevel);
