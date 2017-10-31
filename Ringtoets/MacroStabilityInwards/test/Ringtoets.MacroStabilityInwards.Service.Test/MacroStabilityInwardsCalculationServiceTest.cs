@@ -859,12 +859,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(1, -20),
                                 new Point2D(2, 10),
                                 new Point2D(1, -20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0, -10.0),
                                 new Point2D(1, -20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point way too high");
 
@@ -878,12 +878,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(1, 20),
                                 new Point2D(2, 10),
                                 new Point2D(1, 20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0, 100.0),
                                 new Point2D(1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point way too low");
 
@@ -897,12 +897,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(1, 200),
                                 new Point2D(2, 100),
                                 new Point2D(1, 200)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0, 10.0 - 0.05),
                                 new Point2D(1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point too high");
 
@@ -916,12 +916,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(1, 200),
                                 new Point2D(2, 100),
                                 new Point2D(1, 200)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0, 10.0 + 0.05),
                                 new Point2D(1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point too low");
 
@@ -935,12 +935,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(1, 20),
                                 new Point2D(3, -1),
                                 new Point2D(1, 20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0, 10.0),
                                 new Point2D(1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("X further than x of surfaceLine, Y not within limit");
 
@@ -956,7 +956,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(1, 19),
                                 new Point2D(2, 10),
                                 new Point2D(0, 10)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("Second segment is vertical and exceeds surfaceLine");
         }
@@ -974,12 +974,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.2, 10),
                                 new Point2D(0.15, -10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("Irrelevant surface line point");
 
@@ -993,12 +993,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.1, 20),
                                 new Point2D(0.2, 10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10.0049),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point within upper limit");
 
@@ -1012,12 +1012,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.1, 20),
                                 new Point2D(0.2, 10),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10.0 - 0.0049),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("First surface line point within lower limit");
 
@@ -1031,12 +1031,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.1, 20),
                                 new Point2D(0.3, 0),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0]),
+                            })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
                                 new Point2D(0.0, 10.0),
                                 new Point2D(0.1, 20)
-                            }), new Ring[0])
+                            }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("X further than x of surfaceLine");
         }

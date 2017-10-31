@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.TestUtil.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -714,7 +713,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(10.0, 0.0),
                 new Point2D(0.0, 0.0)
             });
-            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>());
+            var layer = new MacroStabilityInwardsSoilLayer2D(outerRing);
 
             // Call
             IEnumerable<Point2D[]> outerRingChartData = MacroStabilityInwardsChartDataPointsFactory.CreateOuterRingArea(layer);

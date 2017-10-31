@@ -129,17 +129,22 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 });
 
             // Assert
+            Assert.AreEqual(0.0, soilLayer.IsAquifer);
             Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(pointA, pointB),
                 new Segment2D(pointB, pointA)
             }), soilLayer.OuterLoop);
-            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
+            Assert.AreEqual(1, soilLayer.NestedLayers.Count());
+
+            SoilLayer2D nestedLayer = soilLayer.NestedLayers.ElementAt(0);
             Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(pointC, pointD),
                 new Segment2D(pointD, pointC)
-            }), soilLayer.InnerLoops.ElementAt(0));
+            }), nestedLayer.OuterLoop);
+            CollectionAssert.IsEmpty(nestedLayer.InnerLoops);
+            Assert.AreEqual(0.0, nestedLayer.IsAquifer);
         }
 
         [Test]
@@ -154,17 +159,22 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var pointC = new Point2D(1.0, 1.0);
             var pointD = new Point2D(2.0, 1.0);
 
-            Assert.AreEqual(new SoilLayer2DLoop(new[]
-            {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointA)
-            }), soilLayer.OuterLoop);
-            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
+            Assert.AreEqual(0.0, soilLayer.IsAquifer);
             Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(pointC, pointD),
                 new Segment2D(pointD, pointC)
-            }), soilLayer.InnerLoops.ElementAt(0));
+            }), soilLayer.OuterLoop);
+            Assert.AreEqual(1, soilLayer.NestedLayers.Count());
+
+            SoilLayer2D nestedLayer = soilLayer.NestedLayers.ElementAt(0);
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
+            }), nestedLayer.OuterLoop);
+            CollectionAssert.IsEmpty(nestedLayer.InnerLoops);
+            Assert.AreEqual(0.0, nestedLayer.IsAquifer);
         }
 
         [Test]
@@ -182,15 +192,19 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             Assert.AreEqual(0.0, soilLayer.IsAquifer);
             Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointA)
-            }), soilLayer.OuterLoop);
-            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
-            Assert.AreEqual(new SoilLayer2DLoop(new[]
-            {
                 new Segment2D(pointC, pointD),
                 new Segment2D(pointD, pointC)
-            }), soilLayer.InnerLoops.ElementAt(0));
+            }), soilLayer.OuterLoop);
+            Assert.AreEqual(1, soilLayer.NestedLayers.Count());
+
+            SoilLayer2D nestedLayer = soilLayer.NestedLayers.ElementAt(0);
+            Assert.AreEqual(new SoilLayer2DLoop(new[]
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
+            }), nestedLayer.OuterLoop);
+            CollectionAssert.IsEmpty(nestedLayer.InnerLoops);
+            Assert.AreEqual(0.0, nestedLayer.IsAquifer);
         }
 
         [Test]
@@ -297,12 +311,16 @@ namespace Ringtoets.Common.IO.TestUtil.Test
                 new Segment2D(pointA, pointB),
                 new Segment2D(pointB, pointA)
             }), soilLayer.OuterLoop);
-            Assert.AreEqual(1, soilLayer.InnerLoops.Count());
+            Assert.AreEqual(1, soilLayer.NestedLayers.Count());
+
+            SoilLayer2D nestedLayer = soilLayer.NestedLayers.ElementAt(0);
             Assert.AreEqual(new SoilLayer2DLoop(new[]
             {
                 new Segment2D(pointC, pointD),
                 new Segment2D(pointD, pointC)
-            }), soilLayer.InnerLoops.ElementAt(0));
+            }), nestedLayer.OuterLoop);
+            CollectionAssert.IsEmpty(nestedLayer.InnerLoops);
+            Assert.AreEqual(0.0, nestedLayer.IsAquifer);
         }
     }
 }

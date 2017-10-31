@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(CreateRing(21), new Ring[0])
+                new MacroStabilityInwardsSoilLayer2D(CreateRing(21))
                 {
                     Data =
                     {
@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(CreateRing(21), new Ring[0])
+                new MacroStabilityInwardsSoilLayer2D(CreateRing(21))
                 {
                     Data =
                     {

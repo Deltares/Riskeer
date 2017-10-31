@@ -520,7 +520,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         new Point2D(0, 0),
                         new Point2D(1, 1)
-                    }), new Ring[0])
+                    }))
                 }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
             }
         }

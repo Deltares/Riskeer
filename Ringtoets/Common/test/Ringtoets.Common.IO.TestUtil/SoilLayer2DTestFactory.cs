@@ -47,14 +47,14 @@ namespace Ringtoets.Common.IO.TestUtil
             {
                 new[]
                 {
-                    new Segment2D(pointC, pointD),
-                    new Segment2D(pointD, pointC)
+                    new Segment2D(pointA, pointB),
+                    new Segment2D(pointB, pointA)
                 }
             };
             var outerLoop = new List<Segment2D>
             {
-                new Segment2D(pointA, pointB),
-                new Segment2D(pointB, pointA)
+                new Segment2D(pointC, pointD),
+                new Segment2D(pointD, pointC)
             };
 
             return CreateSoilLayer2D(innerLoops, outerLoop);
@@ -80,10 +80,16 @@ namespace Ringtoets.Common.IO.TestUtil
                 throw new ArgumentNullException(nameof(outerLoop));
             }
 
-            return new SoilLayer2D(new SoilLayer2DLoop(outerLoop.ToArray()),
-                                   innerLoops.Select(il => new SoilLayer2DLoop(il.ToArray())).ToArray())
+            return new SoilLayer2D(new SoilLayer2DLoop(outerLoop.ToArray()), Enumerable.Empty<SoilLayer2DLoop>())
             {
-                NestedLayers = Enumerable.Empty<SoilLayer2D>()
+                IsAquifer = 0.0,
+                NestedLayers = innerLoops.Select(il => new SoilLayer2D(
+                                                     new SoilLayer2DLoop(il.ToArray()),
+                                                     Enumerable.Empty<SoilLayer2DLoop>())
+                                                 {
+                                                     IsAquifer = 0.0,
+                                                     NestedLayers = Enumerable.Empty<SoilLayer2D>()
+                                                 }).ToArray()
             };
         }
 

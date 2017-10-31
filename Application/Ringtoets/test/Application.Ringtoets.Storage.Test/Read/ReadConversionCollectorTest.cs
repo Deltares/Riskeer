@@ -590,7 +590,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 });
                 return new[]
                 {
-                    new MacroStabilityInwardsSoilLayer2D(outerRing, Enumerable.Empty<Ring>())
+                    new MacroStabilityInwardsSoilLayer2D(outerRing)
                 };
             }
         }

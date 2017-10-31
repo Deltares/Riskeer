@@ -34,11 +34,9 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.
         /// </summary>
         /// <param name="outerRing">The ring describing the outer boundaries of the layer.</param>
-        /// <param name="holes">The rings describing the holes within the outer boundaries of 
-        /// the layer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsSoilLayer2D(Ring outerRing, IEnumerable<Ring> holes)
-            : this(outerRing, holes, new MacroStabilityInwardsSoilLayerData(), Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()) {}
+        public MacroStabilityInwardsSoilLayer2D(Ring outerRing)
+            : this(outerRing, Enumerable.Empty<Ring>(), new MacroStabilityInwardsSoilLayerData(), Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer2D"/>.

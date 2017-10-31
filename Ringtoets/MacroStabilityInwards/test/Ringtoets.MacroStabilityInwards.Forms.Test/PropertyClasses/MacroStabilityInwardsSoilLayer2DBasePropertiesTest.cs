@@ -86,8 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                         {
                             new Point2D(12.987, 12.821),
                             new Point2D(4.23, 1.02)
-                        }),
-                        Enumerable.Empty<Ring>())
+                        }))
                 });
 
             // Call

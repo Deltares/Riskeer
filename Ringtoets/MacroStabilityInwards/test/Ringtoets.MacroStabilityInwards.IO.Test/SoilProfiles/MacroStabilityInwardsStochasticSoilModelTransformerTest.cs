@@ -169,24 +169,29 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var expectedStochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, new MacroStabilityInwardsSoilProfile2D("test", new[]
             {
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(1.0, 0.0)
-                }), new[]
-                {
-                    new Ring(new[]
-                    {
-                        new Point2D(1.0, 1.0),
-                        new Point2D(2.0, 1.0)
-                    })
-                })
-                {
-                    Data =
-                    {
-                        UsePop = true,
-                        ShearStrengthModel = MacroStabilityInwardsShearStrengthModel.CPhi
-                    }
-                }
+                                                     {
+                                                         new Point2D(1.0, 1.0),
+                                                         new Point2D(2.0, 1.0)
+                                                     }),
+                                                     Enumerable.Empty<Ring>(),
+                                                     new MacroStabilityInwardsSoilLayerData
+                                                     {
+                                                         UsePop = true
+                                                     },
+                                                     new[]
+                                                     {
+                                                         new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                         {
+                                                             new Point2D(0.0, 0.0),
+                                                             new Point2D(1.0, 0.0)
+                                                         }),
+                                                         Enumerable.Empty<Ring>(),
+                                                         new MacroStabilityInwardsSoilLayerData
+                                                         {
+                                                             UsePop = true
+                                                         },
+                                                         Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
+                                                     })
             }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
             AssertStochasticSoilProfile(expectedStochasticSoilProfile, transformedModel.StochasticSoilProfiles.First());
         }

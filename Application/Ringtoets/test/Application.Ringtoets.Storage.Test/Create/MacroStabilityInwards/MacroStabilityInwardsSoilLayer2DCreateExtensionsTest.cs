@@ -96,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), Enumerable.Empty<Ring>())
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
             {
                 Data =
                 {
@@ -170,10 +170,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var random = new Random(31);
 
             const string materialName = "MaterialName";
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new[]
-            {
-                CreateRandomRing(random)
-            })
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
             {
                 Data =
                 {
@@ -190,7 +187,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 
         private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D(Random random)
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random), new Ring[0])
+            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
             {
                 Data =
                 {

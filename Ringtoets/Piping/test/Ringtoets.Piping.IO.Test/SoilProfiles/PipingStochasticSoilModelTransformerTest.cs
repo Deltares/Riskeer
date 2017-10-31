@@ -441,7 +441,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                                               SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
                                           }, Enumerable.Empty<PreconsolidationStress>())
                                           {
-                                              IntersectionX = random.NextDouble()
+                                              IntersectionX = random.NextDouble() + 1
                                           })
                 .SetName("2D Profile");
 

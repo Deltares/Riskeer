@@ -1131,7 +1131,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         new Point2D(3, 3),
                         new Point2D(4, 4)
-                    }), new Ring[0])
+                    }))
                     {
                         Data =
                         {
@@ -1183,7 +1183,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         new Point2D(-10, -100),
                         new Point2D(10, 100)
-                    }), new Ring[0])
+                    }))
                     {
                         Data =
                         {

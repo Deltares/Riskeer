@@ -150,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 {
                     new Point2D(random.NextDouble(), random.NextDouble()),
                     new Point2D(random.NextDouble(), random.NextDouble())
-                }), Enumerable.Empty<Ring>())
+                }))
             };
 
             return new MacroStabilityInwardsSoilProfile2D(name, layers, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());

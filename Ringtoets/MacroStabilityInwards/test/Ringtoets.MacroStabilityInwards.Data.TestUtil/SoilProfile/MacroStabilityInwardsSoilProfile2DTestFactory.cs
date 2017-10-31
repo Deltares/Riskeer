@@ -44,12 +44,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 1)
-                }), Enumerable.Empty<Ring>()),
+                })),
                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                 {
                     new Point2D(1, 1),
                     new Point2D(2, 2)
-                }), Enumerable.Empty<Ring>())
+                }))
             }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
         }
     }
