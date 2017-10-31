@@ -311,31 +311,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(Random random)
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()), new[]
-            {
-                CreateRandomRing(random.Next()),
-                CreateRandomRing(random.Next())
-            })
-            {
-                Data =
-                {
-                    Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
-                }
-            };
+            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()),
+                                                        Enumerable.Empty<Ring>(),
+                                                        new MacroStabilityInwardsSoilLayerData
+                                                        {
+                                                            Color = Color.FromKnownColor(random.NextEnumValue<KnownColor>())
+                                                        },
+                                                        new[]
+                                                        {
+                                                            new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()),
+                                                                                                 Enumerable.Empty<Ring>()),
+                                                            new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()),
+                                                                                                 Enumerable.Empty<Ring>())
+                                                        });
         }
 
         private static MacroStabilityInwardsSoilLayer2D CopyAndModifySoilLayer(MacroStabilityInwardsSoilLayer2D soilLayer)
         {
-            return new MacroStabilityInwardsSoilLayer2D(soilLayer.OuterRing, new[]
-            {
-                soilLayer.Holes[0]
-            })
-            {
-                Data =
-                {
-                    Color = soilLayer.Data.Color
-                }
-            };
+            return new MacroStabilityInwardsSoilLayer2D(soilLayer.OuterRing,
+                                                        Enumerable.Empty<Ring>(),
+                                                        new MacroStabilityInwardsSoilLayerData
+                                                        {
+                                                            Color = soilLayer.Data.Color
+                                                        },
+                                                        new[]
+                                                        {
+                                                            soilLayer.NestedLayers.ElementAt(0)
+                                                        });
         }
 
         private static Ring CreateRandomRing(int seed)
