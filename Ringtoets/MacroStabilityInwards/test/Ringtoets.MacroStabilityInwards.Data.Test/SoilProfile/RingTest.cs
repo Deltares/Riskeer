@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Equals_DifferentType_ReturnsFalse()
         {
             // Setup
-            Ring layer = CreateRing();
+            Ring layer = RingTestFactory.CreateRandomRing();
 
             // Call
             bool areEqual = layer.Equals(new object());
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void Equals_WithNull_ReturnsFalse()
         {
             // Setup
-            Ring ring = CreateRing();
+            Ring ring = RingTestFactory.CreateRandomRing();
 
             // Call
             bool equal = ring.Equals(null);
@@ -86,8 +86,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
         public void GetHashCode_EqualInstances_ReturnEqualHashes()
         {
             // Setup
-            Ring ringA = CreateRandomRing(21);
-            Ring ringB = CreateRandomRing(21);
+            Ring ringA = RingTestFactory.CreateRandomRing(21);
+            Ring ringB = RingTestFactory.CreateRandomRing(21);
 
             // Precondition
             Assert.AreEqual(ringA, ringB);
@@ -111,12 +111,32 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
             Assert.AreEqual(expectedEqual, areEqualTwo);
         }
 
+        [Test]
+        public void Points_RingWithPointSet_PointSetCopiedToNewCollection()
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(3, 2),
+                new Point2D(5, 6),
+                new Point2D(1, 1.2)
+            };
+
+            var ring = new Ring(points);
+
+            // Call
+            IEnumerable<Point2D> ringPoints = ring.Points;
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(points, ringPoints);
+        }
+
         private static TestCaseData[] RingCombinations()
         {
-            Ring ringA = CreateRandomRing(21);
-            Ring ringB = CreateRandomRing(21);
-            Ring ringC = CreateRandomRing(73);
-            Ring ringD = CreateRandomRing(21);
+            Ring ringA = RingTestFactory.CreateRandomRing(21);
+            Ring ringB = RingTestFactory.CreateRandomRing(21);
+            Ring ringC = RingTestFactory.CreateRandomRing(73);
+            Ring ringD = RingTestFactory.CreateRandomRing(21);
 
             return new[]
             {
@@ -145,53 +165,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     TestName = "Equals_RingARingC_False"
                 }
             };
-        }
-
-        private static Ring CreateRandomRing(int seed)
-        {
-            var random = new Random(seed);
-            var pointA = new Point2D(random.NextDouble(), random.NextDouble());
-            var pointB = new Point2D(random.NextDouble(), random.NextDouble());
-            var pointC = new Point2D(random.NextDouble(), random.NextDouble());
-
-            return new Ring(new[]
-            {
-                pointA,
-                pointB,
-                pointC
-            });
-        }
-
-        [Test]
-        public void Points_RingWithPointSet_PointSetCopiedToNewCollection()
-        {
-            // Setup
-            var points = new[]
-            {
-                new Point2D(3, 2),
-                new Point2D(5, 6),
-                new Point2D(1, 1.2)
-            };
-
-            var ring = new Ring(points);
-
-            // Call
-            IEnumerable<Point2D> ringPoints = ring.Points;
-
-            // Assert
-            TestHelper.AssertAreEqualButNotSame(points, ringPoints);
-        }
-
-        private static Ring CreateRing()
-        {
-            var points = new[]
-            {
-                new Point2D(3, 2),
-                new Point2D(5, 6),
-                new Point2D(1, 1.2)
-            };
-
-            return new Ring(points);
         }
     }
 }

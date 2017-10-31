@@ -27,12 +27,12 @@ using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
 {
@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 MaterialName = nameof(MacroStabilityInwardsSoilLayerTwoDEntity),
-                OuterRingXml = new Point2DXmlSerializer().ToXml(CreateRandomRing(new Random(31)).Points)
+                OuterRingXml = new Point2DXmlSerializer().ToXml(RingTestFactory.CreateRandomRing().Points)
             };
 
             // Call
@@ -233,29 +233,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
                 StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble(),
                 PopMean = random.NextDouble(),
                 PopCoefficientOfVariation = random.NextDouble(),
-                OuterRingXml = new Point2DXmlSerializer().ToXml(new[]
-                {
-                    CreateRandomPoint2D(random),
-                    CreateRandomPoint2D(random),
-                    CreateRandomPoint2D(random),
-                    CreateRandomPoint2D(random)
-                })
+                OuterRingXml = new Point2DXmlSerializer().ToXml(RingTestFactory.CreateRandomRing().Points)
             };
             return entity;
-        }
-
-        private static Ring CreateRandomRing(Random random)
-        {
-            return new Ring(new[]
-            {
-                CreateRandomPoint2D(random),
-                CreateRandomPoint2D(random)
-            });
-        }
-
-        private static Point2D CreateRandomPoint2D(Random random)
-        {
-            return new Point2D(random.NextDouble(), random.NextDouble());
         }
     }
 }

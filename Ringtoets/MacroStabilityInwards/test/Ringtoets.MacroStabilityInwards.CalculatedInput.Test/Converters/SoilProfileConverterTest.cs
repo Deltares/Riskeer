@@ -33,6 +33,7 @@ using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
 {
@@ -101,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(CreateRing(21))
+                new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing())
                 {
                     Data =
                     {
@@ -128,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
             // Setup
             var profile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
             {
-                new MacroStabilityInwardsSoilLayer2D(CreateRing(21))
+                new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing())
                 {
                     Data =
                     {
@@ -146,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomSoilLayer(int seed, IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers)
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRing(seed),
+            return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(seed),
                                                         Enumerable.Empty<Ring>(),
                                                         CreateRandomSoilLayerData(seed),
                                                         nestedLayers);
@@ -199,27 +200,6 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test.Converters
                     CoefficientOfVariation = random.NextRoundedDouble()
                 }
             };
-        }
-
-        private static Ring CreateRing(int seed)
-        {
-            var random = new Random(seed);
-            int x1 = random.Next();
-            int y1 = random.Next();
-            int x2 = x1;
-            int y2 = y1 + random.Next();
-            int x3 = x2 + random.Next();
-            int y3 = y2;
-            double x4 = x1 + (x3 - x1) * random.NextDouble();
-            int y4 = y1;
-
-            return new Ring(new[]
-            {
-                new Point2D(x1, y1),
-                new Point2D(x2, y2),
-                new Point2D(x3, y3),
-                new Point2D(x4, y4)
-            });
         }
     }
 }

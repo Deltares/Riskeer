@@ -32,6 +32,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 {
@@ -311,7 +312,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
 
         private static MacroStabilityInwardsSoilLayer2D CreateRandomLayer(Random random)
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()),
+            return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(random.Next()),
                                                         Enumerable.Empty<Ring>(),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
@@ -319,8 +320,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                         },
                                                         new[]
                                                         {
-                                                            new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next())),
-                                                            new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random.Next()))
+                                                            new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(random.Next())),
+                                                            new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(random.Next()))
                                                         });
         }
 
@@ -336,21 +337,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                         {
                                                             soilLayer.NestedLayers.ElementAt(0)
                                                         });
-        }
-
-        private static Ring CreateRandomRing(int seed)
-        {
-            var random = new Random(seed);
-            var pointA = new Point2D(random.NextDouble(), random.NextDouble());
-            var pointB = new Point2D(random.NextDouble(), random.NextDouble());
-            var pointC = new Point2D(random.NextDouble(), random.NextDouble());
-
-            return new Ring(new[]
-            {
-                pointA,
-                pointB,
-                pointC
-            });
         }
 
         private static MacroStabilityInwardsPreconsolidationStress CreateRandomPreconsolidationStress(int seed)

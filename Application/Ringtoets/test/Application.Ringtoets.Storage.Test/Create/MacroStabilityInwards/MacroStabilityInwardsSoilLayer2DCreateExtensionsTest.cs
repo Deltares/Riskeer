@@ -26,11 +26,11 @@ using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
 {
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            MacroStabilityInwardsSoilLayer2D soilLayer = CreateMacroStabilityInwardsSoilLayer2D(random);
+            MacroStabilityInwardsSoilLayer2D soilLayer = CreateMacroStabilityInwardsSoilLayer2D();
             int order = random.Next();
 
             // Call
@@ -67,13 +67,11 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithNestedLayers_ReturnsEntityWithNestedLayersSet()
         {
             // Setup
-            var random = new Random(31);
-
             MacroStabilityInwardsSoilLayer2D parentLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D(new[]
             {
-                CreateMacroStabilityInwardsSoilLayer2D(random),
-                CreateMacroStabilityInwardsSoilLayer2D(random),
-                CreateMacroStabilityInwardsSoilLayer2D(random)
+                CreateMacroStabilityInwardsSoilLayer2D(),
+                CreateMacroStabilityInwardsSoilLayer2D(),
+                CreateMacroStabilityInwardsSoilLayer2D()
             });
 
             // Call
@@ -95,8 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithNaNProperties_ReturnsEntityWithPropertiesSetToNull()
         {
             // Setup
-            var random = new Random(31);
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing())
             {
                 Data =
                 {
@@ -167,10 +164,8 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var random = new Random(31);
-
             const string materialName = "MaterialName";
-            var soilLayer = new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
+            var soilLayer = new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing())
             {
                 Data =
                 {
@@ -185,9 +180,10 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             TestHelper.AssertAreEqualButNotSame(materialName, entity.MaterialName);
         }
 
-        private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D(Random random)
+        private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
         {
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
+            var random = new Random(14);
+            return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing())
             {
                 Data =
                 {
@@ -274,15 +270,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         {
             string expectedOuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points);
             Assert.AreEqual(expectedOuterRingXml, entity.OuterRingXml);
-        }
-
-        private static Ring CreateRandomRing(Random random)
-        {
-            return new Ring(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
         }
     }
 }

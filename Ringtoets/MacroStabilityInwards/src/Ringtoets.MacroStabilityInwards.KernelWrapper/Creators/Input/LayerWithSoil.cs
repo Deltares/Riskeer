@@ -38,7 +38,11 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="soil">The soil of the layer.</param>
         /// <param name="isAquifer">A value indicating whether the layer is an aquifer.</param>
         /// <param name="waterPressureInterpolationModel">The water pressure interpolation model of the layer.</param>
-        internal LayerWithSoil(Point2D[] outerRing, IEnumerable<Point2D[]> innerRings, Soil soil, bool isAquifer, WaterpressureInterpolationModel waterPressureInterpolationModel)
+        internal LayerWithSoil(Point2D[] outerRing,
+                               IEnumerable<Point2D[]> innerRings,
+                               Soil soil,
+                               bool isAquifer,
+                               WaterpressureInterpolationModel waterPressureInterpolationModel)
         {
             OuterRing = outerRing;
             InnerRings = innerRings;

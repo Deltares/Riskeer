@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
@@ -72,11 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_HolesNullWithDataAndNestedLayers_ThrowsArgumentNullException()
         {
             // Setup
-            var outerRing = new Ring(new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(2, 2)
-            });
+            Ring outerRing = RingTestFactory.CreateRandomRing();
 
             // Call
             TestDelegate test = () => new MacroStabilityInwardsSoilLayer2D(outerRing,
@@ -93,11 +90,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(39);
-            Ring outerRing = CreateRandomRing(random);
+            Ring outerRing = RingTestFactory.CreateRandomRing();
             var holes = new[]
             {
-                CreateRandomRing(random)
+                RingTestFactory.CreateRandomRing()
             };
 
             // Call
@@ -112,11 +108,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_NestedLayersNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(39);
-            Ring outerRing = CreateRandomRing(random);
+            Ring outerRing = RingTestFactory.CreateRandomRing();
             var holes = new[]
             {
-                CreateRandomRing(random)
+                RingTestFactory.CreateRandomRing()
             };
 
             // Call
@@ -131,8 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_WithOuterRing_ReturnsNewInstance()
         {
             // Setup
-            var random = new Random(39);
-            Ring outerRing = CreateRandomRing(random);
+            Ring outerRing = RingTestFactory.CreateRandomRing();
 
             // Call
             var layer = new MacroStabilityInwardsSoilLayer2D(outerRing);
@@ -149,11 +143,10 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         public void Constructor_WithOuterRingHolesDataAndNestedLayers_ReturnsNewInstance()
         {
             // Setup
-            var random = new Random(39);
-            Ring outerRing = CreateRandomRing(random);
+            Ring outerRing = RingTestFactory.CreateRandomRing();
             var holes = new[]
             {
-                CreateRandomRing(random)
+                RingTestFactory.CreateRandomRing()
             };
             var data = new MacroStabilityInwardsSoilLayerData();
             IEnumerable<MacroStabilityInwardsSoilLayer2D> nestedLayers = Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>();
@@ -233,7 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             MacroStabilityInwardsSoilLayer2D layerD = CreateRandomLayer(21);
 
             var layerE = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(21)),
+                RingTestFactory.CreateRandomRing(21),
                 Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -241,11 +234,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new[]
                 {
-                    new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(new Random(22)))
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
                 });
 
             var layerF = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(31)),
+                RingTestFactory.CreateRandomRing(31),
                 Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -253,11 +246,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new[]
                 {
-                    new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(new Random(22)))
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
                 });
 
             var layerG = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(21)),
+                RingTestFactory.CreateRandomRing(21),
                 Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -265,11 +258,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new[]
                 {
-                    new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(new Random(32)))
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(32))
                 });
 
             var layerH = new MacroStabilityInwardsSoilLayer2D(
-                CreateRandomRing(new Random(21)),
+                RingTestFactory.CreateRandomRing(21),
                 Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -277,7 +270,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                 },
                 new[]
                 {
-                    new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(new Random(22)))
+                    new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(22))
                 });
 
             return new[]
@@ -329,7 +322,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
         {
             var random = new Random(randomSeed);
 
-            return new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random),
+            return new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed),
                                                         Enumerable.Empty<Ring>(),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
@@ -337,17 +330,8 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                         },
                                                         new[]
                                                         {
-                                                            new MacroStabilityInwardsSoilLayer2D(CreateRandomRing(random))
+                                                            new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(randomSeed))
                                                         });
-        }
-
-        private static Ring CreateRandomRing(Random random)
-        {
-            return new Ring(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
         }
     }
 }

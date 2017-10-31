@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
@@ -56,14 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var layers = new[]
-            {
-                new SoilLayer(new Point2D[0], new SoilLayer.ConstructionProperties(), Enumerable.Empty<SoilLayer>())
-            };
-            var preconsolidationStresses = new[]
-            {
-                new PreconsolidationStress(new Point2D(0, 0), 0)
-            };
+            var layers = new SoilLayer[0];
+            var preconsolidationStresses = new PreconsolidationStress[0];
 
             // Call
             var profile = new SoilProfile(layers, preconsolidationStresses);
