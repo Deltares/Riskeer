@@ -46,9 +46,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -101,7 +98,6 @@ namespace Demo.Ringtoets.Commands
 
             InitializeGrassCoverErosionInwardsData(demoAssessmentSection);
             InitializeGrassCoverErosionOutwardsData(demoAssessmentSection);
-            InitializeMacroStabilityInwardsData(demoAssessmentSection);
             InitializeHeightStructuresData(demoAssessmentSection);
             InitializeClosingStructuresData(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
@@ -427,82 +423,6 @@ namespace Demo.Ringtoets.Commands
         }
 
         #endregion
-
-        #region MacroStabilityInwardsFailureMechanism
-
-        private void InitializeMacroStabilityInwardsData(AssessmentSection demoAssessmentSection)
-        {
-            MacroStabilityInwardsFailureMechanism failuremechanism = demoAssessmentSection.MacroStabilityInwards;
-
-            var soilProfile1D = new MacroStabilityInwardsStochasticSoilProfile(
-                0.2,
-                new MacroStabilityInwardsSoilProfile1D(
-                    "test 1D", 22.567, new[]
-                    {
-                        new MacroStabilityInwardsSoilLayer1D(30.1267)
-                        {
-                            Data =
-                            {
-                                MaterialName = "1D Layer",
-                                IsAquifer = true
-                            }
-                        }
-                    }));
-            var soilProfile2D = new MacroStabilityInwardsStochasticSoilProfile(
-                0.2,
-                new MacroStabilityInwardsSoilProfile2D(
-                    "test 2D",
-                    new[]
-                    {
-                        new MacroStabilityInwardsSoilLayer2D(
-                            new Ring(new[]
-                            {
-                                new Point2D(20.210230, 26.00001),
-                                new Point2D(3.830, 1.040506),
-                                new Point2D(6.9300, 3.032406),
-                                new Point2D(14.8312, 12.673506)
-                            }),
-                            new[]
-                            {
-                                new Ring(new[]
-                                {
-                                    new Point2D(20.210230, 26.00001),
-                                    new Point2D(3.830, 1.040506),
-                                    new Point2D(6.9300, 3.032406)
-                                }),
-                                new Ring(new[]
-                                {
-                                    new Point2D(6.9300, 3.032406),
-                                    new Point2D(14.8312, 12.673506)
-                                })
-                            })
-                        {
-                            Data =
-                            {
-                                MaterialName = "2D Layer"
-                            }
-                        }
-                    }, Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
-
-            var soilModel = new MacroStabilityInwardsStochasticSoilModel("Test model", new[]
-            {
-                new Point2D(20.210230, 26.00001),
-                new Point2D(3.830, 1.040506),
-                new Point2D(6.9300, 3.032406),
-                new Point2D(14.8312, 12.673506)
-            }, new[]
-            {
-                soilProfile2D,
-                soilProfile1D
-            });
-
-            failuremechanism.StochasticSoilModels.AddRange(new[]
-            {
-                soilModel
-            }, "testmodel.soil");
-        }
-
-        #endregion MacroStabilityInwardsFailureMechanism
 
         #region HeightStructuresFailureMechanism
 

@@ -42,9 +42,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -122,7 +119,6 @@ namespace Demo.Ringtoets.Test.Commands
             AssertStabilityPointStructuresFailureMechanism(demoAssessmentSection);
             AssertStabilityStoneCoverFailureMechanism(demoAssessmentSection);
             AssertWaveImpactAsphaltCoverFailureMechanism(demoAssessmentSection);
-            AssertMacroStabilityInwardsFailureMechanism(demoAssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -585,75 +581,6 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertExpectedWaveImpactAsphaltCoverWaveConditionsInputInput(WaveConditionsInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-        }
-
-        #endregion
-
-        #region MacroStabilityInwardsFailureMechanism
-
-        private static void AssertMacroStabilityInwardsFailureMechanism(AssessmentSection demoAssessmentSection)
-        {
-            MacroStabilityInwardsFailureMechanism failureMechanism = demoAssessmentSection.MacroStabilityInwards;
-
-            Assert.AreEqual("testmodel.soil", failureMechanism.StochasticSoilModels.SourcePath);
-            Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
-
-            MacroStabilityInwardsStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
-            Assert.AreEqual("Test model", soilModel.Name);
-
-            MacroStabilityInwardsStochasticSoilProfile[] stochasticSoilProfiles = soilModel.StochasticSoilProfiles.ToArray();
-            Assert.AreEqual(2, stochasticSoilProfiles.Length);
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile2D = stochasticSoilProfiles[0];
-            Assert.AreEqual(0.2, stochasticSoilProfile2D.Probability);
-            var soilProfile2D = stochasticSoilProfile2D.SoilProfile as MacroStabilityInwardsSoilProfile2D;
-            Assert.IsNotNull(soilProfile2D);
-            CollectionAssert.IsEmpty(soilProfile2D.PreconsolidationStresses);
-            AssertMacroStabilityInwardsSoilProfile2D(soilProfile2D);
-
-            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile1D = stochasticSoilProfiles[1];
-            Assert.AreEqual(0.2, stochasticSoilProfile1D.Probability);
-            var soilProfile1D = stochasticSoilProfile1D.SoilProfile as MacroStabilityInwardsSoilProfile1D;
-            Assert.IsNotNull(soilProfile1D);
-            AssertMacroStabilityInwardsSoilProfile1D(soilProfile1D);
-        }
-
-        private static void AssertMacroStabilityInwardsSoilProfile2D(MacroStabilityInwardsSoilProfile2D soilProfile2D)
-        {
-            MacroStabilityInwardsSoilLayer2D soilLayer2D = soilProfile2D.Layers.Single();
-            var outerRing = new Ring(new[]
-            {
-                new Point2D(20.210230, 26.00001),
-                new Point2D(3.830, 1.040506),
-                new Point2D(6.9300, 3.032406),
-                new Point2D(14.8312, 12.673506)
-            });
-            Assert.AreEqual(outerRing, soilLayer2D.OuterRing);
-            var holes = new[]
-            {
-                new Ring(new[]
-                {
-                    new Point2D(20.210230, 26.00001),
-                    new Point2D(3.830, 1.040506),
-                    new Point2D(6.9300, 3.032406)
-                }),
-                new Ring(new[]
-                {
-                    new Point2D(6.9300, 3.032406),
-                    new Point2D(14.8312, 12.673506)
-                })
-            };
-            CollectionAssert.AreEqual(holes, soilLayer2D.Holes);
-            Assert.AreEqual("2D Layer", soilLayer2D.Data.MaterialName);
-        }
-
-        private static void AssertMacroStabilityInwardsSoilProfile1D(MacroStabilityInwardsSoilProfile1D soilProfile1D)
-        {
-            Assert.AreEqual("test 1D", soilProfile1D.Name);
-            Assert.AreEqual(22.567, soilProfile1D.Bottom);
-
-            MacroStabilityInwardsSoilLayer1D soilLayer = soilProfile1D.Layers.Single();
-            Assert.AreEqual("1D Layer", soilLayer.Data.MaterialName);
-            Assert.IsTrue(soilLayer.Data.IsAquifer);
         }
 
         #endregion
