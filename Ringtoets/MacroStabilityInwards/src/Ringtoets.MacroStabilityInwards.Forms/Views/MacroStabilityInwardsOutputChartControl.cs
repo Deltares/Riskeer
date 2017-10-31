@@ -265,10 +265,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<MacroStabilityInwardsSoilLayer2D> GetSoilLayers()
         {
-            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = data?.InputParameters.SoilProfileUnderSurfaceLine?.Layers;
-            return layers != null
-                       ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
-                       : new List<MacroStabilityInwardsSoilLayer2D>();
+            return MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(data.InputParameters.SoilProfileUnderSurfaceLine?.Layers);
         }
 
         private void SetWaternetDatas(MacroStabilityInwardsSurfaceLine surfaceLine)

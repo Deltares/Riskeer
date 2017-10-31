@@ -68,7 +68,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ReadOnly(true)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SoilLayer_Geometry_DisplayName))]

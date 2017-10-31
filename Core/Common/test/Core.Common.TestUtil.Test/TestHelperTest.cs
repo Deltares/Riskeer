@@ -608,7 +608,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertExceptionCustomMessage_NoException_ThrowsAssertionException()
         {
             // Setup
-            TestDelegate t = () => { };
+            TestDelegate t = () => {};
 
             // Call
             TestDelegate call = () => TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, string.Empty);
@@ -676,7 +676,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertTypeConverter_PropertyWithoutTypeConverterAttribute_ThrowsAssertionException()
+        public void AssertTypeConverterWithExpression_PropertyWithoutTypeConverterAttribute_ThrowsAssertionException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithoutTypeConverter));
@@ -686,7 +686,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertTypeConverter_PropertyWithDifferentTypeConverterAttribute_ThrowsAssertionException()
+        public void AssertTypeConverterWithExpression_PropertyWithDifferentTypeConverterAttribute_ThrowsAssertionException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, Int32Converter>(nameof(TestClass.PropertyWithTypeConverter));
@@ -696,7 +696,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertTypeConverter_PropertyWithMatchingTypeConverterAttribute_DoesNotThrowException()
+        public void AssertTypeConverterWithExpression_PropertyWithMatchingTypeConverterAttribute_DoesNotThrowException()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<TestClass, DoubleConverter>(nameof(TestClass.PropertyWithTypeConverter));
@@ -706,10 +706,50 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void AssertTypeConverter_TypeConverterAttributeInherited_ReturnTrue()
+        public void AssertTypeConverterWithExpression_TypeConverterAttributeInherited_ReturnTrue()
         {
             // Call
             TestDelegate test = () => TestHelper.AssertTypeConverter<DerivedTestClass, DoubleConverter>(nameof(DerivedTestClass.PropertyWithTypeConverter));
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AssertTypeConverterWithoutExpression_ClassWithoutTypeConverterAttribute_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate test = TestHelper.AssertTypeConverter<TestClassWithoutConverter, Int32Converter>;
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertTypeConverterWithoutExpression_ClassWithDifferentTypeConverterAttribute_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate test = TestHelper.AssertTypeConverter<TestClass, Int32Converter>;
+
+            // Assert
+            Assert.Throws<AssertionException>(test);
+        }
+
+        [Test]
+        public void AssertTypeConverterWithoutExpression_ClassWithMatchingTypeConverterAttribute_DoesNotThrowException()
+        {
+            // Call
+            TestDelegate test = TestHelper.AssertTypeConverter<TestClass, DoubleConverter>;
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void AssertTypeConverterWithoutExpression_TypeConverterAttributeInherited_ReturnTrue()
+        {
+            // Call
+            TestDelegate test = TestHelper.AssertTypeConverter<DerivedTestClass, DoubleConverter>;
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -1163,6 +1203,9 @@ namespace Core.Common.TestUtil.Test
 
         private class TestToolStripDropDownItem : ToolStripDropDownItem {}
 
+        private class TestClassWithoutConverter {}
+
+        [TypeConverter(typeof(DoubleConverter))]
         private class TestClass
         {
             public double PropertyWithoutTypeConverter { get; private set; }

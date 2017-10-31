@@ -64,6 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsStochasticSoilProfile>>(properties);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties, ExpandableObjectConverter>();
             TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilProfileProperties.Layers1D));
             TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,

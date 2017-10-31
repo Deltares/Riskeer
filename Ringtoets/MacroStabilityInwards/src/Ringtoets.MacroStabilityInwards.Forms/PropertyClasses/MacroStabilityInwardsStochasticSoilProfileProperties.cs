@@ -108,11 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.Layers;
-                IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = layers != null
-                                                                                                      ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers)
-                                                                                                      : new List<MacroStabilityInwardsSoilLayer2D>();
-                return macroStabilityInwardsSoilLayers2D?.Select(layer => new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer)).ToArray() ??
-                       new MacroStabilityInwardsSoilLayer2DTopLevelProperties[0];
+                IEnumerable<MacroStabilityInwardsSoilLayer2D> macroStabilityInwardsSoilLayers2D = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
+                return macroStabilityInwardsSoilLayers2D.Select(layer => new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer)).ToArray();
             }
         }
 

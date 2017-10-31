@@ -64,14 +64,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/> does not correspond
         /// to <paramref name="soilProfileUnderSurface"/>, <paramref name="expectedName"/> or
         /// <paramref name="mapDataShouldContainAreas"/>.</exception>
-        public static void AssertSoilProfileChartData(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurface, string expectedName, bool mapDataShouldContainAreas, ChartData actual)
+        public static void AssertSoilProfileChartData(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurface,
+                                                      string expectedName,
+                                                      bool mapDataShouldContainAreas,
+                                                      ChartData actual)
         {
             Assert.IsInstanceOf<ChartDataCollection>(actual);
             var soilProfileChartData = (ChartDataCollection) actual;
 
-            MacroStabilityInwardsSoilLayer2D[] layers = soilProfileUnderSurface?.Layers != null
-                                                            ? MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfileUnderSurface.Layers).ToArray()
-                                                            : new MacroStabilityInwardsSoilLayer2D[0];
+            MacroStabilityInwardsSoilLayer2D[] layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfileUnderSurface?.Layers).ToArray();
             int expectedLayerCount = layers.Length;
 
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());

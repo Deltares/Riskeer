@@ -23,8 +23,6 @@ using System.Linq;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
 {
@@ -64,7 +62,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
         public static void AssertChartData(MacroStabilityInwardsCalculationScenario calculationScenario, ChartDataCollection actual)
         {
             Assert.AreEqual(nrOfChartData, actual.Collection.Count());
-            MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(calculationScenario.InputParameters.SurfaceLine, actual.Collection.ElementAt(surfaceLineIndex));
+            MacroStabilityInwardsViewChartDataAssert.AssertSurfaceLineChartData(calculationScenario.InputParameters.SurfaceLine,
+                                                                                actual.Collection.ElementAt(surfaceLineIndex));
             MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculationScenario.InputParameters.SoilProfileUnderSurfaceLine,
                                                                                 calculationScenario.InputParameters.StochasticSoilProfile.SoilProfile.Name,
                                                                                 true,

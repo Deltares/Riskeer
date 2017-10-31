@@ -21,11 +21,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -48,13 +50,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidMacroStabilityInwardsSoilLayer2D_ExpectedValues()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D soilLayer = CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(soilLayer);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsSoilLayer2D>>(properties);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DBaseProperties, ExpandableObjectConverter>();
             TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DBaseProperties,
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DBaseProperties.Geometry));
             Assert.AreSame(soilLayer, properties.Data);
@@ -64,25 +67,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                             {
-                                                                 new Point2D(20.210230, 26.00001),
-                                                                 new Point2D(3.830, 1.040506)
-                                                             }),
-                                                             new Ring[0],
-                                                             new MacroStabilityInwardsSoilLayerData
-                                                             {
-                                                                 MaterialName = "Test Name",
-                                                                 IsAquifer = true
-                                                             },
-                                                             new[]
-                                                             {
-                                                                 new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                                 {
-                                                                     new Point2D(12.987, 12.821),
-                                                                     new Point2D(4.23, 1.02)
-                                                                 }), new Ring[0])
-                                                             });
+            var layer = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new[]
+                {
+                    new Point2D(20.210230, 26.00001),
+                    new Point2D(3.830, 1.040506)
+                }),
+                Enumerable.Empty<Ring>(),
+                new MacroStabilityInwardsSoilLayerData
+                {
+                    MaterialName = "Test Name",
+                    IsAquifer = true
+                },
+                new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(
+                        new Ring(new[]
+                        {
+                            new Point2D(12.987, 12.821),
+                            new Point2D(4.23, 1.02)
+                        }),
+                        Enumerable.Empty<Ring>())
+                });
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(layer);
@@ -96,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void ToString_Always_ReturnsMaterialName()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
             layer.Data.MaterialName = "Layer A 2D";
 
             var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(layer);
@@ -112,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DBaseProperties(layer);
@@ -137,16 +143,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Geometrie",
                                                                             "De geometrie van de buitenring van deze grondlaag.",
                                                                             true);
-        }
-
-        private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
-        {
-            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                        {
-                                                            new Point2D(20.210230, 26.00001),
-                                                            new Point2D(3.830, 1.040506)
-                                                        }),
-                                                        new Ring[0]);
         }
     }
 }

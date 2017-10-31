@@ -394,7 +394,7 @@ namespace Core.Common.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expression"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a property, such as an expression calling multiple methods.</exception>
-        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with the
         /// name specified in <paramref name="expression"/>.</exception>
         /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the property in <paramref name="expression"/>
@@ -402,11 +402,28 @@ namespace Core.Common.TestUtil
         /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
         public static void AssertTypeConverter<TTarget, TTypeConverter>(string expression) where TTypeConverter : TypeConverter
         {
-            var typeConverterAttribute = (TypeConverterAttribute) Attribute.GetCustomAttribute(typeof(TTarget).GetProperty(expression),
-                                                                                               typeof(TypeConverterAttribute),
-                                                                                               true);
-            Assert.NotNull(typeConverterAttribute);
-            Assert.IsTrue(typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName);
+            AssertTypeConverter<TTypeConverter>(typeof(TTarget).GetProperty(expression));
+        }
+
+        /// <summary>
+        /// Determines whether a class is decorated with a <see cref="TypeConverterAttribute"/>
+        /// of a given type.
+        /// </summary>
+        /// <typeparam name="TTarget">The type of the target.</typeparam>
+        /// <typeparam name="TTypeConverter">The type of <see cref="TypeConverter"/> to check
+        /// for on the type of <typeparamref name="TTarget"/>.</typeparam>
+        /// <exception cref="AssertionException">Thrown when the class wasn't decorated with 
+        /// a <see cref="TypeConverter"/> or with a different <see cref="TypeConverter"/>
+        /// than <typeparamref name="TTypeConverter"/>.</exception>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one class is found with
+        /// the type specified in <typeparamref name="TTarget"/>.</exception>
+        /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the class belongs to a type
+        /// that is loaded into the reflection-only context. See How to: 
+        /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
+        public static void AssertTypeConverter<TTarget, TTypeConverter>() where TTypeConverter : TypeConverter
+        {
+            AssertTypeConverter<TTypeConverter>(typeof(TTarget));
         }
 
         /// <summary>
@@ -518,6 +535,31 @@ namespace Core.Common.TestUtil
                 }
                 Assert.IsFalse(actualEnumerator.MoveNext());
             }
+        }
+
+        /// <summary>
+        /// Determines whether a class is decorated with a <see cref="TypeConverterAttribute"/>
+        /// of a given type.
+        /// </summary>
+        /// <typeparam name="TTypeConverter">The type of <see cref="TypeConverter"/> to check
+        /// for on the <paramref name="expression"/>.</typeparam>
+        /// <exception cref="AssertionException">Thrown when the class wasn't decorated with 
+        /// a <see cref="TypeConverter"/> or with a different <see cref="TypeConverter"/>
+        /// than <typeparamref name="TTypeConverter"/>.</exception>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one class is found with
+        /// the property specified in <paramref name="expression"/>.</exception>
+        /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the class belongs to a type
+        /// that is loaded into the reflection-only context. See How to: 
+        /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
+        private static void AssertTypeConverter<TTypeConverter>(MemberInfo expression) where TTypeConverter : TypeConverter
+        {
+            var typeConverterAttribute = (TypeConverterAttribute) Attribute.GetCustomAttribute(expression,
+                                                                                               typeof(TypeConverterAttribute),
+                                                                                               true);
+
+            Assert.NotNull(typeConverterAttribute);
+            Assert.IsTrue(typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName);
         }
 
         private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)

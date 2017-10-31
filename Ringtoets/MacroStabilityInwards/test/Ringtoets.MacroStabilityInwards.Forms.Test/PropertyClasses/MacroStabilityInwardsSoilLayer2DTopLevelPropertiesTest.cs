@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -37,13 +37,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidMacroStabilityInwardsSoilLayer2D_ExpectedValues()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D soilLayer = CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DTopLevelProperties(soilLayer);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsSoilLayer2DBaseProperties>(properties);
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DTopLevelProperties, ExpandableObjectConverter>();
             TestHelper.AssertTypeConverter<MacroStabilityInwardsSoilLayer2DTopLevelProperties,
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsSoilLayer2DTopLevelProperties.NestedLayers));
             Assert.AreSame(soilLayer, properties.Data);
@@ -85,7 +86,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertieshaveExpectedAttributeValues()
         {
             // Setup
-            MacroStabilityInwardsSoilLayer2D layer = CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer2D layer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
 
             // Call
             var properties = new MacroStabilityInwardsSoilLayer2DTopLevelProperties(layer);
@@ -124,16 +125,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Is aquifer",
                                                                             "Geeft aan of deze grondlaag een watervoerende laag betreft.",
                                                                             true);
-        }
-
-        private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
-        {
-            return new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
-                                                        {
-                                                            new Point2D(20.210230, 26.00001),
-                                                            new Point2D(3.830, 1.040506)
-                                                        }),
-                                                        new Ring[0]);
         }
     }
 }

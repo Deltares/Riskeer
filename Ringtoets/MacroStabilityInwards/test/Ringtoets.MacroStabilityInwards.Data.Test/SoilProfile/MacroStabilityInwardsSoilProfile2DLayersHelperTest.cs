@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -32,66 +32,74 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
     public class MacroStabilityInwardsSoilProfile2DLayersHelperTest
     {
         [Test]
-        public void GetLayersRecursively_LayersNull_ThrowsArgumentNullException()
+        public void GetLayersRecursively_LayersNull_ReturnsEmptyCollection()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(null);
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("layers", paramName);
+            CollectionAssert.IsEmpty(layers);
         }
 
         [Test]
-        public void GetLayersRecursively_WithLayers_ReturnsAllTopLevelAndNestedLayers()
+        public void GetLayersRecursively_WithNestedLayers_ReturnsAllTopLevelAndNestedLayers()
         {
             // Setup
-            var nestedLayer1 = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-            {
-                new Point2D(4.0, 2.0),
-                new Point2D(0.0, 2.5)
-            }), new List<Ring>());
+            var nestedLayer1 = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(4.0, 2.0),
+                    new Point2D(0.0, 2.5)
+                }),
+                Enumerable.Empty<Ring>());
 
-            var topLevelLayer1 = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-                                                                      {
-                                                                          new Point2D(0.0, 1.0),
-                                                                          new Point2D(2.0, 4.0)
-                                                                      }),
-                                                                      new List<Ring>(),
-                                                                      new MacroStabilityInwardsSoilLayerData(),
-                                                                      new[]
-                                                                      {
-                                                                          nestedLayer1
-                                                                      });
+            var topLevelLayer1 = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(0.0, 1.0),
+                    new Point2D(2.0, 4.0)
+                }),
+                Enumerable.Empty<Ring>(),
+                new MacroStabilityInwardsSoilLayerData(),
+                new[]
+                {
+                    nestedLayer1
+                });
 
-            var doubleNestedLayer = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-            {
-                new Point2D(4.0, 2.0),
-                new Point2D(0.0, 2.5)
-            }), new List<Ring>());
+            var doubleNestedLayer = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(4.0, 2.0),
+                    new Point2D(0.0, 2.5)
+                }),
+                Enumerable.Empty<Ring>());
 
-            var nestedLayer2 = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-                                                                    {
-                                                                        new Point2D(4.0, 2.0),
-                                                                        new Point2D(0.0, 2.5)
-                                                                    }),
-                                                                    new List<Ring>(),
-                                                                    new MacroStabilityInwardsSoilLayerData(),
-                                                                    new[]
-                                                                    {
-                                                                        doubleNestedLayer
-                                                                    });
+            var nestedLayer2 = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(4.0, 2.0),
+                    new Point2D(0.0, 2.5)
+                }),
+                Enumerable.Empty<Ring>(),
+                new MacroStabilityInwardsSoilLayerData(),
+                new[]
+                {
+                    doubleNestedLayer
+                });
 
-            var topLevelLayer2 = new MacroStabilityInwardsSoilLayer2D(new Ring(new List<Point2D>
-                                                                      {
-                                                                          new Point2D(3.0, 1.0),
-                                                                          new Point2D(8.0, 3.0)
-                                                                      }), new List<Ring>(),
-                                                                      new MacroStabilityInwardsSoilLayerData(),
-                                                                      new[]
-                                                                      {
-                                                                          nestedLayer2
-                                                                      });
+            var topLevelLayer2 = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(3.0, 1.0),
+                    new Point2D(8.0, 3.0)
+                }),
+                Enumerable.Empty<Ring>(),
+                new MacroStabilityInwardsSoilLayerData(),
+                new[]
+                {
+                    nestedLayer2
+                });
+
             var layers = new[]
             {
                 topLevelLayer1,
