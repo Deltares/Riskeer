@@ -48,6 +48,19 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual("bepaling", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement);
             Assert.AreEqual("automatisch", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeAutomatic);
             Assert.AreEqual("handmatig", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeManual);
+
+            Assert.AreEqual("minimaleglijvlakdiepte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement);
+            Assert.AreEqual("minimaleglijvlaklengte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement);
+            Assert.AreEqual("maximalelamelbreedte", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement);
+
+            Assert.AreEqual("linkergrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement);
+            Assert.AreEqual("rechtergrid", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement);
+            Assert.AreEqual("links", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeft);
+            Assert.AreEqual("rechts", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRight);
+            Assert.AreEqual("boven", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTop);
+            Assert.AreEqual("onder", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottom);
+            Assert.AreEqual("aantalpuntenhorizontaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPoints);
+            Assert.AreEqual("aantalpuntenverticaal", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPoints);
         }
     }
 }

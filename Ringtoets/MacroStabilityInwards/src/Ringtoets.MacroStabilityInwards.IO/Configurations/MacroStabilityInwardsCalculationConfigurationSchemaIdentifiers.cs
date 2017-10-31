@@ -47,6 +47,23 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string StochasticSoilProfileElement = "ondergrondschematisatie";
 
         /// <summary>
+        /// The tag of the element containing the value indicating the minimum depth of the slip plane.
+        /// </summary>
+        public const string SlipPlaneMinimumDepthElement = "minimaleglijvlakdiepte";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the minimum length of the slip plane.
+        /// </summary>
+        public const string SlipPlaneMinimumLengthElement = "minimaleglijvlaklengte";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the maximum slice width.
+        /// </summary>
+        public const string MaximumSliceWidthElement = "maximalelamelbreedte";
+
+        #region Tangent line determination type
+
+        /// <summary>
         /// The identifier for the tangent line determination type elements.
         /// </summary>
         public const string TangentLineDeterminationTypeElement = "bepalingtangentlijnen";
@@ -62,6 +79,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// element indicating specified.
         /// </summary>
         public const string TangentLineDeterminationTypeSpecified = "gespecificeerd";
+
+        #endregion
+
+        #region Dike soil scenario
 
         /// <summary>
         /// The identifier for the dike soil scenario type elements.
@@ -92,6 +113,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string DikeSoilScenarioSandDikeOnSand = "2B";
 
+        #endregion
+
+        #region Grid determination type
+
         /// <summary>
         /// The identifier for the grid determination type elements.
         /// </summary>
@@ -109,19 +134,50 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string GridDeterminationTypeManual = "handmatig";
 
-        /// <summary>
-        /// The tag of the element containing the value indicating the minimum depth of the slip plane.
-        /// </summary>
-        public const string SlipPlaneMinimumDepthElement = "minimaleglijvlakdiepte";
+        #endregion
+
+        #region MacroStability Inwards Grid
 
         /// <summary>
-        /// The tag of the element containing the value indicating the minimum length of the slip plane.
+        /// The identifier for left grid elements.
         /// </summary>
-        public const string SlipPlaneMinimumLengthElement = "minimaleglijvlaklengte";
+        public const string LeftGridElement = "linkergrid";
 
         /// <summary>
-        /// The tag of the element containing the value indicating the maximum slice width.
+        /// The identifier for right grid elements.
         /// </summary>
-        public const string MaximumSliceWidthElement = "maximalelamelbreedte";
+        public const string RightGridElement = "rechtergrid";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the left x of the grid.
+        /// </summary>
+        public const string GridXLeft = "links";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the right x of the grid.
+        /// </summary>
+        public const string GridXRight = "rechts";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the top z of the grid.
+        /// </summary>
+        public const string GridZTop = "boven";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the bottom z of the grid.
+        /// </summary>
+        public const string GridZBottom = "onder";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the number of horizontal points of the grid.
+        /// </summary>
+        public const string GridNumberOfHorizontalPoints = "aantalpuntenhorizontaal";
+
+        /// <summary>
+        /// The tag of the element containing the value indicating the number of vertical points of the grid.
+        /// </summary>
+        public const string GridNumberOfVerticalPoints = "aantalpuntenverticaal";
+
+        #endregion
     }
 }
