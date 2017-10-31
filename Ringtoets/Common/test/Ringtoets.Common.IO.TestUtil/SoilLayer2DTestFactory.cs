@@ -92,37 +92,5 @@ namespace Ringtoets.Common.IO.TestUtil
                                                  }).ToArray()
             };
         }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer2D"/> with a valid value for <see cref="SoilLayer2D.IsAquifer"/>.
-        /// </summary>
-        /// <returns>The created <see cref="SoilLayer2D"/>.</returns>
-        public static SoilLayer2D CreateSoilLayer2DWithValidAquifer()
-        {
-            SoilLayer2D layer = CreateSoilLayer2D();
-
-            layer.IsAquifer = 0.0;
-
-            return layer;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SoilLayer2D"/> with a valid value for <see cref="SoilLayer2D.IsAquifer"/>.
-        /// </summary>
-        /// <param name="innerLoops">The inner loops of the <see cref="SoilLayer2D"/>.</param>
-        /// <param name="outerLoop">The outer loop of the <see cref="SoilLayer2D"/>.</param>
-        /// <returns>The created <see cref="SoilLayer2D"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoops"/> 
-        /// or <paramref name="outerLoop"/> do not form a loop.</exception>
-        public static SoilLayer2D CreateSoilLayer2DWithValidAquifer(IEnumerable<IEnumerable<Segment2D>> innerLoops,
-                                                                    IEnumerable<Segment2D> outerLoop)
-        {
-            SoilLayer2D layer = CreateSoilLayer2D(innerLoops, outerLoop);
-
-            layer.IsAquifer = 0.0;
-
-            return layer;
-        }
     }
 }

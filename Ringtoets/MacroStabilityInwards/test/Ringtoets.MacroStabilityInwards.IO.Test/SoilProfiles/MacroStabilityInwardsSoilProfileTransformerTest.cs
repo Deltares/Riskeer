@@ -127,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             // Setup
             var profile = new SoilProfile2D(1, "test", new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+                SoilLayer2DTestFactory.CreateSoilLayer2D()
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
 
             var profile = new SoilProfile2D(1, "test", new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer()
+                SoilLayer2DTestFactory.CreateSoilLayer2D()
             }, new[]
             {
                 preconsolidationStress

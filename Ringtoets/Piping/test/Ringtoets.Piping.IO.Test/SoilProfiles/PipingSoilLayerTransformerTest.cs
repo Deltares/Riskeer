@@ -433,7 +433,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         {
             // Setup
             double expectedZ = new Random(22).NextDouble();
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new List<Segment2D[]>(), new List<Segment2D>
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(), new List<Segment2D>
             {
                 new Segment2D(new Point2D(-0.1, expectedZ),
                               new Point2D(0.1, expectedZ)),
@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "..4..3..",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new List<Segment2D[]>(), outerLoop);
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(), outerLoop);
 
             double bottom;
 
@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 outerLoopSimple);
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new List<Segment2D[]>(), outerLoop);
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new List<Segment2D[]>(), outerLoop);
 
             double bottom;
 
@@ -526,14 +526,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...43...",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop
             }, outerLoop);
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -570,14 +570,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...4.3..",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop
             }, outerLoop);
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -626,7 +626,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...12...",
                             "...43..."));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop,
                 innerLoop2
@@ -634,8 +634,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop),
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop2)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
             };
 
             double bottom;
@@ -684,16 +684,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop,
                 innerLoop2
             }, outerLoop);
 
-            SoilLayer2D nestedLayer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop);
+            SoilLayer2D nestedLayer = SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop);
             nestedLayer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop2)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
             };
 
             layer.NestedLayers = new[]
@@ -737,14 +737,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "...43..."));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop
             }, outerLoop);
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -790,7 +790,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "...43..."));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop,
                 innerLoop2
@@ -798,8 +798,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop),
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop2)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
             };
 
             double bottom;
@@ -836,14 +836,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "...43...",
                             "........"));
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop
             }, outerLoop);
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -880,14 +880,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 innerLoopWide);
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop
             }, outerLoop);
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -916,14 +916,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
                 innerLoopWide);
 
-            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2D(new[]
             {
                 innerLoop
             }, outerLoop);
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -1051,7 +1051,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                               new Point2D(x1, y1))
             };
 
-            return SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(Enumerable.Empty<IEnumerable<Segment2D>>(), outerLoop);
+            return SoilLayer2DTestFactory.CreateSoilLayer2D(Enumerable.Empty<IEnumerable<Segment2D>>(), outerLoop);
         }
 
         private static IEnumerable<TestCaseData> IncorrectLogNormalDistributionsSoilLayer1D()
