@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -45,12 +46,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     new Point2D(4.0, 2.0),
                     new Point2D(0.0, 2.5)
                 }),
-                new List<Ring>(),
+                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Soil"
                 },
-                new List<MacroStabilityInwardsSoilLayer2D>());
+                Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
 
             var nestedLayer = new MacroStabilityInwardsSoilLayer2D(
                 new Ring(new List<Point2D>
@@ -58,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     new Point2D(4.0, 2.0),
                     new Point2D(0.0, 2.5)
                 }),
-                new List<Ring>(),
+                Enumerable.Empty<Ring>(),
                 new MacroStabilityInwardsSoilLayerData
                 {
                     MaterialName = "Clay"
@@ -76,19 +77,19 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                         new Point2D(0.0, 1.0),
                         new Point2D(2.0, 4.0)
                     }),
-                    new List<Ring>(),
+                    Enumerable.Empty<Ring>(),
                     new MacroStabilityInwardsSoilLayerData
                     {
                         MaterialName = "Sand"
                     },
-                    new List<MacroStabilityInwardsSoilLayer2D>()),
+                    Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
                 new MacroStabilityInwardsSoilLayer2D(
                     new Ring(new List<Point2D>
                     {
                         new Point2D(3.0, 1.0),
                         new Point2D(8.0, 3.0)
                     }),
-                    new List<Ring>(),
+                    Enumerable.Empty<Ring>(),
                     new MacroStabilityInwardsSoilLayerData
                     {
                         MaterialName = "Sand"
@@ -104,16 +105,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                         new Point2D(2.0, 4.0),
                         new Point2D(2.0, 8.0)
                     }),
-                    new List<Ring>(),
+                    Enumerable.Empty<Ring>(),
                     new MacroStabilityInwardsSoilLayerData
                     {
                         MaterialName = "Sand"
                     },
-                    new List<MacroStabilityInwardsSoilLayer2D>())
+                    Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
             };
 
             Assert.AreEqual(0.5, stochasticSoilProfile.Probability);
-            CollectionAssert.AreEqual(layers, stochasticSoilProfile.SoilProfile.Layers);
+
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile2D>(stochasticSoilProfile.SoilProfile);
+            var soilProfile = (MacroStabilityInwardsSoilProfile2D) stochasticSoilProfile.SoilProfile;
+            Assert.AreEqual("Profile 2D", soilProfile.Name);
+            CollectionAssert.AreEqual(layers, soilProfile.Layers);
+            CollectionAssert.IsEmpty(soilProfile.PreconsolidationStresses);
         }
     }
 }

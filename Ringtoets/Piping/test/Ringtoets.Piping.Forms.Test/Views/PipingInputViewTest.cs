@@ -158,17 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 InputParameters =
                 {
-                    StochasticSoilProfile = new PipingStochasticSoilProfile(
-                        0.1, new PipingSoilProfile(
-                            "profile",
-                            -1,
-                            new[]
-                            {
-                                new PipingSoilLayer(3.0),
-                                new PipingSoilLayer(2.0),
-                                new PipingSoilLayer(0)
-                            },
-                            SoilProfileType.SoilProfile1D))
+                    StochasticSoilProfile = GetStochasticSoilProfile()
                 }
             };
 
@@ -460,11 +450,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
                 PipingStochasticSoilProfile soilProfile = GetStochasticSoilProfile();
                 var soilProfile2 = new PipingStochasticSoilProfile(
-                    0.5, new PipingSoilProfile("profile", -2, new[]
+                    0.5, new PipingSoilProfile("profile 2", -2, new[]
                     {
-                        new PipingSoilLayer(0),
-                        new PipingSoilLayer(2),
+                        new PipingSoilLayer(0)
+                        {
+                            MaterialName = "Grass"
+                        },
+                        new PipingSoilLayer(2)
+                        {
+                            MaterialName = "Stone"
+                        },
                         new PipingSoilLayer(3)
+                        {
+                            MaterialName = "Peat"
+                        }
                     }, SoilProfileType.SoilProfile1D));
 
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
@@ -662,9 +661,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return new PipingStochasticSoilProfile(0.5,
                                                    new PipingSoilProfile("profile", -1, new[]
                                                    {
-                                                       new PipingSoilLayer(1),
-                                                       new PipingSoilLayer(3),
+                                                       new PipingSoilLayer(1)
+                                                       {
+                                                           MaterialName = "Sand"
+                                                       },
+                                                       new PipingSoilLayer(3)
+                                                       {
+                                                           MaterialName = "Clay"
+                                                       },
                                                        new PipingSoilLayer(5)
+                                                       {
+                                                           MaterialName = "Stone"
+                                                       }
                                                    }, SoilProfileType.SoilProfile1D));
         }
 
@@ -757,14 +765,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(expectedLayerCount, soilProfileChartData.Collection.Count());
             Assert.AreEqual(soilProfile.SoilProfile.Name, soilProfileChartData.Name);
 
-            string[] pipingSoilLayers = soilProfile.SoilProfile.Layers.Select((l, i) => string.Format("{0} {1}", i + 1, l.MaterialName)).Reverse().ToArray();
-
             for (var i = 0; i < expectedLayerCount; i++)
             {
                 var chartMultipleAreaData = soilProfileChartData.Collection.ElementAt(i) as ChartMultipleAreaData;
 
                 Assert.IsNotNull(chartMultipleAreaData);
-                Assert.AreEqual(pipingSoilLayers[i], chartMultipleAreaData.Name);
+                Assert.AreEqual(soilProfile.SoilProfile.Layers.Reverse().ElementAt(i).MaterialName, chartMultipleAreaData.Name);
                 Assert.AreEqual(mapDataShouldContainAreas, chartMultipleAreaData.Areas.Any());
             }
         }

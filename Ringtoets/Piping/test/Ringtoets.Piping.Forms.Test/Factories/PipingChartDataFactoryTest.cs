@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -58,43 +56,19 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateSoilLayerChartData_SoilProfileNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(0, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilProfile", paramName);
-        }
-
-        [Test]
-        [TestCase("A", 0)]
-        [TestCase("B", 3)]
-        [TestCase("Random", 5)]
-        public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithExpectedStyling(string name, int soilLayerIndex)
+        public void CreateSoilLayerChartData_NameAndFillColor_ReturnsEmptyChartDataCollectionWithExpectedStyling()
         {
             // Setup
-            var layers = new List<PipingSoilLayer>();
-            for (var i = 0; i < soilLayerIndex; i++)
-            {
-                layers.Add(new PipingSoilLayer((double) i / 10));
-            }
-            layers.Add(new PipingSoilLayer(-1.0)
-            {
-                MaterialName = name,
-                Color = Color.Aquamarine
-            });
-
-            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D);
+            const string name = "Soil layer test name";
+            Color fillColor = Color.Firebrick;
 
             // Call
-            ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
+            ChartMultipleAreaData data = PipingChartDataFactory.CreateSoilLayerChartData(name, fillColor);
 
             // Assert
             CollectionAssert.IsEmpty(data.Areas);
-            Assert.AreEqual($"{soilLayerIndex + 1} {name}", data.Name);
-            AssertEqualStyle(data.Style, Color.Aquamarine, Color.Black, 1);
+            Assert.AreEqual(name, data.Name);
+            AssertEqualStyle(data.Style, fillColor, Color.Black, 1);
         }
 
         [Test]
@@ -153,27 +127,6 @@ namespace Ringtoets.Piping.Forms.Test.Factories
 
             // Assert
             Assert.AreEqual("soil profile name", chartData.Name);
-        }
-
-        [TestCase(-1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        public void CreateSoilLayerChartData_InvalidSoilLayerIndex_ThrowsArgumentOutOfRangeException(int soilLayerIndex)
-        {
-            // Setup
-            var layers = new[]
-            {
-                new PipingSoilLayer(0),
-                new PipingSoilLayer(1)
-            };
-            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D);
-
-            // Call
-            TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
-            Assert.AreEqual("soilLayerIndex", paramName);
         }
 
         private static void AssertEqualStyle(ChartPointStyle pointStyle, Color color, int size, Color strokeColor, int strokeThickness, ChartPointSymbol symbol)

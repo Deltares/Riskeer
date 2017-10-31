@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
-using System.Linq;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using Ringtoets.Piping.Forms.Properties;
@@ -56,31 +54,18 @@ namespace Ringtoets.Piping.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> for a <see cref="PipingSoilLayer"/> based on its color.
+        /// Create <see cref="ChartMultipleAreaData"/> for a <see cref="PipingSoilLayer"/> based
+        /// on its name and fill color.
         /// </summary>
-        /// <param name="soilLayerIndex">The index of the <see cref="PipingSoilLayer"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
-        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> which contains the <see cref="PipingSoilLayer"/>.</param>
+        /// <param name="name">The name of the <see cref="ChartData"/>.</param>
+        /// <param name="fillColor">The fill color of the <see cref="ChartData"/>.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="soilLayerIndex"/> is outside the allowable range of values ([0, number_of_soil_layers>).</exception>
-        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, PipingSoilProfile soilProfile)
+        public static ChartMultipleAreaData CreateSoilLayerChartData(string name, Color fillColor)
         {
-            if (soilProfile == null)
-            {
-                throw new ArgumentNullException(nameof(soilProfile));
-            }
-
-            if (soilLayerIndex < 0 || soilLayerIndex >= soilProfile.Layers.Count())
-            {
-                throw new ArgumentOutOfRangeException(nameof(soilLayerIndex));
-            }
-
-            PipingSoilLayer soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
-
-            return new ChartMultipleAreaData($"{soilLayerIndex + 1} {soilLayer.MaterialName}",
+            return new ChartMultipleAreaData(name,
                                              new ChartAreaStyle
                                              {
-                                                 FillColor = soilLayer.Color,
+                                                 FillColor = fillColor,
                                                  StrokeColor = Color.Black,
                                                  StrokeThickness = 1
                                              });

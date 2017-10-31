@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -51,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile
                                                         {
                                                             new Point2D(0, 0),
                                                             new Point2D(1, 1)
-                                                        }), new Ring[0],
+                                                        }), Enumerable.Empty<Ring>(),
                                                         new MacroStabilityInwardsSoilLayerData
                                                         {
                                                             MaterialName = "Valid"
