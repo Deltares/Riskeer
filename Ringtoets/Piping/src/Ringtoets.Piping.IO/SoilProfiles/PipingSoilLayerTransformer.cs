@@ -78,6 +78,27 @@ namespace Ringtoets.Piping.IO.SoilProfiles
         /// in a valid transformed instance.</exception>
         public static IEnumerable<PipingSoilLayer> Transform(SoilLayer2D soilLayer, double atX, out double bottom)
         {
+            bottom = double.MaxValue;
+
+            var soilLayers = new Collection<PipingSoilLayer>();
+            Transform(soilLayer, atX, soilLayers, ref bottom);
+            return soilLayers;
+        }
+
+        /// <summary>
+        /// Transforms the generic <paramref name="soilLayer"/> into a <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        /// <param name="soilLayer">The soil layer to use in the transformation.</param>
+        /// <param name="atX">The 1D intersection of the profile.</param>
+        /// <param name="soilLayers">The collection of transformed piping soil layers to add the
+        /// transformation to.</param>
+        /// <param name="bottom">The bottom of the soil layer.</param>
+        /// <returns>A new <see cref="PipingSoilLayer"/> based on the given data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/> is <c>null</c>.</exception>
+        /// <exception cref="ImportedDataTransformException">Thrown when transformation would not result
+        /// in a valid transformed instance.</exception>
+        private static void Transform(SoilLayer2D soilLayer, double atX, ICollection<PipingSoilLayer> soilLayers, ref double bottom)
+        {
             if (soilLayer == null)
             {
                 throw new ArgumentNullException(nameof(soilLayer));
@@ -85,21 +106,18 @@ namespace Ringtoets.Piping.IO.SoilProfiles
 
             ValidateStochasticParameters(soilLayer);
 
-            bottom = double.MaxValue;
-
             if (soilLayer.OuterLoop == null)
             {
-                return Enumerable.Empty<PipingSoilLayer>();
+                return;
             }
 
             double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(soilLayer.OuterLoop.Segments, atX).ToArray();
 
             if (!outerLoopIntersectionHeights.Any())
             {
-                return Enumerable.Empty<PipingSoilLayer>();
+                return;
             }
 
-            var soilLayers = new Collection<PipingSoilLayer>();
             IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = GetLayersRecursively(soilLayer).Select(l => GetLoopIntersectionHeights(l.OuterLoop.Segments, atX));
             IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
             IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
@@ -123,7 +141,11 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 soilLayers.Add(pipingSoilLayer);
             }
             bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
-            return soilLayers;
+
+            foreach (SoilLayer2D nestedLayer in soilLayer.NestedLayers)
+            {
+                Transform(nestedLayer, atX, soilLayers, ref bottom);
+            }
         }
 
         private static IEnumerable<SoilLayer2D> GetLayersRecursively(SoilLayer2D layer)

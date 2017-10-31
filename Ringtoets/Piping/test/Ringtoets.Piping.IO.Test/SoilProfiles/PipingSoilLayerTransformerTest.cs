@@ -486,7 +486,31 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopNestedLayerSimple_ReturnsTwoLayers()
+        public void SoilLayer2DTransform_OuterLoopNoNestedLayers_ReturnsOneLayer()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                outerLoopSimple);
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new List<Segment2D[]>(), outerLoop);
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, pipingSoilLayers.Length);
+            Assert.AreEqual(0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopNestedLayerSimple_ReturnsThreeLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -509,7 +533,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -519,17 +543,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(2, pipingSoilLayers.Length);
-            Assert.AreEqual(0, bottom);
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            Assert.AreEqual(1, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
+                4.0,
                 1.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopNestedLayerComplex_ReturnsThreeLayers()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerComplex_ReturnsFiveLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -552,7 +577,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -562,18 +587,20 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(3, pipingSoilLayers.Length);
-            Assert.AreEqual(0, bottom);
+            Assert.AreEqual(5, pipingSoilLayers.Length);
+            Assert.AreEqual(1, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
+                4.0,
                 3.0,
+                2.0,
                 1.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopMultipleNestedLayers_ReturnsThreeLayers()
+        public void SoilLayer2DTransform_OuterLoopMultipleNestedLayers_ReturnsFiveLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -597,7 +624,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                             "........",
                             "........",
                             "...12...",
-                            "........"));
+                            "...43..."));
 
             SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
             {
@@ -607,8 +634,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop),
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop2)
             };
 
             double bottom;
@@ -618,18 +645,83 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(3, pipingSoilLayers.Length);
+            Assert.AreEqual(5, pipingSoilLayers.Length);
             Assert.AreEqual(0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
+                4.0,
                 3.0,
+                1.0,
+                0.0
+            }, pipingSoilLayers.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void SoilLayer2DTransform_OuterLoopNestedLayerInNestedLayer_ReturnsFiveLayers()
+        {
+            // Setup
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                outerLoopSimple);
+
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "..1..2..",
+                            "........",
+                            "........",
+                            "..4..3..",
+                            "........"));
+
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(
+                string.Join(Environment.NewLine,
+                            "6",
+                            "........",
+                            "........",
+                            "...12...",
+                            "...43...",
+                            "........",
+                            "........"));
+
+            SoilLayer2D layer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new[]
+            {
+                innerLoop,
+                innerLoop2
+            }, outerLoop);
+
+            SoilLayer2D nestedLayer = SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop);
+            nestedLayer.NestedLayers = new[]
+            {
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop2)
+            };
+
+            layer.NestedLayers = new[]
+            {
+                nestedLayer
+            };
+
+            double bottom;
+
+            // Call
+            PipingSoilLayer[] pipingSoilLayers = PipingSoilLayerTransformer.Transform(
+                layer, 3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(5, pipingSoilLayers.Length);
+            Assert.AreEqual(2.0, bottom);
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                4.0,
+                3.0,
+                2.0,
                 1.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopOverlappingNestedLayer_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopOverlappingNestedLayer_ReturnsTwoLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -652,7 +744,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -662,16 +754,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(1, pipingSoilLayers.Length);
-            Assert.AreEqual(2.0, bottom);
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            Assert.AreEqual(0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
-                5.0
+                5.0,
+                2.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopOverlappingNestedLayersFirstNestedLayerNotOverBottom_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopOverlappingNestedLayersFirstNestedLayerNotOverBottom_ReturnsThreeLayer()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -705,8 +798,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop),
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop2)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop),
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop2)
             };
 
             double bottom;
@@ -716,16 +809,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(1, pipingSoilLayers.Length);
-            Assert.AreEqual(4.0, bottom);
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            Assert.AreEqual(0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
-                5.0
+                5.0,
+                4.0,
+                3.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopNestedLayerOnBorderBottom_ReturnsTwoLayers()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerOnBorderBottom_ReturnsThreeLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -748,7 +843,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -758,17 +853,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(2, pipingSoilLayers.Length);
-            Assert.AreEqual(3.0, bottom);
+            Assert.AreEqual(3, pipingSoilLayers.Length);
+            Assert.AreEqual(1.0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
                 5.0,
+                3.0,
                 1.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopNestedLayerOverlapTop_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerOverlapTop_ReturnsTwoLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -791,7 +887,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -801,16 +897,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(1, pipingSoilLayers.Length);
-            Assert.AreEqual(1.0, bottom);
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            Assert.AreEqual(3.0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
-                3.0
+                3.0,
+                5.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 
         [Test]
-        public void SoilLayer2DTransform_OuterLoopNestedLayerOnBorderTop_ReturnsOneLayer()
+        public void SoilLayer2DTransform_OuterLoopNestedLayerOnBorderTop_ReturnsTwoLayers()
         {
             // Setup
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(
@@ -826,7 +923,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             layer.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], innerLoop)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], innerLoop)
             };
 
             double bottom;
@@ -836,11 +933,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
                 layer, 3.5, out bottom).ToArray();
 
             // Assert
-            Assert.AreEqual(1, pipingSoilLayers.Length);
-            Assert.AreEqual(1.0, bottom);
+            Assert.AreEqual(2, pipingSoilLayers.Length);
+            Assert.AreEqual(3.0, bottom);
             CollectionAssert.AreEquivalent(new[]
             {
-                3.0
+                3.0,
+                5.0
             }, pipingSoilLayers.Select(rl => rl.Top));
         }
 

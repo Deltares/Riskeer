@@ -314,7 +314,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
         }
 
         [Test]
-        public void Transform_SoilProfile2DWithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndALayers()
+        public void Transform_SoilProfile2DWithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndLayers()
         {
             // Setup
             const string profileName = "SomeProfile";
@@ -344,7 +344,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
             soilLayer2D.NestedLayers = new[]
             {
-                SoilLayer2DTestFactory.CreateSoilLayer2D(new IEnumerable<Segment2D>[0], loopHole)
+                SoilLayer2DTestFactory.CreateSoilLayer2DWithValidAquifer(new IEnumerable<Segment2D>[0], loopHole)
             };
 
             var profile = new SoilProfile2D(pipingSoilProfileId, profileName,
@@ -365,14 +365,15 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Assert.AreEqual(profileName, transformed.Name);
             Assert.AreEqual(SoilProfileType.SoilProfile2D, transformed.SoilProfileSourceType);
-            Assert.AreEqual(3, transformed.Layers.Count());
+            Assert.AreEqual(4, transformed.Layers.Count());
             CollectionAssert.AreEquivalent(new[]
             {
                 4.0,
                 3.0,
+                3.0,
                 2.0
             }, transformed.Layers.Select(rl => rl.Top));
-            Assert.AreEqual(0.0, transformed.Bottom);
+            Assert.AreEqual(2.0, transformed.Bottom);
         }
 
         [Test]
