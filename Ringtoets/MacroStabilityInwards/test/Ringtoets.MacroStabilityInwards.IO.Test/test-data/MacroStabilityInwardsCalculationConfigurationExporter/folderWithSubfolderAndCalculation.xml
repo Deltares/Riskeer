@@ -10,37 +10,9 @@
       <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
       <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
       <maximalelamelbreedte>0.6</maximalelamelbreedte>
-      <linkergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
-        <aantalpuntenverticaal>5</aantalpuntenverticaal>
-        <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
-      </linkergrid>
-      <rechtergrid>
-        <links>NaN</links>
-        <rechts>NaN</rechts>
-        <boven>NaN</boven>
-        <onder>NaN</onder>
-        <aantalpuntenverticaal>5</aantalpuntenverticaal>
-        <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
-      </rechtergrid>
-      <scenario>
-        <gebruik>true</gebruik>
-        <bijdrage>100</bijdrage>
-      </scenario>
-    </berekening>
-    <map naam="PK001_0002">
-      <berekening naam="PK001_0001 W1-6_0_1D1">
-        <hrlocatie>PUNT_KAT_18</hrlocatie>
-        <profielschematisatie>PK001_0001</profielschematisatie>
-        <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
-        <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
-        <dijktype>1A</dijktype>
-        <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
-        <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
-        <maximalelamelbreedte>0.6</maximalelamelbreedte>
+      <grids>
+        <verplaatsgrid>true</verplaatsgrid>
+        <bepaling>automatisch</bepaling>
         <linkergrid>
           <links>NaN</links>
           <rechts>NaN</rechts>
@@ -57,6 +29,42 @@
           <aantalpuntenverticaal>5</aantalpuntenverticaal>
           <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
         </rechtergrid>
+      </grids>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>100</bijdrage>
+      </scenario>
+    </berekening>
+    <map naam="PK001_0002">
+      <berekening naam="PK001_0001 W1-6_0_1D1">
+        <hrlocatie>PUNT_KAT_18</hrlocatie>
+        <profielschematisatie>PK001_0001</profielschematisatie>
+        <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
+        <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
+        <dijktype>1A</dijktype>
+        <minimaleglijvlakdiepte>0.4</minimaleglijvlakdiepte>
+        <minimaleglijvlaklengte>0.5</minimaleglijvlaklengte>
+        <maximalelamelbreedte>0.6</maximalelamelbreedte>
+        <grids>
+          <verplaatsgrid>true</verplaatsgrid>
+          <bepaling>automatisch</bepaling>
+          <linkergrid>
+            <links>NaN</links>
+            <rechts>NaN</rechts>
+            <boven>NaN</boven>
+            <onder>NaN</onder>
+            <aantalpuntenverticaal>5</aantalpuntenverticaal>
+            <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+          </linkergrid>
+          <rechtergrid>
+            <links>NaN</links>
+            <rechts>NaN</rechts>
+            <boven>NaN</boven>
+            <onder>NaN</onder>
+            <aantalpuntenverticaal>5</aantalpuntenverticaal>
+            <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+          </rechtergrid>
+        </grids>
         <scenario>
           <gebruik>true</gebruik>
           <bijdrage>100</bijdrage>

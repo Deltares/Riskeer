@@ -92,6 +92,16 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public double? MaximumSliceWidth { get; set; }
 
         /// <summary>
+        /// Gets or sets the value whether the grid should be moved.
+        /// </summary>
+        public bool? MoveGrid { get; set; }
+
+        /// <summary>
+        /// Gets or sets the grid determination type.
+        /// </summary>
+        public ConfigurationGridDeterminationType? GridDeterminationType { get; set; }
+
+        /// <summary>
         /// Gets or sets the left grid.
         /// </summary>
         public MacroStabilityInwardsGridConfiguration LeftGrid { get; set; }
@@ -120,5 +130,5 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 name = value;
             }
         }
-    }
+     }
 }

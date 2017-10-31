@@ -57,6 +57,127 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         }
 
         /// <summary>
+        /// Writes the elements of the <paramref name="configuration"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The calculation configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
+        private static void WriteCalculationElements(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                             configuration.AssessmentLevel);
+            WriteElementWhenContentAvailable(writer,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             configuration.HydraulicBoundaryLocationName);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
+                                             configuration.SurfaceLineName);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
+                                             configuration.StochasticSoilModelName);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
+                                             configuration.StochasticSoilProfileName);
+
+            WriteDikeSoilScenarioWhenAvailable(writer,
+                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
+                                               configuration.DikeSoilScenario);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement,
+                                             configuration.SlipPlaneMinimumDepth);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement,
+                                             configuration.SlipPlaneMinimumLength);
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement,
+                                             configuration.MaximumSliceWidth);
+
+            WriteGrid(writer, configuration);
+
+            WriteScenarioWhenAvailable(writer, configuration.Scenario);
+        }
+
+        /// <summary>
+        /// Writes the <paramref name="dikeSoilScenario"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The XML element name.</param>
+        /// <param name="dikeSoilScenario">The dike soil scenario to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of
+        /// <paramref name="dikeSoilScenario"/> cannot be performed.</exception>
+        private static void WriteDikeSoilScenarioWhenAvailable(XmlWriter writer,
+                                                               string elementName,
+                                                               ConfigurationDikeSoilScenario? dikeSoilScenario)
+        {
+            if (!dikeSoilScenario.HasValue)
+            {
+                return;
+            }
+
+            var typeConverter = new ConfigurationDikeSoilScenarioTypeConverter();
+            writer.WriteElementString(elementName,
+                                      typeConverter.ConvertToInvariantString(dikeSoilScenario.Value));
+        }
+
+        /// <summary>
+        /// Writes the grid related parameters.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        private static void WriteGrid(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
+        {
+            writer.WriteStartElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridElement);
+
+            WriteElementWhenContentAvailable(writer,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MoveGrid,
+                                             configuration.MoveGrid);
+
+            WriteGridDeterminationTypeWhenAvailable(writer,
+                                                    MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridDeterminationTypeElement,
+                                                    configuration.GridDeterminationType);
+
+            WriteGridConfigurationWhenAvailable(writer,
+                                                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement,
+                                                configuration.LeftGrid);
+            WriteGridConfigurationWhenAvailable(writer,
+                                                MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement,
+                                                configuration.RightGrid);
+
+            writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Writes the <paramref name="gridDeterminationType"/> in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The XML element name.</param>
+        /// <param name="gridDeterminationType">The grid determination type to write.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of
+        /// <paramref name="gridDeterminationType"/> cannot be performed.</exception>
+        private static void WriteGridDeterminationTypeWhenAvailable(XmlWriter writer, string
+                                                                        elementName,
+                                                                    ConfigurationGridDeterminationType? gridDeterminationType)
+        {
+            if (!gridDeterminationType.HasValue)
+            {
+                return;
+            }
+
+            var typeConverter = new ConfigurationGridDeterminationTypeConverter();
+            writer.WriteElementString(elementName,
+                                      typeConverter.ConvertToInvariantString(gridDeterminationType.Value));
+        }
+
+        /// <summary>
         /// Writes a grid configuration.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
@@ -66,7 +187,9 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
-        private static void WriteGridWhenAvailable(XmlWriter writer, string gridLocationName, MacroStabilityInwardsGridConfiguration configuration)
+        private static void WriteGridConfigurationWhenAvailable(XmlWriter writer,
+                                                                string gridLocationName,
+                                                                MacroStabilityInwardsGridConfiguration configuration)
         {
             if (writer == null)
             {
@@ -116,79 +239,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             }
 
             writer.WriteEndElement();
-        }
-
-        /// <summary>
-        /// Writes the elements of the <paramref name="configuration"/> in XML format to file.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="configuration">The calculation configuration to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> is closed.</exception>
-        private static void WriteCalculationElements(XmlWriter writer, MacroStabilityInwardsCalculationConfiguration configuration)
-        {
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
-                                             configuration.AssessmentLevel);
-            WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
-                                             configuration.HydraulicBoundaryLocationName);
-
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement,
-                                             configuration.SurfaceLineName);
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement,
-                                             configuration.StochasticSoilModelName);
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement,
-                                             configuration.StochasticSoilProfileName);
-
-            WriteDikeSoilScenarioWhenAvailable(writer,
-                                               MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement,
-                                               configuration.DikeSoilScenario);
-
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement,
-                                             configuration.SlipPlaneMinimumDepth);
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement,
-                                             configuration.SlipPlaneMinimumLength);
-            WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement,
-                                             configuration.MaximumSliceWidth);
-
-            WriteGridWhenAvailable(writer,
-                                   MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.LeftGridElement,
-                                   configuration.LeftGrid);
-            WriteGridWhenAvailable(writer,
-                                   MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.RightGridElement,
-                                   configuration.RightGrid);
-
-            WriteScenarioWhenAvailable(writer, configuration.Scenario);
-        }
-
-        /// <summary>
-        /// Writes the <paramref name="dikeSoilScenario"/> in XML format to file.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="elementName">The XML element name.</param>
-        /// <param name="dikeSoilScenario">The dike soil scenario to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the conversion of
-        /// <paramref name="dikeSoilScenario"/> cannot be performed.</exception>
-        private static void WriteDikeSoilScenarioWhenAvailable(XmlWriter writer,
-                                                               string elementName,
-                                                               ConfigurationDikeSoilScenario? dikeSoilScenario)
-        {
-            if (!dikeSoilScenario.HasValue)
-            {
-                return;
-            }
-
-            var typeConverter = new ConfigurationDikeSoilScenarioTypeConverter();
-            writer.WriteElementString(elementName,
-                                      typeConverter.ConvertToInvariantString(dikeSoilScenario.Value));
         }
     }
 }

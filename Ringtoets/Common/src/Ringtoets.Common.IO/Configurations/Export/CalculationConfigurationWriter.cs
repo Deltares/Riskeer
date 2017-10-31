@@ -189,6 +189,35 @@ namespace Ringtoets.Common.IO.Configurations.Export
         }
 
         /// <summary>
+        /// Writes an element with some content when the content has a value.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="elementName">The name of the element.</param>
+        /// <param name="elementContent">The content of the element that can be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="writer"/> or <paramref name="elementName"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        protected static void WriteElementWhenContentAvailable(XmlWriter writer, string elementName, bool? elementContent)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+            if (elementName == null)
+            {
+                throw new ArgumentNullException(nameof(elementName));
+            }
+
+            if (elementContent.HasValue)
+            {
+                writer.WriteElementString(
+                    elementName,
+                    XmlConvert.ToString(elementContent.Value));
+            }
+        }
+
+        /// <summary>
         /// Writes a wave reduction configuration when it has a value.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>

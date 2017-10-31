@@ -115,7 +115,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
 
         #endregion
 
-        #region Grid determination type
+        #region Grid
+
+        /// <summary>
+        /// The identifier for grid elements.
+        /// </summary>
+        public const string GridElement = "grids";
 
         /// <summary>
         /// The identifier for the grid determination type elements.
@@ -134,9 +139,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         /// </summary>
         public const string GridDeterminationTypeManual = "handmatig";
 
-        #endregion
-
-        #region MacroStability Inwards Grid
+        /// <summary>
+        /// The tag of the element containing the value whether the grid should be moved.
+        /// </summary>
+        public const string MoveGrid = "verplaatsgrid";
 
         /// <summary>
         /// The identifier for left grid elements.

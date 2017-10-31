@@ -61,6 +61,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsNull(configuration.SlipPlaneMinimumDepth);
             Assert.IsNull(configuration.SlipPlaneMinimumLength);
             Assert.IsNull(configuration.MaximumSliceWidth);
+            Assert.IsNull(configuration.MoveGrid);
+            Assert.IsNull(configuration.GridDeterminationType);
             Assert.IsNull(configuration.LeftGrid);
             Assert.IsNull(configuration.RightGrid);
         }
@@ -81,6 +83,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             const double maximumSliceWidth = 4.4;
 
             var scenarioConfiguration = new ScenarioConfiguration();
+            const bool movegrid = true;
+            const ConfigurationGridDeterminationType gridDeterminationType = ConfigurationGridDeterminationType.Manual;
             var leftGrid = new MacroStabilityInwardsGridConfiguration();
             var rightGrid = new MacroStabilityInwardsGridConfiguration();
 
@@ -97,6 +101,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 SlipPlaneMinimumDepth = slipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = slipPlaneMinimumLength,
                 MaximumSliceWidth = maximumSliceWidth,
+                MoveGrid = movegrid,
+                GridDeterminationType = gridDeterminationType,
                 LeftGrid = leftGrid,
                 RightGrid = rightGrid
             };
@@ -113,6 +119,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Assert.AreEqual(slipPlaneMinimumDepth, configuration.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, configuration.SlipPlaneMinimumLength);
             Assert.AreEqual(maximumSliceWidth, configuration.MaximumSliceWidth);
+            Assert.AreEqual(movegrid, configuration.MoveGrid);
+            Assert.AreEqual(gridDeterminationType, configuration.GridDeterminationType);
             Assert.AreSame(leftGrid, configuration.LeftGrid);
             Assert.AreSame(rightGrid, configuration.RightGrid);
         }

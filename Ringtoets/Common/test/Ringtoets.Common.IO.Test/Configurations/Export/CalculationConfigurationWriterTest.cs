@@ -362,6 +362,79 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
         }
 
         [Test]
+        public void WriteElementWhenContentAvailable_BoolWriterNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                null,
+                "some name",
+                (bool?) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("writer", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_BoolElementNameNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                null,
+                (bool?) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("elementName", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_BoolNull_WriterNotCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                "some name",
+                (bool?) null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WriteElementWhenContentAvailable_BoolSet_WriterCalledWithExpectedParameters()
+        {
+            // Setup
+            const string name = "some name";
+            const bool value = true;
+
+            var mocks = new MockRepository();
+            var xmlWriter = mocks.StrictMock<XmlWriter>();
+            xmlWriter.Expect(w => w.WriteElementString(name, XmlConvert.ToString(value)));
+            mocks.ReplayAll();
+
+            // Call
+            ExposedCalculationConfigurationWriter.PublicWriteElementWhenContentAvailable(
+                xmlWriter,
+                name,
+                value);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void WriteWaveReductionWhenAvailable_WriterNull_ThrowsArgumentNullException()
         {
             // Call
@@ -531,6 +604,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
             }
 
             public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, double? elementContent)
+            {
+                WriteElementWhenContentAvailable(writer, elementName, elementContent);
+            }
+
+            public static void PublicWriteElementWhenContentAvailable(XmlWriter writer, string elementName, bool? elementContent)
             {
                 WriteElementWhenContentAvailable(writer, elementName, elementContent);
             }

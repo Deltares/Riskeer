@@ -64,6 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 SlipPlaneMinimumDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinimumLength = input.SlipPlaneMinimumLength,
                 MaximumSliceWidth = input.MaximumSliceWidth,
+                MoveGrid = input.MoveGrid,
                 LeftGrid = input.LeftGrid.ToMacroStabilityInwardsGridConfiguration(),
                 RightGrid = input.RightGrid.ToMacroStabilityInwardsGridConfiguration()
             };
@@ -92,6 +93,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             {
                 calculationConfiguration.DikeSoilScenario = (ConfigurationDikeSoilScenario?)
                     new ConfigurationDikeSoilScenarioTypeConverter().ConvertFrom(input.DikeSoilScenario);
+            }
+
+            if (Enum.IsDefined(typeof(MacroStabilityInwardsGridDeterminationType), input.GridDeterminationType))
+            {
+                calculationConfiguration.GridDeterminationType = (ConfigurationGridDeterminationType?)
+                    new ConfigurationGridDeterminationTypeConverter().ConvertFrom(input.GridDeterminationType);
             }
 
             return calculationConfiguration;

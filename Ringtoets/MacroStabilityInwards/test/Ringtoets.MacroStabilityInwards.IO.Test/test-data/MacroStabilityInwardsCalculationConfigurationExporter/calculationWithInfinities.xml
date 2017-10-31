@@ -9,22 +9,26 @@
     <minimaleglijvlakdiepte>-INF</minimaleglijvlakdiepte>
     <minimaleglijvlaklengte>INF</minimaleglijvlaklengte>
     <maximalelamelbreedte>-INF</maximalelamelbreedte>
-    <linkergrid>
-      <links>-INF</links>
-      <rechts>INF</rechts>
-      <boven>INF</boven>
-      <onder>-INF</onder>
-      <aantalpuntenverticaal>5</aantalpuntenverticaal>
-      <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
-    </linkergrid>
-    <rechtergrid>
-      <links>-INF</links>
-      <rechts>INF</rechts>
-      <boven>INF</boven>
-      <onder>-INF</onder>
-      <aantalpuntenverticaal>5</aantalpuntenverticaal>
-      <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
-    </rechtergrid>
+    <grids>
+      <verplaatsgrid>true</verplaatsgrid>
+      <bepaling>automatisch</bepaling>
+      <linkergrid>
+        <links>-INF</links>
+        <rechts>INF</rechts>
+        <boven>INF</boven>
+        <onder>-INF</onder>
+        <aantalpuntenverticaal>5</aantalpuntenverticaal>
+        <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+      </linkergrid>
+      <rechtergrid>
+        <links>-INF</links>
+        <rechts>INF</rechts>
+        <boven>INF</boven>
+        <onder>-INF</onder>
+        <aantalpuntenverticaal>5</aantalpuntenverticaal>
+        <aantalpuntenhorizontaal>5</aantalpuntenhorizontaal>
+      </rechtergrid>
+    </grids>
     <scenario>
       <gebruik>true</gebruik>
       <bijdrage>INF</bijdrage>
